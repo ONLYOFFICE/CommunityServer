@@ -27,6 +27,10 @@ Project Information
 ========================
 
 Official website: [http://www.onlyoffice.com](http://onlyoffice.com "http://www.onlyoffice.com")
+
 Code repository: [https://github.com/ONLYOFFICE/ONLYOFFICE-Collaborative-Suite](https://github.com/ONLYOFFICE/ONLYOFFICE-Collaborative-Suite "https://github.com/ONLYOFFICE/ONLYOFFICE-Collaborative-Suite")
+
 License: [GNU Affero GPL 3](http://www.gnu.org/licenses/agpl.html "GNU Affero GPL 3")
+
 SaaS version: [http://www.onlyoffice.com/highlights.aspx](http://www.onlyoffice.com/highlights.aspx "http://www.onlyoffice.com/highlights.aspx")
+
