@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+  xmlns:xs='http://www.w3.org/2001/XMLSchema'
+  targetNamespace='jabber:iq:privacy'
+  xmlns='jabber:iq:privacy'
+  elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0016: http://www.xmpp.org/extensions/xep-0016.html
+    </xs:documentation>
+  </xs:annotation>
+
+<xs:element name='query'>
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref='active'
+                  minOccurs='0'/>
+      <xs:element ref='default'
+                  minOccurs='0'/>
+      <xs:element ref='list'
+                  minOccurs='0'
+                  maxOccurs='unbounded'/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name='active'>
+  <xs:complexType>
+    <xs:simpleContent>
+      <xs:extension base='xs:NMTOKEN'>
+        <xs:attribute name='name'
+                      type='xs:string'
+                      use='optional'/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name='default'>
+  <xs:complexType>
+    <xs:simpleContent>
+      <xs:extension base='xs:NMTOKEN'>
+        <xs:attribute name='name'
+                      type='xs:string'
+                      use='optional'/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name='list'>
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element ref='item'
+                  minOccurs='0'
+                  maxOccurs='unbounded'/>
+    </xs:sequence>
+    <xs:attribute name='name'
+                  type='xs:string'
+                  use='required'/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name='item'>
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name='iq'
+                  minOccurs='0'
+                  type='empty'/>
+      <xs:element name='message'
+                  minOccurs='0'
+                  type='empty'/>
+      <xs:element name='presence-in'
+                  minOccurs='0'
+                  type='empty'/>
+      <xs:element name='presence-out'
+                  minOccurs='0'
+                  type='empty'/>
+    </xs:sequence>
+    <xs:attribute name='action' use='required'>
+      <xs:simpleType>
+        <xs:restriction base='xs:NCName'>
+          <xs:enumeration value='allow'/>
+          <xs:enumeration value='deny'/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name='order'
+                  type='xs:unsignedInt'
+                  use='required'/>
+    <xs:attribute name='type' use='optional'>
+      <xs:simpleType>
+        <xs:restriction base='xs:NCName'>
+          <xs:enumeration value='group'/>
+          <xs:enumeration value='jid'/>
+          <xs:enumeration value='subscription'/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name='value'
+                  type='xs:string'
+                  use='optional'/>
+  </xs:complexType>
+</xs:element>
+
+<xs:simpleType name='empty'>
+  <xs:restriction base='xs:string'>
+    <xs:enumeration value=''/>
+  </xs:restriction>
+</xs:simpleType>
+
+</xs:schema>

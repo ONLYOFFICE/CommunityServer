@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="HAPExplorer.HtmlAttributeViewer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="51" Name="Headers"></ColumnDefinition>
+            <ColumnDefinition Name="Values" Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Name="Tag" Height="25"></RowDefinition>
+            <RowDefinition Name="Type" Height="25"></RowDefinition>
+            <RowDefinition Name="XpathRow" Height="25"></RowDefinition>
+            <RowDefinition Name="Value" Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Name="lblTagHeader">Tag</Label>
+        <Label Name="lblTypeHeader" Grid.Row="1">Type</Label>
+        <Label Name="lblXpathHeader" Grid.Row="2">Xpath</Label>
+        <Label Name="lblValueHeader" Grid.Row="3">Value</Label>
+        <Label Name="lblTag" Grid.Column="1" Content="{Binding Path=OriginalName}" />
+        <Label Name="lblType" Grid.Row="1" Grid.Column="1" Content="{Binding Path=NodeType}" />
+        <TextBox Name="lblValue" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Value}" IsReadOnly="True" />
+        <Button Grid.Column="1" Grid.Row="2" Grid.RowSpan="1" HorizontalAlignment="Right" Margin="0,0,-1,0" Name="btnCheckXpath" VerticalAlignment="Top" Width="20" ToolTip="Check Xpath Validity" Click="btnCheckXpath_Click">C</Button>
+        <TextBox Name="lblXpath" Grid.Row="2" Grid.Column="1" Text="{Binding Path=XPath, Mode=OneWay}" IsReadOnly="True" Margin="0,0,20,0" />
+    </Grid>
+</UserControl>

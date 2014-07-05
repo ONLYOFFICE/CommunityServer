@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{11BA9805-752F-4F6F-A876-6BA56F0EB9DE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Web.Community</RootNamespace>
+    <AssemblyName>ASC.Web.Community</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SignAssembly>false</SignAssembly>
+    <TrunkDir>..\..\..\..\..\</TrunkDir>
+    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Common">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Studio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\ASC.Web.Studio.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Community.Master.cs">
+      <DependentUpon>Community.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Community.Master.designer.cs">
+      <DependentUpon>Community.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DashboardEmptyScreen.ascx.cs">
+      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\DashboardEmptyScreen.ascx.designer.cs">
+      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NavigationSidePanel.ascx.cs">
+      <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\NavigationSidePanel.ascx.designer.cs">
+      <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Help.aspx.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help.aspx.designer.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Photos.aspx.cs">
+      <DependentUpon>Photos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Photos.aspx.designer.cs">
+      <DependentUpon>Photos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Product\CommunityProduct.cs" />
+    <Compile Include="Product\CommunitySecurity.cs" />
+    <Compile Include="Product\CommunitySubscriptionManager.cs" />
+    <Compile Include="Product\CommunitySpaceUsageStatManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\CommunityResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CommunityResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommunityResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\community_common.css" />
+    <Content Include="App_Themes\Default\Images\icon-blogs.png" />
+    <Content Include="App_Themes\Default\Images\icon-bookmarks.png" />
+    <Content Include="App_Themes\Default\Images\icon-employees.png" />
+    <Content Include="App_Themes\Default\Images\icon-helpcenter.png" />
+    <Content Include="App_Themes\Default\Images\product_disabled_logo.png" />
+    <Content Include="App_Themes\Default\Images\product_logo.png" />
+    <Content Include="App_Themes\Default\Images\product_logolarge.png" />
+    <Content Include="Community.Master" />
+    <Content Include="Controls\DashboardEmptyScreen.ascx" />
+    <Content Include="Controls\NavigationSidePanel.ascx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Help.aspx" />
+    <Content Include="js\common.js" />
+    <Content Include="Photos.aspx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="BeforeBuild">
+    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile-&gt;'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath-&gt;'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

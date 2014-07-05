@@ -1,0 +1,51 @@
+<patterns>
+  <formatter type="ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common" />
+
+  <pattern id="ShareDocument" sender="email.sender">
+    <subject resource="|subject_ShareDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ShareDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+  </pattern>
+  <pattern id="ShareDocument" sender="messanger.sender">
+    <subject resource="|subject_ShareDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+    <body styler="ASC.Notify.Textile.JabberStyler, ASC.Notify.Textile">$__AuthorName
+
+$AccessRights
+
+$Message
+
+$DocumentURL
+    </body>
+  </pattern>
+
+  <pattern id="ShareFolder" sender="email.sender">
+    <subject resource="|subject_ShareFolder|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ShareFolder|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+  </pattern>
+  <pattern id="ShareFolder" sender="messanger.sender">
+    <subject resource="|subject_ShareFolder|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+    <body styler="ASC.Notify.Textile.JabberStyler, ASC.Notify.Textile">$__AuthorName
+
+$AccessRights
+
+$Message
+
+$__VirtualRootPath/products/files/#$FolderID
+    </body>
+  </pattern>
+
+  <pattern id="LinkToEmail" sender="email.sender">
+    <subject resource="|subject_LinkToEmail|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_LinkToEmail|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+  </pattern>
+  <pattern id="LinkToEmail" sender="messanger.sender">
+    <subject resource="|subject_LinkToEmail|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+    <body styler="ASC.Notify.Textile.JabberStyler, ASC.Notify.Textile">$__AuthorName
+
+$AccessRights
+
+$Message
+
+$DocumentURL
+    </body>
+  </pattern>
+</patterns>

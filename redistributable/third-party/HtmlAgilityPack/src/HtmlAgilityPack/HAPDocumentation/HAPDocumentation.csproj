@@ -1,0 +1,262 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{53067C06-D933-4851-9843-5B8422D1695B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>HAPDocumentation</RootNamespace>
+    <AssemblyName>HAPDocumentation</AssemblyName>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(DocProjectPath)\bin\DaveSexton.DocProject.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets and DaveSexton.DocProject.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <Compile Include="BuildProcess.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DaveSexton.DocProject, Version=1.11.0.0, Culture=neutral, PublicKeyToken=af1a4bab65cc4ece, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties DefaultApplyToAll="True" DoNotAskIncludeOutputInProject="True" ExternalSources="" Sandcastle_ProduceHelp2x="True" Sandcastle_ProduceHelp1x="True" Sandcastle_PresentationName="Visual Studio 2005" Sandcastle_Version="2.4.10520.1" BuildEngineProviderName="Sandcastle" DocProjectVersion="1.11.0.0" IsDocProject="true" ProcessComponentTypeName="HAPDocumentation.BuildProcess" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <ItemGroup>
+    <Content Include="Help\Comments\project.xml" />
+    <Content Include="Help\Icons\adm.gif" />
+    <Content Include="Help\Icons\adm_arch.gif" />
+    <Content Include="Help\Icons\adm_dev.gif" />
+    <Content Include="Help\Icons\adm_dev_arch.gif" />
+    <Content Include="Help\Icons\alert_caution.gif" />
+    <Content Include="Help\Icons\alert_note.gif" />
+    <Content Include="Help\Icons\alert_security.gif" />
+    <Content Include="Help\Icons\arch.gif" />
+    <Content Include="Help\Icons\big_adm.gif" />
+    <Content Include="Help\Icons\big_arch.gif" />
+    <Content Include="Help\Icons\big_dev.gif" />
+    <Content Include="Help\Icons\big_kw.gif" />
+    <Content Include="Help\Icons\box.gif" />
+    <Content Include="Help\Icons\Caution.gif" />
+    <Content Include="Help\Icons\CFW.gif" />
+    <Content Include="Help\Icons\collall.gif" />
+    <Content Include="Help\Icons\collapse.gif" />
+    <Content Include="Help\Icons\collapse_all.gif" />
+    <Content Include="Help\Icons\copycode.gif" />
+    <Content Include="Help\Icons\copycodeHighlight.gif" />
+    <Content Include="Help\Icons\dev.gif" />
+    <Content Include="Help\Icons\dev_arch.gif" />
+    <Content Include="Help\Icons\dropdown.gif" />
+    <Content Include="Help\Icons\dropdownHover.gif" />
+    <Content Include="Help\Icons\drpdown.gif" />
+    <Content Include="Help\Icons\drpdown_orange.gif" />
+    <Content Include="Help\Icons\drpdown_orange_up.gif" />
+    <Content Include="Help\Icons\drpup.gif" />
+    <Content Include="Help\Icons\exp.gif" />
+    <Content Include="Help\Icons\expall.gif" />
+    <Content Include="Help\Icons\expand_all.gif" />
+    <Content Include="Help\Icons\filter1a.gif" />
+    <Content Include="Help\Icons\filter1c.gif" />
+    <Content Include="Help\Icons\footer.gif" />
+    <Content Include="Help\Icons\gradient.gif" />
+    <Content Include="Help\Icons\greencheck.gif" />
+    <Content Include="Help\Icons\greychck.gif" />
+    <Content Include="Help\Icons\header_prev_next.jpg" />
+    <Content Include="Help\Icons\header_sql_tutorial_blank.jpg" />
+    <Content Include="Help\Icons\header_sql_tutorial_logo.GIF" />
+    <Content Include="Help\Icons\kw.gif" />
+    <Content Include="Help\Icons\kw_adm.gif" />
+    <Content Include="Help\Icons\kw_adm_arch.gif" />
+    <Content Include="Help\Icons\kw_adm_dev.gif" />
+    <Content Include="Help\Icons\kw_adm_dev_arch.gif" />
+    <Content Include="Help\Icons\kw_arch.gif" />
+    <Content Include="Help\Icons\kw_dev.gif" />
+    <Content Include="Help\Icons\kw_dev_arch.gif" />
+    <Content Include="Help\Icons\LastChild.gif" />
+    <Content Include="Help\Icons\load.gif" />
+    <Content Include="Help\Icons\load_hover.gif" />
+    <Content Include="Help\Icons\note.gif" />
+    <Content Include="Help\Icons\pencil.GIF" />
+    <Content Include="Help\Icons\privclass.gif" />
+    <Content Include="Help\Icons\privdelegate.gif" />
+    <Content Include="Help\Icons\privenum.gif" />
+    <Content Include="Help\Icons\privenumeration.gif" />
+    <Content Include="Help\Icons\privevent.gif" />
+    <Content Include="Help\Icons\privextension.gif" />
+    <Content Include="Help\Icons\privfield.gif" />
+    <Content Include="Help\Icons\privinterface.gif" />
+    <Content Include="Help\Icons\privmethod.gif" />
+    <Content Include="Help\Icons\privproperty.gif" />
+    <Content Include="Help\Icons\privstructure.gif" />
+    <Content Include="Help\Icons\protclass.gif" />
+    <Content Include="Help\Icons\protdelegate.gif" />
+    <Content Include="Help\Icons\protenum.gif" />
+    <Content Include="Help\Icons\protenumeration.gif" />
+    <Content Include="Help\Icons\protevent.gif" />
+    <Content Include="Help\Icons\protextension.gif" />
+    <Content Include="Help\Icons\protfield.gif" />
+    <Content Include="Help\Icons\protinterface.gif" />
+    <Content Include="Help\Icons\protmethod.gif" />
+    <Content Include="Help\Icons\protoperator.gif" />
+    <Content Include="Help\Icons\protproperty.gif" />
+    <Content Include="Help\Icons\protstructure.gif" />
+    <Content Include="Help\Icons\pubclass.gif" />
+    <Content Include="Help\Icons\pubdelegate.gif" />
+    <Content Include="Help\Icons\pubenum.gif" />
+    <Content Include="Help\Icons\pubenumeration.gif" />
+    <Content Include="Help\Icons\pubevent.gif" />
+    <Content Include="Help\Icons\pubextension.gif" />
+    <Content Include="Help\Icons\pubfield.gif" />
+    <Content Include="Help\Icons\pubinterface.gif" />
+    <Content Include="Help\Icons\pubmethod.gif" />
+    <Content Include="Help\Icons\puboperator.gif" />
+    <Content Include="Help\Icons\pubproperty.gif" />
+    <Content Include="Help\Icons\pubstructure.gif" />
+    <Content Include="Help\Icons\requirements1a.gif" />
+    <Content Include="Help\Icons\requirements1c.gif" />
+    <Content Include="Help\Icons\save.gif" />
+    <Content Include="Help\Icons\save_hover.gif" />
+    <Content Include="Help\Icons\security.gif" />
+    <Content Include="Help\Icons\seealso1a.gif" />
+    <Content Include="Help\Icons\seealso1c.gif" />
+    <Content Include="Help\Icons\static.gif" />
+    <Content Include="Help\Icons\xna.gif" />
+    <Content Include="Help\Presentation\Shared\content\syntax_content.xml" />
+    <Content Include="Help\Presentation\Shared\scripts\copycode.js" />
+    <Content Include="Help\Presentation\Shared\scripts\samples.js" />
+    <Content Include="Help\Presentation\Shared\transforms\utilities_dduexml.xsl" />
+    <Content Include="Help\Presentation\Shared\transforms\utilities_metadata.xsl" />
+    <Content Include="Help\Presentation\Shared\transforms\utilities_reference.xsl" />
+    <Content Include="Help\Presentation\Style\Content\conceptual_content.xml" />
+    <Content Include="Help\Presentation\Style\Content\feedBack_content.xml" />
+    <Content Include="Help\Presentation\Style\Content\reference_content.xml" />
+    <Content Include="Help\Presentation\Style\Content\shared_content.xml" />
+    <Content Include="Help\Presentation\Style\Content\token_content.xml" />
+    <Content Include="Help\Presentation\Style\Content\web_content.xml" />
+    <Content Include="Help\Presentation\Style\Transforms\globalTemplates.xsl" />
+    <Content Include="Help\Presentation\Style\Transforms\htmlBody.xsl" />
+    <Content Include="Help\Presentation\Style\Transforms\main_conceptual.xsl" />
+    <Content Include="Help\Presentation\Style\Transforms\main_reference.xsl" />
+    <Content Include="Help\Presentation\Style\Transforms\main_sandcastle.xsl" />
+    <Content Include="Help\Presentation\Style\Transforms\seeAlsoSection.xsl" />
+    <Content Include="Help\Presentation\Style\Transforms\skeleton.xml" />
+    <Content Include="Help\Presentation\Style\Transforms\skeleton_conceptual.xml" />
+    <Content Include="Help\Presentation\Style\Transforms\utilities_dduexml.xsl" />
+    <Content Include="Help\Presentation\Style\Transforms\utilities_metadata.xsl" />
+    <Content Include="Help\Presentation\Style\Transforms\utilities_reference.xsl" />
+    <Content Include="Help\Presentation\Style\Transforms\web_reference.xsl" />
+    <Content Include="Help\Presentation\Style\Transforms\xamlSyntax.xsl" />
+    <Content Include="Help\Scripts\CheckboxMenu.js" />
+    <Content Include="Help\Scripts\CommonUtilities.js" />
+    <Content Include="Help\Scripts\Dropdown.js" />
+    <Content Include="Help\Scripts\EventUtilities.js" />
+    <Content Include="Help\Scripts\script_feedBack.js" />
+    <Content Include="Help\Scripts\script_manifold.js" />
+    <Content Include="Help\Scripts\SplitScreen.js" />
+    <Content Include="Help\Settings\bibliography.xml" />
+    <Content Include="Help\Settings\conceptual_art.xml" />
+    <Content Include="Help\Settings\conceptual_project.xml" />
+    <Content Include="Help\Settings\conceptual_snippets.xml" />
+    <Content Include="Help\Settings\conceptual_version.xml" />
+    <Content Include="Help\Settings\links.xml" />
+    <Content Include="Help\Settings\metadata.xml" />
+    <Content Include="Help\Settings\Projects\help2x.xslt" />
+    <Content Include="Help\Settings\tokens.xml" />
+    <Content Include="Help\Styles\Presentation.css" />
+    <Content Include="Help\Styles\TopicDesigner.css" />
+    <Content Include="Help\Styles\Whidbey\presentation.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Help\Presentation\Shared\configuration\xamlSyntax.config" />
+    <None Include="Help\Presentation\Shared\copyHavana.bat" />
+    <None Include="Help\Presentation\Shared\HxsTemplate\template.HxF" />
+    <None Include="Help\Presentation\Shared\HxsTemplate\template_A.HxK" />
+    <None Include="Help\Presentation\Shared\HxsTemplate\template_B.HxK" />
+    <None Include="Help\Presentation\Shared\HxsTemplate\template_F.HxK" />
+    <None Include="Help\Presentation\Shared\HxsTemplate\template_K.HxK" />
+    <None Include="Help\Presentation\Shared\HxsTemplate\template_N.HxK" />
+    <None Include="Help\Presentation\Shared\HxsTemplate\template_S.HxK" />
+    <None Include="Help\Presentation\Shared\SharedDocModel.ps1" />
+    <None Include="Help\Presentation\Style\Configuration\conceptual.help1x.config" />
+    <None Include="Help\Presentation\Style\Configuration\conceptual.help2x.config" />
+    <None Include="Help\Presentation\Style\Configuration\MRefBuilder.config" />
+    <None Include="Help\Presentation\Style\Configuration\sandcastle.help1x.config" />
+    <None Include="Help\Presentation\Style\Configuration\sandcastle.help2x.config" />
+    <None Include="Help\Schemas\base.xsd" />
+    <None Include="Help\Schemas\baseConditional.xsd" />
+    <None Include="Help\Schemas\block.xsd" />
+    <None Include="Help\Schemas\blockCommon.xsd" />
+    <None Include="Help\Schemas\blockSoftware.xsd" />
+    <None Include="Help\Schemas\conditionSet.xsd" />
+    <None Include="Help\Schemas\developer.xsd" />
+    <None Include="Help\Schemas\developerReference.xsd" />
+    <None Include="Help\Schemas\developerStructure.xsd" />
+    <None Include="Help\Schemas\glossary.xsd" />
+    <None Include="Help\Schemas\hierarchy.xsd" />
+    <None Include="Help\Schemas\inline.xsd" />
+    <None Include="Help\Schemas\inlineCommon.xsd" />
+    <None Include="Help\Schemas\inlineLinking.xsd" />
+    <None Include="Help\Schemas\inlineSoftware.xsd" />
+    <None Include="Help\Schemas\inlineUi.xsd" />
+    <None Include="Help\Schemas\space.xsd" />
+    <None Include="Help\Schemas\standardCodes.xsd" />
+    <None Include="Help\Schemas\structure.xsd" />
+    <None Include="Help\Schemas\structureList.xsd" />
+    <None Include="Help\Schemas\structureMedia.xsd" />
+    <None Include="Help\Schemas\structureProcedure.xsd" />
+    <None Include="Help\Schemas\structureTable.xsd" />
+    <None Include="Help\Schemas\xlink.xsd" />
+    <None Include="Help\Schemas\__internal.xsd" />
+    <None Include="Help\Settings\Projects\help1x.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HtmlAgilityPack\HtmlAgilityPack VS2008.csproj">
+      <Project>{193BB801-054F-4729-9D5D-FCE1E32594BF}</Project>
+      <Name>HtmlAgilityPack VS2008</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Help\Art\" />
+    <Folder Include="Help\Topics\" />
+  </ItemGroup>
+</Project>

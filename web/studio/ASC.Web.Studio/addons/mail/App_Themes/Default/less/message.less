@@ -1,0 +1,631 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+@import "settings.less";
+
+#itemContainer
+{
+    .message-wrap {
+        .head .row {
+            padding-left: @message-spliter-width;
+        }
+    }
+
+    .head {
+
+        .subject h2 {
+            display: inline-block;
+            margin-left:10px;
+        }
+
+        .row {
+            min-height: @message-head-row-height;
+            height: auto;
+            line-height: @message-head-row-height;
+            padding-right: @message-spliter-width;
+
+            .menu {
+                margin-left: 0;
+            }
+
+            label {
+                color: #83888D;
+                width: 57px;
+                float: left;
+            }
+
+            .value {
+                margin-left: 48px;
+
+                &.with-right {
+                    margin-right:120px;
+                }
+
+                .itemTags {
+                    .tag {
+                        margin: 4px 5px 4px 0;
+                        cursor: default;
+                    }
+
+                    .tagArrow {
+                         background-position: right -40px;
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                    color: #000;
+                    outline: none;
+                    cursor: pointer;
+                }
+            }
+
+            .right {
+                float:right;
+            }
+        }
+
+        .flag-message,
+        .flag-message-true {
+            float:left;
+            margin-top: 5px;
+        }
+
+        .value-group {
+            margin-bottom: 5px;
+            min-height: @message-head-row-height;
+            line-height: @message-head-row-height;
+
+            label {
+                color: #83888D;
+                width: 55px;
+                float: left;
+            }
+
+            .value {
+                margin-left: 63px;
+
+                &.with-right {
+                    margin-right:120px;
+                }
+
+                .itemTags .tag {
+                    margin: 4px 5px 4px 0;
+                    cursor: default;
+                }
+
+                textarea {
+                    display: block;
+                    width: 100%;
+                    height: 16px;
+                    line-height: 16px;
+                    margin: 0 auto;
+                }
+
+                input {
+                    display: block;
+                    width: 100%;
+                    height: 17px;
+                    line-height: 16px !important;
+                    margin: 0 auto;
+                    border: 1px solid #C7C7C7;
+                    font-size: 12px;
+                    &:focus {
+                        outline: none;
+                        border: solid 1px #3186af;
+                    }
+                }
+            }
+        }
+    }
+
+    .head-subject {
+        margin: 3px 0 12px 0;
+
+        .header-back-link {
+            margin-top: 0;
+            margin-right: 7px;
+            padding: 3px 5px 4px 4px;
+        }
+
+        .importance {
+            cursor: pointer;
+            height: 22px;
+            width: 22px;
+        }
+
+        .importance * {
+            margin: 5px 0 0 3px;
+        }
+
+        .prev-next {
+            padding: 10px 0;
+
+            .pagerPrevButtonCSSClass,
+            .pagerNextButtonCSSClass {
+                font-size: 11px;
+            }
+        }
+
+        .header-crm-link{
+            height: 16px;
+            width: 16px;
+            background: url("@{base-icon-sprite-url}") -40px 0 no-repeat;
+            display: inline-block;
+            margin-left: 8px;
+            position: relative;
+
+            &:hover{
+                background-position: -40px -20px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .short-view
+    {
+        &.loading
+        {
+            .message_short
+            {
+                background-color: @full-view-row-bg;
+
+                &:hover
+                {
+                    cursor: default;
+                }
+            }
+        }
+
+        @border-style: @messages-border-style;
+        @spliter-width: @row-height / 4;
+        @darken-text-color: #83888D;
+        width: 100%;
+        table-layout: fixed;
+        border-top: @border-style;
+
+        .message_short
+        {
+            background-color: @short-view-row-bg;
+            height: @row-height;
+            td
+            {
+                span
+                {
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    max-width: 95%;
+                    display: inline-block;
+                }
+            }
+            &:hover
+            {
+                cursor: pointer;
+            }
+            .from_label
+            {
+                padding-left: @message-spliter-width;
+                color: @darken-text-color;
+                width: 48px;
+            }
+
+            .from
+            {
+                width: 25%;
+                padding-left: @spliter-width;
+            }
+
+            .content
+            {
+                padding-left: @spliter-width;
+
+                span
+                {
+                    color: @darken-text-color;
+                }
+            }
+
+            .load_box
+            {
+                width: @row-height - 7;
+
+                .loader
+                {
+                    padding-left: 0;
+                    width: @row-height / 2;
+                    height: @row-height / 2;
+                    background: url("@{imaqes-base-url}loader/loader_16_dark.gif") 50% no-repeat transparent;
+                }
+            }
+
+            .icon
+            {
+                padding-left: 0;
+                width: @row-height / 2;
+            }
+
+            .date-time
+            {
+                padding-left: @spliter-width;
+                width: @row-height * 3;
+                text-align: center;
+            }
+
+            .time
+            {
+                width: @row-height * 2;
+                padding-right: @message-spliter-width;
+                text-align: center;
+            }
+        }
+    }
+
+    .full-view {
+        .head {
+            background-color: @full-view-row-bg;
+
+            .from:hover {
+                border-bottom: 1px solid;
+            }
+
+            .row {
+                .menu {
+                    background-color: transparent;
+                    background: url("@{base-icon-sprite-url}") no-repeat 0 -90px;
+                    width: 24px;
+                    height: 24px;
+                    float: right;
+                    right: 0px;
+                    cursor: pointer;
+                    float: right;
+                    line-height: 30px;
+                    margin-top: 6px;
+                    margin-left: 20px;
+                    display: inline-block;
+                }
+            }
+            &:hover .menu,
+            .menu.active {
+                background-position: -30px -90px;
+            }
+        }
+    }
+
+    span.button {
+        display: inline-block;
+        text-decoration: underline;
+        color: #333333;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    div.body {
+        clear: both;
+        overflow: hidden;
+        width: 100%;
+        padding-bottom: 0;
+
+        a {
+            color: blue;
+            text-decoration: underline;
+            font-weight: inherit;
+            font-style: inherit;
+            font-size: 100%;
+            vertical-align: baseline;
+        }
+    }
+
+    div.pages-navigation {
+        .top {
+            margin: 20px 0 20px;
+        }
+
+        span.button.inactive {
+            display: none;
+        }
+
+        a.button:hover {
+            background: #FDF9C9;
+        }
+
+        span.button.page.current {
+            background: #FDF9C9;
+            cursor: default;
+        }
+
+        span.label {
+            width: 15px;
+            border: 1px solid #FFF;
+            cursor: default;
+        }
+
+        span.label.inactive {
+            display: none;
+        }
+
+        .bottom {
+            margin: 20px 0 0;
+        }
+    }
+
+    div.head {
+        div.more_lnk {
+            float:none;
+        }
+
+        div.action {
+            float:none;
+        }
+    }
+
+    .messageHeader {
+        + .head,
+        + .message-wrap .head,
+        + .message-wrap .short-view {
+            border-top: 0;
+        }
+    }
+
+    .composeFooter{
+        border-top: 1px solid #D7D8DC;
+    }
+
+    .composeFooter {
+        padding-bottom: 10px;
+        padding-left: 0;
+        padding-top: 10px;
+    }
+
+    .attachments {
+        display: block;
+        clear: both;
+        margin-top: 0;
+        margin-bottom: @row-height;
+
+        .attachment {
+            display: inline-block;
+            height: 100px;
+            margin: 15px;
+            overflow: hidden;
+            span {
+                display: block;
+                padding-left: 18px;
+                color: #83888d;
+                font-size: 11px;
+            }
+        }
+
+        a.attachmentlink {
+            margin-bottom: 6px;
+            display: block;
+            color: #fff;
+            padding: 1px 5px 1px 5px;
+            white-space: nowrap;
+            background: #777c82;
+        }
+
+        .attachments-container {
+            border: 1px solid #cbcbcb;
+            border-bottom: 2px solid #cbcbcb;
+            background: #f6f6f6;
+            margin-bottom: 25px;
+        }
+
+        .attachment-message.has-attachment {
+            float: left;
+        }
+    }
+
+    .attachments-counter-position {
+        padding-top: 10px;
+    }
+
+    .title-attachments {
+        font-weight: bold;
+        height: @row-height;
+        line-height: @row-height;
+
+        a {
+            font-weight: normal;
+        }
+
+        .icon {
+            float:left;
+            padding-left: @message-spliter-width - 3;
+            padding-top: 2px;
+
+            [class^="icon-"], [class*=" icon-"] {
+                margin: 50% 0;
+            }
+        }
+    }
+
+    .attachments-buttons {
+        padding: @message-spliter-width 0 18px @message-spliter-width;
+
+        .icon-download-all {
+            background: url("@{base-icon-sprite-url}") -20px -40px no-repeat;
+            height: 16px;
+            width: 16px;
+            vertical-align: text-top;
+        }
+
+        .icon-save-all-to-teamlab {
+            background: url("@{base-icon-sprite-url}") -20px -40px no-repeat;
+            height: 16px;
+            width: 16px;
+            vertical-align: text-top;
+        }
+
+        .baseLinkAction {
+            margin-right: 8px;
+        }
+    }
+
+    .collapsed-messages {
+        border-top: 1px solid #D7D8DC;
+        background-color: #e5e5e5;
+        text-align: center;
+        padding: 9px 0;
+
+        label {
+            border-bottom: 1px dotted;
+            cursor: pointer;
+        }
+
+        &:hover {
+            background-color: #E5E5E5;
+            cursor: pointer;
+        }
+    }
+}
+
+.attachments_list {
+    @border-style: @messages-border-style;
+    @darken-text-color: #83888D;
+    width: 100%;
+    table-layout: fixed;
+
+    .row:first-child {
+        border-top: @messages-border-style;
+    }
+
+    .row {
+        height: @row-height;
+        border-bottom: @border-style;
+        cursor: default;
+
+        td {
+            line-height: 21px;
+            vertical-align: middle;
+
+            span {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                display: inline;
+            }
+        }
+
+        .file_icon {
+            width: @message-head-row-height;
+            padding-left: @message-spliter-width;
+        }
+
+        .file_info {
+            width: 100%;
+
+            a {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+
+                .file-name {
+                    max-width: 80%;
+                }
+
+                .file-extension {
+                    color: #A2A2A2;
+                    display: inline;
+                }
+            }
+
+            .fullSizeLabel {
+                max-width: 15%;
+            }
+        }
+
+        .icon_edit {
+            width: @message-head-row-height / 2;
+            display: inline-block;
+            vertical-align: top;
+            margin-left: @message-spliter-width / 2;
+        }
+
+        .menu_column {
+            padding-right: 9px;
+            width: @message-head-row-height;
+
+            .menu {
+                background-color: transparent;
+                background: url("@{base-icon-sprite-url}") no-repeat 0 -90px;
+                width: 24px;
+                height: 24px;
+                float: right;
+                cursor: pointer;
+                display: inline-block;
+            }
+
+                .menu.active {
+                    background-position: -30px -90px;
+                }
+        }
+
+        &:hover {
+            background-color: @hovered-row_bg;
+        }
+
+        &.selected {
+            background-color: @selected-row_bg;
+        }
+
+        &:hover,
+        &.selected {
+            .menu {
+                background-position: -30px -90px;
+            }
+
+            .file-name {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+            .pencil {
+                background-position: 0 -19px;
+                cursor: pointer;
+            }
+
+            a.unloded {
+                .file-name {
+                    color: #000;
+                    text-decoration: none;
+                    cursor: default;
+                }
+            }
+        }
+    }
+}
+
+.body-error
+{
+    width: 550px;
+    margin: 0 auto;
+    padding-top: 52px;
+    padding-bottom: 16px;
+}

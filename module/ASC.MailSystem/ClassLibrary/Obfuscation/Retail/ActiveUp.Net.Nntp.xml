@@ -1,0 +1,1895 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ActiveUp.Net.Nntp</name>
+    </assembly>
+    <members>
+        <member name="T:ActiveUp.Net.Mail.NewsGroup">
+            <summary>
+            Represents a newsgroup.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.Next">
+            <summary>
+            Advances the current article pointer to the next article.
+            </summary>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //group.Pointer is equal to group.FirstArticle.
+            group.Next();
+            //group.Pointer is now equal to group.FirstArticle + 1.
+            //Retrieve the second article in this group.
+            Message article2 = group.RetrieveArticleObject();
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'group.Pointer is equal to group.FirstArticle.
+            group.Next()
+            'group.Pointer is now equal to group.FirstArticle + 1.
+            'Retrieve the second article in this group.
+            Dim article2 As Message = group.RetrieveArticleObject()
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //group.Pointer is equal to group.FirstArticle.
+            group.Next();
+            //group.Pointer is now equal to group.FirstArticle + 1.
+            //Retrieve the second article in this group.
+            var article2:Message = group.RetrieveArticleObject();
+            
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.Previous">
+            <summary>
+            Steps back the current article pointer to the previous article.
+            </summary>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //group.Pointer is equal to group.FirstArticle.
+            group.Next();
+            //group.Pointer is now equal to group.FirstArticle + 1.
+            group.Previous();
+            //group.Pointer is now equal to group.FirstArticle.
+            //This retrieves the first article of the group.
+            Message article1 = group.RetrieveArticleObject();
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'group.Pointer is equal to group.FirstArticle.
+            group.Next()
+            'group.Pointer is now equal to group.FirstArticle + 1.
+            group.Previous();
+            'group.Pointer is now equal to group.FirstArticle.
+            'This retrieves the first article of the group.
+            Dim article 1 As Message = group.RetrieveArticleObject()
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //group.Pointer is equal to group.FirstArticle.
+            group.Next();
+            //group.Pointer is now equal to group.FirstArticle + 1.
+            group.Previous();
+            //group.Pointer is now equal to group.FirstArticle.
+            //This retrieves the first article of the group.
+            var article1:Message = group.RetrieveArticleObject();
+            
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.RetrieveArticle(System.Int32)">
+            <summary>
+            Retrieves the article at the specified ordinal position.
+            </summary>
+            <param name="index">The ordinal position of the article to be retrieved.</param>
+            <returns>A byte array containing the article data.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Retrieve article at position 29 in this group.
+            byte[] article29 = group.RetrieveArticle(29);
+            //Retrieve last article in this group.
+            byte[] article = group.RetrieveArticle(group.LastArticle);
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Retrieve article at position 29 in this group.
+            Dim article29() As Byte = group.RetrieveArticle(29)
+            'Retrieve last article in this group.
+            Dim article() As Byte = group.RetrieveArticle(group.LastArticle)
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Retrieve article at position 29 in this group.
+            var article29:byte[] = group.RetrieveArticle(29);
+            //Retrieve last article in this group.
+            var article:byte[] = group.RetrieveArticle(group.LastArticle);
+            
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.RetrieveArticle">
+            <summary>
+            Retrieves the article at the position specified by the current article pointer.
+            </summary>
+            <returns>A byte array containing the article data.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Retrieve the first article in this group.
+            byte[] article = group.RetrieveArticle();
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Retrieve the first article in this group.
+            Dim article() As Byte = group.RetrieveArticle()
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Retrieve the first article in this group.
+            var article:byte[] = group.RetrieveArticle();
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.RetrieveArticleObject(System.Int32)">
+            <summary>
+            Retrieves the article at the specified ordinal position.
+            </summary>
+            <param name="index">The ordinal position of the article to be retrieved.</param>
+            <returns>A Message object representing the article.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Retrieve article at position 29 in this group.
+            Message article29 = group.RetrieveArticleObject(29);
+            //Retrieve last article in this group.
+            Message article = group.RetrieveArticleObject(group.LastArticle);
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Retrieve article at position 29 in this group.
+            Dim article29 As Message = group.RetrieveArticleObject(29)
+            'Retrieve last article in this group.
+            Dim article As Message = group.RetrieveArticleObject(group.LastArticle)
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Retrieve article at position 29 in this group.
+            var article29:Message = group.RetrieveArticleObject(29);
+            //Retrieve last article in this group.
+            var article:Message = group.RetrieveArticleObject(group.LastArticle);
+            
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.RetrieveArticleObject">
+            <summary>
+            Retrieves the article at the position specified by the current article pointer.
+            </summary>
+            <returns>A Message object representing the article.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Retrieve the first article in this group.
+            Message article = group.RetrieveArticleObject();
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Retrieve the first article in this group.
+            Dim article As Message = group.RetrieveArticleObject()
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Retrieve the first article in this group.
+            var article:Message = group.RetrieveArticleObject();
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.RetrieveHeader(System.Int32)">
+            <summary>
+            Retrieves the article Header at the specified ordinal position.
+            </summary>
+            <param name="index">The ordinal position of the article to be retrieved.</param>
+            <returns>A byte array containing the article header.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Retrieve the Header of the article at position 29 in this group.
+            byte[] header29 = group.RetrieveHeader(29);
+            //Retrieve last Header in this group.
+            byte[] Header = group.RetrieveHeader(group.LastHeader);
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Retrieve the Header of the article at position 29 in this group.
+            Dim header29() As Byte = group.RetrieveHeader(29)
+            'Retrieve last Header in this group.
+            Dim header() As Byte = group.RetrieveHeader(group.LastHeader)
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Retrieve the Header of the article at position 29 in this group.
+            var header29:byte[] = group.RetrieveHeader(29);
+            //Retrieve last Header in this group.
+            var header:byte[] = group.RetrieveHeader(group.LastHeader);
+            
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.RetrieveHeader">
+            <summary>
+            Retrieves the article Header at the position specified by the current article pointer.
+            </summary>
+            <returns>A byte array containing the article header.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Retrieve the first Header in this group.
+            byte[] Header = group.RetrieveHeader();
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Retrieve the first Header in this group.
+            Dim header() As Byte = group.RetrieveHeader()
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Retrieve the first Header in this group.
+            var header:byte[] = group.RetrieveHeader();
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.StoreHeader(System.Int32,System.String)">
+            <summary>
+            Stores the article Header at the specified ordinal position to the specified path.
+            </summary>
+            <param name="index">The ordinal position of the article to be retrieved.</param>
+            <param name="filePath">The destination path for the file.</param>
+            <returns>The path the file has been saved at.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Store the Header of the article at position 29 in this group.
+            group.StoreHeader(29,"C:\\My news\\header.txt");
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Store the Header of the article at position 29 in this group.
+            group.StoreHeader(29,"C:\My news\header.txt")
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Store the Header of the article at position 29 in this group.
+            group.StoreHeader(29,"C:\\My news\\header.txt");
+            
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.StoreHeader(System.String)">
+            <summary>
+            Retrieves the article Header at the position specified by the current article pointer.
+            </summary>
+            <param name="filePath">The destination path for the file.</param>
+            <returns>The path the file has been saved at.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Store the first article in this group.
+            group.StoreHeader("C:\\My news\\header.txt");
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Store the first article in this group.
+            group.StoreHeader("C:\My news\header.txt")
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Store the first article in this group.
+            group.StoreHeader("C:\\My news\\header.txt");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.StoreArticle(System.Int32,System.String)">
+            <summary>
+            Stores the article at the specified ordinal position to the specified path.
+            </summary>
+            <param name="index">The ordinal position of the article to be retrieved.</param>
+            <param name="filePath">The destination path for the file.</param>
+            <returns>The path the file has been saved at.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Store article at position 29 in this group.
+            group.StoreArticle(29,"C:\\My news\\article.nws");
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Store article at position 29 in this group.
+            group.StoreArticle(29,"C:\My news\article.nws")
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Store article at position 29 in this group.
+            group.StoreArticle(29,"C:\\My news\\article.nws");
+            
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.StoreArticle(System.String)">
+            <summary>
+            Retrieves the article at the position specified by the current article pointer.
+            </summary>
+            <param name="filePath">The destination path for the file.</param>
+            <returns>The path the file has been saved at.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Store the first article in this group.
+            group.StoreArticle("C:\\My news\\article.nws");
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Store the first article in this group.
+            group.StoreArticle("C:\My news\article.nws")
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Store the first article in this group.
+            group.StoreArticle("C:\\My news\\article.nws");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.StoreBody(System.Int32,System.String)">
+            <summary>
+            Stores the article body at the specified ordinal position to the specified path.
+            </summary>
+            <param name="index">The ordinal position of the article to be retrieved.</param>
+            <param name="filePath">The destination path for the file.</param>
+            <returns>The path the file has been saved at.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Store the body of the article at position 29 in this group.
+            group.StoreBody(29,"C:\\My news\\body.txt");
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Store the body of the article at position 29 in this group.
+            group.StoreBody(29,"C:\My news\body.txt")
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Store the body of the article at position 29 in this group.
+            group.StoreBody(29,"C:\\My news\\body.txt");
+            
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.StoreBody(System.String)">
+            <summary>
+            Retrieves the article body at the position specified by the current article pointer.
+            </summary>
+            <param name="filePath">The destination path for the file.</param>
+            <returns>The path the file has been saved at.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Store the first article in this group.
+            group.StoreBody("C:\\My news\\article.txt");
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Store the first article in this group.
+            group.StoreBody("C:\My news\article.txt")
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Store the first article in this group.
+            group.StoreBody("C:\\My news\\article.txt");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.StoreToFile(System.String,System.Byte[])">
+            <summary>
+            Stores the given byte array into a file at the specified location.
+            </summary>
+            <param name="path">Path of the file to be created.</param>
+            <param name="data">Data of the file to be created.</param>
+            <returns>The path where the file has been created.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.RetrieveHeaderObject(System.Int32)">
+            <summary>
+            Retrieves the article Header at the specified ordinal position.
+            </summary>
+            <param name="index">The ordinal position of the article to be retrieved.</param>
+            <returns>A Header object representing the article header.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Retrieve the Header of the article at position 29 in this group.
+            Header header29 = group.RetrieveHeaderObject(29);
+            //Retrieve last Header in this group.
+            Header Header = group.RetrieveHeaderObject(group.LastHeader);
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Retrieve the Header of the article at position 29 in this group.
+            Dim header29 As Header = group.RetrieveHeaderObject(29)
+            'Retrieve last Header in this group.
+            Dim Header As Header = group.RetrieveHeaderObject(group.LastHeader)
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Retrieve the Header of the article at position 29 in this group.
+            var header29:Header = group.RetrieveHeaderObject(29);
+            //Retrieve last Header in this group.
+            var header:Header = group.RetrieveHeaderObject(group.LastHeader);
+            
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.RetrieveHeaderObject">
+            <summary>
+            Retrieves the article Header at the position specified by the current article pointer.
+            </summary>
+            <returns>A Header object representing the article header.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Retrieve the first Header in this group.
+            Header Header = group.RetrieveHeaderObject();
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Retrieve the first Header in this group.
+            Dim Header As Header = group.RetrieveHeaderObject()
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Retrieve the first Header in this group.
+            var header:Header = group.RetrieveHeaderObject();
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.RetrieveBody(System.Int32)">
+            <summary>
+            Retrieves the article body at the specified ordinal position.
+            </summary>
+            <param name="index">The ordinal position of the article to be retrieved.</param>
+            <returns>A byte array containing the article body.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Retrieve the body of the article at position 29 in this group.
+            byte[] body29 = group.RetrieveBody(29);
+            //Retrieve last body in this group.
+            byte[] body = group.RetrieveBody(group.LastBody);
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Retrieve the body of the article at position 29 in this group.
+            Dim body29() As Byte = group.RetrieveBody(29)
+            'Retrieve last body in this group.
+            Dim body() As Byte = group.RetrieveBody(group.LastBody)
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Retrieve the body of the article at position 29 in this group.
+            var body29:byte[] = group.RetrieveBody(29);
+            //Retrieve last body in this group.
+            var body:byte[] = group.RetrieveBody(group.LastBody);
+            
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroup.RetrieveBody">
+            <summary>
+            Retrieves the article body at the position specified by the current article pointer.
+            </summary>
+            <returns>A byte array containing the article body.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nntp = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            NewsGroup group = nntp.SelectGroup("mygroup");
+            //Retrieve the first body in this group.
+            byte[] body = group.RetrieveBody();
+            
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nntp As New NntpClient
+            
+            nntp.Connect("news.myhost.com")
+            
+            Dim group As NewsGroup = nntp.SelectGroup("mygroup")
+            'Retrieve the first body in this group.
+            Dim body() As Byte = group.RetrieveBody()
+            
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            
+            nntp.Connect("news.myhost.com");
+            
+            var group:NewsGroup = nntp.SelectGroup("mygroup");
+            //Retrieve the first body in this group.
+            var body:byte[] = group.RetrieveBody();
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NewsGroup.Name">
+            <summary>
+            The newsgroup's name.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NewsGroup.FirstArticle">
+            <summary>
+            The ordinal position of the newsgroup's first article.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NewsGroup.LastArticle">
+            <summary>
+            The ordinal position of the newsgroup's last article.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NewsGroup.Pointer">
+            <summary>
+            The current article pointer's position.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NewsGroup.PostingAllowed">
+            <summary>
+            True if posting is allowed on this newsgroup.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NewsGroup.ArticleCount">
+            <summary>
+            The amount of article in this newsgroup.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.NewsGroupCollection">
+            <summary>
+            Represents a collection of newsgroups.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewsGroupCollection.Add(ActiveUp.Net.Mail.NewsGroup)">
+            <summary>
+            Adds the provided newsgroup to the collection.
+            </summary>
+            <param name="group"></param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NewsGroupCollection.Item(System.Int32)">
+            <summary>
+            Retrieves the newsgroup at the specified index in the collection.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.NntpClient">
+            <summary>
+            NNTP Client extending a System.Net.Sockets.TcpClient to send/receive NNTP command/responses.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.Connect(System.String)">
+            <summary>
+            Connects to the specified server.
+            </summary>
+            <param name="host">Server address.</param>
+            <returns>The server's greeting response.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.Connect(System.String,System.Int32)">
+            <summary>
+            Connects to the specified server.
+            </summary>
+            <param name="host">Server address.</param>
+            <param name="port">Server port.</param>
+            <returns>The server's greeting response.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com",8502);
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com",8502)
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com",8502);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.Authenticate(System.String,System.String)">
+            <summary>
+            Authenticates the given user.
+            </summary>
+            <param name="username">Username to log in.</param>
+            <param name="password">Password.</param>
+            <returns>True if authentication succeded.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            nntp.Authenticate("admin","password");
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            nntp.Authenticate("admin","password")
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            nntp.Authenticate("admin","password");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.Authenticate(System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+            <summary>
+            Authenticates the given user and SASL mechanism.
+            </summary>
+            <param name="username">Username to log in.</param>
+            <param name="password">Password.</param>
+            <param name="mechanism">SASL Mechanism to be used.</param>
+            <returns>True if authentication succeded.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            nntp.Authenticate("admin","password",SaslMechanism.CramMd5);
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            nntp.Authenticate("admin","password",SaslMechanism.CramMd5)
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            nntp.Authenticate("admin","password",SaslMechanism.CramMd5);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.Disconnect">
+            <summary>
+            Closes the connection.
+            </summary>
+            <returns>The server's goodbye greeting.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Do some work
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            'Do some work
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com"); 
+            //Do some work
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.Command(System.String)">
+            <summary>
+            Sends the specified command to the server.
+            </summary>
+            <param name="command">The command to be sent.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            string response = nntp.Command("XANYCOMMAND anyargument");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            Dim response as String = nntp.Command("XANYCOMMAND anyargument")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            var response:string = nntp.Command("XANYCOMMAND anyargument");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.CommandMultiline(System.String)">
+            <summary>
+            Sends the specified command to the server.
+            </summary>
+            <param name="command">The command to be sent.</param>
+            <returns>A byte array containing the server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            nntp.SelectGroup("mygroup");
+            byte[] articleData = nntp.CommandMultiline("ARTICLE 1");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            nntp.SelectGroup("mygroup")
+            Dim articleData as Byte() = nntp.CommandMultiline("ARTICLE 1")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            nntp.SelectGroup("mygroup");
+            var articleData:byte[] = nntp.CommandMultiline("ARTICLE 1");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.GetNewsGroups">
+            <summary>
+            Retrieves the server's newsgroups.
+            </summary>
+            <returns>The server's newsgroups.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            NewsGroupCollection groups = nntp.GetNewsGroups();
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            Dim groups as NewsGroupCollection = nntp.GetNewsGroups()
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            var groups:NewsGroupCollection = nntp.GetNewsGroups();
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.GetNewsGroups(System.DateTime)">
+            <summary>
+            Retrieves the server's newsgroups that have been created since the specified date/time.
+            </summary>
+            <param name="startDate">The minimum creation date/time.</param>
+            <returns>The server's newsgroups that have been created since the specified date/time.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Get groups created less than one months ago.
+            NewsGroupCollection groups = nntp.GetNewsGroups(System.DateTime.Now.AddMonth(-1));
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            'Get groups created less than one months ago.
+            Dim groups as NewsGroupCollection = nntp.GetNewsGroups(System.DateTime.Now.AddMonth(-1))
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Get groups created less than one months ago.
+            var groups:NewsGroupCollection = nntp.GetNewsGroups(System.DateTime.Now.AddMonth(-1));
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.GetNewsGroups(System.DateTime,System.Boolean)">
+            <summary>
+            Retrieves the server's newsgroups that have been created since the specified date/time.
+            </summary>
+            <param name="startDate">The minimum creation date/time.</param>
+            <param name="gmt">Specifies if startDate is GMT or not.</param>
+            <returns>The server's newsgroups that have been created since the specified date/time.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Get groups created less than one months ago (GMT time).
+            NewsGroupCollection groups = nntp.GetNewsGroups(System.DateTime.Now.AddMonth(-1),true);
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            'Get groups created less than one months ago (GMT time).
+            Dim groups as NewsGroupCollection = nntp.GetNewsGroups(System.DateTime.Now.AddMonth(-1),True)
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Get groups created less than one months ago (GMT time).
+            var groups:NewsGroupCollection = nntp.GetNewsGroups(System.DateTime.Now.AddMonth(-1),true);
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.GetNewsGroups(System.DateTime,System.Boolean,System.String)">
+            <summary>
+            Retrieves the server's newsgroups that have been created since the specified date/time.
+            </summary>
+            <param name="startDate">The minimum creation date/time.</param>
+            <param name="gmt">Specifies if startDate is GMT or not.</param>
+            <param name="distribution">Distribution filter of the articles.</param>
+            <returns>The server's newsgroups that have been created since the specified date/time and that contain articles for the specified distribution.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Get groups created less than one months ago (GMT time) and containing articles to be distributed to "staff".
+            NewsGroupCollection groups = nntp.GetNewsGroups(System.DateTime.Now.AddMonth(-1),true,"staff");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            'Get groups created less than one months ago (GMT time) and containing articles to be distributed to "staff".
+            Dim groups as NewsGroupCollection = nntp.GetNewsGroups(System.DateTime.Now.AddMonth(-1),True,"staff")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Get groups created less than one months ago (GMT time) and containing articles to be distributed to "staff".
+            var groups:NewsGroupCollection = nntp.GetNewsGroups(System.DateTime.Now.AddMonth(-1),true,"staff");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.GetNewArticleIds(System.String,System.DateTime)">
+            <summary>
+            Retrieves message-ids from articles that have been added since the specified date/time.
+            </summary>
+            <param name="newsGroup">Newsgroup to be checked.</param>
+            <param name="startDate">Minimum addition date of the articles.</param>
+            <returns>The article message-ids</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Gets article ids that belong to the "myhost.info" newsgroup and have been added less than one month ago.
+            string[] newids = nntp.GetNewArticleIds("myhost.info",System.DateTime.Now.AddMonth(-1));
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            'Gets article ids that belong to the "myhost.info" newsgroup and have been added less than one month ago.
+            Dim newids as String() = nntp.GetNewArticleIds("myhost.info",System.DateTime.Now.AddMonth(-1))
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Gets article ids that belong to the "myhost.info" newsgroup and have been added less than one month ago.
+            var newids:string[] = nntp.GetNewArticleIds("myhost.info",System.DateTime.Now.AddMonth(-1));
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.GetNewArticleIds(System.String,System.DateTime,System.Boolean)">
+            <summary>
+            Retrieves message-ids from articles that have been added since the specified date/time.
+            </summary>
+            <param name="newsGroup">Newsgroup to be checked.</param>
+            <param name="startDate">Minimum addition date of the articles.</param>
+            <param name="gmt">Specifies if startDate is GMT or not.</param>
+            <returns>The article message-ids</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Gets article ids that belong to the "myhost.info" newsgroup and have been added less than one month ago (GMT time).
+            string[] newids = nntp.GetNewArticleIds("myhost.info",System.DateTime.Now.AddMonth(-1),true);
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            'Gets article ids that belong to the "myhost.info" newsgroup and have been added less than one month ago (GMT time).
+            Dim newids as String() = nntp.GetNewArticleIds("myhost.info",System.DateTime.Now.AddMonth(-1),True)
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Gets article ids that belong to the "myhost.info" newsgroup and have been added less than one month ago (GMT time).
+            var newids:string[] = nntp.GetNewArticleIds("myhost.info",System.DateTime.Now.AddMonth(-1),true);
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.GetNewArticleIds(System.String,System.DateTime,System.Boolean,System.String)">
+            <summary>
+            Retrieves message-ids from articles that have been added since the specified date/time.
+            </summary>
+            <param name="newsGroup">Newsgroup to be checked.</param>
+            <param name="startDate">Minimum addition date of the articles.</param>
+            <param name="gmt">Specifies if startDate is GMT or not.</param>
+            <param name="distribution">The distribution filter of the articles.</param>
+            <returns>The article message-ids</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Gets article ids that belong to the "myhost.info" newsgroup, that have been added less than one month ago (GMT time) and that should be distributed to "staff".
+            string[] newids = nntp.GetNewArticleIds("myhost.info",System.DateTime.Now.AddMonth(-1),true,"staff");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            'Gets article ids that belong to the "myhost.info" newsgroup and have been added less than one month ago (GMT time) and that should be distributed to "staff".
+            Dim newids as String() = nntp.GetNewArticleIds("myhost.info",System.DateTime.Now.AddMonth(-1),True,"staff")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Gets article ids that belong to the "myhost.info" newsgroup and have been added less than one month ago (GMT time) and that should be distributed to "staff".
+            var newids:string[] = nntp.GetNewArticleIds("myhost.info",System.DateTime.Now.AddMonth(-1),true,"staff");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.SelectGroup(System.String)">
+            <summary>
+            Selects the specified newsgroup.
+            </summary>
+            <param name="groupName">The newsgroup to be selected.</param>
+            <returns>The selected newsgroup.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Selects the "myhost.info" newsgroup as the current newsgroup.
+            NewsGroup group = nntp.SelectGroup("myhost.info");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            'Selects the "myhost.info" newsgroup as the current newsgroup.
+            Dim group as NewsGroup = nntp.SelectGroup("myhost.info")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            //Selects the "myhost.info" newsgroup as the current newsgroup.
+            var group:NewsGroup = nntp.SelectGroup("myhost.info");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.RetrieveArticle(System.String)">
+            <summary>
+            Retrieves the article with the specified message-id.
+            </summary>
+            <param name="messageId">Message-Id of the article.</param>
+            <returns>A byte array containing the article's data.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            byte[] articleData = nntp.RetrieveArticle("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            Dim articleData as Byte() = nntp.RetrieveArticle("3e061eae$1@news.myhost.com")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            var articleData:byte[] = nntp.RetrieveArticle("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.RetrieveHeader(System.String)">
+            <summary>
+            Retrieves the article Header with the specified message-id.
+            </summary>
+            <param name="messageId">Message-Id of the article.</param>
+            <returns>A byte array containing the article's header.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            byte[] headerData = nntp.RetrieveHeader("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            Dim headerData as Byte() = nntp.RetrieveHeader("3e061eae$1@news.myhost.com")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            var headerData:byte[] = nntp.RetrieveHeader("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.RetrieveArticleString(System.String)">
+            <summary>
+            Retrieves the article with the specified message-id.
+            </summary>
+            <param name="messageId">Message-Id of the article.</param>
+            <returns>A string containing the article's data.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            string articleData = nntp.RetrieveArticleString("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            Dim articleData as String = nntp.RetrieveArticleString("3e061eae$1@news.myhost.com")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            var articleData:string = nntp.RetrieveArticleString("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.RetrieveHeaderString(System.String)">
+            <summary>
+            Retrieves the article Header with the specified message-id.
+            </summary>
+            <param name="messageId">Message-Id of the article.</param>
+            <returns>A string containing the article's header.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            string headerData = nntp.RetrieveHeaderString("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            Dim headerData as String = nntp.RetrieveHeaderString("3e061eae$1@news.myhost.com")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            var headerData:string = nntp.RetrieveHeaderString("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.RetrieveArticleObject(System.String)">
+            <summary>
+            Retrieves the article with the specified message-id.
+            </summary>
+            <param name="messageId">Message-Id of the article.</param>
+            <returns>A Message object representing the article.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            Message article = nntp.RetrieveArticleObject("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            Dim article as Message = nntp.RetrieveArticleObject("3e061eae$1@news.myhost.com")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            var article:Message = nntp.RetrieveArticleObject("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.RetrieveHeaderObject(System.String)">
+            <summary>
+            Retrieves the article Header with the specified message-id.
+            </summary>
+            <param name="messageId">Message-Id of the article.</param>
+            <returns>A Header object representing the article's header.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            Header Header = nntp.RetrieveHeaderObject("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            Dim Header as Header = nntp.RetrieveHeaderObject("3e061eae$1@news.myhost.com")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            var header:Header = nntp.RetrieveHeaderObject("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.RetrieveBody(System.String)">
+            <summary>
+            Retrieves the article body with the specified message-id.
+            </summary>
+            <param name="messageId">Message-Id of the article.</param>
+            <returns>A byte array containing the article's body.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            byte[] body = nntp.RetrieveBody("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            Dim body as Byte() = nntp.RetrieveBody("3e061eae$1@news.myhost.com")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            var body:byte[] = nntp.RetrieveBody("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.RetrieveBodyString(System.String)">
+            <summary>
+            Retrieves the article body with the specified message-id.
+            </summary>
+            <param name="messageId">Message-Id of the article.</param>
+            <returns>A string containing the article's body.</returns>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            string body = nntp.RetrieveBodyString("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            Dim body as String = nntp.RetrieveBodyString("3e061eae$1@news.myhost.com")
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            var body:string = nntp.RetrieveBodyString("3e061eae$1@news.myhost.com");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.Post(System.String)">
+            <summary>
+            Posts the provided article.
+            </summary>
+            <param name="article">The article data as a string.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message article = new Message();
+            article.NewsGroups = "myhost.info";
+            article.From = new Address("john.doe@myhost.com","John Doe");
+            article.Subject = "Test";
+            article.Body = "Hello this is a test !";
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            if(nntp.PostingAllowed) nntp.Post(article.PostableString);
+            else throw new NntpException("Posting not allowed. Couldn't post.");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim article as New Message
+            article.NewsGroups = "myhost.info"
+            article.From = New Address("john.doe@myhost.com","John Doe")
+            article.Subject = "Test"
+            article.Body = "Hello this is a test !"
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            If nntp.PostingAllowed Then
+            nntp.Post(article.PostableString)
+            Else
+            Throw New NntpException("Posting not allowed. Couldn't post.")
+            End If
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var article:Message = new Message();
+            article.NewsGroups = "myhost.info";
+            article.From = new Address("john.doe@myhost.com","John Doe");
+            article.Subject = "Test";
+            article.Body = "Hello this is a test !";
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            if(nntp.PostingAllowed) nntp.Post(article.PostableString);
+            else throw new NntpException("Posting not allowed. Couldn't post.");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NntpClient.Post(ActiveUp.Net.Mail.Message)">
+            <summary>
+            Posts the provided article.
+            </summary>
+            <param name="article">The article data as a string.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message article = new Message();
+            article.HeaderFields.Add("NewsGroups","myhost.info");
+            article.From = new Address("john.doe@myhost.com","John Doe");
+            article.Subject = "Test";
+            article.Body = "Hello this is a test !";
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            if(nntp.PostingAllowed) nntp.Post(article);
+            else throw new NntpException("Posting not allowed. Couldn't post.");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim article as New Message
+            article.HeaderFields.Add("NewsGroups","myhost.info")
+            article.From = New Address("john.doe@myhost.com","John Doe")
+            article.Subject = "Test"
+            article.Body = "Hello this is a test !"
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com") 
+            If nntp.PostingAllowed Then
+            nntp.Post(article)
+            Else
+            Throw New NntpException("Posting not allowed. Couldn't post.")
+            End If
+            nntp.Disconnect()
+            
+            JScript.NET
+            
+            var article:Message = new Message();
+            article.HeaderFields.Add("NewsGroups","myhost.info");
+            article.From = new Address("john.doe@myhost.com","John Doe");
+            article.Subject = "Test";
+            article.Body = "Hello this is a test !";
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            if(nntp.PostingAllowed) nntp.Post(article);
+            else throw new NntpException("Posting not allowed. Couldn't post.");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NntpClient.PostingAllowed">
+            <summary>
+            If true, posting is allowed.
+            </summary>
+            <example>
+            <code>
+            C#
+            
+            NntpClient nttp = new NntpClient();
+            nntp.Connect("news.myhost.com");
+            if(!nntp.PostingAllowed) throw new NntpException("Posting not allowed");
+            nntp.Disconnect();
+            
+            VB.NET
+            
+            Dim nttp as New NntpClient()
+            nntp.Connect("news.myhost.com")
+            If Not nntp.PostingAllowed Then
+            Throw New NntpException("Posting not allowed");
+            End If
+            nntp.Dicsonnect()
+            
+            JScript.NET
+            
+            var nntp:NntpClient = new NntpClient();
+            nntp.Connect("news.myhost.com"); 
+            if(!nntp.PostingAllowed) throw new NntpException("Posting not allowed");
+            nntp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.TcpWriting">
+            <summary>
+            Event fired when a command is being written to the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.TcpWritten">
+            <summary>
+            Event fired when a command has been written to the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.TcpReading">
+            <summary>
+            Event fired when a response is being read from the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.TcpRead">
+            <summary>
+            Event fired when a response has been read from the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.Connecting">
+            <summary>
+            Event fired when attempting to connect to the remote server using the specified host.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.Connected">
+            <summary>
+            Event fired when the object is connected to the remote server or when connection failed.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.Disconnecting">
+            <summary>
+            Event fired when attempting to disconnect from the remote server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.Disconnected">
+            <summary>
+            Event fired when the object disconnected from the remote server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.MessageRetrieving">
+            <summary>
+            Event fired when a message is being requested using the RetrieveMessage() method.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.MessageRetrieved">
+            <summary>
+            Event fired when a message is being retrieved using the RetrieveMessage() method.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.HeaderRetrieving">
+            <summary>
+            Event fired when a message Header is being requested using the RetrieveHeader() method.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.HeaderRetrieved">
+            <summary>
+            Event fired when a message Header has been retrieved using the RetrieveHeader() method.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.Authenticating">
+            <summary>
+            Event fired when authentication starts.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.NntpClient.Authenticated">
+            <summary>
+            Event fired when authentication completed.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NntpClient.IsConnected">
+            <summary>
+            Gets a value indicating whether this instance is connected.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is connected; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.NntpException">
+            <summary>
+            Custom exception.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NntpException.Message">
+            <summary>
+            Message returned by the server or error description.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='jabber:iq:search'
+    xmlns='jabber:iq:search'
+    elementFormDefault='qualified'>
+
+  <xs:import namespace='jabber:x:data'
+             schemaLocation='http://xmpp.org/schemas/x-data.xsd'/>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0055: http://xmpp.org/extensions/xep-0055.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='query'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:choice xmlns:xdata='jabber:x:data'>
+          <xs:element name='instructions' type='xs:string' minOccurs='0'/>
+          <xs:element name='first' type='xs:string' minOccurs='0'/>
+          <xs:element name='last' type='xs:string' minOccurs='0'/>
+          <xs:element name='nick' type='xs:string' minOccurs='0'/>
+          <xs:element name='email' type='xs:string' minOccurs='0'/>
+          <xs:element ref='xdata:x' minOccurs='0'/>
+        </xs:choice>
+        <xs:element ref='item' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='item'>
+    <xs:complexType>
+      <xs:all>
+        <xs:element name='first' type='xs:string'/>
+        <xs:element name='last' type='xs:string'/>
+        <xs:element name='nick' type='xs:string'/>
+        <xs:element name='email' type='xs:string'/>
+      </xs:all>
+      <xs:attribute name='jid' type='xs:string' use='required'/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

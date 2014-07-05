@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:ietf:params:xml:ns:xmpp-sasl'
+    xmlns='urn:ietf:params:xml:ns:xmpp-sasl'
+    elementFormDefault='qualified'>
+
+  <xs:element name='mechanisms'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='mechanism' 
+                    maxOccurs='unbounded'
+                    type='xs:string'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='auth'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='mechanism'
+                        type='xs:string'
+                        use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='challenge' type='xs:string'/>
+  <xs:element name='response' type='xs:string'/>
+  <xs:element name='abort' type='empty'/>
+  <xs:element name='success' type='xs:string'/>
+
+  <xs:element name='failure'>
+    <xs:complexType>
+      <xs:choice minOccurs='0'>
+        <xs:element name='aborted' type='empty'/>
+        <xs:element name='incorrect-encoding' type='empty'/>
+        <xs:element name='invalid-authzid' type='empty'/>
+        <xs:element name='invalid-mechanism' type='empty'/>
+        <xs:element name='mechanism-too-weak' type='empty'/>
+        <xs:element name='not-authorized' type='empty'/>
+        <xs:element name='temporary-auth-failure' type='empty'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

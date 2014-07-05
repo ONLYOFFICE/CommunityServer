@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{481B0D9C-B2F8-4DE9-8597-BA8D24585099}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.FederatedLogin</RootNamespace>
+    <AssemblyName>ASC.FederatedLogin</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d7a83c48f8054c7a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Thrdparty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Thrdparty.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetOpenAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.ApplicationBlock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\DotNetOpenAuth.ApplicationBlock.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Facebook, Version=5.0.26.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\FacebookSDK\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Hammock.ClientProfile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\TweetSharp\3.5\Hammock.ClientProfile.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\Microsoft.Contracts.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TweetSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\TweetSharp\3.5\TweetSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountLinker.cs" />
+    <Compile Include="Helpers\DictionaryExtensions.cs" />
+    <Compile Include="Helpers\EncodeHelper.cs" />
+    <Compile Include="Helpers\OAuth20TokenHelper.cs" />
+    <Compile Include="Helpers\RequestHelper.cs" />
+    <Compile Include="Helpers\XmlExtensions.cs" />
+    <Compile Include="Helpers\HashHelper.cs" />
+    <Compile Include="Helpers\JsCallbackHelper.cs" />
+    <Compile Include="Helpers\XrdsHelper.cs" />
+    <Compile Include="Login.cs" />
+    <Compile Include="LoginMode.cs" />
+    <Compile Include="LoginProviders\FacebookLoginProvider.cs" />
+    <Compile Include="LoginProviders\GoogleLoginProvider.cs" />
+    <Compile Include="LoginProviders\ILoginProvider.cs" />
+    <Compile Include="LoginProviders\LinkedInLoginProvider.cs" />
+    <Compile Include="LoginProviders\OpenIdLoginProvider.cs" />
+    <Compile Include="LoginProviders\ProviderManager.cs" />
+    <Compile Include="LoginProviders\TwitterLoginProvider.cs" />
+    <Compile Include="LoginProviders\YahooLoginProvider.cs" />
+    <Compile Include="MultiRegionAccountLinker.cs" />
+    <Compile Include="OAuth20Token.cs" />
+    <Compile Include="Profile\LoginProfile.cs" />
+    <Compile Include="Profile\LoginProfileExtensions.cs" />
+    <Compile Include="Profile\WellKnownFields.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="callback.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SqlScripts\Create.MySql.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile->'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath->'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<serverdefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <servers>
+        <server>
+            <host>whois.nic.ac</host>
+            <port>43</port>
+            <domain>.ac</domain>
+            <nomatch>not answered</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.as</host>
+            <port>43</port>
+            <domain>.as</domain>
+            <nomatch>not found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.ag</host>
+            <port>43</port>
+            <domain>.ag</domain>
+            <nomatch>not found</nomatch>
+        </server>
+        <server>
+            <host>whois.aco.net</host>
+            <port>43</port>
+            <domain>.at</domain>
+            <nomatch>nothing found</nomatch>
+        </server>
+        <server>
+            <host>whois.aunic.net</host>
+            <port>43</port>
+            <domain>.au</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.dns.be</host>
+            <port>43</port>
+            <domain>.be</domain>
+            <!-- <nomatch>no such domain</nomatch> -->
+            <nomatch>free</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.bg</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.cm</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.cc</host>
+            <port>43</port>
+            <domain>.cc</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.ck-nic.org.ck</host>
+            <port>43</port>
+            <domain>.ck</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.cnnic.net.cn</host>
+            <port>43</port>
+            <domain>.cn</domain>
+            <nomatch>no matching record</nomatch>
+        </server>
+        <server>
+            <host>whois.cd</host>
+            <port>43</port>
+            <domain>.cd</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.ch</host>
+            <port>43</port>
+            <domain>.ch</domain>
+            <nomatch>not have an entry</nomatch>
+        </server>
+        <server>
+            <host>nic.cl</host>
+            <port>43</port>
+            <domain>.cl</domain>
+            <nomatch>no existe</nomatch>
+        </server>
+        <server>
+            <host>whois.denic.de</host>
+            <port>43</port>
+            <domain>.de</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.dk-hostmaster.dk</host>
+            <port>43</port>
+            <domain>.dk</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.fo</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.fr</host>
+            <port>43</port>
+            <domain>.fr</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.gm</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.gl</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.adamsnames.tc</host>
+            <port>43</port>
+            <domain>.gs</domain>
+            <nomatch>is not registred</nomatch>
+        </server>
+        <server>
+            <host>whois.hknic.net.hk</host>
+            <port>43</port>
+            <domain>.hk</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.hu</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.domainregistry.ie</host>
+            <port>43</port>
+            <domain>.ie</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.isnet.is</host>
+            <port>43</port>
+            <domain>.is</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.isoc.org.il</host>
+            <port>43</port>
+            <domain>.il</domain>
+            <nomatch>no data</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.it</host>
+            <port>43</port>
+            <domain>.it</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.ad.jp</host>
+            <port>43</port>
+            <domain>.jp</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.krnic.net</host>
+            <port>43</port>
+            <domain>.kr</domain>
+            <nomatch>not registered</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.li</host>
+            <port>43</port>
+            <domain>.li</domain>
+            <nomatch>not have an entry</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.lv</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.lt</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.dns.lu</host>
+            <port>43</port>
+            <domain>.lu</domain>
+            <nomatch>no such domain</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.mc</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.adamsnames.tc</host>
+            <port>43</port>
+            <domain>.ms</domain>
+            <nomatch>not registered</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.mn</host>
+            <port>43</port>
+            <domain>.mn</domain>
+            <nomatch>not found</nomatch>
+        </server>
+        <server>
+            <host>whois.domain-registry.nl</host>
+            <port>43</port>
+            <domain>.nl</domain>
+        </server>
+        <server>
+            <host>whois.norid.no</host>
+            <port>43</port>
+            <domain>.no</domain>
+            <nomatch>no matches</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.nu</host>
+            <port>43</port>
+            <domain>.nu</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.fr</host>
+            <port>43</port>
+            <domain>.pm</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.fr</host>
+            <port>43</port>
+            <domain>.re</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.ripn.net</host>
+            <port>43</port>
+            <domain>.ru</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.sh</host>
+            <port>43</port>
+            <domain>.sh</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.sk</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.st</host>
+            <port>43</port>
+            <domain>.st</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic-se.se</host>
+            <port>43</port>
+            <domain>.se</domain>
+            <nomatch>no data found</nomatch>
+        </server>
+        <server>
+            <host>whois.arnes.si</host>
+            <port>43</port>
+            <domain>.si</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.net.sg</host>
+            <port>43</port>
+            <domain>.sg</domain>
+            <nomatch>nomatch</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.sm</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.adamsnames.tc</host>
+            <port>43</port>
+            <domain>.tc</domain>
+            <nomatch>not registered</nomatch>
+        </server>
+        <server>
+            <host>whois.tonic.to</host>
+            <port>43</port>
+            <domain>.to</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.thnic.net</host>
+            <port>43</port>
+            <domain>.th</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.tm</host>
+            <port>43</port>
+            <domain>.tm</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.adamsnames.tc</host>
+            <port>43</port>
+            <domain>.tf</domain>
+            <nomatch>not registered</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.tr</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.uk</host>
+            <port>43</port>
+            <domain>.uk</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.ripe.net</host>
+            <port>43</port>
+            <domain>.va</domain>
+            <nomatch>no entries found</nomatch>
+        </server>
+        <server>
+            <host>whois.adamsnames.tc</host>
+            <port>43</port>
+            <domain>.vg</domain>
+            <nomatch>not registered</nomatch>
+        </server>
+        <server>
+            <host>whois.worldsite.ws</host>
+            <port>43</port>
+            <domain>.ws</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.networksolutions.com</host>
+            <port>43</port>
+            <domain>.com</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.networksolutions.com</host>
+            <port>43</port>
+            <domain>.net</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.networksolutions.com</host>
+            <port>43</port>
+            <domain>.org</domain>
+            <nomatch>no match</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.biz</host>
+            <port>43</port>
+            <domain>.biz</domain>
+            <nomatch>not found</nomatch>
+        </server>
+        <server>
+            <host>whois.afilias.ne</host>
+            <port>43</port>
+            <domain>.info</domain>
+            <nomatch>not found</nomatch>
+        </server>
+        <server>
+            <host>whois.nic.uk</host>
+            <port>43</port>
+            <domain>.co.uk</domain>
+            <nomatch>no match</nomatch>
+        </server>
+    </servers>
+    <server>
+        <host>whois.nic.ad.jp</host>
+        <port>43</port>
+        <domain>.ad.jp</domain>
+        <nomatch>no match</nomatch>
+    </server>
+    <server>
+        <host>whois.nic.or.kr</host>
+        <port>43</port>
+        <domain>.or.kr</domain>
+        <nomatch>not registered</nomatch>
+    </server>
+    <server>
+        <host>whois.nic.name</host>
+        <port>43</port>
+        <domain>.name</domain>
+        <nomatch>no match</nomatch>
+    </server>
+</serverdefinition>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:avatar:metadata'
+    xmlns='urn:xmpp:avatar:metadata'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0084: http://www.xmpp.org/extensions/xep-0084.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='metadata'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:sequence minOccurs='0' maxOccurs='1'>
+          <xs:element ref='info' minOccurs='1' maxOccurs='unbounded'/>
+          <xs:element ref='pointer' minOccurs='0' maxOccurs='unbounded'/>
+        </xs:sequence>
+        <xs:element name='stop' type='empty'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='info'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='bytes' type='xs:unsignedShort' use='required'/>
+          <xs:attribute name='height' type='xs:unsignedByte' use='optional'/>
+          <xs:attribute name='id' type='xs:string' use='required'/>
+          <xs:attribute name='type' type='xs:string' use='required'/>
+          <xs:attribute name='url' type='xs:anyURI' use='optional'/>
+          <xs:attribute name='width' type='xs:unsignedByte' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='pointer'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:any namespace='##other'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

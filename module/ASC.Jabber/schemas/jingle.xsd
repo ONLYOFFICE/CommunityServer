@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:jingle:1'
+    xmlns='urn:xmpp:jingle:1'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0166: http://www.xmpp.org/extensions/xep-0166.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='jingle'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='content' 
+                    type='contentElementType'
+                    minOccurs='0' 
+                    maxOccurs='unbounded'/>
+        <xs:element name='reason' 
+                    type='reasonElementType'
+                    minOccurs='0' 
+                    maxOccurs='1'/>
+        <xs:any namespace='##other' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='action' use='required'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='content-accept'/>
+            <xs:enumeration value='content-add'/>
+            <xs:enumeration value='content-modify'/>
+            <xs:enumeration value='content-reject'/>
+            <xs:enumeration value='content-remove'/>
+            <xs:enumeration value='description-info'/>
+            <xs:enumeration value='security-info'/>
+            <xs:enumeration value='session-accept'/>
+            <xs:enumeration value='session-info'/>
+            <xs:enumeration value='session-initiate'/>
+            <xs:enumeration value='session-terminate'/>
+            <xs:enumeration value='transport-accept'/>
+            <xs:enumeration value='transport-info'/>
+            <xs:enumeration value='transport-reject'/>
+            <xs:enumeration value='transport-replace'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name='initiator' type='xs:string' use='optional'/>
+      <xs:attribute name='responder' type='xs:string' use='optional'/>
+      <xs:attribute name='sid' type='xs:NMTOKEN' use='required'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name='alternativeSessionElementType'>
+    <xs:sequence>
+      <xs:element name='sid'
+                  minOccurs='0'
+                  maxOccurs='1'
+                  type='xs:NMTOKEN'/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name='contentElementType'>
+    <xs:sequence>
+      <xs:any namespace='##other' minOccurs='0' maxOccurs='unbounded'/>
+    </xs:sequence>
+    <xs:attribute name='creator'
+                  use='required'>
+      <xs:simpleType>
+        <xs:restriction base='xs:NCName'>
+          <xs:enumeration value='initiator'/>
+          <xs:enumeration value='responder'/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name='disposition'
+                  use='optional'
+                  type='xs:NCName'
+                  default='session'/>
+    <xs:attribute name='name'
+                  use='required'
+                  type='xs:string'/>
+    <xs:attribute name='senders'
+                  use='optional'
+                  default='both'>
+      <xs:simpleType>
+        <xs:restriction base='xs:NCName'>
+          <xs:enumeration value='both'/>
+          <xs:enumeration value='initiator'/>
+          <xs:enumeration value='none'/>
+          <xs:enumeration value='responder'/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name='reasonElementType'>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name='alternative-session' 
+                    type='alternativeSessionElementType'/>
+        <xs:element name='busy' type='empty'/>
+        <xs:element name='cancel' type='empty'/>
+        <xs:element name='connectivity-error' type='empty'/>
+        <xs:element name='decline' type='empty'/>
+        <xs:element name='expired' type='empty'/>
+        <xs:element name='failed-application' type='empty'/>
+        <xs:element name='failed-transport' type='empty'/>
+        <xs:element name='general-error' type='empty'/>
+        <xs:element name='gone' type='empty'/>
+        <xs:element name='incompatible-parameters' type='empty'/>
+        <xs:element name='media-error' type='empty'/>
+        <xs:element name='security-error' type='empty'/>
+        <xs:element name='success' type='empty'/>
+        <xs:element name='timeout' type='empty'/>
+        <xs:element name='unsupported-applications' type='empty'/>
+        <xs:element name='unsupported-transports' type='empty'/>
+      </xs:choice>
+      <xs:element name='text' type='xs:string' minOccurs='0' maxOccurs='1'/>
+      <xs:any namespace='##other' minOccurs='0' maxOccurs='1'/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

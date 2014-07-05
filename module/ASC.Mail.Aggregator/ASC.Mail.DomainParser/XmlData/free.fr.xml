@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="free.fr">
+    <domain>free.fr</domain>
+    <displayName>Free Telecom</displayName>
+    <displayShortName>free.fr</displayShortName>
+
+    <incomingServer type="imap">
+      <hostname>imap.free.fr</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+
+    <incomingServer type="pop3">
+      <hostname>pop.free.fr</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+
+    <outgoingServer type="smtp">
+      <hostname>smtp.free.fr</hostname>
+      <port>25</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+      <restriction>client-IP-address</restriction>
+    </outgoingServer>
+    <!-- The following config also exists, but
+         - the user needs to manually enable
+           "SMTP auth" in their admin webpages, as noted below.
+         - Free says this is not supposed to be used
+           inside the Free network, because checking the password is
+           unnecessary in that case and uses "unnecessary CPU resources".
+         This means that users can't move outside home
+         with the default config. :-( See bug 556750.
+    <outgoingServer type="smtp">
+      <hostname>smtp.free.fr</hostname>
+      <port>587</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-encrypted</authentication>
+    </outgoingServer>
+    -->
+
+    <documentation url="http://www.free.fr/assistance/599-thunderbird.html">
+      <descr lang="en">How to set up Thunderbird with Free.fr</descr>
+      <descr lang="fr">Configurer Thunderbird avec Free</descr>
+    </documentation>
+    <documentation url="http://www.free.fr/assistance/2514-interet-et-fonctionnement.html">
+      <descr lang="en">How to setup a secure IMAP account</descr>
+      <descr lang="fr">Serveur de réception IMAP sécurisé SSL</descr>
+    </documentation>
+    <documentation url="http://www.free.fr/assistance/2407-interet-et-fonctionnement.html">
+      <descr lang="en">How to enable authenticated SMTP</descr>
+      <descr lang="fr">Comment activer le serveur d'envoi SMTP authentifié</descr>
+    </documentation>
+  </emailProvider>
+</clientConfig>

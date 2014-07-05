@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ *
+ * SQLite.Interop.2010.props -
+ *
+ * Written by Joe Mistachkin.
+ * Released to the public domain, use at your own risk!
+ *
+-->
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup Label="UserMacros">
+    <ConfigurationYear>2010</ConfigurationYear>
+    <INTEROP_BUILD_NUMBER>080</INTEROP_BUILD_NUMBER>
+    <INTEROP_MANIFEST_VERSION>1.0.80.0</INTEROP_MANIFEST_VERSION>
+    <INTEROP_RC_VERSION>1,0,80,0</INTEROP_RC_VERSION>
+    <INTEROP_ASSEMBLY_RESOURCES>/ASSEMBLYRESOURCE:..\System.Data.SQLite\SQLiteCommand.bmp,System.Data.SQLite.SQLiteCommand.bmp /ASSEMBLYRESOURCE:..\System.Data.SQLite\SQLiteConnection.bmp,System.Data.SQLite.SQLiteConnection.bmp /ASSEMBLYRESOURCE:..\System.Data.SQLite\SQLiteDataAdapter.bmp,System.Data.SQLite.SQLiteDataAdapter.bmp</INTEROP_ASSEMBLY_RESOURCES>
+    <INTEROP_KEY_FILE>$(ProjectDir)..\System.Data.SQLite\System.Data.SQLite.snk</INTEROP_KEY_FILE>
+    <INTEROP_NATIVE_NAME>SQLite.Interop</INTEROP_NATIVE_NAME>
+    <INTEROP_MIXED_NAME>System.Data.SQLite</INTEROP_MIXED_NAME>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="ConfigurationYear">
+      <Value>$(ConfigurationYear)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="INTEROP_BUILD_NUMBER">
+      <Value>$(INTEROP_BUILD_NUMBER)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="INTEROP_MANIFEST_VERSION">
+      <Value>$(INTEROP_MANIFEST_VERSION)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="INTEROP_RC_VERSION">
+      <Value>$(INTEROP_RC_VERSION)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="INTEROP_ASSEMBLY_RESOURCES">
+      <Value>$(INTEROP_ASSEMBLY_RESOURCES)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="INTEROP_KEY_FILE">
+      <Value>$(INTEROP_KEY_FILE)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="INTEROP_NATIVE_NAME">
+      <Value>$(INTEROP_NATIVE_NAME)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="INTEROP_MIXED_NAME">
+      <Value>$(INTEROP_MIXED_NAME)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

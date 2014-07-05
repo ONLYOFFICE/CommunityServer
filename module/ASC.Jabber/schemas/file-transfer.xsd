@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/si/profile/file-transfer'
+    xmlns='http://jabber.org/protocol/si/profile/file-transfer'
+    elementFormDefault='qualified'>
+  
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0096: http://www.xmpp.org/extensions/xep-0096.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='file'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0'>
+        <xs:element name='desc' type='xs:string'/>
+        <xs:element ref='range'/>
+      </xs:sequence>
+      <xs:attribute name='date' type='xs:dateTime' use='optional'/>
+      <xs:attribute name='hash' type='xs:string' use='optional'/>
+      <xs:attribute name='name' type='xs:string' use='required'/>
+      <xs:attribute name='size' type='xs:integer' use='required'/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name='range'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='length' type='xs:integer' use='optional'/>
+          <xs:attribute name='offset' type='xs:integer' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

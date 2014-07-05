@@ -1,0 +1,7 @@
+﻿<todo-list>
+	<name>{0}</name>
+	<description>{1}</description>
+	<milestone-id>{2}</milestone-id>
+	<private type="boolean">{3}</private>
+	<tracked type="boolean">{4}</tracked>
+</todo-list>

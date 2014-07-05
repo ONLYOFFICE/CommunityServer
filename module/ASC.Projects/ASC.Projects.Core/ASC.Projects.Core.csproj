@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{98330417-CF62-4624-94DC-271433945E27}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Projects.Core</RootNamespace>
+    <AssemblyName>ASC.Projects.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ASC.Common">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataInterfaces\ISubtaskDao.cs" />
+    <Compile Include="DataInterfaces\ITemplateDao.cs" />
+    <Compile Include="DataInterfaces\IReportDao.cs" />
+    <Compile Include="Domain\Entities\Enums\PaymentStatusEnum.cs" />
+    <Compile Include="Domain\Entities\Enums\ProjectTeamSecurity.cs" />
+    <Compile Include="Domain\Entities\Enums\ModuleTypeEnum.cs" />
+    <Compile Include="Domain\Entities\Enums\TaskLinkTypeEnum.cs" />
+    <Compile Include="Domain\Entities\Feed\CommentUpdates.cs" />
+    <Compile Include="Domain\Entities\ParticipantFull.cs" />
+    <Compile Include="Domain\Entities\Subtask.cs" />
+    <Compile Include="Domain\Entities\TaskLink.cs" />
+    <Compile Include="Domain\Entities\Template.cs" />
+    <Compile Include="Domain\Entities\Enums\LocalizedEnumConverter.cs" />
+    <Compile Include="DataInterfaces\ICommentDao.cs" />
+    <Compile Include="DataInterfaces\IDaoFactory.cs" />
+    <Compile Include="DataInterfaces\IMessageDao.cs" />
+    <Compile Include="DataInterfaces\IMilestoneDao.cs" />
+    <Compile Include="DataInterfaces\IParticipantDao.cs" />
+    <Compile Include="DataInterfaces\IProjectDao.cs" />
+    <Compile Include="DataInterfaces\ISearchDao.cs" />
+    <Compile Include="DataInterfaces\ITagDao.cs" />
+    <Compile Include="DataInterfaces\ITaskDao.cs" />
+    <Compile Include="DataInterfaces\ITimeSpendDao.cs" />
+    <Compile Include="Domain\DomainObject.cs" />
+    <Compile Include="Domain\Entities\Comment.cs" />
+    <Compile Include="Domain\Entities\Enums\EntityTypeEnum.cs" />
+    <Compile Include="Domain\Entities\Enums\MilestoneStatusEnum.cs" />
+    <Compile Include="Domain\Entities\Enums\ProjectStatusEnum.cs" />
+    <Compile Include="Domain\Entities\Enums\TaskPriorityEnum.cs" />
+    <Compile Include="Domain\Entities\Enums\TaskStatusEnum.cs" />
+    <Compile Include="Domain\Entities\Message.cs" />
+    <Compile Include="Domain\Entities\Milestone.cs" />
+    <Compile Include="Domain\Entities\Participant.cs" />
+    <Compile Include="Domain\Entities\Project.cs" />
+    <Compile Include="Domain\Entities\Task.cs" />
+    <Compile Include="Domain\Entities\TimeSpend.cs" />
+    <Compile Include="Domain\FilterOperationResult.cs" />
+    <Compile Include="Domain\ProjectEntity.cs" />
+    <Compile Include="Domain\Reports\ReportFilter.cs" />
+    <Compile Include="Domain\Reports\ReportFilterSerializer.cs" />
+    <Compile Include="Domain\Reports\ReportTemplate.cs" />
+    <Compile Include="Domain\Reports\ReportTimeInterval.cs" />
+    <Compile Include="Domain\Reports\ReportType.cs" />
+    <Compile Include="Domain\Reports\ReportViewType.cs" />
+    <Compile Include="Domain\TaskFilter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ProjectsEnumResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectsEnumResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ProjectsPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectsPatternResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\NotifyService\NotifyClient.cs" />
+    <Compile Include="Services\NotifyService\NotifyConstants.cs" />
+    <Compile Include="Services\NotifyService\NotifySource.cs" />
+    <Compile Include="Services\NotifyService\PatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PatternResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Services\NotifyService\patterns.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ProjectsEnumResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectsEnumResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProjectsPatternResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectsPatternResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\PatternResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PatternResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile->'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath->'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="BeforeBuild">
+    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
+  </Target>
+</Project>

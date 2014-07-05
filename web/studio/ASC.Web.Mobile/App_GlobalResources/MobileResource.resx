@@ -1,0 +1,792 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAddComment" xml:space="preserve">
+    <value>Add comment</value>
+  </data>
+  <data name="BtnAddPost" xml:space="preserve">
+    <value>Add post</value>
+  </data>
+  <data name="BtnAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="BtnBack" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="BtnBlogs" xml:space="preserve">
+    <value>Blogs</value>
+  </data>
+  <data name="BtnBookmarks" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="BtnClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="BtnCreateBookmark" xml:space="preserve">
+    <value>Create bookmark</value>
+  </data>
+  <data name="BtnCreateDiscussion" xml:space="preserve">
+    <value>Create discussion</value>
+  </data>
+  <data name="BtnCreateDocument" xml:space="preserve">
+    <value>Add document</value>
+  </data>
+  <data name="BtnCreateFolder" xml:space="preserve">
+    <value>Add folder</value>
+  </data>
+  <data name="BtnCreateMilestone" xml:space="preserve">
+    <value>Create milestone</value>
+  </data>
+  <data name="BtnCreatePost" xml:space="preserve">
+    <value>Create post</value>
+  </data>
+  <data name="BtnCreateTask" xml:space="preserve">
+    <value>Create task</value>
+  </data>
+  <data name="BtnCreateTopic" xml:space="preserve">
+    <value>Create topic</value>
+  </data>
+  <data name="BtnEvents" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="BtnForums" xml:space="preserve">
+    <value>Forums</value>
+  </data>
+  <data name="BtnLoadComments" xml:space="preserve">
+    <value>Load comments</value>
+  </data>
+  <data name="BtnMore" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="BtnMyDocuments" xml:space="preserve">
+    <value>My documents</value>
+  </data>
+  <data name="BtnMyTasks" xml:space="preserve">
+    <value>My tasks</value>
+  </data>
+  <data name="BtnPolls" xml:space="preserve">
+    <value>Polls</value>
+  </data>
+  <data name="BtnProjects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="BtnSharedDocuments" xml:space="preserve">
+    <value>Common documents</value>
+  </data>
+  <data name="BtnSharedToMe" xml:space="preserve">
+    <value>Shared with me</value>
+  </data>
+  <data name="BtnUploadFile" xml:space="preserve">
+    <value>Upload file</value>
+  </data>
+  <data name="ErrAccessDeniedException" xml:space="preserve">
+    <value>Access is denied</value>
+  </data>
+  <data name="ErrAddDiscussionException" xml:space="preserve">
+    <value>An error occurred while adding a discussion.</value>
+  </data>
+  <data name="ErrAddMilestoneException" xml:space="preserve">
+    <value>An error occurred while adding a milestone.</value>
+  </data>
+  <data name="ErrAddTaskException" xml:space="preserve">
+    <value>An error occurred while adding a task.</value>
+  </data>
+  <data name="ErrEmailRequired" xml:space="preserve">
+    <value>Email is required</value>
+  </data>
+  <data name="ErrEmpyField" xml:space="preserve">
+    <value>Empty field</value>
+  </data>
+  <data name="ErrFileSize" xml:space="preserve">
+    <value>Maximum request length is exceeded.</value>
+  </data>
+  <data name="ErrFolderNoFiles" xml:space="preserve">
+    <value>Folder has no files.</value>
+  </data>
+  <data name="ErrGetBlogException" xml:space="preserve">
+    <value>An error occurred while retrieving the blog.</value>
+  </data>
+  <data name="ErrGetBookmarkException" xml:space="preserve">
+    <value>An error occurred while retrieving the bookmark.</value>
+  </data>
+  <data name="ErrGetDiscussionException" xml:space="preserve">
+    <value>An error occurred while retrieving the discussion.</value>
+  </data>
+  <data name="ErrGetEventException" xml:space="preserve">
+    <value>An error occurred while retrieving the event.</value>
+  </data>
+  <data name="ErrGetForumException" xml:space="preserve">
+    <value>An error occurred while retrieving the forum.</value>
+  </data>
+  <data name="ErrGetMilestoneException" xml:space="preserve">
+    <value>An error occurred while retrieving the milestone.</value>
+  </data>
+  <data name="ErrGetPollException" xml:space="preserve">
+    <value>An error occurred while retrieving the poll.</value>
+  </data>
+  <data name="ErrGetProjectException" xml:space="preserve">
+    <value>An error occurred while retrieving the project.</value>
+  </data>
+  <data name="ErrGetTaskException" xml:space="preserve">
+    <value>An error occurred while retrieving the task.</value>
+  </data>
+  <data name="ErrInvalidClient" xml:space="preserve">
+    <value>Sorry, the client is unsupported.</value>
+  </data>
+  <data name="ErrInvalidRequestException" xml:space="preserve">
+    <value>Invalid request</value>
+  </data>
+  <data name="ErrMilestoneNoTasks" xml:space="preserve">
+    <value>Milestone has no tasks.</value>
+  </data>
+  <data name="ErrNoBlogs" xml:space="preserve">
+    <value>No blogs.</value>
+  </data>
+  <data name="ErrNoBookmarks" xml:space="preserve">
+    <value>No bookmarks.</value>
+  </data>
+  <data name="ErrNoCommItems" xml:space="preserve">
+    <value>Community is empty.</value>
+  </data>
+  <data name="ErrNoEvents" xml:space="preserve">
+    <value>No events.</value>
+  </data>
+  <data name="ErrNoForums" xml:space="preserve">
+    <value>No forums.</value>
+  </data>
+  <data name="ErrNoPolls" xml:space="preserve">
+    <value>No polls.</value>
+  </data>
+  <data name="ErrNoTasks" xml:space="preserve">
+    <value>You have no tasks.</value>
+  </data>
+  <data name="ErrNoToken" xml:space="preserve">
+    <value>This third party account is not associated with any portal account</value>
+  </data>
+  <data name="ErrNotValidEmail" xml:space="preserve">
+    <value>Not a valid email</value>
+  </data>
+  <data name="ErrPasswordInvalid" xml:space="preserve">
+    <value>Invalid Password</value>
+  </data>
+  <data name="ErrPasswordRequired" xml:space="preserve">
+    <value>Password is required</value>
+  </data>
+  <data name="ErrPasswordTooShort" xml:space="preserve">
+    <value>Password must be at least 6 characters long</value>
+  </data>
+  <data name="ErrProjectNoDiscussions" xml:space="preserve">
+    <value>Project has no discussions.</value>
+  </data>
+  <data name="ErrProjectNoMilestones" xml:space="preserve">
+    <value>Project has no milestones.</value>
+  </data>
+  <data name="ErrProjectNoTasks" xml:space="preserve">
+    <value>Project has no tasks.</value>
+  </data>
+  <data name="ErrSearchNoResults" xml:space="preserve">
+    <value>Nothing could be found.</value>
+  </data>
+  <data name="ErrUnknownException" xml:space="preserve">
+    <value>Unknown exception.</value>
+  </data>
+  <data name="ErrUnknownExtension" xml:space="preserve">
+    <value>Sorry, we do not support this format.</value>
+  </data>
+  <data name="LblAddCommentTitle" xml:space="preserve">
+    <value>Add comment</value>
+  </data>
+  <data name="LblAddDocumentDialog" xml:space="preserve">
+    <value>Add document</value>
+  </data>
+  <data name="LblAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="LblBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="LblBlogs" xml:space="preserve">
+    <value>Blogs</value>
+  </data>
+  <data name="LblBookmark" xml:space="preserve">
+    <value>Bookmark</value>
+  </data>
+  <data name="LblBookmarks" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="LblClosed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="LblClosedTasks" xml:space="preserve">
+    <value>closed tasks</value>
+  </data>
+  <data name="LblCommunityTitle" xml:space="preserve">
+    <value>Community</value>
+  </data>
+  <data name="LblCopyrights" xml:space="preserve">
+    <value>Ascensio System SIA 2012</value>
+  </data>
+  <data name="LblCreateDocument" xml:space="preserve">
+    <value>Create document</value>
+  </data>
+  <data name="LblCreateFolder" xml:space="preserve">
+    <value>Create folder</value>
+  </data>
+  <data name="LblDeadline" xml:space="preserve">
+    <value>Deadline</value>
+  </data>
+  <data name="LblDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="LblDiscussions" xml:space="preserve">
+    <value>Discussions</value>
+  </data>
+  <data name="LblDocuments" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="LblDocumentsTitle" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="LblEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="LblEmailAddresses" xml:space="preserve">
+    <value>Email addresses</value>
+  </data>
+  <data name="LblEvent" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="LblEvents" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="LblFile" xml:space="preserve">
+    <value>Select file</value>
+  </data>
+  <data name="LblFiles" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="LblFileVersion" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="LblFolders" xml:space="preserve">
+    <value>Folders</value>
+  </data>
+  <data name="LblForum" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="LblForums" xml:space="preserve">
+    <value>Forums</value>
+  </data>
+  <data name="LblHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="LblInformation" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="LblLoading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="LblLogin" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="LblLogout" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
+  <data name="LblLostPassword" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+  <data name="LblLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="LblManager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="LblMilestones" xml:space="preserve">
+    <value>Milestones</value>
+  </data>
+  <data name="LblMilestoneTasks" xml:space="preserve">
+    <value>Milestone tasks</value>
+  </data>
+  <data name="LblMobilePhone" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="LblMyDiscussions" xml:space="preserve">
+    <value>My discussions</value>
+  </data>
+  <data name="LblMyFiles" xml:space="preserve">
+    <value>My files</value>
+  </data>
+  <data name="LblMyProjects" xml:space="preserve">
+    <value>My projects</value>
+  </data>
+  <data name="LblMyTasks" xml:space="preserve">
+    <value>My tasks</value>
+  </data>
+  <data name="LblMyTeam" xml:space="preserve">
+    <value>My team</value>
+  </data>
+  <data name="LblNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="LblPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="LblPeopleTitle" xml:space="preserve">
+    <value>People</value>
+  </data>
+  <data name="LblPhone" xml:space="preserve">
+    <value>Tel</value>
+  </data>
+  <data name="LblPhoneNumbers" xml:space="preserve">
+    <value>Phone numbers</value>
+  </data>
+  <data name="LblPoll" xml:space="preserve">
+    <value>Poll</value>
+  </data>
+  <data name="LblPolls" xml:space="preserve">
+    <value>Polls</value>
+  </data>
+  <data name="LblProjectDiscussions" xml:space="preserve">
+    <value>Project discussions</value>
+  </data>
+  <data name="LblProjectFiles" xml:space="preserve">
+    <value>Project files</value>
+  </data>
+  <data name="LblProjectMilestones" xml:space="preserve">
+    <value>Project milestones</value>
+  </data>
+  <data name="LblProjects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="LblProjectsTitle" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="LblProjectTasks" xml:space="preserve">
+    <value>Project tasks</value>
+  </data>
+  <data name="LblProjectTeam" xml:space="preserve">
+    <value>Project team</value>
+  </data>
+  <data name="LblSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="LblSearchTitle" xml:space="preserve">
+    <value>Search results</value>
+  </data>
+  <data name="LblSelectMilestone" xml:space="preserve">
+    <value>Select milestone</value>
+  </data>
+  <data name="LblSelectProject" xml:space="preserve">
+    <value>Select project</value>
+  </data>
+  <data name="LblSelectResponsible" xml:space="preserve">
+    <value>Select responsible</value>
+  </data>
+  <data name="LblSelectThread" xml:space="preserve">
+    <value>Select forum</value>
+  </data>
+  <data name="LblStandartVersion" xml:space="preserve">
+    <value>Standard version</value>
+  </data>
+  <data name="LblTags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="LblTasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="LblTeam" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="LblText" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="LblTextFile" xml:space="preserve">
+    <value>Text file</value>
+  </data>
+  <data name="LblTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>to</value>
+  </data>
+  <data name="LblToday" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="LblUnsortedTasks" xml:space="preserve">
+    <value>Unsorted tasks</value>
+  </data>
+  <data name="LblUpdate" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="LblUploadFile" xml:space="preserve">
+    <value>Load file</value>
+  </data>
+  <data name="LblUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>No responsible</value>
+  </data>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Teamlab</value>
+  </data>
+  <data name="ErrNoProjects" xml:space="preserve">
+    <value>No projects</value>
+  </data>
+  <data name="LblAddBlogTitle" xml:space="preserve">
+    <value>Create blog</value>
+  </data>
+  <data name="LblAddBookmarkTitle" xml:space="preserve">
+    <value>Create bookmark</value>
+  </data>
+  <data name="LblAddEventTitle" xml:space="preserve">
+    <value>Create event</value>
+  </data>
+  <data name="LblAddForumTitle" xml:space="preserve">
+    <value>Create forum</value>
+  </data>
+  <data name="LblAddPollTitle" xml:space="preserve">
+    <value>Create poll</value>
+  </data>
+  <data name="LblCrmTitle" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="BtnActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="BtnCompanies" xml:space="preserve">
+    <value>Companies</value>
+  </data>
+  <data name="BtnPersons" xml:space="preserve">
+    <value>Persons</value>
+  </data>
+  <data name="ErrNoCustomers" xml:space="preserve">
+    <value>No customers.</value>
+  </data>
+  <data name="LblCreateCompany" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="LblCreateDialog" xml:space="preserve">
+    <value>Create...</value>
+  </data>
+  <data name="LblCreatePerson" xml:space="preserve">
+    <value>Person</value>
+  </data>
+  <data name="BtnFiles" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="BtnHistory" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="BtnInfo" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="BtnTasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="LblDay" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="LblMonth" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="LblYear" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="LblPortals" xml:space="preserve">
+    <value>Portals</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="BtnSet" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="ErrDisabledCookie" xml:space="preserve">
+    <value>Your browser's cookie functionality is turned off.</value>
+  </data>
+  <data name="ErrNoRewrite" xml:space="preserve">
+    <value>Sorry, we do not move you.</value>
+  </data>
+  <data name="LblMove" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="AddCrmDoc" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="AddCrmHistory" xml:space="preserve">
+    <value>History event</value>
+  </data>
+  <data name="AddCrmTask" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="BtnCrmAddCompany" xml:space="preserve">
+    <value>Add  company</value>
+  </data>
+  <data name="BtnCrmAddDoc" xml:space="preserve">
+    <value>Add document</value>
+  </data>
+  <data name="BtnCrmAddHistoryEvent" xml:space="preserve">
+    <value>Add event</value>
+  </data>
+  <data name="BtnCrmAddPerson" xml:space="preserve">
+    <value>Add person</value>
+  </data>
+  <data name="BtnCrmAddTask" xml:space="preserve">
+    <value>Add task</value>
+  </data>
+  <data name="BtnCrmEditCompany" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="BtnCrmEditContact" xml:space="preserve">
+    <value>Edit contact</value>
+  </data>
+  <data name="BtnCrmEditPerson" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="BtnCrmLastTasks" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="BtnCrmNextTasks" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="BtnCrmTodayTasks" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="ContactsListTitle" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="CrmAddCompanyPage" xml:space="preserve">
+    <value>Add company</value>
+  </data>
+  <data name="CrmAddDocumentPage" xml:space="preserve">
+    <value>Add doc</value>
+  </data>
+  <data name="CrmAddHistoryEventPage" xml:space="preserve">
+    <value>Add event</value>
+  </data>
+  <data name="CrmAddPersonPage" xml:space="preserve">
+    <value>Add person</value>
+  </data>
+  <data name="CrmAddressCity" xml:space="preserve">
+    <value>city</value>
+  </data>
+  <data name="CrmAddressCountry" xml:space="preserve">
+    <value>country</value>
+  </data>
+  <data name="CrmAddressState" xml:space="preserve">
+    <value>state</value>
+  </data>
+  <data name="CrmAddressStreet" xml:space="preserve">
+    <value>street</value>
+  </data>
+  <data name="CrmAddressZipcode" xml:space="preserve">
+    <value>zip</value>
+  </data>
+  <data name="CrmAddTaskPage" xml:space="preserve">
+    <value>Add task</value>
+  </data>
+  <data name="CrmCompanyName" xml:space="preserve">
+    <value>Company name</value>
+  </data>
+  <data name="CrmContactInfo" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="CrmContactPersonsPage" xml:space="preserve">
+    <value>Persons</value>
+  </data>
+  <data name="CrmDocsPage" xml:space="preserve">
+    <value>Docs</value>
+  </data>
+  <data name="CrmHistoryPage" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="CrmPersonFirsrName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="CrmPersonLastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="ErrCrmNoContactFiles" xml:space="preserve">
+    <value>No files</value>
+  </data>
+  <data name="ErrCrmNoContactHistory" xml:space="preserve">
+    <value>No history events</value>
+  </data>
+  <data name="ErrCrmNoContactPersons" xml:space="preserve">
+    <value>No persons</value>
+  </data>
+  <data name="ErrCrmNoContactTasks" xml:space="preserve">
+    <value>No tasks</value>
+  </data>
+  <data name="LblDatapicCrmData" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="LblDatapicCrmDueData" xml:space="preserve">
+    <value>Due data</value>
+  </data>
+  <data name="LblInputEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="LblInputPhone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="LblInputPosition" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="LblInputWebSite" xml:space="preserve">
+    <value>Web Site/Social Networks</value>
+  </data>
+  <data name="LblSelectCategory" xml:space="preserve">
+    <value>Select category</value>
+  </data>
+  <data name="LblSelectCompany" xml:space="preserve">
+    <value>Select company</value>
+  </data>
+  <data name="LblSelectEventType" xml:space="preserve">
+    <value>Event type</value>
+  </data>
+  <data name="LblTaskCategory" xml:space="preserve">
+    <value>Task category</value>
+  </data>
+  <data name="TasksListTitle" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>comment has been deleted</value>
+  </data>
+  <data name="BtnCrmClosedTasks" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="ErrCodeRequired" xml:space="preserve">
+    <value>Code is required</value>
+  </data>
+  <data name="ErrCodeTooShort" xml:space="preserve">
+    <value>Code must be 6 characters long</value>
+  </data>
+  <data name="LblCode" xml:space="preserve">
+    <value>An SMS with the portal access code has been sent to your mobile phone number. Please enter the code</value>
+  </data>
+  <data name="ErrMobileNotActivate" xml:space="preserve">
+    <value>Your primary mobile phone is not activate. Please log in to the standart version and activate the phone</value>
+  </data>
+  <data name="LblResendSms" xml:space="preserve">
+    <value>Send code again</value>
+  </data>
+</root>

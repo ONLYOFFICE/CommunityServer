@@ -1,0 +1,31 @@
+{
+	"en" : {
+		"quotes" : [
+			{"value": "Teamlab claims to combine the best of Google’s online collaboration features with Microsoft Word’s high quality formatting.", "author" : "TechCrunch", "link" : "http://techcrunch.com/2014/01/09/teamlab/"},
+			{"value": "Teamlab launches free alternative to Google Docs and MS Office.", "author": "LiveEnterprise", "link": "http://www.liventerprise.com/news/4301/"},
+			{"value": "It’s probably the most Microsoft-like office replacement we’ve seen!", "author": "ThunderCloud", "link": "http://thundercloud.net/infoave/new/still-looking-for-a-good-replacement-for-microsoft-office/#comment-194357"},
+			{"value": "An Online Office Suite That's A Real Alternative To Microsoft Or Google.", "author": "Gizmo's Freeware", "link": "https://www.techsupportalert.com/content/online-office-suite-thats-real-alternative-microsoft-or-google.htm"}
+		]
+	},
+	"ru" : {
+		"quotes" : [
+			{"value": "Teamlab запустил альтернативу Google Docs и MS Office.", "author": "LiveBusiness", "link": "http://www.livebusiness.ru/news/11202"}
+		]
+	},
+	"es" : {
+		"quotes" : [
+			{"value": "Se trata de un digno competidor de Google Docs.", "author": "WWWhat's new", "link": "Feel free to contact us at personal@onlyoffice.com or join our Facebook community!"}
+		]
+	},
+	"fr" : {
+		"quotes" : [
+			{"value": "TeamLab Personal: une suite bureautique en ligne gratuite à découvrir.", "author": "Freewares&Tutos", "link": "http://freewares-tutos.blogspot.ru/2014/01/teamlab-personal-une-suite-bureautique.html"},
+			{"value": "Une alternative simple aux Google apps pour tous les allergiques au géant de Palo Alto.", "author": "Les Outils Collaboratifs", "link": "http://outilscollaboratifs.com/2014/01/teamlab-personal-suite-bureautique-en-ligne-collaborative/"}
+		]
+	},
+	"it" : {
+		"quotes" : [
+			{"value": "Desktopless per creare, editare e condividere documenti online.", "author": "Progweb", "link": "http://progweb.altervista.org/desktopless-per-creare-editare-e-condividere-documenti-online/"}
+		]
+	}
+}

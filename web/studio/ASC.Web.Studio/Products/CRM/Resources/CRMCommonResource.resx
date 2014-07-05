@@ -1,0 +1,1186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionText_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="ActionText_Delete" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="ActionText_Update" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddEmployeesButton" xml:space="preserve">
+    <value>New participant</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Add participant</value>
+  </data>
+  <data name="AddParticipantProgressText" xml:space="preserve">
+    <value>Adding participant</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Add tag</value>
+  </data>
+  <data name="AddNoteToContactHistory" xml:space="preserve">
+    <value>Add event to contact history</value>
+  </data>
+  <data name="AddThisMember" xml:space="preserve">
+    <value>Add this participant</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Add this event</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Adding the note...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Add {!user}</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Corresponding TeamLab CRM field</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Link with contact</value>
+  </data>
+  <data name="AttachThisNoteToDeal" xml:space="preserve">
+    <value>Link with opportunity</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Case</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Cases</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Unlink contact</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Choose</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Reset filter</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Close this window</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Close window</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>File column</value>
+  </data>
+  <data name="ContactNotSet" xml:space="preserve">
+    <value>Contact is not set</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Currency convertor</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Convert</value>
+  </data>
+  <data name="CreateBy" xml:space="preserve">
+    <value>Author: {0}</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Creation date</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Add new tag</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="Currency_ArgentinianPeso" xml:space="preserve">
+    <value>Argentinian Peso</value>
+  </data>
+  <data name="Currency_AustralianDollar" xml:space="preserve">
+    <value>Australian Dollar</value>
+  </data>
+  <data name="Currency_BrazilianReal" xml:space="preserve">
+    <value>Brazilian Real</value>
+  </data>
+  <data name="Currency_CanadianDollar" xml:space="preserve">
+    <value>Canadian Dollar</value>
+  </data>
+  <data name="Currency_ChineseYuan" xml:space="preserve">
+    <value>Chinese Yuan</value>
+  </data>
+  <data name="Currency_DanishKrone" xml:space="preserve">
+    <value>Danish Krone</value>
+  </data>
+  <data name="Currency_Euro" xml:space="preserve">
+    <value>Euro</value>
+  </data>
+  <data name="Currency_HongKongDollar" xml:space="preserve">
+    <value>Hong Kong Dollar</value>
+  </data>
+  <data name="Currency_HungarianForint" xml:space="preserve">
+    <value>Hungarian Forint</value>
+  </data>
+  <data name="Currency_IndianRupee" xml:space="preserve">
+    <value>Indian Rupee</value>
+  </data>
+  <data name="Currency_IsraeliSheqel" xml:space="preserve">
+    <value>Israeli Shekel</value>
+  </data>
+  <data name="Currency_JapaneseYen" xml:space="preserve">
+    <value>Japanese Yen</value>
+  </data>
+  <data name="Currency_MexicanPeso" xml:space="preserve">
+    <value>Mexican Peso</value>
+  </data>
+  <data name="Currency_MoroccanDirham" xml:space="preserve">
+    <value>Moroccan Dirham</value>
+  </data>
+  <data name="Currency_NewZealandDollar" xml:space="preserve">
+    <value>New Zealand Dollar</value>
+  </data>
+  <data name="Currency_NorwegianKrone" xml:space="preserve">
+    <value>Norwegian Krone</value>
+  </data>
+  <data name="Currency_PhilippinePeso" xml:space="preserve">
+    <value>Philippine Peso</value>
+  </data>
+  <data name="Currency_PoundSterling" xml:space="preserve">
+    <value>Pound Sterling</value>
+  </data>
+  <data name="Currency_Rouble" xml:space="preserve">
+    <value>Rouble</value>
+  </data>
+  <data name="Currency_SingaporeDollar" xml:space="preserve">
+    <value>Singapore Dollar</value>
+  </data>
+  <data name="Currency_SouthAfricanRand" xml:space="preserve">
+    <value>South African Rand</value>
+  </data>
+  <data name="Currency_SouthKoreanWon" xml:space="preserve">
+    <value>South Korean Won</value>
+  </data>
+  <data name="Currency_SwedishKrona" xml:space="preserve">
+    <value>Swedish Krona</value>
+  </data>
+  <data name="Currency_SwissFranc" xml:space="preserve">
+    <value>Swiss Franc</value>
+  </data>
+  <data name="Currency_ThaiBaht" xml:space="preserve">
+    <value>Thai Baht</value>
+  </data>
+  <data name="Currency_TurkishNewLira" xml:space="preserve">
+    <value>Turkish New Lira</value>
+  </data>
+  <data name="Currency_UnitedArabEmiratesDirham" xml:space="preserve">
+    <value>United Arab Emirates Dirham</value>
+  </data>
+  <data name="Currency_UnitedStatesDollar" xml:space="preserve">
+    <value>United States Dollar</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Current {!user}</value>
+  </data>
+  <data name="DashboardModuleName" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Opportunities</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Delete this event</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Delete participant</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Delete tag</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Delete user</value>
+  </data>
+  <data name="DescribeUpload" xml:space="preserve">
+    <value>Note: the file size cannot exceed {1}{0} MB{2}</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DoneEditTags" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Enter amount</value>
+  </data>
+  <data name="ExchangeRatesOrigin" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Find a company or a person by name...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Hide file attachment panel</value>
+  </data>
+  <data name="HideOptions" xml:space="preserve">
+    <value>Hide settings</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Phone call</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Appointment</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Information is submitted</value>
+  </data>
+  <data name="InviteEmloyeesButton" xml:space="preserve">
+    <value>Invite</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Link with</value>
+  </data>
+  <data name="MainTitle" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Calculator</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Next record</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>No records</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>No matches</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+  <data name="NoSetCases" xml:space="preserve">
+    <value>No case is selected</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Notify</value>
+  </data>
+  <data name="NotifyUsersByThisNote" xml:space="preserve">
+    <value>Notify users about this record</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OrAttachThisNoteToCase" xml:space="preserve">
+    <value>Or with case</value>
+  </data>
+  <data name="Part" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Opportunity participant list is empty</value>
+  </data>
+  <data name="PortalSettingsButton" xml:space="preserve">
+    <value>Portal Settings</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Previous record</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Previous Step</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Available to {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Restrict access</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>The access is granted to all the portal {!users} by default. To restrict the access check the box below.
+    </value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Access rights</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Manage your customer relations, identify priority contacts, track communication history and sales performance.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="RelationshipEvent" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Linked with</value>
+  </data>
+  <data name="ReportModuleName" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Responsible</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Saving changes...</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Notify users</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Show file attachment panel</value>
+  </data>
+  <data name="ShowOptionsForContact" xml:space="preserve">
+    <value>Show settings (link with a case, opportunity, attach files, link with a date)</value>
+  </data>
+  <data name="ShowOptionsForEntity" xml:space="preserve">
+    <value>Show settings (link with a contact, attach files, link with a date)</value>
+  </data>
+  <data name="ShowSample" xml:space="preserve">
+    <value>Show an example</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Summary table</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="ThisIsThe" xml:space="preserve">
+    <value>This</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Attach file</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Show files</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="СorrelateWithTheDate" xml:space="preserve">
+    <value>Link with date</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Please, wait.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>SelectAll</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Send Email</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>By responsible</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>With tag</value>
+  </data>
+  <data name="Currency_GeorgianLari" xml:space="preserve">
+    <value>Georgian Lari</value>
+  </data>
+  <data name="Currency_MalaysianRinggit" xml:space="preserve">
+    <value>Malaysian Ringgit</value>
+  </data>
+  <data name="Currency_PolishZloty" xml:space="preserve">
+    <value>Polish Zloty</value>
+  </data>
+  <data name="Currency_UkraineHryvnia" xml:space="preserve">
+    <value>Ukraine Hryvnia</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="Currency_CzechKoruna" xml:space="preserve">
+    <value>Czech Koruna</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Are you sure you want to delete these elements?</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>By date</value>
+  </data>
+  <data name="FilterByType" xml:space="preserve">
+    <value>By type</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Last month</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>My</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>This month</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Sending</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Letter Body</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>By category</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Export current list to CSV-file</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="Currency_AlgerianDinar" xml:space="preserve">
+    <value>Algerian Dinar</value>
+  </data>
+  <data name="Currency_LatvianLats" xml:space="preserve">
+    <value>Latvian Lats</value>
+  </data>
+  <data name="Currency_ChileanPeso" xml:space="preserve">
+    <value>Chilean Peso</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Learn more...</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Кол-во</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Set permissions</value>
+  </data>
+  <data name="Currency_AzerbaijaniManat" xml:space="preserve">
+    <value>Azerbaijani Manat</value>
+  </data>
+  <data name="ByAuthor" xml:space="preserve">
+    <value>By author</value>
+  </data>
+  <data name="ByContent" xml:space="preserve">
+    <value>By content</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>No records matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the records in this section. You can also look for the records you need in other contact history.</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>No records for this filter can be found here</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="ComposeMail" xml:space="preserve">
+    <value>Compose Mail</value>
+  </data>
+  <data name="MailSend" xml:space="preserve">
+    <value>Mail Send</value>
+  </data>
+  <data name="PreviewMail" xml:space="preserve">
+    <value>Preview Mail</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Тело письма</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Заголовок письма</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Please wait</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Failed to deliver message to {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Delivery failed - retrying in {0} seconds.</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Store this letter in History</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Invalid email: {0}</value>
+  </data>
+  <data name="Currency_UzbekistaniSom" xml:space="preserve">
+    <value>Uzbekistani Som</value>
+  </data>
+  <data name="Currency_KazakhstaniTenge" xml:space="preserve">
+    <value>Kazakhstani Tenge</value>
+  </data>
+  <data name="Currency_BangladeshiTaka" xml:space="preserve">
+    <value>Bangladeshi Taka</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Manage your customer relations, identify priority contacts, track communication history and sales performance.</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>By title</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Compose a letter to be sent to all the clients selected in the contact list. You can check the number of selected clients in the 'To' field, enter a common 'Subject' and use the 'Personal tags' to include all the necessary information to your letter.</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Here you can see the letter you are composing. Use the 'Back' button to make some changes or use the 'Send' button, if you like the result.</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>My</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Add Relationship Event</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Export Completed</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Responsible for task</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Set Access</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Create new contact</value>
+  </data>
+  <data name="Currency_MalagasyAriary" xml:space="preserve">
+    <value>Malagasy Ariary</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>Права будут установлены только на те контакты, для которых вы являетесь автором.</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Use the {0}?{1} and {0}*{1} symbols to perform a single/multiple-character search. For example, to search for all the words beginning with {0}O{1}, use the  {0}O*{1} query. To search for the terms similar in spelling use the {0}~{1} symbol at the end of a word.{2}Learn more...{3}</value>
+  </data>
+  <data name="Currency_BelarusianRuble" xml:space="preserve">
+    <value>Belarusian Ruble</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Show on page</value>
+  </data>
+  <data name="Participant" xml:space="preserve">
+    <value>Participant</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Делать все то же, что и пользователь CRM|Импортировать, экспортировать данные|Рассылать письма контактам|Задавать настройки|Управлять любым контактом, задачей, мероприятием, сделкой</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Создавать контакт, задачу, мероприятие, сделку с возможностью ограничения доступа к ним|Редактировать контакт, задачу, мероприятие, сделке к которым предоставлен доступ</value>
+  </data>
+  <data name="TagList" xml:space="preserve">
+    <value>Tag List</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Дублировать</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Duplicate Records</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Ignore the first row when importing</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Перезаписать</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Пропустить</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Scanning the file...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Start importing data</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>On top</value>
+  </data>
+  <data name="DownloadOneFile" xml:space="preserve">
+    <value>Скачать одним файлом</value>
+  </data>
+  <data name="OpenCurrentListInTheEditor" xml:space="preserve">
+    <value>Open current list in DocEditor</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>Например, есть две записи, а именно А и В в вашем Teamlab CRM. Вы хотите импортировать записи B и C.
+Выбрав опцию "Дублировать",  при импорте  будет создан дубликат записи B</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>Например, есть две записи, а именно А и В в вашем Teamlab CRM. Вы хотите импортировать записи B и C.
+Выбрав опцию "Перезаписать",  при импорте запись B будет заменена существующей.</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Show information</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>Например, есть две записи, а именно А и В в вашем Teamlab CRM. Вы хотите импортировать записи B и C.
+Выбрав опцию "Пропустить", при импорте запись B будет пропущена</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Duplicate check will be performed based on the Email field.</value>
+  </data>
+  <data name="Currency_ArmenianDram" xml:space="preserve">
+    <value>Armenian Dram</value>
+  </data>
+  <data name="Currency_VietnameseDong" xml:space="preserve">
+    <value>Vietnamese Dong</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselect all</value>
+  </data>
+  <data name="Currency_VenezuelanBolivar" xml:space="preserve">
+    <value>Venezuelan Bolivar</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Двоеточие</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Запятая</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Символ разделитель</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Кодировка</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>Настройки CSV файла</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Точка с запятой</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Пробел</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Табуляция</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Двойная кавычка</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Разделитель текста</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Одиночная кавычка</value>
+  </data>
+  <data name="Currency_IndonesianRupiah" xml:space="preserve">
+    <value>Indonesian Rupiah</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Additional information</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>private</value>
+  </data>
+  <data name="Country_Gambia" xml:space="preserve">
+    <value>Gambia</value>
+  </data>
+  <data name="Country_Ghana" xml:space="preserve">
+    <value>Ghana</value>
+  </data>
+  <data name="Country_RepublicOfCyprus" xml:space="preserve">
+    <value>Republic of Cyprus</value>
+  </data>
+  <data name="Country_SierraLeone" xml:space="preserve">
+    <value>Sierra Leone</value>
+  </data>
+  <data name="Country_Tanzania" xml:space="preserve">
+    <value>Tanzania</value>
+  </data>
+  <data name="Country_Zambia" xml:space="preserve">
+    <value>Zambia</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="Country_RepublicOfMadagascar" xml:space="preserve">
+    <value>Republic of Madagascar</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Create project</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Country_SolomonIslands" xml:space="preserve">
+    <value>Solomon Islands</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>Teamlab Mass Send Feature: "{0}"</value>
+  </data>
+  <data name="DashboardTitle" xml:space="preserve">
+    <value>Manage Relations with Customers</value>
+  </data>
+  <data name="DashContactsDetails" xml:space="preserve">
+    <value>Fill in various contact details, link persons with companies.</value>
+  </data>
+  <data name="DashContactsImport" xml:space="preserve">
+    <value>Add contacts manually or import the list from file.</value>
+  </data>
+  <data name="DashContactsMail" xml:space="preserve">
+    <value>Use the mass mailing feature to address multiple contacts.</value>
+  </data>
+  <data name="DashCustomizeCRM" xml:space="preserve">
+    <value>Change CRM module settings, adapting it maximally to your needs.</value>
+  </data>
+  <data name="DashCustomizeFields" xml:space="preserve">
+    <value>Customize user fields, task categories or opportunity stages.</value>
+  </data>
+  <data name="DashCustomizeWebsite" xml:space="preserve">
+    <value>Use website contact form to add new contacts right from your site.</value>
+  </data>
+  <data name="DashIntegrationCalendar" xml:space="preserve">
+    <value>Plan your sales in time using the TeamLab in-built Calendar.</value>
+  </data>
+  <data name="DashIntegrationDocs" xml:space="preserve">
+    <value>Use new Document Editors to create contracts, invoices or charts.</value>
+  </data>
+  <data name="DashIntegrationProjects" xml:space="preserve">
+    <value>Integrate CRM with Projects to further involve clients into work.</value>
+  </data>
+  <data name="DashSalesOpportunities" xml:space="preserve">
+    <value>Add opportunities, set budget and estimate success probability.</value>
+  </data>
+  <data name="DashSalesParticipants" xml:space="preserve">
+    <value>Organize cases and specify the list of their participants.</value>
+  </data>
+  <data name="DashSalesTasks" xml:space="preserve">
+    <value>Assign tasks to CRM managers linking them with the contacts.</value>
+  </data>
+  <data name="ManageContacts" xml:space="preserve">
+    <value>Manage Contacts</value>
+  </data>
+  <data name="ModulesIntegration" xml:space="preserve">
+    <value>Modules Integration</value>
+  </data>
+  <data name="SetUpCustomize" xml:space="preserve">
+    <value>Set up &amp; Customize</value>
+  </data>
+  <data name="TrackSales" xml:space="preserve">
+    <value>Track Sales</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Create new contact</value>
+  </data>
+  <data name="Country_RepublicOfMoldova" xml:space="preserve">
+    <value>Republic of Moldova</value>
+  </data>
+  <data name="Currency_SaudiRiyal" xml:space="preserve">
+    <value>Saudi Riyal</value>
+  </data>
+  <data name="Currency_KuwaitiDinar" xml:space="preserve">
+    <value>Kuwaiti Dinar</value>
+  </data>
+  <data name="Country_RepublicOfMauritius" xml:space="preserve">
+    <value>Republic of Mauritius</value>
+  </data>
+  <data name="Currency_MauritianRupee" xml:space="preserve">
+    <value>Mauritian Rupee</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Import completed</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Responsible for opportunity</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>Изменить список категорий для событий истории можно {0}тут{1}</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Add {!group}</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>View mailing history with this participant</value>
+  </data>
+  <data name="Currency_LithuanianLitas" xml:space="preserve">
+    <value>Lithuanian Litas</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Do the same for all future occurrences</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>Изменить список стадий теплоты контакта можно {0}тут{1}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>By creation date</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value> was received</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>was sent</value>
+  </data>
+  <data name="ShowWholeConversation" xml:space="preserve">
+    <value>Show the whole conversation</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>The email</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="TeamlabMail" xml:space="preserve">
+    <value>Teamlab Mail</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Company/Person</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>File size exceeds {1}{0}{2}</value>
+  </data>
+  <data name="Currency_PakistaniRupee" xml:space="preserve">
+    <value>Pakistani Rupee</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>Product CRM is not enabled</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Invoices</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Contact settings</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Invoice settings</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Other settings</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Products &amp; Services</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Basic currencies</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Other currencies</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Organisation Profile</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Learn more...</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>Due in {0} day(s)</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>Overdue by {0} day(s)</value>
+  </data>
+  <data name="Country_BurkinaFaso" xml:space="preserve">
+    <value>Burkina Faso</value>
+  </data>
+  <data name="Country_RepublicOfMalawi" xml:space="preserve">
+    <value>Republic of Malawi</value>
+  </data>
+  <data name="Country_RepublicOfMozambique" xml:space="preserve">
+    <value>Republic of Mozambique</value>
+  </data>
+  <data name="Currency_BulgarianLev" xml:space="preserve">
+    <value>Bulgarian Lev</value>
+  </data>
+  <data name="Currency_CostaRicanColon" xml:space="preserve">
+    <value>Costa Rican Colón</value>
+  </data>
+  <data name="Currency_TrinidadAndTobagoDollar" xml:space="preserve">
+    <value>Trinidad and Tobago Dollar</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Add mail account</value>
+  </data>
+  <data name="CreateInvoices" xml:space="preserve">
+    <value>Create Invoices</value>
+  </data>
+  <data name="DashInvoiceProductsAndServices" xml:space="preserve">
+    <value>Simplify invoice creation adding products and services.</value>
+  </data>
+  <data name="DashInvoiceTaxes" xml:space="preserve">
+    <value>Add taxes specific to certain countries and use them with invoices.</value>
+  </data>
+  <data name="DashIssueInvoices" xml:space="preserve">
+    <value>Issue invoices to your clients right from the portal interface.</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>No mail accounts available</value>
+  </data>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>for reading</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>for reading/writing</value>
+  </data>
+  <data name="VoIPNumbers" xml:space="preserve">
+    <value>VoIP Numbers</value>
+  </data>
+  <data name="VoIPCalls" xml:space="preserve">
+    <value>VoIP Calls</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>VoIP Settings</value>
+  </data>
+  <data name="VoIPPhone" xml:space="preserve">
+    <value>VoIP Phone</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Portal name</value>
+  </data>
+  <data name="Country_Benin" xml:space="preserve">
+    <value>Benin</value>
+  </data>
+  <data name="Country_IvoryCoast" xml:space="preserve">
+    <value>Ivory Coast</value>
+  </data>
+</root>

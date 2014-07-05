@@ -1,0 +1,168 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+/* 
+ * Popup Widgetes Styles
+ *
+ * Dmitry Sokolov
+ * Ascensio System SIA.
+ * 2011
+ */
+
+.asc-popup {
+	position: absolute;
+	border: 1px solid #d3d3d3;
+	margin: 12px 0 0 0;
+	padding: .2em .2em 0;
+	background-color: #fff;
+}
+
+.asc-popup .arrow {
+	position: absolute;
+	background-image: url(../img/popup-arrow-big.png);
+	background-position: 0px 0px;
+	width: 20px;
+	height: 11px;
+	left: 5px;
+	top: -10px;
+}
+
+.asc-ui-blocker {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	/*background-color: rgba(0, 0, 0, 0.2);*/
+	background-color: transparent;
+}
+
+
+
+.asc-popupmenu {
+	position: absolute;
+	border: 1px solid #d3d3d3;
+	margin: 6px 0 0 0;
+	padding: 1em;
+	background-color: #fff;
+	z-index: 2000;
+	box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.5);
+	
+}
+
+.asc-popupmenu .arrow {
+	position: absolute;
+	background-image: url(../img/popup-arrow.png);
+	background-position: 0px 0px;
+	width: 8px;
+	height: 5px;
+	left: 5px;
+	top: -4px;
+}
+
+.asc-popupmenu .divider {
+	border-bottom: 1px solid #d3d3d3;
+	margin-bottom: .4em;
+}
+
+.asc-popupmenu .item {
+	cursor: pointer;
+	padding: .1em .7em;
+	margin-bottom: .4em;
+}
+
+.asc-popupmenu .item:hover {
+	text-decoration:underline;
+}
+
+.asc-colorpicker {
+	position: absolute;
+	border: 1px solid #d3d3d3;
+	margin: 6px 0 0 0;
+	padding: .4em .4em;
+	background-color: #fff;
+	z-index: 2000;
+}
+
+.asc-colorpicker .arrow {
+	position: absolute;
+	background-image: url(../img/popup-arrow.png);
+	background-position: 0px 0px;
+	width: 8px;
+	height: 5px;
+	left: 5px;
+	top: -4px;
+}
+
+.asc-colorpicker td {
+	width: 15px;
+	height: 15px;
+	padding: 3px 3px;
+	border: 1px solid transparent;
+}
+
+.asc-colorpicker td.selected {
+	background-color: #ccc;
+	border: 1px solid #999
+}
+
+.asc-colorpicker td.highlighted {
+	background-color: #f5f5f5;
+	border: 1px solid #ccc;
+}
+
+.asc-colorpicker .icon {
+	width: 15px;
+	height: 15px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.asc-colorpicker .iwrapper {
+	text-align: left;
+	margin-top: .3em;
+	padding-right: 4px;
+}
+
+.asc-colorpicker .iwrapper > input {
+	width: 99%;
+	margin: 0;
+	padding: 1px;
+	outline: none;
+	border-collapse: collapse;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #c7c7c7;
+}
+.asc-colorpicker .iwrapper > input:focus {
+	border-color: #3186af;
+}

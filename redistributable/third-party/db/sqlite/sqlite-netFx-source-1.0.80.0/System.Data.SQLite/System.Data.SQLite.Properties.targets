@@ -1,0 +1,79 @@
+<!--
+ *
+ * System.Data.SQLite.Properties.targets -
+ *
+ * Written by Joe Mistachkin.
+ * Released to the public domain, use at your own risk!
+ *
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+      NOTE: Only use functionality available in the .NET Framework 2.0?  By
+            default, this is disabled.  This must be enabled to successfully
+            build the project using Visual Studio 2008 and/or the .NET
+            Framework 2.0 (if necessary, it will typically be enabled from
+            within the project file itself).
+  -->
+  <PropertyGroup Condition="'$(NetFx20)' != 'false' Or
+                            '$(TargetFrameworkVersion)' == 'v2.0' Or
+                            '$(TargetFrameworkVersion)' == 'v3.5'">
+    <DefineConstants>$(DefineConstants);NET_20</DefineConstants>
+  </PropertyGroup>
+
+  <!--
+      NOTE: Only use functionality available in the .NET Compact Framework 2.0?
+            By default, this is disabled.  This must be enabled to successfully
+            build the project using Visual Studio 2005 and/or the .NET Compact
+            Framework 2.0 (if necessary, it will typically be enabled from
+            within the project file itself).
+  -->
+  <PropertyGroup Condition="'$(IsCompactFramework)' != 'false' And
+                            '$(TargetFrameworkVersion)' == 'v2.0'">
+    <DefineConstants>$(DefineConstants);NET_COMPACT_20</DefineConstants>
+  </PropertyGroup>
+
+  <!--
+      NOTE: For interaction with the native SQLite implementation, use the
+            custom build interop DLL (i.e. "SQLite.Interop.DLL")?
+  -->
+  <PropertyGroup Condition="'$(UseInteropDll)' != 'false'">
+    <DefineConstants>$(DefineConstants);USE_INTEROP_DLL</DefineConstants>
+  </PropertyGroup>
+
+  <!--
+      NOTE: For interaction with the native SQLite implementation, use the
+            standard DLL (i.e. "sqlite3.dll")?
+  -->
+  <PropertyGroup Condition="'$(UseSqliteStandard)' != 'false'">
+    <DefineConstants>$(DefineConstants);SQLITE_STANDARD</DefineConstants>
+  </PropertyGroup>
+
+  <!--
+      NOTE: Is the project being built to support the .NET Compact Framework?
+  -->
+  <PropertyGroup Condition="'$(IsCompactFramework)' != 'false'">
+    <DefineConstants>$(DefineConstants);PLATFORM_COMPACTFRAMEWORK</DefineConstants>
+  </PropertyGroup>
+
+  <!--
+      NOTE: Emit an AssemblyFlags attribute that includes the Retargetable
+            flag from the AssemblyNameFlags enumeration?
+  -->
+  <PropertyGroup Condition="'$(IsRetargetable)' != 'false'">
+    <DefineConstants>$(DefineConstants);RETARGETABLE</DefineConstants>
+  </PropertyGroup>
+
+  <!--
+      NOTE: Throw an exception when somebody tries to access a disposed object?
+  -->
+  <PropertyGroup Condition="'$(ThrowOnDisposed)' != 'false'">
+    <DefineConstants>$(DefineConstants);THROW_ON_DISPOSED</DefineConstants>
+  </PropertyGroup>
+
+  <!--
+      NOTE: Attempt to pre-load the native SQLite library?
+  -->
+  <PropertyGroup Condition="'$(PreLoadNativeLibrary)' != 'false'">
+    <DefineConstants>$(DefineConstants);PRELOAD_NATIVE_LIBRARY</DefineConstants>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,928 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ActiveUp.Net.Pop3</name>
+    </assembly>
+    <members>
+        <member name="T:ActiveUp.Net.Mail.Pop3Client">
+            <summary>
+            POP3 Client extending a System.Net.Sockets.TcpClient to send/receive POP3 command/responses.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.Connect(System.String)">
+            <summary>
+            Connects the object with the remote POP server using the given parameters.
+            </summary>
+            <param name="host">Remote POP server address.</param>
+            <returns>The server's welcome greeting.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com");
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com")
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.Connect(System.String,System.Int32)">
+            <summary>
+            Connects the object with the remote POP server using the given parameters.
+            </summary>
+            <param name="host">Remote POP server address.</param>
+            <param name="port">The port to be used.</param>
+            <returns>The server's welcome greeting.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com",8503);
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com",8503)
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com",8503);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.APOPConnect(System.String,System.String,System.String)">
+            <summary>
+            Connects the object with the remote POP server using the given parameters and APOP.
+            </summary>
+            <param name="user">Username on the remote POP server.</param>
+            <param name="pass">Password on the remote POP server.</param>
+            <param name="host">Remote POP server address.</param>
+            <example>
+            This will connect to the remote POP server using APOP.<br /><br />
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.APOPConnect("pop.myisp.com","username","password");
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client()
+            pop.APOPConnect("pop.myisp.com","username","password")
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.APOPConnect("pop.myisp.com","username","password");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.APOPConnect(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Connects the object with the remote POP server using the given parameters and APOP.
+            </summary>
+            <param name="user">Username on the remote POP server.</param>
+            <param name="pass">Password on the remote POP server.</param>
+            <param name="host">Remote POP server address.</param>
+            <param name="port">Port to be used.</param>
+            <example>
+            This will connect to the remote POP server using APOP.<br /><br />
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.APOPConnect("pop.myisp.com","username","password",8503);
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client()
+            pop.APOPConnect("pop.myisp.com","username","password",8503)
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.APOPConnect("pop.myisp.com","username","password",8503);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.Authenticate(System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+            <summary>
+            Authenticates using the given SASL mechanism.
+            </summary>
+            <param name="username">Username to authenticate as.</param>
+            <param name="password">Password.</param>
+            <param name="mechanism">SASL mechanism to be used.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com");
+            pop.Authenticate("user","pass",SASLMechanism.CramMd5);
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com")
+            pop.Authenticate("user","pass",SASLMechanism.CramMd5)
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com");
+            pop.Authenticate("user","pass",SASLMechanism.CramMd5);
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.Disconnect">
+            <summary>
+            Disconnects the client from the remote server.
+            </summary>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            //Do some work...
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            'Do some work...
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            //Do some work...
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.Command(System.String)">
+            <summary>
+            Sends the provided string to the server.
+            </summary>
+            <param name="command">The string to be sent to the server.</param>
+            <returns>The server's response.</returns>
+            <remarks>This method is to be used only with commands that return single-line responses.</remarks>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            string response = pop.Command("XANYCOMMAND anyarguments");
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim response As String = pop.Command("XANYCOMMAND anyarguments")
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            var response:string = pop.Command("XANYCOMMAND anyarguments");
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.CommandMultiline(System.String)">
+            <summary>
+            Sends the provided string to the server.
+            </summary>
+            <param name="command">The string to be sent to the server.</param>
+            <returns>The server's response.</returns>
+            <remarks>This method is to be used only with commands that return multi-line responses.</remarks>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            string response = pop.CommandMultiline("XANYCOMMAND anyarguments");
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim response As String = pop.CommandMultiline("XANYCOMMAND anyarguments")
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            var response:string = pop.CommandMultiline("XANYCOMMAND anyarguments");
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.GetStream">
+            <summary>
+            Gets the communacation stream of this object.
+            </summary>
+            <returns>A Stream object, either of type NetworkStream or SslStream if the channel is secured.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.DeleteMessage(System.Int32)">
+            <summary>
+            Marks the message with the given index for deletion on the remote POP server.
+            </summary>
+            <param name="indexOnServer">Index of the message to mark for deletion.</param>
+            <remarks>
+            This action can be cancelled by using the Reset() method before disconnection.
+            <see cref="M:ActiveUp.Net.Mail.Pop3Client.Reset"/>
+            </remarks>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("pop.myisp.com","username","password");
+            pop.DeleteMessage(1);
+            pop.Disconnect();
+            //Message 1 deleted.
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client()
+            pop.Connect("pop.myisp.com","username","password")
+            pop.DeleteMessage(1)
+            pop.Disconnect()
+            'Message 1 deleted.
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("pop.myisp.com","username","password");
+            pop.DeleteMessage(1);
+            pop.Disconnect();
+            //Message 1 deleted.
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.Reset">
+            <summary>
+            Unmarks all messages that were marked for deletion.
+            </summary>
+            <returns>The amount of messages unmarked.</returns>
+            <example>
+            <code>
+            C#
+            
+            ActiveUp.Net.Mail.Pop3Client pop = new ActiveUp.Net.Mail.Pop3Client();
+            pop.Connect("pop.myisp.com","username","password");
+            pop.DeleteMessage(1);
+            //Message is marked for deletion.
+            pop.Reset();
+            //Message won't be deleted.
+            pop.Disconnect();
+            //Nothing happened.
+            
+            VB.NET
+            
+            Dim pop As New ActiveUp.Net.Mail.Pop3Client()
+            pop.Connect("pop.myisp.com","username","password")
+            pop.DeleteMessage(1)
+            'Message is marked for deletion.
+            pop.Reset()
+            'Message won't be deleted.
+            pop.Disconnect()
+            'Nothing happened.
+            
+            JScript.NET
+            
+            var pop:ActiveUp.Net.Mail.Pop3Client = new ActiveUp.Net.Mail.Pop3Client();
+            pop.Connect("pop.myisp.com","username","password");
+            pop.DeleteMessage(1);
+            //Message is marked for deletion.
+            pop.Reset();
+            //Message won't be deleted.
+            pop.Disconnect();
+            //Nothing happened.
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.RetrieveMessage(System.Int32)">
+            <summary>
+            Retrieves the message at the given index.
+            </summary>
+            <param name="messageIndex">The index of the message to be retrieved.</param>
+            <returns>A byte array containing the message data.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            byte[] messageData = pop.RetrieveMessage(1);
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim messageData as Byte() = pop.RetrieveMessage(1)
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            var messageData:byte[] = pop.RetrieveMessage(1);
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.RetrieveMessage(System.Int32,System.Boolean)">
+            <summary>
+            Retrieves the message at the given index.
+            </summary>
+            <param name="messageIndex">The index of the message to be retrieved.</param>
+            <param name="deleteMessage">If true, the message will be deleted after it has been retrieved.</param>
+            <returns>A byte array containing the message data.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            byte[] messageData = pop.RetrieveMessage(1,true);
+            pop.Disconnect();
+            //Message 1 is deleted.
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim messageData as Byte() = pop.RetrieveMessage(1,True)
+            pop.Disconnect()
+            'Message 1 is deleted.
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            var messageData:byte[] = pop.RetrieveMessage(1,true);
+            pop.Disconnect();
+            //Message 1 is deleted.
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.RetrieveMessageObject(System.Int32)">
+            <summary>
+            Retrieves the message at the given index.
+            </summary>
+            <param name="messageIndex">The index of the message to be retrieved.</param>
+            <returns>A Message object representing the message.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            Message message = pop.RetrieveMessageObject(1);
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim message as Message = pop.RetrieveMessageObject(1)
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            var message:Message = pop.RetrieveMessageObject(1);
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.RetrieveMessageObject(System.Int32,System.Boolean)">
+            <summary>
+            Retrieves the message at the given index.
+            </summary>
+            <param name="messageIndex">The index of the message to be retrieved.</param>
+            <param name="deleteMessage">If true, the message will be deleted after it has been retrieved.</param>
+            <returns>A Message object representing the message.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            Message message = pop.RetrieveMessageObject(1);
+            pop.Disconnect();
+            //Message 1 is deleted.
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim message as Message = pop.RetrieveMessageObject(1)
+            pop.Disconnect()
+            'Message 1 is deleted.
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            var message:Message = pop.RetrieveMessageObject(1);
+            pop.Disconnect();
+            //Message 1 is deleted.
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.StoreMessage(System.Int32,System.Boolean,System.String)">
+            <summary>
+            Retrieves and stores the message at the specified index to the specified path.
+            Deletes the message once retrieval operation is complete.
+            </summary>
+            <param name="messageIndex">Index of the message to be retrieved.</param>
+            <param name="deleteMessage">If true, the message will be deleted after it has been retrieved.</param>
+            <param name="destinationPath">The path where the message has to be stored.</param>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            pop.StoreMessage(1,"C:\\My headers\\myheader.eml");
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            pop.StoreMessage(1,"C:\My headers\myheader.eml")
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            pop.StoreMessage(1,"C:\\My headers\\myheader.eml");
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.RetrieveHeader(System.Int32,System.Int32)">
+            <summary>
+            Retrieves the Header of the message at the given index, plus a given number of lines beyond the Header limit.
+            </summary>
+            <param name="messageIndex">Index of the Header to be retrieved.</param>
+            <param name="numberOfBodyLines">Number of lines to retrieve after the Header separation.</param>
+            <returns>A byte array containing the Header data.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            byte[] headerData = pop.RetrieveHeader(1,10);
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim headerData as Byte() = pop.RetrieveHeader(1,10)
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            var headerData:byte[] = pop.RetrieveHeader(1,10);
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.RetrieveHeaderObject(System.Int32)">
+            <summary>
+            Retrieves the Header of the message at the given index.
+            </summary>
+            <param name="messageIndex">Index of the Header to be retrieved.</param>
+            <returns>A Header object representing the header.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            Header headerData = pop.RetrieveHeaderObject(1);
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim headerData as Header = pop.RetrieveHeaderObject(1)
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            var headerData:Header = pop.RetrieveHeaderObject(1);
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.StoreHeader(System.Int32,System.String)">
+            <summary>
+            Retrieves and stores the message Header at the specified index to the specified path.
+            </summary>
+            <param name="messageIndex">Index of the message Header to be retrieved.</param>
+            <param name="destinationPath">The path where the Header has to be stored.</param>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            pop.StoreHeader(1,"C:\\My headers\\myheader.eml");
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            pop.StoreHeader(1,"C:\My headers\myheader.eml")
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            pop.StoreHeader(1,"C:\\My headers\\myheader.eml");
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.GetUniqueId(System.Int32)">
+            <summary>
+            Issues a UIDL command and retrieves the message's unique Id (assigned by the server).
+            </summary>
+            <param name="messageIndex">The message's index.</param>
+            <returns>The message's unique Id.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            string uniqueId = pop.UniqueId(1);
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim uniqueId As String = pop.UniqueId(1)
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            uniqueId:string = pop.UniqueId(1);
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ActiveUp.Net.Mail.Pop3Client.GetUniqueIds" -->
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.GetMessageIndex(System.String)">
+            <summary>
+            Retreives message index on the pop server from its internal unique Id.
+            </summary>
+            <param name="serverUniqueId">The given message unique Id to retreive.</param>
+            <returns>The index of the message on the pop server, 0 if not found.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.UniqueIdExists(System.String)">
+            <summary>
+            Indicates if the uniqueId exists on the server
+            </summary>
+            <param name="serverUniqueId">The given message unique Id to retreive.</param>
+            <returns>True if unique Id exists, False if it doesn't.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.GetMessageSize(System.Int32)">
+            <summary>
+            Returns the size of the message at the given index.
+            </summary>
+            <param name="messageIndex">Index of the messages.</param>
+            <returns>The size of the message at the given index.</returns>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            int uniqueId = pop.GetMessageSize(1);
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim uniqueId As Integer = pop.GetMessageSize(1)
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            uniqueId:int = pop.GetMessageSize(1);
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.Noop">
+            <summary>
+            Performs a NOOP command on the server. The aim of this command is to keep the connection alive.
+            </summary>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            pop.Noop();
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            pop.Noop()
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            pop.Noop();
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.CheckAPOP(System.String,System.Int32)">
+            <summary>
+            Checks if specified host has APOP capability.
+            </summary>
+            <param name="host">Host to be checked.</param>
+            <param name="port">Port to connect on to the host.</param>
+            <returns>True is remote server has APOP, otherwise false.</returns>
+            <example>
+            <code>
+            C#
+            
+            bool serverHasAPOP = Pop3Client.CheckAPOP("mail.myhost.com",8503);
+            
+            VB.NET
+            
+            Dim serverHasAPOP As Boolen = Pop3Client.CheckAPOP("mail.myhost.com",8503)
+            
+            JScript.NET
+            
+            var serverHasAPOP:bool Pop3Client.CheckAPOP("mail.myhost.com",8503);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.BeginCheckAPOP(System.String,System.Int32,System.AsyncCallback)">
+            <see cref="M:ActiveUp.Net.Mail.Pop3Client.CheckAPOP(System.String,System.Int32)"/>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.CheckAPOP(System.String)">
+            <summary>
+            Checks if specified host has APOP capability.
+            </summary>
+            <param name="host">Host to be checked.</param>
+            <returns>True is remote server has APOP, otherwise false.</returns>
+            <example>
+            <code>
+            C#
+            
+            bool serverHasAPOP = Pop3Client.CheckAPOP("mail.myhost.com");
+            
+            VB.NET
+            
+            Dim serverHasAPOP As Boolen = Pop3Client.CheckAPOP("mail.myhost.com")
+            
+            JScript.NET
+            
+            var serverHasAPOP:bool Pop3Client.CheckAPOP("mail.myhost.com");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.BeginCheckAPOP(System.String,System.AsyncCallback)">
+            <see cref="M:ActiveUp.Net.Mail.Pop3Client.CheckAPOP(System.String,System.Int32)"/>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.EndCheckAPOP(System.IAsyncResult)">
+            <see cref="M:ActiveUp.Net.Mail.Pop3Client.CheckAPOP(System.String,System.Int32)"/>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.GetServerCapabilities">
+            <summary>
+            Gets the server capabilities.
+            </summary>
+            <remarks>Server capabilities are returned as an array of lines. Interpretation is left to the user.</remarks>
+            <returns>An array of strings containing the server capabilities.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.BeginGetServerCapabilities(System.AsyncCallback)">
+            <see cref="M:ActiveUp.Net.Mail.Pop3Client.GetServerCapabilities"/>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Pop3Client.EndGetServerCapabilities(System.IAsyncResult)">
+            <see cref="M:ActiveUp.Net.Mail.Pop3Client.GetServerCapabilities"/>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.Authenticating">
+            <summary>
+            Event fired when authentication starts.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.Authenticated">
+            <summary>
+            Event fired when authentication completed.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.Nooping">
+            <summary>
+            Event fired when NOOP command is issued.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.Nooped">
+            <summary>
+            Event fired when NOOP command completed.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.TcpWriting">
+            <summary>
+            Event fired when a command is being written to the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.TcpWritten">
+            <summary>
+            Event fired when a command has been written to the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.TcpReading">
+            <summary>
+            Event fired when a response is being read from the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.TcpRead">
+            <summary>
+            Event fired when a response has been read from the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.MessageRetrieving">
+            <summary>
+            Event fired when a message is being requested using the RetrieveMessage() method.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.MessageRetrieved">
+            <summary>
+            Event fired when a message is being retrieved using the RetrieveMessage() method.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.HeaderRetrieving">
+            <summary>
+            Event fired when a message Header is being requested using the RetrieveHeader() method.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.HeaderRetrieved">
+            <summary>
+            Event fired when a message Header has been retrieved using the RetrieveHeader() method.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.Connecting">
+            <summary>
+            Event fired when attempting to connect to the remote server using the specified host.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.Connected">
+            <summary>
+            Event fired when the object is connected to the remote server or when connection failed.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.Disconnecting">
+            <summary>
+            Event fired when attempting to disconnect from the remote server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Pop3Client.Disconnected">
+            <summary>
+            Event fired when the object disconnected from the remote server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Pop3Client.MessageCount">
+            <summary>
+            Number of messages on the remote POP server.
+            </summary>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            int msgCount = pop.MessageCount;
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim msgCount as Integer = pop.MessageCount
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            var msgCount:int = pop.MessageCount;
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Pop3Client.TotalSize">
+            <summary>
+            Size of all messages on the remote POP server.
+            </summary>
+            <example>
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            int accountSize = pop.TotalSize;
+            pop.Disconnect();
+            
+            VB.NET
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","user","pass")
+            Dim accountSize as Integer = pop.TotalSize
+            pop.Disconnect()
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","user","pass");
+            var accountSize:int = pop.TotalSize;
+            pop.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Pop3Client.IsConnected">
+            <summary>
+            Gets a value indicating whether this instance is connected.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is connected; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Pop3Client.PopServerUniqueId">
+            <summary>
+            Structure containing a uniqueId for a message and its associated index on the pop server
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Pop3Exception">
+            <summary>
+            Custom exception.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Pop3Exception.Message">
+            <summary>
+            Message returned by the server or error description.
+            </summary>
+        </member>
+    </members>
+</doc>

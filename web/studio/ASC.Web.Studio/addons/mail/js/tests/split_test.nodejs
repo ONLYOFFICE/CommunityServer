@@ -1,0 +1,61 @@
+//For run this tests u need to install: node.js
+//Run command: node split_test.nodejs
+
+//split_emails function used by mail.messagepage.js line 318
+
+function split_emails(s){
+	//matchs: "letters + symbols" <text>, 'letters + symbols' <text>, <text>, text@text.text
+	var mails = s.match(/((["\'].*?["\']\s*)?<.*?>)|[a-zA-Z0-9.]*@[a-zA-Z0-9.]+/g)
+	return mails;
+	return s.split(/(?!\".*?,.*?\")\s*?,\s*?/);
+}
+
+function Test(s, out_length, detailed, expected_split){
+	var arr = split_emails(s);
+
+	if(arr.length == out_length){
+		console.log("SUCCESS: ", arr)
+		if(detailed != undefined){
+			for(var i =0; i < expected_split.length; ++i){
+				if(arr[i] != expected_split[i]){
+					console.log("---- " + arr[i]+ " != " + expected_split[i] + "  ERROR. All array: " + arr)
+					break;
+				}
+			}
+		}	
+	} else {
+		console.log("!!!! - ERROR: ", arr)		
+	}
+}
+
+
+var s = '"Test, test" <mail@mail.com>, "Test test" <mail@mail.com>, mail@mail.com, <mail@mail.com>, "Test , test" <mail@mail.com>, mail@mail.com';
+Test(s, 6, true, ['"Test, test" <mail@mail.com>', '"Test test" <mail@mail.com>', 'mail@mail.com', '<mail@mail.com>', '"Test , test" <mail@mail.com>', 'mail@mail.com'])
+
+
+var s1 = '"Test, test" <mail@mail.com>, mail,@mail.com';
+Test(s1, 2)
+
+var s2 = '"Test, test" <mail@mail.com>, "mail,@mail.com';
+Test(s2, 2)
+
+var s3 = '"Test, test" <mail@mail.com>, <mail,@mail.com>';
+Test(s3, 2)
+
+var s4 = '"Test@ test" <mail@mail.com>, <mail,@mail.com>';
+Test(s4, 2)
+
+var s5 = "'Test@ test' <mail@mail.com>, <mail,@mail.com>";
+Test(s5, 2)
+
+var s6 = '"запятая," <svetlana.hodchenkova.4test@gmail.com>';
+Test(s6, 1)
+
+var s7 = 'kurilenkoolga.4test@yahoo.com';
+Test(s7, 1, true, [s7])
+
+var s8 = 'kurilenkoolga.4test@yahoo.com, svetlana.hodchenkova.4test@gmail.com';
+Test(s8, 2, true, ['kurilenkoolga.4test@yahoo.com', 'svetlana.hodchenkova.4test@gmail.com'])
+
+var s9 = '"Test, test" <mail@mail.com> , mail@mail.com';
+Test(s9, 2)

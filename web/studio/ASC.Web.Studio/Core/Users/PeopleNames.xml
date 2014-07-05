@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <item>
+    <id>Common</id>
+    <names>
+      <schemaname>CommonSchemaName</schemaname>
+      <user>CommonUser</user>
+      <users>CommonUsers</users>
+      <group>CommonGroup</group>
+      <groups>CommonGroups</groups>
+      <userpost>CommonUserTitle</userpost>
+      <grouphead>CommonGroupHead</grouphead>
+      <regdate>CommonRegDate</regdate>
+      <addusers>CommonAddUsers</addusers>
+      <guest>CommonGuest</guest>
+      <guests>CommonGuests</guests>
+    </names>
+  </item>
+  <item>
+    <id>Default</id>
+    <names>
+      <schemaname>DefaultSchemaName</schemaname>
+      <user>DefaultUser</user>
+      <users>DefaultUsers</users>
+      <group>DefaultGroup</group>
+      <groups>DefaultGroups</groups>
+      <userpost>DefaultUserTitle</userpost>
+      <grouphead>DefaultGroupHead</grouphead>
+      <regdate>DefaultRegDate</regdate>
+      <addusers>DefaultAddUsers</addusers>
+      <guest>DefaultGuest</guest>
+      <guests>DefaultGuests</guests>
+    </names>
+  </item>
+</root>

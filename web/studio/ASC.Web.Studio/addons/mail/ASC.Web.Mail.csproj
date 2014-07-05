@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1EF9C7D8-F92E-48B3-9A86-78E431ABC306}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Web.Mail</RootNamespace>
+    <AssemblyName>ASC.Web.Mail</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Mail.Aggregator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Mail.Aggregator.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Mail.Aggregator.Common">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Mail.Aggregator.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Mail.Aggregator.DataStorage">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Mail.Aggregator.DataStorage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.CRM">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.CRM.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Files">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Files.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Studio">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Studio.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.29869, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Web\FredCK.FCKeditorV2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\..\..\..\redistributable\third-party\DotNotZip\Ionic.Zip.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\Images\background_sprite.png" />
+    <Content Include="App_Themes\Default\Images\base_sprite.png" />
+    <Content Include="App_Themes\Default\Images\blank_modal_sprite.png" />
+    <Content Include="App_Themes\Default\Images\blank_sprite.png" />
+    <Content Include="App_Themes\Default\Images\Loader\loader32.gif" />
+    <Content Include="App_Themes\Default\Images\Loader\loader_16.gif" />
+    <Content Include="App_Themes\Default\Images\Loader\loader_16_dark.gif" />
+    <Content Include="App_Themes\Default\Images\Loader\loading-logo.gif" />
+    <Content Include="App_Themes\Default\Images\mail.png" />
+    <Content Include="App_Themes\Default\Images\mail_disabled.png" />
+    <Content Include="App_Themes\Default\iframe_content.css" />
+    <Content Include="Controls\AccountsPage\AccountsPage.ascx" />
+    <Content Include="Controls\BlankModal\BlankModal.ascx" />
+    <Content Include="Controls\BlankModal\js\blankmodal.js" />
+    <Content Include="Controls\ContactsPage\ContactsPage.ascx" />
+    <Content Include="Controls\MailBox\MailBox.ascx" />
+    <Content Include="Controls\TagBox\TagBox.ascx" />
+    <Content Include="Controls\TagsPage\TagsPage.ascx" />
+    <Content Include="Controls\DocumentsPopup\DocumentsPopup.ascx" />
+    <Content Include="Controls\DocumentsPopup\js\documentsPopup.js" />
+    <Content Include="Controls\DocumentsPopup\css\documentsPopup.less" />
+    <Content Include="Controls\DocumentsPopup\css\images\project-documents.png" />
+    <Content Include="Default.aspx" />
+    <Content Include="js\accountsPanel.js" />
+    <Content Include="js\actionMenu.js" />
+    <Content Include="js\actionPanel.js" />
+    <Content Include="js\alerts.js" />
+    <Content Include="js\dropdown.js" />
+    <Content Include="js\filterCache.js" />
+    <Content Include="js\blankpage.js" />
+    <Content Include="js\contacts\contacts.js" />
+    <Content Include="js\contacts\crmFilter.js" />
+    <Content Include="js\contacts\panel.js" />
+    <Content Include="js\contacts\tlFilter.js" />
+    <Content Include="js\contacts\tlGroups.js" />
+    <Content Include="js\contacts\types.js" />
+    <Content Include="js\emailAutocomplete.js" />
+    <Content Include="js\autoresize.jquery.js" />
+    <Content Include="js\fromsenderfilter.js" />
+    <Content Include="js\helpcenter\page.js" />
+    <Content Include="js\helpcenter\panel.js" />
+    <Content Include="js\init.js" />
+    <Content Include="js\jquery.textchange.min.js" />
+    <Content Include="js\hidePanel.js" />
+    <Content Include="js\jquery.waitforimages.js" />
+    <Content Include="js\mail.accounts.js" />
+    <Content Include="js\mail.accountsmodal.js" />
+    <Content Include="js\mail.accountspage.js" />
+    <Content Include="js\mail.attachmentmanager.js" />
+    <Content Include="js\mail.common.js" />
+    <Content Include="js\mail.crmLinkPopup.js" />
+    <Content Include="js\mail.folderpanel.js" />
+    <Content Include="js\mail.settingsPanel.js" />
+    <Content Include="js\contacts\page.js" />
+    <Content Include="js\mail.default.js" />
+    <Content Include="js\mail.filter.js" />
+    <Content Include="js\mail.folderfilter.js" />
+    <Content Include="js\mail.mailbox.js" />
+    <Content Include="js\mail.messagepage.js" />
+    <Content Include="js\mail.navigation.js" />
+    <Content Include="js\mail.servicemanager.js" />
+    <Content Include="js\containers\set.js" />
+    <Content Include="js\placeholder.js" />
+    <Content Include="js\popup.js" />
+    <Content Include="js\tags\dropdown.js" />
+    <Content Include="js\tags\tags.js" />
+    <Content Include="js\tags\colorsPopup.js" />
+    <Content Include="js\tags\modal.js" />
+    <Content Include="js\tags\page.js" />
+    <Content Include="js\tags\panel.js" />
+    <Content Include="js\trustedAddresses.js" />
+    <Content Include="js\watchdog.js" />
+    <Content Include="js\wysiwyg.js" />
+    <Content Include="Masters\BodyScripts.ascx" />
+    <Content Include="Masters\Styles.ascx" />
+    <Content Include="templates\accountErrorTmpl.ascx" />
+    <Content Include="templates\accountsPanelTmpl.ascx" />
+    <Content Include="templates\accountsTmpl.ascx" />
+    <Content Include="templates\accountTmpl.ascx" />
+    <Content Include="templates\accountWizardTmpl.ascx" />
+    <Content Include="templates\addFirstAccountTmpl.ascx" />
+    <Content Include="templates\alertsTmpl.ascx" />
+    <Content Include="templates\contactsTmpl.ascx" />
+    <Content Include="templates\crmIntegrationPopupTmpl.ascx" />
+    <Content Include="templates\emptyScrTmpl.ascx" />
+    <Content Include="templates\signatureTmpl.ascx" />
+    <Content Include="templates\editMessageTmpl.ascx" />
+    <Content Include="templates\messagesTmpl.ascx" />
+    <Content Include="templates\foldersTmpl.ascx" />
+    <Content Include="templates\messageTmpl.ascx" />
+    <Content Include="templates\composeMessageBodyTmpl.ascx" />
+    <Content Include="templates\tagsTmpl.ascx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Addon\MailAddon.cs" />
+    <Compile Include="Configuration\MailSpaceUsageStatManager.cs" />
+    <Compile Include="Controls\AccountsPage\AccountsPage.ascx.cs">
+      <DependentUpon>AccountsPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AccountsPage\AccountsPage.ascx.designer.cs">
+      <DependentUpon>AccountsPage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BlankModal\BlankModal.ascx.cs">
+      <DependentUpon>BlankModal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BlankModal\BlankModal.ascx.designer.cs">
+      <DependentUpon>BlankModal.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ContactsPage\ContactsPage.ascx.cs">
+      <DependentUpon>ContactsPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ContactsPage\ContactsPage.ascx.designer.cs">
+      <DependentUpon>ContactsPage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DocumentsPopup\DocumentsPopup.ascx.cs">
+      <DependentUpon>DocumentsPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\DocumentsPopup\DocumentsPopup.ascx.designer.cs">
+      <DependentUpon>DocumentsPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MailBox\MailBox.ascx.cs">
+      <DependentUpon>MailBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\MailBox\MailBox.ascx.designer.cs">
+      <DependentUpon>MailBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TagBox\TagBox.ascx.cs">
+      <DependentUpon>TagBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TagBox\TagBox.ascx.designer.cs">
+      <DependentUpon>TagBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TagsPage\TagsPage.ascx.cs">
+      <DependentUpon>TagsPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TagsPage\TagsPage.ascx.designer.cs">
+      <DependentUpon>TagsPage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HttpHandlers\Download.ashx.cs">
+      <DependentUpon>Download.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadHandler.ashx.cs">
+      <DependentUpon>DownloadHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="HttpHandlers\EditDocument.ashx.cs">
+      <DependentUpon>EditDocument.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="HttpHandlers\FilesUploader.cs" />
+    <Compile Include="HttpHandlers\ViewDocument.ashx.cs">
+      <DependentUpon>ViewDocument.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="HttpHandlers\DownloadAll.ashx.cs">
+      <DependentUpon>DownloadAll.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
+    <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\MailActionCompleteResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MailAttachmentsResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MailResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MailScriptResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MailActionCompleteResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>MailAttachmentsResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>MailResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MailScriptResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\less\accounts.less" />
+    <Content Include="App_Themes\Default\less\accountspanel.less" />
+    <Content Include="App_Themes\Default\less\accountpopup.less" />
+    <None Include="App_Themes\Default\less\attachments.less" />
+    <None Include="App_Themes\Default\less\autocomplete.less" />
+    <None Include="App_Themes\Default\less\common.less" />
+    <Content Include="App_Themes\Default\less\contacts.less" />
+    <Content Include="App_Themes\Default\less\crm_integration.less" />
+    <None Include="App_Themes\Default\less\icons.less" />
+    <None Include="App_Themes\Default\less\loading.less" />
+    <None Include="App_Themes\Default\less\mail.less" />
+    <None Include="App_Themes\Default\less\message.less" />
+    <None Include="App_Themes\Default\less\messages.less" />
+    <Content Include="App_Themes\Default\less\mixins.less" />
+    <None Include="App_Themes\Default\less\popup.less" />
+    <None Include="App_Themes\Default\less\settings.less" />
+    <None Include="App_Themes\Default\less\tags.less" />
+    <Content Include="HttpHandlers\DownloadAll.ashx" />
+    <Content Include="HttpHandlers\ViewDocument.ashx" />
+    <Content Include="HttpHandlers\EditDocument.ashx" />
+    <Content Include="HttpHandlers\Download.ashx" />
+    <Content Include="DownloadHandler.ashx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57280</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="BeforeBuild">
+    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
+  </Target>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:jingle:apps:rtp:1'
+    xmlns='urn:xmpp:jingle:apps:rtp:1'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0167: http://www.xmpp.org/extensions/xep-0167.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='description'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='payload-type' 
+                    type='payloadElementType'
+                    minOccurs='0' 
+                    maxOccurs='unbounded'/>
+        <xs:element name='encryption' 
+                    type='encryptionElementType'
+                    minOccurs='0' 
+                    maxOccurs='1'/>
+        <xs:element name='bandwidth' 
+                    type='bandwidthElementType'
+                    minOccurs='0' 
+                    maxOccurs='1'/>
+      </xs:sequence>
+      <xs:attribute name='media'
+                    type='xs:NCName'
+                    use='required'/>
+      <xs:attribute name='ssrc'
+                    type='xs:string'
+                    use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name='bandwidthElementType'>
+    <xs:simpleContent>
+      <xs:extension base='xs:string'>
+        <xs:attribute name='type' 
+                      type='xs:string' 
+                      use='required'/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name='cryptoElementType'>
+    <xs:simpleContent>
+      <xs:extension base='empty'>
+        <xs:attribute name='crypto-suite' type='xs:NCName' use='required'/>
+        <xs:attribute name='key-params' type='xs:string' use='required'/>
+        <xs:attribute name='session-params' type='xs:string' use='optional'/>
+        <xs:attribute name='tag' type='xs:string' use='required'/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name='encryptionElementType'>
+    <xs:sequence>
+      <xs:element name='crypto' 
+                  type='cryptoElementType'
+                  minOccurs='0' 
+                  maxOccurs='unbounded'/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name='payloadElementType'>
+    <xs:sequence>
+      <xs:element name='parameter'
+                  type='parameterElementType'
+                  minOccurs='0' 
+                  maxOccurs='unbounded'/>
+    </xs:sequence>
+    <xs:attribute name='channels'
+                  type='xs:unsignedByte'
+                  use='optional'
+                  default='1'/>
+    <xs:attribute name='clockrate' type='xs:unsignedInt' use='optional'/>
+    <xs:attribute name='id' type='xs:unsignedByte' use='required'/>
+    <xs:attribute name='maxptime' type='xs:unsignedInt' use='optional'/>
+    <xs:attribute name='name' type='xs:string' use='optional'/>
+    <xs:attribute name='ptime' type='xs:unsignedInt' use='optional'/>
+  </xs:complexType>
+
+  <xs:complexType name='parameterElementType'>
+    <xs:simpleContent>
+      <xs:extension base='empty'>
+        <xs:attribute name='name' type='xs:string' use='required'/>
+        <xs:attribute name='value' type='xs:string' use='required'/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

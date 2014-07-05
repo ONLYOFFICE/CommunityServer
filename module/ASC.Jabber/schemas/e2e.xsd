@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:ietf:params:xml:ns:xmpp-e2e'
+    xmlns='urn:ietf:params:xml:ns:xmpp-e2e'
+    elementFormDefault='qualified'>
+
+  <xs:element name='e2e' type='xs:string'/>
+
+  <xs:element name='decryption-failed' type='empty'/>
+  <xs:element name='signature-unverified' type='empty'/>
+  <xs:element name='bad-timestamp' type='empty'/>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

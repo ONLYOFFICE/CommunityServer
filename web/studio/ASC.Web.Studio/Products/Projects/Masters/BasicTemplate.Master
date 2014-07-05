@@ -1,0 +1,30 @@
+﻿<%@ Assembly Name="ASC.Projects.Core" %>
+<%@ Assembly Name="ASC.Web.Projects" %>
+<%@ Assembly Name="ASC.Web.Studio" %>
+
+<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Masters/BaseTemplate.master" CodeBehind="BasicTemplate.master.cs" Inherits="ASC.Web.Projects.Masters.BasicTemplate" %>
+
+<%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
+
+<asp:Content ContentPlaceHolderID="HeaderContent" runat="server">
+    <asp:ContentPlaceHolder ID="BTHeaderContent" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="SidePanel" runat="server">
+    <asp:PlaceHolder ID="projectsNavigationPanel" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="AdditionalColumns" runat="server">
+    <asp:ContentPlaceHolder ID="AdditionalColumns" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PageContent" runat="server">
+    <asp:PlaceHolder ID="_projectNavigatePanel" runat="server" />
+    <asp:ContentPlaceHolder ID="BTPageContent" runat="server" />
+    <asp:PlaceHolder runat="server" ID="_commonPopupHolder"></asp:PlaceHolder>
+    <asp:ContentPlaceHolder ID="emptyScreenPlaceHolders" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="clientTemplatesResourcesPlaceHolder" runat="server">
+    <asp:ContentPlaceHolder ID="projectsClientTemplatesResourcesPlaceHolder" runat="server" />
+</asp:Content>

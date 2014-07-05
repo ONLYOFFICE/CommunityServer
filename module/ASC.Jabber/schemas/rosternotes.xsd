@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='storage:rosternotes'
+    xmlns='storage:rosternotes'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0145: http://www.xmpp.org/extensions/xep-0145.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='storage'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='note' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='note'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='jid' type='xs:string' use='required'/>
+          <xs:attribute name='cdate' type='xs:dateTime' use='optional'/>
+          <xs:attribute name='mdate' type='xs:dateTime' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

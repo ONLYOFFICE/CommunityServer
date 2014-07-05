@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/si'
+    xmlns='http://jabber.org/protocol/si'
+    elementFormDefault='qualified'>
+  
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0095: http://www.xmpp.org/extensions/xep-0095.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:import 
+      namespace='http://jabber.org/protocol/feature-neg'
+      schemaLocation='http://xmpp.org/schemas/feature-neg.xsd'/>
+
+  <xs:element name='si'>
+    <xs:annotation>
+      <xs:documentation>
+        This is the root content element. All other elements in
+        this namespace are for communicating error information.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence xmlns:fneg='http://jabber.org/protocol/feature-neg'>
+        <xs:any namespace='##other' minOccurs='0'/>
+        <xs:element ref='fneg:feature'/>
+      </xs:sequence>
+      <xs:attribute name='id' type='xs:string' use='optional'/>
+      <xs:attribute name='mime-type' type='xs:string' use='optional'/>
+      <xs:attribute name='profile' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name='bad-profile' type='empty'/>
+  <xs:element name='no-valid-streams' type='empty'/>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

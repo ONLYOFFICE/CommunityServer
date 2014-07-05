@@ -1,0 +1,545 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+
+
+
+
+
+.b-fg { display: -moz-inline-box; -moz-box-orient: vertical; display: inline-block; *display: inline; *zoom: 1; vertical-align: baseline; position: relative; overflow: hidden; width: 16px; height: 9px; font-size: 0; line-height: 0; }
+.b-fg img { display: inline; border: none; margin: 0; padding: 0; position: relative; top: 9px; -moz-transition-property: top; -webkit-transition-property: top; -o-transition-property: top; transition-property: top; -moz-transition-duration: 0.25s; -webkit-transition-duration: 0.25s; -o-transition-duration: 0.25s; transition-duration: 0.25s; }
+
+.b-fg_no-transition img { -moz-transition-property: none; -webkit-transition-property: none; -o-transition-property: none; transition-property: none; -moz-transition-duration: 1s; -webkit-transition-duration: 1s; -o-transition-duration: 1s; transition-duration: 1s; }
+
+.b-fg_ABKHAZIA img { top: 0px; }
+
+.b-fg_AD img { top: -9px; }
+
+.b-fg_AE img { top: -18px; }
+
+.b-fg_AF img { top: -27px; }
+
+.b-fg_AG img { top: -36px; }
+
+.b-fg_AI img { top: -45px; }
+
+.b-fg_AL img { top: -54px; }
+
+.b-fg_AM img { top: -63px; }
+
+.b-fg_AN img { top: -72px; }
+
+.b-fg_AO img { top: -81px; }
+
+.b-fg_AQ img { top: -90px; }
+
+.b-fg_AR img { top: -99px; }
+
+.b-fg_AS img { top: -108px; }
+
+.b-fg_AT img { top: -117px; }
+
+.b-fg_AU img { top: -126px; }
+
+.b-fg_AW img { top: -135px; }
+
+.b-fg_AX img { top: -144px; }
+
+.b-fg_AZ img { top: -153px; }
+
+.b-fg_BA img { top: -162px; }
+
+.b-fg_BB img { top: -171px; }
+
+.b-fg_BD img { top: -180px; }
+
+.b-fg_BE img { top: -189px; }
+
+.b-fg_BF img { top: -198px; }
+
+.b-fg_BG img { top: -207px; }
+
+.b-fg_BH img { top: -216px; }
+
+.b-fg_BI img { top: -225px; }
+
+.b-fg_BJ img { top: -234px; }
+
+.b-fg_BL img { top: -243px; }
+
+.b-fg_BM img { top: -252px; }
+
+.b-fg_BN img { top: -261px; }
+
+.b-fg_BO img { top: -270px; }
+
+.b-fg_BR img { top: -279px; }
+
+.b-fg_BS img { top: -288px; }
+
+.b-fg_BT img { top: -297px; }
+
+.b-fg_BV img { top: -306px; }
+
+.b-fg_BW img { top: -315px; }
+
+.b-fg_BY img { top: -324px; }
+
+.b-fg_BZ img { top: -333px; }
+
+.b-fg_CA img { top: -342px; }
+
+.b-fg_CC img { top: -351px; }
+
+.b-fg_CD img { top: -360px; }
+
+.b-fg_CF img { top: -369px; }
+
+.b-fg_CG img { top: -378px; }
+
+.b-fg_CH img { top: -387px; }
+
+.b-fg_CI img { top: -396px; }
+
+.b-fg_CK img { top: -405px; }
+
+.b-fg_CL img { top: -414px; }
+
+.b-fg_CM img { top: -423px; }
+
+.b-fg_CN img { top: -432px; }
+
+.b-fg_CO img { top: -441px; }
+
+.b-fg_CR img { top: -450px; }
+
+.b-fg_CU img { top: -459px; }
+
+.b-fg_CV img { top: -468px; }
+
+.b-fg_CX img { top: -477px; }
+
+.b-fg_CY img { top: -486px; }
+
+.b-fg_CZ img { top: -495px; }
+
+.b-fg_DE img { top: -504px; }
+
+.b-fg_DJ img { top: -513px; }
+
+.b-fg_DK img { top: -522px; }
+
+.b-fg_DM img { top: -531px; }
+
+.b-fg_DO img { top: -540px; }
+
+.b-fg_DZ img { top: -549px; }
+
+.b-fg_EC img { top: -558px; }
+
+.b-fg_EE img { top: -567px; }
+
+.b-fg_EG img { top: -576px; }
+
+.b-fg_EH img { top: -585px; }
+
+.b-fg_ER img { top: -594px; }
+
+.b-fg_ES-CE img { top: -603px; }
+
+.b-fg_ES-ML img { top: -612px; }
+
+.b-fg_ES img { top: -621px; }
+
+.b-fg_ET img { top: -630px; }
+
+.b-fg_EU img { top: -639px; }
+
+.b-fg_FI img { top: -648px; }
+
+.b-fg_FJ img { top: -657px; }
+
+.b-fg_FK img { top: -666px; }
+
+.b-fg_FM img { top: -675px; }
+
+.b-fg_FO img { top: -684px; }
+
+.b-fg_FR img { top: -693px; }
+
+.b-fg_GA img { top: -702px; }
+
+.b-fg_GB img { top: -711px; }
+
+.b-fg_GD img { top: -720px; }
+
+.b-fg_GE img { top: -729px; }
+
+.b-fg_GF img { top: -738px; }
+
+.b-fg_GG img { top: -747px; }
+
+.b-fg_GH img { top: -756px; }
+
+.b-fg_GI img { top: -765px; }
+
+.b-fg_GL img { top: -774px; }
+
+.b-fg_GM img { top: -783px; }
+
+.b-fg_GN img { top: -792px; }
+
+.b-fg_GP img { top: -801px; }
+
+.b-fg_GQ img { top: -810px; }
+
+.b-fg_GR img { top: -819px; }
+
+.b-fg_GS img { top: -828px; }
+
+.b-fg_GT img { top: -837px; }
+
+.b-fg_GU img { top: -846px; }
+
+.b-fg_GW img { top: -855px; }
+
+.b-fg_GY img { top: -864px; }
+
+.b-fg_HK img { top: -873px; }
+
+.b-fg_HM img { top: -882px; }
+
+.b-fg_HN img { top: -891px; }
+
+.b-fg_HR img { top: -900px; }
+
+.b-fg_HT img { top: -909px; }
+
+.b-fg_HU img { top: -918px; }
+
+.b-fg_IC img { top: -927px; }
+
+.b-fg_ID img { top: -936px; }
+
+.b-fg_IE img { top: -945px; }
+
+.b-fg_IL img { top: -954px; }
+
+.b-fg_IM img { top: -963px; }
+
+.b-fg_IN img { top: -972px; }
+
+.b-fg_IO img { top: -981px; }
+
+.b-fg_IQ img { top: -990px; }
+
+.b-fg_IR img { top: -999px; }
+
+.b-fg_IS img { top: -1008px; }
+
+.b-fg_IT img { top: -1017px; }
+
+.b-fg_JE img { top: -1026px; }
+
+.b-fg_JM img { top: -1035px; }
+
+.b-fg_JO img { top: -1044px; }
+
+.b-fg_JP img { top: -1053px; }
+
+.b-fg_KE img { top: -1062px; }
+
+.b-fg_KG img { top: -1071px; }
+
+.b-fg_KH img { top: -1080px; }
+
+.b-fg_KI img { top: -1089px; }
+
+.b-fg_KM img { top: -1098px; }
+
+.b-fg_KN img { top: -1107px; }
+
+.b-fg_KOSOVO img { top: -1116px; }
+
+.b-fg_KP img { top: -1125px; }
+
+.b-fg_KR img { top: -1134px; }
+
+.b-fg_KW img { top: -1143px; }
+
+.b-fg_KY img { top: -1152px; }
+
+.b-fg_KZ img { top: -1161px; }
+
+.b-fg_LA img { top: -1170px; }
+
+.b-fg_LB img { top: -1179px; }
+
+.b-fg_LC img { top: -1188px; }
+
+.b-fg_LI img { top: -1197px; }
+
+.b-fg_LK img { top: -1206px; }
+
+.b-fg_LR img { top: -1215px; }
+
+.b-fg_LS img { top: -1224px; }
+
+.b-fg_LT img { top: -1233px; }
+
+.b-fg_LU img { top: -1242px; }
+
+.b-fg_LV img { top: -1251px; }
+
+.b-fg_LY img { top: -1260px; }
+
+.b-fg_MA img { top: -1269px; }
+
+.b-fg_MC img { top: -1278px; }
+
+.b-fg_MD img { top: -1287px; }
+
+.b-fg_ME img { top: -1296px; }
+
+.b-fg_MF img { top: -1305px; }
+
+.b-fg_MG img { top: -1314px; }
+
+.b-fg_MH img { top: -1323px; }
+
+.b-fg_MK img { top: -1332px; }
+
+.b-fg_ML img { top: -1341px; }
+
+.b-fg_MM img { top: -1350px; }
+
+.b-fg_MN img { top: -1359px; }
+
+.b-fg_MO img { top: -1368px; }
+
+.b-fg_MP img { top: -1377px; }
+
+.b-fg_MQ img { top: -1386px; }
+
+.b-fg_MR img { top: -1395px; }
+
+.b-fg_MS img { top: -1404px; }
+
+.b-fg_MT img { top: -1413px; }
+
+.b-fg_MU img { top: -1422px; }
+
+.b-fg_MV img { top: -1431px; }
+
+.b-fg_MW img { top: -1440px; }
+
+.b-fg_MX img { top: -1449px; }
+
+.b-fg_MY img { top: -1458px; }
+
+.b-fg_MZ img { top: -1467px; }
+
+.b-fg_NA img { top: -1476px; }
+
+.b-fg_NC img { top: -1485px; }
+
+.b-fg_NE img { top: -1494px; }
+
+.b-fg_NF img { top: -1503px; }
+
+.b-fg_NG img { top: -1512px; }
+
+.b-fg_NI img { top: -1521px; }
+
+.b-fg_NKR img { top: -1530px; }
+
+.b-fg_NL img { top: -1539px; }
+
+.b-fg_NO img { top: -1548px; }
+
+.b-fg_NP img { top: -1557px; }
+
+.b-fg_NR img { top: -1566px; }
+
+.b-fg_NU img { top: -1575px; }
+
+.b-fg_NZ img { top: -1584px; }
+
+.b-fg_OM img { top: -1593px; }
+
+.b-fg_PA img { top: -1602px; }
+
+.b-fg_PE img { top: -1611px; }
+
+.b-fg_PF img { top: -1620px; }
+
+.b-fg_PG img { top: -1629px; }
+
+.b-fg_PH img { top: -1638px; }
+
+.b-fg_PK img { top: -1647px; }
+
+.b-fg_PL img { top: -1656px; }
+
+.b-fg_PM img { top: -1665px; }
+
+.b-fg_PN img { top: -1674px; }
+
+.b-fg_PR img { top: -1683px; }
+
+.b-fg_PS img { top: -1692px; }
+
+.b-fg_PT img { top: -1701px; }
+
+.b-fg_PW img { top: -1710px; }
+
+.b-fg_PY img { top: -1719px; }
+
+.b-fg_QA img { top: -1728px; }
+
+.b-fg_RE img { top: -1737px; }
+
+.b-fg_RO img { top: -1746px; }
+
+.b-fg_RS img { top: -1755px; }
+
+.b-fg_RU img { top: -1764px; }
+
+.b-fg_RW img { top: -1773px; }
+
+.b-fg_SA img { top: -1782px; }
+
+.b-fg_SB img { top: -1791px; }
+
+.b-fg_SC img { top: -1800px; }
+
+.b-fg_SD img { top: -1809px; }
+
+.b-fg_SE img { top: -1818px; }
+
+.b-fg_SG img { top: -1827px; }
+
+.b-fg_SH img { top: -1836px; }
+
+.b-fg_SI img { top: -1845px; }
+
+.b-fg_SJ img { top: -1854px; }
+
+.b-fg_SK img { top: -1863px; }
+
+.b-fg_SL img { top: -1872px; }
+
+.b-fg_SM img { top: -1881px; }
+
+.b-fg_SN img { top: -1890px; }
+
+.b-fg_SO img { top: -1899px; }
+
+.b-fg_SOUTH-OSSETIA img { top: -1908px; }
+
+.b-fg_SR img { top: -1917px; }
+
+.b-fg_ST img { top: -1926px; }
+
+.b-fg_SV img { top: -1935px; }
+
+.b-fg_SY img { top: -1944px; }
+
+.b-fg_SZ img { top: -1953px; }
+
+.b-fg_TC img { top: -1962px; }
+
+.b-fg_TD img { top: -1971px; }
+
+.b-fg_TF img { top: -1980px; }
+
+.b-fg_TG img { top: -1989px; }
+
+.b-fg_TH img { top: -1998px; }
+
+.b-fg_TJ img { top: -2007px; }
+
+.b-fg_TK img { top: -2016px; }
+
+.b-fg_TL img { top: -2025px; }
+
+.b-fg_TM img { top: -2034px; }
+
+.b-fg_TN img { top: -2043px; }
+
+.b-fg_TO img { top: -2052px; }
+
+.b-fg_TR img { top: -2061px; }
+
+.b-fg_TT img { top: -2070px; }
+
+.b-fg_TV img { top: -2079px; }
+
+.b-fg_TW img { top: -2088px; }
+
+.b-fg_TZ img { top: -2097px; }
+
+.b-fg_UA img { top: -2106px; }
+
+.b-fg_UG img { top: -2115px; }
+
+.b-fg_UM img { top: -2124px; }
+
+.b-fg_US img { top: -2133px; }
+
+.b-fg_UY img { top: -2142px; }
+
+.b-fg_UZ img { top: -2151px; }
+
+.b-fg_VA img { top: -2160px; }
+
+.b-fg_VC img { top: -2169px; }
+
+.b-fg_VE img { top: -2178px; }
+
+.b-fg_VG img { top: -2187px; }
+
+.b-fg_VI img { top: -2196px; }
+
+.b-fg_VN img { top: -2205px; }
+
+.b-fg_VU img { top: -2214px; }
+
+.b-fg_WF img { top: -2223px; }
+
+.b-fg_WS img { top: -2232px; }
+
+.b-fg_YE img { top: -2241px; }
+
+.b-fg_YT img { top: -2250px; }
+
+.b-fg_ZA img { top: -2259px; }
+
+.b-fg_ZM img { top: -2268px; }
+
+.b-fg_ZW img { top: -2277px; }

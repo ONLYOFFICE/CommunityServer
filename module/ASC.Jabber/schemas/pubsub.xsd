@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/pubsub'
+    xmlns='http://jabber.org/protocol/pubsub'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0060: http://xmpp.org/extensions/xep-0060.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:import
+      namespace='jabber:x:data'
+      schemaLocation='http://xmpp.org/schemas/x-data.xsd'/>
+
+  <xs:element name='pubsub'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element ref='create'/>
+          <xs:element ref='configure' minOccurs='0'/>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element ref='subscribe' minOccurs='0'/>
+          <xs:element ref='options' minOccurs='0'/>
+        </xs:sequence>
+        <xs:choice minOccurs='0'>
+          <xs:element ref='affiliations'/>
+          <xs:element ref='items'/>
+          <xs:element ref='publish'/>
+          <xs:element ref='retract'/>
+          <xs:element ref='subscription'/>
+          <xs:element ref='subscriptions'/>
+          <xs:element ref='unsubscribe'/>
+        </xs:choice>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='affiliations'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='affiliation' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='affiliation'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='affiliation' use='required'>
+            <xs:simpleType>
+              <xs:restriction base='xs:NCName'>
+                <xs:enumeration value='member'/>
+                <xs:enumeration value='none'/>
+                <xs:enumeration value='outcast'/>
+                <xs:enumeration value='owner'/>
+                <xs:enumeration value='publisher'/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name='node' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='configure'>
+    <xs:complexType>
+      <xs:choice minOccurs='0' xmlns:xdata='jabber:x:data'>
+        <xs:element ref='xdata:x'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='create'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='node' type='xs:string' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='items'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='item' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='max_items' type='xs:positiveInteger' use='optional'/>
+      <xs:attribute name='node' type='xs:string' use='required'/>
+      <xs:attribute name='subid' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='item'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0'>
+        <xs:any namespace='##other'/>
+      </xs:sequence>
+      <xs:attribute name='id' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='options'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0'>
+        <xs:any namespace='jabber:x:data'/>
+      </xs:sequence>
+      <xs:attribute name='jid' type='xs:string' use='required'/>
+      <xs:attribute name='node' type='xs:string' use='optional'/>
+      <xs:attribute name='subid' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='publish'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='item' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='node' type='xs:string' use='required'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='retract'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='item' minOccurs='1' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='node' type='xs:string' use='required'/>
+      <xs:attribute name='notify' type='xs:boolean' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='subscribe-options'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='required' type='empty' minOccurs='0'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='subscribe'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='jid' type='xs:string' use='required'/>
+          <xs:attribute name='node' type='xs:string' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='subscriptions'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0' maxOccurs='unbounded'>
+        <xs:element ref='subscription'/>
+      </xs:sequence>
+      <xs:attribute name='node' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='subscription'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='subscribe-options' minOccurs='0'/>
+      </xs:sequence>
+      <xs:attribute name='jid' type='xs:string' use='required'/>
+      <xs:attribute name='node' type='xs:string' use='optional'/>
+      <xs:attribute name='subid' type='xs:string' use='optional'/>
+      <xs:attribute name='subscription' use='optional'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='none'/>
+            <xs:enumeration value='pending'/>
+            <xs:enumeration value='subscribed'/>
+            <xs:enumeration value='unconfigured'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='unsubscribe'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='jid' type='xs:string' use='required'/>
+          <xs:attribute name='node' type='xs:string' use='optional'/>
+          <xs:attribute name='subid' type='xs:string' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

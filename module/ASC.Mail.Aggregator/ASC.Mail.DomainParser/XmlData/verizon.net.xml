@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="verizon.net">
+    <domain>verizon.net</domain>
+    <displayName>Verizon Online</displayName>
+    <displayShortName>Verizon</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>incoming.verizon.net</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-encrypted</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>outgoing.verizon.net</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

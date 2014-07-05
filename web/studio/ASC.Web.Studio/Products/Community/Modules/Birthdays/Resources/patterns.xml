@@ -1,0 +1,17 @@
+<patterns>
+  <formatter type="ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common" />
+
+  <!--Milestone Due Date Notification-->
+  <pattern id="BirthdayReminder" sender="email.sender">
+    <subject resource="|subject_BirthdayReminder|ASC.Web.Community.Birthdays.Resources.BirthdayPatternResource,ASC.Web.Community.Birthdays" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_BirthdayReminder|ASC.Web.Community.Birthdays.Resources.BirthdayPatternResource,ASC.Web.Community.Birthdays" />
+  </pattern>
+  <pattern id="BirthdayReminder" sender="messanger.sender">
+    <subject resource="|subject_BirthdayReminder|ASC.Web.Community.Birthdays.Resources.BirthdayPatternResource,ASC.Web.Community.Birthdays" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+
+${__VirtualRootPath}/products/community/modules/birthdays
+    </body>
+  </pattern>
+
+</patterns>

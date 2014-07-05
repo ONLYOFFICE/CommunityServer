@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/rsm'
+    xmlns='http://jabber.org/protocol/rsm'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0059: http://www.xmpp.org/extensions/xep-0059.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='set'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='after' type='xs:string' minOccurs='0' maxOccurs='1'/>
+        <xs:element name='before' type='xs:string' minOccurs='0' maxOccurs='1'/>
+        <xs:element name='count' type='xs:int' minOccurs='0' maxOccurs='1'/>
+        <xs:element ref='first' minOccurs='0' maxOccurs='1'/>
+        <xs:element name='index' type='xs:int' minOccurs='0' maxOccurs='1'/>
+        <xs:element name='last' type='xs:string' minOccurs='0' maxOccurs='1'/>
+        <xs:element name='max' type='xs:int' minOccurs='0' maxOccurs='1'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='first'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='index' type='xs:int' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

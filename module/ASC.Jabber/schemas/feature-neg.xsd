@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/feature-neg'
+    xmlns='http://jabber.org/protocol/feature-neg'
+    elementFormDefault='qualified'>
+
+  <xs:import namespace='jabber:x:data'
+             schemaLocation='http://xmpp.org/schemas/x-data.xsd'/>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0020: http://www.xmpp.org/extensions/xep-0020.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='feature'>
+    <xs:complexType>
+      <xs:sequence xmlns:data='jabber:x:data'>
+        <xs:element ref='data:x'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

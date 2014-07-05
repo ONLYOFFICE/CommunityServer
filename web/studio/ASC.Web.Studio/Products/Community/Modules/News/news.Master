@@ -1,0 +1,23 @@
+﻿<%@ Assembly Name="ASC.Web.Community.News" %>
+<%@ Master Language="C#" MasterPageFile="~/Products/Community/Community.master" AutoEventWireup="true" CodeBehind="news.master.cs" Inherits="ASC.Web.Community.News.NewsMaster" %>
+
+<%@ Import Namespace="ASC.Data.Storage" %>
+
+<%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
+   
+<asp:Content ID="ContentHeader" ContentPlaceHolderID="CommunityPageHeader" runat="server">    
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="SideContent" ContentPlaceHolderID="CommunitySidePanel" runat="server">
+
+</asp:Content>
+<asp:Content ID="PageContent" ContentPlaceHolderID="CommunityPageContent" runat="server">
+    <sc:Container ID="MainNewsContainer" runat="server">
+        <header></header>
+        <body>
+            <asp:ContentPlaceHolder ID="NewsContents" runat="server">
+            </asp:ContentPlaceHolder>
+        </body>
+    </sc:Container>
+</asp:Content>

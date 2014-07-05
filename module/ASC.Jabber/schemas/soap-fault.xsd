@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/soap#fault'
+    xmlns='http://jabber.org/protocol/soap#fault'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0072: http://www.xmpp.org/extensions/xep-0072.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='DataEncodingUnknown' type='empty'/>
+  <xs:element name='MustUnderstand' type='empty'/>
+  <xs:element name='Receiver' type='empty'/>
+  <xs:element name='Sender' type='empty'/>
+  <xs:element name='VersionMismatch' type='empty'/>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

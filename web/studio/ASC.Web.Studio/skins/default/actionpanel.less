@@ -1,0 +1,196 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*******************************************************************************
+  Dropdown action panel
+*******************************************************************************/
+
+.studio-action-panel {
+    display: none;
+    position: absolute;
+    padding: 10px 20px 15px 15px;
+    z-index: 1999;
+    .boxShadow();
+
+    .corner-top,
+    .corner-bottom {
+        width: 7px;
+        height: 6px;
+        position: absolute;
+
+        &.left {
+            left: 16px;
+        }
+        &.right {
+            right: 16px;
+            left: auto;
+        }
+    }
+    .corner-top {
+        background: url("../default/images/dropdown-corner-top.gif") no-repeat transparent;       
+        top: -5px;
+    }
+    .corner-bottom {
+        background: url("../default/images/dropdown-corner-bottom.gif") no-repeat transparent;        
+        bottom: -6px;
+    }
+
+    .dropdown-content {
+        list-style-type: none;
+        margin: 0;
+        max-height:360px;
+        overflow-x: hidden;
+        overflow-y:auto;
+        padding: 0;
+
+        li {
+            max-width: 355px;
+            overflow:hidden;
+            text-overflow: ellipsis;
+        }
+        .dropdown-item,
+        .dropdown-item a {
+            background: none;
+            border: 0;
+            color: @textColor;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 21px;
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .dropdown-item {
+            &.disable {
+                color:@textColorGrayLight;
+                
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+                        
+            &:hover,
+            &:hover a {
+                text-decoration: underline;
+            }
+        }
+        .menu-row {
+            border-bottom: 1px solid @borderColor;
+            cursor: pointer;
+            list-style: none outside none;
+            outline: none;
+            padding: 6px 0 5px;
+            z-index: 100;
+        
+            &:hover{
+                background-color: @hoverTable;
+            }
+            
+            &:last-child {
+                border-bottom: none;
+            }  
+                     
+            a,
+            span,
+            div,
+            input {
+                outline: none;
+            }            
+        }
+    }
+/*******************************************************************************
+   Icons for the moduls list
+*******************************************************************************/
+    &.modules li {
+        background: url("@{img-change-url}dropdown-menu-icons.png") no-repeat 0 6px transparent;
+        padding-left: 21px;
+
+        &.projects {
+            background-position: 0 6px;
+        }
+
+        &.crm {
+            background-position: 0 -46px;
+        }
+
+        &.documents {
+            background-position: 0 -98px;
+        }
+
+        &.community {
+            background-position: 0 -149px;
+        }
+
+        &.people {
+            background-position: 0 -202px;
+        }
+
+        &.tools {
+            background-position: 0 -254px;
+        }
+
+        &.mail {
+            background-position: 0 -305px;
+        }
+
+        &.calendar {
+            background-position: 0 -358px;
+        }
+
+        &.feed {
+            background-position: 0 -410px;
+        }
+
+        &.settings {
+            background-position: 0 -462px;
+        }
+
+        &.tarrifs {
+            background-position: 0 -566px;
+        }
+
+        &.talk {
+            background-position: 0 -514px;
+        }
+    }
+}
+.create-new-link-list {
+    list-style: none outside none;
+    padding: 0px 10px 10px;
+}
+
+.dropdown-item-seporator {
+    border-top: 1px dotted @textColor;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.create-new-list-header {
+    text-transform: uppercase;
+}

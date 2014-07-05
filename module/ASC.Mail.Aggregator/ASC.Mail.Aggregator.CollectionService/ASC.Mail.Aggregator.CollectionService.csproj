@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2EBFAA3E-AF1D-4A30-B16A-4E8AE053E063}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Mail.Aggregator.CollectionService</RootNamespace>
+    <AssemblyName>ASC.Mail.Aggregator.CollectionService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ASC.ActiveUp.Net.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.ActiveUp.Net.Dns, Version=5.0.3454.364, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Dns.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.ActiveUp.Net.Imap4">
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Imap4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.ActiveUp.Net.Mail, Version=5.0.3454.364, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Mail.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.ActiveUp.Net.Pop3, Version=5.0.3454.364, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Pop3.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.ActiveUp.Net.Smtp, Version=5.0.3454.364, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Smtp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.FullTextIndex">
+      <HintPath>..\..\..\redistributable\asc\ASC.FullTextIndex.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Mail.Aggregator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Mail.Aggregator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Mail.Aggregator.Common">
+      <HintPath>..\..\..\redistributable\asc\ASC.Mail.Aggregator.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Mail.Aggregator.Contacts">
+      <HintPath>..\..\..\redistributable\asc\ASC.Mail.Aggregator.Contacts.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Mail.Aggregator.Dal">
+      <HintPath>..\..\..\redistributable\asc\ASC.Mail.Aggregator.Dal.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Mail.Aggregator.EmailIn">
+      <HintPath>..\..\..\redistributable\asc\ASC.Mail.Aggregator.EmailIn.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Specific">
+      <HintPath>..\..\..\redistributable\asc\ASC.Specific.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Core">
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Web.CRM">
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.CRM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Files">
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Files.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AWSSDK, Version=1.0.6.0, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Amazon\AWSSDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CommandLine">
+      <HintPath>..\..\..\redistributable\third-party\CommandLine\CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.3.9.1, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\HtmlAgilityPack\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.2.2.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\db\mysql\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\..\redistributable\third-party\Nlog 2.1\net35\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Ude, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\CharsetDetector\Ude.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collector.cs" />
+    <Compile Include="CollectorService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CollectorServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Configuration\MailQueueConfigurationElement.cs" />
+    <Compile Include="Configuration\CollectionServiceConfigurationSection.cs" />
+    <Compile Include="Configuration\MessageHandlerElement.cs" />
+    <Compile Include="Configuration\MessageHandlersCollection.cs" />
+    <Compile Include="Configuration\Schema.cs" />
+    <Compile Include="MailItemManager.cs" />
+    <Compile Include="MailItemQueueFactory.cs" />
+    <Compile Include="MailQueueItem.cs" />
+    <Compile Include="MailQueueItem.Imap.cs" />
+    <Compile Include="MailQueueItemSettings.cs" />
+    <Compile Include="MailQueueSettings.cs" />
+    <Compile Include="MailWorkerQueue.cs" />
+    <Compile Include="MessageHandlersSettings.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Program.Options.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="download_message.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

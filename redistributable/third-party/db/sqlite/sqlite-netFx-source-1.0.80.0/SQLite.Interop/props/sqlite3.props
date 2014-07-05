@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ *
+ * sqlite3.props -
+ *
+ * Written by Joe Mistachkin.
+ * Released to the public domain, use at your own risk!
+ *
+-->
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup Label="UserMacros">
+    <SQLITE_MANIFEST_VERSION>3.7.11.0</SQLITE_MANIFEST_VERSION>
+    <SQLITE_RC_VERSION>3,7,11,0</SQLITE_RC_VERSION>
+    <SQLITE_COMMON_DEFINES>SQLITE_THREADSAFE=1;SQLITE_ENABLE_COLUMN_METADATA=1;SQLITE_ENABLE_STAT3=1;SQLITE_ENABLE_FTS3=1;SQLITE_ENABLE_LOAD_EXTENSION=1;SQLITE_ENABLE_RTREE=1;SQLITE_SOUNDEX=1</SQLITE_COMMON_DEFINES>
+    <SQLITE_EXTRA_DEFINES>SQLITE_HAS_CODEC=1</SQLITE_EXTRA_DEFINES>
+    <SQLITE_WINCE_DEFINES>SQLITE_OMIT_WAL=1</SQLITE_WINCE_DEFINES>
+    <SQLITE_DEBUG_DEFINES>SQLITE_DEBUG=1;SQLITE_MEMDEBUG=1</SQLITE_DEBUG_DEFINES>
+    <SQLITE_RELEASE_DEFINES>SQLITE_WIN32_MALLOC=1</SQLITE_RELEASE_DEFINES>
+    <SQLITE_DISABLE_WARNINGS>4018;4055;4057;4090;4100;4127;4132;4146;4152;4210;4232;4244;4245;4389;4701;4706;4996</SQLITE_DISABLE_WARNINGS>
+    <SQLITE_DISABLE_X64_WARNINGS>4232;4267;4306</SQLITE_DISABLE_X64_WARNINGS>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="SQLITE_MANIFEST_VERSION">
+      <Value>$(SQLITE_MANIFEST_VERSION)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE_RC_VERSION">
+      <Value>$(SQLITE_RC_VERSION)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE_COMMON_DEFINES">
+      <Value>$(SQLITE_COMMON_DEFINES)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE_EXTRA_DEFINES">
+      <Value>$(SQLITE_EXTRA_DEFINES)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE_WINCE_DEFINES">
+      <Value>$(SQLITE_WINCE_DEFINES)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE_DEBUG_DEFINES">
+      <Value>$(SQLITE_DEBUG_DEFINES)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE_RELEASE_DEFINES">
+      <Value>$(SQLITE_RELEASE_DEFINES)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE_DISABLE_WARNINGS">
+      <Value>$(SQLITE_DISABLE_WARNINGS)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+    <BuildMacro Include="SQLITE_DISABLE_X64_WARNINGS">
+      <Value>$(SQLITE_DISABLE_X64_WARNINGS)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

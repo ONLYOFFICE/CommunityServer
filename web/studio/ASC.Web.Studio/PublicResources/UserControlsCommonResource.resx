@@ -1,0 +1,634 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivityType" xml:space="preserve">
+    <value>Activity type</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>Add {!Users}</value>
+  </data>
+  <data name="BtnChangeProfile" xml:space="preserve">
+    <value>Edit Profile</value>
+  </data>
+  <data name="BtnChangeSettings" xml:space="preserve">
+    <value>Portal Settings</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Create Presentation</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Create Spreadsheet</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Create Document</value>
+  </data>
+  <data name="DemoUserName" xml:space="preserve">
+    <value>DEMO mode</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>The list of documents is empty</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}Create{1} files right on your portal or {2}upload{3} them here to be able to {4}open{5} and {6}edit{7} them using the TeamLab portal editor, share them with friends or colleagues, organize into folders.</value>
+  </data>
+  <data name="EmptyListDocumentsDescrMobile" xml:space="preserve">
+    <value>Загрузить или создать файлы вы можете только на десктопном компьютере</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Learn more...</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>You can create documents ({0}), spreadsheets ({1}), presentations ({2}) and download them to most popular formats.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>You can upload to Documents any files you want.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>You can open the files with the following extentions: {0}.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>You can edit the following files: {0}.</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Title can't contain any of the following characters:</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>New Document</value>
+  </data>
+  <data name="QuickLinkDeletingIsInProgress" xml:space="preserve">
+    <value>Deleting quick link...</value>
+  </data>
+  <data name="QuickLinkEditIsInProgress" xml:space="preserve">
+    <value>Saving Quick Link...</value>
+  </data>
+  <data name="QuickLinksActionsColumn" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="QuickLinksAddOnTopPanelColumn" xml:space="preserve">
+    <value>Add to top panel</value>
+  </data>
+  <data name="QuickLinksDeleteConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to delete the {0} quick link?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="QuickLinksDeleteLinkTitle" xml:space="preserve">
+    <value>Delete quick link</value>
+  </data>
+  <data name="QuickLinksDeletePopupWindowTitle" xml:space="preserve">
+    <value>Delete Quick Link</value>
+  </data>
+  <data name="QuickLinksDownloadLink" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="QuickLinksEditLink" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="QuickLinksEditLinkTitle" xml:space="preserve">
+    <value>Edit quick link</value>
+  </data>
+  <data name="QuickLinksModuleColumn" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="QuickLinksNameColumn" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Remove from list</value>
+  </data>
+  <data name="SignInAsTitle" xml:space="preserve">
+    <value>Signed in as</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Everyone</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Attach File from Project Documents</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>New File</value>
+  </data>
+  <data name="NoFiles" xml:space="preserve">
+    <value>There are no files</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Upload File</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Delete File</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Note: This action cannot be undone.</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Are you sure you want to delete this file?</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>It is currently being edited</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>enter the text</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="EmptyDocsDescription" xml:space="preserve">
+    <value>The documents and image files you create or upload for your 
+project are kept in this section. These documents are available 
+to all project participants immediately after they are created. 
+Attach files from your computer to the task and they 
+will appear in this list.</value>
+  </data>
+  <data name="EmptyDocsHeaderDescription" xml:space="preserve">
+    <value>No files to be displayed in this section.</value>
+  </data>
+  <data name="ProjectDocuments" xml:space="preserve">
+    <value>Project Documents</value>
+  </data>
+  <data name="CheckAll" xml:space="preserve">
+    <value>Check All</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Attach files</value>
+  </data>
+  <data name="PostComment" xml:space="preserve">
+    <value>Blog post's comment</value>
+  </data>
+  <data name="BlogPost" xml:space="preserve">
+    <value>Blog's post</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Topic</value>
+  </data>
+  <data name="Advert" xml:space="preserve">
+    <value>Advert</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="NewEmployee" xml:space="preserve">
+    <value>New employee</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Poll" xml:space="preserve">
+    <value>Poll</value>
+  </data>
+  <data name="NewParticipant" xml:space="preserve">
+    <value>New participant</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Subtask</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>What's New</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>Show next news</value>
+  </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="PeopleProduct" xml:space="preserve">
+    <value>People</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>Me</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Other users</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>There are no news matching this filter</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>No news matching your filter can be displayed in this section.</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>There is nothing to be displayed here</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>All the portal activities are displayed here in this section. Right now there are no events on the portal to be displayed. Start using your portal, fill it with the content and all the news will be shown at this page.</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Reset filter</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="BookmarkComment" xml:space="preserve">
+    <value>Bookmark's comment</value>
+  </data>
+  <data name="DiscussionComment" xml:space="preserve">
+    <value>Discussion's comment</value>
+  </data>
+  <data name="EventComment" xml:space="preserve">
+    <value>Event's comment</value>
+  </data>
+  <data name="ForumPost" xml:space="preserve">
+    <value>Forum's post</value>
+  </data>
+  <data name="TaskComment" xml:space="preserve">
+    <value>Task's comment</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0} days ago</value>
+  </data>
+  <data name="InDays" xml:space="preserve">
+    <value>In {0} days</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Feed</value>
+  </data>
+  <data name="ForumPostCommentCreatedText" xml:space="preserve">
+    <value>created new comment to forum post in Community</value>
+  </data>
+  <data name="SeeAllNotifications" xml:space="preserve">
+    <value>See all notifications</value>
+  </data>
+  <data name="EmployeeAddedText" xml:space="preserve">
+    <value>was added to portal in People</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Attach File from Your Documents</value>
+  </data>
+  <data name="SharingSettingsItemsTitle" xml:space="preserve">
+    <value>Set up the access rights for users or groups</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>Sharing Settings</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Отправить уведомление</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Добавить сопроводительный текст</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>Убрать сопроводительный текст</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Download File</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Edit File</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>Upload the documents in original format as well</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>All the documents you upload will be converted to the Office Open XML format for faster editing.</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>FirstName</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>LastName</value>
+  </data>
+  <data name="LoginWith" xml:space="preserve">
+    <value>Please, log in with your account</value>
+  </data>
+  <data name="LoginWithFromTry" xml:space="preserve">
+    <value>The document is opened in DEMO mode.{0}Please register using one of the social networks below to save changes to the edited documents.</value>
+  </data>
+  <data name="TariffServerCE" xml:space="preserve">
+    <value>You're using the {0}Server Community Edition{1} of TeamLab Office.</value>
+  </data>
+  <data name="TariffServerCEstar" xml:space="preserve">
+    <value>Online Office Apps - online editors of texts, presentations and spreadsheets with the options on collaborative editing and commenting.</value>
+  </data>
+  <data name="TariffLicenseOver" xml:space="preserve">
+    <value>Your copy of TeamLab Office isn't registered</value>
+  </data>
+  <data name="TariffLicenseOverReason" xml:space="preserve">
+    <value>The functionality is limited. {0}To make use of {1}Online Office Apps{2}{3}, please, select the pricing plan corresponding to the number of active users at your portal.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Adding new users</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Cannot add new users</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Adding new users will exceed the maxumum number of portal members allowed by your current pricing plan.</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>Not enough free storage space</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>The portal storage space is exceeded</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>Please delete all the outdated content from the portal or change the current pricing plan to one with larger storage space.</value>
+  </data>
+  <data name="TariffDocsEditionLimitTitle" xml:space="preserve">
+    <value>Opening the document</value>
+  </data>
+  <data name="TariffDocsEditionLimitReasonLicense" xml:space="preserve">
+    <value>The document cannot be opened as Online Office Apps are available only for users of registered portals. To get use of all TeamLab options, please, buy the license.</value>
+  </data>
+  <data name="TariffDocsEditionLimitHeader" xml:space="preserve">
+    <value>The document cannot be opened</value>
+  </data>
+  <data name="TariffDocsEditionLimitReason" xml:space="preserve">
+    <value>The current pricing plan does not allow you to open or edit documents right on the portal. Please change the plan to one that includes TeamLab editors or download the document to open or edit it offline.</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Would you like to choose a new pricing plan?</value>
+  </data>
+  <data name="TariffLimitOkButtonLicense" xml:space="preserve">
+    <value>Buy now</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Yes, upgrade plan</value>
+  </data>
+  <data name="TariffNameMonth" xml:space="preserve">
+    <value>Month{0}</value>
+  </data>
+  <data name="TariffNameYear" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>month</value>
+  </data>
+  <data name="TariffPerYearOnly" xml:space="preserve">
+    <value>Per year only</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>year</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>You are using non-profit plan.</value>
+  </data>
+  <data name="TariffPaid" xml:space="preserve">
+    <value>You are using {0}/{1}{2} plan.</value>
+  </data>
+  <data name="TariffOverdue" xml:space="preserve">
+    <value>You are using {0}/{1}{2} plan. {3}The payment is overdue.{4}{5} To continue using Teamlab Office, prolong the existing plan or change it using the table below.</value>
+  </data>
+  <data name="TariffLicenseDescr" xml:space="preserve">
+    <value>Please enter a code of your license from the email. To get a code choose a license below and press 'Buy now' button.</value>
+  </data>
+  <data name="TariffGetTrialButton" xml:space="preserve">
+    <value>Get trial code</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>An SMS with the portal access code has been sent to your {0}{1}{2} mobile phone number.{5}Please enter the code and click the "{3}" button. If no message is received for more than 3 minutes, click the "{4}" button.</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Your current mobile number: {0}</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>You change your mobile number</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>Enter a new phone number to continue to work on the portal. Mobile phone number using an international format with country code.</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Change number</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Add New Social Profile</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>search</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>Искать в модуле</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Add poll choice</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>Total number of votes</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Poll Choices</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Enter your poll question</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Select poll choice</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Allow multiple choices for this poll question</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Allow only one choice for this poll question</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Poll Question</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Poll Type</value>
+  </data>
+  <data name="RemoveAnswerVariantButton" xml:space="preserve">
+    <value>Delete poll choice</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Choice</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Vote</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>All Departments</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Clear Filter</value>
+  </data>
+  <data name="EmptyList" xml:space="preserve">
+    <value>Empty</value>
+  </data>
+  <data name="LinkText" xml:space="preserve">
+    <value>Add users</value>
+  </data>
+  <data name="CancelNonEmptyCommentErrorMessage" xml:space="preserve">
+    <value>Are you sure you want to cancel creating the comment? If you cancel now, the comment you entered will not be saved.</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Comment cannot be empty</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>No comments</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="HostedUnauthorizedTitle" xml:space="preserve">
+    <value>Неавторизованная версия</value>
+  </data>
+  <data name="HostedUnauthorizedEditing" xml:space="preserve">
+    <value>Портал не авторизован, редактирование и просмотр документов не доступны.</value>
+  </data>
+  <data name="HostedUnauthorizedEditingReason" xml:space="preserve">
+    <value>Для возобновления работы с офисными приложениями TeamLab {0}обратитесь{1} к своему поставщику TeamLab.</value>
+  </data>
+</root>

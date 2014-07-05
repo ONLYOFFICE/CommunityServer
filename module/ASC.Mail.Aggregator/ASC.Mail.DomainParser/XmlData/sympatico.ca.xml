@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+    <emailProvider id="sympatico.ca">
+      <domain>sympatico.ca</domain>
+
+      <displayName>Sympatico Email</displayName>
+      <displayShortName>Sympatico</displayShortName>
+
+      <incomingServer type="pop3">
+         <hostname>pophm.sympatico.ca</hostname>
+         <port>995</port>
+         <socketType>SSL</socketType>
+         <username>%EMAILADDRESS%</username>
+         <authentication>plain</authentication>
+      </incomingServer>
+
+      <outgoingServer type="smtp">
+         <hostname>smtphm.sympatico.ca</hostname>
+         <port>587</port>
+         <socketType>STARTTLS</socketType>
+         <username>%EMAILADDRESS%</username>
+         <authentication>plain</authentication>
+         <addThisServer>true</addThisServer>
+         <useGlobalPreferredServer>false</useGlobalPreferredServer>
+      </outgoingServer>
+      <documentation url="http://internet.bell.ca/index.cfm?method=content.view&amp;category_id=585&amp;content_id=12767">
+	  <descr>POP settings, domains</descr>
+      </documentation>
+    </emailProvider>
+</clientConfig>

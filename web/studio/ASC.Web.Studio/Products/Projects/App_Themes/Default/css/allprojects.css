@@ -1,0 +1,262 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+#tableListProjects
+{
+	margin-bottom: 20px;
+	display: none;
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    border-bottom: 1px solid #D1D1D1;
+}
+#tableListProjects tbody tr:hover {
+	background-color: #F2F2F2;
+}
+
+#tableListProjects tr.openList {
+	background-color: #F2F2F2;
+}
+#tableListProjects tr th
+{
+	font-weight:normal;
+	padding-bottom: 8px;
+}
+
+#tableListProjects tr td 
+{
+	height: 40px;
+	border-top: 1px solid #D1D1D1;
+}
+
+#tableListProjects tr .action
+{
+	width:40px;
+}
+#tableListProjects tr .nameProject
+{
+	padding-left: 10px;
+}
+#tableListProjects tr.noActiveProj .nameProject a, #tableListProjects tr.noActiveProj,
+#tableListProjects tr.noActiveProj .responsible .userLink,
+#tableListProjects tr.noActiveProj .responsible .userLink.my,
+#tableListProjects tr.noActiveProj .responsible .participants,
+#tableListProjects tr.noActiveProj .milestoneCount a,
+#tableListProjects tr.noActiveProj .taskCount a{
+	color: #83888D;
+}
+#tableListProjects tr.noActiveProj .responsible span{
+	border-bottom-color: #83888D;
+}
+#tableListProjects tr .nameProject span.private {
+	background:url("../images/small-icons.png") -1px -36px no-repeat;
+	margin-right: 3px;
+	display: block;
+	float: left;
+	width: 16px;
+	height: 16px;
+}
+#tableListProjects tr .nameProject a
+{
+	font-weight:bold;
+    font-size: 12px;
+    color: #333333;
+	display:block;
+	float: left;
+	width: 93%;
+	overflow: hidden;
+	text-decoration: none;
+    text-overflow: ellipsis;
+}
+#tableListProjects tr .nameProject a:hover {
+	text-decoration: underline;
+}
+#tableListProjects tr td.nameProject span.description {
+	display: none;
+}
+#tableListProjects tr .milestoneCount, #tableListProjects tr .lastActivity
+{
+	width:70px;
+	text-align: center;
+}
+#tableListProjects tr .taskCount
+{
+	width:70px;	
+	text-align: center;
+}
+#tableListProjects tr .milestoneCount a,
+#tableListProjects tr .taskCount a{ 
+	color: #333333;
+	text-decoration: none;
+}
+#tableListProjects tr .milestoneCount a:hover,
+#tableListProjects tr:hover .milestoneCount a,
+#tableListProjects tr .taskCount a:hover,
+#tableListProjects tr:hover .taskCount a {
+	text-decoration: underline;
+ }
+#tableListProjects tr .responsible
+{
+	width:200px;
+}
+#tableListProjects tr td.responsible .userLink,
+#tableListProjects.simple-view-table tr td.responsible .userLink{
+	float: left;
+	max-width: 160px;
+	height: 16px;
+	overflow: hidden;
+	white-space: nowrap;
+	border-bottom: 1px dotted transparent;
+	background-image: none;
+	padding-left: 0;
+	cursor: pointer;
+    text-overflow:ellipsis;
+}
+#tableListProjects.simple-view-table tr td.responsible .userLink {
+    cursor: default;
+}
+#tableListProjects tr:hover td.responsible .userLink,
+#tableListProjects tr:hover td.responsible .userLink:hover {
+	border-bottom: 1px dotted;
+}
+#tableListProjects.simple-view-table tr:hover td.responsible .userLink,
+#tableListProjects.simple-view-table tr td.responsible .userLink:hover,
+#tableListProjects tr:hover td.responsible .userLink.not-action,
+#tableListProjects tr td.responsible .userLink.not-action:hover {
+    border-bottom: 1px dotted transparent;
+    cursor: default;
+}
+#tableListProjects tr td.responsible .userLink.my {
+	color: #666;
+	font-weight: bold;
+}
+
+#tableListProjects tr td.responsible a.participants
+{
+	margin-right:8px;
+	color:#666;
+	float: right;
+	text-decoration: none;
+}
+#tableListProjects tr:hover td.responsible a.participants {
+	text-decoration: underline;
+}
+#tableListProjects tr .trash {
+    width: 25px;
+    padding-left: 5px; 
+}
+#tableListProjects tr .trash img[title] {
+    cursor: pointer;
+}
+
+/*------status combobox-------*/
+#tableListProjects .openList{}
+#tableListProjects .statusContainer {
+	position: relative;
+}
+
+#tableListProjects .statusContainer span[id^='statusCombobox_'] 	
+{
+  display: block;
+  width:38px;
+  height:22px;
+  margin:3px 0px 3px 5px;
+  text-align: center;  
+}
+#tableListProjects .statusContainer span[id^='statusCombobox_'] span {
+	background: url('../images/projects_entity_statuses.png') no-repeat;
+    background-repeat: no-repeat;
+    display: inline-block;
+	width: 16px;
+	height: 16px;
+    margin: 3px 0 0 2px;
+    *display: inline;
+    *zoom: 1;
+}
+#tableListProjects .statusContainer span[id^='statusCombobox_'] .open {
+	background-position: 0 -60px;
+}
+#tableListProjects .statusContainer span[id^='statusCombobox_'] .closed {
+	background-position: 0 -80px;
+}
+#tableListProjects .statusContainer span[id^='statusCombobox_'] .paused {
+	background-position: 0 -98px;
+}
+
+#tableListProjects div.statusContainer span[id^='statusCombobox_'][class="canEdit"] {
+	border: 1px solid  #d1d1d1;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	cursor: pointer;
+}
+
+#tableListProjects .statusContainer span[id^='statusCombobox_'][class="canEdit"]:hover,
+#tableListProjects tr:hover .statusContainer span[id^='statusCombobox_'][class="canEdit"],
+#tableListProjects tr.openList div.statusContainer span[id^='statusCombobox_'][class="canEdit"]
+{
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#cecece');
+	background: -moz-linear-gradient(bottom, #cecece, #f6f6f6) repeat scroll 0 0 transparent;
+	background: -ms-linear-gradient(bottom, #cecece, #f6f6f6) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(bottom, #cecece, #f6f6f6) repeat scroll 0 0 transparent;
+	background:-webkit-linear-gradient(bottom, #cecece, #f6f6f6) repeat scroll 0 0 transparent;
+	background: -o-linear-gradient(bottom, #cecece, #f6f6f6) repeat scroll 0 0 transparent;
+	border-color: #a8a8a8;
+}
+
+#tableListProjects div.statusContainer span[id^='statusCombobox_'][class="canEdit"] span.arrow {
+    background: url('../images/small-icons.png') no-repeat -4px -74px #fff;
+    height: 7px;
+    width: 7px;
+    display: inline-block;
+    margin: 0 4px 4px 1px;
+    *inline:inline;
+    *zoom: 1;
+}
+#tableListProjects .statusContainer span[id^='statusCombobox_'][class="canEdit"]:hover span.arrow,
+#tableListProjects tr:hover .statusContainer span[id^='statusCombobox_'][class="canEdit"] span.arrow,
+#tableListProjects tr.openList div.statusContainer span[id^='statusCombobox_'][class="canEdit"] span.arrow {
+    background-color: transparent;
+    background-position: -4px -58px
+}
+
+
+#tableListProjects span[id^='statusCombobox_'][class="noEdit"] {
+	border: 1px solid  transparent;
+	background-image: none;
+	background-color: transparent;
+}
+#tableListProjects span[id^='statusCombobox_'][class='noEdit']:hover {
+	background-image: none;
+	background-color: transparent;
+	border:1px solid transparent;
+}

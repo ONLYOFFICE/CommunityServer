@@ -1,0 +1,6 @@
+﻿<todo-list>
+	<name>{0}</name>
+	<description>{1}</description>
+	<private type="boolean">{2}</private>
+	<tracked type="boolean">{3}</tracked>
+</todo-list>

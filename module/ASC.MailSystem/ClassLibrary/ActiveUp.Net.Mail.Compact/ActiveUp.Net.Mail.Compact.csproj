@@ -1,0 +1,397 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{75ABF3B4-36F3-4FE5-826D-B7D6410207C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ActiveUp.Net.Mail.Compact</RootNamespace>
+    <AssemblyName>ActiveUp.Net.Mail.Compact</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <OSVersion>5.0</OSVersion>
+    <DeployDirSuffix>ActiveUp.Net.Mail.Compact</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FormFactorID>
+    </FormFactorID>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <NativePlatformName>Windows CE</NativePlatformName>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PocketPC</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;PocketPC</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <OutputPath>bin\Retail\</OutputPath>
+    <DefineConstants>TRACE;PocketPC</DefineConstants>
+    <Optimize>true</Optimize>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>bin\Retail\ActiveUp.Net.Mail.Compact.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Trial|AnyCPU' ">
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <OutputPath>bin\Trial\</OutputPath>
+    <DefineConstants>TRACE;PocketPC</DefineConstants>
+    <Optimize>true</Optimize>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>bin\Trial\ActiveUp.Net.Mail.Compact.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\ActiveUp.Net.Pop3\Pop3Client.cs">
+      <Link>Pop3Client.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Pop3\Pop3Exception.cs">
+      <Link>Pop3Exception.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Imap4\Fetch.cs">
+      <Link>Fetch.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Imap4\Flag.cs">
+      <Link>Flag.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Imap4\FlagCollection.cs">
+      <Link>FlagCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Imap4\Imap4Client.cs">
+      <Link>Imap4Client.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Imap4\Imap4Exception.cs">
+      <Link>Imap4Exception.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Imap4\Mailbox.cs">
+      <Link>Mailbox.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Imap4\MailboxCollection.cs">
+      <Link>MailboxCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Imap4\MailboxPermission.cs">
+      <Link>MailboxPermission.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Smtp\SmtpClient.cs">
+      <Link>SmtpClient.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Smtp\SmtpException.cs">
+      <Link>SmtpException.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Smtp\SmtpExceptionCollection.cs">
+      <Link>SmtpExceptionCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Smtp\SmtpMessage.cs">
+      <Link>SmtpMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Smtp\SmtpMessageCollection.cs">
+      <Link>SmtpMessageCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Smtp\SmtpValidator.cs">
+      <Link>SmtpValidator.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Nntp\NewsGroup.cs">
+      <Link>NewsGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Nntp\NewsGroupCollection.cs">
+      <Link>NewsGroupCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Nntp\NntpClient.cs">
+      <Link>NntpClient.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Nntp\NntpException.cs">
+      <Link>NntpException.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Address.cs">
+      <Link>Address.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\AddressCollection.cs">
+      <Link>AddressCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Attachment.cs">
+      <Link>Attachment.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\AttachmentCollection.cs">
+      <Link>AttachmentCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\BayesianFilter.cs">
+      <Link>BayesianFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\BodyFormat.cs">
+      <Link>BodyFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\BodyTemplate.cs">
+      <Link>BodyTemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\BodyTemplateCollection.cs">
+      <Link>BodyTemplateCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\BounceResult.cs">
+      <Link>BounceResult.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Codec.cs">
+      <Link>Codec.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Condition.cs">
+      <Link>Condition.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\ConditionalCollection.cs">
+      <Link>ConditionalCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\ContentDisposition.cs">
+      <Link>ContentDisposition.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\ContentTransferEncoding.cs">
+      <Link>ContentTransferEncoding.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\ContentType.cs">
+      <Link>ContentType.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Converter.cs">
+      <Link>Converter.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\IFlag.cs">
+      <Link>IFlag.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\IFlagCollection.cs">
+      <Link>IFlagCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\IMailbox.cs">
+      <Link>IMailbox.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Crypto.cs">
+      <Link>Crypto.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\CtchClient.cs">
+      <Link>CtchClient.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\DomainKeys.CanonicalizationAlgorithm.cs">
+      <Link>DomainKeys.CanonicalizationAlgorithm.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\DomainKeys.Canonicalizer.cs">
+      <Link>DomainKeys.Canonicalizer.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\DomainKeys.KeyType.cs">
+      <Link>DomainKeys.KeyType.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\DomainKeys.OutboundSigningPolicy.cs">
+      <Link>DomainKeys.OutboundSigningPolicy.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\DomainKeys.PublicKeyRecord.cs">
+      <Link>DomainKeys.PublicKeyRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\DomainKeys.QueryMethod.cs">
+      <Link>DomainKeys.QueryMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\DomainKeys.SendingDomainPolicy.cs">
+      <Link>DomainKeys.SendingDomainPolicy.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\DomainKeys.Signature.cs">
+      <Link>DomainKeys.Signature.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\EmbeddedObjectCollection.cs">
+      <Link>EmbeddedObjectCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\EncryptionType.cs">
+      <Link>EncryptionType.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Events.cs">
+      <Link>Events.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\FieldFormat.cs">
+      <Link>FieldFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\FieldFormatCollection.cs">
+      <Link>FieldFormatCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Header.cs">
+      <Link>Header.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\HeaderCollection.cs">
+      <Link>HeaderCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\ListTemplate.cs">
+      <Link>ListTemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\ListTemplateCollection.cs">
+      <Link>ListTemplateCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Logger.cs">
+      <Link>Logger.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Message.cs">
+      <Link>Message.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\MessageCollection.cs">
+      <Link>MessageCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\MessagePriority.cs">
+      <Link>MessagePriority.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\MimeBody.cs">
+      <Link>MimeBody.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\MimePart.cs">
+      <Link>MimePart.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\MimePartCollection.cs">
+      <Link>MimePartCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\MimeTypesHelper.cs">
+      <Link>MimeTypesHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\MxRecord.cs">
+      <Link>MxRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\MxRecordCollection.cs">
+      <Link>MxRecordCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\OperatorType.cs">
+      <Link>OperatorType.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\PaddingDirection.cs">
+      <Link>PaddingDirection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Parser.cs">
+      <Link>Parser.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\ParsingException.cs">
+      <Link>ParsingException.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\ProductHelper.cs">
+      <Link>ProductHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\QueuingService.cs">
+      <Link>QueuingService.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Region.cs">
+      <Link>Region.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\RegionCollection.cs">
+      <Link>RegionCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\SaslMechanism.cs">
+      <Link>SaslMechanism.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Server.cs">
+      <Link>Server.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\ServerCollection.cs">
+      <Link>ServerCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Signatures.cs">
+      <Link>Signatures.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\SslHandShake.cs">
+      <Link>SslHandShake.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\StructuredHeaderField.cs">
+      <Link>StructuredHeaderField.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Templater.cs">
+      <Link>Templater.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\TimedUdpClient.cs">
+      <Link>TimedUdpClient.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Tokenizer.cs">
+      <Link>Tokenizer.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\TraceInfo.cs">
+      <Link>TraceInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\TraceInfoCollection.cs">
+      <Link>TraceInfoCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\TrustAllCertificatePolicy.cs">
+      <Link>TrustAllCertificatePolicy.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\UsenetXrefList.cs">
+      <Link>UsenetXrefList.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Common\Validator.cs">
+      <Link>Validator.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Mail\Merger.cs">
+      <Link>Merger.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Mail\RblServer.cs">
+      <Link>RblServer.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Mail\RblStatus.cs">
+      <Link>RblStatus.cs</Link>
+    </Compile>
+    <Compile Include="PPCDataBinder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ActiveUp.Net.Dns.Compact\ActiveUp.Net.Dns.Compact.csproj">
+      <Project>{B3095846-DAA3-4D9A-B733-AAD471F1B6F4}</Project>
+      <Name>ActiveUp.Net.Dns.Compact</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "../../../../Samples/Lib/$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v3.5'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+</Project>

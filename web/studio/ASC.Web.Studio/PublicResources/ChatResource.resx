@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BrowserNotifications" xml:space="preserve">
+    <value>Browser notifications</value>
+  </data>
+  <data name="ChatRoomInvite" xml:space="preserve">
+    <value>Приглашение в чат-комнату</value>
+  </data>
+  <data name="ClearText" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="CloseAllWindows" xml:space="preserve">
+    <value>Закрыть все окна</value>
+  </data>
+  <data name="CloseItem" xml:space="preserve">
+    <value>Close item </value>
+  </data>
+  <data name="CloseMessageWindowAltTitle" xml:space="preserve">
+    <value>Close window</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Chat rooms</value>
+  </data>
+  <data name="ExtendChatAltTitle" xml:space="preserve">
+    <value>Extend chat</value>
+  </data>
+  <data name="GoTalk" xml:space="preserve">
+    <value>Пожалуйста перейдите в Talk.</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Use Ctrl+Enter to send messages</value>
+  </data>
+  <data name="HintSounds" xml:space="preserve">
+    <value>Enable sounds</value>
+  </data>
+  <data name="InputNameOfChatRoom" xml:space="preserve">
+    <value>Please, input name of chat room:</value>
+  </data>
+  <data name="InputNameOfMailing" xml:space="preserve">
+    <value>Please, input name of mailing:</value>
+  </data>
+  <data name="InputNotificationMessage" xml:space="preserve">
+    <value>Enter your message..</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Mailings</value>
+  </data>
+  <data name="MinimizeAllWindows" xml:space="preserve">
+    <value>Свернуть все окна</value>
+  </data>
+  <data name="MinimizeAllWindowsIfLoseFocus" xml:space="preserve">
+    <value>Сворачивать все окна при потере фокуса</value>
+  </data>
+  <data name="MinimizeMessageWindowAltTitle" xml:space="preserve">
+    <value>Свернуть окно</value>
+  </data>
+  <data name="NewMessageLabel" xml:space="preserve">
+    <value>New message</value>
+  </data>
+  <data name="OfflineContacts" xml:space="preserve">
+    <value>Offline contacts</value>
+  </data>
+  <data name="RestoreAllWindows" xml:space="preserve">
+    <value>Развернуть все окна</value>
+  </data>
+  <data name="RestoreMessageWindowAltTitle" xml:space="preserve">
+    <value>Развернуть окно</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Внутренняя ошибка сервера.</value>
+  </data>
+  <data name="ShowChatFeatureList" xml:space="preserve">
+    <value>Chat and multiple list </value>
+  </data>
+  <data name="ShowHideChatAltTitle" xml:space="preserve">
+    <value>Show/Hide chat</value>
+  </data>
+  <data name="ShowInvisibleWindows" xml:space="preserve">
+    <value>Show invisible dialog windows</value>
+  </data>
+  <data name="SmallChatOptionsAltTitle" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="SmileysAltTitle" xml:space="preserve">
+    <value>Smileys</value>
+  </data>
+  <data name="Sounds" xml:space="preserve">
+    <value>Sounds</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Away</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Not available</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="TeamLabChat" xml:space="preserve">
+    <value>TeamLab Chat</value>
+  </data>
+  <data name="TitleCreateMassSend" xml:space="preserve">
+    <value>Send multiple</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Create chat room</value>
+  </data>
+  <data name="TypingMessage" xml:space="preserve">
+    <value>набирает сообщение...</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>В списке нет контактов, соответствующих заданному критерию</value>
+  </data>
+</root>

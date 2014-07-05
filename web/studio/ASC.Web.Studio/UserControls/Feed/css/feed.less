@@ -1,0 +1,405 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+
+@textColor: #333;
+@descriptiveColor: #83888d;
+@controlColor: #83888d;
+
+.limitedSingleText(@maxWidth) {
+    display: inline-block;
+    max-width: @maxWidth;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+.borderRadius (@value: 3px) {  
+    -webkit-border-radius: @value;
+	-moz-border-radius: @value;
+    border-radius: @value;
+}
+
+.noContentBlock, #empty-feed-filter-ctrl, #empty-feed-list-ctrl {
+    display: none;
+}
+
+#feed-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+#feed-list {
+    width: 100%;
+
+    .item {
+        border-top: 1px solid #d6d6d6;
+        padding: 10px 0px 15px 5px;
+
+        p {
+            margin: 0;
+        }
+
+        &:hover {
+            .content-box .feed-item .header .title,
+            .content-box .feed-item .author .title,
+            .content-box .feed-item .description .extra-location .title,
+            .content-box .feed-item .grouped-feeds-box .title {
+                text-decoration: underline;
+            }
+
+            .content-box .feed-item .control-btn,
+            .content-box .feed-item .header .grouped-feeds-count,
+            .content-box .comments-box .comments-show-panel .control-btn
+            {
+                border-bottom: 1px dotted @controlColor;
+            }
+        }
+
+        .content-box .comments-box .comment:hover{
+            .comment-content-box .comment-author .title {
+                text-decoration: underline;
+            }
+
+            .comment-content-box .reply-comment-btn {
+                border-bottom: 1px dotted @controlColor;
+            }
+        }
+
+        .avatar {
+            float: left;
+            margin-top: 27px;
+
+            img, a {
+                display: block;
+                width: 50px;
+                height: 50px;
+            }
+            
+            img {
+                border: 0;
+            }
+        }
+
+        .content-box {
+            margin-left: 60px;
+
+            .control-btn {
+                display: inline-block;
+                border-bottom: 1px solid transparent;
+                margin-top: 10px;
+                color: @controlColor;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            .header {
+                margin-bottom: 7px;
+
+                line-height: 19px;
+                
+
+                .action {
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+
+                .title {
+                    .limitedSingleText(60%);
+                    font-size: 14px;
+                    color: @textColor;
+                    text-decoration: none;
+                }
+
+                .grouped-feeds-count {
+                    font-size: 14px;
+                    cursor: pointer;
+                    border-bottom: 1px solid transparent;
+                    margin-left: 5px;
+                }
+
+                .new-indicator {
+                    .limitedSingleText(100px);
+                    margin-left: 5px;
+                    padding: 2px 5px 2px;
+                    .borderRadius(2px);
+                    color: #648c45;
+                    background-color: #d6eabe;
+                }
+            }
+
+            .description {
+                height: 18px;
+                line-height: 18px;
+                margin: 0px 0px 1px -3px;
+
+                .menu-item-icon {
+                    margin-top: 1px;
+                    margin-right: 2px;
+                }
+
+                .product {
+                    color: @textColor;
+                    font-weight: bold;
+                }
+
+                .location {
+                    color: @descriptiveColor;
+                }
+
+                .extra-location {
+                    color: @descriptiveColor;
+                    .title {
+                        .limitedSingleText(60%);
+                        color: @descriptiveColor;
+                        text-decoration: none;
+                    }
+                }
+            }
+
+            .date {
+                line-height: 16px;
+                height: 16px;
+                color: @descriptiveColor;
+
+                .time {
+                    margin-left: 13px;
+                }
+            }
+
+            .author {
+                line-height: 16px;
+                height: 16px;
+                margin-bottom: 13px;
+
+                .label, .author-title {
+                    color: @descriptiveColor;
+                }
+
+                .guest {
+                    color: @textColor;
+                }
+
+                .title {
+                    color: @textColor;
+                    margin-left: 7px;
+                    max-width: 90%;
+                    overflow: hidden;
+                    -ms-text-overflow: ellipsis;
+                    -o-text-overflow: ellipsis;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    text-decoration: none;
+                }
+            }
+
+            .body {
+                max-width: 90%;
+                overflow: hidden;
+                -ms-text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
+                text-overflow: ellipsis;
+
+                .show-all-btn {
+                    font-weight: bold;
+                    margin-top: 5px;
+                }
+
+                .asccut {
+                    display: none;
+                }
+            }
+
+            .hide-grouped-feeds-btn {
+                display: none;
+            }
+
+            .grouped-feeds-box {
+                display: none;
+                margin: 14px 0 0px;
+
+                .title {
+                    font-size: 13px;
+                    color: @textColor;
+                    text-decoration: none;
+                    line-height: 26px;
+                }
+            }
+
+            .comment-error-msg-box, .comment-empty-error-msg-box {
+                display: none;
+                margin-bottom: 10px;
+            }
+
+            .comment-form {
+                display: none;
+                margin: 15px 0;
+
+                textarea {
+                    display: block;
+                    overflow: auto;
+                    width: 525px;
+                    height: 100px;
+                    margin-bottom: 18px;
+                    resize: none;
+                }
+            }
+
+            .comments-box {
+                .comments-show-panel {
+                    width: 500px;
+                    height: 30px;
+                    background-color: #eee;
+
+                    .control-btn {
+                        margin: 7px 0 7px 10px;
+                        line-height: 16px;
+                    }
+                }
+
+                .extra-comments-box{
+                    display: none;
+                }
+
+                .comment {
+                    margin-bottom: 10px;
+                    border-top: 1px solid #d6d6d6;
+                    padding-top: 8px;
+
+                    .comment-avatar {
+                        display: block;
+                        float: left;
+                        width: 50px;
+                        height: 50px;
+                        margin-left: 15px;
+                    }
+
+                    .comment-content-box {
+                        margin-left: 74px;
+
+                        .comment-author {
+                            height: 18px;
+                            line-height: 18px;
+
+                            a {
+                                color: @textColor;
+                                text-decoration: none;
+                            }
+
+                            span {
+                                color: @descriptiveColor;
+                            }
+                        }
+
+                        .comment-body {
+                            margin: 4px 0 6px;
+                            max-width: 100%;
+                            overflow: hidden;
+                            -ms-text-overflow: ellipsis;
+                            -o-text-overflow: ellipsis;
+                            text-overflow: ellipsis;
+                        }
+
+                        .reply-comment-btn {
+                            display: inline-block;
+                            border-bottom: 1px solid transparent;
+                            color: @controlColor;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            .feed-content {
+                .feed-title .feed-item-title {
+                    color: @textColor;
+                    text-decoration: underline;
+                }
+
+                .feed-author-container .feed-item-author {
+                    text-decoration: underline;
+                }
+            }
+
+            .feed-item-see-all {
+                border-color: #116D9D;
+                color: #116D9D;
+            }
+        }
+    }
+}
+
+#show-next-feeds-btn {	
+	color: #666666;
+    cursor: pointer;
+    display: none;	
+	font-weight: bold;
+	margin: 20px 0 30px 8px;	
+    text-decoration: underline;
+    &:hover{
+        text-decoration: none;
+    }
+}
+
+#show-next-feeds-loader {
+    background: url('../images/loader_16.gif') no-repeat 2px 7px;
+	display: none;
+	height: 25px;	
+	margin-left: 25px;
+    padding-left: 25px;
+}
+
+.feed-params-hint {
+    float: left;
+    padding-right: 8px;
+    line-height: 20px;
+    color: #83888D;
+    span {
+        .limitedSingleText(200px);
+        display: block;
+    }
+    
+}
+
+.feed-values-hint {
+    float: right;
+    line-height: 20px;
+    span {
+        .limitedSingleText(400px);
+        display: block;
+    }
+}

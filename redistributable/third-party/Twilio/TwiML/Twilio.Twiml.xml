@@ -1,0 +1,821 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Twilio.Twiml</name>
+    </assembly>
+    <members>
+        <member name="T:Twilio.TwiML.IDialNoun">
+            <summary>
+            Represents a noun for the TwiML Dial verb
+            </summary>
+        </member>
+        <member name="T:Twilio.TwiML.Redirect">
+            <summary>
+            Transfers control of a call to the TwiML at a different URL.
+            </summary>
+            <remarks>
+            All verbs after &lt;Redirect&gt; are unreachable and ignored
+            </remarks>
+        </member>
+        <member name="T:Twilio.TwiML.ElementBase">
+            <summary>
+            Provides an abstract base class for TwiML nouns and verbs
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.ElementBase.#ctor">
+            <summary>
+            Initializes a new instance of the ElementBase class
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.ElementBase.Add(Twilio.TwiML.ElementBase)">
+            <summary>
+            Adds a new element to the TwiML response
+            </summary>
+            <param name="verb"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.ElementBase.AddAttributesFromObject(System.Object)">
+            <summary>
+            Enumerates the properties of the provided object and converts them to element attributes
+            </summary>
+            <param name="attributes"></param>
+        </member>
+        <member name="M:Twilio.TwiML.ElementBase.GetAttributeValue``1(System.String)">
+            <summary>
+            Returns the value of an element attribute
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.ElementBase.SetAttributeValue(System.String,System.Object)">
+            <summary>
+            Sets the value of an element attribute
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Twilio.TwiML.Redirect.#ctor">
+            <summary>
+            Initializes a new instance of the Redirect class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Redirect.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Redirect class using the specified Url
+            </summary>
+            <param name="url">An absolute or relative URL for a different TwiML document</param>
+        </member>
+        <member name="M:Twilio.TwiML.Redirect.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the Redirect class using the specified Url and Method
+            </summary>
+            <param name="url">An absolute or relative URL for a different TwiML document</param>
+            <param name="method">This tells Twilio whether to request the &lt;Redirect&gt; URL via HTTP GET or POST. 'POST' is the default.</param>
+        </member>
+        <member name="T:Twilio.TwiML.Queue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Queue.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Queue class
+            </summary>
+            <param name="name">The name of the queue</param>
+        </member>
+        <member name="M:Twilio.TwiML.Queue.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new instance of the Queue class
+            </summary>
+            <param name="name">The name of the queue</param>
+            <param name="attributes">Additional parameters of the Queue verb</param>
+        </member>
+        <member name="T:Twilio.TwiML.Record">
+            <summary>
+            Records the caller's voice and returns to you the URL of a file containing the audio recording.
+            </summary>
+            <remarks>
+            You can optionally generate text transcriptions of recorded calls by setting the 'transcribe' attribute of the &lt;Record&gt; verb to 'true'
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.Record.#ctor">
+            <summary>
+            Initializes a new instance of the Record class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Record.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the Record class using the provided attributes
+            </summary>
+            <param name="attributes">An anonymous type containing the Record attributes and their values</param>
+        </member>
+        <member name="T:Twilio.TwiML.Hangup">
+            <summary>
+            Ends a call.
+            </summary>
+            <remarks>
+            If used as the first verb in a TwiML response it does not prevent Twilio from answering the call and billing your account. The only way to not answer a call and prevent billing is to use the &lt;Reject&gt; verb.
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.Hangup.#ctor">
+            <summary>
+            Initializes a new instance of the Hangup class.
+            </summary>
+        </member>
+        <member name="T:Twilio.TwiML.Reject">
+            <summary>
+            Rejects an incoming call to your Twilio number without billing you
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Reject.#ctor">
+            <summary>
+            Initializes a new instance of the Reject class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Reject.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Reject class using the specified Reason
+            </summary>
+            <param name="reason">Tells Twilio what message to play when rejecting a call.  Takes the values "rejected" and "busy."</param>
+        </member>
+        <member name="T:Twilio.TwiML.Verbs.IVerb">
+            <summary>
+            Represents a TwiML Verb
+            </summary>
+        </member>
+        <member name="T:Twilio.TwiML.Number">
+            <summary>
+            Specifies a phone number to dial.
+            </summary>
+            <remarks>
+            Using the noun's attributes you can specify particular behaviors that Twilio should apply when dialing the number.  You can use multiple &lt;Number&gt; nouns within a &lt;Dial&gt; verb to simultaneously call all of them at once. The first call to pick up is connected to the current call and the rest are hung up.
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.Number.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Number class using the specified number.
+            </summary>
+            <param name="number"></param>
+        </member>
+        <member name="M:Twilio.TwiML.Number.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new instance of the Number class using the specified number and attributes
+            </summary>
+            <param name="number"></param>
+            <param name="attributes"></param>
+        </member>
+        <member name="T:Twilio.TwiML.Play">
+            <summary>
+            Plays an audio file back to the caller.
+            </summary>
+            <remarks>
+            Twilio retrieves the file from a URL that you provide.
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.Play.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Play class
+            </summary>
+            <param name="url">The URL of the audio file to be played</param>
+        </member>
+        <member name="M:Twilio.TwiML.Play.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new instance of the Play class
+            </summary>
+            <param name="url">The URL of the audio file to be played</param>
+            <param name="attributes">Additional parameters of the Play verb</param>
+        </member>
+        <member name="T:Twilio.TwiML.Client">
+            <summary>
+            Specifies a client identifier to dial.
+            </summary>
+            <remarks>
+            You can use multiple &lt;Client&gt; nouns within a &lt;Dial&gt; verb to simultaneously 
+            attempt a connection with many clients at once. The first client to accept the incoming
+            connection is connected to the call and the other connection attempts are canceled. 
+            If you want to connect with multiple other clients simultaneously, read about 
+            the &lt;Conference&gt; noun.  The client identifier currently may only contain 
+            alpha-numberic and underscore characters.
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.Client.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Client class
+            </summary>
+            <param name="clientName">The name of the client</param>
+        </member>
+        <member name="T:Twilio.TwiML.Gather">
+            <summary>
+            Collects digits that a caller enters into his or her telephone keypad. 
+            </summary>
+            <remarks>
+            When the caller is done entering data, Twilio submits that data to the 
+            provided 'action' URL in an HTTP GET or POST request, just like a web browser 
+            submits data from an HTML form.  If no input is received before 
+            timeout, &lt;Gather&gt; falls through to the next verb in the TwiML document.
+            You may optionally nest &lt;Say&gt; and &lt;Play&gt; verbs within a &lt;Gather&gt; verb 
+            while waiting for input. This allows you to read menu options to the caller while 
+            letting her enter a menu selection at any time. After the first digit is received 
+            the audio will stop playing.
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.Gather.#ctor">
+            <summary>
+            Initializes a new instance of the Gather class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Gather.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the Gather class.
+            <param name="attributes"></param>
+            </summary>
+        </member>
+        <member name="T:Twilio.TwiML.IMessageNoun">
+            <summary>
+            Represents a noun for the TwiML Message verb
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Media.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Media class.
+            </summary>
+            <param name="url"></param>
+        </member>
+        <member name="T:Twilio.TwiML.Enqueue">
+            <summary>
+            TODO: Update summary.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Enqueue.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Enqueue class.
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="T:Twilio.TwiML.TwilioResponse">
+            <summary>
+            The root element of Twilio's XML Markup.
+            </summary>
+            <remarks>
+            In any TwiML response to a Twilio request, all verb elements must be nested 
+            within this element. Any other structure is considered invalid.
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.#ctor">
+            <summary>
+            Initializes a new instance of the TwilioResponse class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(System.String)">
+            <summary>
+            Connects the current caller to another phone number
+            </summary>
+            <param name="number">The phone number to dial</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(System.String,System.Object)">
+            <summary>
+            Connects the current caller to another phone number
+            </summary>
+            <param name="number">The phone number to dial</param>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(System.String,System.Object,System.Object)">
+            <summary>
+            Connects the current caller to another phone number
+            </summary>
+            <param name="number">The phone number to dial</param>
+            <param name="dialAttributes"></param>
+            <param name="numberAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.Number)">
+            <summary>
+            Connects the current caller to another phone number
+            </summary>
+            <param name="number">The phone number to dial</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.Number,System.Object)">
+            <summary>
+            Connects the current caller to another phone number
+            </summary>
+            <param name="number">The phone number to dial</param>
+            <param name="dialAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.Client)">
+            <summary>
+            Connects the current caller to a Client
+            </summary>
+            <param name="client">The Client to dial</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.Client,System.Object)">
+            <summary>
+            Connects the current caller to a Client
+            </summary>
+            <param name="client">The Client to dial</param>
+            <param name="dialAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.Conference)">
+            <summary>
+            Connects the current caller to a Conference
+            </summary>
+            <param name="conf">The Conference to dial</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.Conference,System.Object)">
+            <summary>
+            Connects the current caller to a Conference
+            </summary>
+            <param name="conf">The Conference to dial</param>
+            <param name="dialAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.DialConference(System.String)">
+            <summary>
+            Connects the current caller to a Conference
+            </summary>
+            <param name="room">The conference room name dial</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.DialConference(System.String,System.Object)">
+            <summary>
+            Connects the current caller to a Conference
+            </summary>
+            <param name="room">The conference room name dial</param>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.DialConference(System.String,System.Object,System.Object)">
+            <summary>
+            Connects the current caller to a Conference
+            </summary>
+            <param name="room">The conference room name dial</param>
+            <param name="conferenceAttributes"></param>
+            <param name="dialAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.Queue)">
+            <summary>
+            Adds the current caller to a Queue
+            </summary>
+            <param name="queue">The Queue to add the user to</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.Queue,System.Object)">
+            <summary>
+            Adds the current caller to a Queue
+            </summary>
+            <param name="queue">The Queue to add the user to</param>
+            <param name="dialAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.DialQueue(System.String,System.Object)">
+            <summary>
+            Adds the current caller to a Queue
+            </summary>
+            <param name="name">The name of the queue to add the user to</param>
+            <param name="dialAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.DialQueue(System.String,System.Object,System.Object)">
+            <summary>
+            Adds the current caller to a Queue
+            </summary>
+            <param name="name">The name of the queue to add the user to</param>
+            <param name="queueAttributes"></param>
+            <param name="dialAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.Sip)">
+            <summary>
+            Connects the current caller to a SIP address
+            </summary>
+            <param name="sip">The SIP endpoint to dial</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.Sip,System.Object)">
+            <summary>
+            Connects the current caller to a SIP address
+            </summary>
+            <param name="sip">The SIP endpoint to dial</param>
+            <param name="dialAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.DialNumbers(System.String[])">
+            <summary>
+            Simultaniously dial multiple phone numbers. The first of these calls to answer will be connected to the current caller, while the rest of the connection attempts are canceled.
+            </summary>
+            <param name="numbers">An array of phone numbers to dial</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.DialClients(System.String[])">
+            <summary>
+            Simultaniously dial multiple Clients. The first of these calls to answer will be connected to the current caller, while the rest of the connection attempts are canceled.
+            </summary>
+            <param name="clients">An array of Client names to dial</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(Twilio.TwiML.IDialNoun[])">
+            <summary>
+            Simultaniously dial multiple Numbers, Clients, Conferences and Queues. The first of these calls to answer will be connected to the current caller, while the rest of the connection attempts are canceled.
+            </summary>
+            <param name="dialTargets">An array of Numbers, Clients, Conferences or Queues to dial</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Dial(System.Object,Twilio.TwiML.IDialNoun[])">
+            <summary>
+            Simultaniously dial multiple Numbers, Clients, Conferences and Queues. The first of these calls to answer will be connected to the current caller, while the rest of the connection attempts are canceled.
+            </summary>
+            <param name="dialTargets">An array of Numbers, Clients, Conferences or Queues to dial</param>
+            <param name="dialAttributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Enqueue(System.String)">
+            <summary>
+            Add a Call to a Queue
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Enqueue(System.String,System.Object)">
+            <summary>
+            Add a Call to a Queue
+            </summary>
+            <param name="name"></param>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Gather">
+            <summary>
+            Collects digits that a caller enters into his or her telephone keypad
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Gather(System.Object)">
+            <summary>
+            Collects digits that a caller enters into his or her telephone keypad
+            </summary>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Hangup">
+            <summary>
+            Ends a call
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Leave">
+            <summary>
+            Removes a caller from a Queue and continues execution with the next TwiML verb.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Message(System.String)">
+            <summary>
+            Send an Message to a phone number
+            </summary>
+            <param name="body">The Message body</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Message(System.String,System.Object)">
+            <summary>
+            Send an Message to a phone number
+            </summary>
+            <param name="body">The Message body</param>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Pause">
+            <summary>
+            Waits silently for a specific number of seconds
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Pause(System.Int32)">
+            <summary>
+            Waits silently for a specific number of seconds
+            </summary>
+            <param name="length">The number of seconds to wait</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Play(System.String)">
+            <summary>
+            Plays an audio file back to the caller
+            </summary>
+            <param name="url">The Url containing the audio file to play</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Play(System.String,System.Object)">
+            <summary>
+            Plays an audio file back to the caller
+            </summary>
+            <param name="url">The Url containing the audio file to play</param>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Record">
+            <summary>
+            Records the caller's voice and returns to you the URL of a file containing the audio recording
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Record(System.Object)">
+            <summary>
+            Records the caller's voice and returns to you the URL of a file containing the audio recording
+            </summary>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Redirect">
+            <summary>
+            Transfers control of a call to the TwiML at a different URL
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Redirect(System.String)">
+            <summary>
+            Transfers control of a call to the TwiML at a different URL
+            </summary>
+            <param name="url">The Url to transfer control to</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Redirect(System.String,System.String)">
+            <summary>
+            Transfers control of a call to the TwiML at a different URL
+            </summary>
+            <param name="url">The Url to transfer control to</param>
+            <param name="method">The HTTP method used to request the new Url</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Reject">
+            <summary>
+            Rejects an incoming call to your Twilio number without billing you
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Reject(System.String)">
+            <summary>
+            Rejects an incoming call to your Twilio number without billing you
+            </summary>
+            <param name="reason">The message played to a rejected call</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Say(System.String)">
+            <summary>
+            Converts text to speech that is read back to the caller
+            </summary>
+            <param name="text">The text to convert</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Say(System.String,System.Object)">
+            <summary>
+            Converts text to speech that is read back to the caller
+            </summary>
+            <param name="text">The text to convert</param>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Sms(System.String)">
+            <summary>
+            Send an SMS to a phone number
+            </summary>
+            <param name="text">The SMS message body</param>
+            <returns></returns>
+        </member>
+        <member name="M:Twilio.TwiML.TwilioResponse.Sms(System.String,System.Object)">
+            <summary>
+            Send an SMS to a phone number
+            </summary>
+            <param name="text">The SMS message body</param>
+            <param name="attributes"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Twilio.TwiML.Conference">
+            <summary>
+            Allows you to connect to a conference room.
+            </summary>
+            <remarks>
+            Much like how the &lt;Number&gt; noun allows you to connect to another phone 
+            number, the &lt;Conference&gt; noun allows you to connect to a named conference
+            room and talk with the other callers who have also connected to that room.  
+            The name of the room is up to you and is namespaced to your account. This means 
+            that any caller who joins 'room1234' via your account will end up in the same 
+            conference room, but callers connecting through different accounts would not. 
+            The maximum number of participants in a single Twilio conference room is 40.  
+            By default, Twilio conference rooms enable a number of useful features used by 
+            business conference bridges:
+            Conferences do not start until at least two participants join.
+            While waiting, customizable background music is played.
+            When participants join and leave, notification sounds are played to inform the other 
+            participants.
+            You can configure or disable each of these features based on your particular needs.
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.Conference.#ctor">
+            <summary>
+            Initializes a new instance of the Conference class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Conference.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Conference class.
+            </summary>
+            <param name="room">The name of the conference room</param>
+        </member>
+        <member name="M:Twilio.TwiML.Conference.#ctor(System.String,System.Object)">
+             <summary>
+             Initializes a new instance of the Conference class.
+             </summary>
+             <param name="room">The name of the conference room</param>
+            <param name="attributes"></param>
+        </member>
+        <member name="T:Twilio.TwiML.Uri">
+            <summary>
+            A URI for your Sip call
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Uri.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Uri class.
+            </summary>
+        </member>
+        <member name="T:Twilio.TwiML.Pause">
+            <summary>
+             Waits silently for a specific number of seconds.
+            </summary>
+            <remarks>
+            If &lt;Pause&gt; is the first verb in a TwiML document, Twilio will wait the specified number of seconds before picking up the call.
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.Pause.#ctor">
+            <summary>
+            Initializes a new instance of the Pause class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Pause.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the Pause class, pausing for the specified number of seconds.
+            </summary>
+            <param name="seconds">The number of seconds to pause</param>
+        </member>
+        <member name="T:Twilio.TwiML.Message">
+            <summary>
+            Sends a message to a phone number
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Message.#ctor">
+            <summary>
+            Initializes a new instance of the Message class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Message.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Message class
+            </summary>
+            <param name="body">The Message body</param>
+        </member>
+        <member name="M:Twilio.TwiML.Message.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the Message class
+            </summary>
+            <param name="attributes">The Message body</param>
+        </member>
+        <member name="M:Twilio.TwiML.Message.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new instance of the Message class
+            </summary>
+            <param name="body">The Message body</param>
+            <param name="attributes">Additional parameters of the Message verb</param>
+        </member>
+        <member name="T:Twilio.TwiML.Say">
+            <summary>
+            Converts text to speech that is read back to the caller.
+            </summary>
+            <remarks>
+            Useful for development or saying dynamic text that is difficult to pre-record.
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.Say.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Say class
+            </summary>
+            <param name="text">The text to convert to voice</param>
+        </member>
+        <member name="M:Twilio.TwiML.Say.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new instance of the Say class
+            </summary>
+            <param name="text">The text to convert to voice</param>
+            <param name="attributes">Additional parameters of the Say verb</param>
+        </member>
+        <member name="T:Twilio.TwiML.Sip">
+            <summary>
+            Connects the current caller to Sip call
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Sip.#ctor">
+            <summary>
+            Initializes a new instance of the Sip class.
+            </summary>
+        </member>
+        <member name="T:Twilio.TwiML.Dial">
+            <summary>
+            Connects the current caller to another phone number, Client, Conference or Queue
+            </summary>
+            <remarks>
+            If the called party picks up, the two parties are connected and can communicate 
+            until one hangs up. If the called party does not pick up, if a busy signal is 
+            received, or if the number doesn't exist, the dial verb will finish.  When the 
+            dialed call ends, Twilio makes a GET or POST request to the 'action' URL if 
+            provided. Call flow will continue using the TwiML received in response to that 
+            request.
+            </remarks>
+        </member>
+        <member name="M:Twilio.TwiML.Dial.#ctor">
+            <summary>
+            Initializes a new instance of the Dial class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Dial.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Dial class.
+            </summary>
+            <param name="number"></param>
+        </member>
+        <member name="M:Twilio.TwiML.Dial.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new instance of the Dial class.
+            </summary>
+            <param name="number">The phone number to dial</param>
+            <param name="attributes"></param>
+        </member>
+        <member name="T:Twilio.TwiML.Leave">
+            <summary>
+            Transfers control of a call that is in a queue so that the caller exits the queue and execution continues with the next verb after the original Enqueue
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Leave.#ctor">
+            <summary>
+            Initializes a new instance of the Leave class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Body.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Body class.
+            </summary>
+            <param name="body"></param>
+        </member>
+        <member name="T:Twilio.TwiML.Sms">
+            <summary>
+            Sends an SMS message to a phone number.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Sms.#ctor">
+            <summary>
+            Initializes a new instance of the Sms class.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.Sms.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the Sms class
+            </summary>
+            <param name="message">The Sms message body</param>
+        </member>
+        <member name="M:Twilio.TwiML.Sms.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new instance of the Sms class
+            </summary>
+            <param name="message">The Sms message body</param>
+            <param name="attributes">Additional parameters of the Sms verb</param>
+        </member>
+        <member name="T:Twilio.TwiML.RequestValidator">
+            <summary>
+            Class used to validate incoming requests from Twilio using 'Request Validation' as described
+            in the Security section of the Twilio TwiML API documentation.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwiML.RequestValidator.IsValidRequest(System.Web.HttpContext,System.String)">
+            <summary>
+            Performs request validation using the current HTTP context passed in manually or from
+            the ASP.NET MVC ValidateRequestAttribute
+            </summary>
+            <param name="context">HttpContext to use for validation</param>
+            <param name="authToken">AuthToken for the account used to sign the request</param>
+        </member>
+        <member name="M:Twilio.TwiML.RequestValidator.IsValidRequest(System.Web.HttpContext,System.String,System.String)">
+            <summary>
+            Performs request validation using the current HTTP context passed in manually or from
+            the ASP.NET MVC ValidateRequestAttribute
+            </summary>
+            <param name="context">HttpContext to use for validation</param>
+            <param name="authToken">AuthToken for the account used to sign the request</param>
+            <param name="urlOverride">The URL to use for validation, if different from Request.Url (sometimes needed if web site is behind a proxy or load-balancer)</param>
+        </member>
+    </members>
+</doc>

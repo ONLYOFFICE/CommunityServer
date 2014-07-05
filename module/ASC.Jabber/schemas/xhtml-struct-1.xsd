@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns="http://www.w3.org/1999/xhtml" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+
+   <xs:annotation>
+      <xs:documentation>
+        This is the XML Schema Document Structure module for XHTML
+        Document Structure
+    
+          * title, head, body, html
+    
+        The Structure Module defines the major structural elements and 
+        their attributes.
+        
+        $Id$     
+      </xs:documentation>
+      <xs:documentation source="xhtml-copyright-1.xsd"/>    
+      <xs:documentation
+        source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_structuremodule"/>
+    </xs:annotation>
+    
+    <xs:attributeGroup name="title.attlist">
+      <xs:attributeGroup ref="I18n.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="title.content">
+      <xs:sequence/>
+    </xs:group>    
+    
+    <xs:complexType name="title.type" mixed="true">
+      <xs:group ref="title.content"/>
+      <xs:attributeGroup ref="title.attlist"/>
+    </xs:complexType>
+    
+        
+    <xs:element name="title" type="title.type"/>
+    
+    <xs:group name="head.content">
+      <xs:sequence>
+        <xs:element ref="title"/>
+      </xs:sequence>
+    </xs:group>
+
+    <xs:attributeGroup name="profile.attrib">
+      <xs:attribute name="profile" type="URI"/>
+    </xs:attributeGroup>
+        
+    <xs:attributeGroup name="head.attlist">
+      <xs:attributeGroup ref="profile.attrib"/>
+      <xs:attributeGroup ref="I18n.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:complexType name="head.type">
+      <xs:group ref="head.content"/>
+      <xs:attributeGroup ref="head.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="head" type="head.type"/>
+    
+    <xs:attributeGroup name="body.attlist">
+      <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+
+    <xs:group name="body.content">
+      <xs:sequence>
+        <xs:group ref="Block.mix" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:group>                
+    
+    <xs:complexType name="body.type">
+      <xs:group ref="body.content"/>
+      <xs:attributeGroup ref="body.attlist"/>
+    </xs:complexType>  
+    
+    <xs:element name="body" type="body.type"/>
+    
+    <xs:attributeGroup name="version.attrib">
+      <xs:attribute name="version" type="FPI"/>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="html.attlist">
+      <xs:attributeGroup ref="version.attrib"/>
+      <xs:attributeGroup ref="I18n.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="html.content">
+      <xs:sequence>
+         <xs:element ref="head"/>
+         <xs:element ref="body"/>
+      </xs:sequence>
+    </xs:group>
+    
+    <xs:complexType name="html.type">
+       <xs:group ref="html.content"/>
+       <xs:attributeGroup ref="html.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="html" type="html.type"/>
+    
+</xs:schema>

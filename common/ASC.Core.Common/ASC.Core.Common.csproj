@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A51D0454-4AFA-46DE-89D4-B03D37E1816C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ASC.Core.Common</RootNamespace>
+    <AssemblyName>ASC.Core.Common</AssemblyName>
+    <TrunkDir>..\..\</TrunkDir>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\redistributable\third-party\db\mysql\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="ASC.Common">
+      <HintPath>..\..\redistributable\asc\ASC.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK">
+      <HintPath>..\..\redistributable\third-party\Amazon\AWSSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Billing\BillingClient.cs" />
+    <Compile Include="Billing\ITariffSyncService.cs" />
+    <Compile Include="Billing\TariffSyncClient.cs" />
+    <Compile Include="Billing\TariffSyncServiceSection.cs" />
+    <Compile Include="Billing\Invoice.cs" />
+    <Compile Include="Billing\PaymentInfo.cs" />
+    <Compile Include="Billing\PaymentActive.cs" />
+    <Compile Include="Billing\PaymentOffice.cs" />
+    <Compile Include="Billing\TariffService.cs" />
+    <Compile Include="Billing\Tariff.cs" />
+    <Compile Include="Billing\TariffState.cs" />
+    <Compile Include="Billing\TariffSyncService.cs" />
+    <Compile Include="Caching\AspCache.cs" />
+    <Compile Include="Caching\AzRecordStore.cs" />
+    <Compile Include="Caching\CachedAzService.cs" />
+    <Compile Include="Caching\CachedQuotaService.cs" />
+    <Compile Include="Caching\CachedSubscriptionService.cs" />
+    <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Caching\TrustInterval.cs" />
+    <Compile Include="Caching\UserGroupRefStore.cs" />
+    <Compile Include="Configuration\ConnectionStringNameTypeConverter.cs" />
+    <Compile Include="Configuration\AmiPublicDnsSyncService.cs" />
+    <Compile Include="Context\ClientImpl\ClientPaymentManager.cs" />
+    <Compile Include="Context\ClientImpl\IPaymentManagerClient.cs" />
+    <Compile Include="Context\ClientImpl\ISubscriptionManagerClient.cs" />
+    <Compile Include="Billing\ITariffService.cs" />
+    <Compile Include="Contracts\BackupServiceClient.cs" />
+    <Compile Include="Contracts\BackupServiceModel.cs" />
+    <Compile Include="Contracts\IBackupService.cs" />
+    <Compile Include="Core\Partner.cs" />
+    <Compile Include="Core\PartnerDisplayType.cs" />
+    <Compile Include="Core\PartnerPaymentMethod.cs" />
+    <Compile Include="Core\PartnerStatus.cs" />
+    <Compile Include="Core\PartnerType.cs" />
+    <Compile Include="Logging\AdoNetAppender2.cs" />
+    <Compile Include="Logging\AdminLogFormatter.cs" />
+    <Compile Include="MultiRegionHostedSolution.cs" />
+    <Compile Include="Core\EmployeeType.cs" />
+    <Compile Include="Core\EmployeeActivationStatus.cs" />
+    <Compile Include="Core\SubscriptionMethod.cs" />
+    <Compile Include="Core\SubscriptionRecord.cs" />
+    <Compile Include="Core\UserGroupRefDictionary.cs" />
+    <Compile Include="Configuration\SmtpSettings.cs" />
+    <Compile Include="Context\ClientImpl\ClientAuthManager.cs" />
+    <Compile Include="Context\ClientImpl\ClientAzManager.cs" />
+    <Compile Include="Context\ClientImpl\ClientConfiguration.cs" />
+    <Compile Include="Context\ClientImpl\ClientSubscriptionManager.cs" />
+    <Compile Include="Context\ClientImpl\ClientTenantManager.cs" />
+    <Compile Include="Context\ClientImpl\IAuthManagerClient.cs" />
+    <Compile Include="Context\ClientImpl\IAzManagerClient.cs" />
+    <Compile Include="Context\ClientImpl\IConfigurationClient.cs" />
+    <Compile Include="Context\ClientImpl\IGroupManagerClient.cs" />
+    <Compile Include="Context\ClientImpl\ITenantManagerClient.cs" />
+    <Compile Include="Context\ClientImpl\IUserManagerClient.cs" />
+    <Compile Include="Context\SecurityContext.cs" />
+    <Compile Include="Context\ClientImpl\ClientUserManager.cs" />
+    <Compile Include="Caching\CachedTenantService.cs" />
+    <Compile Include="Data\DbAzService.cs" />
+    <Compile Include="Caching\CachedUserService.cs" />
+    <Compile Include="Core\IAzService.cs" />
+    <Compile Include="Core\ISubscriptionService.cs" />
+    <Compile Include="Data\DbQuotaService.cs" />
+    <Compile Include="Core\IQuotaService.cs" />
+    <Compile Include="Data\DbTenantService.cs" />
+    <Compile Include="Core\ITenantService.cs" />
+    <Compile Include="Data\DbUserService.cs" />
+    <Compile Include="Core\Group.cs" />
+    <Compile Include="Core\IUserService.cs" />
+    <Compile Include="Data\DbSubscriptionService.cs" />
+    <Compile Include="Core\UserGroupRef.cs" />
+    <Compile Include="Core\UserGroupRefType.cs" />
+    <Compile Include="Data\DbBaseService.cs" />
+    <Compile Include="Data\DbExecuter.cs" />
+    <Compile Include="Data\IDbExecuter.cs" />
+    <Compile Include="HostedSolution.cs" />
+    <Compile Include="Context\CoreContext.cs" />
+    <Compile Include="Context\WorkContext.cs" />
+    <Compile Include="Configuration\Constants.cs" />
+    <Compile Include="Logging\AdminLogLayout.cs" />
+    <Compile Include="Logging\AdminLog.cs" />
+    <Compile Include="Notify\DirectSubscriptionProvider.cs" />
+    <Compile Include="Notify\Jabber\IReverseJabberService.cs" />
+    <Compile Include="Notify\Jabber\JabberServiceClient.cs" />
+    <Compile Include="Notify\Jabber\IJabberService.cs" />
+    <Compile Include="Notify\JabberSenderSink.cs" />
+    <Compile Include="Notify\Jabber\JabberServiceClientWcf.cs" />
+    <Compile Include="Notify\Jabber\MessageStruct.cs" />
+    <Compile Include="Notify\NotifyServiceClient.cs" />
+    <Compile Include="Notify\NotifySource.cs" />
+    <Compile Include="Notify\PushSenderSink.cs" />
+    <Compile Include="Notify\Push\IPushService.cs" />
+    <Compile Include="Notify\Push\PushConstants.cs" />
+    <Compile Include="Notify\Push\Enums.cs" />
+    <Compile Include="Notify\Push\PushNotification.cs" />
+    <Compile Include="Notify\Push\PushServiceClient.cs" />
+    <Compile Include="Notify\RecipientProviderImpl.cs" />
+    <Compile Include="Notify\ReplyToTagProvider.cs" />
+    <Compile Include="Notify\Senders\NotifyServiceSender.cs" />
+    <Compile Include="Notify\Senders\SmtpSender.cs" />
+    <Compile Include="Notify\Senders\INotifySender.cs" />
+    <Compile Include="Notify\Senders\JabberSender.cs" />
+    <Compile Include="Notify\Senders\NoticeSendResult.cs" />
+    <Compile Include="Notify\Senders\AWSSender.cs" />
+    <Compile Include="Notify\EmailSenderSink.cs" />
+    <Compile Include="Security\Crypto.cs" />
+    <Compile Include="Security\EmailValidationKeyProvider.cs" />
+    <Compile Include="Tenants\TenantIndustry.cs" />
+    <Compile Include="Tenants\TenantQuotaException.cs" />
+    <Compile Include="Tenants\TenantQuotaType.cs" />
+    <Compile Include="Tenants\TenantTrustedDomainsType.cs" />
+    <Compile Include="Tenants\TenantStatus.cs" />
+    <Compile Include="Tenants\TenantExceptions.cs" />
+    <Compile Include="Tenants\TenantQuotaRowQuery.cs" />
+    <Compile Include="Tenants\TenantQuotaRow.cs" />
+    <Compile Include="Tenants\TenantQuota.cs" />
+    <Compile Include="Security\Authentication\CookieStorage.cs" />
+    <Compile Include="Security\Authentication\UserAccount.cs" />
+    <Compile Include="Security\Authorizing\PermissionProvider.cs" />
+    <Compile Include="Security\Authorizing\PermissionResolver.cs" />
+    <Compile Include="Security\Authorizing\RoleProvider.cs" />
+    <Compile Include="Tenants\Tenant.cs" />
+    <Compile Include="Tenants\TenantRegistrationInfo.cs" />
+    <Compile Include="Tenants\TenantUtil.cs" />
+    <Compile Include="Tenants\TenantVersion.cs" />
+    <Compile Include="Tests\CachedSubscriptionServiceTest.cs" />
+    <Compile Include="Tests\ClientPaymentManagerTest.cs" />
+    <Compile Include="Tests\CookieStorageTest.cs" />
+    <None Include="Tests\App.config">
+    </None>
+    <Compile Include="Tests\BillingClientTest.cs" />
+    <Compile Include="Tests\TariffSyncServiceTest.cs" />
+    <Compile Include="Tests\HostedSolutionTest.cs" />
+    <Compile Include="Tests\EmailValidationKeyPairProvider_Test.cs" />
+    <Compile Include="Tests\LoggingTests.cs" />
+    <Compile Include="Tests\TariffServiceTest.cs" />
+    <Compile Include="Tests\DbAzServiceTest.cs" />
+    <Compile Include="Tests\DbBaseTest.cs" />
+    <Compile Include="Tests\DbQuotaServiceTest.cs" />
+    <Compile Include="Tests\DbSubscriptionServiceTest.cs" />
+    <Compile Include="Tests\DbTenantServiceTest.cs" />
+    <Compile Include="Tests\DbUserServiceTest.cs" />
+    <Compile Include="Tests\TopSubscriptionProviderTest.cs" />
+    <Compile Include="Tests\UserManagerTest.cs" />
+    <Compile Include="Users\DisplayUserNameFormat.cs" />
+    <Compile Include="Core\AzRecord.cs" />
+    <Compile Include="Core\EmployeeStatus.cs" />
+    <Compile Include="Security\UserSecurityProvider.cs" />
+    <Compile Include="Core\IncludeType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users\Constants.cs" />
+    <Compile Include="Core\GroupInfo.cs" />
+    <Compile Include="Core\UserInfo.cs" />
+    <Compile Include="Users\UserExtensions.cs" />
+    <Compile Include="Users\UserFormatter.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile->'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath->'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="laposte.net">
+    <domain>laposte.net</domain>
+    <displayName>LaPoste</displayName>
+    <displayShortName>LaPoste</displayShortName>
+    <incomingServer type="imap">
+      <hostname>imap.laposte.net</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>pop.laposte.net</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.laposte.net</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+    <documentation url="http://www.geckozone.org/forum/viewtopic.php?f=4&amp;t=93118">
+      <descr lang="fr">Annonce sur le site de Geckozone (non-officiel)</descr>
+      <descr lang="en">News on the Geckozone website (unofficial)</descr>
+    </documentation>
+    <documentation url="http://aide.laposte.net/mon-courrier-electronique/recevoir-et-lire-mon-courrier/96.html">
+      <descr lang="fr">Aide officielle (non-SSL)</descr>
+      <descr lang="en">Official support (no SSL)</descr>
+    </documentation>
+  </emailProvider>
+</clientConfig>

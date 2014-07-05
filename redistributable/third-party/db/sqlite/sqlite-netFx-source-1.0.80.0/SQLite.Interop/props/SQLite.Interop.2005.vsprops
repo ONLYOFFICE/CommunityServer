@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--
+ *
+ * SQLite.Interop.2005.vsprops -
+ *
+ * Written by Joe Mistachkin.
+ * Released to the public domain, use at your own risk!
+ *
+-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="SQLite.Interop"
+	>
+	<UserMacro
+		Name="ConfigurationYear"
+		Value="2005"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="INTEROP_BUILD_NUMBER"
+		Value="080"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="INTEROP_MANIFEST_VERSION"
+		Value="1.0.80.0"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="INTEROP_RC_VERSION"
+		Value="1,0,80,0"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="INTEROP_ASSEMBLY_RESOURCES"
+		Value="/ASSEMBLYRESOURCE:..\System.Data.SQLite\SQLiteCommand.bmp,System.Data.SQLite.SQLiteCommand.bmp /ASSEMBLYRESOURCE:..\System.Data.SQLite\SQLiteConnection.bmp,System.Data.SQLite.SQLiteConnection.bmp /ASSEMBLYRESOURCE:..\System.Data.SQLite\SQLiteDataAdapter.bmp,System.Data.SQLite.SQLiteDataAdapter.bmp"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="INTEROP_KEY_FILE"
+		Value="$(ProjectDir)..\System.Data.SQLite\System.Data.SQLite.snk"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="INTEROP_NATIVE_NAME"
+		Value="SQLite.Interop"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="INTEROP_MIXED_NAME"
+		Value="System.Data.SQLite"
+		PerformEnvironmentSet="true"
+	/>
+</VisualStudioPropertySheet>

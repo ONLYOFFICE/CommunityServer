@@ -1,0 +1,456 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+
+/*******************************************************************************
+        Reset styles
+*******************************************************************************/
+
+input[type="button"]::-moz-focus-inner { 
+	border: 0; 
+	padding: 0; 
+	margin-top:-2px; 
+	margin-bottom: -2px; 
+}
+
+/*******************************************************************************
+        Text style
+*******************************************************************************/ 
+p {
+    color:@textColor;
+    font-size: 12px;
+}
+.text-base
+{
+    color: @textColor;
+    font-size: 12px;
+    font-weight: normal;
+}
+.describe-text
+{
+    color: @textColorGrayDark;
+    font-size: 12px;
+}
+.text-medium
+{
+    color: @textColor;
+    font-size: 11px;
+    font-weight: normal;
+}
+.text-medium-describe
+{
+    color: @textColorGrayDark;
+    font-size: 11px;
+} 
+
+.bold {
+    font-weight: bold;
+}
+.italic {
+    font-style: italic;
+}
+.disable { cursor:default !important;}
+
+/*******************************************************************************
+    Text colors
+*******************************************************************************/
+
+.red-text
+{
+    color: @textColorRed !important;
+}
+.gray-text
+{
+    color: @textColorGrayDark !important;
+}
+.blue-text
+{
+    color: @linkColor !important;
+}
+
+/*******************************************************************************
+    </blockUI>
+*******************************************************************************/
+.popupContainerClass,
+.mainContainerClass .popupContainerClass {
+    .boxShadow();
+    .borderRadius(6px);
+}
+
+
+/******************************\
+    New in th left menu
+\******************************/
+    .is-new {
+        color: #fff;
+        cursor: pointer;
+        font-size: 10px;
+        padding: 2px 5px;
+        margin: 2px 0 0 8px;
+        max-width: 40px;
+        overflow: hidden;
+        .borderRadius();
+        .bg-is-new();
+    }     
+
+.header-back-link {
+    &,
+    &:hover,
+    &:active,
+    &:visited {
+        .bg-button-default();
+        .border-button-default ();
+        .borderRadius();
+        float: left;
+        margin: 3px 8px 0 0;
+        padding: 3px 5px 4px 4px;
+        text-decoration: none;
+    }
+    &:after{
+        background: transparent url("@{img-change-url}up.png") 0 0 no-repeat;
+        content: "";
+        display: block;
+        height: 12px;
+        width: 12px;
+    }
+}
+/*******************************************************************************
+   Info Panel
+*******************************************************************************/
+.info-box {
+    margin: 0 0 20px;
+    padding: 9px 12px 12px 40px;
+    
+    &.excl {
+        background: url('@{imagesBaseUrl}toast_icon01.png') no-repeat 9px 9px #F5E1A2;
+    }
+}
+
+
+/*******************************************************************************
+           Action menu
+*******************************************************************************/
+
+.header-with-menu {
+    color: #333;
+    font-size: 24px;
+    max-width: 900px;
+    overflow: hidden;
+    line-height: 30px;
+}
+
+.header-status {
+    color: #83888D;
+    float: left;
+    font-size: 20px;
+    margin: 2px 0 0 4px;
+}
+.follow-status {
+    cursor: pointer;
+    display:inline-block;
+    height: 16px;
+    margin: 8px 0 0 6px;
+    text-decoration: none;
+    width: 16px;
+
+    &.subscribed {
+        background: transparent url("@{img-change-url}unfollow.png") 0 0 no-repeat;
+    }
+    &.unsubscribed {
+        background: transparent url("@{imagesBaseUrl}follow.png") 0 0 no-repeat;
+    }
+}
+
+.menu-small {
+    background: transparent url("@{img-change-url}actions_icon.png") center top no-repeat;
+    cursor: pointer;
+    display:inline-block;
+    height: 20px;
+    margin:5px 0 0 7px;
+    vertical-align: top;
+    width: 20px;
+}
+
+.menu-small:hover,
+.header-with-menu:hover .menu-small,
+.menu-small.active,
+.menu-small.active:hover,
+.header-with-menu:hover .menu-small.active,
+.header-with-menu:hover + .menu-small  {
+    background-position: center bottom;
+}
+
+.UserInfoBlock
+{
+    margin-right: 10px;
+    overflow: hidden;
+    padding: 10px 0pt 10px 10px;
+}
+.statusSubscribe
+{
+    color: #666;
+    font-size: 12px;
+    margin: 5px 0 15px 2px;
+}
+
+/*******************************************************************************
+  Titles of opened/closed blocks
+*******************************************************************************/
+.headerToggleBlock .openBlockLink,
+.headerToggleBlock .closeBlockLink {
+    border-bottom: 1px dotted @textColorGrayDark;
+    color: @textColorGrayDark;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: normal;
+    margin-bottom: 3px;
+    vertical-align: middle;
+}
+
+.headerToggleBlock .openBlockLink,
+.headerToggleBlock.open .closeBlockLink{
+    display: inline-block;
+}
+.headerToggleBlock .closeBlockLink,
+.headerToggleBlock.open .openBlockLink{
+    display: none;
+}
+.headerToggleBlock .headerToggle {
+    cursor: pointer;
+    margin: 0 12px 0 0 !important;
+    min-height: 18px;   
+    text-align: left;
+}
+
+
+/*******************************************************************************
+    Header menu elements for group operations
+*******************************************************************************/
+.on-top-link, 
+.on-top-link:visited,
+.on-top-link:hover, 
+.on-top-link:active {
+    cursor: pointer;
+    color: @textColorBlackDark;
+    display: inline-block;
+    font-size: 11px;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+}
+.on-top-link:hover {
+    color: @textColorBlackDark;    
+    text-decoration: underline;
+}
+.on-top-link:after {
+    background: url("@{imagesBaseUrl}on_top.png") no-repeat scroll left center transparent;
+    color: @textColor;
+    content: " ";
+    display: block;
+    height: 11px;
+    left: -14px;
+    margin-top: -5px;
+    position: absolute;
+    top: 50%;
+    width: 11px;
+}
+.menu-action-on-top,
+.menu-action-simple-pagenav,
+.menu-action-checked-count {
+    display: none;
+    float: right;
+}
+.menu-action-on-top {
+    font-size: 11px;
+    min-height: 20px;
+    margin-left: 15px;
+    padding: 3px 5px 0 7px;
+}
+
+.menu-action-simple-pagenav {
+    div {
+        margin-left: 15px;
+        padding: 0 5px 0 7px;
+    }
+    a, 
+    a:active, 
+    a:visited {
+        font-size: 11px;
+    }
+    a.pagerPrevButtonCSSClass
+    {
+        margin-right: 0;
+    }
+    a.pagerNextButtonCSSClass
+    {
+        margin-left: 0;
+    }
+}
+.menu-action-checked-count {
+    display: none;
+    font-size: 11px;
+    margin-left: 15px;
+    padding: 3px 5px 0 7px;
+}
+
+.header-menu-spacer
+{
+    display: none;
+    height: 21px;
+    padding: 9px 0;
+}
+.grey-phone {
+    &, 
+    &:active, 
+    &:hover, 
+    &:focus {
+        .bg-button-default();
+        color: @grayButtonTextColor;
+    }
+}
+@media all and (max-width: 1200px) {
+    .menu-action-on-top {
+        background-color: #E9E9E9;        
+        bottom: 24px;
+        right: 9px;
+        padding: 5px 8px 0 21px;
+        position: fixed;
+    }
+}
+/*******************************************************************************
+        Switcher Hide/Show
+*******************************************************************************/       
+.tabs-section {
+    margin-bottom: 13px;
+    margin-top: 24px;
+}
+
+/*------Common style for toggle button--------*/
+.toggle-button {
+    border-bottom: 1px dotted @textColorGrayDark;
+    color: @textColorGrayDark;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 11px;
+    margin: 0 0 3px 13px;
+    vertical-align: middle;
+}
+
+/*******************************************************************************
+        Menu Icon in Lists
+*******************************************************************************/
+
+    .with-entity-menu {
+	    &:hover .entity-menu,
+	    .entity-menu.active {
+		    background-position: center bottom;
+	    }
+
+	    .entity-menu {
+		    background: url("@{img-change-url}actions_icon.png") center top no-repeat transparent;
+		    cursor: pointer;
+		    display: block;
+		    height: 20px;
+		    margin: auto;	
+		    width: 20px;
+	    }
+    }
+
+
+.loading-block {
+    margin-top:16px;
+
+    span {
+        background:url("../default/images/loader_16.gif") no-repeat left center transparent;   
+        padding-left: 20px;
+    }
+}
+
+
+/*******************************************************************************
+       Icons for editing
+*******************************************************************************/
+.pencil {
+    background: url("@{img-change-url}edit_pencil.png") no-repeat 0 0 transparent;
+    cursor: pointer;    
+    height: 16px;
+    width: 16px;
+
+    &.active {
+        background-position: 0 -19px;
+    }
+}
+
+.convert-action {
+    background: url("@{img-change-url}convert_pencil.png") no-repeat 0 0 transparent;
+    cursor: pointer;   
+    height: 16px;
+    width: 16px;
+
+    &.active {
+        background-position: 0 -19px;
+    }
+}
+
+.refresh-icon {
+    display: block;
+    height: 16px;
+    width: 16px;
+    background: url("@{img-change-url}refresh.png") center no-repeat;
+}
+
+/*******************************************************************************
+        Reset icon
+*******************************************************************************/
+
+.reset-icon {
+    background: url("@{imagesBaseUrl}remove_16.png") no-repeat scroll top center transparent;
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    margin-left: 5px;
+    vertical-align: middle;
+    width: 16px;
+    
+    &:hover {
+        background-position: bottom center;
+    }
+}
+
+/*******************************************************************************
+    Main header color
+*******************************************************************************/
+
+.main-header-color {
+    background-color: @bg-header;
+}
+.main-header-color-hover {
+    background-color: @bg-header;
+    .opacityStyle(90);
+}

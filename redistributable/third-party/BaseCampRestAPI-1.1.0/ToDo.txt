@@ -1,0 +1,4 @@
+- MoveToDoList needs to copy item comments
+- SplitToDoList needs to copy item time tracking
+- MoveToDoList/SplitToDoList have some similar functionality
+- Create BaseCamp Browser application to validate functionality

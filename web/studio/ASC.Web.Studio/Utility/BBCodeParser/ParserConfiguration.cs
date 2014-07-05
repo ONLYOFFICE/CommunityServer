@@ -1,0 +1,120 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
+
+namespace ASC.Web.Studio.Utility.BBCodeParser
+{
+    public class ParserConfiguration
+    {
+        public bool IsHTMLEncode { get; set; }
+
+        public List<TagConfiguration> TagConfigurations { get; private set; }
+        public List<ExpressionReplacement> ExpressionReplacements { get; private set; }
+        public List<RegularExpressionTemplate> RegExpTemplates { get; private set; }
+
+        public TagConfiguration GetTagConfiguration(string tag)
+        {
+            return TagConfigurations.FirstOrDefault(tagConfiguration => tagConfiguration.Tag.ToLower() == tag.ToLower());
+        }
+
+        #region Construtors
+
+        public ParserConfiguration() : this(null, true)
+        {
+        }
+
+        public ParserConfiguration(bool isHTMLEncode) : this(null, isHTMLEncode)
+        {
+        }
+
+        public ParserConfiguration(string configurationFile) : this(configurationFile, true)
+        {
+        }
+
+        public ParserConfiguration(string configurationFile, bool isHTMLEncode)
+        {
+            IsHTMLEncode = isHTMLEncode;
+            TagConfigurations = new List<TagConfiguration>();
+            ExpressionReplacements = new List<ExpressionReplacement>();
+            RegExpTemplates = new List<RegularExpressionTemplate>();
+
+            if (!String.IsNullOrEmpty(configurationFile))
+            {
+                LoadConfigurationFromXml(configurationFile);
+            }
+        }
+
+        #endregion
+
+        public void LoadConfigurationFromXml(string configurationFile)
+        {
+            var xmlDocument = new XmlDocument();
+            xmlDocument.Load(configurationFile);
+
+            var nodes = xmlDocument.SelectNodes("/configuration/parser/expressionReplacements/expressionReplacement");
+            foreach (XmlNode node in nodes)
+            {
+                // Get the expression,
+                var expression = node.SelectSingleNode("@expression").Value;
+                expression = expression.Replace("\\n", "\n");
+
+                // Get the replacement.
+                var replacement = node.SelectSingleNode("@replacement").Value;
+                replacement = replacement.Replace("\\n", "\n");
+
+                // Build the expression replacement.
+                var expressionReplacement = new ExpressionReplacement(expression, replacement);
+                ExpressionReplacements.Add(expressionReplacement);
+            }
+
+            nodes = xmlDocument.SelectNodes("/configuration/tags/tag");
+            foreach (XmlNode node in nodes)
+            {
+                var tag = node.SelectSingleNode("@name").InnerText;
+                var replacement = node.SelectSingleNode("@replacement").InnerText;
+                var alternativeReplacement =
+                    node.SelectSingleNode("@alternativeReplacement") != null
+                        ? node.SelectSingleNode("@alternativeReplacement").InnerText
+                        : null;
+                try
+                {
+                    var parseContent = Boolean.Parse(node.SelectSingleNode("@parseContent").InnerText);
+                    TagConfigurations.Add(new TagConfiguration(tag, replacement, alternativeReplacement, parseContent));
+                }
+                catch (NullReferenceException)
+                {
+                    TagConfigurations.Add(new TagConfiguration(tag, replacement, alternativeReplacement));
+                }
+            }
+        }
+    }
+}

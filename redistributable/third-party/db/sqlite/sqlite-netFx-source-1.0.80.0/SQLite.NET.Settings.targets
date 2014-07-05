@@ -1,0 +1,212 @@
+<!--
+ *
+ * SQLite.NET.Settings.targets -
+ *
+ * Written by Joe Mistachkin.
+ * Released to the public domain, use at your own risk!
+ *
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+  ******************************************************************************
+  **                          Load Per-User Settings                          **
+  ******************************************************************************
+  -->
+
+  <!--
+      NOTE: If the per-user settings file exists, import it now.  The contained
+            settings, if any, will override the default ones provided below.
+  -->
+  <Import Project="$(SQLiteNetDir)\SQLite.NET.Settings.targets.user"
+          Condition="Exists('$(SQLiteNetDir)\SQLite.NET.Settings.targets.user')" />
+
+  <!--
+  ******************************************************************************
+  **                       [Fairly] Generic Properties                        **
+  ******************************************************************************
+  -->
+
+  <PropertyGroup>
+    <!--
+        NOTE: *UNCONDITIONAL* We never want to use the hosting process for
+              debugging.  It causes problems.
+    -->
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+
+    <!--
+        NOTE: *UNCONDITIONAL* We never want to use the fast up-to-date check
+              that Visual Studio provides.
+    -->
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+
+    <!--
+        HACK: *UNCONDITIONAL* The Visual Studio IDE ignores the
+              BaseIntermediateOutputPath property and creates empty "bin" and
+              "obj" directories for every project whenever the project is opened
+              or built.  Also, the Visual Studio IDE will occasionally fail to
+              rebuild the project due to this confusion.  The situation appears
+              to improve somewhat when this is set to false.  Please note that
+              even if this is set to false, things still do not work 100%
+              correctly; however, at least there appears to be less build
+              failures.
+
+              Please see Microsoft Connect FeedbackID 105854 for their official
+              list of excuses, on this now more than 3 year old bug.
+    -->
+    <UseHostCompilerIfAvailable>false</UseHostCompilerIfAvailable>
+  </PropertyGroup>
+
+  <!--
+  ******************************************************************************
+  **                            Common Properties                             **
+  ******************************************************************************
+  -->
+
+  <PropertyGroup>
+    <!--
+        NOTE: Only use functionality available in the .NET Framework 2.0?  By
+              default, this is disabled.  This must be enabled to successfully
+              build the project using Visual Studio 2008 and/or the .NET
+              Framework 2.0 (if necessary, it will typically be enabled from
+              within the project file itself).
+    -->
+    <NetFx20 Condition="'$(NetFx20)' == ''">false</NetFx20>
+
+    <!--
+        NOTE: The suffix for the name of the build configuration directory .  By
+              default, this is an empty string.
+    -->
+    <ConfigurationSuffix Condition="'$(ConfigurationSuffix)' == ''"></ConfigurationSuffix>
+
+    <!--
+        NOTE: For interaction with the native SQLite implementation, use the
+              custom built interop DLL (i.e. "SQLite.Interop.dll")?  By default,
+              this is enabled.  This property is mutually exclusive with the
+              "UseSqliteStandard" one, below.  This should always be disabled in
+              the project file that builds the NetModule target.
+    -->
+    <UseInteropDll Condition="'$(UseInteropDll)' == ''">true</UseInteropDll>
+
+    <!--
+        NOTE: For interaction with the native SQLite implementation, use the
+              standard DLL (i.e. "sqlite3.dll")?  By default, this is disabled.
+              This property is mutually exclusive with the "UseInteropDll" one,
+              above.  This should always be disabled in the project file that
+              builds the NetModule target.
+    -->
+    <UseSqliteStandard Condition="'$(UseSqliteStandard)' == ''">false</UseSqliteStandard>
+
+    <!--
+        NOTE: Is the project being built to support the .NET Compact Framework?
+    -->
+    <IsCompactFramework Condition="'$(IsCompactFramework)' == ''">false</IsCompactFramework>
+
+    <!--
+        NOTE: Emit an AssemblyFlags attribute that includes the Retargetable
+              flag from the AssemblyNameFlags enumeration?
+    -->
+    <IsRetargetable Condition="'$(IsRetargetable)' == ''">false</IsRetargetable>
+
+    <!--
+        NOTE: Throw an exception if an object has already been disposed?  By
+              default, this is enabled.  If this is disabled, an exception will
+              not be thrown when a SQLite object which has already been disposed
+              is accessed.
+    -->
+    <ThrowOnDisposed Condition="'$(ThrowOnDisposed)' == ''">true</ThrowOnDisposed>
+
+    <!--
+        NOTE: *EXPERIMENTAL* Attempt to pre-load the native SQLite library?  By
+              default, this is enabled.  If this is disabled, no attempt will be
+              made to pre-load the native SQLite library appropriate to the
+              processor architecture of the currently running process upon using
+              the component.  This feature is experimental and may be modified
+              or removed in a future release.
+    -->
+    <PreLoadNativeLibrary Condition="'$(PreLoadNativeLibrary)' == ''">true</PreLoadNativeLibrary>
+  </PropertyGroup>
+
+  <!--
+  ******************************************************************************
+  **                            Warning Properties                            **
+  ******************************************************************************
+  -->
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <!--
+        NOTE: Debug build.  Set the warning level to maximum.  Also, disable
+              warnings that tend to cause too much noise.
+    -->
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>618,1591;3001</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <!--
+        NOTE: Release build.  Set the warning level to maximum.  Also, disable
+              warnings that tend to cause too much noise.
+    -->
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>618,1591;3001</NoWarn>
+  </PropertyGroup>
+
+  <!--
+  ******************************************************************************
+  **                         Relative Path Properties                         **
+  ******************************************************************************
+  -->
+
+  <PropertyGroup Condition="'$(SQLiteNetDir)' != ''">
+    <!--
+        NOTE: Keep all the intermediate files in one place.  The Visual Studio
+              IDE seems to have a nasty habit of ignoring this setting.  The
+              Visual Studio IDE then fails to build the project(s) properly when
+              the output does not end up where it expects the output to be.  The
+              value of this property must have a trailing backslash.
+    -->
+    <BaseIntermediateOutputPath Condition="'$(ConfigurationSuffix)' == ''">$(SQLiteNetDir)\obj\$(ConfigurationYear)\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="'$(ConfigurationSuffix)' != ''">$(SQLiteNetDir)\obj\$(ConfigurationYear)\$(ConfigurationSuffix)\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+
+  <!--
+  ******************************************************************************
+  **                Per-Configuration Relative Path Properties                **
+  ******************************************************************************
+  -->
+
+  <PropertyGroup Condition="'$(SQLiteNetDir)' != '' And '$(Configuration)' != ''">
+    <!--
+        NOTE: The final output files need to end up in one place.  The value of
+              this property must have a trailing backslash.
+    -->
+    <BinaryOutputPath Condition="'$(BinaryOutputPath)' == ''">$(SQLiteNetDir)\bin\$(ConfigurationYear)\$(Configuration)$(ConfigurationSuffix)\bin\</BinaryOutputPath>
+  </PropertyGroup>
+
+  <!--
+  ******************************************************************************
+  **                      Strong Name Signing Properties                      **
+  ******************************************************************************
+  -->
+
+  <PropertyGroup Condition="'$(SQLiteNetDir)' != '' And
+                            !HasTrailingSlash('$(SQLiteNetDir)') And
+                            (('$(IsCompactFramework)' == 'false' And Exists('$(SQLiteNetDir)\System.Data.SQLite\System.Data.SQLite.snk')) Or
+                             ('$(IsCompactFramework)' != 'false' And Exists('$(SQLiteNetDir)\System.Data.SQLite\System.Data.SQLite.CF.snk')))">
+    <!--
+        NOTE: Sign the assembly?  By default, this is enabled.
+    -->
+    <SignAssembly Condition="'$(SignAssembly)' == ''">true</SignAssembly>
+
+    <!--
+        NOTE: Use delay signing?  By default, this is disabled because the
+              default strong name key pair is included with the source code.
+    -->
+    <DelaySign Condition="'$(DelaySign)' == ''">false</DelaySign>
+
+    <!--
+        NOTE: The full path and file name for the strong name key pair to use.
+    -->
+    <AssemblyOriginatorKeyFile Condition="'$(AssemblyOriginatorKeyFile)' == '' And '$(IsCompactFramework)' == 'false'">$(SQLiteNetDir)\System.Data.SQLite\System.Data.SQLite.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile Condition="'$(AssemblyOriginatorKeyFile)' == '' And '$(IsCompactFramework)' != 'false'">$(SQLiteNetDir)\System.Data.SQLite\System.Data.SQLite.CF.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+</Project>

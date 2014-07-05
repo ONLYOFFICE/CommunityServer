@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/chatstates'
+    xmlns='http://jabber.org/protocol/chatstates'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0085: http://www.xmpp.org/extensions/xep-0085.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='active' type='empty'/>
+  <xs:element name='composing' type='empty'/>
+  <xs:element name='gone' type='empty'/>
+  <xs:element name='inactive' type='empty'/>
+  <xs:element name='paused' type='empty'/>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

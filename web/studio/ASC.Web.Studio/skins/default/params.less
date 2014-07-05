@@ -1,0 +1,209 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+// -------------------------
+// Main parameters
+// -------------------------
+
+@baseUrl:           "../skins";
+@baseJqUi:          "../@{baseUrl}/jquery.ui";
+@blankImg:          "@{baseUrl}/blank.gif";
+@imagesBaseUrl:     "imagescss/";
+@baseFont:          'Open Sans', sans-serif;
+
+@img-change-url: @imagesBaseUrl;  // for images of differrnt color theme
+
+@textColor:             #333;
+@textColorBlackDark:    #666;
+@textColorBlackLight:   #999;
+@textColorGrayDark:     #83888d;
+@textColorGrayLight:    #b2b2b2;
+@textColorRed:          #cc3300;
+@textColorGreen:        #6b931f;
+@linkColor:             #116d9d;
+
+@defaultButtonTextColor:        #fff;
+@grayButtonTextColor:           @textColorBlackDark;
+@grayButtonTextColorDisable:    @textColorBlackLight;
+@tablePadding:                  8px;
+@borderColor:                   #D1D1D1;
+@hoverTable:                    #e5e5e5;
+@activeTable:                   #f2f2f2;
+
+// Top Studio Panel
+// -------------------------
+@bg-header:         #3d4a6b;
+@bg-header-icons:   #344060;
+
+@bg-header-icon-lable-start:    #59B1E2;
+@bg-header-icon-lable-end:      #1A76a6;
+
+.bg-header-icon-lable() {
+    .bg-vertical-gradient(@bg-header-icon-lable-start, @bg-header-icon-lable-end);
+}
+
+// Left Navigation Menu
+// -------------------------
+
+@color-active-item:     @linkColor;
+@style-active-item:     normal;
+@bg-is-new-start:       #59B1E2;
+@bg-is-new-end:         #1A76a6;
+@bg-is-new-hover-start: #78BFE8;
+@bg-is-new-hover-end:   #3F96C3;
+
+.bg-is-new () {
+    .bg-vertical-gradient(@bg-is-new-start, @bg-is-new-end);
+
+    &:hover {
+        .bg-vertical-gradient(@bg-is-new-hover-start, @bg-is-new-hover-end);
+    }
+}
+
+// Buttons style
+// -------------------------
+
+@bg-create-new-start:           #9ac252;
+@bg-create-new-end:             #6b931f;
+@bg-create-new-hover-start:     #a7cd63;
+@bg-create-new-hover-end:       #7ea731;
+@bg-create-new-disable-start:   #c2da97;
+@bg-create-new-disable-end:     #a4be74;
+
+
+.bg-button-create-new () {
+    .bg-vertical-gradient(@bg-create-new-start, @bg-create-new-end);
+
+    &:hover {
+        .bg-vertical-gradient(@bg-create-new-hover-start, @bg-create-new-hover-end);
+    }
+
+    &.disable {
+        .bg-vertical-gradient(@bg-create-new-disable-start, @bg-create-new-disable-end);
+    }
+}
+
+
+@bg-button-danger-start:            #e04503;
+@bg-button-danger-end:              #b83700;
+@bg-button-danger-hover-start:      #f4692e;
+@bg-button-danger-hover-end:        #e14706;
+@bg-button-danger-active-start:     #ee5f23;
+@bg-button-danger-active-end:       #ee672e;
+@bg-button-danger-disable-start:    #fd9d74;
+@bg-button-danger-disable-end:      #f5895b;
+
+.bg-button-danger () {
+    .bg-vertical-gradient(@bg-button-danger-start, @bg-button-danger-end);
+
+    &:hover {
+        .bg-vertical-gradient(@bg-button-danger-hover-start, @bg-button-danger-hover-end);
+    }
+
+    &:active {
+        .bg-vertical-gradient(@bg-button-danger-active-start, @bg-button-danger-active-end);
+    }
+
+    &.disable {
+        .bg-vertical-gradient(@bg-button-danger-disable-start, @bg-button-danger-disable-end);
+    }
+}
+
+@bg-button-default-start:            #F3F3F3;
+@bg-button-default-end:              #DEDEDE;
+@bg-button-default-hover-start:      #F3F3F3;
+@bg-button-default-hover-end:        #EBEBEB;
+@bg-button-default-active-start:     #EBEBEB;
+@bg-button-default-active-end:       #F3F3F3;
+@bg-button-default-disable-start:    #FFFFFF;
+@bg-button-default-disable-end:      #F1F1F1;
+
+.bg-button-default () {
+    .bg-vertical-gradient(@bg-button-default-start, @bg-button-default-end);
+
+    &:hover {
+        .bg-vertical-gradient(@bg-button-default-hover-start, @bg-button-default-hover-end);
+    }
+
+    &:active {
+        .bg-vertical-gradient(@bg-button-default-active-start, @bg-button-default-active-end);
+    }
+
+    &.disable {
+       .bg-vertical-gradient(@bg-button-default-disable-start, @bg-button-default-disable-end);
+    }
+}
+
+@bg-button-action-start:            #59B1E2;
+@bg-button-action-end:              #1A76a6;
+@bg-button-action-hover-start:      #78BFE8;
+@bg-button-action-hover-end:        #3F96C3;
+@bg-button-action-active-start:     #81BFE2;
+@bg-button-action-active-end:       #6AB2D7;
+@bg-button-action-disable-start:    #CEE9F6;
+@bg-button-action-disable-end:      #ABD4EA;
+
+.bg-button-action () {
+    .bg-vertical-gradient(@bg-button-action-start, @bg-button-action-end);
+
+    &:hover {
+        .bg-vertical-gradient(@bg-button-action-hover-start, @bg-button-action-hover-end);
+    }
+
+    &:active {
+        .bg-vertical-gradient(@bg-button-action-active-start, @bg-button-action-active-end);
+    }
+
+    &.disable {
+       .bg-vertical-gradient(@bg-button-action-disable-start, @bg-button-action-disable-end);
+    }
+}
+
+// Buttons border style
+// -------------------------
+@border-button-default:         #BFBFBF;
+@border-button-default-hover:   #BFBFBF;
+@border-button-default-active:  #BFBFBF;
+@border-button-default-disable: #D5D5D5;
+
+.border-button-default (){
+    .borderButtons(@border-button-default);
+
+    &:hover {
+        .borderButtons(@border-button-default-hover);
+    }
+
+    &:active {
+        .borderButtons(@border-button-default-active);
+    }
+
+    &.disable {
+       .borderButtons(@border-button-default-disable);
+    }
+}
+

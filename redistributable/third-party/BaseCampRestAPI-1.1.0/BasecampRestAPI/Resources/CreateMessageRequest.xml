@@ -1,0 +1,11 @@
+﻿<request>
+	<post>
+		<category-id>{0}</category-id>
+		<title>{1}</title>
+		<body>{2}</body>
+		<extended-body>{3}</extended-body>
+		<private>{4}</private>
+		<!-- only for firm employees -->
+	</post>
+	{5}
+</request>

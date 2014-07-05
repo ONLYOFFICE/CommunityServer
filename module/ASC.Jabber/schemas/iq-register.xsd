@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='jabber:iq:register'
+    xmlns='jabber:iq:register'
+    elementFormDefault='qualified'>
+
+  <xs:import namespace='jabber:x:data'
+             schemaLocation='http://xmpp.org/schemas/x-data.xsd'/>
+  <xs:import namespace='jabber:x:oob'
+             schemaLocation='http://xmpp.org/schemas/x-oob.xsd'/>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0077: http://www.xmpp.org/extensions/xep-0077.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='query'>
+    <xs:complexType>
+      <xs:sequence xmlns:xdata='jabber:x:data'
+                   xmlns:xoob='jabber:x:oob'>
+        <xs:choice minOccurs='0'>
+          <xs:sequence minOccurs='0'>
+            <xs:element name='registered' type='empty' minOccurs='0'/>
+            <xs:element name='instructions' type='xs:string' minOccurs='0'/>
+            <xs:element name='username' type='xs:string' minOccurs='0'/>
+            <xs:element name='nick' type='xs:string' minOccurs='0'/>
+            <xs:element name='password' type='xs:string' minOccurs='0'/>
+            <xs:element name='name' type='xs:string' minOccurs='0'/>
+            <xs:element name='first' type='xs:string' minOccurs='0'/>
+            <xs:element name='last' type='xs:string' minOccurs='0'/>
+            <xs:element name='email' type='xs:string' minOccurs='0'/>
+            <xs:element name='address' type='xs:string' minOccurs='0'/>
+            <xs:element name='city' type='xs:string' minOccurs='0'/>
+            <xs:element name='state' type='xs:string' minOccurs='0'/>
+            <xs:element name='zip' type='xs:string' minOccurs='0'/>
+            <xs:element name='phone' type='xs:string' minOccurs='0'/>
+            <xs:element name='url' type='xs:string' minOccurs='0'/>
+            <xs:element name='date' type='xs:string' minOccurs='0'/>
+            <xs:element name='misc' type='xs:string' minOccurs='0'/>
+            <xs:element name='text' type='xs:string' minOccurs='0'/>
+            <xs:element name='key' type='xs:string' minOccurs='0'/>
+          </xs:sequence>
+          <xs:element name='remove' type='empty' minOccurs='0'/>
+        </xs:choice>
+        <xs:element ref='xdata:x' minOccurs='0'/>
+        <xs:element ref='xoob:x' minOccurs='0'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

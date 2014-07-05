@@ -1,0 +1,782 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+@import "base.less";
+/*******************************************************************************
+ListInvoiceView.ascx
+*******************************************************************************/
+#invoiceList {
+    min-height: 400px;
+}
+#invoiceFilterContainer,
+#emptyContentForInvoiceFilter,
+#invoiceEmptyScreen,
+#tableForInvoiceNavigation {
+    display: none;
+}
+#divForInvoicePager {
+    display: inline-block;
+    clear: right;
+}
+#totalInvoicesOnPage {
+    margin-right: 20px;
+}
+#invoiceHeaderMenu {
+    display: block;
+    width: auto;
+}
+#invoiceTable {
+    >tbody > tr {
+        height: 44px;
+    }
+
+    input[type="checkbox"] {
+        margin: 15px 0 15px 2px;
+    }
+
+    td > div {
+        padding: 0 8px;
+    }
+
+
+    .invoiceStatus {
+        padding: 0 12px;
+        div {
+            padding: 0;
+            margin-bottom: 1px;
+            .text-overflow-nowrap(100px);
+            cursor: pointer;
+        }
+    }
+    tr:hover .invoiceStatus div {
+        padding-top: 1px;
+        border-bottom: 1px dotted;
+    }
+
+    .invoiceSum div,
+    .invoiceDueDate div {
+        .text-overflow-nowrap(150px);
+    }
+
+    .invoiceNumber {
+        max-width: 300px;
+        min-width: 70px;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 0 8px;
+        .text-overflow-nowrap;
+    }
+}
+
+/*******************************************************************************
+ListInvoiceView: custom contactSelector filter
+*******************************************************************************/
+
+#selector_invoiceContactSelectorForFilter {
+    display: inline-block;
+    margin: 1px 0 0 0;
+    > div {
+        margin: 0 !important;
+    }
+}
+#selectorContent_invoiceContactSelectorForFilter_0 {
+    margin: 0 !important;
+    width: 250px;
+    table td {
+        border: 0 none;
+    }
+}
+#infoContent_invoiceContactSelectorForFilter_0 > table {
+    line-height: 12px;
+
+    .splitter {
+        .text-overflow(130px);
+        display: inline-block;
+    }
+    .crm-editLink {
+        position: relative;
+        top: -4px;
+    }
+}
+
+#selectorContent_invoiceContactSelectorForFilter_0 .textEdit{
+    height:14px;
+    font-size: 12px;
+}
+#searchImg_invoiceContactSelectorForFilter_0,
+#loaderImg_invoiceContactSelectorForFilter_0,
+#selectorContent_invoiceContactSelectorForFilter_0 > table .crossButton{
+    height: 14px;
+}
+
+#invoiceAdvansedFilter div.advansed-filter-container div.advansed-filter-filters div.filter-item-custom-contact span.selector-wrapper{
+    max-width: 260px;
+}
+
+/*******************************************************************************
+ListActionView.ascx
+*******************************************************************************/
+#crm_invoiceMakerDialog {
+    .invoice_info {
+        margin-top: 5px;
+        width: 700px;
+    }
+    .invoice-lines {
+        margin-top: 16px;
+        width: 700px;
+    }
+    .header-bottom-splitter
+    {
+        margin: 0 0 6px;
+    }
+    .duedate-link {
+        font-weight: normal;
+
+        &.selected {
+            font-weight: bold;
+            border-bottom: medium none;
+        }
+    }
+}
+
+#selectItemDialog .loader-container, #selectTaxDialog .loader-container {
+    top: -20px;
+}
+#invoiceNumber, #exchangeRate {
+    width: 93px;
+}
+#invoiceTerms, #invoiceDescription, #defaultTerms {
+    height: 80px;
+    resize: none;
+    width: 100%;
+}
+#invoiceLanguage, #invoiceCurrency {
+    width: 300px;
+}
+#invoicePurchaseOrderNumber {
+    width: 298px;
+}
+#invoiceContactSelectorContainer, #invoiceConsigneeSelectorContainer
+{
+    min-height: 21px;
+
+    .contactSelector-selectorContent
+    {
+        width: 300px;
+    }
+}
+#invoiceOpportunitySelectorContainer
+{
+    min-height: 23px;
+    
+    #opportunityContainer
+    {
+        position: relative;
+        line-height: 23px;
+
+        .crm-removeLink
+        {
+            margin-left: 4px;
+            position: absolute;
+            top: 4px;
+        }
+    }
+}
+#consigneeEqualClientCbx {
+    float: left;
+    margin: 2px 8px 0 0;
+}
+#setDefaultTermsBtn {
+    margin-top: 6px;
+    display: inline-block;
+}
+
+/*invoice lines table*/
+#invoiceLineTableContainer {
+    .tbl {
+        width: 100%;
+    }
+
+    .tbl-row {
+    }
+
+    .tbl-header-row {
+        height: 32px;
+        color: #82878D;
+    }
+
+    .tbl-body-row {
+        position: relative;
+
+        .crm-removeLink, .crm-moveLink {
+            display: none;
+        }
+
+        &:hover {
+            .crm-removeLink, .crm-moveLink {
+                display: block;
+            }
+        }
+
+        &.ui-sortable-helper {
+            background-color: #F2F2F2;
+        }
+    }
+
+    .tbl-add-row {
+        padding: 0 6px 10px 16px;
+        line-height: 20px;
+        height: 20px;
+        border-bottom: 1px solid #C7C7C7;
+    }
+
+    .tbl-subtotal-row {
+        height: 32px;
+        border-bottom: medium none;
+    }
+
+    .tbl-total-row {
+        height: 32px;
+        font-weight: bold;
+
+        .tbl-cell {
+            border-bottom: 1px solid #C7C7C7;
+            border-top: 1px solid #C7C7C7;
+        }
+    }
+
+    .tbl-cell {
+        float: left;
+        padding: 6px 4px;
+        line-height: 20px;
+        height: 20px;
+
+        &.item {
+            .custom-input {
+                input, input:focus {
+                    width: 250px !important;
+                }
+            }
+        }
+        &.tax1, &.tax2 {
+            .custom-input {
+                input, input:focus {
+                    width: 39px !important;
+                }
+            }
+        }
+    }
+
+    .sorter {
+        left: 4px;
+        margin-top: -8px;
+        position: absolute;
+        top: 50%;
+        width: 4px;
+    }
+
+    .item {
+        width: 270px;
+        padding-left: 16px;
+    }
+
+    .description {
+        min-height: 20px;
+        line-height: 20px;
+        padding: 0 28px 16px 16px;
+
+        textarea {
+            width: 100%;
+            resize: none;
+            height: 18px;
+            max-height: 80px;
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .quantity {
+        width: 50px;
+
+        input {
+            width: 100%;
+        }
+    }
+
+    .price {
+        width: 50px;
+
+        input {
+            width: 100%;
+        }
+    }
+
+    .discount {
+        white-space: nowrap;
+        width: 60px;
+
+        input {
+            margin-right: 4px;
+            width: 35px;
+        }
+    }
+
+    .tax1 {
+        width: 59px;
+    }
+
+    .tax2 {
+        width: 59px;
+    }
+
+    .amount {
+        .text-overflow();
+        width: 60px;
+        text-align: right;
+        padding-right: 28px;
+    }
+
+    .action {
+        margin-top: -8px;
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        width: 16px;
+    }
+
+    .total-label {
+        width: 180px;
+        margin-left: 410px;
+
+        >span.taxLineName {
+            .text-overflow-nowrap(135px);
+            float: left;
+        }
+
+        >span.taxLineRate {
+            .text-overflow-nowrap(45px);
+        }
+    }
+
+    .total-value {
+        .text-overflow();
+        width: 70px;
+        text-align: right;
+        padding-right: 28px;
+    }
+}
+
+/*change number format dialog*/
+#numberFormatDialog {
+    #autogenCbx {
+        float: left;
+        margin: 2px 8px 0 0;
+    }
+
+    label[for="autogenCbx"] {
+        vertical-align: middle;
+    }
+
+    .number-prefix {
+        float: left;
+        margin-right: 16px;
+    }
+
+    .number-number {
+    }
+}
+
+/*dropdown dialog for select and create items*/
+.selector {
+    .left-side {
+        border-right: 1px solid #C7C7C7;
+        display: none;
+        float: left;
+        height: 200px;
+        width: 169px;
+        padding-right: 15px;
+        margin-right: 15px;
+
+        .create-btn {}
+        .cancel-btn {}
+    }
+
+    .right-side {
+        float: left;
+        height: 200px;
+        width: 200px;
+
+        .custom-input input, .custom-input input:focus {
+            width: 180px !important;
+        }
+
+        .add-new-btn {}
+        .set-default-btn {}
+    }
+}
+
+/*customization dropdown dialogs for select and create items*/
+#selectItemDialog
+{
+    .custom-list
+    {
+        max-height: 140px;
+
+        &.large
+        {
+            max-height: 160px;
+        }
+    }
+}
+#selectTaxDialog
+{
+    .custom-list
+    {
+        max-height: 170px;
+    }
+
+    .set-default-btn
+    {
+        &.right
+        {
+            float: right;
+        }
+    }
+
+    #newTaxRate
+    {
+        width: 30px;
+    }
+    .createTaxError {
+        color: #CC0000;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        text-overflow: ellipsis;
+        top: -24px;
+        white-space: nowrap;
+        width: 170px;
+        display:none;
+    }
+}
+
+/*custom input for comboboxes or serch input*/
+.custom-input {
+    border: 1px solid #C7C7C7;
+    height: 18px;
+
+    input, input:focus {
+        border: medium none !important;
+        outline: medium none !important;
+        float: left;
+        font-size: 12px;
+        height: 16px;
+        padding: 1px;
+        width: calc(~"100% - 18px") !important;
+    }
+
+    .icon {
+        cursor: pointer;
+        float: left;
+        height: 18px;
+        width: 16px;
+
+        &.drop-down {
+            background: url("../images/icons.png") no-repeat scroll -12px -646px #FFFFFF;
+        }
+
+        &.serch {
+            background: url("../images/icons.png") no-repeat scroll -1px -407px #FFFFFF;
+        }
+    }
+}
+  
+
+/*custom ul list*/
+.custom-list {
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    border-top: 1px solid #C7C7C7;
+    width: 100%;
+
+    li {
+        line-height: 20px;
+        list-style-type: none;
+        border-bottom: 1px solid #C7C7C7;
+        margin: 0;
+        padding: 0;
+
+
+        &:hover {
+            background-color: #E6E6E6;
+        }
+
+        a {
+            .text-overflow-nowrap();
+            color: #333333;
+            display: block;
+            padding: 2% 4%;
+            text-decoration: none;
+            margin: 0;
+        }
+    }
+}
+
+/*******************************************************************************
+ListDetailsView.ascx
+*******************************************************************************/
+
+.invoice-container
+{
+    margin-top: 20px;
+    position: relative;
+    width: 168mm;
+    min-height: 259mm;
+    padding: 19mm 5mm 19mm 5mm;
+    .boxShadow;
+}
+
+@media screen and (min-width: 1145px) {
+ .invoice-container {
+    padding: 19mm 14mm 19mm 28mm;
+ }
+}
+@media screen and (max-width: 1144px) {
+ .invoice-container {
+    padding: 19mm 10mm 19mm 24mm;
+ }
+}
+@media screen and (max-width: 1120px) {
+ .invoice-container {
+    padding: 19mm 9mm 19mm 19mm;
+ }
+}
+@media screen and (max-width: 1096px) {
+ .invoice-container {
+    padding: 19mm 8mm 19mm 15mm;
+ }
+}
+@media screen and (max-width: 1072px) {
+ .invoice-container {
+    padding: 19mm 7mm 19mm 11mm;
+ }
+}
+@media screen and (max-width: 1048px) {
+ .invoice-container {
+    padding: 19mm 6mm 19mm 7mm;
+ }
+}
+@media screen and (max-width: 1024px) {
+ .invoice-container {
+    padding: 19mm 5mm 19mm 5mm;
+ }
+}
+@media all and (max-width: 1200px) {
+    #crm_invoiceMakerDialog .invoice_info {
+        width: 670px;
+    }
+    #crm_invoiceMakerDialog .invoice-lines {
+        width: 670px;
+
+        .tbl-cell.item {
+            .custom-input {
+                input, input:focus {
+                    width: 220px !important;
+                }
+            }
+        }
+
+    }
+    #invoiceLineTableContainer .item {
+        width: 240px;
+    }
+    #invoiceLineTableContainer .total-label {
+        margin-left: 380px;
+    }
+}
+.invoice-status
+{
+    display: inline-block;
+    padding: 4px 24px;
+    position: absolute;
+    top: 15px;
+    left: 0;
+
+    &.draft, &.rejected
+    {
+        background: #E3E3E3;
+    }
+    &.sent
+    {
+        background: #F0D892;
+    }
+    &.overdue
+    {
+        background: #FCBDA9;
+    }
+    &.paid
+    {
+        background: #C9E695;
+    }
+}
+
+.invoice-data
+{
+    background-color: #FFFFFF;
+    font-size: 10pt;
+    font-family: 'Open Sans',sans-serif;
+    color: #333;
+
+    table
+    {
+        border-collapse: collapse;
+        font-size: 10pt;
+        font-family: 'Open Sans',sans-serif;
+        color: #333;
+        width: 100%;
+
+        td
+        {
+            vertical-align: top;
+            word-wrap: break-word;
+        }
+
+        .width-50
+        {
+            max-width: 84mm;
+            min-width: 84mm;
+            width: 84mm;
+        }
+
+        .width-40
+        {
+            max-width: 65.0833mm;
+            min-width: 65.0833mm;
+            width: 65.0833mm;
+        }
+
+        .width-30
+        {
+            max-width: 48.2833mm;
+            min-width: 48.2833mm;
+            width: 48.2833mm;
+        }
+
+        .width-25
+        {
+            max-width: 39.8833mm;
+            min-width: 39.8833mm;
+            width: 39.8833mm;
+        }
+
+        .width-20
+        {
+            max-width: 31.4833mm;
+            min-width: 31.4833mm;
+            width: 31.4833mm;
+        }
+
+        .width-10
+        {
+            max-width: 14.6833mm;
+            min-width: 14.6833mm;
+            width: 14.6833mm;
+        }
+
+        .width-5
+        {
+            max-width: 6.2833mm;
+            min-width: 6.2833mm;
+            width: 6.2833mm;
+        }
+
+        .text-right
+        {
+            text-align: right;
+        }
+
+        .border-bottom-gray
+        {
+            border-bottom: 0.264583mm solid #eee;
+        }
+
+        .background-gray
+        {
+            background-color: #eee;
+        }
+
+        .font-gray
+        {
+            color: #999;
+        }
+
+        .font-22
+        {
+            font-size: 22pt;
+        }
+
+        .font-16
+        {
+            font-size: 16pt;
+        }
+
+        .font-bold
+        {
+            font-weight: bold;
+        }
+
+        .logo
+        {
+            max-height: 39.6875mm;
+            max-width: 52.9167mm;
+        }
+
+        .invoice-number
+        {
+            padding: 0 1.05833mm;
+        }
+
+        &.tbl-items
+        {
+            font-size: 8pt;
+
+            td
+            {
+                padding: 1.9mm 1.05833mm;
+            }
+        }
+    }
+}

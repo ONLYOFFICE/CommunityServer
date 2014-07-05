@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BuildingReport" xml:space="preserve">
+    <value>Построение отчета</value>
+  </data>
+  <data name="ChangeFilterData" xml:space="preserve">
+    <value>Изменить фильтр отчета</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>Период</value>
+  </data>
+  <data name="CreateNewReport" xml:space="preserve">
+    <value>Создать новый отчет</value>
+  </data>
+  <data name="ExportToCSV" xml:space="preserve">
+    <value>Экспортировать в csv</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="GenerateFromTemplate" xml:space="preserve">
+    <value>Генерировать по шаблону</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Сгенерировать отчет</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Менеджеры</value>
+  </data>
+  <data name="PrintReport" xml:space="preserve">
+    <value>Печать отчета</value>
+  </data>
+  <data name="Report_SalesByStage_Description" xml:space="preserve">
+    <value>Report_PipelineByMilestone_Description</value>
+  </data>
+  <data name="Report_SalesByStage_Title" xml:space="preserve">
+    <value>Отчет «Воронка продаж»</value>
+  </data>
+  <data name="SaveAsTemplate" xml:space="preserve">
+    <value>Сохранить как шаблон</value>
+  </data>
+  <data name="UseTemplate" xml:space="preserve">
+    <value>Использовать шаблон</value>
+  </data>
+  <data name="ViewInfo" xml:space="preserve">
+    <value>Показать информацию об отчете</value>
+  </data>
+  <data name="Report_SalesByContact_Description" xml:space="preserve">
+    <value>Report_SalesByClient_Description</value>
+  </data>
+  <data name="Report_SalesByContact_Title" xml:space="preserve">
+    <value>Отчет «Продажи в срезе по контактам»</value>
+  </data>
+  <data name="Report_SalesForecastByMonth_Description" xml:space="preserve">
+    <value>Report_SalesForecastByMonth_Description</value>
+  </data>
+  <data name="Report_SalesForecastByMonth_Title" xml:space="preserve">
+    <value>Отчет «Прогнозирования продаж в срезе за месяц»</value>
+  </data>
+  <data name="Report_SalesByManager_Description" xml:space="preserve">
+    <value>Report_SalesByManager_Description</value>
+  </data>
+  <data name="Report_SalesByManager_Title" xml:space="preserve">
+    <value>Report_SalesByManager_Title</value>
+  </data>
+  <data name="Report_SalesByMonth_Description" xml:space="preserve">
+    <value>Report_SalesByMonth_Description</value>
+  </data>
+  <data name="Report_SalesByMonth_Title" xml:space="preserve">
+    <value>Report_SalesByMonth_Title</value>
+  </data>
+  <data name="Report_SalesForecastByClient_Description" xml:space="preserve">
+    <value>Report_SalesForecastByClient_Description</value>
+  </data>
+  <data name="Report_SalesForecastByClient_Title" xml:space="preserve">
+    <value>Report_SalesForecastByClient_Title</value>
+  </data>
+  <data name="Report_SalesForecastByManager_Description" xml:space="preserve">
+    <value>Report_SalesForecastByManager_Description</value>
+  </data>
+  <data name="Report_SalesForecastByManager_Title" xml:space="preserve">
+    <value>Report_SalesForecastByManager_Title</value>
+  </data>
+  <data name="Report_ContactPopulate_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report_ContactPopulate_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report_WorkLoad_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report_WorkLoad_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TagName" xml:space="preserve">
+    <value>Название тэга</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Report_UserTasks_Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report_UserTasks_Title" xml:space="preserve">
+    <value />
+  </data>
+</root>

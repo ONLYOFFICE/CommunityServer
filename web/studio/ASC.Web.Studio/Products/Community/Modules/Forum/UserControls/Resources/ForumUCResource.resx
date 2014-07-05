@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTopic" xml:space="preserve">
+    <value>Add new topic</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ApproveButton" xml:space="preserve">
+    <value>Allow</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Attached Files</value>
+  </data>
+  <data name="BackLink" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ClearStickyTopicButton" xml:space="preserve">
+    <value>Detach</value>
+  </data>
+  <data name="CloseTopicButton" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to perform this action?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Edited</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>No permissions to perform this action</value>
+  </data>
+  <data name="ErrorDeletePost" xml:space="preserve">
+    <value>An error occurred when deleting the post</value>
+  </data>
+  <data name="ErrorDeleteTopic" xml:space="preserve">
+    <value>An error occurred when deleting the topic</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Enter at least two poll choices</value>
+  </data>
+  <data name="ErrorSubjectEmpty" xml:space="preserve">
+    <value>Enter the topic name</value>
+  </data>
+  <data name="ErrorTextEmpty" xml:space="preserve">
+    <value>Enter a message</value>
+  </data>
+  <data name="ErrorUnknownCreateAttachment" xml:space="preserve">
+    <value>An unknown error occurred when attaching files</value>
+  </data>
+  <data name="ErrorUnknownCreatePost" xml:space="preserve">
+    <value>An unknown error occurred when creating a post</value>
+  </data>
+  <data name="ErrorUnknownCreateQuestion" xml:space="preserve">
+    <value>An unknown error occurred when creating a poll</value>
+  </data>
+  <data name="ErrorUnknownCreateTopic" xml:space="preserve">
+    <value>An unknown error occurred when creating a topic</value>
+  </data>
+  <data name="ExistsReferencesChildPosts" xml:space="preserve">
+    <value>The post cannot be deleted as there are other posts linking to this one</value>
+  </data>
+  <data name="FileUploadAddButton" xml:space="preserve">
+    <value>Attach file</value>
+  </data>
+  <data name="FileUploadPleaseWait" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
+  <data name="HelpForTags" xml:space="preserve">
+    <value>Enter the needed tags separating them with commas</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="MaximumAttachmentSize" xml:space="preserve">
+    <value>The maximum size of the attached file cannot exceed {0} MB</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="ModeratorFunctions" xml:space="preserve">
+    <value>Moderator functions</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Enter a name</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Add New Post</value>
+  </data>
+  <data name="OpenTopicButton" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>Overall progress</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
+  <data name="PollActionText" xml:space="preserve">
+    <value>poll created</value>
+  </data>
+  <data name="PollVoteActionText" xml:space="preserve">
+    <value>vote added</value>
+  </data>
+  <data name="PostActionText" xml:space="preserve">
+    <value>post added</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Posts</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Publish</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>Enter your question</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Quote</value>
+  </data>
+  <data name="QuoteCaptioon_Wrote" xml:space="preserve">
+    <value>wrote</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value>Latest Posts in Topic</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Latest Update</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SendMessageButton" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Show on page</value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>Stick</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>Enter the topic name</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Subscribe to this topic</value>
+  </data>
+  <data name="SuccessfullyClearStickyTopicMessage" xml:space="preserve">
+    <value>The topic has been successfully unsticked</value>
+  </data>
+  <data name="SuccessfullyCloseTopicMessage" xml:space="preserve">
+    <value>The topic has been successfully closed</value>
+  </data>
+  <data name="SuccessfullyDeleteAttachmentMessage" xml:space="preserve">
+    <value>The attached file has been successfully removed</value>
+  </data>
+  <data name="SuccessfullyDeletePostMessage" xml:space="preserve">
+    <value>The post has been successfully deleted</value>
+  </data>
+  <data name="SuccessfullyDeleteTopicMessage" xml:space="preserve">
+    <value>The topic has been successfully deleted</value>
+  </data>
+  <data name="SuccessfullyEditTopicMessage" xml:space="preserve">
+    <value>The topic has been successfully edited</value>
+  </data>
+  <data name="SuccessfullyOpenTopicMessage" xml:space="preserve">
+    <value>The topic has been successfully created</value>
+  </data>
+  <data name="SuccessfullyStickyTopicMessage" xml:space="preserve">
+    <value>The topic has been successfully sticked</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TextEmptyMessage" xml:space="preserve">
+    <value>Enter a message</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Topic</value>
+  </data>
+  <data name="TopicActionText" xml:space="preserve">
+    <value>topic created</value>
+  </data>
+  <data name="TopicClearStickyActionText" xml:space="preserve">
+    <value>topic unsticked</value>
+  </data>
+  <data name="TopicCloseActionText" xml:space="preserve">
+    <value>topic closed</value>
+  </data>
+  <data name="TopicEditActionText" xml:space="preserve">
+    <value>topic edited</value>
+  </data>
+  <data name="TopicOpenActionText" xml:space="preserve">
+    <value>topic opened</value>
+  </data>
+  <data name="TopicRemoveActionText" xml:space="preserve">
+    <value>topic deleted</value>
+  </data>
+  <data name="TopicStickyActionText" xml:space="preserve">
+    <value>topic sticked</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Views</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+</root>

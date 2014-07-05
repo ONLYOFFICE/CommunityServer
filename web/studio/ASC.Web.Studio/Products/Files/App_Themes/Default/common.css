@@ -1,0 +1,110 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+label .checkbox {
+    margin: 0 5px 3px 0;
+    vertical-align: middle;
+}
+.select-action,
+.select-action a,
+.select-action input,
+.select-action span,
+.select-action div {
+    cursor: default !important;
+}
+.popup-modal {
+    display: none;
+}
+body .may-row-to,
+body .may-drop-to {
+    background-color: #fcf6e0;
+}
+.may-row-to.row-to,
+.may-drop-to.drop-to {
+    background-color: #F9EEC2;
+}
+.stick-panel {
+    position: fixed;
+    top: 0;
+    z-index: 255;
+}
+#fileSidePanelSpacer {
+    margin: 0;
+}
+
+.studio-action-panel .corner-top.corner-left {
+    left: -5px;
+    top: 21px;
+    -webkit-transform: rotate(-90deg); /* Chrome y Safari */
+    -moz-transform: rotate(-90deg); /* Firefox */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+    -o-transform: rotate(-90deg); /* Opera */
+}
+
+/*******************************************************************************
+    Selector
+*******************************************************************************/
+#filesSelector {
+    background-color: #6CA3BF;
+    border: 1px solid #034;
+    cursor: default;
+    display: block;
+    height: 0;
+    opacity: 0.3;
+    position: absolute;
+    width: 0;
+    z-index: 254;
+}
+
+/*******************************************************************************
+    Mobile
+*******************************************************************************/
+body.mobile #confirmRemoveList,
+body.mobile #overwriteList {
+    max-height: none !important;
+}
+body.mobile #treeViewPanelSelector,
+body.mobile .jstree {
+    max-height: none !important;
+    max-width: none !important;
+}
+body.mobile div.blockUI.blockOverlay {
+    min-width: 1000px;
+    width: 100%;
+}
+/*******************************************************************************
+    CreateNewButton - hack for IE7
+*******************************************************************************/
+*:first-child+html .page-menu .menu-actions .menu-main-button {
+    width: 130px;
+}
+

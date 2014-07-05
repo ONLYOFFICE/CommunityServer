@@ -1,0 +1,252 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B3095846-DAA3-4D9A-B733-AAD471F1B6F4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ActiveUp.Net.Dns.Compact</RootNamespace>
+    <AssemblyName>ActiveUp.Net.Dns.Compact</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <OSVersion>5.0</OSVersion>
+    <DeployDirSuffix>ActiveUp.Net.Dns.Compact</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FormFactorID>
+    </FormFactorID>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <NativePlatformName>Windows CE</NativePlatformName>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debugl\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PocketPC</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;PocketPC</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <OutputPath>bin\Retail\</OutputPath>
+    <DefineConstants>TRACE;PocketPC</DefineConstants>
+    <Optimize>true</Optimize>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>bin\Retail\ActiveUp.Net.Dns.Compact.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Trial|AnyCPU' ">
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <OutputPath>bin\Trial\</OutputPath>
+    <DefineConstants>TRACE;PocketPC</DefineConstants>
+    <Optimize>true</Optimize>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>bin\Trial\ActiveUp.Net.Dns.Compact.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\ActiveUp.Net.Dns\A6Record.cs">
+      <Link>A6Record.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\AAAARecord.cs">
+      <Link>AAAARecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\AfsdbRecord.cs">
+      <Link>AfsdbRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\Answer.cs">
+      <Link>Answer.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\ARecord.cs">
+      <Link>ARecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\CNameRecord.cs">
+      <Link>CNameRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\DataBuffer.cs">
+      <Link>DataBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\DNameRecord.cs">
+      <Link>DNameRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\DnsAnswer.cs">
+      <Link>DnsAnswer.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\DnsEntry.cs">
+      <Link>DnsEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\DnsQuery.cs">
+      <Link>DnsQuery.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\DomainNameOnly.cs">
+      <Link>DomainNameOnly.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\DSRecord.cs">
+      <Link>DSRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\ExceptionRecord.cs">
+      <Link>ExceptionRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\HInfoRecord.cs">
+      <Link>HInfoRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\IRecordData.cs">
+      <Link>IRecordData.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\IsdnRecord.cs">
+      <Link>IsdnRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\KeyRecord.cs">
+      <Link>KeyRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\KXRecord.cs">
+      <Link>KXRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\LocRecord.cs">
+      <Link>LocRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\MBRecord.cs">
+      <Link>MBRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\MGRecord.cs">
+      <Link>MGRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\MInfoRecord.cs">
+      <Link>MInfoRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\MRRecord.cs">
+      <Link>MRRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\MXRecord.cs">
+      <Link>MXRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\NaptrRecord.cs">
+      <Link>NaptrRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\NsapRecord.cs">
+      <Link>NsapRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\NSRecord.cs">
+      <Link>NSRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\NullRecord.cs">
+      <Link>NullRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\PrefAndDomain.cs">
+      <Link>PrefAndDomain.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\PtrRecord.cs">
+      <Link>PtrRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\PXRecord.cs">
+      <Link>PXRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\Question.cs">
+      <Link>Question.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\Record.cs">
+      <Link>Record.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\RPRecord.cs">
+      <Link>RPRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\RTRecord.cs">
+      <Link>RTRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\Server.cs">
+      <Link>Server.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\SigRecord.cs">
+      <Link>SigRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\SoaRecord.cs">
+      <Link>SoaRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\SrvRecord.cs">
+      <Link>SrvRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\TextOnly.cs">
+      <Link>TextOnly.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\TKeyRecord.cs">
+      <Link>TKeyRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\TSigRecord.cs">
+      <Link>TSigRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\TxtRecord.cs">
+      <Link>TxtRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\Utils.cs">
+      <Link>Utils.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\WksRecord.cs">
+      <Link>WksRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Dns\X25Record.cs">
+      <Link>X25Record.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "../../../../Samples/Lib/$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v3.5'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+</Project>

@@ -1,0 +1,62 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+.tooltip-wrapper{background:#FFF; border:1px solid #D1D1D1; padding:3px; font-size:12px; color:#333;}
+.tooltip-wrapper h6.label{margin:0; padding:0; font-size:12px; font-weight:bold; text-transform:capitalize;}
+
+div.chartBlock{}
+div.chartBlock div.header{margin:30px 0 0; padding:0 0 5px 15px; border-top:0; border-left:0; border-right:0;}
+div.chartBlock div.content{padding:20px 15px;}
+
+div.chartBlock ul#visitorsFilter{list-style:none; margin:0 4px 0 0; padding:0; cursor:default; visibility:hidden;}
+div.chartBlock ul#visitorsFilter li.filter{height:18px; line-height:20px; margin:0 10px 0 0; padding:0; float:left; text-align:left; cursor:pointer; white-space:nowrap; border-bottom: 1px dotted;  text-decoration: none !important;}
+div.chartBlock ul#visitorsFilter li.filter.selected{font-weight:bold; text-decoration:none; border-bottom:none;}
+
+div.chartBlock div#periodSelection{float:left;}
+div.chartBlock div#periodSelection div.date{float:left; margin:0 10px 0 0;}
+div.chartBlock div#periodSelection span.label{display:block; height:20px; line-height:20px; margin:0 5px 0 0; float:left; cursor:default;}
+
+div.chartBlock div#periodSelection.disabled{background:#FFF; opacity:0.5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);}
+
+div.chartBlock div#visitorsChartCanvas{height:300px; width: 95%; margin:20px 0 0; position:relative; cursor:default;}
+
+div.chartBlock .clear{height:1px; line-height:1px; display:inline; visibility:hidden; overflow:hidden; clear:both;}
+
+div.chartBlock ul#chartLegend{list-style:none; height:15px; margin:10px 0 0; padding:0;}
+div.chartBlock ul#chartLegend li.label{list-style:none; width:auto; height:100%; margin:0 20px 0 0; padding:0; float:left;}
+div.chartBlock ul#chartLegend li.label div.color{height:100%; width:45px; float:left;}
+div.chartBlock ul#chartLegend li.label div.title{margin:0 0 0 50px; clear:right;}
+
+div.chartBlock ul#chartLegend li.label.default{display:none;}
+
+div.chartBlock div.subPanel{margin:30px 0 0; display:none;}
+div.chartBlock div.subPanel a#chartDownloadStatistics.disabled{visibility:hidden;}

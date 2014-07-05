@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='jabber:iq:pass'
+    xmlns='jabber:iq:pass'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0003: http://www.xmpp.org/extensions/xep-0003.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='query'>
+    <xs:complexType>
+      <xs:choice minOccurs='0' maxOccurs='unbounded'>
+        <xs:element name='client' type='PassEntity'/>
+        <xs:element name='close' type='empty'/>
+        <xs:element name='expire' type='xs:unsignedLong'/>
+        <xs:element name='oneshot' type='empty'/>
+        <xs:element name='proxy' type='PassEntity'/>
+        <xs:element name='server' type='PassEntity'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name='PassEntity'>
+    <xs:simpleContent>
+      <xs:extension base='xs:NMTOKEN'>
+        <xs:attribute name='port' type='xs:short' use='optional'/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

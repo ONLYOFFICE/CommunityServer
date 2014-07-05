@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:media-element'
+    xmlns='urn:xmpp:media-element'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0221: http://www.xmpp.org/extensions/xep-0221.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='media'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='uri' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='height' type='xs:unsignedShort' use='optional'/>
+      <xs:attribute name='width' type='xs:unsignedShort' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='uri'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:anyURI'>
+          <xs:attribute name='type' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

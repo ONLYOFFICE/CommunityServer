@@ -1,0 +1,1 @@
+del *.exe *.dll *.xml *.log

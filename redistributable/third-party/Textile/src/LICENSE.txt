@@ -1,0 +1,2 @@
+Textile.NET is released under Creative Commons' Attribution-ShareAlike 3.0 Unported License.
+More about this license is available at the following URL: http://creativecommons.org/licenses/by-sa/3.0/

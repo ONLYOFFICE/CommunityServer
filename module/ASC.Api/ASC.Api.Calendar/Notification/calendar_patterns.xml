@@ -1,0 +1,19 @@
+<patterns>
+  <formatter type="ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common" />
+
+  <pattern id="CalendarSharingPattern" sender="email.sender">
+    <subject resource="|CalendarSharingSubject|ASC.Api.Calendar.Notification.CalendarPatternResource,ASC.Api.Calendar" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|CalendarSharingEmailPattern|ASC.Api.Calendar.Notification.CalendarPatternResource,ASC.Api.Calendar" />
+  </pattern>
+  <pattern id="CalendarSharingPattern" sender="messanger.sender">
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|CalendarSharingJabberPattern|ASC.Api.Calendar.Notification.CalendarPatternResource,ASC.Api.Calendar" />
+  </pattern>
+
+  <pattern id="EventAlertPattern" sender="email.sender">
+    <subject resource="|EventAlertSubject|ASC.Api.Calendar.Notification.CalendarPatternResource,ASC.Api.Calendar" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|EventAlertEmailPattern|ASC.Api.Calendar.Notification.CalendarPatternResource,ASC.Api.Calendar" />
+  </pattern>
+  <pattern id="EventAlertPattern" sender="messanger.sender">
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|EventAlertJabberPattern|ASC.Api.Calendar.Notification.CalendarPatternResource,ASC.Api.Calendar"/>
+  </pattern>
+</patterns>

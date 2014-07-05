@@ -1,0 +1,10 @@
+﻿<attachments>
+	<name>{0}</name>
+	<!-- optional -->
+	<file>
+		<file>{1}</file>
+		<!-- the id of the previously uploaded file -->
+		<content-type>{2}</content-type>
+		<original_filename>{3}</original_filename>
+	</file>
+</attachments>

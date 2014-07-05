@@ -1,0 +1,1 @@
+update mail_tag_mail tm set tm.id_user = (select m.id_user from mail_mail m where m.id = tm.id_mail);

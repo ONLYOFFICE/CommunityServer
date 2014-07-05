@@ -1,0 +1,321 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+/*-----Attachments control---------*/
+
+/*----question window----*/
+
+#questionWindowAttachments p:first-child {
+    margin-top: 0px;
+}
+#questionWindowAttachments p:last-child {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+#questionWindowAttachments .button.blue.marginLikeButton {
+    margin-right: 8px;
+}
+/*-----empty screen control---------*/
+
+#emptyDocumentPanel .emptyScrCtrl .emptyScrBttnPnl {
+    background-image: none;
+}
+#emptyDocumentPanel .emptyScrCtrl .emptyScrBttnPnl a {
+    background-color: transparent;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin: 10px 0 0 20px;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    color: #116d9d;
+}
+a#uploadFirstFile:after, a#createFirstDocument:after, a#attachProjDocuments:after{
+    background-color: transparent;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    content: "";
+    display: block;
+    height: 20px;
+    margin-left: -20px;
+    margin-top: -8px;
+    position: absolute;
+    top: 50%;
+    width: 16px;
+}
+
+#emptyDocumentPanel .emptyScrCtrl .emptyScrBttnPnl a#uploadFirstFile:after {
+    background-image: url("imagescss/upload.png");
+}
+#emptyDocumentPanel .emptyScrCtrl .emptyScrBttnPnl a#createFirstDocument:after {
+    background-image: url("imagescss/new_file.png");
+}
+#emptyDocumentPanel .emptyScrCtrl .emptyScrBttnPnl a#attachProjDocuments:after {
+    background-image: url("imagescss/attach.png");
+}
+#emptyDocumentPanel .emptyScrCtrl .emptyScrBttnPnl #firstDocComb {
+    display: inline-block;
+    margin-left: 3px;
+    padding-bottom: 5px;
+    vertical-align: bottom;
+    cursor: pointer;
+}
+/*------info panel-----*/
+.infoPanelAttachFile {
+    height: 31px;
+}
+.infoPanelAttachFile .warn {
+    display: none;
+}
+.infoPanelAttachFile #fileMaxSize {
+    color: #83888D;
+    font-size: 12px;
+    float: left;
+    padding: 8px 10px 8px 0px;
+}
+.infoPanelAttachFile .warn {
+    color: #83888D;
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    padding: 8px 10px 8px 38px;
+    float: right;
+    background-color: #F6E1A4;
+}
+/*-----*/
+.containerAction {
+    margin-bottom: 10px;
+    height: 25px;
+    position: relative;
+    clear: both;
+    display: none;
+}
+.containerAction .baseLinkAction {
+    color: #333;
+}
+.containerAction > span {
+    display: block;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding: 0 0 0 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+.containerAction #showDocumentPanel {
+    background-image: url("imagescss/new_file.png");
+    z-index: 4354565;
+}
+.containerAction #linkNewDocumentUpload {
+    cursor: pointer;
+    background-image: url("imagescss/upload.png");
+    position: relative;
+}
+.containerAction #linkNewDocumentUpload input {
+    height: 25px;
+    width: 180px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+    cursor: pointer;
+    font-size: 25px;
+}
+.containerAction span.linkAttachFile {
+    background-image: url("imagescss/attach.png");
+    padding-left: 21px;
+}
+.wrapperFilesContainer {
+    height:auto;
+}
+
+span.version {
+    color: #FFFFFF;
+    font-size: 10px;
+    margin: 1px 0 0 5px;
+    max-width: 40px;
+    overflow: hidden;
+    padding: 0 2px;
+    text-decoration: none;
+    background-color: #4AA4BB;
+    float: left;
+    display: none;
+}
+span.version {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+#attachmentsContainer {
+    margin-top: 10px;
+    padding: 0 10px;
+    width: 100%;
+    border-collapse: collapse;
+    clear: left;
+}
+#attachmentsContainer a {
+    outline: none;
+}
+#attachmentsContainer tr {
+    display: none;
+}
+#attachmentsContainer tr td {
+    border-top: 1px solid #D1D1D1;
+}
+#attachmentsContainer tr:first-child td {
+    border: none;
+}
+#attachmentsContainer tr:hover  {
+    background-color:#F2F2F2;
+}
+#attachmentsContainer tr td:last-child {
+    width: 40%;
+    text-align: right;
+    padding-right: 10px;
+}
+#attachmentsContainer tbody tr td.editFile a {
+    display:none;
+    float:right;
+    margin:4px 0 0 5px;
+    width:16px;
+    height:16px;
+}
+#attachmentsContainer tbody tr:hover td.editFile a {
+    display:inline-block;
+}
+
+#attachmentsContainer tbody tr td.editFile a[id^="editDoc_"] {
+
+    background:url("imagescss/pencil.png") no-repeat 0 0 transparent;
+}
+#attachmentsContainer tbody tr td.editFile a.deleteDoc,
+#attachmentsContainer tbody tr td.editFile a.unlinkDoc {
+    background:url("imagescss/trash.png") no-repeat 0 0 transparent;
+}
+
+#attachmentsContainer tbody tr td.editFile a.downloadLink {
+    background:url("imagescss/download_action.png") no-repeat 0 0 transparent;
+}
+
+#attachmentsContainer tr td:first-child {
+    padding-top: 5px;
+    width: 69%;
+}
+#attachmentsContainer tr td:first-child a {
+    color: #333333;
+    display: inline-block;
+    margin-left: 5px;
+    max-width: 500px;
+    padding-left: 25px;
+    padding-top: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    width: auto;
+}
+#attachmentsContainer div.attachmentsTitle {
+    overflow:hidden;
+    display: block;
+    float:left;
+    max-width: 390px;
+    text-overflow: ellipsis;
+}
+#attachmentsContainer tr td:first-child a:hover div.attachmentsTitle {
+    text-decoration:underline;
+}
+
+#attachmentsContainer tr td:first-child a.noDecoration:hover div.attachmentsTitle {
+    text-decoration: none;
+    cursor: default;
+}
+
+#attachmentsContainer tr td:first-child a.noEdit:hover {
+    text-decoration: none;
+}
+
+#attachmentsContainer tr.noAttach td {
+    color: #333;
+    text-align: left;
+    background-image: none;
+    background-color: #fff;
+    cursor: default;
+}
+
+td img[id^="imgZoom_"] {
+    max-height: 800px;
+    display: none;
+}
+
+/*---------New file---------*/
+#attachmentsContainer tr.newDoc {
+    display:none;
+}
+
+#attachmentsContainer tr.newDoc td:first-child {
+    padding: 3px 0 3px 31px;
+    width: 60%;
+    background-position: 6px -34px;
+}
+tr.newDoc input {
+    height: 20px;
+    width: 400px;
+    float:left;
+}
+tr.newDoc span.remove,
+tr.newDoc span.createFile {
+    cursor: pointer;
+    margin-left: 12px;
+    float:left;
+}
+
+/*--- information-upload-panel --*/
+
+.information-upload-panel {
+    clear: both;
+    font-size: 11px;
+    color:#666;
+}
+.information-upload-panel div {
+    float: left;
+    margin-right: 15px;
+}
+.information-upload-panel .checkbox-container input,
+.information-upload-panel .checkbox-container label {
+    float: left;
+}
+.information-upload-panel .checkbox-container input {
+    margin: 0 5px 0 0;
+}

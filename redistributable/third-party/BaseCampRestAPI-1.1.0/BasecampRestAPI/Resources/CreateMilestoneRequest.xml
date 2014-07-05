@@ -1,0 +1,8 @@
+﻿<request>
+	<milestone>
+		<title>{0}</title>
+		<deadline type="date">{1}</deadline>
+		<responsible-party type="integer">{2}</responsible-party>
+		<notify type="boolean">{3}</notify>
+	</milestone>
+</request>

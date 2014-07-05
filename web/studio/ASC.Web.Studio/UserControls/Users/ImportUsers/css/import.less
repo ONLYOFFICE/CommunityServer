@@ -1,0 +1,461 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+.frame {
+    float: left;
+    width: 505px;
+    height: 50px;
+    position:relative;
+    z-index:1000;
+    border:0;
+}
+.framePad {
+    width:768px;
+}
+#importUsers #panel {
+    width:760px;
+}
+/*User importer classes*/
+.studioEditableInput, 
+.studioEditableInput:hover, 
+.studioEditableInput:focus
+{
+    background: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.studioEditableInput
+{
+    border-width: 0px;
+    padding: 1px;
+}
+
+.studioEditableInput:hover
+{
+    border: 1px solid #D1D1D1;
+    padding: 0px;
+    margin: 0px;
+}
+
+.studioEditableInput:focus
+{
+    border: 1px solid #3186AF;
+    padding: 0px;
+    margin: 0px;
+}
+
+#importUsers #upload {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    text-align: center;
+    margin-left: -50px;
+    display: none;
+    z-index: 1005;
+}
+#importUsers .desc {
+    margin: 20px 0 10px;
+}
+#importUsers .desc input{
+    float: left;
+    margin: 2px 5px 0 0;
+}
+#importUsers .smallDesc {
+    margin:10px 0 10px 0;
+    font-size:11px;
+}
+#importUsers .starStyle {
+    color:#cc3300;
+}
+#wizard_users {
+    width:744px;
+    height:298px;
+    border:1px solid #d7d7d7;
+    padding:2px 0 0 12px;
+    background-color:#ffffff;
+    display:block;
+}
+#wizard_users #addUserBlock .error {
+    text-align:right;
+    font-weight:normal;
+    color:#cc3300;
+    visibility:hidden;
+    font-size: 10px;
+    height: 19px;
+    vertical-align: bottom;
+    line-height: 19px;
+    margin-bottom:-3px;
+}
+
+#wizard_users #addUserBlock .btn .btnBox {
+    margin-top:16px;
+}
+#wizard_users #addUserBlock .btn a {
+    width:60px;
+}
+#wizard_users .restr {
+    display: block;
+    height:260px;
+    overflow:hidden; /* !!!changed!!! check */
+    overflow-y: auto;
+    overflow-x: none;
+}
+#wizard_users input[type="text"] {
+    width:190px;
+}
+#wizard_users input:hover {
+    background-color:#ffffff;
+}
+#wizard_users .mob input[type="text"] {
+    width:180px;
+}
+#wizard_users .mob #userList input[type="text"] {
+     width:180px;
+     height:16px;
+}
+
+#wizard_users #userList {
+    border-spacing:0px;
+    width:732px;
+    margin-top:10px;
+    max-height: 250px;
+    display: block;
+}
+
+#wizard_users #userList .userItem .logo {
+    background: url(images/profile.gif) center left no-repeat;
+    width:15px;
+    padding:0 15px 0 0;
+}
+#wizard_users #userList tr.remove {
+    display:none;
+}
+#wizard_users #userList td {
+    height:25px;
+}
+#wizard_users #userList tr {
+    margin-bottom:0;
+    padding:0;
+}
+#wizard_users #userList .userItem .name {
+    padding: 0 0 0 3px;
+    width: 408px;
+}
+#wizard_users #userList .userItem .name .firstname, 
+#wizard_users #userList .userItem .name .lastname {
+    float:left;
+    padding-right:12px;
+    vertical-align:top;
+}
+
+#wizard_users #userList .userItem td.remove,
+#wizard_users #userList tr.error1 td.removeError,
+#wizard_users #userList tr.error2 td.removeError,
+#wizard_users #userList tr.error3 td.removeError
+{
+    width:18px;
+    padding-left: 12px;
+}
+#wizard_users #userList tr td.removeError div {
+    display:none;
+}
+#wizard_users #userList tr td.mob div {
+    display:block;
+}
+#wizard_users #userList tr.userItem td.remove div {
+  width:12px;
+  height:12px;
+  background: url(../images/trash_fu.png) center left no-repeat;
+  cursor:pointer;
+}
+
+#importUsers #wizard_users #userList tr.userItem td.remove div {
+    display:none;
+}
+#importUsers #wizard_users #userList tr.userItem td.mob div {
+    display:block;
+}
+
+#wizard_users #userList tr.error1 td.removeError div,
+#wizard_users #userList tr.error2 td.removeError div,
+#wizard_users #userList tr.error3 td.removeError div {
+  width:12px;
+  height:12px;
+  background: url(../images/remove_red.png) center left no-repeat;
+  cursor:pointer;
+}
+
+#importUsers #wizard_users #userList tr.userItem {
+    background-color:#ffffff;
+}
+#importUsers #wizard_users #userList tr.userItem:hover {
+    background-color:#F9F9F9;
+}
+#importUsers #wizard_users:not(.disable) #userList tr.userItem:hover td.remove div {
+    display:block;
+}
+#wizard_users #userList .userItem .incorrectValue {
+    color:#cc3300;
+}
+
+#wizard_users .checkall {
+    float: left;
+    text-align:left;
+    margin: 15px 4px 0 0;
+    padding:0;
+    border: 1px solid #d7d7d7;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background:url('../images/bg_check_all.png') center center no-repeat;
+}
+#wizard_users .checkall input[type="checkbox"] {
+    margin:3px;
+}
+#wizard_users .nameBox,#wizard_users .lastnameBox, #wizard_users .emailBox {
+    float: left;
+    margin-right:13px;
+    font-weight:bold;
+}
+#wizard_users #addUserBlock {
+     border:none;
+}
+#wizard_users #addUserBlock .btn {
+    float:left;
+    margin-top:0px;
+}
+#wizard_users #addUserBlock .mobBtn {
+    margin-top:16px;
+    display: inline-block;
+}
+#wizard_users #addUserBlock.bordered
+{}
+
+#wizard_users .addUserBlock {
+    margin:10px 0 0 0;
+}
+#wizard_users .incorrectEmailBox {
+    border:1px solid #cc3300;
+}
+#wizard_users .addUserBlock .btn {
+    float:left;
+}
+#wizard_users .addUserBlock .info {
+    float:right;
+}
+
+.importAreaBlock {
+    width: 810px;
+    opacity: 1;
+}
+
+.importUsers div.file {
+    background: #ffffff url('../images/from_file.png') no-repeat 10px center;
+    width: 200px;
+    height: 30px;
+    vertical-align: middle;
+    padding: 7px 0 0 50px;
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    position:relative;
+    float:left;
+    border: 1px solid #d7d7d7;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor:pointer;
+}
+
+.importUsers div.file .innerBox {
+    background: url('../images/collapse.png') no-repeat 0px center;
+    border: none;    
+    height: 22px;
+    margin-right: 5px;
+    width: 16px;
+}
+.importUsers div.file .fileSelector {
+	left: 0;
+    top: 42px; 
+	width: 214px;	
+}
+.importUsers div.file .fileSelector ul li.hover a {
+	text-decoration:underline;
+}
+
+#wizard_users #userList .error1 .errors,
+#wizard_users #userList .error2 .errors,
+#wizard_users #userList .error3 .errors
+{
+    background: url('../images/error_info.png') no-repeat 85% center !important;
+}
+
+#wizard_users #userList .userItem .check input {
+    margin-right:3px;
+}
+#wizard_users .mob #userList .userItem .check input {
+    margin-right:8px;
+}
+
+#wizard_users #userList .userItem .errors {
+    width: 68px;
+    text-align: right;
+}
+
+#wizard_users .mob #userList .userItem .name {
+    width: 410px;
+}
+#wizard_users #userList .userItem .name td.firstname,
+#wizard_users #userList .userItem .name td.lastname
+{
+    width:190px;
+    margin-right: 14px;
+    padding-right: 0px;
+}
+#wizard_users #userList .userItem td.email
+{
+       width:192px;
+       margin-right: 10px;
+       padding-left: 2px;
+}
+
+#wizard_users .textEditMain {
+    color:#333333;
+}
+#wizard_users .textEditDefault {
+   color:#9f9f9f;
+}
+#importAreaBlock #importUsers {
+    margin-left:5px;
+}
+#importAreaBlock #okWin .popupContainerClass {
+    height:150px;
+}
+.messagePopup {
+    height: 150px;
+    border: solid 1px #575757;
+    border-top: 0;
+    background-color: white;
+}
+#importAreaBlock .blockUpload {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #D7D7D7;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    z-index:1001;
+}
+
+#importAreaBlock .okcss {
+    display:none;    
+    left:50%;
+    min-height: 180px;
+    margin-left:-150px;
+    opacity: 1;
+    position: absolute;
+    top:40%;
+    width:300px;
+    z-index:1005;
+}
+
+.fistable {  
+    background: url('../images/icon_add_users.png') 15% center no-repeat;
+    height: 240px !important;
+    padding: 0 15% 0 20%;
+}
+
+#wizard_users #userList tr:hover td.removeError div {
+    display:block;
+}
+
+#wizard_users #userList .error1,
+#wizard_users #userList .error2,
+#wizard_users #userList .error3,
+#wizard_users #userList .error2 .email input,
+#wizard_users #userList .error3 .email input {
+    color:#cc3300;
+}
+.okImportUsers {
+    padding-top:30px;
+    text-align:center;
+    width:100%;
+}
+
+#importUsers .middle-button-container .inviteLabel {
+    float: right; 
+    margin: 0;
+    text-align: right; 
+}
+#importUsers .middle-button-container .inviteLabel > div {
+    float: left;
+}
+
+#importUsers .middle-button-container .inviteLabel .inputBox input {
+    width: 220px; 
+}
+#importUsers .middle-button-container .inviteLabel .invite-text 
+{
+    margin-top: 2px;
+}
+#importUsers .middle-button-container .inviteLabel .HelpCenterSwitcher {
+    margin: 2px 3px;
+    vertical-align: middle;
+}
+
+#importUserLimitPanel {
+    position: absolute;
+    background-color: #FFFFFF;
+    top: 140px;
+    height: auto;
+    left: 160px;
+    width: 480px;
+    display:none;
+    z-index: 1050;
+}
+
+#inviteLinkPanel {
+    position:relative;
+    width: 220px;
+}
+#inviteLinkCopy {
+    float: right;
+    margin-top: -20px;
+}
+
+#import-users-progress {
+    display: none;
+    margin-bottom: 10px; 
+    margin-top: -20px;
+}

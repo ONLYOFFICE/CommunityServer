@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{547A1BEC-5985-4DF9-A1A0-6AC608574524}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Blogs.Core</RootNamespace>
+    <AssemblyName>ASC.Blogs.Core</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ASC.Common">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Core.Common">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.FullTextIndex, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.FullTextIndex.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Community, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Community.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\Post.cs" />
+    <Compile Include="Domain\Tag.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BlogsEngine.cs" />
+    <Compile Include="BlogsSettings.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Data\BlogsStorageFactory.cs" />
+    <Compile Include="Data\DbBlogDao.cs" />
+    <Compile Include="Data\DbDao.cs" />
+    <Compile Include="Data\DbPostDao.cs" />
+    <Compile Include="Data\IBlogDao.cs" />
+    <Compile Include="Data\BlogsStorage.cs" />
+    <Compile Include="Data\Map.cs" />
+    <Compile Include="Domain\BlogInfo.cs" />
+    <Compile Include="Domain\Blog.cs" />
+    <Compile Include="Domain\Rating.cs" />
+    <Compile Include="Domain\ReviewPost.cs" />
+    <Compile Include="Domain\Settings.cs" />
+    <Compile Include="Domain\Comment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\SubscriptionNotitySenders.cs" />
+    <Compile Include="Publisher\BlogUserActivityPublisher.cs" />
+    <Compile Include="Resources\BlogsResource.Designer.cs">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Service\BlogPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Service\BlogPatternsResource.Designer.cs">
+      <DependentUpon>BlogPatternsResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Security\CorporateBlogSecObject.cs" />
+    <Compile Include="Security\PersonalBlogSecObject.cs" />
+    <Compile Include="Service\BlogNotifySource.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Service\accordings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\BlogsResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlogsResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service\BlogPatternResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlogPatternResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service\BlogPatternsResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlogPatternsResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service\blog_patterns.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile-&gt;'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath-&gt;'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

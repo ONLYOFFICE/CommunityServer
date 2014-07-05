@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:captcha'
+    xmlns='urn:xmpp:captcha'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0158: http://www.xmpp.org/extensions/xep-0158.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:import namespace='jabber:x:data'
+             schemaLocation='http://xmpp.org/schemas/x-data.xsd'/>
+
+  <xs:element name='captcha'>
+    <xs:complexType>
+      <xs:sequence xmlns:xdata='jabber:x:data'>
+        <xs:element ref='xdata:x' minOccurs='1' maxOccurs='1'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

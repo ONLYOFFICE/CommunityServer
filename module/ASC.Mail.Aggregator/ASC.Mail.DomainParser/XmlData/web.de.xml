@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="web.de">
+    <domain>web.de</domain>
+    <displayName>WEB.DE Freemail</displayName>
+    <displayShortName>Web.de</displayShortName>
+    <!-- imap officially pay only ("Web.de Club"), but works for me -->
+    <incomingServer type="imap">
+      <hostname>imap.web.de</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="imap">
+      <hostname>imap.web.de</hostname>
+      <port>143</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>pop3.web.de</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+      <pop3>
+        <!-- server allows checks only every 15 minutes, otherwise fails at auth -->
+        <checkInterval minutes="15"/>
+      </pop3>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>pop3.web.de</hostname>
+      <port>110</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+      <pop3>
+        <!-- see above -->
+        <checkInterval minutes="15"/>
+      </pop3>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.web.de</hostname>
+      <port>587</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+    <documentation url="http://hilfe.freemail.web.de/freemail/e-mail/pop3/thunderbird/">
+      <descr lang="en">Configure POP3 in Thunderbird (currently describing TB 3.0)</descr>
+    </documentation>
+  </emailProvider>
+</clientConfig>

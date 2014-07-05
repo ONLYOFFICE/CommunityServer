@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>twitterizer</id> 
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://www.twitterizer.net/license/</licenseUrl>
+    <projectUrl>http://www.twitterizer.net/</projectUrl>
+	<iconUrl>http://www.twitterizer.net/twitterizer-icon-draft1.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>This version is built for .NET 4.0.
+Removed NextPage() and PreviousPage() methods -- users must manage page numbers and cursors manually
+Lots of bug fixes
+Add support for GET users/profile_image/:screen_name
+Add support for GET blocks/blocking/ids
+Add support for GET blocks/blocking
+Add support for GET friendships/incoming
+Add support for GET friendships/outgoing
+Add support for GET trends/:woeid
+Add support for POST notifications/follow
+Add support for POST notifications/leave
+ListFavorites has a "count" parameter
+Add support for POST account/update_profile
+Add support for DELETE :user/:list_id/subscribers
+Add support for POST lists/subscribers/create
+	</releaseNotes>
+    <copyright>Copyright 2011 Patrick "Ricky" Smith</copyright>
+    <tags>twitter twitterizer</tags>
+  </metadata>
+</package>

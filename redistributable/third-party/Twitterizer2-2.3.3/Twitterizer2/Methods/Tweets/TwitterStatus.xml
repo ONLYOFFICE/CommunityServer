@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TwitterStatus>
+  <TwitterStatus>
+    <summary>
+      The <c>TwitterStatus</c> class represents a twitter status (also refered to as a tweet) and provides methods for interacting with status-centric API methods.
+    </summary>
+  </TwitterStatus>
+  <Delete name="Common">
+    <summary>Destroys the status specified by the required <paramref>statusId</paramref> parameter.</summary>
+    <param name="tokens">The oauth tokens.</param>
+    <param name="id">The status id.</param>
+    <returns>
+      The freshly deleted status represented by a <c>TwitterStatus</c> object.
+    </returns>
+    <remarks>
+      This method interacts with the users/destroy API endpoint. Documentation can be found here: <a href="http://dev.twitter.com/doc/post/statuses/destroy">http://dev.twitter.com/doc/post/statuses/destroy</a>
+      <para>Usage note: The authenticating user must be the author of the specified status.</para>
+    </remarks>
+  </Delete>
+  <Delete name="WithOptions">
+    <param name="options">Optional parameters for runtime configuration settings.</param>
+  </Delete>
+</TwitterStatus>

@@ -1,0 +1,861 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Image dialog window.
+-->
+<html>
+<head>
+	<title>Image Properties</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex, nofollow" />
+	<script type="text/javascript">
+
+var oEditor		= window.parent.InnerDialogLoaded() ;
+var FCK			= oEditor.FCK ;
+var FCKLang		= oEditor.FCKLang ;
+var FCKConfig	= oEditor.FCKConfig ;
+var FCKRegexLib	= oEditor.FCKRegexLib ;
+var FCKTools	= oEditor.FCKTools ;
+var FCKBrowserInfo = oEditor.FCKBrowserInfo;
+
+
+document.write( '<script type="text/javascript" src="' + oEditor.window.parent.getJQPath() + '"><\/script>' ) ;
+document.write( '<script type="text/javascript" src="' + oEditor.window.parent.getAjaxUploaderJsPath() + '"><\/script>' ) ;
+document.write( '<script src="' + FCKConfig.BasePath + 'dialog/common/fck_dialog_common.js" type="text/javascript"><\/script>' ) ;
+
+
+	</script>
+	<script type="text/javascript">
+
+// Get the selected image (if available).
+var oImage = FCK.Selection.GetSelectedElement() ;
+
+if ( oImage && oImage.tagName != 'IMG' )
+	oImage = null ;
+
+window.onload = function()
+{
+	// Translate the dialog box texts.
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	var ajaxUpload =  new AjaxUpload('wikiFileUploadBtn', {
+            action: '../../FileUploader.aspx?ft=&hfUserID=' + oEditor.window.parent.getUserId() + '\'',
+            onComplete: TempFileLoaded,
+			onSubmit: TempFileSubmiting
+            });     
+	// Load the selected element information (if any).
+	LoadSelection() ;
+
+	//	UpdateOriginal() ;
+	
+	if(oEditor.window.parent.wikiMaxFileUploadSizeString)
+		GetE('divMaxFileSizeBlock').innerHTML = oEditor.window.parent.wikiMaxFileUploadSizeString;
+
+	if(oEditor.window.parent.wikiFileUploadProgress)
+		GetE('divLoading').innerHTML = oEditor.window.parent.wikiFileUploadProgress;
+	
+	if(oEditor.window.parent.wikiDenyFileUpload)
+	{
+		GetE('divDummy').style.display = 'none';
+		GetE('divMaxFileSizeBlock').style.display = 'none';
+		GetE('txtUrl').style.width = '100%';
+	}
+	
+	window.parent.SetAutoSize( true ) ;
+	window.parent.SetOkButton( true ) ;
+	GetE('txtUrl').focus();
+}
+
+function ShowUploadProgress(show)
+{
+	if(show)
+	{
+		GetE('trLoading').style.display = '';
+		GetE('trUploadFile').style.display = 'none';
+	}
+	else
+	{
+		GetE('trLoading').style.display = 'none';
+		GetE('trUploadFile').style.display = '';
+	}
+}
+
+function TempFileSubmiting(file, response)
+{
+	ShowUploadProgress(true);
+	return true;
+}
+
+function TempFileLoaded(file, response)
+{
+	ShowUploadProgress(false);
+	
+	response = eval('(' + response + ')');
+	if(response.ErrorText != '')
+	{
+		alert(response.ErrorText);
+		return;
+	}
+	if(response.WebPath == '' || response.LocalPath == '')
+		return;
+		
+	GetE('txtUrl').value = file;
+	var prevResponse = new Object();
+	response.WebPath = unescape(response.WebPath).replace(/&amp;/g, "&").replace(/\+/g, "%2b");
+	prevResponse.value = response.WebPath;
+	UpdatePreviewFromAjax(prevResponse);
+	GetE('hfTempFileLocation').value = response.LocalPath; 
+	GetE('txtUrl').disabled = true;
+}
+
+function GetImageTopDiv(img)
+{
+	var parent = img;
+	while((parent = parent.parentNode))
+	{
+		if(parent.getAttribute( '_wikiInfo' ) != null)
+		{
+			break;
+		}
+	}
+	return parent;
+}
+
+function LoadSelection()
+{
+	if ( ! oImage ) return ;
+
+	
+	if(oImage.getAttribute( '_wikiIgnore' ) != null)
+	{
+		var parent = GetImageTopDiv(oImage);
+		if(parent == null)
+		{
+			return;
+		}
+		var wikiInfo = parent.getAttribute( '_wikiInfo' );
+		if(wikiInfo == null)
+		{
+			return;
+		}
+		
+		
+		GetE('txtUrl').value = FCK.DataProcessor._DecodeWikiPath(wikiInfo.split(':')[0]);
+		//There is mistake. We neet to Coption title? not alt.
+		//GetE('txtAlt').value    = FCK.DataProcessor._DecodeWikiPath(wikiInfo.split(':')[1]);
+		GetE('txtAlt').value    = FCK.DataProcessor._DecodeWikiPath(wikiInfo.split(':')[6]);
+		
+		if(wikiInfo.split(':')[3] == 1)
+			GetE('xType').value		= 'thumb';
+		else if(wikiInfo.split(':')[4] == 1)
+			GetE('xType').value		= 'frame';
+		
+			
+		if(wikiInfo.split(':')[5] > 0)
+			GetE('txtWidth').value  = wikiInfo.split(':')[5] + 'px' ;
+			
+		if(wikiInfo.split(':')[2] != '')
+			GetE('cmbAlign').value  = wikiInfo.split(':')[2] ;
+		
+	}
+	else
+	{
+		GetE('txtUrl').value    = GetAttribute( oImage, '_fck_mw_filename', '' ) ;
+		GetE('txtAlt').value    = GetAttribute( oImage, 'alt', '' ) ;
+		GetE('xType').value		= GetAttribute( oImage, '_fck_mw_type', '' ) ;
+		GetE('cmbAlign').value  = GetAttribute( oImage, '_fck_mw_location', '' ) ;
+
+		GetE('txtWidth').value  = GetAttribute( oImage, '_fck_mw_width', '' ) ;
+		//GetE('txtHeight').value = GetAttribute( oImage, '_fck_mw_height', '' ) ;
+	}
+	
+	
+	var sUrl = GetAttribute( oImage, '_fcksavedurl', '' ) ;
+	if ( sUrl.length == 0 )
+		sUrl = GetAttribute( oImage, 'src', '' ) ;
+	
+
+	UpdatePreview();
+}
+
+function ShowThrobber()
+{
+	window.parent.Throbber.Show( ) ;
+	GetE('divInfo').style.display='none';
+}
+
+function HideThrobber()
+{
+	window.parent.Throbber.Hide();
+	GetE('divInfo').style.display='';
+}
+
+function TempFileUpdates(response)
+{
+	HideThrobber();
+	var fName = response.value;
+	if(fName.replace(/\s/g, '') == '')
+	{
+		GetE('txtUrl').value = '';
+		return;
+	}
+	GetE('txtUrl').value = fName;
+	GetE('hfTempFileLocation').value = '';
+	window.parent.Ok();
+}
+	
+	
+function Cancel()
+{
+	if(GetE('hfTempFileLocation').value.replace(/s+/g, '') == '')
+		return;
+	GetE('hfUserID').value = oEditor.window.parent.getUserId();
+	var initValue = new Object();
+	initValue.TempFileName = GetE('hfTempFileLocation').value;
+	initValue.UserId = GetE('hfUserID').value;
+	oEditor.window.parent.FCK_dlg_ajax( 'wfAjaxFCKeditorCancelUpdateImage', initValue) ;
+}
+
+//#### The OK button was hit.
+function Ok()
+{
+	if ( GetE('txtUrl').value.length == 0 )
+	{
+		GetE('txtUrl').focus() ;
+		return false ;
+	}
+
+	
+	if(GetE('hfTempFileLocation').value != '')
+	{
+		ShowThrobber();
+		GetE('hfUserID').value = oEditor.window.parent.getUserId();
+		var initValue = new Object();
+		initValue.FileName = GetE('txtUrl').value;
+		initValue.TempFileName = GetE('hfTempFileLocation').value;
+		initValue.UserId = GetE('hfUserID').value;
+		oEditor.window.parent.FCK_dlg_ajax( 'wfAjaxFCKeditorUpdateTempImage', initValue, TempFileUpdates ) ;
+		return false;
+	}
+	
+	
+	
+
+	var imgName		= GetE('txtUrl').value ;
+	var imgCaption	= GetE('txtAlt').value ;
+	var imgType		= GetE('xType').value ;
+	var imgLocation	= GetE('cmbAlign').value ;
+	var imgWidth	= GetE('txtWidth').value.replace(/[a-z%]/gi, '') ;
+	//var imgHeight	= GetE('txtHeight').value ;
+
+	var ajaxArg = '[[Image:' + imgName ;
+
+	if ( imgType.length > 0 )
+		ajaxArg += '|' + imgType ;
+
+	if ( imgLocation.length > 0 )
+		ajaxArg += '|' + imgLocation ;
+
+	if ( imgWidth.length > 0 )
+	{
+		ajaxArg += '|' + imgWidth ;
+
+		//if ( imgHeight.length > 0 )
+		//	ajaxArg += 'x' + imgHeight ;
+
+		ajaxArg += 'px' ;
+	}
+
+	if ( imgCaption.length > 0 )
+		ajaxArg += '|' + imgCaption ;
+		
+	ajaxArg += ']]';
+
+	oEditor.window.parent.FCK_sajax( 'wfAjaxFCKeditorGetImageHtml', ajaxArg, UpdateImageFromAjax ) ;
+
+	return false ;
+}
+
+function UpdateImageFromAjax( response )
+{
+	response = response.value;
+	oEditor.FCKUndo.SaveUndoStep() ;
+	
+	var bHasImage = ( oImage != null ) ;
+
+	if ( !bHasImage )
+	{
+		if(FCKBrowserInfo.IsIE)
+		{
+			oEditor.focus();
+		}
+		FCK.InsertHtml(response);
+		
+	}
+	else
+	{
+		if(FCKBrowserInfo.IsIE)
+		{
+			oEditor.focus();
+		}
+		
+		var parent = GetImageTopDiv(oImage);
+		if(parent == null)
+			return;
+			
+		
+		
+		if(FCKBrowserInfo.IsIE)
+		{
+			parent.parentNode.removeChild(parent);
+			oEditor.focus();
+		}
+		else
+		{
+			FCK.Selection.SelectNode(parent);
+		}
+		FCK.InsertHtml(response);
+	
+	}
+
+	//UpdateImage( oImage, response.responseText ) ;
+
+	// Call it using setTimeout to avoid a strange behavior in Firefox.
+	window.setTimeout( window.parent.Cancel, 0 ) ;
+}
+
+/*function UpdateImage( e, realUrl )
+{
+	if(e.getAttribute( '_wikiIgnore' ) != null)
+	{
+		var parent = oImage;
+		var wikiInfo = null;
+		while((parent = parent.parentNode))
+		{
+			if(parent.getAttribute( '_wikiInfo' ) != null)
+			{
+				var wikiInfo = parent.getAttribute( '_wikiInfo' );
+				break;
+			}
+		}
+		
+		if(wikiInfo == null)
+		{
+			return;
+		}
+		
+		
+	}
+	
+	var imgType = GetE('xType').value ;
+	var imgLocation = GetE('cmbAlign').value ;
+
+	SetAttribute( e, "_fck_mw_filename", GetE('txtUrl').value ) ;
+	SetAttribute( e, "alt", GetE('txtAlt').value ) ;
+	SetAttribute( e, "_fck_mw_type", imgType ) ;
+	SetAttribute( e, "_fck_mw_location", imgLocation ) ;
+	SetAttribute( e, "_fck_mw_width", GetE('txtWidth').value ) ;
+	SetAttribute( e, "_fck_mw_height", GetE('txtHeight').value ) ;
+
+	SetAttribute( e, "width" , GetE('txtWidth').value ) ;
+	SetAttribute( e, "height", GetE('txtHeight').value ) ;
+
+	if ( imgType == 'thumb' || imgType == 'frame' )
+	{
+		e.className = 'fck_mw_frame' ;
+
+		if ( imgLocation.length == 0 )
+			imgLocation = 'right' ;
+	}
+
+	if ( imgLocation.length > 0 )
+		e.className += ' fck_mw_' + imgLocation ;
+
+	if ( realUrl.length == 0 )
+	{
+		e.className += ' fck_mw_notfound' ;
+		realUrl = 'about:blank' ;
+	}
+
+	e.src = realUrl ;
+	SetAttribute( e, "_fcksavedurl", realUrl ) ;
+}*/
+
+var searchTimer ;
+
+//#### Called while the user types the URL.
+function OnUrlChange(event)
+{
+	var txt = GetE('txtUrl');
+	
+	var code;
+	if (!e) var e = event;
+	if (!e) var e = window.event;
+	
+	if (e.keyCode)
+	{ 
+		code = e.keyCode;
+	}
+	else if (e.which)
+	{
+		 code = e.which;
+	}
+
+	if (code == 38) {
+		MoveSelected(true);
+		return true;
+	}
+	else if (code == 40) {
+		MoveSelected(false);
+		return true;
+	}
+	else if (code == 27) {
+		txt.value = '';
+		HideSearchHelper();
+		return false;
+	}
+	else if ((code == 13)) {
+		if (SearchSelected) {
+			window.parent.Ok();
+			return false;
+		}
+		else {
+			SearchSelected = true;
+			txt.value = GetSelectedItemHTML();
+			HideSearchHelper();
+			UpdatePreview();
+		}
+
+		return false;                
+   }
+   
+	UpdatePreview();
+	var link = GetE('txtUrl').value.Trim() ;
+
+	if ( searchTimer )
+		window.clearTimeout( searchTimer ) ;
+
+	if ( link.length < 3  )
+	{
+		HideSearchHelper();
+		return;
+	}
+
+	searchTimer = window.setTimeout( StartSearch, 500 ) ;
+}
+
+function StartSearch()
+{
+	var link = GetE('txtUrl').value.Trim() ;
+
+	if ( link.length < 3  )
+		return ;
+
+	//SetSearchMessage( FCKLang.wikiLnkSearching || 'searching...' ) ;
+
+	// Make an Ajax search for the pages.
+	oEditor.window.parent.FCK_dlg_ajax( 'wfAjaxSearchFilesFCKeditor', link, LoadSearchResults ) ;
+}
+
+function ShowSearchHelper() {
+	var fileSearchHelp = document.getElementById('fileSearchHelp');
+	if(fileSearchHelp.style.display != 'none')
+	{
+		return;
+	}
+	
+	document.body.onclick=function(event)
+	{
+		var elt = (event.target) ? event.target : event.srcElement;
+		var isHide = true;
+		if(elt.id == 'fileSearchHelp' || elt.id == 'txtUrl')
+			isHide = false;
+		
+		var parent = elt.parentNode;
+		if(isHide)
+		{
+			while(parent)
+			{
+				if(parent.id == 'fileSearchHelp' || parent.id == 'txtUrl')
+				{
+					isHide = false
+					return false;
+				}
+				parent = parent.parentNode;
+			}
+		}
+		
+		if (isHide) {
+			HideSearchHelper();
+		}
+	}
+	
+	fileSearchHelp.style.display = 'block';
+}
+
+function HideSearchHelper() {
+	var fileSearchHelp = document.getElementById('fileSearchHelp');
+	fileSearchHelp.style.display = 'none';
+	document.body.onclick = null;
+}
+
+function LoadSearchResults( result )
+{
+
+	if (result.value.replace(/\s/g, '') != '') {
+		document.getElementById('fileSearchHelp').innerHTML = result.value;
+		ShowSearchHelper();
+	}
+	else {
+		document.getElementById('fileSearchHelp').innerHTML = '';
+		HideSearchHelper();
+	}
+	
+	/*var results = result.value ;
+	var select = GetE( 'xWikiResults' ) ;
+
+	ClearSearch() ;
+
+	if ( results.length == 0 || ( results.length == 1 && results[0].length == 0 ) )
+	{
+		SetSearchMessage( FCKLang.wikiImgSearchNothing || 'no images found' ) ;
+	}
+	else
+	{
+		if ( results.length == 1 )
+			SetSearchMessage( FCKLang.wikiImgSearch1Found || 'one image found' ) ;
+		else
+			SetSearchMessage( (FCKLang.wikiImgSearchSeveral || '%1 images found').replace( /%1/g, results.length ) ) ;
+
+		for ( var i = 0 ; i < results.length ; i++ )
+			FCKTools.AddSelectOption( select, results[i], results[i] ) ;
+	}*/
+}
+
+
+/*function ClearSearch()
+{
+	var select = GetE( 'xWikiResults' ) ;
+
+	while ( select.options.length > 0 )
+		select.remove( 0 )
+}
+
+function SetSearchMessage( message )
+{
+	GetE('xWikiSearchStatus').innerHTML = message ;
+}*/
+
+function SetUrl( url )
+{
+	if ( url.length > 0 )
+		GetE('txtUrl').value = url ;
+}
+
+function UpdatePreviewFromAjax( response )
+{
+	response = response.value;
+	var eImgPreview = window.document.getElementById('prevImg');
+	eImgPreview.src = response
+	SetAttribute(eImgPreview, "width" , '130px' ) ;
+	SetAttribute(eImgPreview, "height", '130px' ) ;
+	//UpdateImage( eImgPreview, response) ;
+}
+
+function UpdatePreview()
+{
+	oEditor.window.parent.FCK_dlg_ajax( 'wfAjaxFCKeditorGetImageUrl', GetE('txtUrl').value, UpdatePreviewFromAjax ) ;
+}
+
+function MoveSelected(toUp) {
+	if (document.getElementById('fileSearchHelp').style.display == 'none')
+		return;
+	var result = null;
+	var obj;
+	var items = document.getElementById('fileSearchHelp').getElementsByTagName('DIV');
+	SearchSelected = false;
+	for(var i = 0; i < items.length; i++)
+	{
+		obj = items[i];
+		if(obj.className.indexOf('seachHelpSelected') >= 0)
+		{
+			result = obj;
+			if (toUp && i > 0) {
+				result.className = result.className.replace(/\s*seachHelpSelected\s*/g, '');
+				items[i - 1].className += ' seachHelpSelected';
+			}
+
+			if (!toUp && i < items.length - 1) {
+				result.className = result.className.replace(/\s*seachHelpSelected\s*/g, '');
+				items[i + 1].className += ' seachHelpSelected';
+			}
+			
+			break;
+		}
+	}
+
+	if (result == null) {
+		items[0].className += ' seachHelpSelected';
+	}
+	
+	
+}
+
+function GetSelectedItemHTML() {
+	var result = '';
+	var obj;
+	var items = document.getElementById('fileSearchHelp').getElementsByTagName('DIV');
+	for (var i = 0; i < items.length; i++)
+	{
+		obj = items[i];
+		if(obj.className.indexOf('seachHelpSelected') >= 0)
+		{
+			result = obj.innerHTML;
+			break;
+		}
+	}
+	
+	return result;
+}
+
+var SearchSelected = true;
+
+function MouseSelectSearchPages(obj) {
+	var txt = GetE('txtUrl');
+	SearchSelected = true;
+	txt.value = obj.innerHTML;
+	HideSearchHelper();
+	UpdatePreview();
+}
+
+
+	
+		
+var oUploadAllowedExtRegex	= new RegExp( FCKConfig.ImageUploadAllowedExtensions, 'i' ) ;
+var oUploadDeniedExtRegex	= new RegExp( FCKConfig.ImageUploadDeniedExtensions, 'i' ) ;
+
+function CheckUpload()
+{
+	var sFile = GetE('filUpload').value ;
+
+	if ( sFile.length == 0 )
+	{
+		return false ;
+	}
+
+	if ( ( FCKConfig.ImageUploadAllowedExtensions.length > 0 && !oUploadAllowedExtRegex.test( sFile ) ) ||
+		( FCKConfig.ImageUploadDeniedExtensions.length > 0 && oUploadDeniedExtRegex.test( sFile ) ) )
+	{
+		return false ;
+	}
+
+	// Show animation
+	window.parent.Throbber.Show( 100 ) ;
+	return true ;
+}
+
+		
+document.onkeydown = function(e)
+{
+	return SearchSelected;
+}
+		
+
+	</script>
+	<style type="text/css">
+		.Caption
+		{
+			font-family:Arial;
+			font-size: 13px;
+			color:#656668;
+		}
+		.fileHelpPanel
+		{
+			background-color:White;
+			border:1px solid #C7C7C7;
+			position:absolute;
+			width:295px;
+			//width:300px;
+			z-index:10;
+			overflow-x:hidden;
+			left:8px;
+		}
+		
+		div.seachHelpItem
+		{
+			cursor:pointer;
+			padding:2px 0px 2px 10px;
+		}
+
+		div.seachHelpSelected, div.seachHelpItem:hover
+		{
+			background-color:#EDF6FD;
+		}
+		
+		a.dummyButton
+		{
+			display:inline-block;
+			background-image:url('button_bg.png');
+			background-repeat:repeat-x;
+			background-position:top;
+			text-decoration:none;  
+			background-color:#0e4969;    
+			border:solid 1px #105777;   
+			color:#ffffff;
+			font-weight:normal;
+			cursor:pointer;    
+			font-size:11px;
+			vertical-align:middle;
+			padding:2px 0px;
+			text-align:center;
+			width:72px;
+		}
+		
+		.dummyDiv a.hover
+		{
+			display:inline-block;
+			background-image:url('button_over_bg.png');
+			background-repeat:repeat-x;
+			background-position:top;
+			text-decoration:none;  
+			background-color:#0e4969;    
+			border:solid 1px #105777;   
+			color:#ffffff;
+			font-weight:normal;
+			cursor:pointer;    
+			font-size:11px;
+			vertical-align:middle;
+			padding:2px 0px;
+			text-align:center;
+			width:72px;
+		}
+		
+		div.maxFileSizeBlock
+		{
+			color:#656668;
+			display:inline-block;
+			margin-bottom:-10px;
+			position:relative;
+			text-align:center;
+			top:-5px;
+			width:100%;
+			*clear:both;
+			*margin-bottom:0px;
+			*top:0px;
+		}
+		
+		.textMediumDescribe
+		{
+			font-size: 11px; 
+			color:#787878;
+		}
+		
+		#divLoading
+		{
+			padding:11px 0px 12px;
+		}
+		
+	</style>
+	
+</head>
+<body scroll="no" style="overflow: hidden">
+	<div id="divInfo" style="">
+		<table cellspacing="1" cellpadding="1" border="0" width="100%">
+			<tr valign="top" id="trUploadFile">
+				<td valign="top">
+					<div class="Caption">
+						<span fcklang="wikiImgFileName">Image file name</span>:<br />
+						<input id="txtUrl" style="width: 220px;float:left; margin-top:1px; margin-right:4px;" type="text" />
+						<div id="divDummy" style="width:72px; height:20px;overflow:hidden;" class="dummyDiv">
+							<a fcklang="DlgImgUpload" id="wikiFileUploadBtn" class="dummyButton" href="javascript:;" style="cursor:default">Upload</a>
+							<input type="hidden" id="hfUserID" name="hfUserID"/>
+							<input type="hidden" id="hfTempFileLocation" name="hfTempFileLocation"/>
+						</div>
+					</div>
+					<div  id="fileSearchHelp" class="fileHelpPanel" style="display: none;">
+					</div>
+					<div id="divMaxFileSizeBlock" class="maxFileSizeBlock">
+						&nbsp;
+					</div>
+					<script language="javascript">
+						GetE('txtUrl').onkeyup = OnUrlChange;
+					</script>
+				</td>
+				<td rowspan="3" style="padding-left:14px; width:130px; height:130px; ">
+					<div style="width:130; height:130; border:solid 1px black;" valign="center" align="center">
+						<img id="prevImg" width="130px" height="130px" alt="Preview">
+					</div>
+				</td>
+			</tr>
+			<tr valign="top" id="trLoading" style="display:none;">
+				<td valign="top">
+					<div id="divLoading">
+		
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">
+					<div class="Caption">
+						<span fcklang="wikiImgCaption">Caption</span>:<br />
+						<input id="txtAlt" style="width: 100%" type="text">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" >
+					<table cellspacing="0" cellpadding="0" border="0">
+						<tr>
+							<td nowrap="nowrap">
+								<div class="Caption">
+									<span fcklang="wikiImgType">Special Type</span>:<br />
+									<select id="xType" style="width:95px">
+										<option value="" selected="selected"></option>
+										<option fcklang="wikiImgTypeThumb" value="thumb">Thumbnail</option>
+										<option fcklang="wikiImgTypeFrame" value="frame">Frame</option>
+									</select>
+								</div>
+							</td>
+							<td style="padding-left:7px;">
+								<div class="Caption">
+									<span fcklang="DlgImgAlign">Align</span>:<br />
+									<select id="cmbAlign" onchange="UpdatePreview();" style="width:95px">
+										<option value="" selected="selected"></option>
+										<option fcklang="DlgImgAlignMiddle" value="center">Middle</option>
+										<option fcklang="DlgImgAlignRight" value="right">Right</option>
+										<option fcklang="DlgImgAlignLeft" value="left">Left</option>
+									</select>
+								</div>
+							</td>
+							<td style="padding-left:7px;">
+								<div class="Caption">
+									<span fcklang="DlgImgWidth">Width</span>:<br />
+									<input type="text" size="3" style="width:95px" id="txtWidth">
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

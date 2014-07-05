@@ -1,0 +1,243 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+@import "base.less";
+/* User Controls ListFacebookUserInfoView.ascx, ListTwitterUserInfoView.ascx */
+#sm_tbl_UserList {
+    border-collapse: collapse;
+    padding: 0px;
+    width: 100%;
+
+    .sm_tbl_UserList_clmnAvatar {
+        width: 50px;
+        text-align: center;
+        padding: 5px 0;
+    }
+    .sm_tbl_UserList_clmnUserName {
+        padding: 5px 0 5px 10px;
+    }
+    .sm_tbl_UserList_clmnBtRelate {
+        width: 80px;
+        padding: 5px 5px 5px 10px;
+    }
+}
+/* User controls TwitterUserInfoView.ascx, FacebookUserInfoView.ascx */
+#sm_RelationWindow_InternalContainer {
+    width: 100%;
+
+    .sm_RelationWindow_BackButton {
+        margin: -10px 0 5px 0;
+    }
+
+    .sm_RelationWindow_Avatar {
+        float: left;
+        width: 50%;
+        height: 250px;
+        max-height: 400px;
+        overflow: auto;
+    }
+
+    .sm_RelationWindow_Items {
+        float: right;
+        width: 50%;
+        max-height: 400px;
+    }
+}
+/* User control User Search View.ascx */
+#sm_tbl_UserSearchSettings {
+    border-collapse: collapse;
+    padding: 0px;
+    width: 100%;
+    empty-cells: show;
+    margin-bottom: 10px;
+}
+#divSearchResults {
+    overflow: auto;
+    max-height: 400px;
+    width: 100%;
+}
+/* ContactDetailsView - Window with user avatars*/
+#divLoadPhotoFromSocialMedia {
+    width: 100%;
+    height: 50px;
+    margin-top: -16px;
+}
+#divLoadPhotoWindow h4 {
+    margin-bottom: 5px;
+}
+
+#divLoadPhotoFromPC {
+    .fileUploadDscr {
+        margin-left: 12px;
+    }
+
+    .fileUploadError {
+        color: #CC0000;
+        display: none;
+        font: 12px Tahoma;
+        margin-left: 12px;
+    }
+}
+
+#divImagesHolder {
+    width: 100%;
+    height: 70px;
+    overflow: auto;
+    display: none;
+
+    > div.describe-text {
+        margin-top: 4px;
+    }
+}
+
+#divLoadPhotoDefault {
+    margin-top: 10px;
+}
+
+#divAjaxImageContainerPhotoLoad {
+    margin-left: 220px;
+    display: none;
+    position: absolute;
+    top: 185px;
+}
+
+.ImageHolderOuter {
+    display: inline-block;
+    width: 54px;
+    height: 54px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    vertical-align: top;
+    cursor: pointer;
+    border: 1px solid #fff;
+
+    img {
+        padding: 2px;
+
+        &:hover {
+            border: 2px solid #1A6DB3 !important;
+            padding: 0px;
+        }
+    }
+}
+
+.AvatarImage {
+    width: 50px;
+    height: 50px;
+}
+/* ContactActionView */
+
+#divSMProfilesWindow {
+    display: none;
+    width: 420px;
+    background-color: @defaultBgColor;
+    .borderRadius(10px);
+
+    .cancel_cross {
+        background: url("../images/icons.png") 0 -760px no-repeat transparent;
+        cursor: pointer;
+        display: inline-block;
+        height: 16px;
+        right: -5px;
+        top: -5px;
+        width: 16px;
+        position: absolute;
+    }
+    .divNoProfiles {
+        display: none;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .divWait {
+        text-align: center;
+        display: none;
+    }
+    .divHeader {
+        margin: 15px;
+        text-align: center;
+        position: relative;
+    }
+    div.popup-corner-left {
+        background: url("../images/icons.png") -20px -516px no-repeat transparent;
+        height: 15px;
+        margin-left: -9px;
+        margin-top: 25px;
+        position: absolute;
+        width: 12px;
+    }
+    .divSMProfilesWindowBody {
+        margin: 10px;
+        max-height: 200px;
+        min-height: 30px;
+        overflow: auto;
+    }
+}
+
+#divSMContactsSearchContainer {
+    .divWaitForAdding {
+        display: none;
+    }
+    .divNoProfiles {
+        display: none;
+        text-align: center;
+        line-height: 50px;
+    }
+    .divWaitForSearching {
+        text-align: center;
+        display: none;
+    }
+}
+
+.crunhbaseLink {
+    background: url("../images/crunchbase.png") no-repeat;
+    display: inline-block;
+    height: 21px;
+    line-height: 21px;
+    padding-left: 27px;
+    vertical-align: middle;
+}
+
+#tblCompanyFields {
+    margin-left: 20px;
+
+    tr {
+        line-height: 24px;
+        height: 24px;
+        vertical-align: top;
+
+        input[type="checkbox"] {
+            padding: 1px;
+            vertical-align: middle;
+            margin-top: -1px;
+        }
+    }
+}

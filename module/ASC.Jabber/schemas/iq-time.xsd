@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='jabber:iq:time'
+    xmlns='jabber:iq:time'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0090: http://www.xmpp.org/extensions/xep-0090.html
+
+      NOTE: This protocol has been deprecated in favor of the 
+            Entity Time protocol specified in XEP-0202:
+            http://www.xmpp.org/extensions/xep-0202.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='query'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0'>
+        <xs:element name='utc' type='xs:string' minOccurs='1'/>
+        <xs:element name='tz' type='xs:string' minOccurs='0'/>
+        <xs:element name='display' type='xs:string' minOccurs='0'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

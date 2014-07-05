@@ -1,0 +1,237 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+/*******************************************************************************
+    Image Viewer
+*******************************************************************************/
+.scroll-fix {
+    overflow: hidden !important;
+}
+#fileViewerDialog {
+    display: none;
+}
+#imageViewer {
+    cursor: move;
+}
+#imageViewerToolbox {
+    left: 0;
+    min-width: 1024px;
+    position: absolute;
+    width: 100%;
+    z-index: 2001;
+}
+#imageViewerToolbox div.image-info {
+    border-bottom: 1px solid #1A1A1A;
+    color: #D7D8D8;
+    cursor: default;
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    text-align: center;
+    padding-top: 10px;
+    white-space: nowrap;
+}
+#imageViewerToolbox div.toolbox-wrapper ul {
+    padding: 0;
+    width: 365px;
+    margin: 0 auto;
+    display: block;
+}
+#imageViewerToolbox div.toolbox-wrapper ul li {
+    float: left;
+    list-style: none;
+    margin-right: 15px;
+    cursor: pointer;
+    margin-top: 13px;
+}
+#imageViewerToolbox div.toolbox-wrapper ul li.action-block-wrapper {
+    margin-right: 25px;
+}
+
+#imageViewerToolbox div.toolbox-wrapper ul li a {
+    background-image: url("images/iv_buttons.png");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    display: block;
+    height: 24px;
+    width: 24px;
+}
+#imageZoomIn {
+    background-position: 0 -162px;
+}
+#imageZoomIn:hover {
+    background-position: -27px -162px;
+}
+#imageZoomOut {
+    background-position: 0 -189px;
+}
+#imageZoomOut:hover {
+    background-position: -27px -189px;
+}
+#imageFullScale {
+    background-position: 0 -27px;
+}
+#imageFullScale:hover {
+    background-position: -27px -27px;
+}
+#imagePrev {
+    background-position: 0 -81px;
+}
+#imagePrev:hover {
+    background-position: -27px -81px;
+}
+#imageNext {
+    background-position: 0 -54px;
+}
+#imageNext:hover {
+    background-position: -27px -54px;
+}
+#imageRotateLeft {
+    background-position: 0 -108px;
+}
+#imageRotateLeft:hover {
+    background-position: -27px -108px;
+}
+#imageRotateRight {
+    background-position: 0 -135px;
+}
+#imageRotateRight:hover {
+    background-position: -27px -135px;
+}
+#viewerOtherActionsSwitch {
+    background-position: 0 0;
+}
+#viewerOtherActionsSwitch:hover {
+    background-position: -27px 0;
+}
+
+#imageViewerToolbox div.toolbox-wrapper {
+    background-color: #303030;
+    height: 50px;
+    border-top: 1px solid #4C4C4C;
+}
+
+#imageViewerInfo {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #303030;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    position: absolute;
+    padding: 4px 10px;
+}
+#imageViewerContainer {
+    cursor: move;
+    position: absolute;
+    z-index: 2000;
+}
+#imageViewerPreload {
+    display: none;
+}
+#imageViewerClose {
+    background: url("images/iv_close.png") no-repeat 0 0 transparent;
+    height: 24px;
+    position: absolute;
+    top: 0;
+    width: 24px;
+}
+
+#imageViewerClose,
+#imageViewerInfo {
+    z-index: 2011;
+    cursor: pointer;
+}
+
+#viewerOtherActions {
+    border: 1px solid #4C4C4C;
+    display: none;
+    position: absolute;
+    z-index: 2002;
+}
+#viewerOtherActions,
+#viewerOtherActions ul {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#viewerOtherActions ul {
+    margin: 0;
+    padding: 0;
+    border: 1px solid #1A1A1A;
+    background-color: #303030;
+}
+#viewerOtherActions ul li {
+    list-style: none;
+}
+#viewerOtherActions ul span {
+    color: #dfdfdf;
+    cursor: pointer;
+}
+#viewerOtherActions ul li a {
+    background-image: url("images/iv_buttons_other.png");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    color: #DFDFDF;
+    cursor: pointer;
+    display: block;
+    line-height: 24px;
+    margin: 10px;
+    padding: 0 15px 0 30px;
+    text-decoration: none;
+}
+
+#viewerOtherActions ul li a:hover {
+    background-color: #424343;
+}
+
+#imageDelete {
+    background-position: 0 0;
+}
+#imageDelete:hover {
+    background-position: 0 -27px;
+}
+#imageDownload {
+    background-position: 0 -54px;
+}
+#imageDownload:hover {
+    background-position: 0 -81px;
+}
+
+.image-viewer-temp {
+    left: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden
+}

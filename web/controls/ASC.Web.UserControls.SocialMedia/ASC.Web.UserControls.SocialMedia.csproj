@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{943CCB39-1944-4AC6-A094-DA6F910BB33B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Web.UserControls.SocialMedia</RootNamespace>
+    <AssemblyName>ASC.Web.UserControls.SocialMedia</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=db0125e360716f7b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Thrdparty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Thrdparty.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Studio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Studio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetOpenAuth, Version=4.0.0.11165, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.ApplicationBlock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\DotNetOpenAuth.ApplicationBlock.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Facebook, Version=5.0.26.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\FacebookSDK\Facebook.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LinkedIn, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\LinkedIn\LinkedIn.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="css\socialmedia.css" />
+    <EmbeddedResource Include="images\digg.png" />
+    <EmbeddedResource Include="images\facebook.png" />
+    <EmbeddedResource Include="images\linkedin.png" />
+    <EmbeddedResource Include="images\twitter.png" />
+    <Content Include="UserControls\ListActivityMessageView.ascx" />
+    <Content Include="UserControls\UserActivityView.ascx" />
+    <Content Include="UserControls\UserWallView.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivityMessageViewExtensions.cs" />
+    <Compile Include="BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Core\BaseDao.cs" />
+    <Compile Include="Core\SocialMediaException.cs" />
+    <Compile Include="Core\Facebook\Exceptions.cs" />
+    <Compile Include="Core\Facebook\FacebookAccountInfoDao.cs" />
+    <Compile Include="Core\LinkedIn\LinkedInAccountInfoDao.cs" />
+    <Compile Include="Core\LinkedIn\LinkedInDataProvider.cs" />
+    <Compile Include="Core\LinkedIn\UnauthorizedException.cs" />
+    <Compile Include="Core\Twitter\Exceptions.cs" />
+    <Compile Include="Core\Twitter\TwitterAccountInfoDao.cs" />
+    <Compile Include="Core\Facebook\FacebookAccountInfo.cs" />
+    <Compile Include="Core\LinkedIn\LinkedInAccountInfo.cs" />
+    <Compile Include="Core\Twitter\TwitterAccountInfo.cs" />
+    <Compile Include="Core\Facebook\FacebookApiInfo.cs" />
+    <Compile Include="Core\Facebook\FacebookDataProvider.cs" />
+    <Compile Include="Core\Facebook\FacebookMessage.cs" />
+    <Compile Include="Core\Facebook\FacebookUserInfo.cs" />
+    <Compile Include="Core\LinkedIn\LinkedInMessage.cs" />
+    <Compile Include="Core\LinkedIn\LinkedInUserInfo.cs" />
+    <Compile Include="Core\Message.cs" />
+    <Compile Include="Core\SocialNetworks.cs" />
+    <Compile Include="Core\Twitter\TwitterApiInfo.cs" />
+    <Compile Include="Core\Twitter\TwitterDataProvider.cs" />
+    <Compile Include="Core\Twitter\TwitterMessage.cs" />
+    <Compile Include="Core\Twitter\TwitterUserInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\SocialMediaResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SocialMediaResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\FacebookTest.cs" />
+    <Compile Include="Tests\LinkedInTest.cs" />
+    <Compile Include="Tests\TwitterTest.cs" />
+    <Compile Include="UserControls\ListActivityMessageView.ascx.cs">
+      <DependentUpon>ListActivityMessageView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ListActivityMessageView.ascx.designer.cs">
+      <DependentUpon>ListActivityMessageView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserActivityView.ascx.cs">
+      <DependentUpon>UserActivityView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserActivityView.ascx.designer.cs">
+      <DependentUpon>UserActivityView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserWallView.ascx.cs">
+      <DependentUpon>UserWallView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserWallView.ascx.designer.cs">
+      <DependentUpon>UserWallView.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SocialMediaResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SocialMediaResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile-&gt;'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath-&gt;'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+    <CreateItem Include="$(ProjectDir)UserControls\*.ascx">
+      <Output ItemName="AscFiles" TaskParameter="Include" />
+    </CreateItem>
+    <Copy SourceFiles="@(AscFiles)" DestinationFolder="$(TrunkDir)web\studio\ASC.Web.Studio\Products\CRM\Controls\SocialMedia\" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3357</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

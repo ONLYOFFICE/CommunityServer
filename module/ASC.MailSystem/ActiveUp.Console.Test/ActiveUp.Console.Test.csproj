@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{29D97775-F16E-40D6-A342-B9944EB9A8FF}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ActiveUp.Console.Test</RootNamespace>
+    <AssemblyName>ActiveUp.Console.Test</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary\ActiveUp.Net.Common\ActiveUp.Net.Common.csproj">
+      <Project>{C8D2498B-CE0E-4E0A-AB1C-29599DEB1C38}</Project>
+      <Name>ActiveUp.Net.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary\ActiveUp.Net.Dns\ActiveUp.Net.Dns.csproj">
+      <Project>{3FD92C0F-3209-4BDB-AC24-FB57D405E9A7}</Project>
+      <Name>ActiveUp.Net.Dns</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary\ActiveUp.Net.Imap4\ActiveUp.Net.Imap4.csproj">
+      <Project>{EBF85DED-BE97-4610-B4EF-9ACA73033AA5}</Project>
+      <Name>ActiveUp.Net.Imap4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary\ActiveUp.Net.Mail\ActiveUp.Net.Mail.csproj">
+      <Project>{26E7DBDA-08EF-4A83-95D5-E3C689ADD90B}</Project>
+      <Name>ActiveUp.Net.Mail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary\ActiveUp.Net.Pop3\ActiveUp.Net.Pop3.csproj">
+      <Project>{382B91CF-56A7-4538-8E96-F6EA01A60F86}</Project>
+      <Name>ActiveUp.Net.Pop3</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

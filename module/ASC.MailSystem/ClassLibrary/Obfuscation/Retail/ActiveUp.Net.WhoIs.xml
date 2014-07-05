@@ -1,0 +1,2790 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ActiveUp.Net.WhoIs</name>
+    </assembly>
+    <members>
+        <member name="T:ActiveUp.Net.WhoIs.Result">
+            <summary>
+            Base class for the results in case of global query.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.Result._server">
+            <summary>
+            Whois server used.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.Result._exception">
+            <summary>
+            Exception if an error occurs, otherwise null.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Result.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Result.#ctor(ActiveUp.Net.WhoIs.Server)">
+            <summary>
+            Creates a Result object from Server object.
+            </summary>
+            <param name="server">Whois server used.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Result.#ctor(ActiveUp.Net.WhoIs.Server,System.Exception)">
+            <summary>
+            Creates a Restult object from Server object and Exception object.
+            </summary>
+            <param name="server">Whois server used.</param>
+            <param name="exception">Exception if an error occurs.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Result._Init(ActiveUp.Net.WhoIs.Server,System.Exception)">
+            <summary>
+            Creates a Result object from Server object and Exception object.
+            </summary>
+            <param name="server">Whois server used.</param>
+            <param name="exception">Exception if an error occurs.</param>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.Result.ServerUsed">
+            <summary>
+            Gets / sets the whois server used.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.Result.Error">
+            <summary>
+            Gets / sets the exceptions if an error occurs, otherwise null.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.WhoIs.ResultIsAvailable">
+            <summary>
+            Result of a whois server inficates if a domain is available for registration or not.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.ResultIsAvailable._isAvailable">
+            <summary>
+            Indicates if a domain is available for registration of not.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultIsAvailable.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultIsAvailable.#ctor(System.Boolean)">
+            <summary>
+            Create a ResultIsAvailable object from the value indicates if a domain is available.
+            </summary>
+            <param name="isAvailable">Indicates if a domain if available for registration or not.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultIsAvailable.#ctor(System.Boolean,ActiveUp.Net.WhoIs.Server)">
+            <summary>
+            Create a ResultIsAvailable object from the value indicates if a domain is available and the Server object.
+            </summary>
+            <param name="isAvailable">Indicates if a domain if available for registration or not.</param>
+            <param name="server">Whois server used.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultIsAvailable.#ctor(System.Boolean,ActiveUp.Net.WhoIs.Server,System.Exception)">
+            <summary>
+            Create a ResultIsAvailable object from the value indicates if a domain is available, the Server object and exception object.
+            </summary>
+            <param name="isAvailable">Indicates if a domain if available for registration or not.</param>
+            <param name="server">Whois server used.</param>
+            <param name="exception">Exception if an error occurs.</param>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.ResultIsAvailable.IsAvailable">
+            <summary>
+            Gets / sets the value indicates if a domain is available for registration or not.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.WhoIs.ResultIsAvailableCollection">
+            <summary>
+            Collection of ResultIsAvailble object.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultIsAvailableCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultIsAvailableCollection.Add(ActiveUp.Net.WhoIs.ResultIsAvailable)">
+            <summary>
+            Add a ResultIsAvailable object in the collection specifying the ResultIsAvailable object.
+            </summary>
+            <param name="resultIsAvailable">ResultIsAvailable object to add.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultIsAvailableCollection.Add(System.Boolean)">
+            <summary>
+            Add a ResultIsAvailable object in the collection specifying isAvailable flag.
+            </summary>
+            <param name="isAvailable">Indicates if a domain is available for registration or not.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultIsAvailableCollection.Add(System.Boolean,ActiveUp.Net.WhoIs.Server)">
+            <summary>
+            Add a ResultIsAvailable object in the collection specifying isAvailable flag and the whois server used.
+            </summary>
+            <param name="isAvailable">Indicates if a domain is available for registration or not.</param>
+            <param name="serverUsed">Whois server used.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultIsAvailableCollection.Add(System.Boolean,ActiveUp.Net.WhoIs.Server,System.Exception)">
+            <summary>
+            Add a ResultIsAvailable object in the collection specifying isAvailable flag, the whois server used and the exception.
+            </summary>
+            <param name="isAvailable">Indicates if a domain is available for registration or not.</param>
+            <param name="serverUsed">Whois server used.</param>
+            <param name="exception">Exception if an error occurs.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.ResultIsAvailableCollection.Item(System.Int32)">
+            <summary>
+            Gets the ResultIsAvailable object at the specified index position.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.WhoIs.ResultQuery">
+            <summary>
+            Result of a query from whois server.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.ResultQuery._result">
+            <summary>
+            Result of the whois server.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultQuery.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultQuery.#ctor(System.String)">
+            <summary>
+            Creates a ResultQuery object from result.
+            </summary>
+            <param name="result">The result string of the whois server.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultQuery.#ctor(System.String,ActiveUp.Net.WhoIs.Server)">
+            <summary>
+            Creates a RestultQuery object from result and Server object.
+            </summary>
+            <param name="result">Result string of the whois server.</param>
+            <param name="server">Whois server used.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultQuery.#ctor(System.String,ActiveUp.Net.WhoIs.Server,System.Exception)">
+            <summary>
+            Creates a RestultQuery object from result, Server object and Exception object.
+            </summary>
+            <param name="result">Result string of the whois server.</param>
+            <param name="server">Whois server used.</param>
+            <param name="exception">Exception if an error occurs.</param>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.ResultQuery.Result">
+            <summary>
+            Gets / sets the result string of the whois server.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.WhoIs.ResultQueryCollection">
+            <summary>
+            Collection of ResultQuery object.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultQueryCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultQueryCollection.Add(ActiveUp.Net.WhoIs.ResultQuery)">
+            <summary>
+            Add a ResultQuery object in the collection specifying the ResultQuery object.
+            </summary>
+            <param name="resultQuery">ResultQuery object to add.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultQueryCollection.Add(System.String)">
+            <summary>
+            Add a ResultQuery object in the collection specifying result string.
+            </summary>
+            <param name="result">Result string of the whois server.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultQueryCollection.Add(System.String,ActiveUp.Net.WhoIs.Server)">
+            <summary>
+            Add a ResultQuery object in the collection specifying result string and the whois server used.
+            </summary>
+            <param name="result">Result string of the whois server.</param>
+            <param name="serverUsed">Whois server used.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ResultQueryCollection.Add(System.String,ActiveUp.Net.WhoIs.Server,System.Exception)">
+            <summary>
+            Add a ResultQuery object in the collection specifying result string, the whois server used and the exception.
+            </summary>
+            <param name="result">Result string of the whois server.</param>
+            <param name="serverUsed">Whois server used.</param>
+            <param name="exception">Exception if an error occurs.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.ResultQueryCollection.Item(System.Int32)">
+            <summary>
+            Gets the ResultQuery object at the specified index position.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.WhoIs.Server">
+            <summary>
+            Represents a whois server.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.Server._host">
+            <summary>
+            The host or IP address of the server.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.Server._port">
+            <summary>
+            The port number to use for the connection.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.Server._domain">
+            <summary>
+            The domain extention of the server.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.Server._noMatch">
+            <summary>
+            String indicates the domain is not found.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Server.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Server.#ctor(System.String)">
+            <summary>
+            Creates a whois Server object from the host or IP address.
+            </summary>
+            <param name="host">The host or IP address.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Server.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates a whois Server object from the host or IP address and port number.
+            </summary>
+            <param name="host">The host or IP address.</param>
+            <param name="port">The port number to use for the connection.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Server.#ctor(System.String,System.String)">
+            <summary>
+            Creates a whois Server object from the host and the domain extention.
+            </summary>
+            <param name="host">The host or IP address.</param>
+            <param name="domain">The domain extention.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Server.#ctor(System.String,System.Int32,System.String)">
+            <summary>
+            Creates a whois Server object from the host or IP address, port number and the domain extention.
+            </summary>
+            <param name="host">The host or IP address.</param>
+            <param name="port">The port number to use for the connection.</param>
+            <param name="domain">The domain extention.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Server.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates a whois Server object from the host or IP address, the domain extention and the string indicates the domain is not found.
+            </summary>
+            <param name="host">The host or IP address.</param>
+            <param name="domain">The domain extention.</param>
+            <param name="noMatch">String indicates the domain is not found.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Server.#ctor(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Creates a whois Server object from the host or IP address, port number and the string indicates the domain is not found.
+            </summary>
+            <param name="host">The host or IP address.</param>
+            <param name="port">The port number to use for the connection.</param>
+            <param name="domain">The domain extention of the server.</param>
+            <param name="noMatch">String indicates the domain is not found.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.Server._Init(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Init the contructor.
+            </summary>
+            <param name="host">The host or IP address.</param>
+            <param name="port">The port number to use for the connection.</param>
+            <param name="domain">The domain extention of the server.</param>
+            <param name="noMatch">String indicates the domain is not found.</param>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.Server.Host">
+            <summary>
+            Gets / sets the host or IP address.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.Server.Port">
+            <summary>
+            Gets / sets the port used for the connection.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.Server.Domain">
+            <summary>
+            Gets / sets the domain extention.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.Server.NoMatch">
+            <summary>
+            Gets / sets the string indicates the domain is not found.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.WhoIs.ServerCollection">
+            <summary>
+            A collection of whois servers.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ServerCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ServerCollection.Add(ActiveUp.Net.WhoIs.Server)">
+            <summary>
+            Add an Server object in the collection specifying the Server object.
+            </summary>
+            <param name="server">Server object to add.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ServerCollection.Add(System.String,System.Int32)">
+            <summary>
+            Add an Server object in the collection specifying the host and port.
+            </summary>
+            <param name="host">The host or IP address.</param>
+            <param name="port">The port number to use for the connection.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ServerCollection.Add(System.String,System.String)">
+            <summary>
+            Add an Server object in the collection specifying the host and domain.
+            </summary>
+            <param name="host">The host or IP address.</param>
+            <param name="domain">The domain extention of the server.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ServerCollection.Add(System.String,System.Int32,System.String)">
+            <summary>
+            Add an Server object in the collection specifying the host, port and domain.
+            </summary>
+            <param name="host">The host or IP address.</param>
+            <param name="port">The port number to use for the connection.</param>
+            <param name="domain">The domain extention of the server.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ServerCollection.Add(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Add an Server object in the collection specifying the host, port, domain and no match string.
+            </summary>
+            <param name="host">The host or IP address.</param>
+            <param name="port">The port number to use for the connection.</param>
+            <param name="domain">The domain extention of the server.</param>
+            <param name="noMatch">String indicates the domain is not found.</param>
+            <returns>Index of the list where the object has been added.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.ServerCollection.Item(System.Int32)">
+            <summary>
+            Gets the Server object at the specified index position.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.WhoIs.ServerDefinition">
+            <summary>
+            Represents a collection of servers used for serialize and deserialize xml file contains the list of whois servers.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.ServerDefinition._servers">
+            <summary>
+            List of whois servers.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ServerDefinition.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.ServerDefinition.op_Implicit(ActiveUp.Net.WhoIs.ServerDefinition)~ActiveUp.Net.WhoIs.ServerCollection">
+            <summary>
+            Override the operator =. Affects a ServerDefinition object to a ServerCollection object.
+            </summary>
+            <param name="serverDefinition">ServerDefinition object contains all the whois servers</param>
+            <returns>ServerCollection object contains all the whois servers</returns>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.ServerDefinition.Servers">
+            <summary>
+            Gets / sets the list of whois servers.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.WhoIs.TrialException">
+            <summary>
+            Represents a trial specific error.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.TrialException._message">
+            <summary>
+            Message contains the error message.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.TrialException._defaultMessage">
+            <summary>
+            Default exception message.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.TrialException.#ctor">
+            <summary>
+            Constructor whith the default trial error.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.TrialException.#ctor(System.String)">
+            <summary>
+            Constructor, sets message to the specified value.
+            </summary>
+            <param name="message">Message contains the error.</param>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.TrialException.Message">
+            <summary>
+            Gets the exception's message.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.WhoIs.WhoIs">
+            <summary>
+            Allow to query a whois server.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.WhoIs._servers">
+            <summary>
+            List of whois servers used in case of no server(s) is specified.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.WhoIs._sepNoMatchQuery">
+            <summary>
+            Separator between no match and the query result.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.WhoIs._queryDelegate">
+            <summary>
+            Delegate using in case of asynchronous call of query.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.WhoIs._globalQueryDelegate">
+            <summary>
+            Delegate using in case of asynchronous call of global query.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.WhoIs._isAvailableDelegate">
+            <summary>
+            Delegate using in case of asynchronous call of is available (domain).
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.WhoIs._globalIsAvailableDelegate">
+            <summary>
+            Delegate using in case of asynchronous call of global is available (domain).
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.#ctor">
+            <summary>
+            The default constructor. Load the server definition from the resources.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.LoadServerDefinitionFromResources">
+            <summary>
+            Load a list of whois servers definition from the resource file.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.LoadServerDefinitionFromXml(System.String)">
+            <summary>
+            Load a list of whois servers definition from an external xml file.
+            </summary>
+            <param name="path">Path where the external xml file is located.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.Query(System.String)">
+             <summary>
+             Query a whois server specifying the specified domain to query. In this case, it uses the default whois servers.
+             </summary>
+             <param name="domainToQuery">Domain to query.</param>
+             <returns>Result of the whois server.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             try
+             {
+            		WhoIs whoIs = new WhoIs();
+            		string result = whoIs.Query("activeup.com");
+            		Console.WriteLine(result);
+            	}
+             
+             catch(WhoisException we)
+            	{
+            		Console.WriteLine("WhoisException : " + we.Message);
+            	}
+            
+            	catch(Exception ex)
+            	{
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            	}
+             
+             [VB.NET] 
+             
+             Try
+            
+            		Dim whoIs As New WhoIs()
+            		Dim result As String = whoIs.Query("activeup.com")
+            		Console.WriteLine(result)
+            
+            	Catch we as WhoisException
+            		Console.WriteLine("WhoisException : " + we.Message)
+            
+            	Catch ex As Exception
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            		
+            	End Try
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.QueryAsync(System.String,System.AsyncCallback)">
+             <summary>
+             Query a whois server specifying the specified domain to query asynchronously. In this case, it uses the default whois servers.
+             </summary>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="callBack">Callback function.</param>
+             <returns>IAsyncResult object that represents the result of the QueryAsync operation.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.QueryAsync("activeup.com",new AsyncCallback(MyCallbackWhoIs));
+             
+             public void MyCallbackWhoIs(IAsyncResult state)
+             {
+            		try
+            		{
+            			string result = whoIs.QueryAsyncResult(state);
+            			Console.WriteLine(result);
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             
+             Private whoIs As whoIs = New whoIs()
+             Dim state As IAsyncResult = whoIs.QueryAsync("activeup.com", New AsyncCallback(AddressOf MyCallbackWhoIs))
+             
+             Public Sub MyCallbackWhoIs(ByVal state As IAsyncResult)
+            
+            		Try
+            
+            			Dim result As String = whoIs.QueryAsyncResult(state)
+            			Console.WriteLine(result)
+            
+            		Catch we As WhoisException
+            			 Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			 Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.Query(System.String,System.String)">
+             <summary>
+             Query a whois server specifying the specified host and domain to query.
+             </summary>
+             <param name="host">Host of the whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <returns>Result of the whois query.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             try
+             {
+            		WhoIs whoIs = new WhoIs();
+            		string result = whoIs.Query("whois.networksolutions.com","activeup.com");
+            		Console.WriteLine(result);
+             }
+             
+             catch(WhoisException we)
+            	{
+            		Console.WriteLine("WhoisException : " + we.Message);
+            	}
+            
+            	catch(Exception ex)
+            	{
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            	}
+            	
+             [VB.NET]
+             
+             Try
+            
+            		Dim whoIs As New WhoIs()
+            		Dim result As String = whoIs.Query("whois.networksolutions.com","activeup.com")
+            		Console.WriteLine(result)
+            
+            	Catch we as WhoisException
+            		Console.WriteLine("WhoisException : " + we.Message)
+            
+            	Catch ex As Exception
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            		
+            	End Try
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.QueryAsync(System.String,System.String,System.AsyncCallback)">
+             <summary>
+             Query a whois server specifying the specified host and domain to query asynchronously.
+             </summary>
+             <param name="host">Host of the whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="callBack">Callback function</param>
+             <returns>IAsyncResult object that represents the result of the QueryAsync operation.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.QueryAsync("whois.networksolutions.com","activeup.com",new AsyncCallback(MyCallbackWhoIs));
+             
+             public void MyCallbackWhoIs(IAsyncResult state)
+             {
+            		try
+            		{
+            			string result = whoIs.QueryAsyncResult(state);
+            			Console.WriteLine(result);
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             	
+             Private whoIs As whoIs = New whoIs()
+             Dim state As IAsyncResult = whoIs.QueryAsync("whois.networksolutions.com","activeup.com", New AsyncCallback(AddressOf MyCallbackWhoIs))
+             
+             Public Sub MyCallbackWhoIs(ByVal state As IAsyncResult)
+            
+            		Try
+            
+            			Dim result As String = whoIs.QueryAsyncResult(state)
+            			Console.WriteLine(result)
+            
+            		Catch we As WhoisException
+            			 Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			 Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.Query(System.String,System.Int32,System.String)">
+             <summary>
+             Query a whois server specifying the specified host, port and domain to query.
+             </summary>
+             <param name="host">Host of the whois server.</param>
+             <param name="port">Port of the whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <returns>Result of the whois server.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             try
+             {
+            		WhoIs whoIs = new WhoIs();
+            		string result = whoIs.Query("whois.networksolutions.com",43,"activeup.com");
+            		Console.WriteLine(result);
+            	}
+             
+             catch(WhoisException we)
+            	{
+            		Console.WriteLine("WhoisException : " + we.Message);
+            	}
+            
+            	catch(Exception ex)
+            	{
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            	}
+            	
+             [VB.NET]
+             
+             Try
+            
+            		Dim whoIs As New WhoIs()
+            		Dim result As String = whoIs.Query("whois.networksolutions.com",43,"activeup.com")
+            		Console.WriteLine(result)
+            
+            	Catch we as WhoisException
+            		Console.WriteLine("WhoisException : " + we.Message)
+            
+            	Catch ex As Exception
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            		
+            	End Try
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.QueryAsync(System.String,System.Int32,System.String,System.AsyncCallback)">
+             <summary>
+             Query a whois server specifying the specified host, port and domain to query asynchronously.
+             </summary>
+             <param name="host">Host of the whois server.</param>
+             <param name="port">Port of the whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="callBack">Callback function.</param>
+             <returns>IAsyncResult object that represents the result of the QueryAsync operation.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.QueryAsync("whois.networksolutions.com",43,"activeup.com",new AsyncCallback(MyCallbackWhoIs));
+             
+             public void MyCallbackWhoIs(IAsyncResult state)
+             {
+            		try
+            		{
+            			string result = whoIs.QueryAsyncResult(state);
+            			Console.WriteLine(result);
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             
+             Private whoIs As whoIs = New whoIs()
+             Dim state As IAsyncResult = whoIs.QueryAsync("whois.networksolutions.com",43,"activeup.com", New AsyncCallback(AddressOf MyCallbackWhoIs))
+             
+             Public Sub MyCallbackWhoIs(ByVal state As IAsyncResult)
+            
+            		Try
+            
+            			Dim result As String = whoIs.QueryAsyncResult(state)
+            			Console.WriteLine(result)
+            
+            		Catch we As WhoisException
+            			 Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			 Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.Query(ActiveUp.Net.WhoIs.Server,System.String)">
+             <summary>
+             Query a whois server specifying the specified Server object and domain to query.
+             </summary>
+             <param name="server">Whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <returns>Result of the whois server.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             try
+             {
+            		Server server = new Server();
+            		server.Host = "whois.networksolutions.com";
+            		server.Port = 43;
+            		server.Domain = ".com";
+             
+            		WhoIs whoIs = new WhoIs();
+            		string result = whoIs.Query(server,"activeup.com");
+            		Console.WriteLine(result);
+            	}
+             
+             catch(WhoisException we)
+            	{
+            		Console.WriteLine("WhoisException : " + we.Message);
+            	}
+            
+            	catch(Exception ex)
+            	{
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            	}
+            	
+             [VB.NET]
+             
+             Try
+            
+            		Dim server As New Server()
+            		server.Host = "whois.networksolutions.com"
+            		server.Port = 43
+            		server.Domain = ".com"
+            
+            		Dim whoIs As New WhoIs()
+            		Dim result As String = whoIs.Query("whois.networksolutions.com",43,"activeup.com")
+            		Console.WriteLine(result)
+            
+            	Catch we as WhoisException
+            		Console.WriteLine("WhoisException : " + we.Message)
+            
+            	Catch ex As Exception
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            		
+            	End Try
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.QueryAsync(ActiveUp.Net.WhoIs.Server,System.String,System.AsyncCallback)">
+             <summary>
+             Query a whois server specifying the specified Server object and domain to query asynchronously.
+             </summary>
+             <param name="server">Whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="callBack">Callback function.</param>
+             <returns>IAsyncResult object that represents the result of the QueryAsync operation.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             WhoIs whoIs = new WhoIs();	
+             
+             Server server = new Server();
+             server.Host = "whois.networksolutions.com";
+             server.Port = 43;
+             server.Domain = ".com";
+             
+             IAsyncResult state = whoIs.QueryAsync(server,"activeup.com",new AsyncCallback(MyCallbackWhoIs));
+             
+             public void MyCallbackWhoIs(IAsyncResult state)
+             {
+            		try
+            		{
+            			string result = whoIs.QueryAsyncResult(state);
+            			Console.WriteLine(result);
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             
+             Private whoIs As whoIs = New whoIs()
+             
+            	Dim server As New Server()
+            	server.Host = "whois.networksolutions.com"
+            	server.Port = 43
+            	server.Domain = ".com"
+             Dim state As IAsyncResult = whoIs.QueryAsync(server, New AsyncCallback(AddressOf MyCallbackWhoIs))
+             
+             Public Sub MyCallbackWhoIs(ByVal state As IAsyncResult)
+            
+            		Try
+            
+            			Dim result As String = whoIs.QueryAsyncResult(state)
+            			Console.WriteLine(result)
+            
+            		Catch we As WhoisException
+            			 Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			 Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example> 
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.Query(ActiveUp.Net.WhoIs.ServerCollection,System.String)">
+             <summary>
+             Query a whois server specifying the specified ServerCollection object and domain to query.
+             </summary>
+             <param name="servers">Collection contening a list of whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <returns>Result of the whois server.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             try
+             {
+            		ServerCollection servers = new ServerCollection();
+             
+            		Server server1 = new Server();
+            		server1.Host = "whois.networksolutions.com";
+            		server1.Port = 43;
+            		server1.Domain = ".com";
+            		servers.Add(server1);
+             
+            		Server server2 = new Server();
+            		server2.Host = "whois.nic.co.uk";
+            		server2.Port = 43;
+            		server2.Domain = ".co.uk";
+            		servers.Add(server2);
+             
+            		WhoIs whoIs = new WhoIs();
+            		string result = whoIs.Query(servers,"activeup.com");
+            		Console.WriteLine(result);
+            	}
+             
+             catch(WhoisException we)
+            	{
+            		Console.WriteLine("WhoisException : " + we.Message);
+            	}
+            
+            	catch(Exception ex)
+            	{
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            	}
+            	
+             [VB.NET]
+             
+             Try
+            
+            		Dim servers As New ServerCollection()
+            
+            		Dim server1 As New Server()
+            		server1.Host = "whois.networksolutions.com"
+            		server1.Port = 43
+            		server1.Domain = ".com"
+            		servers.Add(server1)
+            
+            		Dim server2 As New Server()
+            		server2.Host = "whois.nic.co.uk"
+            		server2.Port = 43
+            		server2.Domain = ".co.uk"
+            		servers.Add(server2)
+            
+            		Dim whoIs As New WhoIs()
+            		Dim result As String = whoIs.Query(servers, "activeup.com")
+            		Console.WriteLine(result)
+            
+            	Catch we as WhoisException
+            		Console.WriteLine("WhoisException : " + we.Message)
+            
+            	Catch ex As Exception
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            	End Try
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.QueryAsync(ActiveUp.Net.WhoIs.ServerCollection,System.String,System.AsyncCallback)">
+             <summary>
+             Query a whois server specifying the specified ServerCollection object and domain to query asynchronously.
+             </summary>
+             <param name="servers">Collection contening a list of whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="callBack">Callback function</param>
+             <returns>IAsyncResult object that represents the result of the QueryAsync operation.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             ServerCollection servers = new ServerCollection();
+             
+            	Server server1 = new Server();
+            	server1.Host = "whois.networksolutions.com";
+            	server1.Port = 43;
+            	server1.Domain = ".com";
+            	servers.Add(server1);
+             
+            	Server server2 = new Server();
+            	server2.Host = "whois.nic.co.uk";
+            	server2.Port = 43;
+            	server2.Domain = ".co.uk";
+            	servers.Add(server2);
+              
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.QueryAsync(servers,"activeup.com",new AsyncCallback(MyCallbackWhoIs));
+             
+             public void MyCallbackWhoIs(IAsyncResult state)
+             {
+            		try
+            		{
+            			string result = whoIs.QueryAsyncResult(state);
+            			Console.WriteLine(result);
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             
+             Private whoIs As whoIs = New whoIs()
+             
+            	Dim servers As New ServerCollection()
+            
+            	Dim server1 As New Server()
+            	server1.Host = "whois.networksolutions.com"
+            	server1.Port = 43
+            	server1.Domain = ".com"
+            	servers.Add(server1)
+            
+            	Dim server2 As New Server()
+            	server2.Host = "whois.nic.co.uk"
+            	server2.Port = 43
+            	server2.Domain = ".co.uk"
+            	servers.Add(server2)
+             Dim state As IAsyncResult = whoIs.QueryAsync(servers, New AsyncCallback(AddressOf MyCallbackWhoIs))
+             
+             Public Sub MyCallbackWhoIs(ByVal state As IAsyncResult)
+            
+            		Try
+            
+            			Dim result As String = whoIs.QueryAsyncResult(state)
+            			Console.WriteLine(result)
+            
+            		Catch we As WhoisException
+            			 Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			 Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.QueryAsyncWait(System.IAsyncResult)">
+             <summary>
+             Blocks the execution until the request is completed.
+             </summary>
+             <param name="asynResultQuery">State of the operation.</param>
+             <example>
+             <code>
+             [C#]
+             
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.QueryAsync("activeup.com",new AsyncCallback(MyCallbackWhoIs));
+             whoIs.QueryAsyncWait(state);
+             
+             public void MyCallbackWhoIs(IAsyncResult state)
+             {
+            		try
+            		{
+            			string result = whoIs.QueryAsyncResult(state);
+            			Console.WriteLine(result);
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET]
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.QueryAsyncResult(System.IAsyncResult)">
+            <summary>
+            Result of the asynchronously query.
+            </summary>
+            <param name="state">State of the operation.</param>
+            <returns>Result of the whois server query.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs._Query(ActiveUp.Net.WhoIs.ServerCollection,System.String,System.Boolean)">
+            <summary>
+             Query a whois server specifying the specified ServerCollection, domain to query and if the no match string have to be checked.
+            </summary>
+            <param name="servers">Collection contening a list of whois server.</param>
+            <param name="domainToQuery">Domain to query.</param>
+            <param name="checkNoMatch">Indicates if you have to use 'no match' in query.</param>
+            <returns>Result of the whois server.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalQuery(System.String)">
+            <summary>
+             Query all the whois servers specifying the top level domain.
+             </summary>
+            <returns>ResultQueryCollection object contening all the informations about the query.</returns>
+            <example>
+            	<code lang="CS">
+            try
+            {
+                    WhoIs whoIs = new WhoIs();
+                    ResultQueryCollection results = whoIs.GlobalQuery("activeup");
+             
+                    foreach(ResultQuery result in results)
+                    {
+                        Console.WriteLine(result.Result);
+                        Console.WriteLine(result.ServerUsed.Host);
+                        if (result.Error != null)
+                            Console.WriteLine(result.Error.ToString());
+                        Console.WriteLine("press enter to continue...");
+                        Console.ReadLine();
+                    }
+                }
+                
+                catch(Exception ex)
+                {
+                    Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+                }
+                </code>
+            	<code lang="VB" title="VB.NET">
+            Try
+             
+                    Dim whoIs As WhoIs = New WhoIs()
+                    Dim results As ResultQueryCollection = whoIs.GlobalQuery("activeup")
+                    Dim result As ResultQuery
+                    
+                    For Each result In results
+                        Console.WriteLine(result.Result)
+                        Console.WriteLine(result.ServerUsed.Host)
+                        If (Not (result.Error Is Nothing)) Then
+                            Console.WriteLine(result.Error.ToString())
+                        End If
+                        Console.WriteLine("press enter to continue...")
+                        Console.ReadLine()
+                    Next result
+                    
+                Catch ex As Exception
+                    Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+                    
+                End Try
+                </code>
+            </example>
+            <param name="domainToQuery">Top level domain to query.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalQueryAsync(System.String,System.AsyncCallback)">
+            <summary>
+             Query all the whois servers specifying the top level domain asynchronously.
+             </summary>
+            <returns>IAsyncResult object that represents the result of the GlobalQueryAsync operation.</returns>
+            <example>
+            	<code lang="CS">
+            WhoIs whoIs = new WhoIs();
+             
+                IAsyncResult state = whoIs.GlobalQueryAsync("activeup",new AsyncCallback(MyCallbackGlobalWhoIs));
+                
+                public static void MyCallbackGlobalWhoIs(IAsyncResult state)
+                {
+                    try
+                    {
+                        ResultQueryCollection results = whoIs.GlobalQueryAsyncResult(state);
+             
+                        foreach(ResultQuery result in results)
+                        {
+                            Console.WriteLine(result.Result);
+                            Console.WriteLine(result.ServerUsed.Host);
+                            if (result.Error != null)
+                                Console.WriteLine(result.Error.ToString());
+                            Console.WriteLine("press enter to continue...");
+                            Console.ReadLine();
+                        }
+                    }
+                                
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+                    }
+                </code>
+            	<code lang="VB" title="VB.NET">
+            Dim whoIs As WhoIs = New WhoIs()
+             
+                Dim state As IAsyncResult = whoIs.GlobalQueryAsync("activeup", New AsyncCallback(AddressOf MyCallbackGlobalWhoIs))
+             
+                    Public Sub MyCallbackGlobalWhoIs(ByVal state As IAsyncResult)
+             
+                        Try
+             
+                            Dim results As ResultQueryCollection = whoIs.GlobalQueryAsyncResult(state)
+             
+                            Dim result As ResultQuery
+                            For Each result In results
+                                Console.WriteLine(result.Result)
+                                Console.WriteLine(result.ServerUsed.Host)
+                                If (Not (result.Error Is Nothing)) Then
+                                    Console.WriteLine(result.Error.ToString())
+                                End If
+                                Console.WriteLine("press enter to continue...")
+                                Console.ReadLine()
+                            Next result
+             
+                        Catch ex As Exception
+                             Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+             
+                        End Try
+             
+                End Sub
+                </code>
+            </example>
+            <param name="domainToQuery">Top level domain to query.</param>
+            <param name="callBack">Call back function.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalQuery(ActiveUp.Net.WhoIs.ServerCollection,System.String)">
+            <summary>
+             Query all the whois server specifying list of whois servers and the top level domain.
+             </summary>
+            <returns>ResultQueryCollection object contening all the informations about the query.</returns>
+            <example>
+            	<code lang="CS">
+            try
+            {
+                    ServerCollection servers = new ServerCollection();
+                    
+                    Server server1 = new Server();
+                    server1.Host = "whois.networksolutions.com";
+                    server1.Port = 43;
+                    server1.Domain = ".com";
+                    server1.NoMatch = "no match";
+                    servers.Add(server1);
+                    
+                    Server server2 = new Server();
+                    server2.Host = "whois.nic.co.uk";
+                    server2.Port = 43;
+                    server2.Domain = ".co.uk";
+                    server2.NoMatch = "no match";
+                    servers.Add(server2);
+             
+                    WhoIs whoIs = new WhoIs();
+                    ResultQueryCollection results = whoIs.GlobalQuery(servers,"activeup");
+             
+                    foreach(ResultQuery result in results)
+                    {
+                        Console.WriteLine(result.Result);
+                        Console.WriteLine(result.ServerUsed.Host);
+                        if (result.Error != null)
+                            Console.WriteLine(result.Error.ToString());
+                        Console.WriteLine("press enter to continue...");
+                        Console.ReadLine();
+                    }
+                }
+                
+                catch(Exception ex)
+                {
+                    Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+                }
+            </code>
+            	<code lang="VB" title="VB.NET">
+            Try
+             
+                    Dim servers As ServerCollection = New ServerCollection()
+                    Dim server1 As Server = New Server()
+                    server1.Host = "whois.networksolutions.com"
+                    server1.Port = 43
+                    server1.Domain = ".com"
+                    server1.NoMatch = "no match"
+                    servers.Add(server1)
+                    
+                    Dim server2 As Server = New Server()
+                    server2.Host = "whois.nic.co.uk"
+                    server2.Port = 43
+                    server2.Domain = ".co.uk"
+                    server2.NoMatch = "no match"
+                    servers.Add(server2)
+             
+                    Dim whoIs As WhoIs = New WhoIs()
+                    Dim results As ResultQueryCollection = whoIs.GlobalQuery(servers,"activeup")
+                    Dim result As ResultQuery
+                    
+                    For Each result In results
+                        Console.WriteLine(result.Result)
+                        Console.WriteLine(result.ServerUsed.Host)
+                        If (Not (result.Error Is Nothing)) Then
+                            Console.WriteLine(result.Error.ToString())
+                        End If
+                        Console.WriteLine("press enter to continue...")
+                        Console.ReadLine()
+                    Next result
+                    
+                Catch ex As Exception
+                    Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+                    
+                End Try
+                </code>
+            </example>
+            <param name="servers">Whois servers list.</param>
+            <param name="domainToQuery">Top level domain to query.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalQueryAsync(ActiveUp.Net.WhoIs.ServerCollection,System.String,System.AsyncCallback)">
+            <summary>
+             Query all the whois server specifying list of whois servers and the top level domain asynchronously
+             </summary>
+            <returns>IAsyncResult object that represents the result of the GlobalQueryAsync operation.</returns>
+            <example>
+            	<code lang="CS">
+            WhoIs whoIs = new WhoIs();
+             
+            Server server1 = new Server();
+                server1.Host = "whois.networksolutions.com";
+                server1.Port = 43;
+                server1.Domain = ".com";
+                server1.NoMatch = "no match";
+                servers.Add(server1);
+                        
+                Server server2 = new Server();
+                server2.Host = "whois.nic.co.uk";
+                server2.Port = 43;
+                server2.Domain = ".co.uk";
+                server2.NoMatch = "no match";
+                servers.Add(server2);
+                        
+                IAsyncResult state = whoIs.GlobalQueryAsync(servers,"activeup",new AsyncCallback(MyCallbackGlobalWhoIs));
+                
+                public static void MyCallbackGlobalWhoIs(IAsyncResult state)
+                {
+                    try
+                    {
+                        ResultQueryCollection results = whoIs.GlobalQueryAsyncResult(state);
+             
+                        foreach(ResultQuery result in results)
+                        {
+                            Console.WriteLine(result.Result);
+                            Console.WriteLine(result.ServerUsed.Host);
+                            if (result.Error != null)
+                                Console.WriteLine(result.Error.ToString());
+                            Console.WriteLine("press enter to continue...");
+                            Console.ReadLine();
+                        }
+                    }
+                                
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+                    }
+            </code>
+            	<code lang="VB" title="VB.NET">
+            Dim whoIs As WhoIs = New WhoIs()
+             
+            Dim servers As ServerCollection = New ServerCollection()
+             
+                Dim server1 As Server = New Server()
+                server1.Host = "whois.networksolutions.com"
+                server1.Port = 43
+                server1.Domain = ".com"
+                server1.NoMatch = "no match"
+                servers.Add(server1)
+             
+                Dim server2 As Server = New Server()
+                server2.Host = "whois.nic.co.uk"
+                server2.Port = 43
+                server2.Domain = ".co.uk"
+                server2.NoMatch = "no match"
+                servers.Add(server2)
+             
+                Dim state As IAsyncResult = whoIs.GlobalQueryAsync(servers, "activeup", New AsyncCallback(AddressOf MyCallbackGlobalWhoIs))
+             
+                    Public Sub MyCallbackGlobalWhoIs(ByVal state As IAsyncResult)
+             
+                        Try
+             
+                            Dim results As ResultQueryCollection = whoIs.GlobalQueryAsyncResult(state)
+             
+                            Dim result As ResultQuery
+                            For Each result In results
+                                Console.WriteLine(result.Result)
+                                Console.WriteLine(result.ServerUsed.Host)
+                                If (Not (result.Error Is Nothing)) Then
+                                    Console.WriteLine(result.Error.ToString())
+                                End If
+                                Console.WriteLine("press enter to continue...")
+                                Console.ReadLine()
+                            Next result
+             
+                        Catch ex As Exception
+                             Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+             
+                        End Try
+             
+                End Sub
+                </code>
+            </example>
+            <param name="servers">Whois servers list.</param>
+            <param name="domainToQuery">Top level domain to query.</param>
+            <param name="callBack">Call back function.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalQueryAsyncResult(System.IAsyncResult)">
+            <summary>
+            Result of the asynchronously query.
+            </summary>
+            <param name="state">State of the operation.</param>
+            <returns>Result of the global whois server query.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalQueryAsyncWait(System.IAsyncResult)">
+            <summary>
+             Blocks the execution until the request is completed.
+             </summary>
+            <example>
+            	<code lang="CS">
+            WhoIs whoIs = new WhoIs();
+             
+                IAsyncResult state = whoIs.GlobalQueryAsync("activeup",new AsyncCallback(MyCallbackGlobalWhoIs));
+                whoIs.GlobalQueryAsyncWait(state);
+                
+                public static void MyCallbackGlobalWhoIs(IAsyncResult state)
+                {
+                    try
+                    {
+                        ResultQueryCollection results = whoIs.GlobalQueryAsyncResult(state);
+             
+                        foreach(ResultQuery result in results)
+                        {
+                            Console.WriteLine(result.Result);
+                            Console.WriteLine(result.ServerUsed.Host);
+                            if (result.Error != null)
+                                Console.WriteLine(result.Error.ToString());
+                            Console.WriteLine("press enter to continue...");
+                            Console.ReadLine();
+                        }
+                    }
+                                
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+                    }
+            </code>
+            	<code lang="VB" title="VB.NET">
+            Dim whoIs As WhoIs = New WhoIs()
+             
+                Dim state As IAsyncResult = whoIs.GlobalQueryAsync("activeup", New AsyncCallback(AddressOf MyCallbackGlobalWhoIs))
+                whoIs.GlobalQueryAsyncWait(state)
+             
+                    Public Sub MyCallbackGlobalWhoIs(ByVal state As IAsyncResult)
+             
+                        Try
+             
+                            Dim results As ResultQueryCollection = whoIs.GlobalQueryAsyncResult(state)
+             
+                            Dim result As ResultQuery
+                            For Each result In results
+                                Console.WriteLine(result.Result)
+                                Console.WriteLine(result.ServerUsed.Host)
+                                If (Not (result.Error Is Nothing)) Then
+                                    Console.WriteLine(result.Error.ToString())
+                                End If
+                                Console.WriteLine("press enter to continue...")
+                                Console.ReadLine()
+                            Next result
+             
+                        Catch ex As Exception
+                             Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+             
+                        End Try
+             
+                End Sub
+                </code>
+            </example>
+            <param name="asynResultQuery">State of the operation.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs._GlobalQuery(ActiveUp.Net.WhoIs.ServerCollection,System.String)">
+            <summary>
+            Query all the whois server specifying list of whois servers and the top level domain.
+            </summary>
+            <param name="servers">Whois servers list.</param>
+            <param name="domain">Top level domain.</param>
+            <returns>ResultQueryCollection object contening all the informations about the query.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailable(System.String)">
+             <summary>
+             Checks if a domain is available for registration specifying the domain to query.
+             </summary>
+             <param name="domainToQuery">Domain to query.</param>
+             <returns>True if the domain is available for registration. False if the domain name is not available for registration and is already taken by someone else.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             try
+             {
+            		WhoIs whoIs = new WhoIs();
+            		bool result = whoIs.IsAvailable("activeup.com");
+             
+            		if (result == true)
+            			Console.WriteLine("The domain is available for registration.");
+            		else
+            			Console.WriteLine("The domain is NOT available for registration.");
+            	}
+            		
+             catch(WhoisException we)
+            	{
+            		Console.WriteLine("WhoisException : " + we.Message);
+            	}
+            
+            	catch(Exception ex)
+            	{
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            	}
+            	
+            	[VB.NET]
+            		
+            	Try
+            
+            		Dim whoIs As New WhoIs()
+            		Dim result As Boolean = whoIs.IsAvailable("activeup.com")
+            		If (result = True) Then
+            			Console.WriteLine("The domain is available for registration.")
+            		Else
+            			Console.WriteLine("The domain is NOT available for registration.")
+            		End If
+            
+            	Catch we As WhoisException
+            		Console.WriteLine("WhoisException : " + we.Message)
+            
+            	Catch ex As Exception
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+             End Try
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailableAsync(System.String,System.AsyncCallback)">
+             <summary>
+             Checks to see if a domain is available for registration asynchronously specifying the domain to query.
+             </summary>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="callBack">Callback function</param>
+             <returns>IAsyncResult object that represents the result of the IsAvailableAsync operation.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.QueryAsync("activeup.com",new AsyncCallback(MyCallbackIsAvailable));
+             
+             public void MyCallbackIsAvailable(IAsyncResult state)
+             {
+            		try
+            		{
+            			bool result = whoIs.IsAvailableAsyncResult(state);
+            			if (result == true)
+            				Console.WriteLine("The domain is available for registration.");
+            			else
+            				Console.WriteLine("The domain is NOT available for registration.");
+            			
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             
+             Private whoIs As whoIs = New whoIs()
+             Dim state As IAsyncResult = whoIs.IsAvailableAsync("activeup.com", New AsyncCallback(AddressOf MyCallbackIsAvailable))
+             
+             Public Sub MyCallbackIsAvailable(ByVal state As IAsyncResult)
+            
+            		Try
+            			Dim result As Boolean = whoIs.IsAvailableAsyncResult(state)
+            			If (result = True) Then
+            				Console.WriteLine("The domain is available for registration.")
+            			Else
+            				Console.WriteLine("The domain is NOT available for registration.")
+            			End If
+            
+            		Catch we As WhoisException
+            			Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailable(System.String,System.String,System.String)">
+             <summary>
+             Checks if a domain is available for registration specifying the specified host, domain to query and the string indicates the domain doesn't exist.
+             </summary>
+             <param name="host">Host or IP address of the whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="noMatch">String indicates the domain doesn't exist.</param>
+             <returns>True if the domain is available for registration. False if the domain name is not available for registration and is already taken by someone else.
+             </returns>
+             <example>
+             <code>
+             [C#]
+             
+             try
+             {
+            		WhoIs whoIs = new WhoIs();
+            		bool result = whoIs.IsAvailable("whois.networksolutions.com","activeup.com","no match");
+             
+            		if (result == true)
+            			Console.WriteLine("The domain is available for registration.");
+            		else
+            			Console.WriteLine("The domain is NOT available for registration.");
+            	}
+            		
+             catch(WhoisException we)
+            	{
+            		Console.WriteLine("WhoisException : " + we.Message);
+            	}
+            
+            	catch(Exception ex)
+            	{
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            	}
+            		
+            	[VB.NET]
+            		
+            	Try
+            
+            		Dim whoIs As New WhoIs()
+            		Dim result As Boolean = whoIs.IsAvailable("whois.networksolutions.com", "activeup.com", "no match")
+            		If (result = True) Then
+            			Console.WriteLine("The domain is available for registration.")
+            		Else
+            			Console.WriteLine("The domain is NOT available for registration.")
+            		End If
+            
+            	Catch we As WhoisException
+            		Console.WriteLine("WhoisException : " + we.Message)
+            
+            	Catch ex As Exception
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+             End Try
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailableAsync(System.String,System.String,System.AsyncCallback)">
+             <summary>
+             Checks to see if a domain is available for registration asynchronously specifying the specified host and the domain to query.
+             </summary>
+             <param name="host">Host of the whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="callBack">Callback function.</param>
+             <returns>IAsyncResult object that represents the result of the IsAvailableAsync operation.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.QueryAsync("whois.networksolutions.com","activeup.com",new AsyncCallback(MyCallbackIsAvailable));
+             
+             public void MyCallbackIsAvailable(IAsyncResult state)
+             {
+            		try
+            		{
+            			bool result = whoIs.IsAvailableAsyncResult(state);
+            			if (result == true)
+            				Console.WriteLine("The domain is available for registration.");
+            			else
+            				Console.WriteLine("The domain is NOT available for registration.");
+            			
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             
+             Private whoIs As whoIs = New whoIs()
+             Dim state As IAsyncResult = whoIs.IsAvailableAsync("whois.networksolutions.com","activeup.com", New AsyncCallback(AddressOf MyCallbackIsAvailable))
+             
+             Public Sub MyCallbackIsAvailable(ByVal state As IAsyncResult)
+            
+            		Try
+            			Dim result As Boolean = whoIs.IsAvailableAsyncResult(state)
+            			If (result = True) Then
+            				Console.WriteLine("The domain is available for registration.")
+            			Else
+            				Console.WriteLine("The domain is NOT available for registration.")
+            			End If
+            
+            		Catch we As WhoisException
+            			Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailable(System.String,System.Int32,System.String,System.String)">
+             <summary>
+             Checks if a domain is available for registration specifying the specified host, port, domain to query and the string indicates the domain doesn't exist.
+             </summary>
+             <param name="host">Host or IP address of the whois server.</param>
+             <param name="port">Port of the whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="noMatch">String indicates the domain doesn't exist</param>
+             <returns>True if the domain is available for registration. False if the domain name is not available for registration and is already taken by someone else.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             try
+             {
+            		WhoIs whoIs = new WhoIs();
+            		bool result = whoIs.IsAvailable("whois.networksolutions.com",43,"activeup.com","no match");
+             
+            		if (result == true)
+            			Console.WriteLine("The domain is available for registration.");
+            		else
+            			Console.WriteLine("The domain is NOT available for registration.");
+            	}
+            		
+             catch(WhoisException we)
+            	{
+            		Console.WriteLine("WhoisException : " + we.Message);
+            	}
+            
+            	catch(Exception ex)
+            	{
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            	}
+            		
+            	[VB.NET]
+            		
+            	Try
+            
+            		Dim whoIs As New WhoIs()
+            		Dim result As Boolean = whoIs.IsAvailable("whois.networksolutions.com",43, "activeup.com", "no match")
+            		If (result = True) Then
+            			Console.WriteLine("The domain is available for registration.")
+            		Else
+            			Console.WriteLine("The domain is NOT available for registration.")
+            		End If
+            
+            	Catch we As WhoisException
+            		Console.WriteLine("WhoisException : " + we.Message)
+            
+            	Catch ex As Exception
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+             End Try
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailableAsync(System.String,System.Int32,System.String,System.AsyncCallback)">
+             <summary>
+             Checks to see if a domain is available for registration asynchronously specifying the specified host, domain to query and the string indicates the domain doesn't exist.
+             </summary>
+             <param name="host">Host of the whois server.</param>
+             <param name="port">Port of the whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="callBack">Callback function</param>
+             <returns>IAsyncResult object that represents the result of the IsAvailableAsync operation.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.QueryAsync("activeup.com",43,new AsyncCallback(MyCallbackIsAvailable));
+             
+             public void MyCallbackIsAvailable(IAsyncResult state)
+             {
+            		try
+            		{
+            			bool result = whoIs.IsAvailableAsyncResult(state);
+            			if (result == true)
+            				Console.WriteLine("The domain is available for registration.");
+            			else
+            				Console.WriteLine("The domain is NOT available for registration.");
+            			
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             
+             Private whoIs As whoIs = New whoIs()
+             Dim state As IAsyncResult = whoIs.IsAvailableAsync("activeup.com",43, New AsyncCallback(AddressOf MyCallbackIsAvailable))
+             
+             Public Sub MyCallbackIsAvailable(ByVal state As IAsyncResult)
+            
+            		Try
+            			Dim result As Boolean = whoIs.IsAvailableAsyncResult(state)
+            			If (result = True) Then
+            				Console.WriteLine("The domain is available for registration.")
+            			Else
+            				Console.WriteLine("The domain is NOT available for registration.")
+            			End If
+            
+            		Catch we As WhoisException
+            			Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailable(ActiveUp.Net.WhoIs.Server,System.String)">
+             <summary>
+             Checks if a domain is available for registration specifying the specified Server object and  domain to query.
+             </summary>
+             <param name="server">Whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <returns>True if the domain is available for registration. False if the domain name is not available for registration and is already taken by someone else.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             try
+             {
+            		Server server = new Server();
+            		server.Host = "";
+            		server.Port = 43;
+            		server.Domain = ".com";
+            		server.NoMatch = "no match";
+             
+            		WhoIs whoIs = new WhoIs();
+            		bool result = whoIs.IsAvailable(server,"activeup.com");
+            		if (result == true)
+            			Console.WriteLine("The domain is available for registration.");
+            		else
+            			Console.WriteLine("The domain is NOT available for registration.");
+            	}
+            	
+             catch(WhoisException we)
+            	{
+            		Console.WriteLine("WhoisException : " + we.Message);
+            	}
+            
+            	catch(Exception ex)
+            	{
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            	}
+            		
+            	[VB.NET]
+            	
+            	Try
+            	
+            		Dim server As New Server()
+            		server.Host = "whois.networksolutions.com"
+            		server.Port = 43
+            		server.Domain = ".com"
+            		server.NoMatch = "no match"
+            
+            		Dim whoIs As New WhoIs()
+            		Dim result As Boolean = whoIs.IsAvailable(server, "activeup.com")
+            		If (result = True) Then
+            			Console.WriteLine("The domain is available for registration.")
+            		Else
+            			Console.WriteLine("The domain is NOT available for registration.")
+            		End If
+            
+            	Catch we As WhoisException
+            		 Console.WriteLine("WhoisException : " + we.Message)
+            
+            	Catch ex As Exception
+            		 Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            	End Try
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailableAsync(ActiveUp.Net.WhoIs.Server,System.String,System.AsyncCallback)">
+             <summary>
+             Checks to see if a domain is available for registration asynchronously sing the specified Server object and  domain to query.
+             </summary>
+             <param name="server">Whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="callBack">Callback function.</param>
+             <returns>IAsyncResult object that represents the result of the IsAvailableAsync operation.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             Server server = new Server();
+             server.Host = "whois.networksolutions.com";
+             server.Port = 43;
+             server.Domain = ".com";
+             server.NoMatch = "no match";
+             
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.IsAvailableAsync(server,"activeup.com",new AsyncCallback(MyCallbackIsAvailable));
+             
+             public void MyCallbackIsAvailable(IAsyncResult state)
+             {
+            		try
+            		{
+            			bool result = whoIs.IsAvailableAsyncResult(state);
+            			if (result == true)
+            				Console.WriteLine("The domain is available for registration.");
+            			else
+            				Console.WriteLine("The domain is NOT available for registration.");
+            			
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             
+             Private whoIs As whoIs = New whoIs()
+             
+            	Dim server As New Server()
+            	server.Host = "whois.networksolutions.com"
+            	server.Port = 43
+            	server.Domain = ".com"
+            	server.NoMatch = "no match"
+             
+             Dim state As IAsyncResult = whoIs.IsAvailableAsync(server,"activeup.com", New AsyncCallback(AddressOf MyCallbackIsAvailable))
+             
+             Public Sub MyCallbackIsAvailable(ByVal state As IAsyncResult)
+            
+            		Try
+            			Dim result As Boolean = whoIs.IsAvailableAsyncResult(state)
+            			If (result = True) Then
+            				Console.WriteLine("The domain is available for registration.")
+            			Else
+            				Console.WriteLine("The domain is NOT available for registration.")
+            			End If
+            
+            		Catch we As WhoisException
+            			Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailable(ActiveUp.Net.WhoIs.ServerCollection,System.String)">
+             <summary>
+             Checks if a domain is available for registration specifying the specified ServerCollection object and domain to query.
+             </summary>
+             <param name="servers">Collection contening a list of whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <returns>True if the domain is available for registration. False if the domain name is not available for registration and is already taken by someone else.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             try
+             {
+            		ServerCollection servers = new ServerCollection();
+             
+            		Server server1 = new Server();
+            		server1.Host = "whois.networksolutions.com";
+            		server1.Port = 43;
+            		server1.Domain = ".com";
+            		server1.NoMatch = "no match";
+            		servers.Add(server1);
+             
+            		Server server2 = new Server();
+            		server2.Host = "whois.nic.co.uk";
+            		server2.Port = 43;
+            		server2.Domain = ".co.uk";
+            		server2.NoMatch = "no match";
+            		servers.Add(server2);
+             
+            		WhoIs whoIs = new WhoIs();
+            		bool result = whoIs.IsAvailable(servers,"activeup.com");
+             
+            		if (result == true)
+            			Console.WriteLine("The domain is available for registration.");
+            		else
+            			Console.WriteLine("The domain is NOT available for registration.");
+            	}
+            	
+             catch(WhoisException we)
+            	{
+            		Console.WriteLine("WhoisException : " + we.Message);
+            	}
+            
+            	catch(Exception ex)
+            	{
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            	}
+            		
+            	[VB.NET]
+            
+            	Try
+            
+            		Dim servers As New ServerCollection()
+            
+            		Dim server1 As New Server()
+            		server1.Host = "whois.networksolutions.com"
+            		server1.Port = 43
+            		server1.Domain = ".com"
+            		server1.NoMatch = "no match"
+            		servers.Add(server1)
+            
+            		Dim server2 As New Server()
+            		server2.Host = "whois.nic.co.uk"
+            		server2.Port = 43
+            		server2.Domain = ".co.uk"
+            		server2.NoMatch = "no match"
+            		servers.Add(server2)
+            
+            		Dim whoIs As New WhoIs()
+            		Dim result As Boolean = whoIs.IsAvailable(servers, "activeup.com")
+            		If (result = True) Then
+            			Console.WriteLine("The domain is available for registration.")
+            		Else
+            			Console.WriteLine("The domain is NOT available for registration.")
+            		End If
+            
+            	Catch we As WhoisException
+            		Console.WriteLine("WhoisException : " + we.Message)
+            
+            	Catch ex As Exception
+            		Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            	End Try
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailableAsync(ActiveUp.Net.WhoIs.ServerCollection,System.String,System.AsyncCallback)">
+             <summary>
+             Checks to see if a domain is available for registration asynchronously specifying the specified ServerCollection object and domain to query.
+             </summary>
+             <param name="servers">Collection contening a list of whois server.</param>
+             <param name="domainToQuery">Domain to query.</param>
+             <param name="callBack">Callback function.</param>
+             <returns>IAsyncResult object that represents the result of the IsAvailableAsync operation.</returns>
+             <example>
+             <code>
+             [C#]
+             
+             ServerCollection servers = new ServerCollection();
+             
+            	Server server1 = new Server();
+            	server1.Host = "whois.networksolutions.com";
+            	server1.Port = 43;
+            	server1.Domain = ".com";
+            	server1.NoMatch = "no match";
+            	servers.Add(server1);
+             
+            	Server server2 = new Server();
+            	server2.Host = "whois.nic.co.uk";
+            	server2.Port = 43;
+            	server2.Domain = ".co.uk";
+            	server2.NoMatch = "no match";
+            	servers.Add(server2);
+             
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.QueryAsync(servers,new AsyncCallback(MyCallbackIsAvailable));
+             
+             public void MyCallbackIsAvailable(IAsyncResult state)
+             {
+            		try
+            		{
+            			bool result = whoIs.IsAvailableAsyncResult(state);
+            			if (result == true)
+            				Console.WriteLine("The domain is available for registration.");
+            			else
+            				Console.WriteLine("The domain is NOT available for registration.");
+            			
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             
+             Private whoIs As whoIs = New whoIs()
+             
+            	Dim server1 As New Server()
+            	server1.Host = "whois.networksolutions.com"
+            	server1.Port = 43
+            	server1.Domain = ".com"
+            	server1.NoMatch = "no match"
+            	servers.Add(server1)
+            
+            	Dim server2 As New Server()
+            	server2.Host = "whois.nic.co.uk"
+            	server2.Port = 43
+            	server2.Domain = ".co.uk"
+            	server2.NoMatch = "no match"
+            	servers.Add(server2)
+             
+             Dim state As IAsyncResult = whoIs.IsAvailableAsync(servers,"activeup.com", New AsyncCallback(AddressOf MyCallbackIsAvailable))
+             
+             Public Sub MyCallbackIsAvailable(ByVal state As IAsyncResult)
+            
+            		Try
+            			Dim result As Boolean = whoIs.IsAvailableAsyncResult(state)
+            			If (result = True) Then
+            				Console.WriteLine("The domain is available for registration.")
+            			Else
+            				Console.WriteLine("The domain is NOT available for registration.")
+            			End If
+            
+            		Catch we As WhoisException
+            			Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailableAsyncWait(System.IAsyncResult)">
+             <summary>
+             Blocks the execution until the request is completed.
+             </summary>
+             <param name="state">State of the operation.</param>
+             <example>
+             <code>
+             [C#]
+             
+             WhoIs whoIs = new WhoIs();
+             IAsyncResult state = whoIs.IsAvailableAsync("activeup.com",new AsyncCallback(MyCallbackIsAvailable));
+             whoIs.IsAvailableAsyncWait(state);
+             
+             public void MyCallbackIsAvailable(IAsyncResult state)
+             {
+            		try
+            		{
+            			bool result = whoIs.IsAvailableAsyncResult(state);
+            			if (result == true)
+            				Console.WriteLine("The domain is available for registration.");
+            			else
+            				Console.WriteLine("The domain is NOT available for registration.");
+            			
+            		}
+            
+            		catch(WhoisException we)
+            		{
+            			Console.WriteLine("WhoisException : " + we.Message);
+            		}
+            
+            		catch(Exception ex)
+            		{
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+            		}
+             }
+             
+             [VB.NET] 
+             
+             Private whoIs As whoIs = New whoIs()
+             Dim state As IAsyncResult = whoIs.IsAvailableAsync("activeup.com", New AsyncCallback(AddressOf MyCallbackIsAvailable))
+             whoIs.IsAvailableAsyncWait(state)
+             
+             Public Sub MyCallbackIsAvailable(ByVal state As IAsyncResult)
+            
+            		Try
+            			Dim result As Boolean = whoIs.IsAvailableAsyncResult(state)
+            			If (result = True) Then
+            				Console.WriteLine("The domain is available for registration.")
+            			Else
+            				Console.WriteLine("The domain is NOT available for registration.")
+            			End If
+            
+            		Catch we As WhoisException
+            			Console.WriteLine("WhoisException : " + we.Message)
+            
+            		Catch ex As Exception
+            			Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+            
+            		End Try
+            
+            	End Sub
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.IsAvailableAsyncResult(System.IAsyncResult)">
+            <summary>
+            Result of the asynchronously IsAvailable query.
+            </summary>
+            <param name="state">State of the operation.</param>
+            <returns>Result of the asynchronously IsAvailable query.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs._IsAvailable(ActiveUp.Net.WhoIs.ServerCollection,System.String)">
+            <summary>
+            Checks if a domain is available for registration specifying the specified ServerCollection object and domain to query.
+            </summary>
+            <param name="servers">Collection contening a list of whois server.</param>
+            <param name="domainToQuery">Domain to query.</param>
+            <returns>True if the domain is available for registration. False if the domain name is not available for registration and is already taken by someone else.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalIsAvailable(System.String)">
+            <summary>
+             Checks if a domain is available for registration specifying top leve domain to query.
+             </summary>
+            <returns>ResultIsAvailableCollection object contening all the informations about the query.</returns>
+            <example>
+            	<code lang="CS">
+            try
+                {
+                    WhoIs whoIs = new WhoIs();
+                    ResultIsAvailableCollection results = whoIs.GlobalIsAvailable("activeup");
+             
+                    foreach(ResultIsAvailable result in results)
+                    {
+                        Console.WriteLine(result.ServerUsed.Host);
+             
+                        if (result.Error != null)
+                            Console.WriteLine(result.Error.ToString());
+                        else
+                        {
+             
+                            if (result.IsAvailable == true)
+                                Console.WriteLine("The domain is available for registration ({0}).",result.ServerUsed.Domain);
+                            else
+                                Console.WriteLine("The domain is NOT available for registration ({0}).",result.ServerUsed.Domain);
+                        }
+                                            
+                        Console.WriteLine("press enter to continue...");
+                        Console.ReadLine();
+                    }
+                }
+             
+                catch(Exception ex)
+                {
+                    Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+                }
+            </code>
+            	<code lang="VB" title="VB.NET">
+            Try
+             
+                    Dim whoIs As New Whois()
+                    Dim results As ResultIsAvailableCollection = whoIs.GlobalIsAvailable("activeup")
+             
+                    Dim result As ResultIsAvailable
+                    For Each result In results
+                        Console.WriteLine(result.ServerUsed.Host)
+             
+                        If (Not (result.Error Is Nothing)) Then
+                            Console.WriteLine(result.Error.ToString())
+                        Else
+                            If (result.IsAvailable = True) Then
+                                Console.WriteLine("The domain is available for registration ({0}).", result.ServerUsed.Domain)
+                            Else
+                                Console.WriteLine("The domain is NOT available for registration ({0}).", result.ServerUsed.Domain)
+                            End If
+             
+                        End If
+             
+                    Console.WriteLine("press enter to continue")
+                    Console.ReadLine()
+             
+                    Next result
+             
+                Catch ex As Exception
+                    Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+             
+                End Try
+            </code>
+            </example>
+            <param name="domainToQuery">Top level domain to query.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalIsAvailableAsync(System.String,System.AsyncCallback)">
+            <summary>
+             Checks if a domain is available for registration specifying top leve domain to query asynchronously.
+             </summary>
+            <returns>Result of the global 'is available' query.</returns>
+            <example>
+            	<code lang="CS">
+            Whois whoIs = new WhoIs();
+            IAsyncResult state = whoIs.GlobalIsAvailableAsync("activeup",new AsyncCallback(MyCallbackGlobalIsAvailable));
+             
+                public void MyCallbackGlobalIsAvailable(IAsyncResult state)
+                {
+                    try
+                    {
+                        ResultIsAvailableCollection results = whoIs.GlobalIsAvailableAsyncResult(state);
+             
+                        foreach(ResultIsAvailable result in results)
+                        {
+                            Console.WriteLine(result.ServerUsed.Host);
+             
+                            if (result.Error != null)
+                                Console.WriteLine(result.Error.ToString());
+                            else
+                            {
+                                if (result.IsAvailable == true)
+                                    Console.WriteLine("The domain is available for registration ({0}).",result.ServerUsed.Domain);
+                                else
+                                    Console.WriteLine("The domain is NOT available for registration ({0}).",result.ServerUsed.Domain);
+                            }
+                                            
+                            Console.WriteLine("press enter to continue...");
+                            Console.ReadLine();
+                       }
+                    }
+             
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+                    }
+                }
+            </code>
+            	<code lang="VB" title="VB.NET">
+            Dim whoIs As WhoIs = New WhoIs()
+            Dim state As IAsyncResult = whoIs.GlobalIsAvailableAsync("activeup", New AsyncCallback(AddressOf MyCallBackGlobalIsAvailable))
+             
+            Public Sub MyCallBackGlobalIsAvailable(ByVal state As IAsyncResult)
+             
+                    Try
+                        Dim results As ResultIsAvailableCollection = whoIs.GlobalIsAvailableAsyncResult(state)
+             
+                        Dim result As ResultIsAvailable
+                        For Each result In results
+             
+                          Console.WriteLine(result.ServerUsed.Host)
+             
+                          If (Not (result.Error Is Nothing)) Then
+                             Console.WriteLine(result.Error.ToString())
+                          Else
+                            If (result.IsAvailable = True) Then
+                                Console.WriteLine("The domain is available for registration ({0}).", result.ServerUsed.Domain)
+                            Else
+                                Console.WriteLine("The domain is NOT available for registration ({0}).", result.ServerUsed.Domain)
+                            End If
+             
+                          End If
+             
+                        Console.WriteLine("press enter to continue")
+                        Console.ReadLine()
+             
+                       Next result
+             
+                    Catch ex As Exception
+                        Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+             
+                    End Try
+             
+                End Sub
+                </code>
+            </example>
+            <param name="domainToQuery">Top level domain to query.</param>
+            <param name="callBack">Call back function.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalIsAvailable(ActiveUp.Net.WhoIs.ServerCollection,System.String)">
+            <summary>
+             Checks if a domain is available for registration specifying the list of whois servers and the top leve domain to query.
+             </summary>
+            <returns>ResultIsAvailableCollection object contening all the informations about the query.</returns>
+            <example>
+            	<code lang="CS">
+            try
+                {
+                    ServerCollection servers = new ServerCollection();
+             
+                    Server server1 = new Server();
+                    server1.Host = "whois.networksolutions.com";
+                    server1.Port = 43;
+                    server1.Domain = ".com";
+                    server1.NoMatch = "no match";
+                    servers.Add(server1);
+                        
+                    Server server2 = new Server();
+                    server2.Host = "whois.nic.co.uk";
+                    server2.Port = 43;
+                    server2.Domain = ".co.uk";
+                    server2.NoMatch = "no match";
+                    servers.Add(server2);
+                
+                    WhoIs whoIs = new WhoIs();
+                    ResultIsAvailableCollection results = whoIs.GlobalIsAvailable(servers,"activeup");
+             
+                    foreach(ResultIsAvailable result in results)
+                    {
+                        Console.WriteLine(result.ServerUsed.Host);
+             
+                        if (result.Error != null)
+                            Console.WriteLine(result.Error.ToString());
+                        else
+                        {
+             
+                            if (result.IsAvailable == true)
+                                Console.WriteLine("The domain is available for registration ({0}).",result.ServerUsed.Domain);
+                            else
+                                Console.WriteLine("The domain is NOT available for registration ({0}).",result.ServerUsed.Domain);
+                        }
+                                            
+                        Console.WriteLine("press enter to continue...");
+                        Console.ReadLine();
+                    }
+                }
+             
+                catch(Exception ex)
+                {
+                    Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+                }
+            </code>
+            	<code lang="VB" title="VB.NET">
+            Try
+             
+                    Dim servers As ServerCollection = New ServerCollection()
+             
+                    Dim server1 As Server = New Server()
+                    server1.Host = "whois.networksolutions.com"
+                    server1.Port = 43
+                    server1.Domain = ".com"
+                    server1.NoMatch = "no match"
+                    servers.Add(server1)
+             
+                    Dim server2 As Server = New Server()
+                    server2.Host = "whois.nic.co.uk"
+                    server2.Port = 43
+                    server2.Domain = ".co.uk"
+                    server2.NoMatch = "no match"
+                    servers.Add(server2)
+             
+                    Dim whoIs As New Whois()
+                    Dim results As ResultIsAvailableCollection = whoIs.GlobalIsAvailable(servers,"activeup")
+             
+                    Dim result As ResultIsAvailable
+                    For Each result In results
+                        Console.WriteLine(result.ServerUsed.Host)
+             
+                        If (Not (result.Error Is Nothing)) Then
+                            Console.WriteLine(result.Error.ToString())
+                        Else
+                            If (result.IsAvailable = True) Then
+                                Console.WriteLine("The domain is available for registration ({0}).", result.ServerUsed.Domain)
+                            Else
+                                Console.WriteLine("The domain is NOT available for registration ({0}).", result.ServerUsed.Domain)
+                            End If
+             
+                        End If
+             
+                    Console.WriteLine("press enter to continue")
+                    Console.ReadLine()
+             
+                    Next result
+             
+                Catch ex As Exception
+                    Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+             
+                End Try
+            </code>
+            </example>
+            <param name="servers">Whois servers list.</param>
+            <param name="domainToQuery">Top level domain to query.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalIsAvailableAsync(ActiveUp.Net.WhoIs.ServerCollection,System.String,System.AsyncCallback)">
+            <summary>
+             Checks if a domain is available for registration specifying the list of whois servers and the top leve domain to query asynchronously.
+             </summary>
+            <returns>Result of the global 'is available' query.</returns>
+            <example>
+            	<code lang="CS">
+            Whois whoIs = new WhoIs();
+             
+            ServerCollection servers = new ServerCollection();
+                
+                Server server1 = new Server();
+                server1.Host = "whois.networksolutions.com";
+                server1.Port = 43;
+                server1.Domain = ".com";
+                server1.NoMatch = "no match";
+                servers.Add(server1);
+                
+            Server server2 = new Server();
+            server2.Host = "whois.nic.co.uk";
+            server2.Port = 43;
+            server2.Domain = ".co.uk";
+            server2.NoMatch = "no match";
+            servers.Add(server2);
+             
+            IAsyncResult state = whoIs.GlobalIsAvailableAsync(servers,"activeup",new AsyncCallback(MyCallbackGlobalIsAvailable));
+             
+                public void MyCallbackGlobalIsAvailable(IAsyncResult state)
+                {
+                    try
+                    {
+                        ResultIsAvailableCollection results = whoIs.GlobalIsAvailableAsyncResult(state);
+             
+                        foreach(ResultIsAvailable result in results)
+                        {
+                            Console.WriteLine(result.ServerUsed.Host);
+             
+                            if (result.Error != null)
+                                Console.WriteLine(result.Error.ToString());
+                            else
+                            {
+                                if (result.IsAvailable == true)
+                                    Console.WriteLine("The domain is available for registration ({0}).",result.ServerUsed.Domain);
+                                else
+                                    Console.WriteLine("The domain is NOT available for registration ({0}).",result.ServerUsed.Domain);
+                            }
+                                            
+                            Console.WriteLine("press enter to continue...");
+                            Console.ReadLine();
+                       }
+                    }
+             
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+                    }
+                }
+            </code>
+            	<code lang="VB" title="VB.NET">
+            Dim whoIs As WhoIs = New WhoIs()
+             
+                Dim servers As ServerCollection = New ServerCollection()
+             
+                Dim server1 As Server = New Server()
+                server1.Host = "whois.networksolutions.com"
+                server1.Port = 43
+                server1.Domain = ".com"
+                server1.NoMatch = "no match"
+                servers.Add(server1)
+             
+                Dim server2 As Server = New Server()
+                server2.Host = "whois.nic.co.uk"
+                server2.Port = 43
+                server2.Domain = ".co.uk"
+                server2.NoMatch = "no match"
+                servers.Add(server2)    
+             
+            Dim state As IAsyncResult = whoIs.GlobalIsAvailableAsync(servers,"activeup", New AsyncCallback(AddressOf MyCallBackGlobalIsAvailable))
+             
+            Public Sub MyCallBackGlobalIsAvailable(ByVal state As IAsyncResult)
+             
+                    Try
+                        Dim results As ResultIsAvailableCollection = whoIs.GlobalIsAvailableAsyncResult(state)
+             
+                        Dim result As ResultIsAvailable
+                        For Each result In results
+             
+                          Console.WriteLine(result.ServerUsed.Host)
+             
+                          If (Not (result.Error Is Nothing)) Then
+                             Console.WriteLine(result.Error.ToString())
+                          Else
+                            If (result.IsAvailable = True) Then
+                                Console.WriteLine("The domain is available for registration ({0}).", result.ServerUsed.Domain)
+                            Else
+                                Console.WriteLine("The domain is NOT available for registration ({0}).", result.ServerUsed.Domain)
+                            End If
+             
+                          End If
+             
+                        Console.WriteLine("press enter to continue")
+                        Console.ReadLine()
+             
+                       Next result
+             
+                    Catch ex As Exception
+                        Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+             
+                    End Try
+             
+                End Sub
+                </code>
+            </example>
+            <param name="servers">Whois servers list.</param>
+            <param name="domainToQuery">Top level domain to query.</param>
+            <param name="callBack">Call back function.</param>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalIsAvailableAsyncResult(System.IAsyncResult)">
+            <summary>
+            Result of the asynchronously query.
+            </summary>
+            <param name="state">State of the operation.</param>
+            <returns>Result of the global whois server query.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs.GlobalIsAvailableAsyncWait(System.IAsyncResult)">
+            <example>
+            	<code lang="CS">
+            Whois whoIs = new WhoIs();
+            IAsyncResult state = whoIs.GlobalIsAvailableAsync("activeup",new AsyncCallback(MyCallbackGlobalIsAvailable));
+            whoIs.GlobalIsAvailableAsyncWait(state);
+             
+                public void MyCallbackGlobalIsAvailable(IAsyncResult state)
+                {
+                    try
+                    {
+                        ResultIsAvailableCollection results = whoIs.GlobalIsAvailableAsyncResult(state);
+             
+                        foreach(ResultIsAvailable result in results)
+                        {
+                            Console.WriteLine(result.ServerUsed.Host);
+             
+                            if (result.Error != null)
+                                Console.WriteLine(result.Error.ToString());
+                            else
+                            {
+                                if (result.IsAvailable == true)
+                                    Console.WriteLine("The domain is available for registration ({0}).",result.ServerUsed.Domain);
+                                else
+                                    Console.WriteLine("The domain is NOT available for registration ({0}).",result.ServerUsed.Domain);
+                            }
+                                            
+                            Console.WriteLine("press enter to continue...");
+                            Console.ReadLine();
+                       }
+                    }
+             
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("An unhandled exception was thrown : " + ex.Message);
+                    }
+                }
+            </code>
+            	<code lang="VB" title="VB.NET">
+            Dim whoIs As WhoIs = New WhoIs()
+            Dim state As IAsyncResult = whoIs.GlobalIsAvailableAsync("activeup", New AsyncCallback(AddressOf MyCallBackGlobalIsAvailable))
+            whoIs.GlobalIsAvailableAsyncWait(state)
+             
+            Public Sub MyCallBackGlobalIsAvailable(ByVal state As IAsyncResult)
+             
+                    Try
+                        Dim results As ResultIsAvailableCollection = whoIs.GlobalIsAvailableAsyncResult(state)
+             
+                        Dim result As ResultIsAvailable
+                        For Each result In results
+             
+                          Console.WriteLine(result.ServerUsed.Host)
+             
+                          If (Not (result.Error Is Nothing)) Then
+                             Console.WriteLine(result.Error.ToString())
+                          Else
+                            If (result.IsAvailable = True) Then
+                                Console.WriteLine("The domain is available for registration ({0}).", result.ServerUsed.Domain)
+                            Else
+                                Console.WriteLine("The domain is NOT available for registration ({0}).", result.ServerUsed.Domain)
+                            End If
+             
+                          End If
+             
+                        Console.WriteLine("press enter to continue")
+                        Console.ReadLine()
+             
+                       Next result
+             
+                    Catch ex As Exception
+                        Console.WriteLine("An unhandled exception was thrown : " + ex.Message)
+             
+                    End Try
+             
+                End Sub
+                </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoIs._GlobalIsAvailable(ActiveUp.Net.WhoIs.ServerCollection,System.String)">
+            <summary>
+            Checks if a domain is available for registration specifying the list of whois servers and the top leve domain to query.
+            </summary>
+            <param name="servers">Whois servers list.</param>
+            <param name="domainToQuery">Top level domain to query.</param>
+            <returns>ResultIsAvailableCollection object contening all the informations about the query.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.WhoIs.Servers">
+            <summary>
+            Gets / sets the default whois servers collection.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.WhoIs.WhoisException">
+            <summary>
+            Represents a WhoIs specific error.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.WhoIs.WhoisException._message">
+            <summary>
+            Message contains the error message.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.WhoIs.WhoisException.#ctor(System.String)">
+            <summary>
+            Constructor, sets message to the specified value.
+            </summary>
+            <param name="message">Message contains the error.</param>
+        </member>
+        <member name="P:ActiveUp.Net.WhoIs.WhoisException.Message">
+            <summary>
+            Gets the exception's message.
+            </summary>
+        </member>
+    </members>
+</doc>

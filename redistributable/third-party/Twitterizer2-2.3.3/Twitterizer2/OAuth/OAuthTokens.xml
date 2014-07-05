@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OAuthTokens>
+  <OAuthTokens>
+    <summary>Contains security tokens nessisary for performing authorized actions against the Twitter API</summary>
+    <seealso cref="Twitterizer.OAuthUtility" />
+    <example>
+      To perform authorized actions, you must create a new <c>OAuthTokens</c> variable and supply values for the <see cref="OAuthTokens.ConsumerKey"/>, <see cref="OAuthTokens.ConsumerSecret" />, <see cref="OAuthTokens.AccessToken" />, and <see cref="OAuthTokens.AccessTokenSecret" /> properties, as follows:
+      <code lang="cs">
+        OAuthTokens tokens = new OAuthTokens();
+        tokens.AccessToken = "XXX";
+        tokens.AccessTokenSecret = "XXX";
+        tokens.ConsumerKey = "XXX";
+        tokens.ConsumerSecret = "XXX";
+      </code>
+      <code lang="vb">
+        Dim tokens As new OAuthTokens();
+        tokens.AccessToken = "XXX"
+        tokens.AccessTokenSecret = "XXX"
+        tokens.ConsumerKey = "XXX"
+        tokens.ConsumerSecret = "XXX"
+      </code>
+    </example>
+  </OAuthTokens>
+</OAuthTokens>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    xmlns:stream='http://etherx.jabber.org/streams'
+    targetNamespace='http://jabber.org/protocol/httpbind'
+    xmlns='http://jabber.org/protocol/httpbind'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0124: http://www.xmpp.org/extensions/xep-0124.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:import namespace='http://www.w3.org/XML/1998/namespace'
+             schemaLocation='http://www.w3.org/2001/03/xml.xsd'/>
+
+  <xs:element name='body'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element name='uri'
+                minOccurs='0'
+                maxOccurs='1'
+                type='xs:string'/>
+        <xs:any namespace='##other'
+                minOccurs='0'
+                maxOccurs='unbounded'
+                processContents='lax'/>
+      </xs:choice>
+      <xs:attribute name='accept' type='xs:string' use='optional'/>
+      <xs:attribute name='ack' type='xs:positiveInteger' use='optional'/>
+      <xs:attribute name='authid' type='xs:string' use='optional'/>
+      <xs:attribute name='charsets' type='xs:NMTOKENS' use='optional'/>
+      <xs:attribute name='condition' use='optional'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='host-gone'/>
+            <xs:enumeration value='host-unknown'/>
+            <xs:enumeration value='improper-addressing'/>
+            <xs:enumeration value='internal-server-error'/>
+            <xs:enumeration value='remote-connection-failed'/>
+            <xs:enumeration value='remote-stream-error'/>
+            <xs:enumeration value='see-other-uri'/>
+            <xs:enumeration value='system-shutdown'/>
+            <xs:enumeration value='undefined-condition'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name='content' type='xs:string' use='optional'/>
+      <xs:attribute name='from' type='xs:string' use='optional'/>
+      <xs:attribute name='hold' type='xs:unsignedByte' use='optional'/>
+      <xs:attribute name='inactivity' type='xs:unsignedShort' use='optional'/>
+      <xs:attribute name='key' type='xs:string' use='optional'/>
+      <xs:attribute name='maxpause' type='xs:unsignedShort' use='optional'/>
+      <xs:attribute name='newkey' type='xs:string' use='optional'/>
+      <xs:attribute name='pause' type='xs:unsignedShort' use='optional'/>
+      <xs:attribute name='polling' type='xs:unsignedShort' use='optional'/>
+      <xs:attribute name='report' type='xs:positiveInteger' use='optional'/>
+      <xs:attribute name='requests' type='xs:unsignedByte' use='optional'/>
+      <xs:attribute name='rid' type='xs:positiveInteger' use='optional'/>
+      <xs:attribute name='route' type='xs:string' use='optional'/>
+      <xs:attribute name='sid' type='xs:string' use='optional'/>
+      <xs:attribute name='stream' type='xs:string' use='optional'/>
+      <xs:attribute name='time' type='xs:unsignedShort' use='optional'/>
+      <xs:attribute name='to' type='xs:string' use='optional'/>
+      <xs:attribute name='type' use='optional'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='error'/>
+            <xs:enumeration value='terminate'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name='ver' type='xs:string' use='optional'/>
+      <xs:attribute name='wait' type='xs:unsignedShort' use='optional'/>
+      <xs:attribute ref='xml:lang' use='optional'/>
+      <xs:anyAttribute namespace='##other' processContents='lax'/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3BE01581-4ECA-4104-8306-F16652330FEA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Xmpp.Server</RootNamespace>
+    <AssemblyName>ASC.Xmpp.Server</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>false</SignAssembly>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>http://localhost/ASC.Xmpp.Server/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Core.Common">
+      <HintPath>..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Xmpp.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Xmpp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.60.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\db\sqlite\System.Data.SQLite.DLL</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authorization\AuthManager.cs" />
+    <Compile Include="Authorization\AuthDigestMD5Handler.cs" />
+    <Compile Include="Authorization\AuthIQHandler.cs" />
+    <Compile Include="Authorization\AuthHandshakeHandler.cs" />
+    <Compile Include="Authorization\AuthTMTokenHandler.cs" />
+    <Compile Include="Authorization\XmppFailureError.cs" />
+    <Compile Include="Configuration\IConfigurable.cs" />
+    <Compile Include="Configuration\JabberConfiguration.cs" />
+    <Compile Include="Configuration\JabberConfigurationCollection.cs" />
+    <Compile Include="Configuration\JabberConfigurationElement.cs" />
+    <Compile Include="Configuration\JabberConfigurationSection.cs" />
+    <Compile Include="Configuration\Schema.cs" />
+    <Compile Include="Configuration\ServiceConfigurationCollection.cs" />
+    <Compile Include="Configuration\ServiceConfigurationElement.cs" />
+    <Compile Include="Gateway\SignalRXmppConnection.cs" />
+    <Compile Include="Gateway\SignalRXmppListener.cs" />
+    <Compile Include="Gateway\TcpSslXmppConnection.cs" />
+    <Compile Include="Handler\XmppXMLSchemaValidator.cs" />
+    <Compile Include="JabberException.cs" />
+    <Compile Include="ReverseJabberServiceClient.cs" />
+    <Compile Include="ReverseJabberServiceClientWcf.cs" />
+    <Compile Include="Services\Jabber\CommandHandler.cs" />
+    <Compile Include="Services\Jabber\TransferHandler.cs" />
+    <Compile Include="Services\Jabber\MessageArchiveHandler.cs" />
+    <Compile Include="Services\Jabber\DiscoHandler.cs" />
+    <Compile Include="Services\Jabber\RegisterHandler.cs" />
+    <Compile Include="Services\Jabber\MessageAnnounceHandler.cs" />
+    <Compile Include="Services\Jabber\LastHandler.cs" />
+    <Compile Include="Services\Muc2\Room\Member\MucRoomMemberInfo.cs" />
+    <Compile Include="Services\Muc2\Room\Settings\MucRoomInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Multicast\MulticastHandler.cs" />
+    <Compile Include="Services\Multicast\MulticastService.cs" />
+    <Compile Include="Services\VCardSearch\VCardSearchHandler.cs" />
+    <Compile Include="Services\VCardSearch\VCardSearchService.cs" />
+    <Compile Include="Session\ClientInfo.cs" />
+    <Compile Include="SignalRHelper.cs" />
+    <Compile Include="Statistics\NetStatistics.cs" />
+    <Compile Include="Storage\DbMessageArchive.cs" />
+    <Compile Include="Storage\LastActivity.cs" />
+    <Compile Include="Utils\IdleWatcher.cs" />
+    <Compile Include="XmppServer.cs" />
+    <Compile Include="XmppStanzaError.cs" />
+    <Compile Include="Gateway\BoshXmppConnection.cs" />
+    <Compile Include="Gateway\BoshXmppHelper.cs" />
+    <Compile Include="Gateway\BoshXmppListener.cs" />
+    <Compile Include="Gateway\IXmppListener.cs" />
+    <Compile Include="Gateway\IXmppReceiver.cs" />
+    <Compile Include="Gateway\IXmppSender.cs" />
+    <Compile Include="Gateway\TcpXmppConnection.cs" />
+    <Compile Include="Gateway\TcpXmppListener.cs" />
+    <Compile Include="Gateway\XmppGateway.cs" />
+    <Compile Include="Gateway\XmppListenerBase.cs" />
+    <Compile Include="Handler\XmppStreamHandler.cs" />
+    <Compile Include="Handler\IXmppHandler.cs" />
+    <Compile Include="Handler\XmppStanzaHandler.cs" />
+    <Compile Include="Handler\XmppHandlerStorage.cs" />
+    <Compile Include="Handler\XmppStreamValidator.cs" />
+    <Compile Include="Services\Jabber\MessageHandler.cs" />
+    <Compile Include="Services\Jabber\OfflineProvider.cs" />
+    <Compile Include="Services\Jabber\PresenceHandler.cs" />
+    <Compile Include="Services\Jabber\JabberService.cs" />
+    <Compile Include="Services\Jabber\BindSessionHandler.cs" />
+    <Compile Include="Services\Jabber\RosterHandler.cs" />
+    <Compile Include="Services\Jabber\VCardHandler.cs" />
+    <Compile Include="Services\Jabber\VerTimePingHandler.cs" />
+    <Compile Include="Services\Muc2\Exceptions\MucMemberExistsException.cs" />
+    <Compile Include="Services\Muc2\Helpers\MucHelpers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Muc2\MucStanzaHandler.cs" />
+    <Compile Include="Services\Muc2\Room\Member\MucRoomMember.cs" />
+    <Compile Include="Services\Muc2\Room\Member\MucRoomMemberDiscoHandler.cs" />
+    <Compile Include="Services\Muc2\Room\Member\MucRoomMemberStanzaHandler.cs" />
+    <Compile Include="Services\Muc2\Room\MucRoom.cs" />
+    <Compile Include="Services\Muc2\Room\MucRoomMemberCollection.cs" />
+    <Compile Include="Services\Muc2\Room\MucRoomStanzaHandler.cs" />
+    <Compile Include="Services\Muc2\Room\Settings\MucRoomSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\ServiceDiscoHandler.cs" />
+    <Compile Include="Services\XmppServiceBase.cs" />
+    <Compile Include="Services\XmppServiceManager.cs" />
+    <Compile Include="Session\XmppSessionArgs.cs" />
+    <Compile Include="Streams\ComponentNamespaceHandler.cs" />
+    <Compile Include="Handler\IXmppStreamStartHandler.cs" />
+    <Compile Include="Handler\IXmppStanzaHandler.cs" />
+    <Compile Include="Handler\IXmppStreamHandler.cs" />
+    <Compile Include="Streams\ClientNamespaceHandler.cs" />
+    <Compile Include="Handler\XmppHandlerAttribute.cs" />
+    <Compile Include="Handler\XmppHandlerContext.cs" />
+    <Compile Include="Handler\XmppHandlerManager.cs" />
+    <Compile Include="Gateway\XmppSender.cs" />
+    <Compile Include="Services\Jabber\PrivateHandler.cs" />
+    <Compile Include="Gateway\IXmppConnection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IXmppService.cs" />
+    <Compile Include="Services\Muc2\MucService.cs" />
+    <Compile Include="Session\XmppSession.cs" />
+    <Compile Include="Session\XmppSessionManager.cs" />
+    <Compile Include="Storage\DbMucStore.cs" />
+    <Compile Include="Storage\DbOfflineStore.cs" />
+    <Compile Include="Storage\DbPrivateStore.cs" />
+    <Compile Include="Storage\DbRosterStore.cs" />
+    <Compile Include="Storage\DbStoreBase.cs" />
+    <Compile Include="Storage\DbUserStore.cs" />
+    <Compile Include="Storage\Interface\IMucStore.cs" />
+    <Compile Include="Storage\Interface\IOfflineStore.cs" />
+    <Compile Include="Storage\Interface\IPrivateStore.cs" />
+    <Compile Include="Storage\Interface\IRosterStore.cs" />
+    <Compile Include="Storage\Interface\IUserStore.cs" />
+    <Compile Include="Storage\Interface\IVCardStore.cs" />
+    <Compile Include="Storage\StorageManager.cs" />
+    <Compile Include="Users\User.cs" />
+    <Compile Include="Storage\UserRosterItem.cs" />
+    <Compile Include="Storage\DbVCardStore.cs" />
+    <Compile Include="Streams\XmppStream.cs" />
+    <Compile Include="Streams\XmppStreamManager.cs" />
+    <Compile Include="Users\UserManager.cs" />
+    <Compile Include="Utils\PathUtils.cs" />
+    <Compile Include="Utils\UniqueId.cs" />
+    <Compile Include="Utils\XDataUtils.cs" />
+    <Compile Include="XmppStreamError.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="crossdomain.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile->'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath->'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

@@ -1,0 +1,567 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+
+.userProfileCard {
+
+    .additionInfo{
+         border: 1px solid #BFBFBF;
+         border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+         float:left; 
+         text-align:center;
+         width:auto;
+
+        .pendingPhotoUser {
+            position:relative;
+        }
+        .pendingInfo {
+            top:76px;
+        }
+        a.thumbnailPhoto {
+            margin-top: 5px;
+        }
+
+         .action-block {
+            border-top: 1px solid #BFBFBF;
+            cursor: pointer;
+            padding: 8px 0;
+            text-align: center;
+            vertical-align:middle;    
+            width: 200px;
+        }
+    }
+
+     .userInfo {        
+        clear:right;
+        margin:0 0 0 230px;
+
+        table.info {            
+            border:0; 
+            border-collapse:collapse;
+            margin:0; 
+            padding:0;
+   
+             tr.field td{        
+                border:0; 
+                border-collapse:collapse;
+                margin:0; 
+                padding:8px 0;
+                width:auto;
+
+                div.hint{padding:10px 0 0 0;text-align:left;}
+            }
+            &.name{white-space:nowrap; text-align:right;}
+            &.social{
+                padding-top:17px;
+
+                .socialAccount{
+                    float:right;
+                    margin:2px 5px 0 0;
+                }
+
+                .help_center { 
+                    float: right;
+
+                    .linkDescribe {margin: 0 9px 0 8px;}
+                }
+            }
+            &.value{
+                padding-left:20px; 
+                text-align:left;
+                max-width: 370px; 
+                word-wrap: break-word;
+
+                div.row {
+                    border-top:1px solid #D1D1D1;                    
+                    height:1px;
+                    width:100%;
+                }
+
+                &.contact{
+                    a, span {
+                        background:none left center no-repeat;                         
+                        display:inline-block;
+                        height:18px; 
+                        line-height:18px;
+                        outline:none;
+                        padding:0 0 0 25px;
+                    }
+                    .aim{background-image:url(./images/sc_aim.png);}
+                    .primarymobile{background-image:url(./images/sc_mobile_key.png);}
+                    .mail{background-image:url(./images/sc_mail.png);}
+                    .facebook{background-image:url(./images/sc_facebook.png);}
+                    .livejournal{background-image:url(./images/sc_livejournal.png);}
+                    .myspace{background-image:url(./images/sc_myspace.png);}
+                    .yahoo{background-image:url(./images/sc_yahoo.png);}
+                    .jabber{background-image:url(./images/sc_jabber.png);}
+                    .skype{background-image:url(./images/sc_skype.png);}
+                    .twitter{background-image:url(./images/sc_twitter.png);}
+                    .blogger{background-image:url(./images/sc_blogger.png);}
+                    .msn{background-image:url(./images/sc_msn.png);}
+                    .icq{background-image:url(./images/sc_icq.png);}
+                    .gtalk{background-image:url(./images/sc_gtalk.png);}
+                    .gbuzz{background-image:url(./images/sc_gbuzz.png);}
+                    .gmail{background-image:url(./images/sc_gmail.png);}
+                    .phone{background-image:url(./images/sc_phone.png);}
+                    .mobphone{background-image:url(./images/sc_mobile.png);}
+                }
+            }
+        }
+    }
+}
+
+
+.userProfileCard .userInfo table.info tr.terminatedStatus {
+    height: 30px;
+
+    td.terminatedTitle {
+        text-align: right;
+        width: 110px;
+    }
+    td.terminatedDate {
+        padding-left: 20px;
+    }
+}
+.userProfileCard .userInfo table.info tr.editDeleteUserBox {
+    height: 30px;
+
+    td.editDeleteUser{
+         color:#272727 !important;
+         padding-top: 20px;
+    }
+}
+
+.editUser {
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+    margin-top: 20px;
+    padding-top: 10px;
+
+    a {
+        margin-right:10px;
+    }
+    .editUserLink {
+        float: left;
+        margin-right: 16px;
+    }
+}
+#studio_emailOperationContent .userEmailEdit {
+    margin: 5px 0 15px 0px;
+}
+#studio_emailOperationContent .userEmailEdit input {
+    width: 99%;
+}
+
+#studio_emailOperationResult {
+    display: none;
+    text-align: left;
+}
+#studio_emailOperationResult .userResultText {
+    margin: 5px 0 10px 0;
+    text-overflow: ellipsis;
+    overflow: hidden;    
+}
+#remove_content .buttons a {
+    float: left;
+    margin-right: 8px;
+}
+
+.profile-container {
+    margin: 32px 0 0;
+}
+.image-container {
+    border: 1px solid #C9C9C9;
+    width: 200px;
+    float: left;
+    position: relative;
+}
+
+.image-container img {
+    display: block;
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 0;
+}
+
+.image-container button {
+    display: block;
+    background: #EBEBEB;
+    border: 1px solid #EBEBEB;
+    width: 140px;
+    height: 24px;
+    line-height: 24px;
+    margin: 0 0 0 -70px;
+    padding: 0;
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    z-index: 1;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.image-container button .inner-text {
+    display: inline-block;
+    border-bottom: 1px dotted #3A3A3A;
+    line-height: normal;
+    color: #3A3A3A;
+    font-size: 10px;
+}
+
+.profile-info .info {
+    width: 100%;
+    table-layout: fixed;
+}
+.profile-info .info td {
+    width: 50%;
+    vertical-align: top;
+}
+.profile-info .field {
+    font-size: 12px;
+    padding: 4px 0;
+}
+.profile-info .field .field-title,
+.profile-info .field .field-value {
+    display: inline-block;
+}
+.profile-info .field .field-value {
+    max-width: 500px;
+}
+@media all and (max-width: 1200px) {
+    .profile-info .field .field-value {
+        max-width: 320px;
+    }
+}
+.profile-info .field .field-value,
+.profile-info .field a {
+    color: #333;
+}
+
+.profile-info .field .field-title 
+{
+    overflow: hidden;
+    text-overflow: ellipsis;    
+    vertical-align: top;
+    width: 130px;
+}
+
+.profile-comment {
+    clear: both;
+}
+
+.info-container {
+    margin: 0 0 0 224px;
+}
+.profile-container .baseLinkAction {
+    border-color: #333;
+    color: #333;
+}
+.profile-contacts,
+.social-links {
+    .contacts {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        .contact {
+            display: inline-block;
+            max-width: 350px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: top;
+            white-space: nowrap;
+        }
+
+            .contact .profile-contact {
+                margin: 4px 20px 4px 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+                .contact .profile-contact .label {
+                    display: block;
+                    background: url(./images/social-icons-small.png) 0 center no-repeat transparent;
+                    height: 16px;
+                    line-height: 16px;
+                    padding: 0 0 0 24px;
+                    color: #000;
+                    text-decoration: none;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .contact .profile-contact a.label:hover {
+                    text-decoration: underline;
+                }
+
+                .contact .profile-contact .inner-text {
+                    display: block;
+                    background: #FFF;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .contact .profile-contact.aim .label {
+                    background-position: -168px center;
+                }
+
+                .contact .profile-contact.primarymobile .label {
+                    background-position: -48px center;
+                }
+
+                .contact .profile-contact.mail .label {
+                    background-position: -24px center;
+                }
+
+                .contact .profile-contact.facebook .label {
+                    background-position: -240px center;
+                }
+
+                .contact .profile-contact.livejournal .label {
+                    background-position: -312px center;
+                }
+
+                .contact .profile-contact.myspace .label {
+                    background-position: -360px center;
+                }
+
+                .contact .profile-contact.yahoo .label {
+                    background-position: -288px center;
+                }
+
+                .contact .profile-contact.jabber .label {
+                    background-position: -144px center;
+                }
+
+                .contact .profile-contact.skype .label {
+                    background-position: -120px center;
+                }
+
+                .contact .profile-contact.twitter .label {
+                    background-position: -264px center;
+                }
+
+                .contact .profile-contact.blogger .label {
+                    background-position: -336px center;
+                }
+
+                .contact .profile-contact.msn .label {
+                    background-position: -192px center;
+                }
+
+                .contact .profile-contact.icq .label {
+                    background-position: -216px center;
+                }
+
+                .contact .profile-contact.gtalk .label {
+                    background-position: -96px center;
+                }
+
+                .contact .profile-contact.gbuzz .label {
+                    background-position: -96px center;
+                }
+
+                .contact .profile-contact.gmail .label {
+                    background-position: -96px center;
+                }
+
+                .contact .profile-contact.phone .label {
+                    background-position: -48px center;
+                }
+
+                .contact .profile-contact.mobphone .label {
+                    background-position: -72px center;
+                }
+    }
+}
+.profile-info .baseLinkAction {    
+    background: url(./images/btn-edit.png) no-repeat 0 0 transparent;
+    border: 0;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 -3px 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #FFF !important;
+}
+
+.profile-info .baseLinkAction:hover {
+    background-position: bottom;
+}
+/* </tabsNavigation> */
+
+
+/* <AccountLinkControl> */
+.social-logins #accountLinks ul {
+    display: block;
+    height: 80px;
+}
+.social-logins #accountLinks ul li {
+    background: none;
+    width: auto;
+    min-width: 100px;
+    line-height: normal;
+    margin: 0 0 0 52px;
+    padding: 0;
+    float: left;
+    white-space: nowrap;
+}
+@media all and (max-width: 1200px) {
+    .social-logins #accountLinks ul li {
+        margin: 0 0 0 10px;
+    }
+}
+.social-logins #accountLinks ul li:first-child {
+    margin-left: 0;
+}
+.social-logins #accountLinks ul li span {
+    display: block;
+    margin: 8px 0 0;
+    color: #787878;
+}
+@media all and (max-width: 1200px)  {
+    .social-logins #accountLinks ul li span {
+        max-width: 100px;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+}
+.social-logins #accountLinks ul li a {
+    display: inline-block;
+    border-bottom: 1px dotted #000000;
+    margin: 4px 0 0;
+    color: #000000;
+    text-decoration: none;
+}
+.social-logins #accountLinks ul li .label {
+    display: block;
+    background: url(./images/social-icons.png) 0 0 no-repeat;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+}
+.social-logins #accountLinks ul li.google .label { background-position: -96px 0; }
+.social-logins #accountLinks ul li.google.connected .label { background-position: -96px -32px; }
+.social-logins #accountLinks ul li.twitter .label { background-position: -64px 0; }
+.social-logins #accountLinks ul li.twitter.connected .label { background-position: -64px -32px; }
+.social-logins #accountLinks ul li.facebook .label {  background-position: -32px 0; }
+.social-logins #accountLinks ul li.facebook.connected .label { background-position: -32px -32px; }
+.social-logins #accountLinks ul li.linkedin .label { background-position: -128px 0; }
+.social-logins #accountLinks ul li.linkedin.connected .label { background-position: -128px -32px; }
+/* </AccountLinkControl> */
+
+/* language */
+#LanguageSelector {
+  width: 103px;
+  float: right;
+  text-align: left;
+}
+
+/*----------------Custom select------------------------*/
+
+span.selector {
+    background: url("images/triangle_grey_tree-down.png") no-repeat scroll left center transparent;
+    height: 20px;
+    margin-left: 5px;
+    position: absolute;
+    width: 16px;
+    z-index: 0;
+}
+
+.birthday-fest
+{
+    background: url("images/birthday.png") 0 0 no-repeat;
+    color: #ff9000;
+    display: inline-block;
+    margin: -4px 3px 0;
+    padding: 3px 0 4px 20px;
+    }
+.profile-info .field.birthday a
+{
+    color:#666;
+    }     
+.profile-user-photo 
+{
+    position: relative;
+    width:200px;
+    }  
+.profile-user-photo .profile-action-usericon {
+    width: 200px;    
+}     
+.profile-user-photo .profile-action-usericon img 
+{
+    border: none;
+    display: block;
+    margin:0 auto;
+    max-height: 320px;
+    max-width: 200px;
+    }         
+.profile-user-photo .profile-status {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #919191;
+    display: none;
+    opacity: 0.6;
+    position: absolute;
+    text-align: center;
+    width: auto;
+    
+     border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+} 
+
+.profile-user-photo .profile-status div {    
+    font-weight: bold;
+    padding: 42px 16px 5px;
+}
+
+.profile-user-photo .profile-status.pending div {
+    background:url("images/user-waiting.png") no-repeat center 7px transparent;
+    color: #333;
+    cursor: pointer;
+    }   
+.profile-user-photo .profile-status.blocked div {
+    background:url("images/user-blocked.png") no-repeat center 7px transparent;
+    color:#A83200;
+    }
+#studio_deleteProfileDialog .email
+{
+    padding-top:3px;   
+}

@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TwitterUser>
+  <TwitterUser>
+    <summary>
+      The <c>TwitterUser</c> class represents a twitter user account and provides methods for interacting with user-centric API methods.
+    </summary>
+  </TwitterUser>
+  
+  <Show name="Common">
+    <summary>
+      Returns extended information of a given user, specified by ID or screen name as per the required id parameter. The author's most recent status will be returned inline.
+    </summary>
+    <returns>
+      A new instance of the <see cref="Twitterizer.TwitterUser"/> class.
+    </returns>
+    <remarks>
+      This method interacts with the users/show API endpoint. Documentation can be found here: <a href="http://dev.twitter.com/doc/get/users/show">http://dev.twitter.com/doc/get/users/show</a>
+    </remarks>
+    <exception cref="System.ArgumentNullException">Indicates that a required argument was not supplied.</exception>
+    <exception cref="System.ArgumentException">Indicates that an argument supplied was not valid.</exception>
+  </Show>
+  
+  <Show name="ByIDWithTokensAndOptions">
+    <param name="tokens">The tokens.</param>
+    <param name="id">The user id.</param>
+    <param name="options">Optional parameters for runtime configuration settings.</param>
+    <example>
+      <code lang="cs">
+        // Declare the user's id variable
+        decimal userId = 1;
+        
+        // Declare the options object for configuration settings
+        OptionalProperties options = new OptionalProperties();
+
+        // Declare our user variable and fetch the user's details
+        TwitterResponse&lt;TwitterUser&gt; user = TwitterUser.Show(tokens, userId, options);
+      </code>
+      <code lang="vb">
+        '-- Declare the user's id variable
+        Dim userId As decimal = 1
+
+        '-- Declare the options object for configuration settings
+        Dim options As new OptionalProperties()
+
+        '-- Declare our user variable and fetch the user's details
+        Dim user As TwitterResponse(Of TwitterUser) = TwitterUser.Show(tokens, userId, options)
+      </code>
+      <seealso cref="Twitterizer.OAuthTokens" />
+      <seealso cref="Twitterizer.OptionalProperties" />
+    </example>
+  </Show>
+  
+  <Show name="ByIDWithOptions">
+    <param name="id">The user id.</param>
+    <param name="options">Optional parameters for runtime configuration settings.</param>
+    <example>
+      <code lang="cs">
+        // Declare the user's id variable
+        decimal userId = 1;
+
+        // Declare the options object for configuration settings
+        OptionalProperties options = new OptionalProperties();
+
+        // Declare our user variable and fetch the user's details
+        TwitterResponse&lt;TwitterUser&gt; user = TwitterUser.Show(userId, options);
+      </code>
+      <code lang="vb">
+        '-- Declare the user's id variable
+        Dim userId As decimal = 1
+
+        '-- Declare the options object for configuration settings
+        Dim options As new OptionalProperties()
+
+        '-- Declare our user variable and fetch the user's details
+        Dim user As TwitterResponse(Of TwitterUser) = TwitterUser.Show(userId, options)
+      </code>
+    </example>
+    <seealso cref="Twitterizer.OptionalProperties" />
+  </Show>
+
+  <Show name="ByIDWithTokens">
+    <param name="tokens">The tokens.</param>
+    <param name="id">The user id.</param>
+    <example>
+      <code lang="cs">
+        // Declare the user's id variable
+        decimal userId = 1;
+
+        // Declare our user variable and fetch the user's details
+        TwitterResponse&lt;TwitterUser&gt; user = TwitterUser.Show(tokens, userId);
+      </code>
+      <code lang="vb">
+        '-- Declare the user's id variable
+        Dim userId As decimal = 1
+
+        '-- Declare our user variable and fetch the user's details
+        Dim user As TwitterResponse(Of TwitterUser) = TwitterUser.Show(tokens, userId)
+      </code>
+    </example>
+    <seealso cref="Twitterizer.OAuthTokens" />
+  </Show>
+
+  <Show name="ByID">
+    <param name="id">The user id.</param>
+    <example>
+      <code lang="cs">
+        // Declare the user's id variable
+        decimal userId = 1;
+
+        // Declare our user variable and fetch the user's details
+        TwitterResponse&lt;TwitterUser&gt; user = TwitterUser.Show(userId);
+      </code>
+      <code lang="vb">
+        '-- Declare the user's id variable
+        Dim userId As decimal = 1
+
+        '-- Declare our user variable and fetch the user's details
+        Dim user As TwitterResponse(Of TwitterUser) = TwitterUser.Show(userId)
+      </code>
+    </example>
+  </Show>
+
+  <Show name="ByUsernameWithTokensAndOptions">
+    <param name="tokens">The tokens.</param>
+    <param name="username">The user name.</param>
+    <param name="options">The options.</param>
+    <example>
+      <code lang="cs">
+        // Declare the username variable
+        string userName = "twit_er_izer";
+
+        // Declare the options object for configuration settings
+        OptionalProperties options = new OptionalProperties();
+
+        // Declare our user variable and fetch the user's details
+        TwitterResponse&lt;TwitterUser&gt; user = TwitterUser.Show(tokens, userName, options);
+      </code>
+      <code lang="vb">
+        '-- Declare the user's id variable
+        Dim UserName As String = "twit_er_izer"
+
+        '-- Declare the options object for configuration settings
+        Dim options As new OptionalProperties()
+
+        '-- Declare our user variable and fetch the user's details
+        Dim user As TwitterResponse(Of TwitterUser) = TwitterUser.Show(tokens, UserName, options)
+      </code>
+      <seealso cref="Twitterizer.OAuthTokens" />
+      <seealso cref="Twitterizer.OptionalProperties" />
+    </example>
+  </Show>
+
+
+  <Show name="ByUsernameWithTokens">
+    <param name="tokens">The tokens.</param>
+    <param name="username">The user name.</param>
+    <example>
+      <code lang="cs">
+        // Declare the username variable
+        string userName = "twit_er_izer";
+
+        // Declare our user variable and fetch the user's details
+        TwitterResponse&lt;TwitterUser&gt; user = TwitterUser.Show(tokens, userName);
+      </code>
+      <code lang="vb">
+        '-- Declare the user's id variable
+        Dim UserName As String = "twit_er_izer"
+
+        '-- Declare our user variable and fetch the user's details
+        Dim user As TwitterResponse(Of TwitterUser) = TwitterUser.Show(tokens, UserName, options)
+      </code>
+      <seealso cref="Twitterizer.OAuthTokens" />
+    </example>
+  </Show>
+
+  <Show name="ByUsernameWithOptions">
+    <param name="username">The user name.</param>
+    <param name="options">The options.</param>
+    <example>
+      <code lang="cs">
+        // Declare the username variable
+        string userName = "twit_er_izer";
+
+        // Declare the options object for configuration settings
+        OptionalProperties options = new OptionalProperties();
+
+        // Declare our user variable and fetch the user's details
+        TwitterResponse&lt;TwitterUser&gt; user = TwitterUser.Show(userName, options);
+      </code>
+      <code lang="vb">
+        '-- Declare the user's id variable
+        Dim UserName As String = "twit_er_izer"
+
+        '-- Declare the options object for configuration settings
+        Dim options As new OptionalProperties()
+
+        '-- Declare our user variable and fetch the user's details
+        Dim user As TwitterResponse(Of TwitterUser) = TwitterUser.Show(UserName, options)
+      </code>
+      <seealso cref="Twitterizer.OptionalProperties" />
+    </example>
+  </Show>
+
+
+  <Show name="ByUsername">
+    <param name="username">The user name.</param>
+    <example>
+      <code lang="cs">
+        // Declare the username variable
+        string userName = "twit_er_izer";
+
+        // Declare our user variable and fetch the user's details
+        TwitterResponse&lt;TwitterUser&gt; user = TwitterUser.Show(userName);
+      </code>
+      <code lang="vb">
+        '-- Declare the user's id variable
+        Dim UserName As String = "twit_er_izer"
+
+        '-- Declare our user variable and fetch the user's details
+        Dim user As TwitterResponse(Of TwitterUser) = TwitterUser.Show(UserName)
+      </code>
+    </example>
+  </Show>
+
+  <Search name="Common">
+    <summary>
+      Run a search for users similar to the Find People button on Twitter.com; the same results returned by people search on Twitter.com will be returned by using this API.
+    </summary>
+    <remarks>
+      This method interacts with the users/search API endpoint. Documentation can be found here: <a href="http://dev.twitter.com/doc/get/users/search">http://dev.twitter.com/doc/get/users/search</a>
+    </remarks>
+    <exception cref="System.ArgumentNullException">Indicates that a required argument was not supplied.</exception>
+    <exception cref="System.ArgumentException">Indicates that an argument supplied was not valid.</exception>
+    <returns>
+      A <see cref="TwitterUserCollection"/> instance.
+    </returns>
+  </Search>
+  
+  <Search name="WithTokensAndOptions">
+    <param name="tokens">The OAuth access tokens.</param>
+    <param name="query">The search query.</param>
+    <param name="options">Optional parameters.</param>
+
+    <example>
+      <code lang="cs">
+        // Declare the search query
+        string query = "from:twit_er_izer @twitterapi";
+
+        // Declare the optional parameter object
+        UserSearchOptions options = new UserSearchOptions();
+        options.NumberPerPage = 10;
+        options.Page = 2;
+
+        // Perform the search
+        TwitterResponse&lt;TwitterUserCollection&gt; searchResults = TwitterUser.Search(oauthTokens, query, options);
+      </code>
+      <code lang="vb">
+        '-- Declare the search query
+        Dim Query As String = "from:twit_er_izer @twitterapi"
+
+        '-- Declare the optional parameter object
+        Dim options As new UserSearchOptions()
+        options.NumberPerPage = 10
+        options.Page = 2
+
+        '-- Perform the search
+        Dim searchResults As TwitterResponse(Of TwitterUserCollection) = TwitterUser.Search(oauthTokens, query, options)
+      </code>
+    </example>
+    
+    <seealso cref="Twitterizer.UserSearchOptions" />
+    <seealso cref="Twitterizer.OAuthTokens" />
+  </Search>
+
+  <Search name="WithTokens">
+    <param name="tokens">The OAuth access tokens.</param>
+    <param name="query">The search query.</param>
+    
+    <example>
+      <code lang="cs">
+        // Declare the search query
+        string query = "from:twit_er_izer @twitterapi";
+
+        // Perform the search
+        TwitterResponse&lt;TwitterUserCollection&gt; searchResults = TwitterUser.Search(oauthTokens, query);
+      </code>
+      <code lang="vb">
+        '-- Declare the search query
+        Dim Query As String = "from:twit_er_izer @twitterapi"
+
+        '-- Perform the search
+        Dim searchResults As TwitterResponse(Of TwitterUserCollection) = TwitterUser.Search(oauthTokens, query)
+      </code>
+    </example>
+
+    <seealso cref="Twitterizer.OAuthTokens" />
+  </Search>
+</TwitterUser>

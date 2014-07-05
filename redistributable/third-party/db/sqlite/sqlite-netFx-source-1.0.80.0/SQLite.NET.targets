@@ -1,0 +1,103 @@
+<!--
+ *
+ * SQLite.NET.targets -
+ *
+ * Written by Joe Mistachkin.
+ * Released to the public domain, use at your own risk!
+ *
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+  ******************************************************************************
+  **                          Load Per-User Settings                          **
+  ******************************************************************************
+  -->
+
+  <!--
+      NOTE: If the per-user settings file exists, import it now.  The contained
+            settings, if any, will override the default ones provided below.
+  -->
+  <Import Project="$(SQLiteNetDir)\SQLite.NET.targets.user"
+          Condition="Exists('$(SQLiteNetDir)\SQLite.NET.targets.user')" />
+
+  <!--
+  ******************************************************************************
+  **                         [Fairly] Generic Targets                         **
+  ******************************************************************************
+  -->
+
+  <Target Name="EmbedExeManifest"
+          Condition="'$(EmbedExeManifest)' != 'false' And
+                     '$(MSBuildProjectDirectory)' != '' And
+                     Exists('$(MSBuildProjectDirectory)\Resources\manifest.xml')"
+          Inputs="$(TargetPath);$(MSBuildProjectDirectory)\Resources\manifest.xml"
+          Outputs="$(TargetPath).EmbedExeManifest.done">
+    <GetFrameworkSDKPath>
+      <Output TaskParameter="Path"
+              PropertyName="DirForManifestTool" />
+    </GetFrameworkSDKPath>
+
+    <Exec Condition="'$(DirForManifestTool)' != '' And
+                     HasTrailingSlash('$(DirForManifestTool)') And
+                     Exists('$(DirForManifestTool)bin\mt.exe')"
+          Command="&quot;$(DirForManifestTool)bin\mt.exe&quot; -manifest &quot;$(MSBuildProjectDirectory)\Resources\manifest.xml&quot; -outputresource:&quot;$(TargetPath)&quot;;1" />
+
+    <Touch AlwaysCreate="true"
+           Files="$(TargetPath).EmbedExeManifest.done" />
+  </Target>
+
+  <!--
+  ******************************************************************************
+  -->
+
+  <Target Name="StrongNameSign"
+          Condition="'$(StrongNameSign)' != 'false' And
+                     '$(SignAssembly)' != 'false' And
+                     Exists('$(AssemblyOriginatorKeyFile)')"
+          Inputs="$(TargetPath)"
+          Outputs="$(TargetPath).StrongNameSign.done">
+    <GetFrameworkSDKPath>
+      <Output TaskParameter="Path"
+              PropertyName="DirForStrongName" />
+    </GetFrameworkSDKPath>
+
+    <Exec Condition="'$(DirForStrongName)' != '' And
+                     HasTrailingSlash('$(DirForStrongName)') And
+                     Exists('$(DirForStrongName)bin\sn.exe')"
+          Command="&quot;$(DirForStrongName)bin\sn.exe&quot; -Ra &quot;$(TargetPath)&quot; &quot;$(AssemblyOriginatorKeyFile)&quot;" />
+
+    <Touch AlwaysCreate="true"
+           Files="$(TargetPath).StrongNameSign.done" />
+  </Target>
+
+  <!--
+  ******************************************************************************
+  -->
+
+  <Target Name="Mark32BitOnly"
+          Condition="'$(Mark32BitOnly)' != 'false'"
+          Inputs="$(TargetPath)"
+          Outputs="$(TargetPath).Mark32BitOnly.done">
+    <GetFrameworkSDKPath>
+      <Output TaskParameter="Path"
+              PropertyName="DirForMark32BitOnly" />
+    </GetFrameworkSDKPath>
+
+    <Exec Condition="'$(DirForMark32BitOnly)' != '' And
+                     HasTrailingSlash('$(DirForMark32BitOnly)') And
+                     Exists('$(DirForMark32BitOnly)bin\CorFlags.exe')"
+          Command="&quot;$(DirForMark32BitOnly)bin\CorFlags.exe&quot; &quot;$(TargetPath)&quot; /32BIT+ /Force" />
+
+    <Touch AlwaysCreate="true"
+           Files="$(TargetPath).Mark32BitOnly.done" />
+  </Target>
+
+  <!--
+  ******************************************************************************
+  -->
+
+  <Target Name="MissingVsSdk"
+          Condition="'$(ProjectName)' != ''">
+    <Warning Text="The Visual Studio SDK is missing, skipping project &quot;$(ProjectName)&quot;..." />
+  </Target>
+</Project>

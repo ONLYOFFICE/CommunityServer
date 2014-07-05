@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2D26FA73-F6A7-4154-B620-3E9D0433E3A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Api.Projects</RootNamespace>
+    <AssemblyName>ASC.Api.Projects</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ASC.Api.Projects.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MvcOnly|AnyCPU' ">
+    <OutputPath>bin\MvcOnly\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Api.Documents, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Api.Documents.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Api.Employee, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Api.Employee.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.MessagingSystem">
+      <HintPath>..\..\..\redistributable\asc\ASC.MessagingSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Projects.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Projects.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Projects.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Projects.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Projects.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Projects.Engine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Specific, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Specific.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.CRM">
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.CRM.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Files, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Files.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Projects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Projects.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Wrappers\CommentWrapper.cs" />
+    <Compile Include="Wrappers\MessageWrapper.cs" />
+    <Compile Include="Wrappers\MilestoneWrapper.cs" />
+    <Compile Include="Wrappers\ObjectWrapperBase.cs" />
+    <Compile Include="Wrappers\ObjectWrapperFullBase.cs" />
+    <Compile Include="ProjectApi.cs" />
+    <Compile Include="ProjectApiBase.cs" />
+    <Compile Include="Wrappers\ProjectWrapper.cs" />
+    <Compile Include="Wrappers\ProjectWrapperFull.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wrappers\SearchItemWrapper.cs" />
+    <Compile Include="Wrappers\SearchWrapper.cs" />
+    <Compile Include="Wrappers\SimpleProjectWrapper.cs" />
+    <Compile Include="Wrappers\TaskWrapper.cs" />
+    <Compile Include="Wrappers\TimeWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ProjectApi.Imports.cs" />
+    <Compile Include="ProjectApi.Messages.cs" />
+    <Compile Include="ProjectApi.Reports.cs" />
+    <Compile Include="Calendars\ProjectCalendar.cs" />
+    <Compile Include="ProjectApi.Projects.cs" />
+    <Compile Include="ProjectApi.Tasks.cs" />
+    <Compile Include="ProjectApi.Comments.cs" />
+    <Compile Include="ProjectApi.Tags.cs" />
+    <Compile Include="ProjectApi.Milestones.cs" />
+    <Compile Include="ProjectApi.TimeSpend.cs" />
+    <Compile Include="ProjectBootstrap.cs" />
+    <Compile Include="Wrappers\CommonSecurityInfo.cs" />
+    <Compile Include="Wrappers\ParticipantFullWrapper.cs" />
+    <Compile Include="Wrappers\ParticipantWrapper.cs" />
+    <Compile Include="Wrappers\ProjectSecurityInfo.cs" />
+    <Compile Include="Wrappers\ReportTemplateWrapper.cs" />
+    <Compile Include="Wrappers\SimpleMilestoneWrapper.cs" />
+    <Compile Include="Wrappers\SimpleTaskWrapper.cs" />
+    <Compile Include="Wrappers\SubtaskWrapper.cs" />
+    <Compile Include="Wrappers\SubtaskWrapperFull.cs" />
+    <Compile Include="Wrappers\TaskLinkWrapper.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile->'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath->'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

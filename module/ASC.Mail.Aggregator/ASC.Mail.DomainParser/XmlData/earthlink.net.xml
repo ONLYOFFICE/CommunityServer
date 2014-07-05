@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="earthlink.net">
+    <domain>earthlink.net</domain>
+    <domain>mindspring.com</domain>
+    <domain>ix.netcom.com</domain>
+    <!-- many other domains, via MX earthlink.net -->
+    <displayName>EarthLink</displayName>
+    <displayShortName>EarthLink</displayShortName>
+    <incomingServer type="imap">
+      <hostname>imap.earthlink.net</hostname>
+      <port>143</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-encrypted</authentication>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>pop.earthlink.net</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-encrypted</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtpauth.earthlink.net</hostname>
+      <port>587</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-encrypted</authentication>
+    </outgoingServer>
+    <documentation url="http://support.earthlink.net/email/email-server-settings.php">
+      <descr>POP settings, domains</descr>
+    </documentation>
+  </emailProvider>
+</clientConfig>

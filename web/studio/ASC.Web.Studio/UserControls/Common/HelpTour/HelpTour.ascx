@@ -1,0 +1,1 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="HelpTour.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.HelpTour.HelpTour" %>

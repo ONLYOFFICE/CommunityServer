@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="pop.shibata.ne.jp">
+    <domain>pop.shibata.ne.jp</domain>
+    <domain>ml.shibata.ne.jp</domain>
+    <displayName>インターネット新発田</displayName>
+    <displayShortName>INET-SHIBATA</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>%EMAILDOMAIN%</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>%EMAILDOMAIN%</hostname>
+      <port>25</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

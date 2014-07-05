@@ -1,0 +1,4113 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ActiveUp.Net.Smtp</name>
+    </assembly>
+    <members>
+        <member name="T:ActiveUp.Net.Mail.SmtpClient">
+            <summary>
+            Allows communication with an SMTP server.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Connect(System.String)">
+            <summary>
+            Connects to the specified server.
+            </summary>
+            <param name="host">Address of the server.</param>
+            <returns>The server's welcome greeting.</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com");
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com")
+            
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Connect(System.String,System.Int32)">
+            <summary>
+            Connects to the specified server using the specified port.
+            </summary>
+            <param name="host">Address of the server.</param>
+            <param name="port">Port to be used for connection.</param>
+            <returns>The server's welcome greeting.</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Authenticate(System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+            <summary>
+            Authenticates using the given SASL mechanism.
+            </summary>
+            <param name="username">Username to authenticate as.</param>
+            <param name="password">Password.</param>
+            <param name="mechanism">SASL mechanism to be used.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com");
+            smtp.Authenticate("user","pass",SASLMechanism.CramMd5);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com")
+            smtp.Authenticate("user","pass",SASLMechanism.CramMd5)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com");
+            smtp.Authenticate("user","pass",SASLMechanism.CramMd5);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Disconnect">
+            <summary>
+            Performs a QUIT command on the server and closes connection.
+            </summary>
+            <returns>The server's good bye greeting.</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com");
+            //Do some work...
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com")
+            'Do some work...
+            smtp.Disconnect()
+             
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com");
+            //Do some work...
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Command(System.String,System.Int32)">
+            <summary>
+            Performs the specified command on the server and returns the response.
+            </summary>
+            <param name="command">The command to be performed.</param>
+            <param name="expectedResponseCode">The expected response code, which will allow the client to know if the command succeeded or failed.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            smtp.Command("XANYCOMMAND",213);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            smtp.Command("XANYCOMMAND",213)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            smtp.Command("XANYCOMMAND",213);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Data(System.String)">
+            <summary>
+            Performs a DATA command on the server with the specified data.
+            </summary>
+            <param name="data">The data to be transfered.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom(message.From)
+            smtp.RcptTo(message.To)
+            smtp.Data(message.ToMimeString(),message.Charset)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Data(System.Byte[])">
+            <summary>
+            Performs a DATA command on the server with the specified data.
+            </summary>
+            <param name="data">The data to be transfered.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(Encoding.ASCII.GetBytes(message.ToMimeString()));
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom(message.From)
+            smtp.RcptTo(message.To)
+            smtp.Data(Encoding.ASCII.GetBytes(message.ToMimeString()))
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(Encoding.ASCII.GetBytes(message.ToMimeString()));
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Data(System.IO.MemoryStream)">
+            <summary>
+            Performs a DATA command on the server with the specified data.
+            </summary>
+            <param name="dataStream">A stream containing the data to be transfered.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(new MemoryStream(Encoding.ASCII.GetBytes(message.ToMimeString()),0,message.Size));
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom(message.From)
+            smtp.RcptTo(message.To)
+            smtp.Data(New MemoryStream(Encoding.ASCII.GetBytes(message.ToMimeString()),0,message.Size)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(new MemoryStream(Encoding.ASCII.GetBytes(message.ToMimeString()),0,message.Size));
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.DataFromFile(System.String)">
+            <summary>
+            Performs a DATA command on the server with the specified data.
+            </summary>
+            <param name="dataFilePath">The path to a file containing the data to be transfered.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom("jdoe@myhost.com");
+            smtp.RcptTo("mjohns@otherhost.com");
+            smtp.DataFromFile("D:\\My mails\\mailtosend.eml");
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom("jdoe@myhost.com")
+            smtp.RcptTo("mjohns@otherhost.com")
+            smtp.DataFromFile("D:\My mails\mailtosend.eml")
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom("jdoe@myhost.com");
+            smtp.RcptTo("mjohns@otherhost.com");
+            smtp.DataFromFile("D:\\My mails\\mailtosend.eml");
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Ehlo(System.String)">
+            <summary>
+            Performs a EHLO command on the server.
+            </summary>
+            <param name="domain">The domain to be used as identifier.</param>
+            <remarks>The use of this method indicates that the client is capable of using SMTP extensions (RFC2821).</remarks>
+            <returns>The server's response.</returns>
+            <example>
+            <seealso cref="M:ActiveUp.Net.Mail.SmtpClient.Helo(System.String)"/>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom(message.From)
+            smtp.RcptTo(message.To)
+            smtp.Data(message.ToMimeString(),message.Charset)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Helo(System.String)">
+            <summary>
+            Performs a HELO command on the server.
+            </summary>
+            <param name="domain">The domain to be used as identifier.</param>
+            <remarks>The use of this method isntead of Ehlo() indicates that the client is not capable of using SMTP extensions (RFC821).</remarks>
+            <returns>The server's response.</returns>
+            <example>
+            <seealso cref="M:ActiveUp.Net.Mail.SmtpClient.Ehlo(System.String)"/>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom(message.From)
+            smtp.RcptTo(message.To)
+            smtp.Data(message.ToMimeString(),message.Charset)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Help">
+            <summary>
+            Performs a HELP command on the server.
+            </summary>
+            <returns>The server's response (usually containing the commands it supports).</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            string helpString = smtp.Help();
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Dim helpString As String = smtp.Help()
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            var helpString:string = smtp.Help();
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.MailFrom(System.String)">
+            <summary>
+            Performs a MAIL FROM: command on the server using the specified address.
+            </summary>
+            <param name="address">The address of the message sender.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom(message.From)
+            smtp.RcptTo(message.To)
+            smtp.Data(message.ToMimeString(),message.Charset)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.MailFrom(ActiveUp.Net.Mail.Address)">
+            <summary>
+            Performs a MAIL FROM: command on the server using the specified address.
+            </summary>
+            <param name="address">The address of the message sender.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom(message.From)
+            smtp.RcptTo(message.To)
+            smtp.Data(message.ToMimeString(),message.Charset)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Noop">
+            <summary>
+            Performs a NOOP command on the server (used to keep connection alive).
+            </summary>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Noop()
+            	//Connection still alive and timer reset on server.
+            }
+            catch
+            {
+            	//Connection no longer available.
+            }
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Noop()
+            	'Connection still alive and timer reset on server.
+            Catch
+            	'Connection no longer available.
+            End Try
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            var helpString:string = smtp.Help();
+            /// try
+            {
+            	smtp.Noop()
+            	//Connection still alive and timer reset on server.
+            }
+            catch
+            {
+            	//Connection no longer available.
+            }
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.RcptTo(System.String)">
+            <summary>
+            Performs a RCPT TO: command on the server using the specified address.
+            </summary>
+            <param name="address">The address of one of the message's recipients.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            foreach(Address address in message.To) smtp.RcptTo(address.Email);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom(message.From)
+            For Each address In message.To
+            	smtp.RcptTo(address.Email)
+            Next
+            smtp.Data(message.ToMimeString(),message.Charset)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            for(i:int=0;i&lt;message.To.Count;i++) smtp.RcptTo(message.To[i].Email);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.RcptTo(ActiveUp.Net.Mail.Address)">
+            <summary>
+            Performs a RCPT TO: command on the server using the specified address.
+            </summary>
+            <param name="address">The address of one of the message's recipients.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            foreach(Address address in message.To) smtp.RcptTo(address.Email);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom(message.From)
+            For Each address In message.To
+            	smtp.RcptTo(address)
+            Next
+            smtp.Data(message.ToMimeString(),message.Charset)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            for(i:int=0;i&lt;message.To.Count;i++) smtp.RcptTo(message.To[i]);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.RcptTo(ActiveUp.Net.Mail.AddressCollection)">
+            <summary>
+            Performs a RCPT TO: command on the server using the specified addresses.
+            </summary>
+            <param name="addresses">The address of some of the message's recipients.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            smtp.MailFrom(message.From)
+            smtp.RcptTo(message.To)
+            smtp.Data(message.ToMimeString(),message.Charset)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            smtp.MailFrom(message.From);
+            smtp.RcptTo(message.To);
+            smtp.Data(message.ToMimeString(),message.Charset);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Verify(System.String)">
+            <summary>
+            Performs a VRFY command on the server using the specified address (checks if the address refers to a mailbox on the server).
+            </summary>
+            <param name="address">The address to be verified.</param>
+            <returns>True if address is valid and false if address doesn't reside on the server.</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            if(smtp.Verify("jdoe@myhost.com"))
+            	bool isValid = true;
+            	//Address is valid and resides on this server.
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            If smtp.Verify("jdoe@myhost.com") Then
+            	Dim isValid As Boolean = True
+            	'Address is valid and resides on this server.
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            if(smtp.Verify("jdoe@myhost.com")) 
+            		var isValid:bool = true;
+            	//Address is valid and resides on this server.
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Verify(ActiveUp.Net.Mail.Address)">
+            <summary>
+            Performs a VRFY command on the server using the specified address (checks if the address refers to a mailbox on the server).
+            </summary>
+            <param name="address">The address to be verified.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            if(smtp.Verify(someAddressObject))
+            	bool isValid = true;
+            	//Address is valid and resides on this server.
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            If smtp.Verify(someAddressObject) Then
+            	Dim isValid As Boolean = True
+            	'Address is valid and resides on this server.
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            if(smtp.Verify(someAddressObject)) 
+            		var isValid:bool = true;
+            	//Address is valid and resides on this server.
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Verify(ActiveUp.Net.Mail.AddressCollection)">
+            <summary>
+            Performs a VRFY command on the server using the specified addresses (checks if the addresses refer to mailboxes on the server).
+            </summary>
+            <param name="address">The addresses to be verified.</param>
+            <returns>A collection containing the invalid addresses.</returns>
+            <example>
+            <code>
+            C#
+            
+            SmtpClient smtp = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            //Create a collection to test.
+            AddressCollection myaddresses = new AddressCollection();
+            myaddresses.Add("jdoe@myhost.com","John Doe");
+            myaddresses.Add("mjohns@otherhost.com","Mike Johns");
+            //Verifies all addresses.
+            AddressCollection invalidAddresses = smtp.Verify(myaddresses);
+            smtp.Disconnect();
+            
+            VB.NET
+            
+            Dim smtp As New SmtpClient
+            smtp.Connect("mail.myhost.com",8504)
+            Try
+            	smtp.Ehlo()
+            Catch
+            	smtp.Helo()
+            End Try
+            'Create a collection to test.
+            Dim myaddresses As New AddressCollection
+            myaddresses.Add("jdoe@myhost.com","John Doe")
+            myaddresses.Add("mjohns@otherhost.com","Mike Johns")
+            'Verifies all addresses.
+            Dim invalidAddresses As AddressCollection = smtp.Verify(myaddresses)
+            smtp.Disconnect()
+            
+            JScript.NET
+            
+            var smtp:SmtpClient = new SmtpClient();
+            smtp.Connect("mail.myhost.com",8504);
+            try
+            {
+            	smtp.Ehlo();
+            }
+            catch
+            {
+            	smtp.Helo();
+            }
+            //Create a collection to test.
+            var myaddresses:AddressCollection = new AddressCollection();
+            myaddresses.Add("jdoe@myhost.com","John Doe");
+            myaddresses.Add("mjohns@otherhost.com","Mike Johns");
+            //Verifies all addresses.
+            var invalidAddresses:AddressCollection = smtp.Verify(myaddresses);
+            smtp.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.DirectSend(ActiveUp.Net.Mail.Message)">
+            <summary>
+            Sends the given message using the Direct Mailing method. The client connects to each recipient's mail exchange server and delivers the message.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.DirectSend(message);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            SmtpClient.DirectSend(message)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.DirectSend(message);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.DirectSend(ActiveUp.Net.Mail.Message,System.String,System.Int32)">
+            <summary>
+            Sends the message using the specified host as dns server on the specified port.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="host">The host to be used.</param>
+            <param name="port">The port to be used.</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.DirectSend(message,"ns1.dnsserver.com",53);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            SmtpClient.DirectSend(message,"ns1.dnsserver.com",53)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.DirectSend(message,"ns1.dnsserver.com",53);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.DirectSend(ActiveUp.Net.Mail.Message,System.String)">
+            <summary>
+            Sends the message using the specified host as dns server.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="host">The host to be used.</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.DirectSend(message,"ns1.dnsserver.com");
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            SmtpClient.DirectSend(message,"ns1.dnsserver.com")
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.DirectSend(message,"ns1.dnsserver.com");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.DirectSend(ActiveUp.Net.Mail.Message,ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Sends the message using the specified DNS servers to get mail exchange servers addresses.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="dnsServers">Servers to be used (in preference order).</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            ServerCollection servers = new ServerCollection();
+            servers.Add("ns1.dnsserver.com",53);
+            servers.Add("ns2.dnsserver.com",53);
+            
+            SmtpClient.DirectSend(message,servers);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim servers As New ServerCollection
+            servers.Add("ns1.dnsserver.com",53)
+            servers.Add("ns2.dnsserver.com",53)
+            
+            SmtpClient.DirectSend(message,servers)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var servers:ServerCollection = new ServerCollection();
+            servers.Add("ns1.dnsserver.com",53);
+            servers.Add("ns2.dnsserver.com",53);
+            
+            SmtpClient.DirectSend(message,servers);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.DirectSendCollection(ActiveUp.Net.Mail.MessageCollection)">
+            <summary>
+            Sends each message using the DirectMailing technique (SMTP connection with every recipient's mail exchange server for delivery).
+            MX Records are cached for faster operation.
+            </summary>
+            <param name="messages">The message collection to be sent.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.DirectSend(messages);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.DirectSend(messages)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.DirectSend(messages);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.DirectSendCollection(ActiveUp.Net.Mail.MessageCollection,ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Sends all messages using the specified host as the DNS server.
+            </summary>
+            <param name="dnsServers">Servers to be used to send the message (in preference order).</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            ServerCollection servers = new ServerCollection();
+            servers.Add("ns1.dnsserver.com",53);
+            servers.Add("ns2.dnsserver.com",53);
+            
+            SmtpClient.DirectSend(messages,servers);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            Dim servers As New ServerCollection
+            servers.Add("ns1.dnsserver.com",53)
+            servers.Add("ns2.dnsserver.com",53)
+            
+            SmtpClient.DirectSend(messages,servers)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            var servers:ServerCollection = new ServerCollection();
+            servers.Add("ns1.dnsserver.com",53);
+            servers.Add("ns2.dnsserver.com",53);
+            
+            SmtpClient.DirectSend(messages,servers);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.DirectSendCollection(ActiveUp.Net.Mail.MessageCollection,System.String,System.Int32)">
+            <summary>
+            Sends all messages using the specified host and port as the dns server.
+            </summary>
+            <param name="messages">The message collection to be sent.</param>
+            <param name="dnsHost">Address of the server to be used.</param>
+            <param name="dnsPort">Port to be used.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.DirectSend(messages,"ns1.dnsserver.com",53);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.DirectSend(messages,"ns1.dnsserver.com",53)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.DirectSend(messages,"ns1.dnsserver.com",53);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.DirectSendCollection(ActiveUp.Net.Mail.MessageCollection,System.String)">
+            <summary>
+            Sends all messages using the specified host as the dns server.
+            </summary>
+            <param name="messages">The message collection to be sent.</param>
+            <param name="dnsHost">Address of the server to be used.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.DirectSend(messages,"ns1.dnsserver.com");
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.DirectSend(messages,"ns1.dnsserver.com")
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.DirectSend(messages,"ns1.dnsserver.com");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.DirectSendCollection(ActiveUp.Net.Mail.MessageCollection,ActiveUp.Net.Mail.SmtpExceptionCollection@)">
+            <summary>
+            Sends each message using the DirectMailing technique (SMTP connection with every recipient's mail exchange server for delivery).
+            MX Records are cached for faster operation. Errors occuring during the process are catched and stored in a user-defined collection for review at a later time.
+            </summary>
+            <param name="messages">The message collection to be sent.</param>
+            <param name="errors">Reference to an SmtpException Collection to be filled with errors occuring during this process.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,myErrorCollection);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.Send(messages,myErrorCollection)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,myErrorCollection);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendQueued(ActiveUp.Net.Mail.Message,System.String,ActiveUp.Net.Mail.QueuingService)">
+            <summary>
+            Sends the message using the specified queuing service and spool directory.
+            </summary>
+            <param name="message">The message to send.</param>
+            <param name="spoolDirectory">The full path to the full directory.</param>
+            <param name="queuingService">The queuing service to use.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendQueued(ActiveUp.Net.Mail.MessageCollection,System.String,ActiveUp.Net.Mail.QueuingService)">
+            <summary>
+            Sends the messages using the specified queuing service and spool directory.
+            </summary>
+            <param name="messages">The messages to send.</param>
+            <param name="spoolDirectory">The full path to the full directory.</param>
+            <param name="queuingService">The queuing service to use.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Send(ActiveUp.Net.Mail.Message,ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Sends the message using the specified host as mail exchange server.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="servers">Servers to be used to send the message (in preference order).</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            ServerCollection servers = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            SmtpClient.Send(message,servers);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim servers As New ServerCollection
+            servers.Add("mail.myhost.com",25)
+            servers.Add("mail2.myhost.com",25)
+            
+            SmtpClient.Send(message,servers)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var servers:ServerCollection = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            SmtpClient.Send(message,servers);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Send(ActiveUp.Net.Mail.Message,ActiveUp.Net.Mail.ServerCollection,System.String@)">
+            <summary>
+            Sends the message using the specified host as mail exchange server.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="servers">Servers to be used to send the message (in preference order).</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            ServerCollection servers = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            SmtpClient.Send(message,servers);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim servers As New ServerCollection
+            servers.Add("mail.myhost.com",25)
+            servers.Add("mail2.myhost.com",25)
+            
+            SmtpClient.Send(message,servers)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var servers:ServerCollection = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            SmtpClient.Send(message,servers);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Send(ActiveUp.Net.Mail.Message,System.String)">
+            <summary>
+            Sends the message using the specified host as mail exchange server.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="server">Server to be used to send the message.</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.Send(message,"mail.myhost.com");
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            SmtpClient.Send(message,"mail.myhost.com")
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.Send(message,"mail.myhost.com");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendSsl(ActiveUp.Net.Mail.Message,System.String)">
+            <summary>
+            Sends the message using a secure connection with the specified host as mail exchange server.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="server">Server to be used to send the message.</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.SendSsl(message,"mail.myhost.com");
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            SmtpClient.SendSsl(message,"mail.myhost.com")
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.SendSsl(message,"mail.myhost.com");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Send(ActiveUp.Net.Mail.Message,System.String,System.Int32)">
+            <summary>
+            Sends the message using the specified host as mail exchange server on the specified port.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="host">The host to be used.</param>
+            <param name="port">The port to be used.</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.Send(message,"mail.myhost.com",8504);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            SmtpClient.Send(message,"mail.myhost.com",8504)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.Send(message,"mail.myhost.com",8504);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Send(ActiveUp.Net.Mail.Message,System.String,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+            <summary>
+            Sends the message using the specified host. Secure SASL Authentication is performed according to the requested mechanism.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="host">The host to be used.</param>
+            <param name="username">The username to be used for authentication.</param>
+            <param name="password">The password to be used for authentication.</param>
+            <param name="mechanism">SASL Mechanism to be used for authentication.</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.Send(message,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            SmtpClient.Send(message,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.Send(message,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendSsl(ActiveUp.Net.Mail.Message,System.String,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+            <summary>
+            Sends the message using the specified host in a secured connection. Secure SASL Authentication is performed according to the requested mechanism.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="host">The host to be used.</param>
+            <param name="username">The username to be used for authentication.</param>
+            <param name="password">The password to be used for authentication.</param>
+            <param name="mechanism">SASL Mechanism to be used for authentication.</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.SendSsl(message,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            SmtpClient.SendSsl(message,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.SendSsl(message,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.Send(ActiveUp.Net.Mail.Message,System.String,System.Int32,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+            <summary>
+            Sends the message using the specified host on the specified port. Secure SASL Authentication is performed according to the requested mechanism.
+            </summary>
+            <param name="message">The message to be sent.</param>
+            <param name="host">The host to be used.</param>
+            <param name="username">The username to be used for authentication.</param>
+            <param name="password">The password to be used for authentication.</param>
+            <param name="mechanism">SASL Mechanism to be used for authentication.</param>
+            <param name="port">The port to be used.</param>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.Send(message,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            SmtpClient.Send(message,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            SmtpClient.Send(message,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendCollection(ActiveUp.Net.Mail.MessageCollection,System.String)">
+            <summary>
+            Sends all messages using the specified host.
+            </summary>
+            <param name="host">Address of the server to be used.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com");
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.Send(messages,"mail.myhost.com")
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendCollection(ActiveUp.Net.Mail.MessageCollection,System.String,ActiveUp.Net.Mail.SmtpExceptionCollection@)">
+            <summary>
+            Sends all messages using the specified host.
+            </summary>
+            <param name="host">Address of the server to be used.</param>
+            <param name="errors">Reference to SmtpException object collection where errors occuring during the process will be stored.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com",myErrorCollection);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.Send(messages,"mail.myhost.com",myErrorCollection)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com",myErrorCollection);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendCollection(ActiveUp.Net.Mail.MessageCollection,ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Sends all messages using the specified host.
+            </summary>
+            <param name="servers">Servers to be used to send the message (in preference order).</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            ServerCollection servers = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            SmtpClient.Send(messages,servers);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            Dim servers As New ServerCollection
+            servers.Add("mail.myhost.com",25)
+            servers.Add("mail2.myhost.com",25)
+            
+            SmtpClient.Send(messages,servers)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            var servers:ServerCollection = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            SmtpClient.Send(messages,servers);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendCollection(ActiveUp.Net.Mail.MessageCollection,ActiveUp.Net.Mail.ServerCollection,ActiveUp.Net.Mail.SmtpExceptionCollection@)">
+            <summary>
+            Sends all messages using the specified host.
+            </summary>
+            <param name="servers">Servers to be used to send the message (in preference order).</param>
+            <param name="messages">MessageCollection to be sent.</param>
+            <param name="errors">Reference to SmtpException object collection where errors occuring during the process will be stored.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            ServerCollection servers = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            SmtpClient.Send(messages,servers,myErrorCollection);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            Dim servers As New ServerCollection
+            servers.Add("mail.myhost.com",25)
+            servers.Add("mail2.myhost.com",25)
+            
+            SmtpClient.Send(messages,servers,myErrorCollection)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            var servers:ServerCollection = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            SmtpClient.Send(messages,servers,myErrorCollection);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendCollection(ActiveUp.Net.Mail.MessageCollection,System.String,System.Int32)">
+            <summary>
+            Sends all messages using the specified host and port.
+            </summary>
+            <param name="messages">The message collection to be sent.</param>
+            <param name="host">Address of the server to be used.</param>
+            <param name="port">Port to be used.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com",8504);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.Send(messages,"mail.myhost.com",8504)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com",8504);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendCollection(ActiveUp.Net.Mail.MessageCollection,System.String,System.Int32,ActiveUp.Net.Mail.SmtpExceptionCollection@)">
+            <summary>
+            Sends all messages using the specified host and port.
+            </summary>
+            <param name="messages">The message collection to be sent.</param>
+            <param name="host">Address of the server to be used.</param>
+            <param name="port">Port to be used.</param>
+            <param name="errors">Reference to an SmtpException Collection to be filled with errors occuring during this process.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com",8504,myErrorCollection);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.Send(messages,"mail.myhost.com",8504,myErrorCollection)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com",8504,myErrorCollection);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendCollection(ActiveUp.Net.Mail.MessageCollection,System.String,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+            <summary>
+            Sends the message using the specified host and port after authentication.
+            </summary>
+            <param name="messages">The message collection to be sent.</param>
+            <param name="host">Host to be used to send the message.</param>
+            <param name="username">Username to be used for the authentication process.</param>
+            <param name="password">Password to be used for the authentication process.</param>
+            <param name="mechanism">SASL mechanism to be used.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.Send(messages,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendCollection(ActiveUp.Net.Mail.MessageCollection,System.String,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism,ActiveUp.Net.Mail.SmtpExceptionCollection@)">
+            <summary>
+            Sends the message using the specified host and port after authentication.
+            </summary>
+            <param name="messages">The message collection to be sent.</param>
+            <param name="host">Host to be used to send the message.</param>
+            <param name="username">Username to be used for the authentication process.</param>
+            <param name="password">Password to be used for the authentication process.</param>
+            <param name="mechanism">SASL mechanism to be used.</param>
+            <param name="errors">Reference to SmtpException object collection where errors occuring during the process will be stored.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,myErrorCollection);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.Send(messages,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,myErrorCollection)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,myErrorCollection);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendCollection(ActiveUp.Net.Mail.MessageCollection,System.String,System.Int32,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+            <summary>
+            Sends the message using the specified host and port after authentication.
+            </summary>
+            <param name="messages">The message collection to be sent.</param>
+            <param name="host">Host to be used to send the message.</param>
+            <param name="username">Username to be used for the authentication process.</param>
+            <param name="password">Password to be used for the authentication process.</param>
+            <param name="mechanism">SASL mechanism to be used.</param>
+            <param name="port">Port to be used to connect to the specified host.</param>
+            <returns>Amount of messages successfully sent.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            Message message1 = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            MessageCollection messages = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504);
+            
+            VB.NET
+            
+            Dim message As New Message
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim message1 As New Message
+            message1.Subject = "Hey David!"
+            message1.From = New Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclarck@otherhost.com","David Clark")
+            message1.BodyText.Text = "How you doing ?"
+            
+            Dim messages As New MessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            SmtpClient.Send(messages,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504)
+            
+            JScript.NET
+            
+            var message:Message = new Message();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var message1:Message = new Message();
+            message1.Subject = "Hey David!";
+            message1.From = New Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclarck@otherhost.com","David Clark");
+            message1.BodyText.Text = "How you doing ?";
+            
+            var messages:MessageCollection = new MessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            SmtpClient.Send(messages,"mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.SendCollection(ActiveUp.Net.Mail.MessageCollection,System.String,System.Int32,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism,ActiveUp.Net.Mail.SmtpExceptionCollection@)">
+            <summary>
+            Sends the message using the specified host and port after authentication.
+            </summary>
+            <param name="messages">The message collection to be sent.</param>
+            <param name="host">Host to be used to send the message.</param>
+            <param name="username">Username to be used for the authentication process.</param>
+            <param name="password">Password to be used for the authentication process.</param>
+            <param name="mechanism">SASL mechanism to be used.</param>
+            <param name="port">Port to be used to connect to the specified host.</param>
+            <param name="errors">Reference to SmtpException object collection where errors occuring during the process will be stored.</param>
+            <returns>Amount of messages successfully sent.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.QuickDirectSend(System.String,System.String,System.String,System.String)">
+             <summary>
+             This static method allows to send an email in 1 line of code.
+             </summary>
+             <param name="from">The email address of the person sending the message.</param>
+             <param name="to">The email address of the message's recipient.</param>
+             <param name="subject">The message's subject.</param>
+             <param name="textBody">The text body of the message.</param>
+             <example>
+             C#
+             
+             SmtpClient.QuickDirectSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!");
+            
+             VB.NET
+             
+             SmtpClient.QuickDirectSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!")
+             
+             JScript.NET
+             
+             SmtpClient.QuickDirectSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!");
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.QuickDirectSend(System.String,System.String,System.String,System.String,System.String)">
+             <summary>
+             This static method allows to send an email in 1 line of code.
+             </summary>
+             <param name="from">The email address of the person sending the message.</param>
+             <param name="to">The email address of the message's recipient.</param>
+             <param name="subject">The message's subject.</param>
+             <param name="textBody">The text body of the message.</param>
+             <param name="attachmentPath">The path to a file to be attached to the message.</param>
+             <example>
+             C#
+             
+             SmtpClient.QuickDirectSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!","C:\\My Documents\\file.doc");
+            
+             VB.NET
+             
+             SmtpClient.QuickDirectSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!","C:\My Documents\file.doc")
+             
+             JScript.NET
+             
+             SmtpClient.QuickDirectSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!","C:\\My Documents\\file.doc");
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.QuickDirectSend(System.String,System.String,System.String,System.String,ActiveUp.Net.Mail.BodyFormat,System.String)">
+             <summary>
+             This static method allows to send an email in 1 line of code.
+             </summary>
+             <param name="from">The email address of the person sending the message.</param>
+             <param name="to">The email address of the message's recipient.</param>
+             <param name="subject">The message's subject.</param>
+             <param name="textBody">The text body of the message.</param>
+             <param name="attachmentPath">The path to a file to be attached to the message.</param>
+             <example>
+             C#
+             
+             SmtpClient.QuickDirectSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!",BodyFormat.Text,"C:\\My Documents\\file.doc");
+            
+             VB.NET
+             
+             SmtpClient.QuickDirectSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!",BodyFormat.Text,"C:\My Documents\file.doc")
+             
+             JScript.NET
+             
+             SmtpClient.QuickDirectSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!",BodyFormat.Text,"C:\\My Documents\\file.doc");
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.QuickSend(System.String,System.String,System.String,System.String,System.String)">
+             <summary>
+             This static method allows to send an email in 1 line of code.
+             </summary>
+             <param name="from">The email address of the person sending the message.</param>
+             <param name="to">The email address of the message's recipient.</param>
+             <param name="subject">The message's subject.</param>
+             <param name="textBody">The text body of the message.</param>
+             <example>
+             C#
+             
+             SmtpClient.QuickSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!","mail.myhost.com");
+            
+             VB.NET
+             
+             SmtpClient.QuickSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!","mail.myhost.com")
+             
+             JScript.NET
+             
+             SmtpClient.QuickSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!","mail.myhost.com");
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.QuickSend(System.String,System.String,System.String,System.String,System.String,System.String)">
+             <summary>
+             This static method allows to send an email in 1 line of code.
+             </summary>
+             <param name="from">The email address of the person sending the message.</param>
+             <param name="to">The email address of the message's recipient.</param>
+             <param name="subject">The message's subject.</param>
+             <param name="textBody">The text body of the message.</param>
+             <example>
+             C#
+             
+             SmtpClient.QuickSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!","C:\\My Documents\\file.doc","mail.myhost.com");
+            
+             VB.NET
+             
+             SmtpClient.QuickSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!","C:\My Documents\file.doc","mail.myhost.com")
+             
+             JScript.NET
+             
+             SmtpClient.QuickSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!","C:\\My Documents\\file.doc","mail.myhost.com");
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpClient.QuickSend(System.String,System.String,System.String,System.String,ActiveUp.Net.Mail.BodyFormat,System.String,System.String)">
+             <summary>
+             This static method allows to send an email in 1 line of code.
+             </summary>
+             <param name="from">The email address of the person sending the message.</param>
+             <param name="to">The email address of the message's recipient.</param>
+             <param name="subject">The message's subject.</param>
+             <param name="textBody">The text body of the message.</param>
+             <example>
+             C#
+             
+             SmtpClient.QuickSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!",BodyFormat.Text,"C:\\My Documents\\file.doc","mail.myhost.com");
+            
+             VB.NET
+             
+             SmtpClient.QuickSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!",BodyFormat.Text,"C:\My Documents\file.doc","mail.myhost.com")
+             
+             JScript.NET
+             
+             SmtpClient.QuickSend("jdoe@myhost.com","mjohns@otherhost.com","Test","Hello this is a test!",BodyFormat.Text,"C:\\My Documents\\file.doc","mail.myhost.com");
+             </example>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.TcpWriting">
+            <summary>
+            Event fired when a command is being written to the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.TcpWritten">
+            <summary>
+            Event fired when a command has been written to the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.TcpReading">
+            <summary>
+            Event fired when a response is being read from the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.TcpRead">
+            <summary>
+            Event fired when a response has been read from the server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.Connecting">
+            <summary>
+            Event fired when attempting to connect to the remote server using the specified host.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.Connected">
+            <summary>
+            Event fired when the object is connected to the remote server or when connection failed.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.Disconnecting">
+            <summary>
+            Event fired when attempting to disconnect from the remote server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.Disconnected">
+            <summary>
+            Event fired when the object disconnected from the remote server.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.Authenticating">
+            <summary>
+            Event fired when authentication starts.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.Authenticated">
+            <summary>
+            Event fired when authentication completed.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.MessageSending">
+            <summary>
+            Event fired when a message is being sent.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.SmtpClient.MessageSent">
+            <summary>
+            Event fired when a message has been sent.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.SmtpClient.IsConnected">
+            <summary>
+            Gets a value indicating whether this instance is connected.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is connected; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.SmtpException">
+            <summary>
+            Represents an SMTP specific error.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpException.#ctor(System.String)">
+            <summary>
+            Constructor, sets message to the specified value.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.SmtpException.Message">
+            <summary>
+            The exception's message.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.SmtpExceptionCollection">
+            <summary>
+            Contains Smtp Exceptions.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpExceptionCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpExceptionCollection.Add(ActiveUp.Net.Mail.SmtpException)">
+            <summary>
+            Add a SmtpException object in the collection.
+            </summary>
+            <param name="exception">Exception to add.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpExceptionCollection.Add(System.String)">
+            <summary>
+            Add a SmtpException in the collection specifing it's exchange name and preference level.
+            </summary>
+            <param name="message">Message of the exception to add.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpExceptionCollection.Remove(System.Int32)">
+            <summary>
+            Remove the SmtpException at the specified index position.
+            </summary>
+            <param name="index">The index position.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.SmtpExceptionCollection.Item(System.Int32)">
+            <summary>
+            Returns the SmtpException at the specified index position.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.SmtpMessage">
+            <summary>
+            Message Object.
+            Represents a parsed e-mail message.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessage.Send(System.String)">
+             <summary>
+             Sends the message using the specified host as the mail exchange server.
+             </summary>
+             <param name="host">Host to be used to send the message.</param>
+             <example>
+             <code>
+             C#
+             
+            SmtpMessage message = new SmtpMessage();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            message.Send("mail.myhost.com");
+             
+             VB.NET
+             
+            Dim message As New SmtpMessage
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            message.Send("mail.myhost.com")
+              
+             JScript.NET
+             
+            var message:SmtpMessage = new SmtpMessage();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            message.Send("mail.myhost.com");
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessage.Send(ActiveUp.Net.Mail.ServerCollection)">
+             <summary>
+             Sends the message using the specified host as the mail exchange server.
+             </summary>
+             <param name="servers">Servers to be used to send the message (in preference order).</param>
+             <example>
+             <code>
+             C#
+             
+            SmtpMessage message = new SmtpMessage();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            ServerCollection servers = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            message.Send(servers);
+             
+             VB.NET
+             
+            Dim message As New SmtpMessage
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim servers As New ServerCollection
+            servers.Add("mail.myhost.com",25)
+            servers.Add("mail2.myhost.com",25)
+            
+            message.Send(servers)
+              
+             JScript.NET
+             
+            var message:SmtpMessage = new SmtpMessage();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var servers:ServerCollection = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            message.Send(servers);
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessage.Send(System.String,System.Int32)">
+             <summary>
+             Sends the message using the specified host as mail exchange and the specified port.
+             </summary>
+             <param name="host">Host to be used to send the message.</param>
+             <param name="port">Port to be used to connect to the specified host.</param>
+             <example>
+             <code>
+             C#
+             
+            SmtpMessage message = new SmtpMessage();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            message.Send("mail.myhost.com",8504);
+             
+             VB.NET
+             
+            Dim message As New SmtpMessage
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            message.Send("mail.myhost.com",8504)
+              
+             JScript.NET
+             
+            var message:SmtpMessage = new SmtpMessage();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            message.Send("mail.myhost.com",8504);
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessage.Send(System.String,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+             <summary>
+             Sends the message using the specified host as mail exchange.
+             A secure SASL authentication is performed according to the specified SASL mechanism.
+             </summary>
+             <param name="host">Host to be used to send the message.</param>
+             <param name="username">Username to be used for the authentication process.</param>
+             <param name="password">Password to be used for the authentication process.</param>
+             <param name="mechanism">SASL Mechanism to be used for authentication.</param>
+             <example>
+             <code>
+             C#
+             
+            SmtpMessage message = new SmtpMessage();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            message.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5);
+             
+             VB.NET
+             
+            Dim message As New SmtpMessage
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            message.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5)
+              
+             JScript.NET
+             
+            var message:SmtpMessage = new SmtpMessage();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            message.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5);
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessage.Send(System.String,System.Int32,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+             <summary>
+             Sends the message using the specified host as mail exchange and the specified port.
+             A simple Login authentication is performed.
+             </summary>
+             <param name="host">Host to be used to send the message.</param>
+             <param name="username">Username to be used for the authentication process.</param>
+             <param name="password">Password to be used for the authentication process.</param>
+             <param name="port">Port to be used to connect to the specified host.</param>
+             <example>
+             <code>
+             C#
+             
+            SmtpMessage message = new SmtpMessage();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            message.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504);
+             
+             VB.NET
+             
+            Dim message As New SmtpMessage
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            message.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504)
+              
+             JScript.NET
+             
+            var message:SmtpMessage = new SmtpMessage();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            message.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504);
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessage.DirectSend">
+            <summary>
+            Sends the given message using the Direct Mailing method. The client connects to each recipient's mail exchange server and delivers the message.
+            </summary>
+            <example>
+            <code>
+            C#
+            
+            SmtpMessage message = new SmtpMessage();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            message.DirectSend();
+            
+            VB.NET
+            
+            Dim message As New SmtpMessage
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            message.DirectSend()
+            
+            JScript.NET
+            
+            var message:SmtpMessage = new SmtpMessage();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            message.DirectSend();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessage.DirectSend(System.String,System.Int32)">
+            <summary>
+            Sends the message using the specified host as dns server on the specified port.
+            </summary>
+            <param name="host">The host to be used.</param>
+            <param name="port">The port to be used.</param>
+            <example>
+            <code>
+            C#
+            
+            SmtpMessage message = new SmtpMessage();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            message.DirectSend("ns1.dnsserver.com",53);
+            
+            VB.NET
+            
+            Dim message As New SmtpMessage
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            message.DirectSend("ns1.dnsserver.com",53)
+            
+            JScript.NET
+            
+            var message:SmtpMessage = new SmtpMessage();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            message.DirectSend("ns1.dnsserver.com",53);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessage.DirectSend(System.String)">
+            <summary>
+            Sends the message using the specified host as dns server.
+            </summary>
+            <param name="host">The host to be used.</param>
+            <example>
+            <code>
+            C#
+            
+            SmtpMessage message = new SmtpMessage();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            message.DirectSend("ns1.dnsserver.com");
+            
+            VB.NET
+            
+            Dim message As New SmtpMessage
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            message.DirectSend("ns1.dnsserver.com")
+            
+            JScript.NET
+            
+            var message:SmtpMessage = new SmtpMessage();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            message.DirectSend("ns1.dnsserver.com");
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessage.DirectSend(ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Sends the message using the specified DNS servers to get mail exchange servers addresses.
+            </summary>
+            <param name="dnsServers">Servers to be used (in preference order).</param>
+            <example>
+            <code>
+            C#
+            
+            SmtpMessage message = new SmtpMessage();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            ServerCollection servers = new ServerCollection();
+            servers.Add("ns1.dnsserver.com",53);
+            servers.Add("ns2.dnsserver.com",53);
+            
+            message.DirectSend(servers);
+            
+            VB.NET
+            
+            Dim message As New SmtpMessage
+            message.Subject = "Test"
+            message.From = New Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.BodyText.Text = "Hello this is a test!"
+            
+            Dim servers As New ServerCollection
+            servers.Add("ns1.dnsserver.com",53)
+            servers.Add("ns2.dnsserver.com",53)
+            
+            message.DirectSend(servers)
+            
+            JScript.NET
+            
+            var message:SmtpMessage = new SmtpMessage();
+            message.Subject = "Test";
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.BodyText.Text = "Hello this is a test!";
+            
+            var servers:ServerCollection = new ServerCollection();
+            servers.Add("ns1.dnsserver.com",53);
+            servers.Add("ns2.dnsserver.com",53);
+            
+            message.DirectSend(servers);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessage.SendQueued(System.String,ActiveUp.Net.Mail.QueuingService)">
+            <summary>
+            Sends the message using the specified queuing service and spool directory.
+            </summary>
+            <param name="spoolDirectory">The full path to the full directory.</param>
+            <param name="queuingService">The queuing service to use.</param>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.SmtpMessageCollection">
+            <summary>
+            Represents a collection of Message objects
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessageCollection.Send">
+             <summary>
+             Sends each message using the Direct Mailing technique 
+             (SMTP connection with every recipient's mail exchange server for delivery).
+             MX Records are cached for faster operation.
+             </summary>
+             <example>
+             <code>
+             C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            Message message1 = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            SmtpMessageCollection messages = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send();
+             
+             VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim message1 As New Message
+            message1.From = new Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark")
+            message1.Subject = "correction"
+            message1.Attachments.Add("C:\myfile.doc")
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim messages As New SmtpMessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            messages.Send()
+              
+             JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var message1:Message = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            var messages:SmtpMessageCollection = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send();
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessageCollection.Send(System.String)">
+             <summary>
+             Sends all messages using the specified host.
+             </summary>
+             <param name="host">Address of the server to be used.</param>
+             <example>
+             <code>
+             C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            Message message1 = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            SmtpMessageCollection messages = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send("mail.myhost.com");
+             
+             VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim message1 As New Message
+            message1.From = new Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark")
+            message1.Subject = "correction"
+            message1.Attachments.Add("C:\myfile.doc")
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim messages As New SmtpMessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            messages.Send("mail.myhost.com")
+              
+             JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var message1:Message = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            var messages:SmtpMessageCollection = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send("mail.myhost.com");
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessageCollection.Send(ActiveUp.Net.Mail.ServerCollection)">
+             <summary>
+             Sends all messages using the specified host.
+             </summary>
+             <param name="servers">Servers to be used to send the message (in preference order).</param>
+             <example>
+             <code>
+             C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            Message message1 = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            SmtpMessageCollection messages = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            ServerCollection servers = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            messages.Send(servers);
+             
+             VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim message1 As New Message
+            message1.From = new Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark")
+            message1.Subject = "correction"
+            message1.Attachments.Add("C:\myfile.doc")
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim messages As New SmtpMessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            Dim servers As New ServerCollection
+            servers.Add("mail.myhost.com",25)
+            servers.Add("mail2.myhost.com",25)
+            
+            messages.Send(servers)
+              
+             JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var message1:Message = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            var messages:SmtpMessageCollection = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            var servers:ServerCollection = new ServerCollection();
+            servers.Add("mail.myhost.com",25);
+            servers.Add("mail2.myhost.com",25);
+            
+            messages.Send(servers);
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessageCollection.Send(System.String,System.Int32)">
+             <summary>
+             Sends all messages using the specified host and port.
+             </summary>
+             <param name="host">Address of the server to be used.</param>
+             <param name="port">Port to be used.</param>
+             <example>
+             <code>
+             C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            Message message1 = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            SmtpMessageCollection messages = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send("mail.myhost.com",8504);
+             
+             VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim message1 As New Message
+            message1.From = new Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark")
+            message1.Subject = "correction"
+            message1.Attachments.Add("C:\myfile.doc")
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim messages As New SmtpMessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            messages.Send("mail.myhost.com",8504)
+              
+             JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var message1:Message = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            var messages:SmtpMessageCollection = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send("mail.myhost.com",8504);
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessageCollection.Send(System.String,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism)">
+             <summary>
+             Sends the message using the specified host and port.
+             A secure SASL authentication is performed according to the specified SASL mechanism.
+             </summary>
+             <param name="host">Host to be used to send the message.</param>
+             <param name="username">Username to be used for the authentication process.</param>
+             <param name="password">Password to be used for the authentication process.</param>
+             <example>
+             <code>
+             C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            Message message1 = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            SmtpMessageCollection messages = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5);
+             
+             VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim message1 As New Message
+            message1.From = new Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark")
+            message1.Subject = "correction"
+            message1.Attachments.Add("C:\myfile.doc")
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim messages As New SmtpMessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            messages.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5)
+              
+             JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var message1:Message = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            var messages:SmtpMessageCollection = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5);
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessageCollection.Send(System.String,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism,ActiveUp.Net.Mail.SmtpExceptionCollection@)">
+             <summary>
+             Sends the message using the specified host and port.
+             A secure SASL authentication is performed according to the specified SASL mechanism.
+             </summary>
+             <param name="host">Host to be used to send the message.</param>
+             <param name="username">Username to be used for the authentication process.</param>
+             <param name="password">Password to be used for the authentication process.</param>
+             <param name="mechanism">SASL Mechanism to be used for authentication.</param>
+             <param name="errors">Reference to an SmtpException Collection where occuring errors should be stored.</param>
+             <example>
+             <code>
+             C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            Message message1 = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            SmtpMessageCollection messages = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,myerrorCollection);
+             
+             VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim message1 As New Message
+            message1.From = new Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark")
+            message1.Subject = "correction"
+            message1.Attachments.Add("C:\myfile.doc")
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim messages As New SmtpMessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            messages.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,myerrorCollection)
+              
+             JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var message1:Message = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            var messages:SmtpMessageCollection = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,myerrorCollection);
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpMessageCollection.Send(System.String,System.String,System.String,ActiveUp.Net.Mail.SaslMechanism,System.Int32)">
+             <summary>
+             Sends the message using the specified host and port.
+             A simple LOGIN authentication is performed.
+             </summary>
+             <param name="host">Host to be used to send the message.</param>
+             <param name="username">Username to be used for the authentication process.</param>
+             <param name="password">Password to be used for the authentication process.</param>
+             <param name="port">Port to be used to connect to the specified host.</param>
+             <example>
+             <code>
+             C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            Message message1 = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            SmtpMessageCollection messages = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504);
+             
+             VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim message1 As New Message
+            message1.From = new Address("jdoe@myhost.com","John Doe")
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark")
+            message1.Subject = "correction"
+            message1.Attachments.Add("C:\myfile.doc")
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim messages As New SmtpMessageCollection
+            messages.Add(message)
+            messages.Add(message1)
+            
+            messages.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504)
+              
+             JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var message1:Message = new Message();
+            message1.From = new Address("jdoe@myhost.com","John Doe");
+            message1.To.Add("dclark@blurdybloop.com","Dave Clark");
+            message1.Subject = "correction";
+            message1.Attachments.Add("C:\\myfile.doc");
+            message1.HtmlBody.Text = "Here is what I sent to Mike.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            var messages:SmtpMessageCollection = new SmtpMessageCollection();
+            messages.Add(message);
+            messages.Add(message1);
+            
+            messages.Send("mail.myhost.com","jdoe1234","tanstaaf",SaslMechanism.CramMd5,8504);
+             </code>
+             </example>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.SmtpValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpValidator.Validate(System.String)">
+            <summary>
+            Validates syntax and existence of the given address.
+            </summary>
+            <param name="address">The address to be validated.</param>
+            <returns>True if the address is valid, otherwise false.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpValidator.Validate(System.String,System.String)">
+            <summary>
+            Validates syntax and existence of the given address.
+            </summary>
+            <param name="address">The address to be validated.</param>
+            <param name="dnsServerHost">Name Server to be used for MX records search.</param>
+            <returns>True if the address is valid, otherwise false.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpValidator.Validate(System.String,ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Validates syntax and existence of the given address.
+            </summary>
+            <param name="address">The address to be validated.</param>
+            <param name="dnsServers">Name Servers to be used for MX records search.</param>
+            <returns>True if the address is valid, otherwise false.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpValidator.Validate(ActiveUp.Net.Mail.Address)">
+            <summary>
+            Validates syntax and existence of the given address.
+            </summary>
+            <param name="address">The address to be validated.</param>
+            <returns>True if the address is valid, otherwise false.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpValidator.Validate(ActiveUp.Net.Mail.Address,ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Validates syntax and existence of the given address.
+            </summary>
+            <param name="address">The address to be validated.</param>
+            <param name="dnsServers">Name Servers to be used for MX records search.</param>
+            <returns>True if the address is valid, otherwise false.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpValidator.Validate(ActiveUp.Net.Mail.Address,System.String)">
+            <summary>
+            Validates syntax and existence of the given address.
+            </summary>
+            <param name="address">The address to be validated.</param>
+            <param name="dnsServerHost">Name Server to be used for MX records search.</param>
+            <returns>True if the address is valid, otherwise false.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpValidator.GetInvalidAddresses(ActiveUp.Net.Mail.AddressCollection)">
+            <summary>
+            Validates syntax and existence of the given addresses and returns a collection of invalid or inexistent addresses.
+            </summary>
+            <param name="addresses">The addresses to be examined.</param>
+            <returns>A collection containing the invalid addresses.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpValidator.Filter(ActiveUp.Net.Mail.AddressCollection)">
+            <summary>
+            Validates syntax and existence of the given address and returns valid addresses.
+            </summary>
+            <param name="addresses">The collection to be filtered.</param>
+            <returns>A collection containing the valid addresses.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpValidator.GetInvalidAddresses(ActiveUp.Net.Mail.AddressCollection,ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Validates syntax and existence of the given addresses and returns a collection of invalid or inexistent addresses.
+            </summary>
+            <param name="addresses">The addresses to be examined.</param>
+            <param name="dnsServers">Name Servers to be used for MX records search.</param>
+            <returns>A collection containing the invalid addresses.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.SmtpValidator.Filter(ActiveUp.Net.Mail.AddressCollection,ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Validates syntax and existence of the given address and returns valid addresses.
+            </summary>
+            <param name="addresses">The collection to be filtered.</param>
+            <param name="dnsServers">Name Servers to be used for MX records search.</param>
+            <returns>A collection containing the valid addresses.</returns>
+        </member>
+    </members>
+</doc>

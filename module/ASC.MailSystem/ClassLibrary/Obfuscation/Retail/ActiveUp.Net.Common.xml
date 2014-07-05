@@ -1,0 +1,4451 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ActiveUp.Net.Common</name>
+    </assembly>
+    <members>
+        <member name="T:ActiveUp.Net.Mail.Address">
+            <summary>
+            Represent an Internet Email address with the owner's fullname.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Address.#ctor">
+            <summary>
+            The default constructor. Set all properties to string.Empty.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Address.#ctor(System.String)">
+            <summary>
+            Creates the Address using the specified Internet email (RFC 2822 addr-spec).
+            </summary>
+            <param name="email">The email address to use.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Address.#ctor(System.String,System.String)">
+            <summary>
+            Creates the Address using the specified Internet email (RFC 2822 addr-spec) and fullname.
+            </summary>
+            <param name="email">The email address to use.</param>
+            <param name="name">The owner's name.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Address.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+            </returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Address.Email">
+            <summary>
+            The Internet email address (RFC 2822 addr-spec).
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Address.Name">
+            <summary>
+            The Address owner's fullname.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Address.Merged">
+            <summary>
+            Gets a string compliant with RFC2822 address specification that represents the Address with the owner's fullname.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Address.Link">
+            <summary>
+             Gets an HTML formatted link to the address (mailto: form).
+             </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.AddressCollection">
+            <summary>
+            A collection of Internet Email addresses.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AddressCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AddressCollection.op_Addition(ActiveUp.Net.Mail.AddressCollection,ActiveUp.Net.Mail.AddressCollection)">
+            <summary>
+            Allows the developer to add a collection of Address objects in another one.
+            </summary>
+            <param name="first">The first collection.</param>
+            <param name="second">The second collection.</param>
+            <returns>The concatened collection.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AddressCollection.Add(ActiveUp.Net.Mail.Address)">
+            <summary>
+            Add an Address object.
+            </summary>
+            <param name="address">The Address object</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AddressCollection.Add(System.String)">
+            <summary>
+            Add an Address object using the specified Internet email (RFC 2822 addr-spec).
+            </summary>
+            <param name="email">The email</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AddressCollection.Add(System.String,System.String)">
+            <summary>
+            Add an Address using the specified Internet email (RFC 2822 addr-spec) and fullname.
+            </summary>
+            <param name="email">The email</param>
+            <param name="name">The name</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AddressCollection.Remove(System.Int32)">
+            <summary>
+            Remove the Address at the specified index position.
+            </summary>
+            <param name="index">The index position.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.AddressCollection.Merged">
+            <summary>
+            Returns a string reprensentation of the Addresses.
+            </summary>
+            <returns>The addresses separated with commas, in format compliant with RFC2822's address specification.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.AddressCollection.Links">
+            <summary>
+            Returns a string reprensentation of the Addresses as HTML formatted links, separated by semicolons.
+            </summary>
+            <returns>The addresses as HTML formatted links, separated by semicolons.</returns>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Attachment">
+            <summary>
+            Reprensents a file attachment (a MimePart with an attachment Content-Disposition).
+            Attachments are displayed only upon request of the receiving user, while EmbeddedObjects are displayed upon display of the message's content.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MimePart">
+            <summary>
+            The base class used by the Attachment and EmbeddedObject classes.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePart.#ctor(System.String,System.Boolean)">
+            <summary>
+            Creates a MimePart object with the content of the file located at the given path.
+            </summary>
+            <param name="path">File containing the content of the MimePart.</param>
+            <param name="generateContentId">If true, a Content-ID Header field will be added to allow referencing of this part in the message.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePart.#ctor(System.String,System.String)">
+            <summary>
+            Creates a MimePart object with the content of the file located at the given path.
+            </summary>
+            <param name="path">File containing the content of the MimePart.</param>
+            <param name="contentId">The Content-ID Header field will be used for the part.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePart.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates a MimePart object with the content of the file located at the given path.
+            </summary>
+            <param name="path">File containing the content of the MimePart.</param>
+            <param name="contentId">The Content-ID Header field will be used for the part.</param>
+            <param name="charset">If the file contains text, the charset of the text can be provided to ensure better handling.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePart.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a MimePart object with the content of the file located at the given path.
+            </summary>
+            <param name="path">File containing the content of the MimePart.</param>
+            <param name="generateContentId">If true, a Content-ID Header field will be added to allow referencing of this part in the message.</param>
+            <param name="charset">If the file contains text, the charset of the text can be provided to ensure better handling.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePart.SetContentId">
+            <summary>
+            Generates a new Content-ID for the part.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePart.SetContentId(System.String)">
+            <summary>
+            Set a new Content-ID for the part.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePart.StoreToFile(System.String)">
+            <summary>
+            Stores the part's BinaryContent to the specified path.
+            </summary>
+            <param name="destinationPath">The path the part has to be saved at.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePart.ToMimeString">
+            <summary>
+            The MIME string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePart.AddHeaderField(System.String,System.String)">
+            <summary>
+            Adds the header field.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.HeaderFieldNames">
+            <summary>
+            All Header fields names.
+            Key is the Header name in lower case and value is the Header name as it was it the original message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.HeaderFields">
+            <summary>
+            All Header fields.
+            Key is the Header name in lower case and value is the Header value.
+            </summary>
+            <example>
+            //This exposes the mail client used to send the message.
+            message.HeaderFields["x-mailer"]
+            </example>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.ContentName">
+            <summary>
+            The ContentName.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.ContentId">
+            <summary>
+            The ContentId.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.ContentDescription">
+            <summary>
+            The Content-Description.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.TextContent">
+            <summary>
+            The text content of a MIME Part.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.TextContentTransferEncoded">
+            <summary>
+            The text content of a MIME Part.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.Container">
+            <summary>
+            The multipart typed part containing this part.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.OriginalContent">
+            <summary>
+            The original content of a parsed MIME Part.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.ContentType">
+            <summary>
+            The Content-Type of the MimePart.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.Charset">
+            <summary>
+            The Charset of the MimePart.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.ContentDisposition">
+            <summary>
+            The Content-Disposition of the MimePart.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.ContentTransferEncoding">
+            <summary>
+            The Content-Transfer-Encoding of the MimePart.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.BinaryContent">
+            <summary>
+            The binary data of the part.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.ContentLocation">
+            <summary>
+            The Content-Location.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.Size">
+            <summary>
+            Approximate size of the file in octets.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePart.Filename">
+            <summary>
+            Gets the filename.
+            </summary>
+            <value>The filename.</value>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Attachment.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.AttachmentCollection">
+            <summary>
+            Represents a collection of Attachment objects.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MimePartCollection">
+            <summary>
+            Represents a collection of MimePart objects.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePartCollection.Add(ActiveUp.Net.Mail.MimePart)">
+            <summary>
+            Adds the MimePart object to the collection.
+            </summary>
+            <param name="part">The MimePart to be added.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePartCollection.op_Addition(ActiveUp.Net.Mail.MimePartCollection,ActiveUp.Net.Mail.MimePartCollection)">
+            <summary>
+            Allows the developer to add a collection of MimePart objects in another one.
+            </summary>
+            <param name="first">The first collection.</param>
+            <param name="second">The second collection.</param>
+            <returns>The concatened collection.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimePartCollection.Contains(System.String)">
+            <summary>
+            Check if the collection contain the specified filename.
+            </summary>
+            <param name="filename">The filename</param>
+            <returns>True if the collection contains the file; False otherwise.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePartCollection.Item(System.Int32)">
+            <summary>
+            Indexer.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimePartCollection.Item(System.String)">
+            <summary>
+            Indexer. Returns the first object containing the specified filename.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AttachmentCollection.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AttachmentCollection.Add(ActiveUp.Net.Mail.MimePart)">
+            <summary>
+            Add a MimePart to the attachment collection.
+            </summary>
+            <param name="part"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AttachmentCollection.Add(System.String,System.Boolean)">
+            <summary>
+            Generate and add a MimePart to the attachment collection, using the specified file.
+            </summary>
+            <param name="path">The file containing the MimePart's content.</param>
+            <param name="generateContentId">If true, a Content-ID Header field will be generated for the part.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AttachmentCollection.Add(System.String,System.Boolean,System.String)">
+            <summary>
+            Generate and add a MimePart to the attachment collection, using the specified file.
+            </summary>
+            <param name="path">The file containing the MimePart's content.</param>
+            <param name="generateContentId">If true, a Content-ID Header field will be generated for the part.</param>
+            <param name="charset">The charset of the text contained in the file.</param>
+            <remarks>This method is to be used with text files to ensure data integrity using the correct charset.</remarks>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AttachmentCollection.Add(System.Byte[],System.String)">
+            <summary>
+            Adds the specified attachment.
+            </summary>
+            <param name="attachment">The attachment.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AttachmentCollection.StoreToFolder(System.String)">
+            <summary>
+            Stores all the attachments to a folder.
+            </summary>
+            <param name="path">The destination folder.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BayesianFilter.AnalyzeMessage(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Analyzes a message if it is or not SPAM.
+            Returns a boolean value for the validation.
+            </summary>
+            <param name="subject">The message subject.</param>
+            <param name="body">The mail message body.</param>
+            <param name="spamWordsFilename">The Spam Word List File.</param>
+            <param name="hamWordsFilename">The Ham Word List File.</param>
+            <param name="ignoreWordsFilename">The Ignore Word List File.</param>
+            <returns>True for SPAM, false if it isn't a SPAM.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BayesianFilter.ReportMessage(ActiveUp.Net.Mail.Message,System.String)">
+            <summary>
+            Reports a mail message as SPAM.
+            It will be used for handle the AnalyzeMessage and
+            identify if a message is or not a SPAM.
+            </summary>
+            <param name="message">The mail message.</param>
+            <param name="filename">The file name for save it.</param>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.BodyFormat">
+            <summary>
+            Available message body formats.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.BodyFormat.Text">
+            <summary>
+            A plain text message body.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.BodyFormat.Html">
+            <summary>
+            A HTML based message body.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.BodyTemplate">
+            <summary>
+            A message body template.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BodyTemplate.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BodyTemplate.#ctor(System.String)">
+            <summary>
+            Creates the body template based on the specified content. The default format is Text.
+            </summary>
+            <param name="content">The content.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BodyTemplate.#ctor(System.String,ActiveUp.Net.Mail.BodyFormat)">
+            <summary>
+            Creates the body template based on the specified content and format.
+            </summary>
+            <param name="content">The content.</param>
+            <param name="format">The format to use.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.BodyTemplate.DataSource">
+            <summary>
+            Get or set the main data source of the body template.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.BodyTemplate.Format">
+            <summary>
+            Gets or sets the message body format.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.BodyTemplate.Content">
+            <summary>
+            Gets or sets the message body content.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.BodyTemplateCollection">
+            <summary>
+            A collection of templated bodies.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BodyTemplateCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BodyTemplateCollection.Add(ActiveUp.Net.Mail.BodyTemplate)">
+            <summary>
+            Add a templated body in the collection.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BodyTemplateCollection.Add(System.String)">
+            <summary>
+            Add a templated body in the collection based on the specified content.
+            </summary>
+            <param name="content">The content to use.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BodyTemplateCollection.Add(System.String,ActiveUp.Net.Mail.BodyFormat)">
+            <summary>
+            Add a templated body in the collection based on the specified content and body format.
+            </summary>
+            <param name="content">The content to use.</param>
+            <param name="format">The message body format.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BodyTemplateCollection.Remove(System.Int32)">
+            <summary>
+            Remove the body template at the specified index position.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.BodyTemplateCollection.Item(System.Int32)">
+            <summary>
+            Returns the body template at the specified index position.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.BounceResult">
+            <summary>
+            Represent a mail bounce status. Contains all the information needed to determine if the email is a mail server error bounce.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BounceResult.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.BounceResult.#ctor(System.Int32,System.String)">
+            <summary>
+            Create the object with specified default value.
+            </summary>
+            <param name="level">The level</param>
+            <param name="email">The email</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.BounceResult.Level">
+            <summary>
+            The level of revelance. <b>0</b> mean probably not a bounce. <b>1</b> mean this email is suspicious. 
+            <b>2</b> mean this is a potential bounce email. <b>3</b> mean we are quite sure that is a bounce email.
+            </summary>
+            <remarks>If the Level is <b>3</b>, the erroneous email (if available) is contained in the <see cref="P:ActiveUp.Net.Mail.BounceResult.Email"/> property.</remarks>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.BounceResult.Email">
+            <summary>
+            Contains the erroneous email if the revelance level is 3.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Codec">
+            <summary>
+            Contains several static methods providing encoding/decoding in various formats.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.Codec.whiteSpace">
+            <summary>
+            Detect whitespace between encoded words as stated by RFC2047
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.Codec.encodedWord">
+            <summary>
+            Detect encoded words as stated by RFC2047
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Codec.ToQuotedPrintable(System.String,System.String)">
+             <summary>
+             Encodes the text in quoted-printable format conforming to the RFC 2045 and RFC 2046.
+             </summary>
+             <param name="fromCharset">The charset of input.</param>
+             <param name="input">Data to be encoded.</param>
+             <remarks>The lines are wrapped to a length of max 78 characters to ensure data integrity across some gateways.</remarks>
+             <returns>The input encoded as 7bit quoted-printable data, in the form of max 78 characters lines.</returns>
+             <example>
+             The example below illustrates the encoding of a string in quoted-printable.
+             <code>
+             C#
+            
+             string input = "ActiveMail rocks ! Here are some non-ASCII characters =ç.";
+             string output = Codec.ToQuotedPrintable(input,"iso-8859-1");
+             </code>
+             output returns A= ctiveMail rocks ! Here are some weird characters =3D=E7.
+            
+             Non ASCII characters have been encoded (=3D represents = and =E7 represents ç).
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Codec.RFC2047Encode(System.String,System.String)">
+             <summary>
+             Encodes the given string in a format (specified in RFC 2047) that can be used in RFC 2822 headers to represent non-ASCII textual data.
+             </summary>
+             <param name="input">The string to be encoded (the Header field's value).</param>
+             <param name="charset">The charset of the Header field's value.</param>
+             <returns>The encoded string with only 7bit characters.</returns>
+             <remarks>ActiveMail only encodes in this format using Base64, but the RFC2047Decode method also decodes string encoded in this format with quoted-printable.</remarks>
+             <example>
+             The example below illustrates the encoding of a string.
+             <code>
+             C#
+            
+             string input = "ActiveMail rocks ! Here are some non-ASCII characters =ç.";
+             string output = Codec.RFC2047Encode(input,"iso-8859-1");
+             </code>
+            
+             output returns =?iso-8859-1?B?QWN0aXZlTWFpbCByb2NrcyAhIEhlcmUgYXJlIHNvbWUgd2VpcmQgY2hhcmFjdGVycyA95y4=?=
+            
+             This value can be used as for example the subject of a message.
+             If you suspect the text to contain non ASCII characters, do message.Subject = Codec.RFC2047Encode(yourRawValue);.
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Codec.GetEncoding(System.String)">
+            <summary>
+            Return encoding based on encoding name
+            Tries to resolve some wrong-formatted encoding names
+            </summary>
+            <param name="encodingName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Codec.RFC2047Decode(System.String)">
+             <summary>
+             Decodes the given string from the format specified in RFC 2047 (=?charset?value?=).
+             </summary>
+             <param name="input">The string to be decoded.</param>
+             <returns>The decoded string.</returns>
+             <example>
+             The example below illustrates the decoding of a string.
+             <code>
+             C#
+            
+             string input = "I once wrote that =?iso-8859-1?B?QWN0aXZlTWFpbCByb2NrcyAhIEhlcmUgYXJlIHNvbWUgd2VpcmQgY2hhcmFjdGVycyA95y4=?=";
+             string output = Codec.RFC2047Decode(input);
+             </code>
+            
+             output returns I once wrote that ActiveMail rocks ! Here are some weird characters =ç.
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Codec.FromQuotedPrintable(System.String,System.String)">
+             <summary>
+             Decodes text from quoted-printable format defined in RFC 2045 and RFC 2046.
+             </summary>
+             <param name="toCharset">The original charset of input.</param>
+             <param name="input">Data to be decoded.</param>
+             <returns>The decoded data.</returns>
+             <example>
+             The example below illustrates the decoding of a string from quoted-printable.
+             <code>
+             C#
+            
+             string input = "A=\r\nctiveMail rocks ! Here are some weird characters =3D=E7.";
+             string output = Codec.FromQuotedPrintable(input,"iso-8859-1");
+             </code>
+            
+             output returns ActiveMail rocks ! Here are some weird characters =ç.
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Codec.Wrap(System.String,System.Int32)">
+            <summary>
+            Wraps the given string to a set of lines of a maximum given length.
+            </summary>
+            <param name="input">Data to be wrapped.</param>
+            <param name="totalchars">The maximum length for each line.</param>
+            <returns>The data as a set of lines of a maximum length.</returns>
+            <remarks>This can be used to wrap lines to a maximum length of 78 characters to ensure data integrity across some gateways.</remarks>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Condition">
+            <summary>
+            Represents the formatting options of a message template field.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Condition.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Condition.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates the condition based on it's region id, field equal to value set with case-sensitive on.
+            </summary>
+            <param name="regionid">The ID of the region.</param>
+            <param name="field">The name of the field.</param>
+            <param name="aValue">The value to match.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Condition.#ctor(System.String,System.String,System.String,ActiveUp.Net.Mail.OperatorType,System.Boolean)">
+            <summary>
+            Creates the condition based on it's region id, field, operator to evaluate to the value and whether it is case sensitive.
+            </summary>
+            <param name="regionid">The ID of the region.</param>
+            <param name="field">The name of the field.</param>
+            <param name="aValue">The value to match.</param>
+            <param name="aOperator">The operator for the comparison.</param>
+            <param name="casesensitive">Whether the value is matched with case sensitivity.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Condition.Validate(System.Object)">
+            <summary>
+            Validate the condition against the values passed.
+            </summary>
+            <param name="aValue">The value to match.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Condition.IsNumeric(System.String)">
+            <summary>
+            Determines whether the specified s is numeric.
+            </summary>
+            <param name="s">The s.</param>
+            <returns>
+            	<c>true</c> if the specified s is numeric; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Condition.CaseSensitive">
+            <summary>
+            Whether the value is matched with case sensitivity.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Condition.Match">
+            <summary>
+            Whether the condition was a match.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Condition.Value">
+            <summary>
+            The value to match.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Condition.Operator">
+            <summary>
+            The operator for the comparison.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Condition.RegionID">
+            <summary>
+            The ID of the region.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Condition.Field">
+            <summary>
+            The name of the field.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.ConditionalCollection">
+            <summary>
+            A collection of field format options.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.Add(ActiveUp.Net.Mail.Condition)">
+            <summary>
+            Add an Condition object in the collection.
+            </summary>
+            <param name="condition">The Condition.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.Add(System.String,System.String,System.String)">
+            <summary>
+            Add an Condition object in the collection based the region id, field, and value.
+            </summary>
+            <param name="regionid">The name of the field.</param>
+            <param name="field">The name of the field.</param>
+            <param name="aValue">The value to match.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.Add(System.String,System.String,System.String,ActiveUp.Net.Mail.OperatorType,System.Boolean)">
+            <summary>
+            Add an Condition object based on it's region id, field, operator to evaluate to the value and whether it is case sensitive.
+            </summary>
+            <param name="regionid">The ID of the region.</param>
+            <param name="field">The name of the field.</param>
+            <param name="aValue">The value to match.</param>
+            <param name="aOperator">The operator for the comparison.</param>
+            <param name="casesensitive">Whether the value is matched with case sensitivity.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.Remove(System.Int32)">
+            <summary>
+            Remove the Condition object from the collection at the specified index position.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.Contains(System.String)">
+            <summary>
+            Determines whether the specified field is in the list.
+            </summary>
+            <param name="field">The name of the field.</param>
+            <returns>true if the collection contain the specified field; false otherwise.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.ContainsRegion(System.String)">
+            <summary>
+            Determines whether the specified region is in the list.
+            </summary>
+            <param name="regionID">The id of the region.</param>
+            <returns>true if the collection contain the specified field; false otherwise.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.RemoveRegion(System.String)">
+            <summary>
+            Returns whether the specified region is a match.
+            </summary>
+            <param name="regionID">The id of the region.</param>
+            <returns>true if the collection contain the specified field; false otherwise.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.ClearMatch">
+            <summary>
+            Validate the condition against the values passed.
+            </summary>
+            <param name="field">The field to match.</param>
+            <param name="aValue">The value to match.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.Validate(System.String,System.Object)">
+            <summary>
+            Validate the condition against the values passed.
+            </summary>
+            <param name="field">The field to match.</param>
+            <param name="aValue">The value to match.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.GetColumns(System.Object)">
+            <summary>
+            Get the columns for the specified data source.
+            </summary>
+            <param name="dataSource">The data source.</param>
+            <returns>The columns.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConditionalCollection.GetEnumerator(System.Object)">
+            <summary>
+            Get the enumerator from the specified data source.
+            </summary>
+            <param name="dataSource">The data source.</param>
+            <returns>The enumerator.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.ConditionalCollection.Item(System.Int32)">
+            <summary>
+            Returns the Condition object at the specified index position in the collection.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.ConditionalCollection.Item(System.String)">
+            <summary>
+            Returns the Condition of the specified field.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.ContentDisposition.Inline">
+            <summary>
+            A bodypart should have an Inline ContentDisposition if it is intended to be displayed automatically upon display of the message.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.ContentDisposition.Attachment">
+            <summary>
+            Bodyparts can have Attachment ContentDisposition to indicate that they are separate from the main body of the mail message, and that their display should not be automatic, but contingent upon some further action of the user.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ContentDisposition.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+            </returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.ContentDisposition.FileName">
+            <summary>
+            Gets or sets the name of the file.
+            </summary>
+            <value>The name of the file.</value>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.ContentDisposition.Disposition">
+            <summary>
+            Gets or sets the disposition.
+            </summary>
+            <value>The disposition.</value>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.ContentTransferEncoding">
+            <summary>
+            Available transfer encodings.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.ContentTransferEncoding.None">
+            <summary>
+            Do not encode.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.ContentTransferEncoding.Unknown">
+            <summary>
+            Unknown encoding.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.ContentTransferEncoding.Base64">
+            <summary>
+            Base64 encoding defined in RFC2045.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.ContentTransferEncoding.QuotedPrintable">
+            <summary>
+            Quoted-Printable encoding defined in RFC2045.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.ContentTransferEncoding.SevenBits">
+            <summary>
+            7Bit encoding.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.ContentTransferEncoding.EightBits">
+            <summary>
+            8Bit encoding.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.ContentTransferEncoding.Binary">
+            <summary>
+            Binary encoding.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.IFlag">
+            <summary>
+            Represents a flag.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.IFlagCollection">
+            <summary>
+            Represents a collection of Flags.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IFlagCollection.Add(ActiveUp.Net.Mail.IFlag)">
+            <summary>
+            Adds the provided flag to the collection.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IFlagCollection.Add(System.String)">
+            <summary>
+            Adds a new flag to the collection with the specified name.
+            </summary>
+            <param name="flagName"></param>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.IMailbox">
+            <summary>
+            Represents a mailbox.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.CreateChild(System.String)">
+            <summary>
+            Creates a child mailbox.
+            </summary>
+            <param name="mailboxName">The name of the child mailbox to be created.</param>
+            <returns>The newly created mailbox.</returns>
+            <example>
+            <code>
+            C#
+             
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            Mailbox inbox = imap.SelectInbox("inbox");
+            Mailbox staff = inbox.CreateChild("Staff");
+            int zero = staff.MessageCount
+            //Returns 0.
+            inbox.Close();
+            imap.Disconnect();
+            
+            VB.NET
+             
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com")
+            imap.Login("jdoe1234","tanstaaf")
+            Dim inbox As Mailbox = imap.SelectInbox("inbox")
+            Dim staff As Mailbox = inbox.CreateChild("Staff")
+            Dim zero As Integer = staff.MessageCount
+            'Returns 0.
+            inbox.Close()
+            imap.Disconnect()
+            
+            JScript.NET
+             
+            var imap:Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            var inbox:Mailbox = imap.SelectInbox("inbox");
+            var staff:Mailbox = inbox.CreateChild("Staff");
+            var zero:int = staff.MessageCount
+            //Returns 0.
+            inbox.Close();
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Subscribe">
+            <summary>
+            Subscribes to the mailbox.
+            </summary>
+            <returns>The server's response.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Unsubscribe">
+            <summary>
+            Unsubscribes from the mailbox.
+            </summary>
+            <returns>The server's response.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Delete">
+            <summary>
+            Deletes the mailbox.
+            </summary>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+             
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            Mailbox inbox = imap.SelectInbox("inbox");
+            inbox.Delete();
+            imap.Disconnect();
+            
+            VB.NET
+             
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com")
+            imap.Login("jdoe1234","tanstaaf")
+            Dim inbox As Mailbox = imap.SelectInbox("inbox")
+            inbox.Delete()
+            imap.Disconnect()
+            
+            JScript.NET
+             
+            var imap:Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            var inbox:Mailbox = imap.SelectInbox("inbox");
+            inbox.Delete();
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Rename(System.String)">
+            <summary>
+            Renames the mailbox.
+            </summary>
+            <param name="newMailboxName">The new name of the mailbox.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+             
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            Mailbox inbox = imap.SelectInbox("invox");
+            inbox.Rename("inbox");
+            imap.Disconnect();
+            
+            VB.NET
+             
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com")
+            imap.Login("jdoe1234","tanstaaf")
+            Dim inbox As Mailbox = imap.SelectInbox("invox")
+            inbox.Rename("inbox")
+            imap.Disconnect()
+            
+            JScript.NET
+             
+            var imap:Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            var inbox:Mailbox = imap.SelectInbox("invox");
+            inbox.Rename("inbox");
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Search(System.String)">
+            <summary>
+            Searches the mailbox for messages corresponding to the query.
+            </summary>
+            <param name="query">Query to use.</param>
+            <returns>An array of integers containing ordinal positions of messages matching the query.</returns>
+            <example>
+            <code>
+            C#
+             
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            Mailbox inbox = imap.SelectInbox("inbox");
+            int[] ids = inbox.Search("SEARCH FLAGGED SINCE 1-Feb-1994 NOT FROM "Smith");
+            imap.Disconnect();
+            
+            VB.NET
+             
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com")
+            imap.Login("jdoe1234","tanstaaf")
+            Dim inbox As Mailbox = imap.SelectInbox("inbox")
+            Dim ids() As Integer = inbox.Search("SEARCH FLAGGED SINCE 1-Feb-1994 NOT FROM "Smith")
+            imap.Disconnect()
+            
+            JScript.NET
+             
+            var imap:Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            var inbox:Mailbox = imap.SelectInbox("inbox");
+            var ids:int[] = inbox.Search("SEARCH FLAGGED SINCE 1-Feb-1994 NOT FROM "Smith");
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.SearchParse(System.String)">
+            <summary>
+            Search for messages accoridng to the given query.
+            </summary>
+            <param name="query">Query to use.</param>
+            <returns>A collection of messages matching the query.</returns>
+            <example>
+            <code>
+            C#
+             
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            Mailbox inbox = imap.SelectInbox("inbox");
+            MessageCollection messages = inbox.SearchParse("SEARCH FLAGGED SINCE 1-Feb-1994 NOT FROM "Smith");
+            imap.Disconnect();
+            
+            VB.NET
+             
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com")
+            imap.Login("jdoe1234","tanstaaf")
+            Dim inbox As Mailbox = imap.SelectInbox("inbox")
+            Dim messages As MessageCollection = inbox.SearchParse("SEARCH FLAGGED SINCE 1-Feb-1994 NOT FROM "Smith")
+            imap.Disconnect()
+            
+            JScript.NET
+             
+            var imap:Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            var inbox:Mailbox = imap.SelectInbox("inbox");
+            var messages:MessageCollection = inbox.SearchParse("SEARCH FLAGGED SINCE 1-Feb-1994 NOT FROM "Smith");
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Search(System.String,System.String)">
+            <summary>
+            Searches the mailbox for messages corresponding to the query.
+            </summary>
+            <param name="query">The search query.</param>
+            <param name="charset">The charset the query has to be performed for.</param>
+            <returns>An array of integers containing ordinal positions of messages matching the query.</returns>
+            <example><see cref="!:Mailbox.Search"/></example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.SearchParse(System.String,System.String)">
+            <summary>
+            Search for messages accoridng to the given query.
+            </summary>
+            <param name="query">Query to use.</param>
+            <param name="charset">The charset to apply the query for.</param>
+            <returns>A collection of messages matching the query.</returns>
+            <example><see cref="!:Mailbox.SearchParse"/></example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.AddFlags(System.Int32,ActiveUp.Net.Mail.IFlagCollection)">
+            <summary>
+            Adds the specified flags to the message.
+            </summary>
+            <param name="messageOrdinal">The message's ordinal position.</param>
+            <param name="flags">Flags to be added to the message.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+             
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            Mailbox inbox = imap.SelectInbox("inbox");
+            FlagCollection flags = new FlagCollection();
+            flags.Add("Draft");
+            inbox.AddFlags(1,flags);
+            //Message 1 is marked as draft.
+            imap.Disconnect();
+            
+            VB.NET
+             
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com")
+            imap.Login("jdoe1234","tanstaaf")
+            Dim inbox As Mailbox = imap.SelectInbox("inbox")
+            Dim flags As New FlagCollection
+            flags.Add("Draft")
+            inbox.AddFlags(1,flags)
+            'Message 1 is marked as draft.
+            imap.Disconnect()
+            
+            JScript.NET
+             
+            var imap:Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            var inbox:Mailbox = imap.SelectInbox("inbox");
+            var flags:FlagCollection = new FlagCollection();
+            flags.Add("Draft");
+            inbox.AddFlags(1,flags);
+            //Message is marked as draft.
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.RemoveFlags(System.Int32,ActiveUp.Net.Mail.IFlagCollection)">
+            <summary>
+            Removes the specified flags from the message.
+            </summary>
+            <param name="messageOrdinal">The message's ordinal position.</param>
+            <param name="flags">Flags to be removed from the message.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+             
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            Mailbox inbox = imap.SelectInbox("inbox");
+            FlagCollection flags = new FlagCollection();
+            flags.Add("Read");
+            inbox.RemoveFlags(1,flags);
+            //Message 1 is marked as unread.
+            imap.Disconnect();
+            
+            VB.NET
+             
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com")
+            imap.Login("jdoe1234","tanstaaf")
+            Dim inbox As Mailbox = imap.SelectInbox("inbox")
+            Dim flags As New FlagCollection
+            flags.Add("Read")
+            inbox.RemoveFlags(1,flags)
+            'Message 1 is marked as unread.
+            imap.Disconnect()
+            
+            JScript.NET
+             
+            var imap:Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            var inbox:Mailbox = imap.SelectInbox("inbox");
+            var flags:FlagCollection = new FlagCollection();
+            flags.Add("Read");
+            inbox.RemoveFlags(1,flags);
+            //Message 1 is marked as unread.
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.SetFlags(System.Int32,ActiveUp.Net.Mail.IFlagCollection)">
+            <summary>
+            Sets the specified flags for the message.
+            </summary>
+            <param name="messageOrdinal">The message's ordinal position.</param>
+            <param name="flags">Flags to be stored for the message.</param>
+            <returns>The server's response.</returns>
+            <example>
+            <code>
+            C#
+             
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            Mailbox inbox = imap.SelectInbox("inbox");
+            FlagCollection flags = new FlagCollection();
+            flags.Add("Read");
+            flags.Add("Answered");
+            inbox.AddFlags(1,flags);
+            //Message is marked as read and answered. All prior flags are unset.
+            imap.Disconnect();
+            
+            VB.NET
+             
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com")
+            imap.Login("jdoe1234","tanstaaf")
+            Dim inbox As Mailbox = imap.SelectInbox("inbox")
+            Dim flags As New FlagCollection
+            flags.Add("Read")
+            flags.Add("Answered")
+            inbox.AddFlags(1,flags)
+            'Message is marked as read and answered. All prior flags are unset.
+            imap.Disconnect()
+            
+            JScript.NET
+             
+            var imap:Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            var inbox:Mailbox = imap.SelectInbox("inbox");
+            var flags:FlagCollection = new FlagCollection();
+            flags.Add("Read");
+            flags.Add("Answered");
+            inbox.AddFlags(1,flags);
+            //Message is marked as read and answered. All prior flags are unset.
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.AddFlagsSilent(System.Int32,ActiveUp.Net.Mail.IFlagCollection)">
+            <summary>
+            Same as AddFlags() except no response is requested.
+            </summary>
+            <param name="messageOrdinal">The message's ordinal position.</param>
+            <param name="flags">Flags to be added to the message.</param>
+            <example><see cref="!:Mailbox.AddFlags"/></example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.RemoveFlagsSilent(System.Int32,ActiveUp.Net.Mail.IFlagCollection)">
+            <summary>
+            Same as RemoveFlags() except no response is requested.
+            </summary>
+            <param name="messageOrdinal">The message's ordinal position.</param>
+            <param name="flags">Flags to be removed from the message.</param>
+            <example><see cref="!:Mailbox.RemoveFlags"/></example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.SetFlagsSilent(System.Int32,ActiveUp.Net.Mail.IFlagCollection)">
+            <summary>
+            Same as SetFlags() except no response is requested.
+            </summary>
+            <param name="messageOrdinal">The message's ordinal position.</param>
+            <param name="flags">Flags to be set for the message.</param>
+            <example><see cref="!:Mailbox.SetFlags"/></example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.CopyMessage(System.Int32,System.String)">
+            <summary>
+            Copies the specified message to the specified mailbox.
+            </summary>
+            <param name="messageOrdinal">The ordinal of the message to be copied.</param>
+            <param name="destinationMailboxName">The name of the destination mailbox.</param>
+            <returns>The destination mailbox.</returns>
+            <example>
+            <code>
+            C#
+             
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            Mailbox inbox = imap.SelectInbox("inbox");
+            inbox.CopyMessage(1,"Read Messages");
+            //Copies message 1 to Read Messages mailbox.
+            imap.Disconnect();
+            
+            VB.NET
+             
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com")
+            imap.Login("jdoe1234","tanstaaf")
+            Dim inbox As Mailbox = imap.SelectInbox("inbox")
+            inbox.CopyMessage(1,"Read Messages")
+            'Copies message 1 to Read Messages mailbox.
+            imap.Disconnect()
+            
+            JScript.NET
+             
+            var imap:Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            var inbox:Mailbox = imap.SelectInbox("inbox");
+            inbox.CopyMessage(1,"Read Messages");
+            //Copies message 1 to Read Messages mailbox.
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Append(System.String)">
+            <summary>
+            Appends the provided message to the mailbox.
+            </summary>
+            <param name="messageLiteral">The message in a Rfc822 compliant format.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Append(System.String,ActiveUp.Net.Mail.IFlagCollection)">
+            <summary>
+            Appends the provided message to the mailbox.
+            </summary>
+            <param name="messageLiteral">The message in a Rfc822 compliant format.</param>
+            <param name="flags">Flags to be set for the message.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Append(System.String,ActiveUp.Net.Mail.IFlagCollection,System.DateTime)">
+            <summary>
+            Appends the provided message to the mailbox.
+            </summary>
+            <param name="messageLiteral">The message in a Rfc822 compliant format.</param>
+            <param name="flags">Flags to be set for the message.</param>
+            <param name="dateTime">The internal date to be set for the message.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Append(ActiveUp.Net.Mail.Message)">
+            <summary>
+            Appends the provided message to the mailbox.
+            </summary>
+            <param name="message">The message to be appended.</param>
+            <example>
+            <code>
+            C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            Imap4Client imap = new Imap4Client();
+            Mailbox inbox = imap.SelectMailbox("inbox");
+            inbox.Append(message);
+            imap.Disconnect();
+             
+            VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim imap As New Imap4Client
+            Dim inbox As Mailbox = imap.SelectMailbox("inbox")
+            inbox.Append(message)
+            imap.Disconnect()
+              
+            JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var imap:Imap4Client = new Imap4Client();
+            var inbox:Mailbox = imap.SelectMailbox("inbox");
+            inbox.Append(message);
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Append(ActiveUp.Net.Mail.Message,ActiveUp.Net.Mail.IFlagCollection)">
+            <summary>
+            Appends the provided message to the mailbox.
+            </summary>
+            <param name="message">The message to be appended.</param>
+            <param name="flags">Flags to be set for the message.</param>
+            <example>
+            <code>
+            C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            FlagCollection flags = new FlagCollection();
+            flags.Add("Read");
+            
+            Imap4Client imap = new Imap4Client();
+            Mailbox inbox = imap.SelectMailbox("Read Messages");
+            inbox.Append(message,flags);
+            imap.Disconnect();
+             
+            VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim flags As New FlagCollection
+            flags.Add("Read")
+             
+            Dim imap As New Imap4Client
+            Dim inbox As Mailbox = imap.SelectMailbox("Read Messages")
+            inbox.Append(message,flags)
+            imap.Disconnect()
+              
+            JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var flags:FlagCollection = new FlagCollection();
+            flags.Add("Read");
+             
+            var imap:Imap4Client = new Imap4Client();
+            var inbox:Mailbox = imap.SelectMailbox("Read Messages");
+            inbox.Append(message,flags);
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Append(ActiveUp.Net.Mail.Message,ActiveUp.Net.Mail.IFlagCollection,System.DateTime)">
+            <summary>
+            Appends the provided message to the mailbox.
+            </summary>
+            <param name="message">The message to be appended.</param>
+            <param name="flags">Flags to be set for the message.</param>
+            <param name="dateTime">The internal date to be set for the message.</param>
+            <example>
+            <code>
+            C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            FlagCollection flags = new FlagCollection();
+            flags.Add("Read");
+            
+            Imap4Client imap = new Imap4Client();
+            Mailbox inbox = imap.SelectMailbox("Read Messages");
+            inbox.Append(message,flags,System.DateTime.Now);
+            imap.Disconnect();
+             
+            VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim flags As New FlagCollection
+            flags.Add("Read")
+             
+            Dim imap As New Imap4Client
+            Dim inbox As Mailbox = imap.SelectMailbox("Read Messages")
+            inbox.Append(message,flags,System.DateTime.Now)
+            imap.Disconnect()
+              
+            JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.HtmlBody.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var flags:FlagCollection = new FlagCollection();
+            flags.Add("Read");
+             
+            var imap:Imap4Client = new Imap4Client();
+            var inbox:Mailbox = imap.SelectMailbox("Read Messages");
+            inbox.Append(message,flags,System.DateTime.Now);
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Append(System.Byte[])">
+            <summary>
+            Appends the provided message to the mailbox.
+            </summary>
+            <param name="messageData">The message in a Rfc822 compliant format.</param>
+            <example><see cref="!:Mailbox.Append"/></example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Append(System.Byte[],ActiveUp.Net.Mail.IFlagCollection)">
+            <summary>
+            Appends the provided message to the mailbox.
+            </summary>
+            <param name="messageData">The message in a Rfc822 compliant format.</param>
+            <param name="flags">Flags to be set for the message.</param>
+            <example><see cref="!:Mailbox.Append"/></example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Append(System.Byte[],ActiveUp.Net.Mail.IFlagCollection,System.DateTime)">
+            <summary>
+            Appends the provided message to the mailbox.
+            </summary>
+            <param name="messageData">The message in a Rfc822 compliant format.</param>
+            <param name="flags">Flags to be set for the message.</param>
+            <param name="dateTime">The internal date to be set for the message.</param>
+            <example><see cref="!:Mailbox.Append"/></example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.IMailbox.Empty(System.Boolean)">
+            <summary>
+            Empties the mailbox.
+            </summary>
+            <param name="expunge">If true, all messages are permanently removed. Otherwise they are all marked with the Deleted flag.</param>
+            <example>
+            <code>
+            C#
+             
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            Mailbox inbox = imap.SelectInbox("inbox");
+            inbox.Empty(true);
+            //Messages from inbox are permanently removed.
+            imap.Disconnect();
+            
+            VB.NET
+             
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com")
+            imap.Login("jdoe1234","tanstaaf")
+            Dim inbox As Mailbox = imap.SelectInbox("inbox")
+            inbox.Empty(True)
+            'Messages from inbox are permanently removed.
+            imap.Disconnect()
+            
+            JScript.NET
+             
+            var imap:Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com");
+            imap.Login("jdoe1234","tanstaaf");
+            var inbox:Mailbox = imap.SelectInbox("inbox");
+            inbox.Empty(true);
+            //Messages from inbox are permanently removed.
+            imap.Disconnect();
+            </code>
+            </example>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ActiveUp.Net.Mail.IMailbox.DeleteMessage(System.Int32,System.Boolean)" -->
+        <member name="T:ActiveUp.Net.Mail.Crypto">
+            <summary>
+            Contains several static methods providing cryptographic digesting and transformations.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Crypto.MD5Digest(System.String)">
+            <summary>
+            Digests the given string using the MD5 algorithm.
+            </summary>
+            <param name="data">The data to be digested.</param>
+            <remarks>This method is used for APOP authentication.</remarks>
+            <returns>A 16 bytes digest representing the data.</returns>
+            <example>
+            The example below illustrates the use of this method.
+            
+            <code>
+            C#
+            
+            string data = "ActiveMail rocks ! Let's see how this string is digested...";
+            string digest = Crypto.MD5Digest(data);
+            </code>
+            
+            digest returns 3ff3501885f8602c4d8bf7edcd2ceca1
+            
+            Digesting is used to check data equivalence.
+            Different data result in different digests.
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Crypto.HMACMD5Digest(System.String,System.String)">
+            <summary>
+            Applies the HMAC-MD5 keyed algorithm to the given string using the given key.
+            </summary>
+            <param name="key">The key to be used.</param>
+            <param name="data">The data to be digested.</param>
+            <remarks>This method is used for CRAM-MD5 authentication.</remarks>
+            <returns>The transformed data as a 16 bytes digest.</returns>
+            <example>
+            The example below illustrates the use of this method.
+            
+            <code>
+            C#
+            
+            string key = "key";
+            string data = "ActiveMail rocks ! Let's see how this string is digested...";
+            string digest = Crypto.HMACMD5Digest(key,data);
+            </code>
+            
+            digest returns 5db4f178a3ff817a9bc1092a2bcdda24
+            
+            Digesting is used to check data equivalence.
+            Different data result in different digests.
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.CtchClient.QueryServer(System.String,System.Int32,System.String)">
+            <summary>
+            Queries the server.
+            </summary>
+            <param name="host">The host.</param>
+            <param name="port">The port.</param>
+            <param name="messageFilename">The message filename.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.CtchClient.QueryServer(System.String,System.Int32,ActiveUp.Net.Mail.Message)">
+            <summary>
+            Queries the server.
+            </summary>
+            <param name="host">The host.</param>
+            <param name="port">The port.</param>
+            <param name="message">The message.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.CtchClient.QueryServer(System.String,System.Int32,ActiveUp.Net.Mail.Message,System.String)">
+            <summary>
+            Queries the server.
+            </summary>
+            <param name="host">The host.</param>
+            <param name="port">The port.</param>
+            <param name="message">The message.</param>
+            <param name="filename">The filename.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.CtchResponse.ReadHeaderName(System.String)">
+            <summary>
+            Reads the name of the header.
+            </summary>
+            <param name="header">The header.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.CtchResponse.ReadHeaderValue(System.String)">
+            <summary>
+            Reads the header value.
+            </summary>
+            <param name="header">The header.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.CtchResponse.ParseFromString(System.String)">
+            <summary>
+            Parses from string.
+            </summary>
+            <param name="response">The response.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.CtchResponse.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+            </returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.CtchResponse.Version">
+            <summary>
+            Gets or sets the version.
+            </summary>
+            <value>The version.</value>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.CtchResponse.SpamClassification">
+            <summary>
+            Gets or sets the spam classification.
+            </summary>
+            <value>The spam classification.</value>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.CtchResponse.VodClassification">
+            <summary>
+            Gets or sets the vod classification.
+            </summary>
+            <value>The vod classification.</value>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.CtchResponse.CtchFlag">
+            <summary>
+            Gets or sets the CTCH flag.
+            </summary>
+            <value>The CTCH flag.</value>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.CtchResponse.RefID">
+            <summary>
+            Gets or sets the ref ID.
+            </summary>
+            <value>The ref ID.</value>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.CtchResponse.Headers">
+            <summary>
+            Gets or sets the headers.
+            </summary>
+            <value>The headers.</value>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.CtchResponse.FullResponse">
+            <summary>
+            Gets or sets the full response.
+            </summary>
+            <value>The full response.</value>
+        </member>
+        <member name="M:ActiveUp.Net.Security.Signature.GetContentLength(System.Byte[],System.Int32@)">
+            <summary>
+            This method extracts the DER encoded length of a content tag in the 
+            byte array.
+            This method assumes that the specified lengthStartIndex is located
+            at the first length byte.
+            When this method returns, the lengthStartIndex will have been modified to point
+            to the first byte of the actual content that follows the length byte(s).
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Security.Signature.CopyContent(System.Byte[],System.Int32@,System.Byte[]@)">
+            <summary>
+            This method copies the content bytes of the current content node specified
+            by the startIndex value.
+            This method assumes that startIndex is located at the first byte of the length
+            byte(s).
+            This method assumes that the content is an DER encoded Integer value.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.EmbeddedObjectCollection">
+            <summary>
+            Represents a collection of EmbeddedObject objects.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.EmbeddedObjectCollection.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.EmbeddedObjectCollection.Add(ActiveUp.Net.Mail.MimePart)">
+            <summary>
+            Add a MimePart to the embedded objects collection.
+            </summary>
+            <param name="part"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.EmbeddedObjectCollection.Add(System.String,System.Boolean)">
+            <summary>
+            Generate and add a MimePart to the embedded objects collection, using the specified file.
+            </summary>
+            <param name="path">The file containing the MimePart's content.</param>
+            <param name="generateContentId">If true, a Content-ID Header field will be generated for the part.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.EmbeddedObjectCollection.Add(System.String,System.String)">
+            <summary>
+            Generate and add a MimePart to the embedded objects collection, using the specified file.
+            </summary>
+            <param name="path">The file containing the MimePart's content.</param>
+            <param name="contentId">The Content-ID Header field will be used for the part.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.EmbeddedObjectCollection.Add(System.String,System.String,System.String)">
+            <summary>
+            Generate and add a MimePart to the embedded objects collection, using the specified file.
+            </summary>
+            <param name="path">The file containing the MimePart's content.</param>
+            <param name="contentId">The Content-ID Header field will be used for the part.</param>
+            <param name="charset">The charset of the text contained in the file.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.EmbeddedObjectCollection.Add(System.String,System.Boolean,System.String)">
+            <summary>
+            Generate and add a MimePart to the embedded objects collection, using the specified file.
+            </summary>
+            <param name="path">The file containing the MimePart's content.</param>
+            <param name="generateContentId">If true, a Content-ID Header field will be generated for the part.</param>
+            <param name="charset">The charset of the text contained in the file.</param>
+            <remarks>This method is to be used with text files to ensure data integrity using the correct charset.</remarks>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.AuthenticatingEventHandler">
+            <summary>
+            EventHandler to be used with the Authenticating event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.AuthenticatedEventHandler">
+            <summary>
+            EventHandler to be used with the Authenticated event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.NoopingEventHandler">
+            <summary>
+            EventHandler to be used with the Nooping event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.NoopedEventHandler">
+            <summary>
+            EventHandler to be used with the Nooped event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.TcpWritingEventHandler">
+            <summary>
+            EventHandler to be used with the TcpWriting event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.TcpWrittenEventHandler">
+            <summary>
+            EventHandler to be used with the TcpWritten event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.TcpReadingEventHandler">
+            <summary>
+            EventHandler to be used with the TcpReading event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.TcpReadEventHandler">
+            <summary>
+            EventHandler to be used with the TcpRead event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MessageRetrievingEventHandler">
+            <summary>
+            EventHandler to be used with the MessageRetrieving event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MessageRetrievedEventHandler">
+            <summary>
+            EventHandler to be used with the MessageRetrieved event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.HeaderRetrievingEventHandler">
+            <summary>
+            EventHandler to be used with the HeaderRetrieving event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.HeaderRetrievedEventHandler">
+            <summary>
+            EventHandler to be used with the HeaderRetrieved event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.DisconnectingEventHandler">
+            <summary>
+            EventHandler to be used with the Disconnecting event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.DisconnectedEventHandler">
+            <summary>
+            EventHandler to be used with the Disconnected event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.ConnectingEventHandler">
+            <summary>
+            EventHandler to be used with the Connecting event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.ConnectedEventHandler">
+            <summary>
+            EventHandler to be used with the Connected event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MessageSendingEventHandler">
+            <summary>
+            EventHandler to be used with the MessageSending event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MessageSentEventHandler">
+            <summary>
+            EventHandler to be used with the MessageSent event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.NewMessageReceivedEventHandler">
+            <summary>
+            EventHandler to be used with the NewMessage event.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.DisconnectedEventArgs">
+            <summary>
+            EventArgs used by the Disconnected event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.DisconnectedEventArgs.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="serverresponse">The remote server's response.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.DisconnectedEventArgs.ServerResponse">
+            <summary>
+            The remote server's response.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.ConnectedEventArgs">
+            <summary>
+            EventArgs used by the Connected event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ConnectedEventArgs.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="serverresponse">The remote server's response.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.ConnectedEventArgs.ServerResponse">
+            <summary>
+            The remote server's response.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MessageRetrievedEventArgs">
+            <summary>
+            EventArgs used by the MessageRetrieved event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MessageRetrievedEventArgs.#ctor(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="data">The retrieved message as a byte array.</param>
+            <param name="index">The index of the message that has been retrieved.</param>
+            <param name="totalCount">The total amount of messages on the remote server (POP3 only).</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MessageRetrievedEventArgs.#ctor(System.Byte[],System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="data">The retrieved message as a byte array.</param>
+            <param name="index">The index of the message that has been retrieved.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MessageRetrievedEventArgs.Message">
+            <summary>
+            The retrieved message as a Message object.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MessageRetrievedEventArgs.MessageIndex">
+            <summary>
+            The retrieved message's index on the remote server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MessageRetrievedEventArgs.TotalCount">
+            <summary>
+            The total amount of messages on the remote server (POP3 only).
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MessageRetrievingEventArgs">
+            <summary>
+            EventArgs used by the MessageRetrieving event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MessageRetrievingEventArgs.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="index">The message to be retrieved's index.</param>
+            <param name="totalCount">The total amount of messages on the remote server.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MessageRetrievingEventArgs.#ctor(System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="index">The message to be retrieved's index.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MessageRetrievingEventArgs.MessageIndex">
+            <summary>
+            The index of the message to be retrieved on the remote server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MessageRetrievingEventArgs.TotalCount">
+            <summary>
+            The total amount of messages on the remote server (POP3 only).
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.HeaderRetrievedEventArgs">
+            <summary>
+            EventArgs used by the HeaderRetrieved event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.HeaderRetrievedEventArgs.#ctor(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Event
+            </summary>
+            <param name="data">The retrieved Header as a byte array.</param>
+            <param name="index">The index of the Header retrieved.</param>
+            <param name="totalCount">The total amount of messages on the remote server (POP3 only).</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.HeaderRetrievedEventArgs.#ctor(System.Byte[],System.Int32)">
+            <summary>
+            Event
+            </summary>
+            <param name="data">The retrieved Header as a byte array.</param>
+            <param name="index">The index of the retrieved header.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.HeaderRetrievedEventArgs.Header">
+            <summary>
+            The Header retrieved from the remote server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.HeaderRetrievedEventArgs.MessageIndex">
+            <summary>
+            The index of the message Header retrieved on the remote server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.HeaderRetrievedEventArgs.TotalCount">
+            <summary>
+            The total amount of messages on the remote server (POP3 only).
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.HeaderRetrievingEventArgs">
+            <summary>
+            EventArgs used by the HeaderRetrieving event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.HeaderRetrievingEventArgs.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.HeaderRetrievingEventArgs.#ctor(System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.HeaderRetrievingEventArgs.MessageIndex">
+            <summary>
+            The index of the message Header to be retrieved on the remote server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.HeaderRetrievingEventArgs.TotalCount">
+            <summary>
+            The total amount of messages on the remote server (POP3 only).
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.TcpWrittenEventArgs">
+            <summary>
+            EventArgs used by the TcpWritten event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.TcpWrittenEventArgs.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="data">Data sent to the server.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TcpWrittenEventArgs.Command">
+            <summary>
+            Data sent to the server.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.TcpWritingEventArgs">
+            <summary>
+            EventArgs used by the TcpWriting event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.TcpWritingEventArgs.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="data">Data sent to the server.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TcpWritingEventArgs.Command">
+            <summary>
+            Data sent to the server.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.TcpReadEventArgs">
+            <summary>
+            EventArgs used by the TcpRead event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.TcpReadEventArgs.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="data">Data received from the server.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TcpReadEventArgs.Response">
+            <summary>
+            The server's response.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.AuthenticatedEventArgs">
+            <summary>
+            Represents an authentication process.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AuthenticatedEventArgs.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="username">Username used to authenticate the user.</param>
+            <param name="password">Password used to authenticate the user.</param>
+            <param name="host">Address of the remote server.</param>
+            <param name="serverResponse">The server response to the PASS command.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AuthenticatedEventArgs.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="username">Username used to authenticate the user.</param>
+            <param name="password">Password used to authenticate the user.</param>
+            <param name="serverResponse">The server response to the PASS command.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.AuthenticatedEventArgs.Username">
+            <summary>
+            The username used to authenticate the user.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.AuthenticatedEventArgs.Password">
+            <summary>
+            The password used to authenticate the user.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.AuthenticatedEventArgs.Host">
+            <summary>
+            The address of the remote server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.AuthenticatedEventArgs.ServerResponse">
+            <summary>
+            The server's response
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.AuthenticatingEventArgs">
+            <summary>
+            Represents a future authentication process.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AuthenticatingEventArgs.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="username">Username used to authenticate the user.</param>
+            <param name="password">Password used to authenticate the user.</param>
+            <param name="host">Address of the remote server.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.AuthenticatingEventArgs.#ctor(System.String,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="username">Username used to authenticate the user.</param>
+            <param name="password">Password used to authenticate the user.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.AuthenticatingEventArgs.Username">
+            <summary>
+            The username used to authenticate the user.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.AuthenticatingEventArgs.Password">
+            <summary>
+            The password used to authenticate the user.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.AuthenticatingEventArgs.Host">
+            <summary>
+            The address of the remote server.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MessageSendingEventArgs">
+            <summary>
+            EventArgs used by the MessageSending event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MessageSendingEventArgs.#ctor(ActiveUp.Net.Mail.Message)">
+            <summary>
+            Event fired when a message is going to be sent.
+            </summary>
+            <param name="index">The message to be sent.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MessageSendingEventArgs.Message">
+            <summary>
+            The message to be sent.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MessageSentEventArgs">
+            <summary>
+            EventArgs used by the MessageSent event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MessageSentEventArgs.#ctor(ActiveUp.Net.Mail.Message)">
+            <summary>
+            Event fired when a message has been sent.
+            </summary>
+            <param name="message">The message that has been sent.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MessageSentEventArgs.Message">
+            <summary>
+            The message that has been sent.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.NewMessageReceivedEventArgs">
+            <summary>
+            EventArgs used by the NewMessage event.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.NewMessageReceivedEventArgs.#ctor(System.Int32)">
+            <summary>
+            Event fired when a new message received.
+            </summary>
+            <param name="messageCount">The number of new messages received.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.NewMessageReceivedEventArgs.MessageCount">
+            <summary>
+            The number of new messages received.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.FieldFormat">
+            <summary>
+            Represents the formatting options of a message template field.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.FieldFormat.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.FieldFormat.#ctor(System.String,System.String)">
+            <summary>
+            Creates the field format based on it's name and format string.
+            </summary>
+            <param name="name">The name of the field.</param>
+            <param name="format">The format string of the field format.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.FieldFormat.#ctor(System.String,System.String,ActiveUp.Net.Mail.PaddingDirection,System.Int32,System.Char)">
+            <summary>
+            Creates the field format based on the field name, format string, padding direction, total width and padding char.
+            </summary>
+            <param name="name">The name of the field.</param>
+            <param name="format">The format string.</param>
+            <param name="paddingDir">The padding direction.</param>
+            <param name="totalWidth">The total width.</param>
+            <param name="paddingChar">The padding char.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.FieldFormat.PaddingChar">
+            <summary>
+            The padding char.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.FieldFormat.TotalWidth">
+            <summary>
+            The total width.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.FieldFormat.PaddingDir">
+            <summary>
+            The padding direction.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.FieldFormat.Name">
+            <summary>
+            The field name.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.FieldFormat.Format">
+            <summary>
+            The format string.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.FieldFormatCollection">
+            <summary>
+            A collection of field format options.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.FieldFormatCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.FieldFormatCollection.Add(ActiveUp.Net.Mail.FieldFormat)">
+            <summary>
+            Add an FieldFormat object in the collection.
+            </summary>
+            <param name="fieldFormat">The FieldFormat.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.FieldFormatCollection.Add(System.String,System.String)">
+            <summary>
+            Add an FieldFormat object in the collection based the fiel name and format string.
+            </summary>
+            <param name="name">The name of the field.</param>
+            <param name="format">The format string of the field.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.FieldFormatCollection.Add(System.String,System.String,ActiveUp.Net.Mail.PaddingDirection,System.Int32,System.Char)">
+            <summary>
+            Add an FieldFormat object based the field name, format string, padding direction, total width and padding char.
+            </summary>
+            <param name="name">The name of the field.</param>
+            <param name="format">The format string of the field.</param>
+            <param name="paddingDir">The padding direction.</param>
+            <param name="totalWidth">The total width.</param>
+            <param name="paddingChar">The padding char.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.FieldFormatCollection.Remove(System.Int32)">
+            <summary>
+            Remove the FieldFormat object from the collection at the specified index position.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.FieldFormatCollection.Contains(System.String)">
+            <summary>
+            Determines whether the specified field is in the list.
+            </summary>
+            <param name="name">The name of the field.</param>
+            <returns>true if the collection contain the specified field; false otherwise.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.FieldFormatCollection.Item(System.Int32)">
+            <summary>
+            Returns the FieldFormat object at the specified index position in the collection.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.FieldFormatCollection.Item(System.String)">
+            <summary>
+            Returns the FieldFormat of the specified name.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Header">
+            <summary>
+            Represents the Header of a RFC 2822 message.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Header.GetBounceStatus(System.String)">
+            <summary>
+            Detects if a message is a delivery failure notification.
+            This method uses the default signatures containing in an internal ressource file.
+            </summary>
+            <remarks>
+            Signature files are XML files formatted as follows : 
+            
+            &lt;?xml version='1.0'?&gt;
+            &lt;signatures&gt;
+            	&lt;signature from=&quot;postmaster&quot; subject=&quot;Undeliverable Mail&quot; body=&quot;Unknown user&quot; search=&quot;&quot; />
+            	...
+            &lt;/signatures&gt;
+            </remarks>
+            <returns>A BounceStatus object containing the level of revelance and if 100% identified, the erroneous email address.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Header.ToHeaderString">
+            <summary>
+            The MIME representation of the header.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Header.ToHeaderString(System.Boolean)">
+            <summary>
+            The MIME representation of the header.
+            </summary>
+            <param name="removeBlindCopies">if set to <c>true</c> remove blind copies (BCC).</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Header.StoreToFile(System.String)">
+            <summary>
+            Stores the message Header to the specified path.
+            </summary>
+            <param name="path">Path to store the message Header at.</param>
+            <returns>The path the message Header has been stored at.</returns>
+            <example>
+            This retrieves the first message's Header from the remote POP server and stores it on the disk.<br />
+            You can read it back using the ParserHeader() method in the Parser class.
+            <code>
+            C#
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("pop.myisp.com","username","password");
+            Parser.ParseHeader(pop.RetrieveHeader(1)).StoreToFile("C:\\My Mails\\my_header.hdr");
+            pop.Disconnect();
+            this.Response.Write("Header stored.");
+            
+            VB.NET
+            
+            Dim pop As New ActiveUp.MailPop3Pop3Client()
+            pop.Connect("pop.myisp.com","username","password")
+            Parser.ParseHeader(pop.RetrieveHeader(1)).StoreToFile("C:\\My Mails\\my_header.hdr");
+            pop.Disconnect()
+            Me.Response.Write("Header stored")
+            
+            JScript.NET
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("pop.myisp.com","username","password");
+            Parser.ParseHeader(pop.RetrieveHeader(1)).StoreToFile("C:\\My Mails\\my_header.hdr");
+            pop.Disconnect();
+            this.Response.Write("Header stored.");
+            </code>
+            </example> 
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.OriginalData">
+            <summary>
+            Gets the message data as received from the server or as parsed from the file.
+            Only available to messages received and/or parsed.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.HeaderFieldNames">
+            <summary>
+            All Header fields names.
+            Key is the Header name in lower case and value is the Header name as it was it the original message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.HeaderFields">
+            <summary>
+            All Header fields.
+            Key is the Header name in lower case and value is the Header value.
+            </summary>
+            <example>
+            //This exposes the mail client used to send the message.
+            message.HeaderFields["x-mailer"]
+            </example>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Cc">
+            <summary>
+            "Cc" Recipients of the message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Bcc">
+            <summary>
+            "Bcc" Recipients of the message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Recipients">
+            <summary>
+            All recipients of the message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Sender">
+            <summary>
+            Sender of the message.
+            </summary>
+            <remark>
+            The sender's address can be specified if the person that actually post the message is different from the message originator. For exemple a secretary should send a message on the behalf of the CEO. In that particular car, the CEO's email address is set on the From property, and the secretary on the Sender property.
+            </remark>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.From">
+            <summary>
+            From of the message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.ReplyTo">
+            <summary>
+            Reply-To of the message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Subject">
+            <summary>
+            Subject of the message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.InReplyTo">
+            <summary>
+            MessageId of the message to which this is a reply.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.References">
+            <summary>
+            MessageId of the messages in the same thread (conversation) as this message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Comments">
+            <summary>
+            Any additional info about the message's body.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Keywords">
+            <summary>
+            Keywords related to this message that could be used by a search engine while searching for this message in a list.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.MessageId">
+            <summary>
+            ID of the message generated by the server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Charset">
+            <summary>
+            The message's charset.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.ReceivedDate">
+            <summary>
+            Gets the received date by the mail server.
+            </summary>
+            <value>The received date.</value>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Date">
+            <summary>
+            Received date of the message in Universal Time.
+            System.DateTime.MinValue if no received date could be parsed into a DateTime object.
+            <seealso cref="P:ActiveUp.Net.Mail.Header.DateString"/>
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.ReturnReceipt">
+            <summary>
+            Gets or sets the return receipt email. This will enable the delivery notification.
+            </summary>
+            <value>The return receipt.</value>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.ConfirmRead">
+            <summary>
+            	<para>Gets or sets the email address where a read confirmation should be sent.
+                Please note that use recipient may ignore this receipt. In that case, you won't
+                receive anything.</para>
+            	<para>Please note that if you are receiving the message, the property will return
+                null if the sender doesn't request a read receipt, otherwise, an Address object
+                will be available.</para>
+            </summary>
+            <example>
+            	<code lang="CS" title="C# sample">
+            ActiveUp.Net.Mail.Message msg = new ActiveUp.Net.Mail.Message();
+            msg.From.Name = "User1";
+            msg.From.Email = "user1@example.com";
+            msg.To.Add("user2@example.com");
+            msg.Subject = "Confirm Read";
+            msg.BodyHtml.Text = "The HTML body";
+             
+            // This is the pragmatic solution
+            msg.ConfirmRead = msg.From;
+             
+            // But you can specify it yourself
+            msg.ConfirmRead = new Address("user4", "user4@example.com");
+                </code>
+            	<code lang="VB" title="VB.NET sample">
+            Dim msg As ActiveUp.Net.Mail.Message = New ActiveUp.Net.Mail.Message()
+            msg.From.Name = "User1"
+            msg.From.Email = "user1@example.com"
+            msg.To.Add("user2@example.com")
+            msg.Subject = "Confirm Read"
+            msg.BodyHtml.Text = "The HTML body"
+             
+            ' This Is the pragmatic solution
+            msg.ConfirmRead = msg.From
+             
+            ' But you can specify it yourself
+            msg.ConfirmRead = New Address("user4", "user4@example.com")
+                </code>
+            </example>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Flag">
+            <summary>
+            Gets or sets the message flag (follow up).
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.DateString">
+            <summary>
+            Received date of the message as a string.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.ContentTransferEncoding">
+            <summary>
+            Content transfer encoding of the message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.ContentType">
+            <summary>
+            Content type of the message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.IndexOnServer">
+            <summary>
+            The index of the message on the server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Id">
+            <summary>
+            Initializes an ID property that could be used for DB storage of messages.
+            0 by default.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Path">
+            <summary>
+            This line shows the path the message took to reach the current system.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.FollowUpTo">
+            <summary>
+            This line shows where follow-up messages are to be posted. 
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Expires">
+            <summary>
+            Expiration date of the message.
+            System.DateTime.MinValue if no expiration date could be parsed into a DateTime.
+            <seealso cref="P:ActiveUp.Net.Mail.Header.DateString"/>
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.ExpiresString">
+            <summary>
+            Received date of the message as a string.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Control">
+            <summary>
+            This field lists the Message-ID's of any messages prompting the submission of this message. 
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Distribution">
+            <summary>
+            This line is used to alter the distribution scope of the message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Organization">
+            <summary>
+            The text of this line is a short phrase describing the organization	to which the sender belongs, or to which the machine belongs.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Summary">
+            <summary>
+            This line should contain a brief summary of the message.  It is	usually used as part of a follow-up to another message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Approved">
+            <summary>
+            This line is required for any message posted to a moderated	newsgroup.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.BodyLineCount">
+            <summary>
+            This contains a count of the number of lines in the body of the message (if available).
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Header.Xref">
+            <summary>
+            Contains an XrefList object containing information about the message, at which host, newsgroups and indexes it resides.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.HeaderCollection">
+            <summary>
+            Represents a collection of Header objects.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.HeaderCollection.Add(ActiveUp.Net.Mail.Header)">
+            <summary>
+            
+            </summary>
+            <param name="header">The Header to be added in the collection.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.HeaderCollection.Item(System.Int32)">
+            <summary>
+            Indexer.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.ListTemplate">
+            <summary>
+            Summary description for ListTemplate.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ListTemplate.GetEnumerator(System.Object)">
+            <summary>
+            Get the enumerator from the specified data source.
+            </summary>
+            <param name="dataSource">The data source.</param>
+            <returns>The enumerator.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.ListTemplate.DataSource">
+            <summary>
+            Get or set the main data source of the body template.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.ListTemplate.Count">
+            <summary>
+            Number of records in the datasource.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.ListTemplateCollection">
+            <summary>
+            A collection of templated bodies.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ListTemplateCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ListTemplateCollection.Add(ActiveUp.Net.Mail.ListTemplate)">
+            <summary>
+            Add a templated list in the collection.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ListTemplateCollection.Add(System.String,System.String)">
+            <summary>
+            Add a templated list in the collection based on the specified content.
+            </summary>
+            <param name="name">The name to use.</param>
+            <param name="content">The content to use.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ListTemplateCollection.Remove(System.Int32)">
+            <summary>
+            Remove the body template at the specified index position.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.ListTemplateCollection.Item(System.Int32)">
+            <summary>
+            Returns the body template at the specified index position.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Logger">
+            <summary>
+            Provides all logging facilities for any applications.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Logger.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Logger.AddEntry(System.String,System.Int32)">
+            <summary>
+            Add a log entry using the logging level.
+            </summary>
+            <param name="line">The entry to add.</param>
+            <param name="level">The log entry level.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Logger.AddEntry(System.String)">
+            <summary>
+            Add a log entry in all logging objects availables.
+            </summary>
+            <param name="line">The entry to add.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Logger.AddEntryToFile(System.String)">
+            <summary>
+            Append the logging text file.
+            </summary>
+            <param name="line">The entry to add.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Logger.AddEntryToTrace(System.String)">
+            <summary>
+            Append the trace context.
+            </summary>
+            <param name="line">The entry to add.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Logger.LastEntries(System.Int32)">
+            <summary>
+            Gets an ArrayList containing the specified number of last entries.
+            </summary>
+            <param name="lines">The max lines to retrieve.</param>
+            <returns>An ArrayList containing the maximum log entries.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Logger.LastEntries">
+            <summary>
+            Gets a string containing a maximum of 30 log entries.
+            </summary>
+            <returns>A maximum of 30 entries separeted by a carriage return.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Logger.LastEntry">
+            <summary>
+            Gets the last entry of the log.
+            </summary>
+            <returns>A string containing the last entry.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Logger.OnEntryAdded(System.EventArgs)">
+            <summary>
+            OnEntryAdded event.
+            </summary>
+            <param name="e">The event arguments.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Logger.LogEntries">
+            <summary>
+            Gets or sets the log entries that are stored in the memory.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Logger.LogLevel">
+            <summary>
+            Gets or sets the logging level.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Logger.LogInMemory">
+            <summary>
+            Specify whether if you want to log in memory.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Logger.LogFile">
+            <summary>
+            Gets or sets the full path to the text file to append when logging.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Logger.Count">
+            <summary>
+            Gets the number of log entries.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Logger.UseTraceContext">
+            <summary>
+            Specify whether if the logger needs to append the Trace Context.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Logger.Disabled">
+            <summary>
+            Specify whether if the logging functions are disabled.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Logger.EntryAdded">
+            <summary>
+            The EntryAdded event handler.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Message">
+            <summary>
+            Message Object.
+            Represents a parsed e-mail message.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.ToMimePart">
+            <summary>
+            Converts a message to a message/rfc822 type MIME part, with a Content-Disposition set to "attachment".
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.ToMimeString">
+            <summary>
+            The MIME representation of the message.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.ToMimeString(System.Boolean)">
+            <summary>
+            The MIME representation of the message.
+            </summary>
+            <param name="removeBlindCopies">if set to <c>true</c> remove blind copies (BCC) from the header.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.CheckBuiltMimePartTree">
+            <summary>
+            Checks the built MIME part tree.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.BuildMimePartTree">
+            <summary>
+            Creates the MIME part structure. This method MUST be invoked before sending, storing, signing, encrypting, or invoking ToMimeString method.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.GetMidReference">
+            <summary>
+            Returns a MID references, using the message's Message-ID.
+            See RFC 2111 for more information.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.Append(ActiveUp.Net.Mail.IMailbox)">
+             <summary>
+             Appends the message to the given mailbox.
+             </summary>
+             <remarks>The mailbox's sourceclient has to be connected.</remarks>
+             <param name="imapMailbox">The mailbox the message has to be appended to.</param>
+             <example>
+             <code>
+             C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            
+            Imap4Client imap = new Imap4Client();
+            imap.Connect("mail.myhost.com",8505);
+            Mailbox inbox = imap.SelectMailbox("inbox");
+            
+            message.Append(inbox);
+            
+            imap.Close();
+            imap.Disconnect();
+             
+             VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            Dim imap As New Imap4Client
+            imap.Connect("mail.myhost.com",8505)
+            Dim inbox As Mailbox = imap.SelectMailbox("inbox")
+            
+            message.Append(inbox)
+            
+            imap.Close()
+            imap.Disconnect()
+              
+             JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            
+            var imap:Imap4Client = new Imap4Client();
+            imap.Connect("mail.myhost.com",8505);
+            var inbox:Mailbox = imap.SelectMailbox("inbox");
+            
+            message.Append(inbox);
+            
+            imap.Close();
+            imap.Disconnect();
+             </code>
+             </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.StoreToFile(System.String,System.Boolean)">
+             <summary>
+             Stores the message to the specified file using a temp file.
+             </summary>
+             <param name="FileName">Path and filename to store the message in.</param>
+             <returns>The path the message has been stored at.</returns>
+             <example>
+             This retrieves the first message's from the remote POP server and stores it on the disk.<br />
+             You can read it back using the ParserMessage() method in the Parser class.
+             <code>
+             C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            message.StoreToFile("C:\\messages\\outbox\\tobesent.eml", true);
+             
+             VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            message.StoreToFile("C:\messages\outbox\tobesent.eml", true)
+             
+             JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            message.StoreToFile("C:\\messages\\outbox\\tobesent.eml", true);
+             </code>
+             </example> 
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.StoreToFile(System.String)">
+             <summary>
+             Stores the message to the specified path.
+             </summary>
+             <param name="path">Path to store the message at.</param>
+             <returns>The path the message has been stored at.</returns>
+             <example>
+             This retrieves the first message's from the remote POP server and stores it on the disk.<br />
+             You can read it back using the ParserMessage() method in the Parser class.
+             <code>
+             C#
+             
+            Message message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            message.StoreToFile("C:\\messages\\outbox\\tobesent.eml");
+             
+             VB.NET
+             
+            Dim message As New Message
+            message.From = new Address("jdoe@myhost.com","John Doe")
+            message.To.Add("mjohns@otherhost.com","Mike Johns")
+            message.Subject = "hey!"
+            message.Attachments.Add("C:\myfile.doc")
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John."
+            message.StoreToFile("C:\messages\outbox\tobesent.eml")
+             
+             JScript.NET
+             
+            var message:Message = new Message();
+            message.From = new Address("jdoe@myhost.com","John Doe");
+            message.To.Add("mjohns@otherhost.com","Mike Johns");
+            message.Subject = "hey!";
+            message.Attachments.Add("C:\\myfile.doc");
+            message.BodyHtml.Text = "As promised, the requested document.&lt;br />&lt;br />Regards,&lt;br>John.";
+            message.StoreToFile("C:\\messages\\outbox\\tobesent.eml");
+             </code>
+             </example> 
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.GetBounceStatus">
+            <summary>
+            Detects if a message is a delivery failure notification.
+            This method uses the default signatures containing in an internal ressource file.
+            </summary>
+            <returns>A BounceStatus object containing the level of revelance and if 100% identified, the erroneous email address.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.GetBounceStatus(System.String)">
+            <summary>
+            Detects if a message is a delivery failure notification.
+            This method uses the default signatures containing in an internal ressource file.
+            </summary>
+            <remarks>
+            Signature files are XML files formatted as follows : 
+            
+            &lt;?xml version='1.0'?&gt;
+            &lt;signatures&gt;
+            	&lt;signature from=&quot;postmaster&quot; subject=&quot;Undeliverable Mail&quot; body=&quot;Unknown user&quot; search=&quot;&quot; />
+            	...
+            &lt;/signatures&gt;
+            </remarks>
+            <returns>A BounceStatus object containing the level of revelance and if 100% identified, the erroneous email address.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.Clone">
+            <summary>
+            Gets a real copy of the actual message object. This will not return a reference.
+            </summary>
+            <returns>The new Message object.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.SmimeDevelopeAndDecrypt">
+            <summary>
+            Extracts the original message from the S/MIME envelope and decrypts it. 
+            The certificates used to decrypt are those contained in the current user's personal store.
+            </summary>
+            <returns>A Message object representing the message as it was before encryption.</returns>
+            <example>
+            <code>
+            [C#]
+            
+            // We retrieved a Message object by some means and have a reference to it in variable message.
+            
+            Message originalMessage = message.SmimeDevelopeAndDecrypt();
+            
+            //originalMessage contains all information about the encrypted message.
+            
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.SmimeDevelopeAndDecrypt(System.Security.Cryptography.X509Certificates.X509Certificate2Collection)">
+            <summary>
+            Extracts the original message from the S/MIME envelope and decrypts it.
+            </summary>
+            <param name="extraStore">Certificates with private keys to be used in addition to those found in the current user's personal store.</param>
+            <returns>A Message object representing the message as it was before encryption.</returns>
+            <example>
+            <code>
+            [C#]
+            
+            // Load a certificate (with private key) and add it to the collection.
+            X509Certificate2 cert = new X509Certificate2("C:\\mycertificate.pfx");
+            
+            // We retrieved a Message object by some means and have a reference to it in variable message.
+            Message originalMessage = message.SmimeDevelopeAndDecrypt(new X509Certificate2Collection(cert));
+            
+            //originalMessage contains all information about the encrypted message.
+            
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.SmimeDevelopeAndExposeSignature">
+            <summary>
+            Extracts the original message from the S/MIME envelope and exposes the SignedCms object containing signature informations via the Message.Signatures.Smime property.
+            </summary>
+            <returns>A Message object representing the message as it was before signing.</returns>
+            <example>
+            <code>
+            [C#]
+            
+            // We retrieved a Message object by some means and have a reference to it in variable message.
+            Message originalMessage = message.SmimeDevelopeAndExposeSignature();
+            
+            // Check the signature. The "true" argument indicates that we don't want to verify the signe's certificates at this time, but only the signature itself.
+            try
+            {
+                originalMessage.Signatures.Smime.CheckSignature(true);
+            }
+            catch(CryptographicException ex)
+            {
+                // Signature is invalid, do something.
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.SmimeEnvelopeAndEncryptFor(System.Security.Cryptography.Pkcs.CmsRecipient)">
+            <summary>
+            Encrypts the message and envelopes it for one recipient.
+            </summary>
+            <param name="recipient">An object containing the recipient's certificate with public key.</param>
+            <example>
+            <code>
+            [C#]
+            
+            X509Certificate2 cert = new X509Ceritificate2("C:\\recipient.cer");
+            
+            CmsRecipient recipient = new CmsRecipient(cert);
+            
+            message.SmimeEnvelopeAndEncryptFor(recipient);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.SmimeEnvelopeAndEncryptFor(System.Security.Cryptography.Pkcs.CmsRecipientCollection)">
+            <summary>
+            Encrypts the message and envelopes it for multiple recipients.
+            </summary>
+            <param name="recipients">An object containing the recipients' certificates with public keys.</param>
+            <example>
+            <code>
+            [C#]
+            
+            CmsRecipientCollection recipients = new CmsRecipientCollection();
+            
+            recipients.Add(new CmsRecipient(new X509Certificate2("C:\\recipient1.cer")));
+            recipients.Add(new CmsRecipient(new X509Certificate2("C:\\recipient2.cer")));
+            
+            message.SmimeEnvelopeAndEncryptFor(recipients);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.SmimeEnvelopeAndSignBy(System.Security.Cryptography.Pkcs.CmsSigner)">
+            <summary>
+            Signs the message and envelopes it.
+            </summary>
+            <param name="signer">An object containing the signer's information.</param>
+            <example>
+            <code>
+            [C#]
+            
+            CmsSigner signer = new CmsSigner(new X509Certificate2("C:\\mycertificate.pfx"));
+            
+            // Here we only want the signer's certificate to be sent along. Not the whole chain.
+            signer.IncludeOption = X509IncludeOption.EndCertOnly;
+            
+            message.SmimeEnvelopeAndSignBy(signer);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.SmimeAttachSignatureBy(System.Security.Cryptography.Pkcs.CmsSigner)">
+            <summary>
+            Attaches a clear signature to the message. It is advised to do so when the receiving party might not be S/MIME capable.
+            The content of the message is still visible, i.e. the message isn't enveloped.
+            </summary>
+            <param name="signer">An object containing the signer's information.</param>
+            <example>
+            <code>
+            [C#]
+            
+            CmsSigner signer = new CmsSigner(new X509Certificate2("C:\\mycertificate.pfx"));
+            
+            // Here we only want the signer's certificate to be sent along. Not the whole chain.
+            signer.IncludeOption = X509IncludeOption.EndCertOnly;
+            
+            message.SmimeAttachSignatureBy(signer);
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Message.GenerateConfirmReadMessage">
+            <summary>
+            Generates the confirm read message.
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ActiveUp.Net.Mail.Message.Attachments" -->
+        <member name="P:ActiveUp.Net.Mail.Message.CustomCollection">
+            <summary>
+            Collection containing custom string to be replaced.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Message.Signatures">
+            <summary>
+            Container for all the message's signature.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Message.HasDomainKeySignature">
+            <summary>
+            Indicates whether the message has at least one DomainKey signature.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Message.HasSmimeSignature">
+            <summary>
+            Indicates whether the message has been signed using a S/MIME opaque (enveloping) signature.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Message.HasSmimeDetachedSignature">
+            <summary>
+            Indicates whether the message has been signed using a S/MIME detached signature (using multipart/signed).
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Message.IsHtml">
+            <summary>
+            Indicates whether the message is in HTML format or not
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Message.IsSmimeEncrypted">
+            <summary>
+            Indicates whether the message has been encrypted using S/MIME.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ActiveUp.Net.Mail.Message.EmbeddedObjects" -->
+        <member name="P:ActiveUp.Net.Mail.Message.SubMessages">
+            <summary>
+            Contains messages that were included as message/rfc822 parts.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Message.LeafMimeParts">
+            <summary>
+            Contains all parts that are not of "multipart" MIME type.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Message.UnknownDispositionMimeParts">
+            <summary>
+            Contains all parts for which no Content-Disposition header was found. Disposition is left to the final agent.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Message.PartTreeRoot">
+            <summary>
+            A reference to the root of this message's part tree.
+            </summary>
+            <example>
+            For multipart/alternative messages, you can access the two bodies via the Message.PartTreeRoot.SubParts property, as well as via the Message.BodyHtml and Message.BodyText properties.
+            </example>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ActiveUp.Net.Mail.Message.BodyText" -->
+        <!-- Badly formed XML comment ignored for member "P:ActiveUp.Net.Mail.Message.BodyHtml" -->
+        <member name="P:ActiveUp.Net.Mail.Message.Size">
+            <summary>
+            The size of the RFC 2822 formatted message in octets.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Message.Summary">
+            <summary>
+            Returns a printable HTML formated summary of the message.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MessageCollection">
+            <summary>
+            Represents a collection of Message objects
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MessageCollection.Add(ActiveUp.Net.Mail.Message)">
+            <summary>
+            Adds a Message object to the collection. Can be useful to use the GetBindableTable() method with message from different sources.
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MessageCollection.GetBindableTable(System.String)">
+            <summary>
+            Creates a System.Data.DataTable containing the messages in the MessageCollection object with the requested columns.
+            </summary>
+            <param name="args">String containing sensitive words.
+            This string is being parsed and columns added according to the words it contains.</param>
+            <remarks>
+            The column order is predefined and cannot be set.
+            </remarks>
+            <returns>The generated System.Data.DataTable</returns>
+            <example>
+            <code>
+            C#
+            
+            MessageCollection messages = new MessageCollection();
+            
+            Pop3Client pop = new Pop3Client();
+            pop.Connect("mail.myhost.com","jdoe1234","tanstaaf");
+            
+            for(int i=1;i&lt;=pop.MessageCount;i++) messages.Add(pop.RetrieveMessageObject(i));
+            
+            myDataGrid.DataSource = messages.GetBindableTable("subectsenderdate");
+            myDataGrid.DataBind();
+            
+            VB.NET
+            
+            Dim messages As New MessageCollection
+            
+            Dim pop As New Pop3Client
+            pop.Connect("mail.myhost.com","jdoe1234","tanstaaf")
+            
+            Dim i As Integer
+            For i = 1 To pop.MessageCount
+            	messages.Add(pop.RetrieveMessageObject(i))
+            Next i
+            
+            myDataGrid.DataSource = messages.GetBindableTable("subectsenderdate")
+            myDataGrid.DataBind()
+            
+            JScript.NET
+            
+            var messages:MessageCollection = new MessageCollection();
+            
+            var pop:Pop3Client = new Pop3Client();
+            pop.Connect("mail.myhost.com","jdoe1234","tanstaaf");
+            
+            for(int i=1;i&lt;=pop.MessageCount;i++) messages.Add(pop.RetrieveMessageObject(i));
+            
+            myDataGrid.DataSource = messages.GetBindableTable("subectsenderdate");
+            myDataGrid.DataBind();
+            </code>
+            </example> 
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MessageCollection.Item(System.Int32)">
+            <summary>
+            Indexer.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MessagePriority">
+            <summary>
+            The message priorities.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.MessagePriority.High">
+            <summary>
+            The message has high priority.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.MessagePriority.Low">
+            <summary>
+            The message has low priority.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.MessagePriority.Normal">
+            <summary>
+            The message has normal priority.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.MessagePriority.Unknown">
+            <summary>
+            The message priority couldn't be parsed.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MimeBody">
+            <summary>
+            Represents a message's body.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimeBody.Format">
+            <summary>
+            The type of the body.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimeBody.Charset">
+            <summary>
+            The character set (encoding) of the body.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimeBody.Text">
+            <summary>
+            The body's text (content).
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MimeBody.TextStripped">
+            <summary>
+            The body's text (content) stripped (without HTML tags).
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MimeTypesHelper">
+            <summary>
+            Provides static method to help manipulate MIME parts.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MimeTypesHelper.GetMimeqType(System.String)">
+            <summary>
+            Returns the know MIME type string based on the extension.
+            </summary>
+            <param name="extension">The extension of the file.</param>
+            <returns>A string that define the MIME type</returns>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MxRecord">
+            <summary>
+            Represents a MX dns record.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MxRecord.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MxRecord.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates a MX record based on the exchange name and preference level.
+            </summary>
+            <param name="exchange"></param>
+            <param name="preference"></param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MxRecord.Exchange">
+            <summary>
+            The exchange (host).
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MxRecord.Preference">
+            <summary>
+            The preference level.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.MxRecordCollection">
+            <summary>
+            Contains Mx Records.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MxRecordCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MxRecordCollection.Add(ActiveUp.Net.Mail.MxRecord)">
+            <summary>
+            Add a MxRecord object in the collection.
+            </summary>
+            <param name="mxRecord">The MxRecord object.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MxRecordCollection.Add(System.String,System.Int32)">
+            <summary>
+            Add a MxRecord in the collection specifing it's exchange name and preference level.
+            </summary>
+            <param name="exchange">The exchange name.</param>
+            <param name="preference">The preference level.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MxRecordCollection.Remove(System.Int32)">
+            <summary>
+            Remove the Mx Record at the specified index position.
+            </summary>
+            <param name="index">The index position.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.MxRecordCollection.GetPrefered">
+            <summary>
+            Returns the prefered MX record in the list.
+            </summary>
+            <returns>The prefered MX record.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.MxRecordCollection.Item(System.Int32)">
+            <summary>
+            Returns the MxRecord at the specified index position.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.OperatorType">
+            <summary>
+            The field format padding directions.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.OperatorType.GreaterThan">
+            <summary>
+            Field value is greater than the value.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.OperatorType.GreaterThanEqual">
+            <summary>
+            Field value is greater than or equal to the value.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.OperatorType.LessThan">
+            <summary>
+            Field value is less than the value.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.OperatorType.LessThanEqual">
+            <summary>
+            Field value is less than or equal to the value.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.OperatorType.Equal">
+            <summary>
+            Field value is equal to the value.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.OperatorType.NotEqual">
+            <summary>
+            Field value is not equal to the value.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.OperatorType.Exists">
+            <summary>
+            Field exists.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.OperatorType.NotExists">
+            <summary>
+            Field does not exist.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.PaddingDirection">
+            <summary>
+            The field format padding directions.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.PaddingDirection.Left">
+            <summary>
+            Right-Align the string.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.PaddingDirection.Right">
+            <summary>
+            Left-Align the string.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Parser">
+            <summary>
+            Base class for all Parser objects.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.GetMonth(System.String)">
+            <summary>
+            Gets the month.
+            </summary>
+            <param name="month">The month.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.InvGetMonth(System.Int32)">
+            <summary>
+            Invs the get month.
+            </summary>
+            <param name="month">The month.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.GetContentType(System.String)">
+            <summary>
+            Gets the type of the content.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.GetContentDisposition(System.String)">
+            <summary>
+            Gets the content disposition.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseSubParts(ActiveUp.Net.Mail.MimePart@,ActiveUp.Net.Mail.Message)">
+            <summary>
+            Parses the sub parts.
+            </summary>
+            <param name="part">The part.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.DispatchParts(ActiveUp.Net.Mail.MimePart,ActiveUp.Net.Mail.Message@)">
+            <summary>
+            Dispatches the parts.
+            </summary>
+            <param name="root">The root.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.DispatchParts(ActiveUp.Net.Mail.Message@)">
+            <summary>
+            Dispatches the parts.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.DecodePartBody(ActiveUp.Net.Mail.MimePart@)">
+            <summary>
+            Decodes the part body.
+            </summary>
+            <param name="part">The part.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ReplaceTimeZone(System.String)">
+            <summary>
+            Replaces the time zone.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.RemoveWhiteSpaces(System.String)">
+            <summary>
+            Removes the white spaces.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.FormatFieldName(System.String)">
+            <summary>
+            Formats the name of the field.
+            </summary>
+            <param name="fieldName">Name of the field.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.Clean(System.String)">
+            <summary>
+            Cleans the specified input.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.Fold(System.String)">
+            <summary>
+            Folds the specified input.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.Unfold(System.String)">
+            <summary>
+            Unfolds the specified input.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseMimePart(System.String,ActiveUp.Net.Mail.Message)">
+            <summary>
+            Parses the MIME part.
+            </summary>
+            <param name="data">The data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseHeader(System.String)">
+            <summary>
+            Parses a Header from a file to a Header object.
+            </summary>
+            <param name="filePath">The path of the file to be parsed.</param>
+            <returns>The parsed file as a Header object.</returns>
+            <example>
+            <code>
+            C#
+            
+            Header Header = Parser.ParseHeader("C:\\My headers\\header.txt");
+            //Expose the subject
+            string subject = header.Subject;
+            
+            VB.NET
+            
+            Dim Header As Header = Parser.ParseHeader("C:\My headers\header.txt")
+            'Expose the subject
+            Dim subject As String = header.Subject
+            
+            JScript.NET
+            
+            var header:Header = Parser.ParseHeader("C:\\My headers\\header.txt");
+            //Expose the subject
+            var subject:string = header.Subject;
+            </code>
+            </example> 
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseHeader(System.IO.MemoryStream)">
+            <summary>
+            Parses a MemoryStream's content to a Header object.
+            </summary>
+            <param name="inputStream">The MemoryStream containing the Header data to be parsed.</param>
+            <returns>The parsed Header as a Header object.</returns>
+            <example>
+            <code>
+            C#
+            
+            Header Header = Parser.ParseHeader(someStream);
+            //Expose the subject
+            string subject = header.Subject;
+            
+            VB.NET
+            
+            Dim Header As Header = Parser.ParseHeader(someStream)
+            'Expose the subject
+            Dim subject As String = header.Subject
+            
+            JScript.NET
+            
+            var header:Header = Parser.ParseHeader(someStream);
+            //Expose the subject
+            var subject:string = header.Subject;
+            </code>
+            </example> 
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseHeader(System.Byte[])">
+            <summary>
+            Parses a Header object from a byte array.
+            </summary>
+            <returns>The parsed Header as a Header object.</returns>
+            <example>
+            	<code lang="CS">
+            Header Header = Parser.ParseHeader(someBuffer);
+            //Expose the subject
+            string subject = header.Subject;
+                </code>
+            	<code lang="VB">
+            Dim Header As Header = Parser.ParseHeader(someBuffer)
+            'Expose the subject
+            Dim subject As String = header.Subject
+                </code>
+            	<code lang="J#">
+            var header:Header = Parser.ParseHeader(someBuffer);
+            //Expose the subject
+            var subject:string = header.Subject;
+                </code>
+            </example>
+            <param name="data">The byte array containing the Header data to be parsed.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseHeader(ActiveUp.Net.Mail.Header@)">
+            <summary>
+            Parses the header.
+            </summary>
+            <param name="header">The header.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseHeaderString(System.String)">
+            <summary>
+            Parses a Header from a string formatted accordingly to the RFC822.
+            </summary>
+            <param name="data">The string containing the Header data to be parsed.</param>
+            <returns>The parsed message as a Header object.</returns>
+            <example>
+            <code>
+            C#
+            
+            Header Header = Parser.ParseHeaderString(rfc822string);
+            //Expose the subject
+            string subject = header.Subject;
+            
+            VB.NET
+            
+            Dim Header As Header = Parser.ParseHeaderString(rfc822string)
+            'Expose the subject
+            Dim subject As String = header.Subject
+            
+            JScript.NET
+            
+            var header:Header = Parser.ParseHeaderString(rfc822string);
+            //Expose the subject
+            var subject:string = header.Subject;
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseMessage(System.Byte[])">
+            <summary>
+            Parses the message.
+            </summary>
+            <param name="data">The data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseMessage(System.IO.MemoryStream)">
+            <summary>
+            Parses a MemoryStream's content to a Message object.
+            </summary>
+            <param name="inputStream">The MemoryStream containing the Header data to be parsed.</param>
+            <returns>The parsed Header as a Message object.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = Parser.ParseMessage(someStream);
+            //Expose the subject
+            string subject = message.Subject;
+            
+            VB.NET
+            
+            Dim message As Message = Parser.ParseMessage(someStream)
+            'Expose the subject
+            Dim subject As String = message.Subject
+            
+            JScript.NET
+            
+            var message:Message = Parser.ParseMessage(someStream);
+            //Expose the subject
+            var subject:string = message.Subject;
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseMessage(System.String)">
+            <summary>
+            Parses a Message from a string formatted accordingly to the RFC822.
+            </summary>
+            <param name="data">The string containing the message data to be parsed.</param>
+            <returns>The parsed message as a Message object.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = Parser.ParseMessageString(rfc822string);
+            //Expose the subject
+            string subject = message.Subject;
+            
+            VB.NET
+            
+            Dim message As Message = Parser.ParseMessageString(rfc822string)
+            'Expose the subject
+            Dim subject As String = message.Subject
+            
+            JScript.NET
+            
+            var message:Message = Parser.ParseMessageString(rfc822string);
+            //Expose the subject
+            var subject:string = message.Subject;
+            </code>
+            </example>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseMessageFromFile(System.String)">
+            <summary>
+            Parses a message from a file to a Message object.
+            </summary>
+            <param name="filePath">The path of the file to be parsed.</param>
+            <returns>The parsed message as a Message object.</returns>
+            <example>
+            <code>
+            C#
+            
+            Message message = Parser.ParseMessage("C:\\My messages\\message.txt");
+            //Expose the subject
+            string subject = message.Subject;
+            
+            VB.NET
+            
+            Dim message As Message = Parser.ParseMessage("C:\My messages\message.txt")
+            'Expose the subject
+            Dim subject As String = message.Subject
+            
+            JScript.NET
+            
+            var message:Message = Parser.ParseMessage("C:\\My messages\\message.txt");
+            //Expose the subject
+            var subject:string = message.Subject;
+            </code>
+            </example> 
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseAddresses(System.String)">
+            <summary>
+            Parses a string containing addresses in the following formats :
+            <list type="circle">
+            <item>"John Doe" &lt;jdoe@myhost.com>,"Mike Johns" &lt;mjohns@otherhost.com></item>
+            <item>"John Doe" &lt;jdoe@myhost.com>;"Mike Johns" &lt;mjohns@otherhost.com></item>
+            <item>&lt;jdoe@myhost.com></item>
+            <item>jdoe@myhost.com</item>
+            </list>
+            </summary>
+            <param name="input">A string containing addresses in the formats desribed above.</param>
+            <returns>An AddressCollection object containing the parsed addresses.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseAddress(System.String)">
+            <summary>
+            Parses the address.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseAsUniversalDateTime(System.String)">
+            <summary>
+            Parses as universal date time.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseTrace(System.String)">
+            <summary>
+            Parses the trace.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Parser.ParseTraces(System.String[])">
+            <summary>
+            Parses the traces.
+            </summary>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Parser.BodyParsed">
+            <summary>
+            Event handler for body parsed.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Parser.HeaderFieldParsing">
+            <summary>
+            Event handler for header field parsing.
+            </summary>
+        </member>
+        <member name="E:ActiveUp.Net.Mail.Parser.ErrorParsing">
+            <summary>
+            Event handler for error parsing.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Parser.OnBodyParsedEvent">
+            <summary>
+            Delegate for body parsed event.
+            </summary>
+            <param name="sender">The sender object.</param>
+            <param name="header">The header object.</param>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Parser.OnHeaderFieldParsingEvent">
+            <summary>
+            Delegate for header field parsing event.
+            </summary>
+            <param name="sender">The sender object.</param>
+            <param name="header">The header object.</param>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Parser.OnErrorParsingEvent">
+            <summary>
+            Delegate for OnErrorParsingEvent.
+            </summary>
+            <param name="sender">The sender object.</param>
+            <param name="header">The exception object.</param>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.ParsingException">
+            <summary>
+            Represents a parsing specific error.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ParsingException.#ctor(System.String)">
+            <summary>
+            Constructor, sets message to the specified value.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.ParsingException.Message">
+            <summary>
+            The exception's message.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ProductHelper.GetTrialString(System.String,ActiveUp.Net.Mail.TrialStringType)">
+            <summary>
+            Gets the trial string.
+            </summary>
+            <param name="stringToModify">The string to modify.</param>
+            <param name="trialStringType">Type of the trial string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ProductHelper.GetRandomString(System.Int32)">
+            <summary>
+            Gets the random string.
+            </summary>
+            <param name="length">The length.</param>
+            <returns></returns>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.QueuingService">
+            <summary>
+            The message priorities.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.QueuingService.ActiveQ">
+            <summary>
+            Active Up Queuing Service. Not yet supported !
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.QueuingService.MicrosoftSmtp">
+            <summary>
+            Microsoft SMTP Service.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.QueuingService.IpSwitchIMail">
+            <summary>
+            IP Switch IMail 7.x Server.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Region">
+            <summary>
+            Represents the dynamic region portion of the message.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Region.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Region.#ctor(System.String,System.String)">
+            <summary>
+            Creates the condition based on it's region id, field equal to value set with case-sensitive on.
+            </summary>
+            <param name="regionid">The ID of the region.</param>
+            <param name="url">The url to retrieve.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Region.LoadFileContent(System.String)">
+            <summary>
+            Load the content of the specified file.
+            </summary>
+            <param name="filename">The full path to the file</param>
+            <returns>The content of the file</returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Region.Content">
+            <summary>
+            The content to retrieve.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Region.RegionID">
+            <summary>
+            The ID of the region.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Region.URL">
+            <summary>
+            The name of the field.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.RegionCollection">
+            <summary>
+            A collection of field format options.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.RegionCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.RegionCollection.Add(ActiveUp.Net.Mail.Region)">
+            <summary>
+            Add an Region object in the collection.
+            </summary>
+            <param name="region">The Region.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.RegionCollection.Add(System.String,System.String)">
+            <summary>
+            Add an Condition object in the collection based the region id, field, and value.
+            </summary>
+            <param name="regionid">The id of the region.</param>
+            <param name="url">The url to retrieve.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.RegionCollection.Remove(System.Int32)">
+            <summary>
+            Remove the Condition object from the collection at the specified index position.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.RegionCollection.Contains(System.String)">
+            <summary>
+            Determines whether the specified regionID is in the list.
+            </summary>
+            <param name="regionID">The regionID of the Region.</param>
+            <returns>true if the collection contain the specified regionID; false otherwise.</returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.RegionCollection.Item(System.Int32)">
+            <summary>
+            Returns the Region object at the specified index position in the collection.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.RegionCollection.Item(System.String)">
+            <summary>
+            Returns the Region of the specified Region ID.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.SaslMechanism">
+            <summary>
+            Mechanisms available for authentication.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.SaslMechanism.Login">
+            <summary>
+            The LOGIN mechanism (BASE64 encoded exchanges).
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.SaslMechanism.CramMd5">
+            <summary>
+            The CRAM-MD5 mechanism. [RFC2195]
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Server">
+            <summary>
+            Represents a server.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Server.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Server.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates the Server object from the host or IP and port number.
+            </summary>
+            <param name="host"></param>
+            <param name="port"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Server.#ctor(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Creates the Server object from the host or IP, port number, username and password.
+            </summary>
+            <param name="host"></param>
+            <param name="port"></param>
+            <param name="password"></param>
+            <param name="username"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Server.#ctor(System.String,System.Int32,System.String,System.String,System.Boolean,ActiveUp.Net.Mail.EncryptionType)">
+            <summary>
+            Allows adding a new server with the added option of specifying the encryption type if any and whether the server needs any authentication.
+            </summary>
+            <param name="host">Hostname/IP Address for server.</param>
+            <param name="port">Port to be used to connect to server.</param>
+            <param name="username">Username for authentication.</param>
+            <param name="password">Password for authentication.</param>
+            <param name="RequiresAuthentication">true if authentication is needed, false otherwise.</param>
+            <param name="EncType">Encryption type see EncryptionType enumeration.</param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Server.Username">
+            <summary>
+            The user name to use for authentication.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Server.Password">
+            <summary>
+            The password to use for authentication.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Server.Host">
+            <summary>
+            The host or IP of the server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Server.Port">
+            <summary>
+            The port number to use for the connection.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Server.RequiresAuthentication">
+            <summary>
+            Gets or sets the flag is authentication is needed on this server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Server.ServerEncryptionType">
+            <summary>
+            Gets or sets the encryption type for the server.
+            
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.ServerCollection">
+            <summary>
+            A collection of Smtp servers.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ServerCollection.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ServerCollection.op_Addition(ActiveUp.Net.Mail.ServerCollection,ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Allows the developer to add a collection of Server objects in another one.
+            </summary>
+            <param name="first">The first collection.</param>
+            <param name="second">The second collection.</param>
+            <returns>The concacened collection.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ServerCollection.Add(ActiveUp.Net.Mail.Server)">
+            <summary>
+            Add an Server object in the collection.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ServerCollection.Add(System.String,System.Int32)">
+            <summary>
+            Add an Server object in the collection specifying the host and port.
+            </summary>
+            <param name="host">The hostname or IP address</param>
+            <param name="port">The port number</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ServerCollection.Add(System.String)">
+            <summary>
+            Add an Server object in the collection specifying the host and using the default port number (25).
+            </summary>
+            <param name="host">The hostname or IP address</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.ServerCollection.Remove(System.Int32)">
+            <summary>
+            Remove the Server object at the specified index position.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.ServerCollection.Item(System.Int32)">
+            <summary>
+            Returns the Server object at the specified index position.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Templater">
+            <summary>
+            Templater class to create a mail with it's settings using a single XML file.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Templater.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Templater.#ctor(System.String)">
+            <summary>
+            Instanciate the templater and directly load the template file.
+            </summary>
+            <param name="templateFile">the filepath to the template file.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Templater.LoadTemplate(System.String)">
+            <summary>
+            Load a template from a file.
+            </summary>
+            <param name="filename">The fullpath to the file.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Templater.LoadTemplateFromString(System.String)">
+            <summary>
+            Load a template from a string.
+            </summary>
+            <param name="content">The template string.</param>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Templater.ProcessXmlTemplate(System.String)">
+            <summary>
+            Process the Xml template.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Templater.LoadFileContent(System.String)">
+            <summary>
+            Load the content of the specified file.
+            </summary>
+            <param name="filename">The full path to the file</param>
+            <returns>The content of the file</returns>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Templater.Logger">
+            <summary>
+            Gets or sets the logging settings.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Templater.Message">
+            <summary>
+            Gets or sets the logging settings.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Templater.Regions">
+            <summary>
+            Gets or sets the region collection.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Templater.Conditions">
+            <summary>
+            Gets or sets the conditional collection.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Templater.FieldsFormats">
+            <summary>
+            Gets or sets the fields format options.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Templater.SmtpServers">
+            <summary>
+            Gets or sets the SMTP servers.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.Templater.ListTemplates">
+            <summary>
+            Gets or sets the List templates.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.TimedUdpClient">
+            <summary>
+            Summary description for TimedUdpClient.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.TimedUdpClient._returnReceive">
+            <summary>
+            The result of the receive (udp mode).
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.TimedUdpClient._errorOccurs">
+            <summary>
+            Indicates if an error occurs.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.TimedUdpClient._threadReceive">
+             <summary>
+            The main job of this thread is to receive data in udp.
+             </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.TimedUdpClient._remote">
+            <summary>
+            Represents a network endpoint as an IP address and a port number.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.TimedUdpClient._mutexReturnReceive">
+            <summary>
+            Protects integrity of the _returnReceive variable.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.TimedUdpClient._mutexErrorOccurs">
+            <summary>
+            Protects integrity of the _errorOccurs variable.
+            </summary>
+        </member>
+        <member name="F:ActiveUp.Net.Mail.TimedUdpClient._timeout">
+            <summary>
+            Timeout of the underlying UdpClient.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.TimedUdpClient.Receive(System.Net.IPEndPoint@)">
+            <summary>
+            Receives data.
+            </summary>
+            <param name="remote">Server pointer.</param>
+            <returns>The received data.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.TimedUdpClient.StartReceive">
+            <summary>
+            Receive thread.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TimedUdpClient.Timeout">
+            <summary>
+            Gets or sets the timeout of the underlying UdpClient.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Tokenizer.Parse(System.String)">
+            <summary>
+            Tokenizes a string
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Tokenizer.CleanInput(System.String)">
+            <summary>
+            Replace invalid characters with spaces.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.TraceInfo">
+            <summary>
+            Contains informations about one trace information (one Received header).
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TraceInfo.From">
+            <summary>
+            Contains both (1) the name of the source host as presented in the EHLO command to the SMTP server and (2) an address literal containing the IP address of the source, determined from the TCP connection with the SMTP server.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TraceInfo.By">
+            <summary>
+            Contains the name of the SMTP host who received and processed the message.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TraceInfo.Via">
+            <summary>
+            Contains a mean of communication that was used for the transaction between the SMTP server and the FROM user.
+            </summary>
+            <example>"TCP"</example>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TraceInfo.With">
+            <summary>
+            The protocol used for the transaction by the SMTP server and the FROM user.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TraceInfo.Id">
+            <summary>
+            An identification string for the transaction.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TraceInfo.For">
+            <summary>
+            The destination mailbox for which the transaction was executed.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.TraceInfo.Date">
+            <summary>
+            The date and time of the transaction.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.UsenetXrefList">
+            <summary>
+            Represents a parsed Xref Header field.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.UsenetXrefList.Host">
+            <summary>
+            The host where the message resides.
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Mail.UsenetXrefList.Groups">
+            <summary>
+            Name/Value collection with newsgroups as Keys and message indexes as Value.
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Mail.Validator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.ValidateSyntax(System.String)">
+            <summary>
+            Validates the address' syntax.
+            </summary>
+            <param name="address">The address to be validated.</param>
+            <returns>True if syntax is valid, otherwise false.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.ValidateSyntax(ActiveUp.Net.Mail.Address)">
+            <summary>
+            Validates the address' syntax.
+            </summary>
+            <param name="address">The address to be validated.</param>
+            <returns>True if syntax is valid, otherwise false.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.ValidateSyntax(ActiveUp.Net.Mail.AddressCollection)">
+            <summary>
+            Validates the addresses' syntax.
+            </summary>
+            <param name="address">The addresses to be validated.</param>
+            <returns>True if syntax is valid, otherwise false.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.GetMxRecords(System.String)">
+            <summary>
+            Get the MX records for the specified domain name using the system configuration.
+            </summary>
+            <param name="address">The domain name.</param>
+            <returns>A collection of Mx Records.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.GetMxRecords(System.String,System.Int32)">
+            <summary>
+            Get the MX records for the specified domain name using the system configuration.
+            </summary>
+            <param name="address">The domain name.</param>
+            <param name="timeout">The timeout in miliseconds.</param>
+            <returns>A collection of Mx Records.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.GetTxtRecords(System.String)">
+            <summary>
+            Get the MX records for the specified domain name using the system configuration.
+            </summary>
+            <param name="address">The domain name.</param>
+            <returns>The byte array.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.GetTxtRecords(System.String,System.Int32)">
+            <summary>
+            Get the MX records for the specified domain name using the system configuration.
+            </summary>
+            <param name="address">The domain name.</param>
+            <param name="timeout">The timeout in miliseconds.</param>
+            <returns>The byte array.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.GetMxRecords(System.String,ActiveUp.Net.Mail.ServerCollection)">
+            <summary>
+            Get the MX records for the specified domain name using the system configuration.
+            </summary>
+            <param name="address">The domain name.</param>
+            <param name="dnsServers">Servers to be used for MX records search.</param>
+            <param name="timeout">The timeout in miliseconds.</param>
+            <returns>A collection of Mx Records.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.GetMxRecords(System.String,ActiveUp.Net.Mail.ServerCollection,System.Int32)">
+            <summary>
+            Get the MX records for the specified domain name using the system configuration.
+            </summary>
+            <param name="address">The domain name.</param>
+            <param name="dnsServers">Servers to be used for MX records search.</param>
+            <returns>A collection of Mx Records.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.GetMxRecords(System.String,System.String,System.Int32)">
+            <summary>
+            Get the MX records for the specified domain name using the specified DNS server.
+            </summary>
+            <param name="address">The domain name.</param>
+            <param name="host">The host name of the DNS server to use.</param>
+            <param name="port">The port number of the DNS server to use.</param>
+            <returns>A collection of Mx Records.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.GetMxRecords(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Get the MX records for the specified domain name using the specified DNS server.
+            </summary>
+            <param name="address">The domain name.</param>
+            <param name="host">The host name of the DNS server to use.</param>
+            <param name="port">The port number of the DNS server to use.</param>
+            <param name="timeout">The timeout in miliseconds.</param>
+            <returns>A collection of Mx Records.</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Mail.Validator.GetLabelsByPos(System.Byte[],System.Int32@)">
+            <summary>
+            Get the label at the specified position in the DNS data.
+            </summary>
+            <param name="streamData">The DNS data.</param>
+            <param name="pos">The start position.</param>
+            <returns>The label.</returns>
+        </member>
+    </members>
+</doc>

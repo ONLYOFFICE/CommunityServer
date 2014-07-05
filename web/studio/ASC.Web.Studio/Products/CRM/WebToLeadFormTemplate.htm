@@ -1,0 +1,48 @@
+﻿<form name="secondform" method="POST" action="http://alex/asc/products/crm/HttpHandlers/WebToLeadFromHandler.ashx">
+<meta content="text/html;charset = UTF-8" http-equiv="content-type">
+<input name="DEVELOPER" type="hidden" value="TRUE" />
+<input name="COMPLETE_URL" type="hidden" value="http://alex/asc/products/crm/default.aspx" />
+<dl>
+    <dt>Имя</dt>
+    <dd>
+        <input type="text" name="first_name" />
+    </dd>
+    <dt>Фамилия</dt>
+    <dd>
+        <input type="text" name="last_name" />
+    </dd>
+    <dt>Адрес</dt>
+    <dd>
+        <input type="text" name="address[city]" />
+        <br />
+        <input type="text" name="address[state]" />
+        <br />
+        <input type="text" name="address[zip]" />
+        <br />
+        <input type="text" name="address[country]" />
+        <br />
+        <input type="text" name="address[address]" />
+        <br />        
+        <input type="text" name="address[city]" />
+        <br />
+        <input type="text" name="address[state]" />
+        <br />
+        <input type="text" name="address[zip]" />
+        <br />
+        <input type="text" name="address[country]" />
+        <br />
+        <input type="text" name="address[address]" />
+        <br />
+    </dd>
+    <dt>Пользовательское поле: ИНН</dt>
+    <dd>
+        <input type="text" name="custom_field_123" />
+    </dd>
+</dl>
+<div>
+   
+   <input type="button" value="test" onclick="javascript:alert(jq(this).parents('form').attr('name'))"/>
+<%--    <input type="submit" value="Submit Form" />
+--%>
+</div>
+</form>

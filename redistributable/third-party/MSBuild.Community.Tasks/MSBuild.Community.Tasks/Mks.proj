@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="All">
+    
+	<Import Project="MSBuild.Community.Tasks.Targets" />
+
+	<PropertyGroup>
+		<ProjectDir>C:\data\OpenSource\MSBuild\Community\MSBuild.Community.Tasks\Source</ProjectDir>
+		<MksDir>f:\MKSRCS\ADG\.Net</MksDir>
+		<MksProject>$(MksDir)\OpenSource\MSBuild\Community\MSBuild.Community.Tasks\Source\MSBuild.Community.Tasks\Mks\project.pj</MksProject>
+		<SandboxDir>$(ProjectDir)\MSBuild.Community.Tasks.Test\MksTemp</SandboxDir>
+		<MSBuildCommunityTasksPath>$(ProjectDir)\MSBuild.Community.Tasks\bin\Debug</MSBuildCommunityTasksPath>
+	</PropertyGroup>
+
+	<Target Name="All">
+		<CallTarget Targets="Build" />
+		<CallTarget Targets="CreateSandbox" ContinueOnError="true" />
+		<CallTarget Targets="Touch" />
+		<CallTarget Targets="Add" />
+		<CallTarget Targets="Checkin" />
+		<CallTarget Targets="Drop" />
+		<CallTarget Targets="Resync" />
+		<CallTarget Targets="Lock" />
+		<CallTarget Targets="Unlock" />
+		<CallTarget Targets="DropSandbox" />
+	</Target>
+
+	<!-- Build the MSBuild.Community.Tasks project -->
+	<ItemGroup>
+		<ProjectReferences Include="*.csproj" />
+	</ItemGroup>
+	<Target Name="Build">
+		<MSBuild 
+			Projects="@(ProjectReferences)"
+			Targets="Build" />
+	</Target>
+
+	<!-- Create a sandbox in a temporary folder -->
+	<Target Name="CreateSandbox">
+		<MksCreateSandbox 
+			Directory="$(SandboxDir)"
+			Populate="true"
+			Project="$(MksProject)" 
+			Recurse="true"		
+		/>
+	</Target>
+
+	<!-- Add a class to the sandbox -->
+	<ItemGroup>
+		<MksTestFile Include="$(SandboxDir)\MksTest.cs" />
+	</ItemGroup>
+	<Target Name="Touch">
+		<Touch Files="@(MksTestFile)" AlwaysCreate="true" ForceTouch="true" />
+	</Target>
+	<Target Name="Add">
+		<MksAdd 
+			Cpid=":none"
+			CreateSubprojects="true"
+			Description = "'Add MksTest.cs class file.'"
+			Directory="$(SandboxDir)"
+			Exclude="file:*.pj" 
+			NonMembers="$(SandboxDir)\MksTest.cs"
+			OnExistingArchive="newarchive"
+			Recurse="false"		
+		/>
+	</Target>
+
+	<!-- Checkin a class -->
+	<Target Name="Checkin">
+		<MksCheckin 
+			Cpid=":none"
+			CheckinUnchanged="nocheckinUnchanged"
+			Description="'Checkin Mks class files.'"
+			Directory="$(SandboxDir)"
+			ForceConfirm="true"
+			Recurse="false"		
+		/>
+	</Target>
+
+	<!-- Drop a class from the sandbox -->
+	<Target Name="Drop">
+		<MksDrop 
+			Cpid=":none"
+			Delete="false" 
+			Directory="$(SandboxDir)"
+			ForceConfirm="true" 
+			Members="MksTest.cs"
+			Sandbox="project.pj"		
+		/>
+	</Target>
+
+	<!-- Resync files in the sandbox -->
+	<Target Name="Resync">
+		<MksResync 
+			Directory="$(SandboxDir)"
+			Filter="changed:newer,changed:missing,changed:newmem" 
+			ForceConfirm="true"
+			Recurse="true"		
+		/>
+	</Target>
+	
+	<!-- Lock files in the temporary folder -->
+	<Target Name="Lock">
+		<MksLock 
+			Cpid=":none"
+			Directory="$(SandboxDir)"
+			ForceConfirm="true"
+			Recurse="true"		
+		/>
+	</Target>
+
+	<!-- Unlock files in the temporary folder -->
+	<Target Name="Unlock">
+		<MksUnlock 
+			Directory="$(SandboxDir)"
+			ForceConfirm="true"
+			Recurse="true"		
+		/>
+	</Target>
+
+	<!-- Drop the sandbox in the temporary folder -->
+	<Target Name="DropSandbox">
+		<MksDropSandbox 
+			Delete="all" 
+			Directory="$(SandboxDir)"
+			ForceConfirm="true"
+			Sandbox="project.pj"		
+		/>
+	</Target>
+</Project>

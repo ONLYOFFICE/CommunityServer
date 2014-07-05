@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{76E19A86-2240-4DD9-AB5A-37F5D617EF28}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Web.Community.Blogs</RootNamespace>
+    <AssemblyName>ASC.Web.Community.Blogs</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SignAssembly>false</SignAssembly>
+    <TrunkDir>..\..\..\..\..\..\..\</TrunkDir>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxPro.2, Version=7.7.31.1, Culture=neutral, PublicKeyToken=eabb1b8f6347d5af, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Common">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Feed, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\asc\ASC.Feed.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.FullTextIndex, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\asc\ASC.FullTextIndex.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Community, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\asc\ASC.Web.Community.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Studio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\asc\ASC.Web.Studio.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.22451, Culture=neutral, PublicKeyToken=4f86767c9b519a06, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\third-party\Web\FredCK.FCKeditorV2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Domain\Post.cs" />
+    <Compile Include="Core\Domain\Tag.cs" />
+    <Compile Include="Core\BlogsEngine.cs" />
+    <Compile Include="Core\BlogsSettings.cs" />
+    <Compile Include="Core\Constants.cs" />
+    <Compile Include="Core\Data\DbDao.cs" />
+    <Compile Include="Core\Data\DbPostDao.cs" />
+    <Compile Include="Core\Data\IBlogDao.cs" />
+    <Compile Include="Core\Data\BlogsStorage.cs" />
+    <Compile Include="Core\Data\Map.cs" />
+    <Compile Include="Core\Domain\BlogInfo.cs" />
+    <Compile Include="Core\Domain\Blog.cs" />
+    <Compile Include="Core\Domain\Rating.cs" />
+    <Compile Include="Core\Domain\ReviewPost.cs" />
+    <Compile Include="Core\Domain\Settings.cs" />
+    <Compile Include="Core\Domain\Comment.cs" />
+    <Compile Include="Core\Helpers\SubscriptionNotitySenders.cs" />
+    <Compile Include="Core\Resources\BlogsResource.Designer.cs">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Core\Service\BlogPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Service\BlogPatternsResource.Designer.cs">
+      <DependentUpon>BlogPatternsResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Core\Security\CorporateBlogSecObject.cs" />
+    <Compile Include="Core\Security\PersonalBlogSecObject.cs" />
+    <Compile Include="Core\Service\BlogNotifySource.cs" />
+    <Compile Include="AddBlog.aspx.cs">
+      <DependentUpon>AddBlog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddBlog.aspx.designer.cs">
+      <DependentUpon>AddBlog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\BlogsModule.cs" />
+    <Compile Include="Common\BlogsSearchHandler.cs" />
+    <Compile Include="Common\BlogsSubscriptionManager.cs" />
+    <Compile Include="Common\ImageHTMLHelper.cs" />
+    <Compile Include="Common\Subscriber.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditBlog.aspx.cs">
+      <DependentUpon>EditBlog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditBlog.aspx.designer.cs">
+      <DependentUpon>EditBlog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PageControllers\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PageControllers\BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewBlog.aspx.cs">
+      <DependentUpon>ViewBlog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewBlog.aspx.designer.cs">
+      <DependentUpon>ViewBlog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewBlogView.ascx.cs">
+      <DependentUpon>ViewBlogView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ViewBlogView.ascx.designer.cs">
+      <DependentUpon>ViewBlogView.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AddBlog.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="EditBlog.aspx" />
+    <Content Include="ViewBlog.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\images\BlogIconWG.png" />
+    <Content Include="App_Themes\Default\images\blogs.png" />
+    <Content Include="App_Themes\Default\images\blog_add.png" />
+    <Content Include="App_Themes\Default\images\blog_icon.png" />
+    <Content Include="App_Themes\Default\images\tags.png" />
+    <Content Include="App_Themes\Default\BlogStyle.css" />
+    <Content Include="js\blogs.js" />
+    <Content Include="Views\ViewBlogView.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Core\Resources\BlogsResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Blogs.Core.Resources</CustomToolNamespace>
+      <LastGenOutput>BlogsResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Service\BlogPatternResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlogPatternResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Service\BlogPatternsResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlogPatternsResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Blogs.Core.Service</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Service\blog_patterns.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile-&gt;'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath-&gt;'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

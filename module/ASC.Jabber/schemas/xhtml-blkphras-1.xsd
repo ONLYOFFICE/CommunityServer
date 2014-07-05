@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xml="http://www.w3.org/XML/1998/namespace" 
+           xmlns="http://www.w3.org/1999/xhtml">
+      
+      
+    <xs:annotation>
+       <xs:documentation>
+          This is the XML Schema Block Phrasal support module for XHTML
+          $Id$
+       </xs:documentation>
+       <xs:documentation source="xhtml-copyright-1.xsd"/>
+    </xs:annotation>
+    
+    <xs:annotation>
+        <xs:documentation>
+           Block Phrasal
+           This module declares the elements and their attributes used to
+           support block-level phrasal markup.
+           This is the XML Schema block phrasal elements module for XHTML
+
+            * address, blockquote, pre, h1, h2, h3, h4, h5, h6
+      </xs:documentation>
+      <xs:documentation source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_textmodule"/>
+    </xs:annotation>
+    
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"> 
+      <xs:annotation>
+        <xs:documentation>
+          This import brings in the XML namespace attributes 
+          The module itself does not provide the schemaLocation
+          and expects the driver schema to provide the 
+          actual SchemaLocation.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:import>    
+    
+    <!-- address -->
+    <xs:attributeGroup name="address.attlist">
+        <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+   
+    <xs:group name="address.content">
+       <xs:sequence>
+          <xs:group ref="Inline.mix" minOccurs="0" maxOccurs="unbounded"/>       
+       </xs:sequence>
+    </xs:group>
+        
+    <xs:complexType name="address.type" mixed="true">
+        <xs:group ref="address.content"/>      
+        <xs:attributeGroup ref="address.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="address" type="address.type"/>
+    
+    <!-- blockquote -->
+    <xs:attributeGroup name="blockquote.attlist">
+        <xs:attributeGroup ref="Common.attrib"/>
+        <xs:attribute name="cite" type="URI"/>
+    </xs:attributeGroup>
+
+    <xs:group name="blockquote.content">
+       <xs:sequence>
+          <xs:group ref="Block.mix" maxOccurs="unbounded"/>       
+       </xs:sequence>
+    </xs:group>        
+    
+    <xs:complexType name="blockquote.type">
+        <xs:group ref="blockquote.content"/> 
+        <xs:attributeGroup ref="blockquote.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="blockquote" type="blockquote.type"/>
+    
+    <!-- pre -->
+    <xs:attributeGroup name="pre.attlist">
+        <xs:attribute ref="xml:space"/>
+        <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="pre.content">
+       <xs:sequence>    
+          <xs:group ref="InlinePre.mix" minOccurs="0" maxOccurs="unbounded"/>       
+       </xs:sequence>
+    </xs:group>        
+        
+    <xs:complexType name="pre.type" mixed="true">
+        <xs:group ref="pre.content"/>     
+        <xs:attributeGroup ref="pre.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="pre" type="pre.type"/>
+    
+    <!-- Heading Elements  -->
+    <xs:attributeGroup name="heading.attlist">
+        <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:complexType name="heading.type" mixed="true">
+        <xs:group ref="Inline.mix" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:attributeGroup ref="heading.attlist"/>
+    </xs:complexType>
+    
+    <xs:attributeGroup name="h1.attlist">
+        <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="h1.content">
+       <xs:sequence>    
+          <xs:group ref="Inline.mix" minOccurs="0" maxOccurs="unbounded"/>    
+       </xs:sequence>
+    </xs:group>
+    
+    <xs:complexType name="h1.type" mixed="true">
+        <xs:group ref="h1.content"/>
+        <xs:attributeGroup ref="h1.attlist"/>
+    </xs:complexType>
+       
+    <xs:element name="h1" type="h1.type"/>
+    
+    <xs:attributeGroup name="h2.attlist">
+        <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="h2.content">
+       <xs:sequence>    
+          <xs:group ref="Inline.mix" minOccurs="0" maxOccurs="unbounded"/>    
+       </xs:sequence>
+    </xs:group>
+    
+    <xs:complexType name="h2.type" mixed="true">
+        <xs:group ref="h2.content"/>
+        <xs:attributeGroup ref="h2.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="h2" type="h2.type"/>
+    
+    <xs:attributeGroup name="h3.attlist">
+        <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="h3.content">
+       <xs:sequence>    
+          <xs:group ref="Inline.mix" minOccurs="0" maxOccurs="unbounded"/>    
+       </xs:sequence>
+    </xs:group>
+    
+    <xs:complexType name="h3.type" mixed="true">
+        <xs:group ref="h3.content"/>
+        <xs:attributeGroup ref="h3.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="h3" type="h3.type"/>
+    
+    <xs:attributeGroup name="h4.attlist">
+        <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="h4.content">
+       <xs:sequence>    
+          <xs:group ref="Inline.mix" minOccurs="0" maxOccurs="unbounded"/>    
+       </xs:sequence>
+    </xs:group>
+    
+    <xs:complexType name="h4.type" mixed="true">
+        <xs:group ref="h4.content"/>
+        <xs:attributeGroup ref="h4.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="h4" type="h4.type"/>
+    
+    <xs:attributeGroup name="h5.attlist">
+        <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="h5.content">
+       <xs:sequence>    
+          <xs:group ref="Inline.mix" minOccurs="0" maxOccurs="unbounded"/>    
+       </xs:sequence>
+    </xs:group>
+    
+    <xs:complexType name="h5.type" mixed="true">
+        <xs:group ref="h5.content"/>
+        <xs:attributeGroup ref="h5.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="h5" type="h5.type"/>
+
+    <xs:attributeGroup name="h6.attlist">
+        <xs:attributeGroup ref="Common.attrib"/>
+    </xs:attributeGroup>
+    
+    <xs:group name="h6.content">
+       <xs:sequence>    
+          <xs:group ref="Inline.mix" minOccurs="0" maxOccurs="unbounded"/>    
+       </xs:sequence>
+    </xs:group>
+    
+    <xs:complexType name="h6.type" mixed="true">
+        <xs:group ref="h6.content"/>
+        <xs:attributeGroup ref="h6.attlist"/>
+    </xs:complexType>
+    
+    <xs:element name="h6" type="h6.type"/>
+    
+</xs:schema>

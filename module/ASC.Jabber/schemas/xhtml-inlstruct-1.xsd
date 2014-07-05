@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns="http://www.w3.org/1999/xhtml">
+
+
+  <xs:annotation>
+    <xs:documentation>
+         This is the XML Schema Inline Structural support module for XHTML
+         $Id$
+    </xs:documentation>
+    <xs:documentation source="xhtml-copyright-1.xsd"/>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+      Inline Structural.
+      This module declares the elements and their attributes 
+      used to support inline-level structural markup.      
+      This is the XML Schema Inline Structural element module for XHTML
+
+        * br, span
+      
+    </xs:documentation>
+    <xs:documentation source="http://www.w3.org/TR/xhtml-modularization/abstract_modules.html#s_textmodule"/>
+  </xs:annotation>
+
+  <xs:attributeGroup name="br.attlist">
+    <xs:attributeGroup ref="Core.attrib"/>
+  </xs:attributeGroup>
+  
+  <xs:group name="br.content">
+     <xs:sequence/>
+  </xs:group>  
+
+  <xs:complexType name="br.type">
+    <xs:group ref="br.content"/>    
+    <xs:attributeGroup ref="br.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="br" type="br.type"/>
+
+  <xs:attributeGroup name="span.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+  </xs:attributeGroup>
+  
+  <xs:group name="span.content">
+    <xs:sequence>
+       <xs:group ref="Inline.mix" minOccurs="0" maxOccurs="unbounded"/>     
+    </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="span.type" mixed="true">
+    <xs:group ref="span.content"/>   
+    <xs:attributeGroup ref="span.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="span" type="span.type"/>
+
+</xs:schema>

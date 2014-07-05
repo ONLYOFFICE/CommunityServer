@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="iijmio-mail.jp">
+    <domain>iijmio-mail.jp</domain>
+    <domain>miomio.jp</domain>
+    <domain>miobox.jp</domain>
+    <domain>e23.jp</domain>
+    <domain>x-il.jp</domain>
+    <displayName>IIJmio セーフティメール</displayName>
+    <displayShortName>IIJmio</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>mbox.iijmio-mail.jp</hostname>
+      <port>110</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILLOCALPART%.%EMAILDOMAIN%</username>
+      <authentication>password-encrypted</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>mbox.iijmio-mail.jp</hostname>
+      <port>587</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILLOCALPART%.%EMAILDOMAIN%</username>
+      <authentication>password-encrypted</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

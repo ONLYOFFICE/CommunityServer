@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--
+ *
+ * sqlite3.vsprops -
+ *
+ * Written by Joe Mistachkin.
+ * Released to the public domain, use at your own risk!
+ *
+-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="sqlite3"
+	>
+	<UserMacro
+		Name="SQLITE_MANIFEST_VERSION"
+		Value="3.7.11.0"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="SQLITE_RC_VERSION"
+		Value="3,7,11,0"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="SQLITE_COMMON_DEFINES"
+		Value="SQLITE_THREADSAFE=1;SQLITE_ENABLE_COLUMN_METADATA=1;SQLITE_ENABLE_STAT3=1;SQLITE_ENABLE_FTS3=1;SQLITE_ENABLE_LOAD_EXTENSION=1;SQLITE_ENABLE_RTREE=1;SQLITE_SOUNDEX=1"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="SQLITE_EXTRA_DEFINES"
+		Value="SQLITE_HAS_CODEC=1"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="SQLITE_WINCE_DEFINES"
+		Value="SQLITE_OMIT_WAL=1"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="SQLITE_DEBUG_DEFINES"
+		Value="SQLITE_DEBUG=1;SQLITE_MEMDEBUG=1"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="SQLITE_RELEASE_DEFINES"
+		Value="SQLITE_WIN32_MALLOC=1"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="SQLITE_DISABLE_WARNINGS"
+		Value="4018;4055;4057;4090;4100;4127;4132;4146;4152;4210;4232;4244;4245;4389;4701;4706;4996"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="SQLITE_DISABLE_X64_WARNINGS"
+		Value="4232;4267;4306"
+		PerformEnvironmentSet="true"
+	/>
+</VisualStudioPropertySheet>

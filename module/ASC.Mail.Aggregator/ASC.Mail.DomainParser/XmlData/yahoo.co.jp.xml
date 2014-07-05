@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="yahoo.co.jp">
+    <domain>yahoo.co.jp</domain>
+    <displayName>Yahoo! メール</displayName>
+    <displayShortName>Yahoo! メール</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>pop.mail.yahoo.co.jp</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.mail.yahoo.co.jp</hostname>
+      <port>465</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

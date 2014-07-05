@@ -1,0 +1,257 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+namespace ASC.Mail.Net.Mime.vCard
+{
+    /// <summary>
+    /// vCard phone number implementation.
+    /// </summary>
+    public class PhoneNumber
+    {
+        #region Members
+
+        private readonly Item m_pItem;
+        private string m_Number = "";
+        private PhoneNumberType_enum m_Type = PhoneNumberType_enum.Voice;
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="item">Owner vCard item.</param>
+        /// <param name="type">Phone number type. Note: This value can be flagged value !</param>
+        /// <param name="number">Phone number.</param>
+        internal PhoneNumber(Item item, PhoneNumberType_enum type, string number)
+        {
+            m_pItem = item;
+            m_Type = type;
+            m_Number = number;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets underlaying vCrad item.
+        /// </summary>
+        public Item Item
+        {
+            get { return m_pItem; }
+        }
+
+        /// <summary>
+        /// Gets or sets phone number.
+        /// </summary>
+        public string Number
+        {
+            get { return m_Number; }
+
+            set
+            {
+                m_Number = value;
+                Changed();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets phone number type. Note: This property can be flagged value !
+        /// </summary>
+        public PhoneNumberType_enum NumberType
+        {
+            get { return m_Type; }
+
+            set
+            {
+                m_Type = value;
+                Changed();
+            }
+        }
+
+        #endregion
+
+        #region Internal methods
+
+        /// <summary>
+        /// Parses phone from vCard TEL structure string.
+        /// </summary>
+        /// <param name="item">vCard TEL item.</param>
+        internal static PhoneNumber Parse(Item item)
+        {
+            PhoneNumberType_enum type = PhoneNumberType_enum.NotSpecified;
+            if (item.ParametersString.ToUpper().IndexOf("PREF") != -1)
+            {
+                type |= PhoneNumberType_enum.Preferred;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("HOME") != -1)
+            {
+                type |= PhoneNumberType_enum.Home;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("MSG") != -1)
+            {
+                type |= PhoneNumberType_enum.Msg;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("WORK") != -1)
+            {
+                type |= PhoneNumberType_enum.Work;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("VOICE") != -1)
+            {
+                type |= PhoneNumberType_enum.Voice;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("FAX") != -1)
+            {
+                type |= PhoneNumberType_enum.Fax;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("CELL") != -1)
+            {
+                type |= PhoneNumberType_enum.Cellular;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("VIDEO") != -1)
+            {
+                type |= PhoneNumberType_enum.Video;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("PAGER") != -1)
+            {
+                type |= PhoneNumberType_enum.Pager;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("BBS") != -1)
+            {
+                type |= PhoneNumberType_enum.BBS;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("MODEM") != -1)
+            {
+                type |= PhoneNumberType_enum.Modem;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("CAR") != -1)
+            {
+                type |= PhoneNumberType_enum.Car;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("ISDN") != -1)
+            {
+                type |= PhoneNumberType_enum.ISDN;
+            }
+            if (item.ParametersString.ToUpper().IndexOf("PCS") != -1)
+            {
+                type |= PhoneNumberType_enum.PCS;
+            }
+
+            return new PhoneNumber(item, type, item.Value);
+        }
+
+        /// <summary>
+        /// Converts PhoneNumberType_enum to vCard item parameters string.
+        /// </summary>
+        /// <param name="type">Value to convert.</param>
+        /// <returns></returns>
+        internal static string PhoneTypeToString(PhoneNumberType_enum type)
+        {
+            string retVal = "";
+            if ((type & PhoneNumberType_enum.BBS) != 0)
+            {
+                retVal += "BBS,";
+            }
+            if ((type & PhoneNumberType_enum.Car) != 0)
+            {
+                retVal += "CAR,";
+            }
+            if ((type & PhoneNumberType_enum.Cellular) != 0)
+            {
+                retVal += "CELL,";
+            }
+            if ((type & PhoneNumberType_enum.Fax) != 0)
+            {
+                retVal += "FAX,";
+            }
+            if ((type & PhoneNumberType_enum.Home) != 0)
+            {
+                retVal += "HOME,";
+            }
+            if ((type & PhoneNumberType_enum.ISDN) != 0)
+            {
+                retVal += "ISDN,";
+            }
+            if ((type & PhoneNumberType_enum.Modem) != 0)
+            {
+                retVal += "MODEM,";
+            }
+            if ((type & PhoneNumberType_enum.Msg) != 0)
+            {
+                retVal += "MSG,";
+            }
+            if ((type & PhoneNumberType_enum.Pager) != 0)
+            {
+                retVal += "PAGER,";
+            }
+            if ((type & PhoneNumberType_enum.PCS) != 0)
+            {
+                retVal += "PCS,";
+            }
+            if ((type & PhoneNumberType_enum.Preferred) != 0)
+            {
+                retVal += "PREF,";
+            }
+            if ((type & PhoneNumberType_enum.Video) != 0)
+            {
+                retVal += "VIDEO,";
+            }
+            if ((type & PhoneNumberType_enum.Voice) != 0)
+            {
+                retVal += "VOICE,";
+            }
+            if ((type & PhoneNumberType_enum.Work) != 0)
+            {
+                retVal += "WORK,";
+            }
+            if (retVal.EndsWith(","))
+            {
+                retVal = retVal.Substring(0, retVal.Length - 1);
+            }
+
+            return retVal;
+        }
+
+        #endregion
+
+        #region Utility methods
+
+        /// <summary>
+        /// This method is called when some property has changed, wee need to update underlaying vCard item.
+        /// </summary>
+        private void Changed()
+        {
+            m_pItem.ParametersString = PhoneTypeToString(m_Type);
+            m_pItem.Value = m_Number;
+        }
+
+        #endregion
+    }
+}

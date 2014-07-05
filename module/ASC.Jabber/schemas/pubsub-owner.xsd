@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/pubsub#owner'
+    xmlns='http://jabber.org/protocol/pubsub#owner'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0060: http://www.xmpp.org/extensions/xep-0060.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:import
+      namespace='jabber:x:data'
+      schemaLocation='http://xmpp.org/schemas/x-data.xsd'/>
+
+  <xs:element name='pubsub'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref='affiliations'/>
+        <xs:element ref='configure'/>
+        <xs:element ref='default'/>
+        <xs:element ref='delete'/>
+        <xs:element ref='purge'/>
+        <xs:element ref='subscriptions'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='affiliations'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='affiliation' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='node' type='xs:string' use='required'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='affiliation'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='affiliation' use='required'>
+            <xs:simpleType>
+              <xs:restriction base='xs:NCName'>
+                <xs:enumeration value='member'/>
+                <xs:enumeration value='none'/>
+                <xs:enumeration value='outcast'/>
+                <xs:enumeration value='owner'/>
+                <xs:enumeration value='publisher'/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name='jid' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='configure'>
+    <xs:complexType>
+      <xs:choice minOccurs='0' xmlns:xdata='jabber:x:data'>
+        <xs:element ref='xdata:x'/>
+      </xs:choice>
+      <xs:attribute name='node' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='default'>
+    <xs:complexType>
+      <xs:choice minOccurs='0' xmlns:xdata='jabber:x:data'>
+        <xs:element ref='xdata:x'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='delete'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='node' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='purge'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='node' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='subscriptions'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='subscription' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='node' type='xs:string' use='required'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='subscription'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='subscription' use='required'>
+            <xs:simpleType>
+              <xs:restriction base='xs:NCName'>
+                <xs:enumeration value='none'/>
+                <xs:enumeration value='pending'/>
+                <xs:enumeration value='subscribed'/>
+                <xs:enumeration value='unconfigured'/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name='jid' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

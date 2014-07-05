@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:ietf:params:xml:ns:xmpp-bind'
+    xmlns='urn:ietf:params:xml:ns:xmpp-bind'
+    elementFormDefault='qualified'>
+
+  <xs:element name='bind'>
+    <xs:complexType>
+      <xs:choice minOccurs='0' maxOccurs='1'>
+        <xs:element name='resource' type='resourceType'/>
+        <xs:element name='jid' type='fullJIDType'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='resourceType'>
+    <xs:restriction base='xs:string'>
+      <xs:minLength value='1'/>
+      <xs:maxLength value='1023'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name='fullJIDType'>
+    <xs:restriction base='xs:string'>
+      <xs:minLength value='8'/>
+      <xs:maxLength value='3071'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

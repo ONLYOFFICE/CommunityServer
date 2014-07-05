@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ByUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="CommunityProduct" xml:space="preserve">
+    <value>Community</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Current month</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Current week</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Custom period</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>Me</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Other users</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="TimeDistance" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="BlogsModule" xml:space="preserve">
+    <value>Blogs</value>
+  </data>
+  <data name="BlogCreatedText" xml:space="preserve">
+    <value>Добавлен пост</value>
+  </data>
+  <data name="BlogCommentedText" xml:space="preserve">
+    <value>Добавлены комментарии к посту</value>
+  </data>
+  <data name="Bookmark" xml:space="preserve">
+    <value>Bookmark</value>
+  </data>
+  <data name="BookmarkCreatedText" xml:space="preserve">
+    <value>Добавлена закладка</value>
+  </data>
+  <data name="BookmarkCommentedText" xml:space="preserve">
+    <value>Добавлены комментарии к закладке</value>
+  </data>
+  <data name="ForumsModule" xml:space="preserve">
+    <value>Forums</value>
+  </data>
+  <data name="ForumCreatedText" xml:space="preserve">
+    <value>Добавлена тема</value>
+  </data>
+  <data name="ForumCommentedText" xml:space="preserve">
+    <value>Добавлены посты в теме</value>
+  </data>
+  <data name="ForumPollCreatedText" xml:space="preserve">
+    <value>Добавлен опрос</value>
+  </data>
+  <data name="Event" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="OrderCreatedText" xml:space="preserve">
+    <value>Добавлен приказ</value>
+  </data>
+  <data name="PollCreatedText" xml:space="preserve">
+    <value>Добавлен опрос</value>
+  </data>
+  <data name="AdvertCreatedText" xml:space="preserve">
+    <value>Добавлено объявление</value>
+  </data>
+  <data name="NewsCreatedText" xml:space="preserve">
+    <value>Добавлена новость</value>
+  </data>
+  <data name="EventCommentedText" xml:space="preserve">
+    <value>Добавлены комментарии к событию</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="ProjectCreatedText" xml:space="preserve">
+    <value>Добавлен проект</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Milestone</value>
+  </data>
+  <data name="MilestoneCreatedText" xml:space="preserve">
+    <value>Добавлена веха</value>
+  </data>
+  <data name="Discussion" xml:space="preserve">
+    <value>Discussion</value>
+  </data>
+  <data name="DiscussionCreatedText" xml:space="preserve">
+    <value>Добавлена дискуссия</value>
+  </data>
+  <data name="DiscussionCommentedText" xml:space="preserve">
+    <value>Добавлены комментарии к дискуссии</value>
+  </data>
+  <data name="ParticipantCreatedText" xml:space="preserve">
+    <value>Добавлен участник</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="TaskCreatedText" xml:space="preserve">
+    <value>Добавлена задача</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Responsibles</value>
+  </data>
+  <data name="TaskCommentedText" xml:space="preserve">
+    <value>Добавлены комментарии к задаче</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>Person</value>
+  </data>
+  <data name="PersonCreatedText" xml:space="preserve">
+    <value>Добавлена персона</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="CompanyCreatedText" xml:space="preserve">
+    <value>Добавлена компания</value>
+  </data>
+  <data name="CrmTaskCreatedText" xml:space="preserve">
+    <value>Добавлена задача</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Responsible</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Deal</value>
+  </data>
+  <data name="DealCreatedText" xml:space="preserve">
+    <value>Добавлена сделка</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Case</value>
+  </data>
+  <data name="CaseCreatedText" xml:space="preserve">
+    <value>Добавлено мероприятие</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FileUpdatedText" xml:space="preserve">
+    <value>Обновлен файл</value>
+  </data>
+  <data name="FileCreatedText" xml:space="preserve">
+    <value>Добавлен файл</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="SharedFileCreatedText" xml:space="preserve">
+    <value>Вам расшарили документ</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="FolderCreatedText" xml:space="preserve">
+    <value>Добавлена папка</value>
+  </data>
+  <data name="SharedFolderCreatedText" xml:space="preserve">
+    <value>Вам расшарили папку</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="NewFeedIndicator" xml:space="preserve">
+    <value>new</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Написать комментарий</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Показать полностью</value>
+  </data>
+  <data name="YesterdayAt" xml:space="preserve">
+    <value>Yesterday at</value>
+  </data>
+  <data name="TodayAt" xml:space="preserve">
+    <value>Today at</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Loading, Please wait</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Deadline</value>
+  </data>
+  <data name="EventsModule" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="ForumPollCommentedText" xml:space="preserve">
+    <value>Добавлены посты в опросе</value>
+  </data>
+  <data name="CancelCommentBtn" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="HideGroupedFeedsBtn" xml:space="preserve">
+    <value>Скрыть дополнительные события</value>
+  </data>
+  <data name="OtherFeedsCountMsg" xml:space="preserve">
+    <value>+еще {0}</value>
+  </data>
+  <data name="PublishCommentBtn" xml:space="preserve">
+    <value>Publish</value>
+  </data>
+  <data name="ReplyCommentBtn" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="ShowGroupedFeedsBtn" xml:space="preserve">
+    <value>Показать остальные события</value>
+  </data>
+  <data name="FeedsReadedMsg" xml:space="preserve">
+    <value>Новостей пока нет. Перейдите на страницу ленты, чтобы увидеть историю последних новостей.</value>
+  </data>
+  <data name="SeeAllFeedsBtn" xml:space="preserve">
+    <value>See all</value>
+  </data>
+  <data name="CommentErrorMsg" xml:space="preserve">
+    <value>Ошибка доступа при добавлении комментария</value>
+  </data>
+  <data name="SharedFileCreatedInFolderText" xml:space="preserve">
+    <value>Вам расшарили документ в папке</value>
+  </data>
+  <data name="SharedFolderCreatedInFolderText" xml:space="preserve">
+    <value>Вам расшарили папку в папке</value>
+  </data>
+  <data name="ForumPostCreatedText" xml:space="preserve">
+    <value>Добавлен пост</value>
+  </data>
+  <data name="ForumTopicCreatedText" xml:space="preserve">
+    <value>Добавлена тема</value>
+  </data>
+  <data name="HideAdditionalCommentsBtn" xml:space="preserve">
+    <value>Скрыть дополнительные комментарии</value>
+  </data>
+  <data name="ShowOthersCommentsBtn" xml:space="preserve">
+    <value>Показать остальные комментарии</value>
+  </data>
+  <data name="BookmarksModule" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Discussions</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Milestones</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Cases</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>Opportunities</value>
+  </data>
+  <data name="CrmTaskModule" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="AdvertCommentedText" xml:space="preserve">
+    <value>Добавлены комментарии к объявлению</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Folders</value>
+  </data>
+  <data name="NewsCommentedText" xml:space="preserve">
+    <value>Добавлены комментарии к новости</value>
+  </data>
+  <data name="OrderCommentedText" xml:space="preserve">
+    <value>Добавлены комментарии к приказу</value>
+  </data>
+  <data name="PollCommentedText" xml:space="preserve">
+    <value>Добавлены комментарии к опросу</value>
+  </data>
+  <data name="CommentEmptyErrorMsg" xml:space="preserve">
+    <value>Введите ваш комментарий</value>
+  </data>
+</root>

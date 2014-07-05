@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='jabber:iq:rpc'
+    xmlns='jabber:iq:rpc'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0009: http://www.xmpp.org/extensions/xep-0009.html
+
+      There is no official XML schema for XML-RPC. The main body 
+      of this schema has been borrowed from an unofficial schema 
+      representation contained in the book "Processing XML With 
+      Java" by Elliotte Rusty Harold, as located at:
+
+      http://www.ibiblio.org/xml/books/xmljava/chapters/ch02s05.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='query'>
+    <xs:complexType>
+      <xs:choice minOccurs='0' maxOccurs='1'>
+        <xs:element ref='methodCall'/>
+        <xs:element ref='methodResponse'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="methodCall">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="methodName">
+          <xs:simpleType>
+            <xs:restriction base="ASCIIString">
+              <xs:pattern value="([A-Za-z0-9]|/|\.|:|_)*" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="params" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="param"  type="ParamType" 
+                           minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+         </xs:element>
+      </xs:all>
+    </xs:complexType>  
+  </xs:element>
+
+  <xs:element name="methodResponse">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element name="params">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="param" type="ParamType"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fault">
+          <!-- What can appear inside a fault is very restricted -->
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="value">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="struct"> 
+                      <xs:complexType> 
+                        <xs:sequence> 
+                          <xs:element name="member" 
+                                       type="MemberType">
+                          </xs:element>
+                          <xs:element name="member" 
+                                       type="MemberType">
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+         </xs:element>
+      </xs:choice>
+    </xs:complexType>  
+  </xs:element>
+
+  <xs:complexType name="ParamType">
+    <xs:sequence>
+      <xs:element name="value" type="ValueType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ValueType" mixed="true">
+    <xs:choice>
+      <xs:element name="i4"            type="xs:int"/>
+      <xs:element name="int"           type="xs:int"/>
+      <xs:element name="string"        type="ASCIIString"/>
+      <xs:element name="double"        type="xs:decimal"/>
+      <xs:element name="Base64"        type="xs:base64Binary"/>
+      <xs:element name="boolean"       type="NumericBoolean"/>
+      <xs:element name="dateTime.iso8601" type="xs:dateTime"/>
+      <xs:element name="array"         type="ArrayType"/>
+      <xs:element name="struct"        type="StructType"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="StructType">
+    <xs:sequence>
+      <xs:element name="member" type="MemberType" 
+                   maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MemberType">
+    <xs:sequence>
+      <xs:element name="name"  type="xs:string" />
+      <xs:element name="value" type="ValueType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ArrayType">
+    <xs:sequence>
+      <xs:element name="data">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="value"  type="ValueType" 
+                         minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ASCIIString">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([ -~]|\n|\r|\t)*" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NumericBoolean">
+    <xs:restriction base="xs:boolean">
+      <xs:pattern value="0|1" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="10mm" height="10mm" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 10 10"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#E4E4E2;stroke-width:0.25}
+    .fil2 {fill:none}
+    .fil6 {fill:#AD2F06}
+    .fil5 {fill:#B33807}
+    .fil9 {fill:#D26135}
+    .fil7 {fill:#E66A34}
+    .fil4 {fill:url(#id0)}
+    .fil3 {fill:url(#id1)}
+    .fil8 {fill:url(#id2)}
+    .fil0 {fill:url(#id3)}
+    .fil10 {fill:url(#id4)}
+    .fil1 {fill:url(#id5);fill-rule:nonzero}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="5.0114" y1="1.8867" x2="5.0114" y2="0.0033">
+   <stop offset="0" style="stop-color:#E35104"/>
+   <stop offset="1" style="stop-color:#EF802F"/>
+  </linearGradient>
+  <linearGradient id="id1" gradientUnits="userSpaceOnUse" x1="5.08" y1="8.6213" x2="5.08" y2="1.8633">
+   <stop offset="0" style="stop-color:#AD2F06"/>
+   <stop offset="1" style="stop-color:#DD4506"/>
+  </linearGradient>
+  <linearGradient id="id2" gradientUnits="userSpaceOnUse" x1="5.08" y1="8.3204" x2="5.08" y2="4.396">
+   <stop offset="0" style="stop-color:#B33106"/>
+   <stop offset="1" style="stop-color:#F04402"/>
+  </linearGradient>
+  <linearGradient id="id3" gradientUnits="userSpaceOnUse" x1="5.0892" y1="8.4917" x2="5.0892" y2="4.2333">
+   <stop offset="0" style="stop-color:#ECECEC"/>
+   <stop offset="1" style="stop-color:#FEFEFE"/>
+  </linearGradient>
+  <radialGradient id="id4" gradientUnits="userSpaceOnUse" cx="4.9583" cy="9.3578" r="23.9007" fx="4.9583" fy="9.3578">
+   <stop offset="0" style="stop-color:#CCCCCC"/>
+   <stop offset="0.431373" style="stop-color:#DADBDB"/>
+   <stop offset="1" style="stop-color:#E8E9EA"/>
+  </radialGradient>
+  <linearGradient id="id5" gradientUnits="userSpaceOnUse" x1="5.0892" y1="8.6167" x2="5.0892" y2="4.1083">
+   <stop offset="0" style="stop-color:#CBCCCF"/>
+   <stop offset="1" style="stop-color:#E4E4E2"/>
+  </linearGradient>
+ </defs>
+ <g id="Слой_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <polygon class="fil0" points="1.6917,4.2333 8.4868,4.2333 8.4868,8.4918 1.6917,8.4918 "/>
+  <path class="fil1" d="M1.6917 4.1083l6.7951 0 0.125 0 0 0.125 0 4.2585 0 0.125 -0.125 0 -6.7951 0 -0.125 0 0 -0.125 0 -4.2585 0 -0.125 0.125 0zm6.6701 0.25l-6.5451 0 0 4.0085 6.5451 0 0 -4.0085z"/>
+  <polygon class="fil2 str0" points="1.3399,2.0484 8.7275,2.0484 8.7275,4.2333 1.3399,4.2333 "/>
+  <polygon class="fil3" points="4.0246,1.8633 6.1354,1.8633 6.1354,8.6214 4.0246,8.6214 "/>
+  <path class="fil4" d="M4.9928 1.8867c-0.7152,0 -1.499,0 -2.2828,0 -0.8133,-0.1721 -1.0688,-0.8154 -0.5369,-1.2775 0.7012,-0.606 1.6194,-0.4306 2.8197,0.7406 1.2003,-1.1712 2.1185,-1.3466 2.8197,-0.7406 0.5691,0.5361 0.2764,1.1054 -0.5369,1.2775 -0.7838,0 -1.5676,0 -2.2828,0zm-2.2551 -0.7166c0.0537,0.3512 0.5712,0.3713 1.546,0.2909 -0.2025,-0.2846 -0.4081,-0.5489 -0.9072,-0.6851 -0.3338,-0.0893 -0.6741,0.0905 -0.6388,0.3942zm4.5375 0.0687c-0.1568,0.2997 -0.5541,0.3026 -1.5289,0.2222 0.2025,-0.2846 0.4081,-0.5489 0.9072,-0.6851 0.3338,-0.0893 0.657,0.0733 0.6217,0.4629z"/>
+  <polygon class="fil5" points="4.0438,4.095 6.1341,4.095 6.1341,4.3822 4.0438,4.3822 "/>
+  <polygon class="fil6" points="4.0438,8.3234 6.1341,8.3234 6.1341,8.6106 4.0438,8.6106 "/>
+  <polygon class="fil7" points="4.0438,3.8338 6.1341,3.8338 6.1341,4.121 4.0438,4.121 "/>
+  <polygon class="fil7" points="4.0438,1.8872 6.1341,1.8872 6.1341,2.1744 4.0438,2.1744 "/>
+  <polygon class="fil8" points="4.0246,4.396 6.1354,4.396 6.1354,8.3204 4.0246,8.3204 "/>
+  <polygon class="fil9" points="4.0438,8.0104 6.1341,8.0104 6.1341,8.2976 4.0438,8.2976 "/>
+  <ellipse class="fil10" cx="4.9583" cy="9.35777" rx="3.5707" ry="0.342568"/>
+ </g>
+</svg>

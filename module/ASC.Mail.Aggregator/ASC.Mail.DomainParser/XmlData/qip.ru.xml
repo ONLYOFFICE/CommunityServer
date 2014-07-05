@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="qip.ru">
+    <domain>qip.ru</domain>
+    <domain>pochta.ru</domain>
+    <domain>fromru.com</domain>
+    <domain>front.ru</domain>
+    <domain>hotbox.ru</domain>
+    <domain>hotmail.ru</domain>
+    <domain>krovatka.su</domain>
+    <domain>land.ru</domain>
+    <domain>mail15.com</domain>
+    <domain>mail333.com</domain>
+    <domain>newmail.ru</domain>
+    <domain>nightmail.ru</domain>
+    <domain>nm.ru</domain>
+    <domain>pisem.net</domain>
+    <domain>pochtamt.ru</domain>
+    <domain>pop3.ru</domain>
+    <domain>rbcmail.ru</domain>
+    <domain>smtp.ru</domain>
+    <domain>5ballov.ru</domain>
+    <domain>aeterna.ru</domain>
+    <domain>ziza.ru</domain>
+    <domain>memori.ru</domain>
+    <domain>photofile.ru</domain>
+    <domain>fotoplenka.ru</domain>
+    <displayName>qip.ru</displayName>
+    <displayShortName>qip.ru</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>pop.qip.ru</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="imap">
+      <hostname>imap.qip.ru</hostname>
+      <port>143</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtp.qip.ru</hostname>
+      <port>25</port>
+      <socketType>plain</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

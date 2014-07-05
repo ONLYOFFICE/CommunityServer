@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.w3.org/1999/xhtml">
+
+  <xs:annotation>
+    <xs:documentation>
+      Inline Style module    
+      This is the XML Schema Inline Style module for XHTML
+      
+         * styloe attribute
+
+      This module declares the 'style' attribute, used to support inline 
+      style markup. 
+
+      $Id$
+    </xs:documentation>
+    <xs:documentation source="xhtml-copyright-1.xsd"/>
+    <xs:documentation 
+       source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_styleattributemodule"/>    
+  </xs:annotation>
+
+  <xs:attributeGroup name="style.attrib">
+    <xs:attribute name="style" type="CDATA"/>
+  </xs:attributeGroup>
+
+</xs:schema>

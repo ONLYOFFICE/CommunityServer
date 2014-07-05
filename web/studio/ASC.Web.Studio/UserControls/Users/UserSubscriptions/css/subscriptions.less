@@ -1,0 +1,161 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+.subs-tabs 
+{
+    border-bottom: 1px solid #D1D1D1;   
+    margin-bottom:20px;
+    padding-bottom:16px;    
+    position: relative;    
+    
+    .subs-module 
+    {
+        color:#000;
+        cursor:pointer;
+        display:inline-block;
+        margin-right:40px;
+
+        .subs-icon-module {
+            display:block;
+            width:24px;
+            height:24px;
+            margin: 0 auto 4px;
+            background:url("img/icons_titles.png") no-repeat 0 0 transparent; 
+               
+            &.news { background-position: 0 -135px; }
+            &.admin { background-position: 0 -543px; }
+            &.documents { background-position: 0 -237px; }
+            &.projects { background-position: 0 -101px; }
+            &.crm { background-position: 0 -680px; }
+            &.community { background-position: 0 -203px; }
+            &.tools { background-position: 0 -543px; }
+            &.calendar { background-position: 0 -304px; }
+        }
+    }
+    .subs-selector {
+        background:url("img/hmenu-selected.png") no-repeat 0 bottom #fff; 
+        position: absolute;
+        width: 11px;
+        height: 7px;
+        top: 55px;  
+        left: 28px;
+    }    
+}
+@media all and (max-width: 1200px) {
+    .subs-tabs .subs-module {
+        margin-right: 20px;
+    }
+}
+.subs-subtab 
+{
+    margin-bottom:20px;   
+    
+    & > .module {
+        border-right: 1px dotted #333;
+        display: inline-block;
+        cursor:pointer;
+        padding-right: 5px;
+        margin-right:5px;
+        }   
+    .project-name {
+        color:#787878;
+        float:left;
+        margin-right:5px;        
+    }
+     span:last-child {
+        border-right:none;
+    }
+ }
+
+.subs-tabs .active,
+.subs-subtab .active {
+    cursor: default;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.subs-contents div.tabs,
+.subs-subtab-contents div.subtabs {
+    display:none;
+}
+.subs-contents div.tabs.active,
+.subs-subtab-contents div.active {
+    display:block;
+    width:100%;
+}
+.subs-sections 
+{
+    margin-top:20px;
+    }
+.subscribe-link    
+{
+    float:left;
+    margin-right:25px;
+    }
+#modules_notifySenders    
+{
+    display:inline-block;
+    }
+    
+.sub-button 
+{
+    float:left;
+    margin-right:8px;
+    margin-bottom:8px;
+    }    
+    
+.subtabs .type-name 
+{
+    margin-bottom:14px;
+    }    
+.subscribe-link a
+{
+    color:#333;
+    }
+.subs-only-button
+{
+    border-bottom: 1px solid #D1D1D1;
+    margin-bottom:15px;
+    padding-bottom:15px;
+    }
+.module-settings,
+.subtabs {
+    border-bottom: 1px solid #D1D1D1;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+}
+.subs-notice-text {
+    float: left; 
+    margin:-1px 3px 0 0;
+}
+
+ 

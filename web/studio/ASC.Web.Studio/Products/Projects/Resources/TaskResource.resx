@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Task" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Assigned to</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Add task</value>
+  </data>
+  <data name="AllActiveTasks" xml:space="preserve">
+    <value>All active tasks</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>All Tasks</value>
+  </data>
+  <data name="MyTasks" xml:space="preserve">
+    <value>My Tasks</value>
+  </data>
+  <data name="TasksByParticipant" xml:space="preserve">
+    <value>Tasks by team member</value>
+  </data>
+  <data name="NB" xml:space="preserve">
+    <value>NB</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>Unsorted Tasks</value>
+  </data>
+  <data name="TaskClosed" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="TaskList" xml:space="preserve">
+    <value>Task List</value>
+  </data>
+  <data name="TaskOpen" xml:space="preserve">
+    <value>Start Task</value>
+  </data>
+  <data name="TaskReopen" xml:space="preserve">
+    <value>Resume</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Add new task</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="CompleteTask" xml:space="preserve">
+    <value>Complete Task</value>
+  </data>
+  <data name="EmptyScreenHeaderContent" xml:space="preserve">
+    <value>Add the first task to this project</value>
+  </data>
+  <data name="EmptyScreenHeaderDescribe" xml:space="preserve">
+    <value>Add tasks, get them done, set who's responsible, manage team work.</value>
+  </data>
+  <data name="MarkedAS" xml:space="preserve">
+    <value>Marked as</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="TasksByParticipantHeader" xml:space="preserve">
+    <value>Tasks assigned to «{0}»</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Add This Task</value>
+  </data>
+  <data name="AssociateToMilestone" xml:space="preserve">
+    <value>Assign to milestone</value>
+  </data>
+  <data name="ExecuteGroupOperation" xml:space="preserve">
+    <value>Perform group operation</value>
+  </data>
+  <data name="GroupTaskConfirm" xml:space="preserve">
+    <value>Are you sure you want to perform a group operation?</value>
+  </data>
+  <data name="EmptyScreenAllActiveTasksHeaderContent" xml:space="preserve">
+    <value>No active tasks in project</value>
+  </data>
+  <data name="EmptyScreenByUserTasksHeaderContent" xml:space="preserve">
+    <value>No tasks assigned to «{0}»</value>
+  </data>
+  <data name="EmptyScreenMyTasksHeaderContent" xml:space="preserve">
+    <value>There are no tasks assigned to you</value>
+  </data>
+  <data name="NotifyResponsibleInfo" xml:space="preserve">
+    <value>The responsible party will be sent a notification e-mail.</value>
+  </data>
+  <data name="NotifyManagerAboutTaskCreate" xml:space="preserve">
+    <value>The project manager and the responsible party have been sent a notification about creating the «{0}» task.</value>
+  </data>
+  <data name="EmptyScreenAllTasksHeaderContent" xml:space="preserve">
+    <value>No tasks in project</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Move to milestone</value>
+  </data>
+  <data name="ExecutingGroupOperation" xml:space="preserve">
+    <value>Performing group operation...</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Saving task...</value>
+  </data>
+  <data name="MarkingAsNB" xml:space="preserve">
+    <value>Mark as {0}NB{1}</value>
+  </data>
+  <data name="EmptyScreenByUserActiveTasksHeaderContent" xml:space="preserve">
+    <value>No active tasks assigned to «{0}»</value>
+  </data>
+  <data name="EmptyScreenMyActiveTasksHeaderContent" xml:space="preserve">
+    <value>There are no active tasks assigned to you</value>
+  </data>
+  <data name="ShowClosedTasks" xml:space="preserve">
+    <value>Show Closed Tasks</value>
+  </data>
+  <data name="TaskStopExecute" xml:space="preserve">
+    <value>Suspend</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Change Status</value>
+  </data>
+  <data name="HighPriority_Title" xml:space="preserve">
+    <value>High priority</value>
+  </data>
+  <data name="LowPriority_Title" xml:space="preserve">
+    <value>Low priority</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="TaskNotFound_Body" xml:space="preserve">
+    <value>It might have been deleted, or there are no tasks with such ID in the project</value>
+  </data>
+  <data name="TaskNotFound_Header" xml:space="preserve">
+    <value>Task not found</value>
+  </data>
+  <data name="TaskNotFound_RedirectTitle" xml:space="preserve">
+    <value>Go to the task list</value>
+  </data>
+  <data name="HideClosedTasks" xml:space="preserve">
+    <value>Hide Closed Tasks</value>
+  </data>
+  <data name="MyNewTasks" xml:space="preserve">
+    <value>My New Tasks</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Date of Creation</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept Task</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Nobody</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>DeadLine</value>
+  </data>
+  <data name="FilesToTheTask" xml:space="preserve">
+    <value>Files to the task</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="DaysLeft" xml:space="preserve">
+    <value>days left</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Show more</value>
+  </data>
+  <data name="TaskDeadlineLateInfo" xml:space="preserve">
+    <value>Delayed since</value>
+  </data>
+  <data name="EmptyScreenTaskTemplate" xml:space="preserve">
+    <value>Add the first task to this project template</value>
+  </data>
+  <data name="EmptyScreenTaskTemplateDescription" xml:space="preserve">
+    <value>Add tasks, assign them to milestones, set who's responsible.</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>Move task to another Milestone</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>Will be moved to milestone</value>
+  </data>
+  <data name="OneList" xml:space="preserve">
+    <value>One list</value>
+  </data>
+  <data name="ProjectsMilestones" xml:space="preserve">
+    <value>Projects / Milestones</value>
+  </data>
+  <data name="AddToDo" xml:space="preserve">
+    <value>Add ToDo</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="BrowseClosed" xml:space="preserve">
+    <value>Show closed To-Do</value>
+  </data>
+  <data name="ExampleToDo" xml:space="preserve">
+    <value>Example: Meet John Doe today from 3:00 PM to 4:00 PM</value>
+  </data>
+  <data name="Future" xml:space="preserve">
+    <value>Future</value>
+  </data>
+  <data name="PersonalToDo" xml:space="preserve">
+    <value>Personal To-Do list</value>
+  </data>
+  <data name="SwitchToTaskList" xml:space="preserve">
+    <value>Switch to Project Tasks</value>
+  </data>
+  <data name="SwitchToToDoList" xml:space="preserve">
+    <value>Switch to Personal To-Do</value>
+  </data>
+  <data name="ThisDay" xml:space="preserve">
+    <value>This Day</value>
+  </data>
+  <data name="Tommorow" xml:space="preserve">
+    <value>Tommorow</value>
+  </data>
+  <data name="WhatDoYouWant" xml:space="preserve">
+    <value>What do you want to do?</value>
+  </data>
+  <data name="NotifyTaskResponsible" xml:space="preserve">
+    <value>{0} will get a reminder about the task «{1}»</value>
+  </data>
+  <data name="Remind" xml:space="preserve">
+    <value>Remind the responsible person about the task</value>
+  </data>
+  <data name="TitleClosedByPanel" xml:space="preserve">
+    <value>Closed by {0} {1}</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>Show tasks without responsible</value>
+  </data>
+  <data name="ActiveTaskCheckBoxTooltip" xml:space="preserve">
+    <value>Click here to close the task</value>
+  </data>
+  <data name="ClosedTaskCheckBoxTooltip" xml:space="preserve">
+    <value>Click here to resume the task</value>
+  </data>
+  <data name="TaskDeadlineLate" xml:space="preserve">
+    <value>days over</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Subtask</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>Add new subtask</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>Add subtask</value>
+  </data>
+  <data name="BetterToReturn" xml:space="preserve">
+    <value>Better way is to return and to end subtasks manually and then retry to close Task</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Responsible</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>Closing the Task</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>End all subtasks, close task</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>Message Responsible</value>
+  </data>
+  <data name="QuickAddTask" xml:space="preserve">
+    <value>Quick Add Task</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+  <data name="TimeTraking" xml:space="preserve">
+    <value>Time-Tracking</value>
+  </data>
+  <data name="TryingToCloseTheTask" xml:space="preserve">
+    <value>You`re trying to close the Task with not-ended subtasks</value>
+  </data>
+  <data name="AddTime" xml:space="preserve">
+    <value>Add time</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="TimeSpent" xml:space="preserve">
+    <value>Time Spent</value>
+  </data>
+  <data name="ByCreateDate" xml:space="preserve">
+    <value>Create date</value>
+  </data>
+  <data name="ByDeadline" xml:space="preserve">
+    <value>Deadline</value>
+  </data>
+  <data name="ByMilestone" xml:space="preserve">
+    <value>Milestone</value>
+  </data>
+  <data name="ByPriority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Responsible</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ByTeam" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Choose the project</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Me</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Nobody</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="LowPriority" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="MediumPriority" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Milestone</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>Each task must have a title</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="ByTag" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="UpdateTask" xml:space="preserve">
+    <value>Update task</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Subtasks</value>
+  </data>
+  <data name="MessageSubTasks" xml:space="preserve">
+    <value>Message about subtasks</value>
+  </data>
+  <data name="MessageTaskCreate" xml:space="preserve">
+    <value>Message about task creation</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>There are no tasks matching this filter</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Responsibles</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Edit task</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>Follow the task</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>Unfollow the task</value>
+  </data>
+  <data name="CreateFirstSubtask" xml:space="preserve">
+    <value>Create first subtask</value>
+  </data>
+  <data name="EmptyListSubtasks" xml:space="preserve">
+    <value>The list of subtasks is empty</value>
+  </data>
+  <data name="SubtasksDescriptionForEmptyList" xml:space="preserve">
+    <value>Create sub-tasks that would break the large task into smaller ones, which can be assigned to different members of the command</value>
+  </data>
+  <data name="NewTaskIndicator" xml:space="preserve">
+    <value>NEW</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>Add the first task</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>No tasks have been created yet</value>
+  </data>
+  <data name="TasksHelpTheManage" xml:space="preserve">
+    <value>Tasks help the manager distribute all the work evenly among the project participants, set responsible ones for various parts of the project. Start adding tasks, get them done, set who's responsible, manage team work.</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Assigned to</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>Track time</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>Closed by</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Closing Date</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>Remove task</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>Are you sure you want to delete this task? </value>
+  </data>
+  <data name="DeadlineHeader" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>No tasks matching your filter can be displayed in this section.</value>
+  </data>
+  <data name="MessageSend" xml:space="preserve">
+    <value>The message was sent successfully</value>
+  </data>
+  <data name="NewTask" xml:space="preserve">
+    <value>New task</value>
+  </data>
+  <data name="GoToTheTask" xml:space="preserve">
+    <value>Go to the task</value>
+  </data>
+  <data name="TaskStartDate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="CreateNewLink" xml:space="preserve">
+    <value>Create a new link</value>
+  </data>
+  <data name="MoveToGanttChart" xml:space="preserve">
+    <value>Move to Gantt chart</value>
+  </data>
+  <data name="RelatedTask" xml:space="preserve">
+    <value>Related tasks</value>
+  </data>
+  <data name="SelectTaskToCreateLink" xml:space="preserve">
+    <value>Select the task to create a connection</value>
+  </data>
+  <data name="RelatedLinkInvalid" xml:space="preserve">
+    <value>Invalid link. Please, make sure that the start and due date are correct.</value>
+  </data>
+  <data name="ChooseLinkType" xml:space="preserve">
+    <value>Choose link type</value>
+  </data>
+  <data name="ChooseTaskForLink" xml:space="preserve">
+    <value>Choose task</value>
+  </data>
+  <data name="ErrorCreateNewLink" xml:space="preserve">
+    <value>Error create a new link</value>
+  </data>
+  <data name="ErrorCreateTaskLink" xml:space="preserve">
+    <value>The link could not be created as the task has been changed or moved to another milestone. Please close this window to update the list of available tasks.</value>
+  </data>
+  <data name="ErrorCreateTaskLinkChart" xml:space="preserve">
+    <value>The link could not be created as the task has been changed or moved to another milestone. Please close this window to update the Gantt chart.</value>
+  </data>
+  <data name="RelatedTaskIntervalDesc" xml:space="preserve">
+    <value>Interval between start date and end date of two tasks</value>
+  </data>
+</root>

@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{07AD1522-D100-4CE6-94FA-95CBE5822363}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Web.Talk</RootNamespace>
+    <AssemblyName>ASC.Web.Talk</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxPro.2, Version=7.7.31.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Studio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\ASC.Web.Studio.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\default\talk.style.css" />
+    <Content Include="css\default\talk.overview.css" />
+    <Content Include="css\default\talk.messagearea.css" />
+    <Content Include="css\default\talk.text-overflow.css" />
+    <Content Include="css\default\talk.text-overflow.xml" />
+    <Content Include="js\jlib\flxhr\checkplayer.js" />
+    <Content Include="js\jlib\flxhr\flensed.js" />
+    <Content Include="js\jlib\flxhr\flxhr.js" />
+    <Content Include="js\jlib\flxhr\flxhr.swf" />
+    <Content Include="js\jlib\flxhr\flxhr.vbs" />
+    <Content Include="js\jlib\flxhr\swfobject.js" />
+    <Content Include="js\jlib\flxhr\updateplayer.swf" />
+    <Content Include="js\jlib\plugins\strophe.flxhr.js" />
+    <Content Include="js\jlib\strophe\base64.js" />
+    <Content Include="js\jlib\strophe\core.js" />
+    <Content Include="js\jlib\strophe\md5.js" />
+    <Content Include="swf\expressinstall.swf" />
+    <Content Include="swf\sounds.swf" />
+    <Content Include="swf\uploader.swf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Addon\TalkAddon.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HttpHandlers\HttpPollHandler.cs" />
+    <Compile Include="HttpHandlers\OpenContactHandler.cs" />
+    <Compile Include="HttpHandlers\UploadFileHandler.cs" />
+    <Compile Include="HttpHandlers\UserPhotoHandler.cs" />
+    <Compile Include="JabberClient.aspx.cs">
+      <DependentUpon>JabberClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="JabberClient.aspx.designer.cs">
+      <DependentUpon>JabberClient.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\TalkOverviewResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\TalkResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TalkConfiguration.cs" />
+    <Compile Include="UserControls\ContactsContainer.ascx.cs">
+      <DependentUpon>ContactsContainer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ContactsContainer.ascx.designer.cs">
+      <DependentUpon>ContactsContainer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MeseditorContainer.ascx.cs">
+      <DependentUpon>MeseditorContainer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\MeseditorContainer.ascx.designer.cs">
+      <DependentUpon>MeseditorContainer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\RoomsContainer.ascx.cs">
+      <DependentUpon>RoomsContainer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\RoomsContainer.ascx.designer.cs">
+      <DependentUpon>RoomsContainer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TabsContainer.ascx.cs">
+      <DependentUpon>TabsContainer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\TabsContainer.ascx.designer.cs">
+      <DependentUpon>TabsContainer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TalkNavigationItem.ascx.cs">
+      <DependentUpon>TalkNavigationItem.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\TalkNavigationItem.ascx.designer.cs">
+      <DependentUpon>TalkNavigationItem.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\Images\product_logolarge.png" />
+    <Content Include="css\default\talk.style.de-de.css" />
+    <Content Include="css\default\talk.style.en-gb.css" />
+    <Content Include="css\default\talk.style.en-us.css" />
+    <Content Include="css\default\talk.style.es-es.css" />
+    <Content Include="css\default\talk.style.fr-fr.css" />
+    <Content Include="css\default\talk.style.it-it.css" />
+    <Content Include="css\default\talk.style.lv-lv.css" />
+    <Content Include="css\default\talk.style.pt-br.css" />
+    <Content Include="css\default\talk.style.ru-ru.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="JabberClient.aspx" />
+    <Content Include="js\gears.init.js" />
+    <Content Include="js\iscroll.js" />
+    <Content Include="js\talk.common.js" />
+    <Content Include="js\talk.contactsmanager.js" />
+    <Content Include="js\talk.customevents.js" />
+    <Content Include="js\talk.meseditorcontainer.js" />
+    <Content Include="js\talk.messagesmanager.js" />
+    <Content Include="js\talk.msmanager.js" />
+    <Content Include="js\talk.mucmanager.js" />
+    <Content Include="js\talk.navigationitem.js" />
+    <Content Include="js\talk.tabscontainer.js" />
+    <Content Include="js\talk.roomscontainer.js" />
+    <Content Include="js\talk.roomsmanager.js" />
+    <Content Include="js\talk.connectiomanager.js" />
+    <Content Include="js\talk.contactscontainer.js" />
+    <Content Include="js\talk.default.js" />
+    <Content Include="notification.html" />
+    <Content Include="UserControls\ContactsContainer.ascx" />
+    <Content Include="UserControls\MeseditorContainer.ascx" />
+    <Content Include="UserControls\RoomsContainer.ascx" />
+    <Content Include="UserControls\TabsContainer.ascx" />
+    <Content Include="UserControls\TalkNavigationItem.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TalkOverviewResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TalkResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\Images\product_logo.png" />
+    <Content Include="App_Themes\Default\Images\product_logo_disabled.png" />
+    <Content Include="http-poll\Default.aspx" />
+    <Content Include="http-poll\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="css\default\imagescss\" />
+    <Folder Include="Data\upload\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="BeforeBuild">
+    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2759</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/ASC.Web.Talk</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

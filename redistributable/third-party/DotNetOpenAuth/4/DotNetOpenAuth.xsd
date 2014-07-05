@@ -1,0 +1,1053 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:vs="http://schemas.microsoft.com/Visual-Studio-Intellisense"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified">
+	<xs:element name="dotNetOpenAuth">
+		<xs:annotation>
+			<xs:documentation>
+				Customizations and configuration of DotNetOpenAuth behavior.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="messaging">
+					<xs:annotation>
+						<xs:documentation>
+							Options for general messaging protocols, such as whitelist/blacklist hosts and maximum message age.
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="untrustedWebRequest">
+								<xs:annotation>
+									<xs:documentation>
+										Restrictions and settings to apply to outgoing HTTP requests to hosts that are not
+										trusted by this web site.  Useful for OpenID-supporting hosts because HTTP connections
+										are initiated based on user input to arbitrary servers.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="whitelistHosts">
+											<xs:annotation>
+												<xs:documentation>
+													A set of host names (including domain names) to allow outgoing connections to
+													that would otherwise not be allowed based on security restrictions.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:choice minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="add">
+														<xs:complexType>
+															<xs:attribute name="name" type="xs:string" use="required">
+																<xs:annotation>
+																	<xs:documentation>
+																		The host name to trust.  For example: "localhost" or "www.mypartners.com".
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="remove">
+														<xs:complexType>
+															<xs:attribute name="name" type="xs:string" use="required">
+																<xs:annotation>
+																	<xs:documentation>
+																		The host name to NOT trust.  For example: "localhost" or "www.mypartners.com".
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="clear">
+														<xs:annotation>
+															<xs:documentation>
+																Clears all hosts from the whitelist.
+															</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<!--tag is empty-->
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="whitelistHostsRegex">
+											<xs:complexType>
+												<xs:choice minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="add">
+														<xs:complexType>
+															<xs:attribute name="name" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="remove">
+														<xs:complexType>
+															<xs:attribute name="name" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="clear">
+														<xs:complexType>
+															<!--tag is empty-->
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="blacklistHosts">
+											<xs:annotation>
+												<xs:documentation>
+													A set of host names (including domain names) to disallow outgoing connections to
+													that would otherwise be allowed based on security restrictions.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:choice minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="add">
+														<xs:complexType>
+															<xs:attribute name="name" type="xs:string" use="required">
+																<xs:annotation>
+																	<xs:documentation>
+																		The host name known to add to the blacklist.  For example: "localhost" or "www.mypartners.com".
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="remove">
+														<xs:complexType>
+															<xs:attribute name="name" type="xs:string" use="required">
+																<xs:annotation>
+																	<xs:documentation>
+																		The host name known to remove to the blacklist.  For example: "localhost" or "www.mypartners.com".
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="clear">
+														<xs:annotation>
+															<xs:documentation>
+																Clears all hosts from the blacklist.
+															</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<!--tag is empty-->
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="blacklistHostsRegex">
+											<xs:complexType>
+												<xs:choice minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="add">
+														<xs:complexType>
+															<xs:attribute name="name" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="remove">
+														<xs:complexType>
+															<xs:attribute name="name" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="clear">
+														<xs:complexType>
+															<!--tag is empty-->
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+									<xs:attribute name="timeout" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>
+												The maximum time to allow for an outgoing HTTP request to complete before giving up.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="readWriteTimeout" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>
+												The maximum time to allow for an outgoing HTTP request to either send or receive data before giving up.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="maximumBytesToRead" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>
+												The maximum bytes to read from an untrusted server during an outgoing HTTP request before cutting off the response.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="maximumRedirections" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>
+												The maximum redirection instructions to follow before giving up.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="webResourceUrlProvider">
+								<xs:annotation>
+									<xs:documentation>
+										The type that implements the DotNetOpenAuth.IEmbeddedResourceRetrieval interface
+										to instantiate for obtaining URLs that fetch embedded resource streams.
+										Primarily useful when the System.Web.UI.Page class is not used in the ASP.NET pipeline.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="type" type="xs:string" use="optional">
+										<xs:annotation>
+											<xs:documentation>
+												The fully-qualified name of the type that implements the IEmbeddedResourceRetrieval interface.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="xaml" type="xs:string" use="optional" />
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+						<xs:attribute name="lifetime" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>
+									The maximum time allowed between a message being sent to when it is received before
+									it is considered expired.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="clockSkew" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>
+									The maximum time to consider a safe difference in server clocks.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="strict" type="xs:boolean" default="true">
+							<xs:annotation>
+								<xs:documentation>
+									Whether remote parties will be held strictly to the protocol specifications.
+									Strict will require that remote parties adhere strictly to the specifications,
+									even when a loose interpretation would not compromise security.
+									true is a good default because it shakes out interoperability bugs in remote services
+									so they can be identified and corrected.  But some web sites want things to Just Work
+									more than they want to file bugs against others, so false is the setting for them.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="relaxSslRequirements" type="xs:boolean" default="false">
+							<xs:annotation>
+								<xs:documentation>
+									Whether SSL requirements within the library are disabled/relaxed.
+									Use for TESTING ONLY.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="maximumIndirectMessageUrlLength" type="xs:int" default="2048">
+							<xs:annotation>
+								<xs:documentation>
+									The maximum allowable size for a 301 Redirect response before we send
+									a 200 OK response with a scripted form POST with the parameters instead
+									in order to ensure successfully sending a large payload to another server
+									that might have a maximum allowable size restriction on its GET request.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="privateSecretMaximumAge" type="xs:string" default="28.00:00:00">
+							<xs:annotation>
+								<xs:documentation>
+									The maximum age of a secret used for private signing or encryption before it is renewed.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="openid">
+					<xs:annotation>
+						<xs:documentation>
+							Configuration for OpenID authentication (relying parties and providers).
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="relyingParty">
+								<xs:annotation>
+									<xs:documentation>
+										Configuration specific for OpenID relying parties.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="security">
+											<xs:annotation>
+												<xs:documentation>
+													Security settings that apply to OpenID relying parties.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:choice minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="trustedProviders">
+														<xs:complexType>
+															<xs:choice minOccurs="0" maxOccurs="unbounded">
+																<xs:element name="add">
+																	<xs:complexType>
+																		<xs:attribute name="endpoint" type="xs:string" use="required">
+																			<xs:annotation>
+																				<xs:documentation>
+																					The OpenID Provider Endpoint (aka "OP Endpoint") that this relying party trusts.
+																				</xs:documentation>
+																			</xs:annotation>
+																		</xs:attribute>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="remove">
+																	<xs:complexType>
+																		<xs:attribute name="endpoint" type="xs:string" use="required" />
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="clear">
+																	<xs:complexType>
+																		<!--tag is empty-->
+																	</xs:complexType>
+																</xs:element>
+															</xs:choice>
+															<xs:attribute name="rejectAssertionsFromUntrustedProviders" type="xs:boolean" default="false">
+																<xs:annotation>
+																	<xs:documentation>
+																		A value indicating whether any login attempt coming from an OpenID Provider Endpoint that is not on this
+																		whitelist of trusted OP Endpoints will be rejected.  If the trusted providers list is empty and this value
+																		is true, all assertions are rejected.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+												<xs:attribute name="requireSsl" type="xs:boolean" default="false">
+													<xs:annotation>
+														<xs:documentation>
+															Restricts OpenID logins to identifiers that use HTTPS throughout the discovery process,
+															and only uses HTTPS OpenID Provider endpoints.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="minimumRequiredOpenIdVersion">
+													<xs:annotation>
+														<xs:documentation>
+															Optionally restricts interoperability with remote parties that
+															implement older versions of OpenID.
+														</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:NMTOKEN">
+															<xs:enumeration value="V10" />
+															<xs:enumeration value="V11" />
+															<xs:enumeration value="V20" />
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="minimumHashBitLength" type="xs:int">
+													<xs:annotation>
+														<xs:documentation>
+															Shared associations with OpenID Providers will only be formed or used if they
+															are willing to form associations equal to or greater than a given level of protection.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="maximumHashBitLength" type="xs:int">
+													<xs:annotation>
+														<xs:documentation>
+															Shared associaitons with OpenID Providers will only be formed or used if they
+															are willing to form associations equal to or less than a given level of protection.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="requireDirectedIdentity" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>
+															Requires that OpenID identifiers upon which authentication requests are created
+															are to be OP Identifiers.  Claimed Identifiers are not allowed.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="requireAssociation" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>
+															Requires that the relying party can form a shared association with an
+															OpenID Provider before creating an authentication request for it.
+															Note that this does not require that the Provider actually use a
+															shared association in its response.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="rejectUnsolicitedAssertions" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>
+															Requires that users begin their login experience at the relying party
+															rather than at a Provider or using other forms of unsolicited assertions.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="rejectDelegatingIdentifiers" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>
+															Requires that the claimed identifiers used to log into the relying party
+															be the same ones that are originally issued by the Provider.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="ignoreUnsignedExtensions" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>
+															Makes it impossible for the relying party to read authentication response
+															extensions that are not signed by the Provider.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="allowDualPurposeIdentifiers" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>
+															Controls whether identifiers that are both OP Identifiers and Claimed Identifiers
+															should ever be recognized as claimed identifiers.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="allowApproximateIdentifierDiscovery" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>
+															Controls whether certain Claimed Identifiers that exploit
+															features that .NET does not have the ability to send exact HTTP requests for will
+															still be allowed by using an approximate HTTP request.
+															Only impacts hosts running under partial trust.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="protectDownlevelReplayAttacks" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>
+															Controls whether the relying party should take special care
+															to protect users against replay attacks when interoperating with OpenID 1.1 Providers.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="behaviors">
+											<xs:annotation>
+												<xs:documentation>
+													Manipulates the set of custom behaviors that are automatically applied
+													to incoming and outgoing OpenID messages.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:choice minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="add">
+														<xs:complexType>
+															<xs:attribute name="type" type="xs:string" use="optional">
+																<xs:annotation>
+																	<xs:documentation>
+																		The fully-qualified name of the type that implements the IRelyingPartyBehavior interface.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+															<xs:attribute name="xaml" type="xs:string" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="remove">
+														<xs:complexType>
+															<xs:attribute name="type" type="xs:string" use="required">
+																<xs:annotation>
+																	<xs:documentation>
+																		The fully-qualified name of the type that implements the IRelyingPartyBehavior interface.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="clear">
+														<xs:complexType>
+															<!--tag is empty-->
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="discoveryServices">
+											<xs:complexType>
+												<xs:choice minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="add">
+														<xs:complexType>
+															<xs:attribute name="type" type="xs:string" use="optional">
+																<xs:annotation>
+																	<xs:documentation>
+																		The fully-qualified name of the type that implements the IIdentifierDiscoveryService interface.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+															<xs:attribute name="xaml" type="xs:string" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="remove">
+														<xs:complexType>
+															<xs:attribute name="type" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="clear">
+														<xs:complexType>
+															<!--tag is empty-->
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="store">
+											<xs:annotation>
+												<xs:documentation>
+													A custom implementation of IRelyingPartyApplicationStore to use by default for new
+													instances of OpenIdRelyingParty.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute name="type" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>
+															A fully-qualified type name of the custom implementation of IRelyingPartyApplicationStore.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+									<xs:attribute name="preserveUserSuppliedIdentifier" type="xs:boolean" default="true">
+										<xs:annotation>
+											<xs:documentation>
+												Whether "dnoa.userSuppliedIdentifier" is tacked onto the openid.return_to URL in order to preserve what the user typed into the OpenID box.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="provider">
+								<xs:annotation>
+									<xs:documentation>
+										Configuration specific for OpenID providers.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="security">
+											<xs:annotation>
+												<xs:documentation>
+													Security settings that apply to OpenID providers.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:choice minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="associations">
+														<xs:annotation>
+															<xs:documentation>
+																Sets maximum ages for shared associations of various strengths.
+															</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:choice minOccurs="0" maxOccurs="unbounded">
+																<xs:element name="add">
+																	<xs:complexType>
+																		<xs:attribute name="type" type="xs:string" use="required">
+																			<xs:annotation>
+																				<xs:documentation>
+																					The OpenID association type (i.e. HMAC-SHA1 or HMAC-SHA256)
+																				</xs:documentation>
+																			</xs:annotation>
+																		</xs:attribute>
+																		<xs:attribute name="lifetime" type="xs:string" use="required">
+																			<xs:annotation>
+																				<xs:documentation>
+																					The lifetime a shared association of this type will be used for.
+																				</xs:documentation>
+																			</xs:annotation>
+																		</xs:attribute>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="remove">
+																	<xs:complexType>
+																		<xs:attribute name="type" type="xs:string" use="required">
+																			<xs:annotation>
+																				<xs:documentation>
+																					The OpenID association type (i.e. HMAC-SHA1 or HMAC-SHA256)
+																				</xs:documentation>
+																			</xs:annotation>
+																		</xs:attribute>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="clear">
+																	<xs:complexType>
+																		<!--tag is empty-->
+																	</xs:complexType>
+																</xs:element>
+															</xs:choice>
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+												<xs:attribute name="requireSsl" type="xs:boolean" default="false">
+													<xs:annotation>
+														<xs:documentation>
+															Requires that relying parties' realm URLs be protected by HTTPS,
+															ensuring that the RP discovery step is not vulnerable to DNS poisoning attacks.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="protectDownlevelReplayAttacks" type="xs:boolean">
+													<xs:annotation>
+														<xs:documentation>
+															Provides automatic security protections to OpenID 1.x relying parties
+															so security is comparable to OpenID 2.0 relying parties.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="encodeAssociationSecretsInHandles" type="xs:boolean" default="true">
+													<xs:annotation>
+														<xs:documentation>
+															Whether the Provider should ease the burden of storing associations
+															by encoding their secrets (in signed, encrypted form) into the association handles themselves, storing only
+															a few rotating, private symmetric keys in the Provider's store instead.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="unsolicitedAssertionVerification">
+													<xs:annotation>
+														<xs:documentation>
+															The level of verification done on a claimed identifier before an unsolicited
+															assertion for that identifier is issued by this Provider.
+														</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:NMTOKEN">
+															<xs:enumeration value="RequireSuccess">
+																<xs:annotation>
+																	<xs:documentation>
+																		The claimed identifier being asserted must delegate to this Provider
+																		and this must be verifiable by the Provider to send the assertion.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="LogWarningOnFailure">
+																<xs:annotation>
+																	<xs:documentation>
+																		The claimed identifier being asserted is checked for delegation to this Provider
+																		and an warning is logged, but the assertion is allowed to go through.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="NeverVerify">
+																<xs:annotation>
+																	<xs:documentation>
+																		The claimed identifier being asserted is not checked to see that this Provider
+																		has authority to assert its identity.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:enumeration>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="minimumHashBitLength" type="xs:int">
+													<xs:annotation>
+														<xs:documentation>
+															The minimum shared association strength to form with relying parties.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="maximumHashBitLength" type="xs:int">
+													<xs:annotation>
+														<xs:documentation>
+															The maximum shared association strength to form with relying parties.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="behaviors">
+											<xs:annotation>
+												<xs:documentation>
+													Manipulates the set of custom behaviors that are automatically applied
+													to incoming and outgoing OpenID messages.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:choice minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="add">
+														<xs:complexType>
+															<xs:attribute name="type" type="xs:string" use="optional">
+																<xs:annotation>
+																	<xs:documentation>
+																		The fully-qualified name of the type that implements the IRelyingPartyBehavior interface.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+															<xs:attribute name="xaml" type="xs:string" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="remove">
+														<xs:complexType>
+															<xs:attribute name="type" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="clear">
+														<xs:complexType>
+															<!--tag is empty-->
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="store">
+											<xs:annotation>
+												<xs:documentation>
+													A custom implementation of IProviderApplicationStore to use by default for new
+													instances of OpenIdRelyingParty.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute name="type" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>
+															A fully-qualified type name of the custom implementation of IProviderApplicationStore.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="extensionFactories">
+								<xs:annotation>
+									<xs:documentation>
+										Adjusts the list of known OpenID extensions via the registration of extension factories.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="add">
+											<xs:complexType>
+												<xs:attribute name="type" type="xs:string" use="optional">
+													<xs:annotation>
+														<xs:documentation>
+															The fully-qualified name of the type that implements IOpenIdExtensionFactory.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="xaml" type="xs:string" use="optional" />
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="remove">
+											<xs:complexType>
+												<xs:attribute name="type" type="xs:string" use="required">
+													<xs:annotation>
+														<xs:documentation>
+															The fully-qualified name of the type that implements IOpenIdExtensionFactory.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="clear">
+											<xs:complexType>
+												<!--tag is empty-->
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="xriResolver">
+								<xs:annotation>
+									<xs:documentation>
+										Controls XRI resolution to XRDS documents.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="enabled" type="xs:boolean">
+										<xs:annotation>
+											<xs:documentation>
+												Controls whether XRI identifiers are allowed at all.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+									<xs:attribute name="proxy" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>
+												The XRI proxy resolver to use for obtaining XRDS documents from an XRI.
+											</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+						<xs:attribute name="maxAuthenticationTime" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>
+									The maximum time a user can take at the Provider while logging in before a relying party considers
+									the authentication lost.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="cacheDiscovery" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>
+									Whether the results of identifier discovery should be cached for a short time to improve performance
+									on subsequent requests, at the potential risk of reading stale data.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="oauth">
+					<xs:annotation>
+						<xs:documentation>
+							Settings for OAuth consumers and service providers.
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="consumer">
+								<xs:annotation>
+									<xs:documentation>
+										Settings applicable to OAuth Consumers.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="security">
+											<xs:annotation>
+												<xs:documentation>
+													Security settings applicable to OAuth Consumers.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="serviceProvider">
+								<xs:annotation>
+									<xs:documentation>
+										Settings applicable to OAuth Service Providers.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="security">
+											<xs:annotation>
+												<xs:documentation>
+													Security settings applicable to OAuth Service Providers.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute name="minimumRequiredOAuthVersion" default="V10">
+													<xs:annotation>
+														<xs:documentation>
+															Optionally restricts interoperability with OAuth consumers that implement
+															older versions of OAuth.
+														</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:NMTOKEN">
+															<xs:enumeration value="V10">
+																<xs:annotation>
+																	<xs:documentation>
+																		The initial version of OAuth, now known to be vulnerable to certain social engineering attacks.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="V10a">
+																<xs:annotation>
+																	<xs:documentation>
+																		The OAuth version that protects against social engineering attacks by introducing
+																		the oauth_verifier parameter.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:enumeration>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="maxAuthorizationTime" type="xs:string" default="0:05">
+													<xs:annotation>
+														<xs:documentation>
+															The maximum time allowed for users to authorize a consumer before request tokens expire.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="store">
+											<xs:annotation>
+												<xs:documentation>
+													Sets the custom type that implements the INonceStore interface to use for nonce checking.
+												</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:attribute name="type" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>
+															A fully-qualified type name of the custom implementation of INonceStore.
+														</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="oauth2">
+					<xs:annotation>
+						<xs:documentation>
+							Settings OAuth 2 clients, authorization servers and resource servers.
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="client">
+								<xs:annotation>
+									<xs:documentation>
+										Settings applicable to OAuth 2 Clients.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice minOccurs="0" maxOccurs="unbounded">
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="authorizationServer">
+								<xs:annotation>
+									<xs:documentation>
+										Settings applicable to OAuth 2 Authorization Servers.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice minOccurs="0" maxOccurs="unbounded">
+										<xs:element name="clientAuthenticationModules">
+											<xs:complexType>
+												<xs:choice minOccurs="0" maxOccurs="unbounded">
+													<xs:element name="add">
+														<xs:complexType>
+															<xs:attribute name="type" type="xs:string" use="optional">
+																<xs:annotation>
+																	<xs:documentation>
+																		The fully-qualified name of the ClientAuthenticationModule-derived type.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+															<xs:attribute name="xaml" type="xs:string" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="remove">
+														<xs:complexType>
+															<xs:attribute name="type" type="xs:string" use="required">
+																<xs:annotation>
+																	<xs:documentation>
+																		The fully-qualified name of the ClientAuthenticationModule-derived type.
+																	</xs:documentation>
+																</xs:annotation>
+															</xs:attribute>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="clear">
+														<xs:complexType>
+															<!--tag is empty-->
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="resourceServer">
+								<xs:annotation>
+									<xs:documentation>
+										Settings applicable to OAuth 2 Resource Servers.
+									</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:choice minOccurs="0" maxOccurs="unbounded">
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="reporting">
+					<xs:annotation>
+						<xs:documentation>
+							Adjusts statistical reports DotNetOpenAuth may send to the library authors to
+							assist with future development of the library.
+						</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:attribute name="enabled" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>
+									Controls whether reporting is active at all or entirely inactive.
+									Note that even if active, the reports may be more or less empty based
+									on other settings.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="minimumReportingInterval" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>
+									Controls how frequently reports are collected and transmitted.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="minimumFlushInterval" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>
+									Controls how frequently the statistics that are collected in memory are persisted to disk.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="includeFeatureUsage" type="xs:boolean" default="true">
+							<xs:annotation>
+								<xs:documentation>
+									Whether a list of features in DotNetOpenAuth that are actually used by this host
+									are included in the report.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="includeEventStatistics" type="xs:boolean" default="true">
+							<xs:annotation>
+								<xs:documentation>
+									Whether a set of counters that track how often certain events (such as an
+									successful or failed authentication) is included in the report.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="includeLocalRequestUris" type="xs:boolean" default="true">
+							<xs:annotation>
+								<xs:documentation>
+									Whether to include a few of this host's URLs that contain DotNetOpenAuth components.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="includeCultures" type="xs:boolean" default="true">
+							<xs:annotation>
+								<xs:documentation>
+									Whether to include the cultures as set on the user agents of incoming requests to pages
+									that contain DotNetOpenAuth components.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

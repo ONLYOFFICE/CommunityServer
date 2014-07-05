@@ -1,0 +1,53 @@
+﻿<Window x:Class="HAPExplorer.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hap="clr-namespace:HAPExplorer"
+    Title="Html Agility Pack Tester" Height="578" Width="745" Name="HAPExplorerWindow" WindowStyle="ThreeDBorderWindow">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="366*" />
+            <ColumnDefinition Width="357*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="300*" />
+        </Grid.RowDefinitions>
+        <Menu HorizontalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <MenuItem Header="File">
+                <MenuItem Name="mnuOpenFile" InputGestureText="Ctrl+O" Header="Open File.." Click="mnuOpenFile_Click" />
+                <MenuItem Name="mnuOpenUrl" InputGestureText="Ctrl+L" Header="Open Url.." ToolTip="Open a Url" Click="mnuOpenUrl_Click" />
+                <Separator />
+                <MenuItem Name="mnuExit" Header="Exit" InputGestureText="Alt+F4" Click="mnuExit_Click" />
+            </MenuItem>
+        </Menu>
+        <TextBox Margin="0,20,0,0" Name="txtHtml" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" />
+        <StackPanel Orientation="Horizontal" Grid.Row="1"  Grid.ColumnSpan="2" Margin="2" VerticalAlignment="Bottom">
+            <Button Margin="5" Name="btnParse" Click="btnParse_Click">Parse</Button>
+            <Button Margin="5" Name="btnTestCode" Click="btnTestCode_Click">Test Code</Button>
+            <Label Margin="60,5,0,5" DockPanel.Dock="Left">Search Tags</Label>
+            <TextBox Margin="0,5,15,5" Name="txtSearchTag" Width="206"/>
+            <Button Margin="5" Name="btnSearch" Click="btnSearch_Click">Find</Button>
+            <CheckBox Margin="5" VerticalAlignment="Center" Content="From Current" Name="chkFromCurrent" />
+            <CheckBox Margin="5" VerticalAlignment="Center" Content="XPath" Name="chkXPath" />
+        </StackPanel>
+        <TabControl Margin="0,0,0,0" Name="tabControl1" Grid.Row="2" Grid.ColumnSpan="2">
+            <TabItem Header="Node Tree" Name="tabNodeTree">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="366*" />
+                        <ColumnDefinition Width="357*" />
+                    </Grid.ColumnDefinitions>
+                    <hap:HtmlNodeViewer x:Name="HtmlNodeViewer1" Margin="0,0,0,0" Visibility="Hidden" Grid.Row="0" HorizontalAlignment="Stretch" Grid.Column="1" />
+                    <hap:HtmlAttributeViewer x:Name="HtmlAttributeViewer1" Margin="0,0,0,0" Visibility="Hidden" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" />
+                    <GridSplitter Margin="0,0,0,0" Name="gridSplitter1" Width="12" Cursor="SizeWE" ResizeDirection="Columns" Grid.Row="0" />
+                    <hap:NodeTreeView x:Name="hapTree" Margin="0,0,0,0" SelectedItemChanged="hapTree_SelectedItemChanged" FontStyle="Normal" HorizontalAlignment="Stretch" Grid.Row="0" />
+
+                </Grid>
+            </TabItem>
+            <TabItem Name="tabSearchResults" Header="Search Results" >
+                <ListBox Name="listResults"></ListBox>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

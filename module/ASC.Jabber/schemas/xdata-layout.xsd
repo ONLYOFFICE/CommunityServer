@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/xdata-layout'
+    xmlns='http://jabber.org/protocol/xdata-layout'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0141: http://www.xmpp.org/extensions/xep-0141.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='page'>
+    <xs:complexType>
+      <xs:choice minOccurs='0' maxOccurs='unbounded'>
+        <xs:element ref='text' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='section' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='fieldref' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='reportedref' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:choice>
+      <xs:attribute name='label' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name='section'>
+    <xs:complexType>
+      <xs:choice minOccurs='0' maxOccurs='unbounded'>
+        <xs:element ref='text' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='section' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='fieldref' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='reportedref' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:choice>
+      <xs:attribute name='label' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='fieldref'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='var' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name='reportedref' type='empty'/>
+
+  <xs:element name='text' type='xs:string'/>
+  
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

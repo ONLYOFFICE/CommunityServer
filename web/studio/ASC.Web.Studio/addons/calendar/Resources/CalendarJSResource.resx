@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>all-day</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d events</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Add event</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Calendar view</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>List view</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>My Calendars</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Subscriptions</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Edit subscription</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Owner:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Unsubscribe</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Manage subscriptions</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Quick search</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Hide mini calendar</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Show mini calendar</value>
+  </data>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>New calendar</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>New event</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Shared with:</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Show %d more users</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Add users for sharing</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Add new calendar</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Edit calendar</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Color:</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Text color:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Timezone:</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Add new event</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Owner:</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>All-day event</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>This event is not all-day.</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>This is all-day event.</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>From:</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>To:</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Repeat:</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>never</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>every day</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>every week</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>every month</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>every year</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Alert:</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>default</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>never</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minutes</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minutes</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>half an hour</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>an hour</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 hours</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>a day</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>This event is not shared.</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Calendar:</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Unsubscribe</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>There are no events to show.</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Все события серии</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Это событие и все следующие</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Удалить повторяющееся событие</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Только это событие</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Выбрать файл</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="icalStream_description" xml:space="preserve">
+    <value>Используйте следующий адрес для доступа к своему календарю из других приложений. Можно скопировать и вставить эту информацию в любой календарь, поддерживающий формат iCal. Можно сохранить эти данные как файл в формате iCal и экспортировать события в другой календарь или приложение.</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Экспорт событий из календаря</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>файл не выбран</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>файл выбран</value>
+  </data>
+  <data name="icalStream_header" xml:space="preserve">
+    <value>Экспорт событий календаря</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Импорт/Экспорт</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Импорт событий из Google календаря</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Введите ссылку iCal-потока</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Новый iCal поток</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>Ссылка iCal-потока:</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>после</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>каждый</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>первый</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Настройка повторения</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>дн</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>мес</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>нед</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>год</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>последний</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>дням</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>по</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>месяцам</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>неделям</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>годам</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>к-во циклов</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>дата</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>никогда</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>предпоследний</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>второй</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>третий</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>раз</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>окончание</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>начиная с</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>настройка</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>каждый</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>неверный формат</value>
+  </data>
+</root>

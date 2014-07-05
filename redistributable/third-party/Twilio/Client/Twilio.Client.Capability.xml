@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Twilio.Client.Capability</name>
+    </assembly>
+    <members>
+        <member name="M:Twilio.TwilioCapability.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new TwilioCapability token generator for Twilio Client
+            </summary>
+            <param name="accountSid">Your Twilio Account SID from your account dashboard</param>
+            <param name="authToken">Your Twilio Auth Token from your account dashboard</param>
+        </member>
+        <member name="M:Twilio.TwilioCapability.AllowClientIncoming(System.String)">
+            <summary>
+            Allow the Twilio Client device to receive incoming calls with the specified client name
+            </summary>
+            <param name="clientName">The client name to register</param>
+        </member>
+        <member name="M:Twilio.TwilioCapability.AllowClientOutgoing(System.String)">
+            <summary>
+            Allow the Twilio Client device to place outgoing calls to the specified Application.
+            </summary>
+            <param name="applicationSid">The Twilio Application SID to connect to.</param>
+        </member>
+        <member name="M:Twilio.TwilioCapability.AllowClientOutgoing(System.String,System.Object)">
+            <summary>
+            Allow the Twilio Client device to place outgoing calls to the specified Application.
+            </summary>
+            <param name="applicationSid">The Twilio Application SID to connect to.</param>
+            <param name="appParams">Optional data to send with the request to your application</param>
+        </member>
+        <member name="M:Twilio.TwilioCapability.GenerateToken">
+            <summary>
+            Generate the token as a string with the default TTL of 3600 seconds.
+            </summary>
+        </member>
+        <member name="M:Twilio.TwilioCapability.GenerateToken(System.Int32)">
+            <summary>
+            Generate the token as a string with a custom TTL value (max 24 hours)
+            </summary>
+            <param name="ttlSeconds">The lifespan of the token, in seconds</param>
+        </member>
+    </members>
+</doc>

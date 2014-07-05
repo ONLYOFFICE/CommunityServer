@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='storage:bookmarks'
+    xmlns='storage:bookmarks'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0048: http://www.xmpp.org/extensions/xep-0048.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='storage'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref='conference'/>
+        <xs:element ref='url'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='conference'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='nick' type='xs:string' minOccurs='0'/>
+        <xs:element name='password' type='xs:string' minOccurs='0'/>
+      </xs:sequence>
+      <xs:attribute name='autojoin' type='xs:boolean' use='optional' default='false'/>
+      <xs:attribute name='jid' type='xs:string' use='required'/>
+      <xs:attribute name='name' type='xs:string' use='required'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='url'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='name' type='xs:string' use='required'/>
+          <xs:attribute name='url' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

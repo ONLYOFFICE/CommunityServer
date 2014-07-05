@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru" dir="ltr">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <style type="text/css">
+    html{border:0;}
+    body{border:0; margin:0; padding:5px 5px 3px; line-height:12px; word-wrap:break-word; font:normal 12px/16px Arial,Tahoma,sans-serif; cursor:pointer;}
+    div#userPhoto{background:#FFF none center center no-repeat; width:48px; height:48px; float:left;}
+    div#notificationTitle{height:16px; margin:0 0 0 55px; font-weight:bold; overflow:hidden; -webkit-text-overflow:ellipsis;}
+    div#notificationContent{height:32px; margin:4px 0 0 55px; overflow:hidden; -webkit-text-overflow:ellipsis;}
+  </style>
+</head>
+
+<body>
+  <div id="userPhoto"></div>
+  <div id="notificationTitle"></div>
+  <div id="notificationContent"></div>
+  <script type="text/javascript">
+    (function () {
+      function translateSymbols (str, toText) {
+        var
+          symbols = [
+            ['&lt;',  '<'],
+            ['&gt;',  '>'],
+            ['&and;', '\\^'],
+            ['&sim;', '~'],
+            ['&amp;', '&']
+          ];
+
+        if (typeof str !== 'string') {
+          return '';
+        }
+
+        // replace html to symbols
+        if (typeof toText === 'undefined' || toText === true) {
+          var symInd = symbols.length;
+          while (symInd--) {
+            str = str.replace(new RegExp(symbols[symInd][0], 'g'), symbols[symInd][1]); 
+          }
+        // replace symbols to html
+        } else {
+          var symInd = symbols.length;
+          while (symInd--) {
+            str = str.replace(new RegExp(symbols[symInd][1], 'g'), symbols[symInd][0]);
+          }
+        }
+        return str;
+      }
+
+      var
+        search = location.search,
+        params = {},
+        arr = null,
+        ind = 0,
+        b = null;
+      if (search.charAt(0) === '?') {
+        search = search.substring(1);
+      }
+      arr = search.split('&');
+      ind = arr.length;
+      while (ind--) {
+        b = arr[ind].split('=');
+        if (b.length === 2) {
+          params[b[0]] = decodeURIComponent(b[1]);
+        }
+      }
+      try {document.getElementById('userPhoto').style.backgroundImage = 'url(userphoto.ashx?id=' + (params.hasOwnProperty('i') ? params.i : '') + ')'} catch (err) {}
+      try {document.getElementById('notificationTitle').innerHTML = params.hasOwnProperty('t') ? params.t : ''} catch (err) {}
+      try {document.getElementById('notificationContent').innerHTML = params.hasOwnProperty('c') ? translateSymbols(params.c, false) : ''} catch (err) {}
+    })();
+  </script>
+</body>
+</html>

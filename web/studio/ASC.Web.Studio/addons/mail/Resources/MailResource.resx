@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Your name</value>
+  </data>
+  <data name="AttachFileLabel" xml:space="preserve">
+    <value>Attach File</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>BCC</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>POP Server</value>
+  </data>
+  <data name="RemoveQuestion" xml:space="preserve">
+    <value>Do you want to remove {0}?</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>SMTP Server</value>
+  </data>
+  <data name="MarkAsLabel" xml:space="preserve">
+    <value>Mark As</value>
+  </data>
+  <data name="MoveToLabel" xml:space="preserve">
+    <value>Move To</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Create New E-Mail</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="MailSearch" xml:space="preserve">
+    <value>search</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Add copy</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Saved at</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Authorization</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Mark all messages from</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Receive mail</value>
+  </data>
+  <data name="SecureConnection" xml:space="preserve">
+    <value>Secure connection</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Send mail</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Write Letter</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Add Tag</value>
+  </data>
+  <data name="AllLettersFrom" xml:space="preserve">
+    <value>All letters From</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>New Tag</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Tag edit</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Delete tag</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>If you delete the tag from the list, it will also be removed from the contacts and messages marked with it.</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>After activating your account you will resume receiving mail on it.</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Activate account</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
+    <value>Folder for Attachments</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>After deactivation of an account you will no longer receive mail from it.</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Deactivate account</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>If you delete your account all the letters removed from the mailbox.</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Edit account</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>&lt;noaddress@noadress.com&gt;</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>no subject</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Show on page</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>View contact's profile</value>
+  </data>
+  <data name="AddToCRMContacts" xml:space="preserve">
+    <value>Add to CRM contacts</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Tag name</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>Add email</value>
+  </data>
+  <data name="CreateNewTagLabel" xml:space="preserve">
+    <value>Create new Tag:</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>This address already exists</value>
+  </data>
+  <data name="ErrorEmailIncorrect" xml:space="preserve">
+    <value>Incorrect address</value>
+  </data>
+  <data name="SelectColorLabel" xml:space="preserve">
+    <value>Select color</value>
+  </data>
+  <data name="BlankModalAccountsTip1" xml:space="preserve">
+    <value>Add one or several email accounts to your portal profile</value>
+  </data>
+  <data name="BlankModalAccountsTip2" xml:space="preserve">
+    <value>Send and receive email messages reght on the portal</value>
+  </data>
+  <data name="BlankModalAccountsTip3" xml:space="preserve">
+    <value>Access your correspondance from any browser and location</value>
+  </data>
+  <data name="BlankModalAccountsTitle" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Create New Account</value>
+  </data>
+  <data name="BlankModalCRMTip1" xml:space="preserve">
+    <value>See all your CRM contacts in your mailling list</value>
+  </data>
+  <data name="BlankModalCRMTip2" xml:space="preserve">
+    <value>Create mails for both portal users and CRM contacts</value>
+  </data>
+  <data name="BlankModalCRMTip3" xml:space="preserve">
+    <value>Mail CRM contacts via a common email client interface</value>
+  </data>
+  <data name="BlankModalCRMTitle" xml:space="preserve">
+    <value>CRM Integration</value>
+  </data>
+  <data name="BlankModalGoNowLnk" xml:space="preserve">
+    <value>Go to Mail Client Now</value>
+  </data>
+  <data name="BlankModalHeader" xml:space="preserve">
+    <value>Manage Email on the Portal:</value>
+  </data>
+  <data name="BlankModalTagsTip1" xml:space="preserve">
+    <value>Organize mail using own tags for every message</value>
+  </data>
+  <data name="BlankModalTagsTip2" xml:space="preserve">
+    <value>Group similar emails or divide the ones you need</value>
+  </data>
+  <data name="BlankModalTagsTip3" xml:space="preserve">
+    <value>Customize tags selecting color? name and senders</value>
+  </data>
+  <data name="BlankModalTagsTitle" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="FlashUploaderLabel" xml:space="preserve">
+    <value>Flash Uploader</value>
+  </data>
+  <data name="ImportanceLabel" xml:space="preserve">
+    <value>Importance</value>
+  </data>
+  <data name="SwitchLabel" xml:space="preserve">
+    <value>Switch to the</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Get default settings</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Drafts</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Trash</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Add email address</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Show more tags</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Accounts Management</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>Tags Management</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Create New Account</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Create New Tag</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Attach to CRM Contact</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Save to My Docs</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Save to Projects Docs</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="HaveNoContactsLabel" xml:space="preserve">
+    <value>No Contacts</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>Full size</value>
+  </data>
+  <data name="DeliveryFailureReason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="DeliveryFailureSubject" xml:space="preserve">
+    <value>Message Delivery Failure</value>
+  </data>
+  <data name="MessageFromWarning" xml:space="preserve">
+    <value>This account has been deactivated.</value>
+  </data>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>Images are disabled.</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>all</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>important</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>important</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>read</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>read</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>unread</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>unread</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>with attachments</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>with attachments</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Deselect all</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>selected</value>
+  </data>
+  <data name="AttachmentsCountExceeded" xml:space="preserve">
+    <value>Total count of  files exceeds limit!\nPlease remove some files.</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Attach files from Docs</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portal. Access Rights.</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>Open in document editor</value>
+  </data>
+  <data name="AccountCreationErrorBody" xml:space="preserve">
+    <value>Please, check all the account settings you entered. If you are sure your settings are correct, sign in to the mail service you use and confirm any verification questions, in case there are some. After then try again.</value>
+  </data>
+  <data name="TagsCommonInformationText" xml:space="preserve">
+    <value>С помощью тегов вы можете помечать письма и контакты. В дальнейшем это упростит поиск с помощью фильтрации по тегам.</value>
+  </data>
+  <data name="TagsCommonNotificationText" xml:space="preserve">
+    <value>Редактировать и удалять вы можете только теги, созданные в Почтовом клиенте. Теги, которые нельзя редактировать и удалять здесь, импортированы из CRM и доступны для изменений только администартору в модуле CRM.</value>
+  </data>
+  <data name="LoadingMail" xml:space="preserve">
+    <value>Loading Mail</value>
+  </data>
+  <data name="AttachemntsUnauthorizedError" xml:space="preserve">
+    <value>You are not authorized. Authorize first.</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>View singly</value>
+  </data>
+  <data name="MailLimitLabel" xml:space="preserve">
+    <value>Import messages only for the last 30 days</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP Server</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>more</value>
+  </data>
+  <data name="PleaseWaitLabel" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>Encryption for IMAP Server</value>
+  </data>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>Encryption for POP Server</value>
+  </data>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>Encryption for SMTP Server</value>
+  </data>
+  <data name="OAuthLabel" xml:space="preserve">
+    <value>or link with:</value>
+  </data>
+  <data name="NoEcncryptionNeeded" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Authentication Type</value>
+  </data>
+  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
+    <value>Encrypted Password</value>
+  </data>
+  <data name="NonePasswordAuthentication" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="SimplePasswordAuthentication" xml:space="preserve">
+    <value>Simple Password</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Delete All</value>
+  </data>
+  <data name="BasicUploaderLabel" xml:space="preserve">
+    <value>Basic Uploader</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="OnTopLabel" xml:space="preserve">
+    <value>On top</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Reply All</value>
+  </data>
+  <data name="AccountsCommonInformationText" xml:space="preserve">
+    <value>You can manage the accounts and adjust their settings using this list.</value>
+  </data>
+  <data name="AccountsCommonNotificationText" xml:space="preserve">
+    <value>The settings for the accounts connected using OAuth cannot be edited. You can only change the account name for them.</value>
+  </data>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>Always display images from</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Display images</value>
+  </data>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="GoToPrevMessage" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="ShowMoreAccounts" xml:space="preserve">
+    <value>Show more accounts</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Link with CRM</value>
+  </data>
+  <data name="UnlinkChainWithCRM" xml:space="preserve">
+    <value>Unlink from CRM</value>
+  </data>
+  <data name="ExportMessageToCRM" xml:space="preserve">
+    <value>Export To CRM</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Case</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
+    <value>Opportunity</value>
+  </data>
+  <data name="LinkConversationPopupChooseMessage" xml:space="preserve">
+    <value>Please, choose CRM items which this conversation will be attached to:</value>
+  </data>
+  <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
+    <value>All letters from this conversation (including future letters) will be showed in CRM. Mailing history will be avaliable to CRM users according to access rights.</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Link to:</value>
+  </data>
+  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
+    <value>Choose item:</value>
+  </data>
+  <data name="ExportMessagePopupChooseMessage" xml:space="preserve">
+    <value>Please, choose CRM items which this message will be attached to:</value>
+  </data>
+  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
+    <value>Export to:</value>
+  </data>
+  <data name="ExportMessagePopupInfoMessage" xml:space="preserve">
+    <value>Mailing history will be avaliable to CRM users according to access rights.</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
+    <value>Find by name</value>
+  </data>
+  <data name="LinkConversationUnlinkAllBtnLabel" xml:space="preserve">
+    <value>Unlink all</value>
+  </data>
+  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="UnlinkAllConfirmationMessage" xml:space="preserve">
+    <value>Do you really want to unlink this conversation from CRM?</value>
+  </data>
+  <data name="UnlinkAllInformationMessage" xml:space="preserve">
+    <value>Unlinking this conversation from CRM you unlink it from all contacts, opportunities and cases you have choosed earlier.
+All messages which were received before, will left in the CRM mailing history, but future messages from the conversation won't showed in CRM.</value>
+  </data>
+  <data name="UnlinkAllPopupUnlinkBtnLabel" xml:space="preserve">
+    <value>Unlink</value>
+  </data>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Download All</value>
+  </data>
+  <data name="OpenBtnLabel" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="CreateEmailToSenderLabel" xml:space="preserve">
+    <value>Create Email to Sender</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Mark as Important</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Mark as Not Important</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Mark as Read</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Mark as Unread</value>
+  </data>
+  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
+    <value>Save all in My Documents</value>
+  </data>
+  <data name="SelectFolderDialogTitle" xml:space="preserve">
+    <value>Folder for Attachments</value>
+  </data>
+  <data name="SearchInToCcBccFieldsPlaceHolderLabel" xml:space="preserve">
+    <value>Find in CRM, Teamlab on inbox contacts</value>
+  </data>
+  <data name="FilesFolderUnlinkButton" xml:space="preserve">
+    <value>Unlink folder</value>
+  </data>
+</root>

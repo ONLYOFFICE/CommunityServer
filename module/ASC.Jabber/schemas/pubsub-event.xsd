@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/pubsub#event'
+    xmlns='http://jabber.org/protocol/pubsub#event'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0060: http://www.xmpp.org/extensions/xep-0060.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:import
+      namespace='jabber:x:data'
+      schemaLocation='http://xmpp.org/schemas/x-data.xsd'/>
+
+  <xs:element name='event'>
+    <xs:complexType>
+      <xs:choice minOccurs='0'>
+        <xs:element ref='collection'/>
+        <xs:element ref='configuration'/>
+        <xs:element ref='delete'/>
+        <xs:element ref='items'/>
+        <xs:element ref='purge'/>
+        <xs:element ref='subscription'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='collection'>
+    <xs:complexType>
+      <xs:sequence minOccurs='1'>
+        <xs:element ref='node'/>
+      </xs:sequence>
+      <xs:attribute name='node' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='configuration'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0' xmlns:xdata='jabber:x:data'>
+        <xs:element ref='xdata:x'/>
+      </xs:sequence>
+      <xs:attribute name='node' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='delete'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='node' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='items'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref='item' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='retract' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:choice>
+      <xs:attribute name='node' type='xs:string' use='required'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='item'>
+    <xs:complexType>
+      <xs:choice minOccurs='0'>
+        <xs:any namespace='##other'/>
+      </xs:choice>
+      <xs:attribute name='id' type='xs:string' use='optional'/>
+      <xs:attribute name='node' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='purge'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='node' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='retract'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='id' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='subscription'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='jid' type='xs:string' use='required'/>
+          <xs:attribute name='node' type='xs:string' use='optional'/>
+          <xs:attribute name='subid' type='xs:string' use='optional'/>
+          <xs:attribute name='subscription' use='optional'>
+            <xs:simpleType>
+              <xs:restriction base='xs:NCName'>
+                <xs:enumeration value='none'/>
+                <xs:enumeration value='pending'/>
+                <xs:enumeration value='subscribed'/>
+                <xs:enumeration value='unconfigured'/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

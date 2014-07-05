@@ -1,0 +1,13 @@
+﻿# Build version: 7.6/58
+# Build date: {BuildDate}
+# Current User: {User}
+# User Agent: {UserAgent}
+# Current URL: {Url}
+# Rewriten URL: {RewritenUrl}
+
+**********************************************************************************************************************************
+
+
+Bug 25195 - Settings: SSO. XSS инъекции в поле Primary Mobile Phone срабатывают при синхронизации OneLogin с OnlyOffice.
+
+Chat: связанные с ребрендингом и другие изменения

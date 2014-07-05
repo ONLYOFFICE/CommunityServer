@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>Corporate forum discussions</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Forums</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>Create New Forum</value>
+  </data>
+  <data name="AddThreadCategoryButton" xml:space="preserve">
+    <value>Create new forum</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>New Forum</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to perform this action?</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CutLongMassageSettingsTitle" xml:space="preserve">
+    <value>Shorten long posts</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>No forums have been started yet</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>No topics have been created yet</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Topics not found</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>Create the first forum</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>Create the first topic</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>Create your own forums, take part in the discussions, share some interesting information, organize polls making your forums more interactive.</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>Create your own topics, take part in the discussions, share some interesting information, organize polls making your forums more interactive.</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>Create your own forums, take part in the discussions, share some interesting information, organize polls making your forums more interactive.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>No permissions to perform this action</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>Enter the category name</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>Unknown error while creating category</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>An error occurred while editing the category</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Enter a name</value>
+  </data>
+  <data name="ErrorNotCorrectMaxTopicCountSettings" xml:space="preserve">
+    <value>Invalid number of posts</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>An error occurred while unsubscribing/subscribing</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>Enter the forum name</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>Topic in "{0}" forum</value>
+  </data>
+  <data name="ForumEditorBreadCrumbs" xml:space="preserve">
+    <value>Open forum editor</value>
+  </data>
+  <data name="ForumListPageDescription" xml:space="preserve">
+    <value>Forum title page</value>
+  </data>
+  <data name="ForumNotCreatedWidgetMessage" xml:space="preserve">
+    <value>No forums created yet</value>
+  </data>
+  <data name="ForumNotCreatedWidgetMessageForAdmin" xml:space="preserve">
+    <value>Click here to {0}Create new forum{1}</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>All Forums</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="MaxLastTopicCountSettingsTitle" xml:space="preserve">
+    <value>Number of posts to display (1 to 30)</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Moderators</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Enter a name</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>Add new poll</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Add new post</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>Create new topic</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>Subscription to new forum topics </value>
+  </data>
+  <data name="PartnershipTopic" xml:space="preserve">
+    <value>Participation in topic</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Posts</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>Enter your question</value>
+  </data>
+  <data name="RecentActivityContainerTitle" xml:space="preserve">
+    <value>Recent Activity</value>
+  </data>
+  <data name="RecentForumUpdateWidgetDescription" xml:space="preserve">
+    <value>shows the latest posts in forums</value>
+  </data>
+  <data name="RecentForumUpdateWidgetTitle" xml:space="preserve">
+    <value>Forums</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value>Latest Posts in Topic</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Latest Update</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Forum Search</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>Posts</value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>Attach</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>Enter the topic name</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Subscribe to new topics</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>Subscribe to this forum</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Subscribe to this topic</value>
+  </data>
+  <data name="SubscribeThreadHelp" xml:space="preserve">
+    <value>You´ll be notified about all new posts and topics in forum.</value>
+  </data>
+  <data name="SubscribeTopicHelp" xml:space="preserve">
+    <value>You´ll be notified about new posts in topic</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>The forum has been successfully created</value>
+  </data>
+  <data name="TagName" xml:space="preserve">
+    <value>Tag Name</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TagSubscriptionTitle" xml:space="preserve">
+    <value>Subscription to tags</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="ThreadActionText" xml:space="preserve">
+    <value>forum created</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>Category Editor</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="ThreadDeleteActionText" xml:space="preserve">
+    <value>forum deleted</value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>Forum Description</value>
+  </data>
+  <data name="ThreadEditActionText" xml:space="preserve">
+    <value>forum edited</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>Forum Editor</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>Forum Name</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>Subscription to forums</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Topic</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>Topics</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>Subscription to topics</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>Create a new category</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Unsubscribe from notification</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Unsubscribe from new topics</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>Unsubscribe from this forum</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>Unsubscribe from this topic</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Views</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>The visible list</value>
+  </data>
+</root>

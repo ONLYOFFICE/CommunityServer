@@ -1,0 +1,1031 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <UsingTask TaskName="CssCompressorTask" AssemblyFile="..\..\..\..\..\redistributable\third-party\YUICompressor\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\..\..\..\..\redistributable\third-party\YUICompressor\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{48EFB880-3D76-4B21-B31E-1007C0062B5C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Web.CRM</RootNamespace>
+    <AssemblyName>ASC.Web.CRM</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TrunkDir>..\..\..\..\..\</TrunkDir>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxPro.2, Version=7.7.31.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.FullTextIndex, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.FullTextIndex.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.MessagingSystem">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.MessagingSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Thrdparty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Thrdparty.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Files, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Files.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Studio">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Studio.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.UserControls.SocialMedia, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.UserControls.SocialMedia.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetOpenAuth, Version=4.0.0.11165, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Facebook, Version=5.0.26.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\FacebookSDK\Facebook.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\DotNotZip\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="LinkedIn, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\LinkedIn\LinkedIn.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LumenWorks.Framework.IO, Version=3.8.0.0, Culture=neutral, PublicKeyToken=5ad3ea2f85776344, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\CSVReader\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Twitterizer2, Version=2.3.3.21964, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Twitterizer2-2.3.3\Twitterizer2.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cases.aspx.cs">
+      <DependentUpon>Cases.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cases.aspx.designer.cs">
+      <DependentUpon>Cases.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\ContactPhotoManager.cs" />
+    <Compile Include="Classes\LocalizedEnumConverter.cs" />
+    <Compile Include="Classes\MailAggregatorManager.cs" />
+    <Compile Include="Classes\OrganisationLogoManager.cs" />
+    <Compile Include="Classes\RegisterClientScriptHelper.cs" />
+    <Compile Include="Classes\SocialMedia\FacebookApiHelper.cs" />
+    <Compile Include="Classes\SocialMedia\LinkedInApiHelper.cs" />
+    <Compile Include="Classes\SocialMedia\LinkedInDefaultAccountTokenManager.cs" />
+    <Compile Include="Classes\SocialMedia\TwitterApiHelper.cs" />
+    <Compile Include="Classes\SubscriptionManager.cs" />
+    <Compile Include="Configuration\CRMsSpaceUsageStatManager.cs" />
+    <Compile Include="Controls\Cases\CasesFullCardView.ascx.cs">
+      <DependentUpon>CasesFullCardView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Cases\CasesFullCardView.ascx.designer.cs">
+      <DependentUpon>CasesFullCardView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\DashboardEmptyScreen.ascx.cs">
+      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\DashboardEmptyScreen.ascx.designer.cs">
+      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\ListBaseView.ascx.cs">
+      <DependentUpon>ListBaseView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\ListBaseView.ascx.designer.cs">
+      <DependentUpon>ListBaseView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\NavigationSidePanel.ascx.cs">
+      <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\NavigationSidePanel.ascx.designer.cs">
+      <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\ResultsView.cs" />
+    <Compile Include="Controls\Invoices\InvoiceDetailsView.ascx.cs">
+      <DependentUpon>InvoiceDetailsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Invoices\InvoiceDetailsView.ascx.designer.cs">
+      <DependentUpon>InvoiceDetailsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Invoices\InvoiceActionView.ascx.cs">
+      <DependentUpon>InvoiceActionView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Invoices\InvoiceActionView.ascx.designer.cs">
+      <DependentUpon>InvoiceActionView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Invoices\ListInvoiceView.ascx.cs">
+      <DependentUpon>ListInvoiceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Invoices\ListInvoiceView.ascx.designer.cs">
+      <DependentUpon>ListInvoiceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Sender\SmtpSender.ascx.cs">
+      <DependentUpon>SmtpSender.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Sender\SmtpSender.ascx.designer.cs">
+      <DependentUpon>SmtpSender.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Contacts\ContactFullCardView.ascx.cs">
+      <DependentUpon>ContactFullCardView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Contacts\ContactFullCardView.ascx.designer.cs">
+      <DependentUpon>ContactFullCardView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Contacts\ListContactView.ascx.cs">
+      <DependentUpon>ListContactView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Contacts\ListContactView.ascx.designer.cs">
+      <DependentUpon>ListContactView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\ImportFromCSVView.ascx.cs">
+      <DependentUpon>ImportFromCSVView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\ImportFromCSVView.ascx.designer.cs">
+      <DependentUpon>ImportFromCSVView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Deals\DealFullCardView.ascx.cs">
+      <DependentUpon>DealFullCardView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Deals\DealFullCardView.ascx.designer.cs">
+      <DependentUpon>DealFullCardView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Deals\ListDealView.ascx.cs">
+      <DependentUpon>ListDealView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Deals\ListDealView.ascx.designer.cs">
+      <DependentUpon>ListDealView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\DealMilestoneView.ascx.cs">
+      <DependentUpon>DealMilestoneView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\DealMilestoneView.ascx.designer.cs">
+      <DependentUpon>DealMilestoneView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\InvoiceSettings\OrganisationProfile.ascx.cs">
+      <DependentUpon>OrganisationProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\InvoiceSettings\OrganisationProfile.ascx.designer.cs">
+      <DependentUpon>OrganisationProfile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceItemActionView.ascx.cs">
+      <DependentUpon>InvoiceItemActionView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceItemActionView.ascx.designer.cs">
+      <DependentUpon>InvoiceItemActionView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceItemsView.ascx.cs">
+      <DependentUpon>InvoiceItemsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceItemsView.ascx.designer.cs">
+      <DependentUpon>InvoiceItemsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx.cs">
+      <DependentUpon>InvoiceTaxesView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx.designer.cs">
+      <DependentUpon>InvoiceTaxesView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\TagSettingsView.ascx.cs">
+      <DependentUpon>TagSettingsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\TagSettingsView.ascx.designer.cs">
+      <DependentUpon>TagSettingsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\TaskTemplateView.ascx.cs">
+      <DependentUpon>TaskTemplateView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\TaskTemplateView.ascx.designer.cs">
+      <DependentUpon>TaskTemplateView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\ContactsSearchView.ascx.cs">
+      <DependentUpon>ContactsSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\ContactsSearchView.ascx.designer.cs">
+      <DependentUpon>ContactsSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tasks\ListTaskView.ascx.cs">
+      <DependentUpon>ListTaskView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Tasks\ListTaskView.ascx.designer.cs">
+      <DependentUpon>ListTaskView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Dao\CurrencyRateDao.cs" />
+    <Compile Include="Core\Dao\CurrencyInfoDao.cs" />
+    <Compile Include="Core\Entities\CurrencyRate.cs" />
+    <Compile Include="Core\Entities\CurrencyInfo.cs" />
+    <Compile Include="Core\Enums\ShareType.cs" />
+    <Compile Include="MailViewer.aspx.cs">
+      <DependentUpon>MailViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MailViewer.aspx.designer.cs">
+      <DependentUpon>MailViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Dao\ContactInfoDao.cs" />
+    <Compile Include="Core\Dao\DealMilestoneDao.cs" />
+    <Compile Include="Core\Dao\InvoiceDao.cs" />
+    <Compile Include="Core\Dao\InvoiceItemDao.cs" />
+    <Compile Include="Core\Dao\InvoiceLineDao.cs" />
+    <Compile Include="Core\Dao\InvoiceTaxDao.cs" />
+    <Compile Include="Core\Dao\TaskTemplateContainerDao.cs" />
+    <Compile Include="Core\Entities\ContactInfo.cs" />
+    <Compile Include="Core\Entities\Invoice.cs" />
+    <Compile Include="Core\Entities\InvoiceItem.cs" />
+    <Compile Include="Core\Entities\InvoiceLine.cs" />
+    <Compile Include="Core\Entities\InvoiceTax.cs" />
+    <Compile Include="Core\Entities\Report.cs" />
+    <Compile Include="Core\Entities\TaskTemplateContainer.cs" />
+    <Compile Include="Core\Enums\ContactInfoCategoryEnum.cs" />
+    <Compile Include="Core\Enums\ContactInfoTypeEnum.cs" />
+    <Compile Include="Core\Enums\ContactListViewTypeEnum.cs" />
+    <Compile Include="Core\Enums\ContactSelectorTypeEnum.cs" />
+    <Compile Include="Core\Enums\InvoiceStatus.cs" />
+    <Compile Include="Core\Enums\InvoiceTemplateTypeEnum.cs" />
+    <Compile Include="Core\Security\FileSecurityProvider.cs" />
+    <Compile Include="Help.aspx.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help.aspx.designer.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HttpHandlers\FileHandler.ashx.cs">
+      <DependentUpon>FileHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="HttpHandlers\WebToLeadFromHandler.ashx.cs">
+      <DependentUpon>WebToLeadFromHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Invoices.aspx.cs">
+      <DependentUpon>Invoices.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Invoices.aspx.designer.cs">
+      <DependentUpon>Invoices.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
+    <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
+    <Compile Include="Masters\ClientScripts\ControlsResources.cs" />
+    <Compile Include="Masters\ClientScripts\CRMSettingsResources.cs" />
+    <Compile Include="Resources\CRMCasesResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMCasesResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CRMContactResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMContactResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CRMDealResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMDealResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CRMEnumResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMEnumResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CRMInvoiceResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMInvoiceResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CRMJSResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMJSResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Sender.aspx.cs">
+      <DependentUpon>Sender.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sender.aspx.designer.cs">
+      <DependentUpon>Sender.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\NotifyService\CRMPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMPatternResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\CurrencyProvider.cs" />
+    <Compile Include="HttpHandlers\FileUploaderHandler.cs" />
+    <Compile Include="Classes\Global.cs" />
+    <Compile Include="Classes\SocialMedia\ContactRelationTwitterSettings.cs" />
+    <Compile Include="Classes\SocialMedia\ContactRelationFacebookSettings.cs" />
+    <Compile Include="Classes\SocialMedia\SocialMediaAccountNotFound.cs" />
+    <Compile Include="Classes\SocialMedia\SocialMediaConstants.cs" />
+    <Compile Include="Classes\SocialMedia\SocialMediaImageDescription.cs" />
+    <Compile Include="Classes\SocialMedia\SocialMediaUI.cs" />
+    <Compile Include="Classes\CRMSettings.cs" />
+    <Compile Include="Classes\UrlConstant.cs" />
+    <Compile Include="Classes\UrlParameters.cs" />
+    <Compile Include="Controls\Settings\WebToLeadFormView.ascx.cs">
+      <DependentUpon>WebToLeadFormView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\WebToLeadFormView.ascx.designer.cs">
+      <DependentUpon>WebToLeadFormView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\SearchHandler.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Cases\CasesActionView.ascx.cs">
+      <DependentUpon>CasesActionView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Cases\CasesActionView.ascx.designer.cs">
+      <DependentUpon>CasesActionView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Cases\CasesDetailsView.ascx.cs">
+      <DependentUpon>CasesDetailsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Cases\CasesDetailsView.ascx.designer.cs">
+      <DependentUpon>CasesDetailsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Cases\ListCasesView.ascx.cs">
+      <DependentUpon>ListCasesView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Cases\ListCasesView.ascx.designer.cs">
+      <DependentUpon>ListCasesView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\FileUploader.ascx.cs">
+      <DependentUpon>FileUploader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\FileUploader.ascx.designer.cs">
+      <DependentUpon>FileUploader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\PrivatePanel.ascx.cs">
+      <DependentUpon>PrivatePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\PrivatePanel.ascx.designer.cs">
+      <DependentUpon>PrivatePanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Contacts\ContactActionView.ascx.cs">
+      <DependentUpon>ContactActionView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Contacts\ContactActionView.ascx.designer.cs">
+      <DependentUpon>ContactActionView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Contacts\ContactDetailsView.ascx.cs">
+      <DependentUpon>ContactDetailsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Contacts\ContactDetailsView.ascx.designer.cs">
+      <DependentUpon>ContactDetailsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\HistoryView.ascx.cs">
+      <DependentUpon>HistoryView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\HistoryView.ascx.designer.cs">
+      <DependentUpon>HistoryView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Deals\DealActionView.ascx.cs">
+      <DependentUpon>DealActionView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Deals\DealActionView.ascx.designer.cs">
+      <DependentUpon>DealActionView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Deals\DealDetailsView.ascx.cs">
+      <DependentUpon>DealDetailsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Deals\DealDetailsView.ascx.designer.cs">
+      <DependentUpon>DealDetailsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\CommonSettingsView.ascx.cs">
+      <DependentUpon>CommonSettingsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\CommonSettingsView.ascx.designer.cs">
+      <DependentUpon>CommonSettingsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\CustomFieldsView.ascx.cs">
+      <DependentUpon>CustomFieldsView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\CustomFieldsView.ascx.designer.cs">
+      <DependentUpon>CustomFieldsView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\ListItemView.ascx.cs">
+      <DependentUpon>ListItemView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\ListItemView.ascx.designer.cs">
+      <DependentUpon>ListItemView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\FacebookUserInfoView.ascx.cs">
+      <DependentUpon>FacebookUserInfoView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\FacebookUserInfoView.ascx.designer.cs">
+      <DependentUpon>FacebookUserInfoView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\ListFacebookUserInfoView.ascx.cs">
+      <DependentUpon>ListFacebookUserInfoView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\ListFacebookUserInfoView.ascx.designer.cs">
+      <DependentUpon>ListFacebookUserInfoView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\ListTwitterUserInfoView.ascx.cs">
+      <DependentUpon>ListTwitterUserInfoView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\ListTwitterUserInfoView.ascx.designer.cs">
+      <DependentUpon>ListTwitterUserInfoView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\TwitterUserInfoView.ascx.cs">
+      <DependentUpon>TwitterUserInfoView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\TwitterUserInfoView.ascx.designer.cs">
+      <DependentUpon>TwitterUserInfoView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\UserSearchView.ascx.cs">
+      <DependentUpon>UserSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\SocialMedia\UserSearchView.ascx.designer.cs">
+      <DependentUpon>UserSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\CRMConstants.cs" />
+    <Compile Include="Core\Dao\AbstractDao.cs" />
+    <Compile Include="Core\Dao\CasesDao.cs" />
+    <Compile Include="Core\Dao\FileDao.cs" />
+    <Compile Include="Core\Dao\ReportDao.cs" />
+    <Compile Include="Core\Dao\SearchDao.cs" />
+    <Compile Include="Core\Entities\Cases.cs" />
+    <Compile Include="Core\Entities\Comment.cs" />
+    <Compile Include="Core\Dao\ContactDao.cs" />
+    <Compile Include="Core\Dao\CustomFieldDao.cs" />
+    <Compile Include="Core\Dao\DaoFactory.cs" />
+    <Compile Include="Core\Dao\DealDao.cs" />
+    <Compile Include="Core\Dao\ListItemDao.cs" />
+    <Compile Include="Core\Dao\RelationshipEventDao.cs" />
+    <Compile Include="Core\Dao\TagDao.cs" />
+    <Compile Include="Core\Dao\TaskDao.cs" />
+    <Compile Include="Core\DomainObject.cs" />
+    <Compile Include="Core\Entities\Contact.cs" />
+    <Compile Include="Core\Entities\DealMilestone.cs" />
+    <Compile Include="Core\Entities\RelationshipEvent.cs" />
+    <Compile Include="Core\Entities\CustomField.cs" />
+    <Compile Include="Core\Entities\Deal.cs" />
+    <Compile Include="Core\Entities\ListItem.cs" />
+    <Compile Include="Core\Entities\OrderBy.cs" />
+    <Compile Include="Core\Entities\Task.cs" />
+    <Compile Include="Core\Enums\BidTypeEnum.cs" />
+    <Compile Include="Core\Enums\CustomFieldTypeEnum.cs" />
+    <Compile Include="Core\Enums\DealMilestoneStatus.cs" />
+    <Compile Include="Core\Enums\EntityTypeEnum.cs" />
+    <Compile Include="Core\Enums\ListTypeEnum.cs" />
+    <Compile Include="Core\Enums\SortedByTypeEnum.cs" />
+    <Compile Include="Core\Security\CRMSecurityObjectProvider.cs" />
+    <Compile Include="Core\Security\CRMSecutiry.cs" />
+    <Compile Include="Deals.aspx.cs">
+      <DependentUpon>Deals.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Deals.aspx.designer.cs">
+      <DependentUpon>Deals.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\BasicTemplate.Master.cs">
+      <DependentUpon>BasicTemplate.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\BasicTemplate.Master.designer.cs">
+      <DependentUpon>BasicTemplate.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Classes\BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Classes\PathProvider.cs" />
+    <Compile Include="Configuration\ProductEntryPoint.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\CRMCommonResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMCommonResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CRMReportResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMReportResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CRMSettingResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMSettingResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CRMSocialMediaResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMSocialMediaResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CRMTaskResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMTaskResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\NotifyService\NotifyClient.cs" />
+    <Compile Include="Services\NotifyService\NotifyConstants.cs" />
+    <Compile Include="Services\NotifyService\NotifySource.cs" />
+    <Compile Include="Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks.aspx.cs">
+      <DependentUpon>Tasks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tasks.aspx.designer.cs">
+      <DependentUpon>Tasks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ExportToCSV.cs" />
+    <Compile Include="Utils\Import\CSV\ImportBase.cs" />
+    <Compile Include="Utils\Import\CSV\ImportCases.cs" />
+    <Compile Include="Utils\Import\CSV\ImportContacts.cs" />
+    <Compile Include="Utils\Import\CSV\ImportDeals.cs" />
+    <Compile Include="Utils\Import\CSV\ImportTasks.cs" />
+    <Compile Include="Utils\MailSender.cs" />
+    <Compile Include="Utils\PdfCreator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\images\arrow_down.gif" />
+    <Content Include="App_Themes\Default\images\combobox-bg-button.gif" />
+    <Content Include="App_Themes\Default\images\drag.png" />
+    <Content Include="App_Themes\Default\images\drug-n-drop_items.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_invoices.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_products_services.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_taxes.png" />
+    <Content Include="App_Themes\Default\images\event_categories.png" />
+    <Content Include="App_Themes\Default\images\icons.png" />
+    <Content Include="App_Themes\Default\images\edit_small.png" />
+    <Content Include="App_Themes\Default\images\import.png" />
+    <Content Include="App_Themes\Default\images\invoice.png" />
+    <Content Include="App_Themes\Default\images\loader_16.gif" />
+    <Content Include="App_Themes\Default\images\mail_icons.png" />
+    <Content Include="App_Themes\Default\images\org_logo_default.png" />
+    <Content Include="App_Themes\Default\images\product_logo.png" />
+    <Content Include="App_Themes\Default\images\product_logolarge.png" />
+    <Content Include="App_Themes\Default\images\remove.png" />
+    <Content Include="App_Themes\Default\images\remove_12.png" />
+    <Content Include="App_Themes\Default\images\task_categories.png" />
+    <Content Include="Cases.aspx" />
+    <Content Include="Controls\Cases\CasesActionView.ascx" />
+    <Content Include="Controls\Cases\CasesDetailsView.ascx" />
+    <Content Include="Controls\Cases\ListCasesView.ascx" />
+    <Content Include="Controls\Common\ListBaseView.ascx" />
+    <Content Include="Controls\Invoices\InvoiceDetailsView.ascx" />
+    <Content Include="Controls\Invoices\InvoiceActionView.ascx" />
+    <Content Include="Controls\Invoices\ListInvoiceView.ascx" />
+    <Content Include="Controls\Sender\SmtpSender.ascx" />
+    <Content Include="Controls\Contacts\ContactActionView.ascx" />
+    <Content Include="Controls\Contacts\ContactDetailsView.ascx" />
+    <Content Include="Controls\Common\HistoryView.ascx" />
+    <Content Include="Controls\Deals\DealActionView.ascx" />
+    <Content Include="Controls\Deals\DealDetailsView.ascx" />
+    <Content Include="Controls\Settings\CustomFieldsView.ascx" />
+    <Content Include="Controls\Settings\InvoiceSettings\OrganisationProfile.ascx" />
+    <Content Include="Controls\Settings\InvoiceSettings\InvoiceItemActionView.ascx" />
+    <Content Include="Controls\Settings\InvoiceSettings\InvoiceItemsView.ascx" />
+    <Content Include="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx" />
+    <Content Include="Controls\Settings\ListItemView.ascx" />
+    <Content Include="js\navsidepanel.js" />
+    <Content Include="js\XSS-core.js" />
+    <Content Include="MailViewer.aspx" />
+    <Content Include="Deals.aspx" />
+    <Content Include="Invoices.aspx" />
+    <Content Include="js\invoices.js" />
+    <Content Include="js\sender.js" />
+    <Content Include="js\settings.invoices.js" />
+    <Content Include="Masters\BasicTemplate.Master" />
+    <EmbeddedResource Include="Services\NotifyService\patterns.xml" />
+    <Content Include="Sender.aspx" />
+    <Content Include="Settings.aspx" />
+    <Content Include="Tasks.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CRMContactResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMContactResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CRMCommonResource.resx">
+      <LastGenOutput>CRMCommonResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CRMJSResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMJSResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CRMDealResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMDealResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CRMReportResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMReportResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CRMSettingResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMSettingResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CRMSocialMediaResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMSocialMediaResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CRMTaskResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMTaskResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\CRMPatternResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMPatternResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CRMInvoiceResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>CRMInvoiceResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\fg.css" />
+    <Content Include="App_Themes\Default\images\activity_widget.png" />
+    <Content Include="App_Themes\Default\images\cases_widget.png" />
+    <Content Include="App_Themes\Default\images\deal_widget.png" />
+    <Content Include="App_Themes\Default\images\fg.png" />
+    <Content Include="App_Themes\Default\images\people_widget.png" />
+    <Content Include="App_Themes\Default\images\tasks_widget.png" />
+    <Content Include="Default.aspx" />
+    <Content Include="Controls\Common\FileUploader.ascx" />
+    <Content Include="Controls\Common\PrivatePanel.ascx" />
+    <Content Include="Controls\Settings\CommonSettingsView.ascx" />
+    <Content Include="Controls\SocialMedia\FacebookUserInfoView.ascx" />
+    <Content Include="Controls\SocialMedia\ListFacebookUserInfoView.ascx" />
+    <Content Include="Controls\Settings\WebToLeadFormView.ascx" />
+    <Content Include="Controls\SocialMedia\ListActivityMessageView.ascx" />
+    <Content Include="Controls\SocialMedia\ListTwitterUserInfoView.ascx" />
+    <Content Include="Controls\SocialMedia\TwitterUserInfoView.ascx" />
+    <Content Include="Controls\SocialMedia\UserActivityView.ascx" />
+    <Content Include="Controls\SocialMedia\UserSearchView.ascx" />
+    <Content Include="Controls\SocialMedia\UserWallView.ascx" />
+    <EmbeddedResource Include="Resources\CRMCasesResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMCasesResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CRMEnumResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMEnumResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\images\32-attach.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_projects.png" />
+    <Content Include="App_Themes\Default\images\event_category_attach_file.png" />
+    <Content Include="App_Themes\Default\images\event_category_call.png" />
+    <Content Include="App_Themes\Default\images\event_category_close.png" />
+    <Content Include="App_Themes\Default\images\event_category_email.png" />
+    <Content Include="App_Themes\Default\images\event_category_meeting.png" />
+    <Content Include="App_Themes\Default\images\event_category_note.png" />
+    <Content Include="App_Themes\Default\images\hover_32-attach.png" />
+    <Content Include="App_Themes\Default\images\hover_event_category_attach_file.png" />
+    <Content Include="App_Themes\Default\images\hover_event_category_call.png" />
+    <Content Include="App_Themes\Default\images\hover_event_category_close.png" />
+    <Content Include="App_Themes\Default\images\hover_event_category_email.png" />
+    <Content Include="App_Themes\Default\images\hover_event_category_meeting.png" />
+    <Content Include="App_Themes\Default\images\hover_event_category_note.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_call.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_deal.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_demo.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_email.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_fax.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_follow_up.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_lunch.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_meeting.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_note.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_ship.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_social_networks.png" />
+    <Content Include="App_Themes\Default\images\hover_task_category_thank_you.png" />
+    <Content Include="App_Themes\Default\images\import-cases.png" />
+    <Content Include="App_Themes\Default\images\import-opportunities.png" />
+    <Content Include="App_Themes\Default\images\import-tasks.png" />
+    <Content Include="App_Themes\Default\images\product_disabled_logo.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_case_participants.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_company_participants.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_opportunity_participants.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_persons.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_social.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_tags.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_twitter.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_userfields.png" />
+    <Content Include="App_Themes\Default\images\back-progress-light-big.png" />
+    <Content Include="App_Themes\Default\images\companies_widget.png" />
+    <Content Include="App_Themes\Default\images\crunchbase.png" />
+    <Content Include="App_Themes\Default\images\csv_16.png" />
+    <Content Include="App_Themes\Default\images\empty_company_logo_145_145.png" />
+    <Content Include="App_Themes\Default\images\empty_company_logo_40_40.png" />
+    <Content Include="App_Themes\Default\images\empty_company_logo_82_82.png" />
+    <Content Include="App_Themes\Default\images\empty_people_logo_145_145.png" />
+    <Content Include="App_Themes\Default\images\empty_people_logo_40_40.png" />
+    <Content Include="App_Themes\Default\images\empty_people_logo_82_82.png" />
+    <Content Include="App_Themes\Default\images\export_data.png" />
+    <Content Include="App_Themes\Default\images\import_contacts.png" />
+    <Content Include="App_Themes\Default\images\loader_12.gif" />
+    <Content Include="App_Themes\Default\images\loader_small.gif" />
+    <Content Include="App_Themes\Default\images\mail_send.png" />
+    <Content Include="App_Themes\Default\images\menu_button_bg.gif" />
+    <Content Include="App_Themes\Default\images\empty_screen_cases.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_companies.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_deals.png" />
+    <Content Include="App_Themes\Default\images\empty_screen_tasks.png" />
+    <Content Include="App_Themes\Default\images\progress.gif" />
+    <Content Include="App_Themes\Default\images\task_category_call.png" />
+    <Content Include="App_Themes\Default\images\task_category_deal.png" />
+    <Content Include="App_Themes\Default\images\task_category_demo.png" />
+    <Content Include="App_Themes\Default\images\task_category_email.png" />
+    <Content Include="App_Themes\Default\images\task_category_fax.png" />
+    <Content Include="App_Themes\Default\images\task_category_follow_up.png" />
+    <Content Include="App_Themes\Default\images\task_category_lunch.png" />
+    <Content Include="App_Themes\Default\images\task_category_meeting.png" />
+    <Content Include="App_Themes\Default\images\task_category_note.png" />
+    <Content Include="App_Themes\Default\images\task_category_ship.png" />
+    <Content Include="App_Themes\Default\images\task_category_social_networks.png" />
+    <Content Include="App_Themes\Default\images\task_category_thank_you.png" />
+    <Content Include="App_Themes\Default\images\tr_off.png" />
+    <Content Include="App_Themes\Default\images\tr_on.png" />
+    <Content Include="App_Themes\Default\images\web_to_leads.png" />
+    <Content Include="Controls\Cases\CasesFullCardView.ascx" />
+    <Content Include="Controls\Common\DashboardEmptyScreen.ascx" />
+    <Content Include="Controls\Common\NavigationSidePanel.ascx" />
+    <Content Include="Controls\Contacts\ContactFullCardView.ascx" />
+    <Content Include="Controls\Contacts\ListContactView.ascx" />
+    <Content Include="Controls\Common\ImportFromCSVView.ascx" />
+    <Content Include="Controls\Deals\DealFullCardView.ascx" />
+    <Content Include="Controls\Deals\ListDealView.ascx" />
+    <Content Include="Controls\Settings\DealMilestoneView.ascx" />
+    <Content Include="Controls\Settings\TagSettingsView.ascx" />
+    <Content Include="Controls\Settings\TaskTemplateView.ascx" />
+    <Content Include="Controls\SocialMedia\ContactsSearchView.ascx" />
+    <Content Include="Controls\Tasks\ListTaskView.ascx" />
+    <Content Include="Help.aspx" />
+    <Content Include="HttpHandlers\WebToLeadFromHandler.ashx" />
+    <Content Include="js\cases.js" />
+    <Content Include="js\common.js" />
+    <Content Include="js\contacts.js" />
+    <Content Include="js\deals.js" />
+    <Content Include="js\fileUploader.js" />
+    <Content Include="js\reports.js" />
+    <Content Include="js\settings.js" />
+    <Content Include="js\socialmedia.js" />
+    <Content Include="js\tasks.js" />
+    <Content Include="Masters\CommonBodyScripts.ascx" />
+    <Content Include="Masters\SettingsBodyScripts.ascx" />
+    <Content Include="Masters\Styles.ascx" />
+    <Content Include="Templates\CasesTemplates.ascx" />
+    <Content Include="Templates\CommonCustomFieldsTemplates.ascx" />
+    <Content Include="Templates\CommonTemplates.ascx" />
+    <Content Include="Templates\ContactInfoCardTemplate.ascx" />
+    <Content Include="Templates\ContactSelectorTemplates.ascx" />
+    <Content Include="Templates\ContactsTemplates.ascx" />
+    <Content Include="Templates\DealsTemplates.ascx" />
+    <Content Include="Templates\InvoicesTemplates.ascx" />
+    <Content Include="Templates\SettingsTemplates.ascx" />
+    <Content Include="Templates\SimpleContactListTemplate.ascx" />
+    <Content Include="Templates\TasksTemplates.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HttpHandlers\FileHandler.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="InvoiceTemplates\template.docx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\common.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\base.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\tasks.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\cases.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\deals.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\contacts.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\socialmedia.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\settings.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\invoices.less" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="BeforeBuild">
+    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
+  </Target>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile-&gt;'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath-&gt;'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+    <CreateItem Include="$(ProjectDir)**\*.css">
+      <Output TaskParameter="Include" ItemName="CssFiles" />
+    </CreateItem>
+    <CreateItem Include="$(ProjectDir)**\*.js">
+      <Output TaskParameter="Include" ItemName="JavaScriptFiles" />
+    </CreateItem>
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51843</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

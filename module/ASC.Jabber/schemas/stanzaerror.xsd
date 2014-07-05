@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:ietf:params:xml:ns:xmpp-stanzas'
+    xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'
+    elementFormDefault='qualified'>
+
+  <xs:import namespace='http://www.w3.org/XML/1998/namespace'
+             schemaLocation='http://www.w3.org/2001/03/xml.xsd'/>
+
+  <xs:element name='bad-request' type='empty'/>
+  <xs:element name='conflict' type='empty'/>
+  <xs:element name='feature-not-implemented' type='empty'/>
+  <xs:element name='forbidden' type='empty'/>
+  <xs:element name='gone' type='xs:string'/>
+  <xs:element name='internal-server-error' type='empty'/>
+  <xs:element name='item-not-found' type='empty'/>
+  <xs:element name='jid-malformed' type='empty'/>
+  <xs:element name='not-acceptable' type='empty'/>
+  <xs:element name='not-allowed' type='empty'/>
+  <xs:element name='payment-required' type='empty'/>
+  <xs:element name='recipient-unavailable' type='empty'/>
+  <xs:element name='redirect' type='xs:string'/>
+  <xs:element name='registration-required' type='empty'/>
+  <xs:element name='remote-server-not-found' type='empty'/>
+  <xs:element name='remote-server-timeout' type='empty'/>
+  <xs:element name='resource-constraint' type='empty'/>
+  <xs:element name='service-unavailable' type='empty'/>
+  <xs:element name='subscription-required' type='empty'/>
+  <xs:element name='undefined-condition' type='empty'/>
+  <xs:element name='unexpected-request' type='empty'/>
+
+  <xs:group name='stanzaErrorGroup'>
+    <xs:choice>
+      <xs:element ref='bad-request'/>
+      <xs:element ref='conflict'/>
+      <xs:element ref='feature-not-implemented'/>
+      <xs:element ref='forbidden'/>
+      <xs:element ref='gone'/>
+      <xs:element ref='internal-server-error'/>
+      <xs:element ref='item-not-found'/>
+      <xs:element ref='jid-malformed'/>
+      <xs:element ref='not-acceptable'/>
+      <xs:element ref='not-allowed'/>
+      <xs:element ref='payment-required'/>
+      <xs:element ref='recipient-unavailable'/>
+      <xs:element ref='redirect'/>
+      <xs:element ref='registration-required'/>
+      <xs:element ref='remote-server-not-found'/>
+      <xs:element ref='remote-server-timeout'/>
+      <xs:element ref='resource-constraint'/>
+      <xs:element ref='service-unavailable'/>
+      <xs:element ref='subscription-required'/>
+      <xs:element ref='undefined-condition'/>
+      <xs:element ref='unexpected-request'/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:element name='text'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute ref='xml:lang' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

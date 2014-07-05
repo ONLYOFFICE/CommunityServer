@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema 
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/geoloc' 
+    xmlns='http://jabber.org/protocol/geoloc'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0080: http://www.xmpp.org/extensions/xep-0080.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='geoloc'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0'>
+        <xs:element name='accuracy' minOccurs='0' type='xs:decimal'/>
+        <xs:element name='alt' minOccurs='0' type='xs:decimal'/>
+        <xs:element name='area' minOccurs='0' type='xs:string'/>
+        <xs:element name='bearing' minOccurs='0' type='xs:decimal'/>
+        <xs:element name='building' minOccurs='0' type='xs:string'/>
+        <xs:element name='country' minOccurs='0' type='xs:string'/>
+        <xs:element name='countrycode' minOccurs='0' type='xs:string'/>
+        <xs:element name='datum' minOccurs='0' type='xs:string'/>
+        <xs:element name='description' minOccurs='0' type='xs:string'/>
+        <xs:element name='error' minOccurs='0' type='xs:decimal'/>
+        <xs:element name='floor' minOccurs='0' type='xs:string'/>
+        <xs:element name='lat' minOccurs='0' type='xs:decimal'/>
+        <xs:element name='locality' minOccurs='0' type='xs:string'/>
+        <xs:element name='lon' minOccurs='0' type='xs:decimal'/>
+        <xs:element name='postalcode' minOccurs='0' type='xs:string'/>
+        <xs:element name='region' minOccurs='0' type='xs:string'/>
+        <xs:element name='room' minOccurs='0' type='xs:string'/>
+        <xs:element name='speed' minOccurs='0' type='xs:decimal'/>
+        <xs:element name='street' minOccurs='0' type='xs:string'/>
+        <xs:element name='text' minOccurs='0' type='xs:string'/>
+        <xs:element name='timestamp' minOccurs='0' type='xs:dateTime'/>
+        <xs:element name='uri' minOccurs='0' type='xs:anyURI'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

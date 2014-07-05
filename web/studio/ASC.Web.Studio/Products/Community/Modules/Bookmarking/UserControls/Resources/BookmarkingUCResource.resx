@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBookmarkLink" xml:space="preserve">
+    <value>Create bookmark</value>
+  </data>
+  <data name="AddBookmarkMessage" xml:space="preserve">
+    <value>Please add your bookmarks {0}here{1}.</value>
+  </data>
+  <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
+    <value>Add bookmark to favorites</value>
+  </data>
+  <data name="AddToFavourite" xml:space="preserve">
+    <value>Add to favorites</value>
+  </data>
+  <data name="AllBookmarks" xml:space="preserve">
+    <value>All Bookmarks</value>
+  </data>
+  <data name="AllBookmarksLink" xml:space="preserve">
+    <value>All Bookmarks</value>
+  </data>
+  <data name="AtoZ" xml:space="preserve">
+    <value>A-Z</value>
+  </data>
+  <data name="BookmaredBy" xml:space="preserve">
+    <value>Bookmarked by</value>
+  </data>
+  <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
+    <value>Creating Bookmark...</value>
+  </data>
+  <data name="BookmarkDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="BookmarkDetailsLinkTitle" xml:space="preserve">
+    <value>Bookmark detailed description</value>
+  </data>
+  <data name="BookmarkedBy" xml:space="preserve">
+    <value>Bookmarked by</value>
+  </data>
+  <data name="BookmarkingSearch" xml:space="preserve">
+    <value>Search in bookmarks</value>
+  </data>
+  <data name="BookmarkName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="BookmarkRaitingLinkTitle" xml:space="preserve">
+    <value>Number of people who added this bookmark to favorites</value>
+  </data>
+  <data name="BookmarksNavigationItem" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="BookmarkTagDescription" xml:space="preserve">
+    <value>Enter the needed tags separating them with commas</value>
+  </data>
+  <data name="BookmarkUrl" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CheckBookmarkUrlButton" xml:space="preserve">
+    <value>Check URL</value>
+  </data>
+  <data name="CheckingUrlIsInProgressLabel" xml:space="preserve">
+    <value>Checking URL...</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="CommentsGenitivePlural" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="CommentsGenitiveSingular" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="CommentsLabel" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="CommentsLinkTitle" xml:space="preserve">
+    <value>Go to bookmark comments</value>
+  </data>
+  <data name="CommentsNominative" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="CreateNewBookmarkLinkTitle" xml:space="preserve">
+    <value>Create new bookmark</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="EditFavouriteBookmarkLink" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditFavouriteBookmarkLinkTitle" xml:space="preserve">
+    <value>Edit bookmark</value>
+  </data>
+  <data name="EditFavouriteBookmarkTitle" xml:space="preserve">
+    <value>Edit bookmark</value>
+  </data>
+  <data name="EmptyBookmarkUrlErrorMessage" xml:space="preserve">
+    <value>The bookmark URL field cannot be empty</value>
+  </data>
+  <data name="EmptyScreenCaption" xml:space="preserve">
+    <value>No bookmarks have been added yet</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>No bookmarks found</value>
+  </data>
+  <data name="EmptyScreenLink" xml:space="preserve">
+    <value>Create the first bookmark</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Create your bookmarks, store and share useful information with your colleagues directly on your portal saving links to web resources which allow you to easily get back to your favorite place.</value>
+  </data>
+  <data name="FavouritesNavigationItem" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="MostRecentLabel" xml:space="preserve">
+    <value>Most Recent</value>
+  </data>
+  <data name="NoBookmarksMessage" xml:space="preserve">
+    <value>There are no bookmarks.</value>
+  </data>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="PopularityLabel" xml:space="preserve">
+    <value>Most Popular</value>
+  </data>
+  <data name="RemoveBookmarkFromFavouritesLinkTitle" xml:space="preserve">
+    <value>Remove bookmark from favorites</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to remove the {0} bookmark from favorites?</value>
+  </data>
+  <data name="RemoveFromFavouriteTitle" xml:space="preserve">
+    <value>Remove Bookmark</value>
+  </data>
+  <data name="RemovingBookmarkFromFavouriteIsInProgressLabel" xml:space="preserve">
+    <value>Removing Bookmark...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Search Results</value>
+  </data>
+  <data name="ShowLabel" xml:space="preserve">
+    <value>Show:</value>
+  </data>
+  <data name="SubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Subscribe to comments</value>
+  </data>
+  <data name="SubscribeOnRecentBookmarks" xml:space="preserve">
+    <value>Subscribe to bookmarks</value>
+  </data>
+  <data name="TagBookmarks" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TopOfTheDayLabel" xml:space="preserve">
+    <value>Top of the Day</value>
+  </data>
+  <data name="UnSubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Unsubscribe from comments</value>
+  </data>
+  <data name="UnSubscribeOnRecentBookmarks" xml:space="preserve">
+    <value>Unsubscribe from bookmarks</value>
+  </data>
+  <data name="WeekLabel" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Show on page</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="AddNewBookmark" xml:space="preserve">
+    <value>Add new bookmark</value>
+  </data>
+</root>

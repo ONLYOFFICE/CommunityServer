@@ -1,0 +1,759 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+
+/* Studio Fix */
+div#studioPageContent{padding:0;}
+div.mainPageLayout{background:none; width:auto; min-width:600px; margin:0;}
+
+body{background:#0E4F6D; border:0; margin:0; padding:0; overflow:hidden; cursor:default; -webkit-tap-highlight-color:rgba(0, 0, 0, 0);}
+
+#uvw-overlay{display:none !important;}
+#uvTab{display:none !important;}
+
+form{border:0; margin:0; padding:0;}
+
+form#aspnetForm{height:auto !important;}
+
+div#studioPageContent{background:#0E4F6D url(imagescss/bg-page.png) left top repeat-x; overflow:hidden;}
+* html div#studioPageContent, * + html div#studioPageContent{background-color:#0A4462;}
+div.mainPageLayout{padding:10px 10px 0; overflow:hidden;}
+
+div.group-dragable, div.contact-dragable, div.tab-dragable{background:#FFF; border:1px dotted #A9A9A9; height:25px; line-height:25px; cursor:pointer; opacity:0.75; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=75);}
+div.group-dragable div.state, div.contact-dragable div.state, div.tab-dragable div.state{width:24px; height:100%; position:absolute; left:0; top:0; z-index:1;}
+div.group-dragable div.title, div.contact-dragable div.title, div.tab-dragable div.title{height:100%; padding:0 5px 0 25px; overflow:hidden; position:relative; z-index:2; white-space:nowrap;}
+div.group-dragable div.background, div.contact-dragable div.background, div.tab-dragable div.background{display:none; width:100%; height:100%; position:absolute; left:0; top:0; z-index:0;}
+div.group-dragable div.title{font-weight:bold;}
+div.contact-dragable div.title{font-weight:normal;}
+div.group-dragable div.state{background:url(imagescss/bg-states.png) -384px center;}
+div.contact-dragable div.state{background:url(imagescss/bg-states.png) -24px center;}
+div.contact-dragable.online div.state{background-position:-48px center;}
+div.contact-dragable.away div.state{background-position:-72px center;}
+div.contact-dragable.xa div.state{background-position:-96px center;}
+
+div.tab-dragable{background:transparent; border:0; height:30px; line-height:30px;}
+div.tab-dragable div.background{display:block;}
+div.tab-dragable div.background div.helper{background:url(imagescss/bg-tab.png) left -31px repeat-x; height:100%; margin:0 3px; position:relative; z-index:0;}
+div.tab-dragable div.background div.left-side, div.tab-dragable div.background div.right-side{background:url(imagescss/bg-tab.png) no-repeat; height:100%; overflow:hidden; position:absolute; top:0; z-index:1;}
+div.tab-dragable div.background div.left-side{background-position:left top; width:10px; left:0;}
+div.tab-dragable div.background div.right-side{background-position:right top; width:80px; right:0;}
+div.tab-dragable div.state{background:url(imagescss/bg-states.png) -24px center; left:8px;}
+div.tab-dragable div.title{padding:0 30px 0 36px;}
+body.brwr-firefox-4 div.tab-dragable div.title,
+body.brwr-firefox-5 div.tab-dragable div.title,
+body.brwr-firefox-6 div.tab-dragable div.title{margin-right:30px; padding-right:0;}
+div.tab-dragable.current div.background div.helper{background-position:left -94px;}
+div.tab-dragable.current div.background div.left-side{background-position:left -63px;}
+div.tab-dragable.current div.background div.right-side{background-position:right -63px;}
+div.tab-dragable.online div.state{background-position:-48px center;}
+div.tab-dragable.away div.state{background-position:-72px center;}
+div.tab-dragable.xa div.state{background-position:-96px center;}
+div.tab-dragable.master div.state{background-position:-120px center;}
+
+span.hl-text{background-color:#FF0;}
+
+div.textfield{background:#FFF url(imagescss/bg-searchfield.gif) left center no-repeat; border:1px solid #C7C7C7; padding:0 0 0 18px;}
+div.textfield input{display:block; border:0 !important; width:98%; height:16px; margin:0 auto; padding:2px 1px; outline:none;}
+
+div.custom-select{height:20px; line-height:20px; position:relative; overflow:visible; cursor:default;}
+div.custom-select div.title{background:#FFF url(imagescss/btn-collapce.gif) right center no-repeat; border:1px solid #C7C7C7; height:100%; padding:0 24px 0 2px; overflow:hidden; white-space:nowrap; position:relative; z-index:1; cursor:pointer;}
+div.custom-select div.helper{width:100%; height:1px; line-height:1px; position:absolute; left:0; bottom:-1; z-index:1;}
+div.custom-select div.helper ul.options{list-style:none; display:none; background:#FFF; border:1px solid #C7C7C7; border-width:0 1px 1px; margin:0; padding:1px; position:relative;}
+div.custom-select div.helper ul.options li.option{background:#FFF; height:16px; line-height:16px; margin:0; overflow:hidden; white-space:nowrap; color:#000; cursor:pointer;}
+div.custom-select div.helper ul.options li.option:hover{background-color:#67AEE2; color:#FFF;}
+div.custom-select.open div.helper ul.options{display:block;}
+
+div#talkWrapper{background:#F5F5F5 url(imagescss/bg-form.png) left -80px repeat-x; border-bottom:1px solid #BDBDBD; padding:0 0 10px; position:relative; zoom:1;margin-bottom:-24px;}
+div#talkWrapper div.left-side, div#talkWrapper div.right-side{background:url(imagescss/bg-form.png) no-repeat; width:10px; height:80px; line-height:80px; overflow:hidden; position:absolute; top:0; z-index:0;}
+div#talkWrapper div.left-side{background-position:left top; left:0;}
+div#talkWrapper div.right-side{background-position:right top; right:0;}
+* html div#talkWrapper div.right-side{right:-1px;}
+div#talkWrapper div.container{position:relative; z-index:1;}
+
+div#talkDialogsContainer{display:none; width:100%; height:100%; position:absolute; left:0; top:0; z-index:2;}
+div#talkDialogsContainer div.background{background:#F5F5F5; width:100%; height:100%; position:absolute; left:0; top:0; z-index:0; cursor:default; opacity:0.5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);}
+div#talkDialogsContainer div.dialog{display:none; position:absolute; top:50%; left:50%; z-index:1;}
+div#talkDialogsContainer div.dialog div.head{width:100%; height:24px; line-height:24px; position:absolute; left:0; top:-24px; cursor:default; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.head div.left-side, div#talkDialogsContainer div.dialog div.head div.right-side{background:url(imagescss/bg-dialog-header.png) left top no-repeat; width:22px; height:100%; position:absolute; top:0; z-index:0; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.head div.left-side{background-position:left top; left:0;}
+div#talkDialogsContainer div.dialog div.head div.right-side{background-position:right top; right:0;}
+div#talkDialogsContainer div.dialog div.head div.title{background:#347998 url(imagescss/bg-dialog-header.png) left bottom repeat-x; height:100%; font-weight:bold; margin:0 22px 0 10px; overflow:hidden; position:relative; z-index:1; color:#FFF; white-space:nowrap; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.head div.button-talk{width:13px; height:13px; line-height:13px; overflow:hidden; position:absolute; z-index:2; cursor:pointer; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.head div.button-talk.close-dialog{background:url(imagescss/btn-dialog-close.png) center 0 no-repeat; top:5px; right:5px;}
+div#talkDialogsContainer div.dialog div.head div.button-talk.close-dialog:hover{background-position:center -13px;}
+
+div#talkDialogsContainer div.dialog div.content{background:#4D8FAD; border:1px solid #1F5E7A; border-width:0 1px 1px; cursor:default;}
+div#talkDialogsContainer div.dialog div.content div.in{background:#F5F5F5; border:1px solid #286A88; border-width:0 1px 1px; margin:0 1px 1px; padding:1px 0 0;}
+div#talkDialogsContainer div.dialog div.content div.body{border-bottom:1px solid #D6D6D6; margin:20px 1px 0; padding:0 24px 15px; position:relative; z-index:0;}
+div#talkDialogsContainer div.dialog div.content div.body div.singlefield{line-height:30px; position:relative; overflow:hidden; text-align:center; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.body span.label{font-weight:bold; text-transform:capitalize; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.body div.field{line-height:20px; margin:10px 0 0; position:relative;}
+div#talkDialogsContainer div.dialog div.content div.body div.field.hint{height:40px;}
+div#talkDialogsContainer div.dialog div.content div.body table.field{line-height:20px; margin:10px 0 0; padding:0; border:0; border-collapse:collapse;}
+div#talkDialogsContainer div.dialog div.content div.body table.field td{margin:0; padding:0; border:0; border-collapse:collapse;}
+div#talkDialogsContainer div.dialog div.content div.body div.field label{position:absolute; left:0; top:0; white-space:nowrap; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.body div.field label.hint{left:65px; top:auto; bottom:0; font-size:11px; color:#666;}
+div#talkDialogsContainer div.dialog div.content div.body table.field label{position:static; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.body div.field input.checkbox{margin:0; padding:0;}
+div#talkDialogsContainer div.dialog div.content div.body table.field input.checkbox{margin:0 5px 0 0; padding:0;}
+div#talkDialogsContainer div.dialog div.content div.body div.field div.textfield{background:#FFF; border:1px solid #BDBDBD; margin:0 0 0 65px; padding:0;}
+div#talkDialogsContainer div.dialog div.content div.body div.field div.textfield div.value{background:#FAFAFA; border:0; width:99%; height:16px; line-height:16px; margin:0 auto; padding:1px; overflow:hidden; font-size:12px; cursor:text;}
+div#talkDialogsContainer div.dialog div.content div.body div.field div.textfield div.value.multiline{height:60px; overflow-x:hidden; overflow-y:scroll; word-wrap:break-word; -moz-binding:none !important;}
+div#talkDialogsContainer div.dialog div.content div.body div.field div.textfield input{display:block; background:#FFF; border:0; width:99%; margin:0 auto; padding:1px; font-size:13px;}
+div#talkDialogsContainer div.dialog div.content div.body div.field div.textfield textarea{display:block; background:#FFF; border:0; width:99%; height:60px; margin:0 auto; padding:1px; overflow-x:hidden; overflow-y:scroll; font-size:13px;}
+div#talkDialogsContainer div.dialog div.content div.body div.field div.textfield.invalid-field{border-color:#F00;}
+div#talkDialogsContainer div.dialog div.content div.toolbar{border-top:1px solid #FFF; height:33px; padding:11px 0 0; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container{height:22px; line-height:22px; margin:0 10px; position:relative; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.checkbox-container{width:auto; height:100%; float:right; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.checkbox-container table{height:100%; margin:0; padding:0; border:0; border-collapse:collapse; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.checkbox-container table td{height:100%; margin:0; padding:0; border:0; border-collapse:collapse; vertical-align:middle; white-space:nowrap; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.button-container{background:url(imagescss/bg-button-blue01.png) repeat-x left -22px; width:auto; height:100%; margin:0 0 0 10px; float:right; overflow:hidden; position:relative; color:#FFF; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.button-container div.left-side, div#talkDialogsContainer div.dialog div.toolbar div.container div.button-container div.right-side{background:url(imagescss/bg-button-blue01.png) no-repeat; width:5px; height:100%; overflow:hidden; position:absolute; top:0; z-index:0; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.button-container div.left-side{background-position:left 0; left:0;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.button-container div.right-side{background-position:right 0; right:0;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.button-container div.button-talk{min-width:110px; height:100%; position:relative; z-index:1; text-align:center; cursor:pointer; -moz-user-select:none;}
+* html div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.button-container div.button-talk{width:110px;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.button-container.grey{background-image:url(imagescss/bg-button-grey01.png); color:#000;}
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.button-container.grey div.left-side, div#talkDialogsContainer div.dialog div.toolbar div.container div.button-container.grey div.right-side{background-image:url(imagescss/bg-button-grey01.png);}
+
+div#talkDialogsContainer div.dialog div.content div.toolbar div.container div.checkbox-container.toggle-browser-notifications-dialog{float:left;}
+
+div#talkDialogsContainer div.dialog.create-room{width:390px; height:135px; margin:-68px 0 0 -195px;}
+div#talkDialogsContainer div.dialog.remove-room{width:350px; height:105px; margin:-53px 0 0 -175px;}
+div#talkDialogsContainer div.dialog.recv-invite{width:350px; height:155px; margin:-78px 0 0 -175px;}
+div#talkDialogsContainer div.dialog.kick-occupant{width:350px; height:95px; margin:-48px 0 0 -175px;}
+div#talkDialogsContainer div.dialog.create-mailing{width:390px; height:105px; margin:-53px 0 0 -195px;}
+div#talkDialogsContainer div.dialog.browser-notifications{width:400px; height:191px; margin:-96px 0 0 -200px;}
+
+div#talkDialogsContainer.create-room{display:block;}
+div#talkDialogsContainer.remove-room{display:block;}
+div#talkDialogsContainer.recv-invite{display:block;}
+div#talkDialogsContainer.kick-occupant{display:block;}
+div#talkDialogsContainer.create-mailing{display:block;}
+div#talkDialogsContainer.browser-notifications{display:block;}
+
+div#talkDialogsContainer div.dialog div.body div.block.toggle-notifications{background-color:transparent; height:150px; margin:0 32px; position:relative; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.body div.block.toggle-notifications div.button-talk{background:#FFF url(imagescss/bg-notifications-icon.png) center 0 no-repeat; border:1px solid #F5F5F5; width:138px; height:138px; position:absolute; top:0; -moz-user-select:none;}
+div#talkDialogsContainer div.dialog div.body div.block.toggle-notifications div.button-talk.notifications-allow{background-position:center 5px; left:0;}
+div#talkDialogsContainer div.dialog div.body div.block.toggle-notifications div.button-talk.notifications-delay{background-position:center -123px; right:0;}
+
+div#talkDialogsContainer div.dialog div.body div.block.toggle-notifications div.button-talk.notifications-allow{border-color:#999; cursor:default;}
+div#talkDialogsContainer div.dialog div.body div.block.toggle-notifications div.button-talk.notifications-delay{border-color:#F5F5F5; cursor:pointer;}
+div#talkDialogsContainer div.dialog div.body div.block.toggle-notifications.disabled div.button-talk.notifications-allow{border-color:#F5F5F5; cursor:pointer;}
+div#talkDialogsContainer div.dialog div.body div.block.toggle-notifications.disabled div.button-talk.notifications-delay{border-color:#999; cursor:default;}
+
+div#talkTabContainer{height:80px; overflow:hidden;}
+div#talkTabContainer div.navigation{display:none; background:url(imagescss/bg-navigation.png) left center no-repeat; width:35px; height:30px; position:absolute; top:3px; right:5px;}
+div#talkTabContainer div.navigation div.button-container{background:url(imagescss/bg-navbuttons.png) no-repeat; width:13px; height:20px; position:absolute; top:5px; cursor:default;}
+div#talkTabContainer div.navigation div.button-container div.button-talk{display:none; width:100%; height:100%; cursor:pointer;}
+* html div#talkTabContainer div.navigation div.button-container{background-image:url(imagescss/bg-navbuttons.gif);}
+div#talkTabContainer div.navigation div.button-container.move-to-left{background-position:-13px center; left:7px;}
+div#talkTabContainer div.navigation div.button-container.move-to-right{background-position:-26px center; right:1px;}
+
+div#talkTabContainer ul.tabs{list-style:none; height:31px; margin:8px 0 0 0; padding:0; overflow:hidden; position:relative;}
+div#talkTabContainer ul.tabs li.tab{width:auto; max-width:300px; min-width:150px; height:31px; line-height:31px; margin:0 2px 0 0; float:left; cursor:pointer; position:relative; overflow:hidden; zoom:1; -moz-user-select:none;}
+* html div#talkTabContainer ul.tabs li.tab, * + html div#talkTabContainer ul.tabs li.tab{overflow:visible;}
+div#talkTabContainer ul.tabs li.tab div.separator{display:none;}
+div#talkTabContainer ul.tabs li.tab div.background{width:100%; height:100%; position:absolute; left:0; top:0; z-index:0;}
+* html div#talkTabContainer ul.tabs li.tab div.background{width:expression(this.offsetParent.offsetWidth + 'px');}
+div#talkTabContainer ul.tabs li.tab div.background div.helper{background:url(imagescss/bg-tab.png) left -31px repeat-x; height:100%; margin:0 3px;}
+div#talkTabContainer ul.tabs li.tab div.left-side, div#talkTabContainer ul.tabs li.tab div.right-side{background:url(imagescss/bg-tab.png) no-repeat; height:100%; overflow:hidden; position:absolute; top:0; z-index:1;}
+div#talkTabContainer ul.tabs li.tab div.left-side{background-position:left top; width:10px; left:0;}
+div#talkTabContainer ul.tabs li.tab div.right-side{background-position:right top; width:80px; right:0;}
+div#talkTabContainer ul.tabs li.tab div.container{width:auto; min-width:150px; height:100%; overflow:hidden; position:relative; z-index:2;}
+* html div#talkTabContainer ul.tabs li.tab div.container{width:expression(this.width > 400 ? 400 : this.width < 150 ? 150 : true);}
+div#talkTabContainer ul.tabs li.tab div.container div.button-talk{width:11px; height:11px; line-height:11px; overflow:hidden; position:absolute; z-index:2; cursor:pointer;}
+div#talkTabContainer ul.tabs li.tab div.container div.button-talk.close{background:url(imagescss/btn-close.png) center 0 no-repeat; top:11px; right:10px;}
+div#talkTabContainer ul.tabs li.tab div.container div.button-talk.close:hover{background-position:center -11px;}
+div#talkTabContainer ul.tabs li.tab div.container div.state{background:url(imagescss/bg-states.png) -24px center no-repeat; width:24px; height:100%; overflow:hidden; position:absolute; left:8px; top:0; z-index:0;}
+* html div#talkTabContainer ul.tabs li.tab div.container div.state{background-image:url(imagescss/bg-states.gif);}
+div#talkTabContainer ul.tabs li.tab div.container div.tab-title{height:30px; padding:0 30px 0 36px; overflow:hidden; white-space:nowrap; color:#111; font-size:12px; position:relative; z-index:1;}
+body.brwr-firefox-4 div#talkTabContainer ul.tabs li.tab div.container div.tab-title,
+body.brwr-firefox-5 div#talkTabContainer ul.tabs li.tab div.container div.tab-title,
+body.brwr-firefox-6 div#talkTabContainer ul.tabs li.tab div.container div.tab-title{margin-right:30px; padding-right:0;}
+* html div#talkTabContainer ul.tabs li.tab div.container div.tab-title, * + html div#talkTabContainer ul.tabs li.tab div.container div.tab-title{margin-right:30px;}
+div#talkTabContainer ul.tabs li.tab.default{display:none;}
+div#talkTabContainer ul.tabs li.tab.selected{display:none;}
+div#talkTabContainer ul.tabs li.tab.mouseover{margin-left:25px;}
+div#talkTabContainer ul.tabs li.tab.current{cursor:default;}
+div#talkTabContainer ul.tabs li.tab.current div.background div.helper{background-position:left -94px;}
+div#talkTabContainer ul.tabs li.tab.current div.left-side{background-position:left -63px;}
+div#talkTabContainer ul.tabs li.tab.current div.right-side{background-position:right -63px;}
+div#talkTabContainer ul.tabs li.tab.offline div.container div.state{background-position:-24px center;}
+div#talkTabContainer ul.tabs li.tab.online div.container div.state{background-position:-48px center;}
+div#talkTabContainer ul.tabs li.tab.away div.container div.state{background-position:-72px center;}
+div#talkTabContainer ul.tabs li.tab.xa div.container div.state{background-position:-96px center;}
+div#talkTabContainer ul.tabs li.tab.master div.container div.state{background-position:-120px center;}
+div#talkTabContainer ul.tabs li.tab.conference div.container div.state{background-position: -144px center;}
+div#talkTabContainer ul.tabs li.tab.mailing div.container div.state{background-position: -168px center;}
+div#talkTabContainer ul.tabs li.tab.typing div.container div.state{background:url(imagescss/ind-typing.gif) center center no-repeat;}
+div#talkTabContainer ul.tabs li.tab.new-message div.container div.state{background:url(imagescss/ind-incoming.gif) center center no-repeat;}
+div#talkTabContainer ul.tabs li.tab.hidden{display:none;}
+
+div#talkTabContainer div.info-block{background:url(imagescss/bg-infoblock.png) left bottom repeat-x; width:auto; max-width:96%; height:30px; line-height:30px; margin:6px 0 0 10px; float:left; overflow:hidden; position:relative;}
+* html div#talkTabContainer div.info-block{width:96% !important;}
+* html div#talkTabContainer div.info-block{float:none; margin:6px 10px 0;}
+div#talkTabContainer div.info-block div.left-side, div#talkTabContainer div.info-block div.right-side{display:block; background:url(imagescss/bg-infoblock.png) no-repeat; width:20px; height:100%; overflow:hidden; position:absolute; top:0; z-index:0;}
+div#talkTabContainer div.info-block div.left-side{background-position:left top; left:0;}
+div#talkTabContainer div.info-block div.right-side{background-position:right top; right:0;}
+* html div#talkTabContainer div.info-block div.right-side{right:-1px;}
+div#talkTabContainer div.info-block div.container{display:block; height:100%; position:relative; z-index:1;}
+div#talkTabContainer div.info-block div.container div.state{display:block; background:url(imagescss/bg-states.png) 0 center no-repeat; height:100%; width:24px; position:absolute; left:10px; top:0;}
+* html div#talkTabContainer div.info-block div.container div.state{background-image:url(imagescss/bg-states.gif);}
+div#talkTabContainer div.info-block div.container div.title{display:block; height:100%; margin:0 20px 0 38px; white-space:nowrap; color:#111; font-size:12px; overflow:hidden;}
+div#talkTabContainer div.info-block div.container span.chat{display:none; height:100%; overflow:hidden;}
+div#talkTabContainer div.info-block div.container span.chat span.department{margin:0 6px 0 0;}
+div#talkTabContainer div.info-block div.container span.chat span.separator{}
+div#talkTabContainer div.info-block div.container span.chat span.show{margin:0 0 0 3px; font-weight:bold;}
+div#talkTabContainer div.info-block div.container span.chat span.message{margin:0 0 0 3px;}
+div#talkTabContainer div.info-block div.container span.conference{display:none; height:100%; overflow:hidden;}
+div#talkTabContainer div.info-block div.container span.conference span.separator{}
+div#talkTabContainer div.info-block div.container span.conference span.conference-subject{margin:0 0 0 3px; font-weight:bold;}
+div#talkTabContainer div.info-block div.container span.information{display:none; height:100%; overflow:hidden;}
+div#talkTabContainer div.info-block div.container span.hint{display:none; height:100%; overflow:hidden;}
+
+div#talkTabContainer div.info-block.chat div.container div.state{background-position: -192px center;}
+div#talkTabContainer div.info-block.chat div.container span.chat{display:block;}
+
+div#talkTabContainer div.info-block.conference div.container div.state{background-position: -192px center;}
+div#talkTabContainer div.info-block.conference div.container span.conference{display:block;}
+
+div#talkTabContainer div.info-block.information div.container div.state{background-position: -216px center;}
+div#talkTabContainer div.info-block.information div.container span.information{display:block;}
+
+div#talkTabContainer div.info-block.hint div.container div.state{background-position: -216px center;}
+div#talkTabContainer div.info-block.hint div.container span.hint{display:block;}
+
+div#talkTabContainer.overflow div.navigation{display:block;}
+div#talkTabContainer.overflow ul.tabs{margin-right:38px;}
+div#talkTabContainer.has-hidden div.navigation div.button-container.move-to-left div.button-talk{display:block;}
+div#talkTabContainer.has-repressed div.navigation div.button-container.move-to-right div.button-talk{display:block;}
+
+div#talkMainContainer{margin:10px 10px 0; overflow:hidden; position:relative;}
+
+div#talkStartSplash{display:none; background:#FFF url(imagescss/bg-bdbdbd.png) 0 0 repeat-x; border:1px solid #BDBDBD; border-width:0 1px 1px; height:100%; overflow:hidden; position:relative; z-index:3; -moz-user-select:none;}
+div#talkStartSplash div.background{background:#5596B4 none left center repeat-x; height:100%; margin:0 0px; position:relative; z-index:0; -moz-user-select:none;}
+* html div#talkStartSplash div.background, * + html div#talkStartSplash div.background{background-color:#4A8CAC;}
+div#talkStartSplash div.container{background:url(imagescss/blank.gif); width:420px; height:200px; margin:-100px 0 0 -240px; padding:0 60px 0 0; position:absolute; left:50%; top:50%; z-index:1; text-align:right; font:600 16px Arial,Tahoma,sans-serif; color:#095A7F; text-transform:uppercase; cursor:default; -moz-user-select:none;}
+div#talkStartSplash div.container div.label{background:url(imagescss/bg-startsplash-label.png) left -200px no-repeat; width:100%; height:124px; padding:76px 0 0; position:relative; z-index:1; -moz-user-select:none;}
+div#talkStartSplash div.container div.right-side{background:url(imagescss/bg-startsplash-label.png) right 0 no-repeat; width:60px; height:100%; position:absolute; right:0; top:0; z-index:1; -moz-user-select:none;}
+
+div#talkContentContainer{background:#F5F5F5; height:100%; position:relative; z-index:1;}
+div#talkContentContainer.disabled div#talkStartSplash{display:block;}
+div#talkContentContainer.disabled div#talkRoomsContainer{visibility:hidden;}
+div#talkContentContainer.disabled div#talkVertSlider{visibility:hidden;}
+div#talkContentContainer.disabled div#talkMeseditorContainer{border:0;}
+div#talkContentContainer.disabled div#talkMeseditorContainer div#talkTextareaContainer{background:#F5F5F5; border-color:#F5F5F5;}
+div#talkContentContainer.disabled div#talkMeseditorContainer div#talkTextareaContainer ul.textareas{display:none;}
+
+div#talkContentContainer.resizing div#talkRoomsContainer ul.rooms{display:none;}
+
+div#talkRoomsContainer{background:#FAFAFA; border:1px solid #BDBDBD; position:relative; top:0; z-index:1; cursor:default;}
+div#talkRoomsContainer.multichat{top:0;}
+div#talkRoomsContainer.multichat.minimized{top:36px;}
+
+div#talkRoomsContainer ul.rooms{list-style:none; height:100%; margin:0; padding:0; position:relative; z-index:1;}
+div#talkRoomsContainer ul.rooms li.room{background:#FFF; width:100%; height:100%; position:absolute; left:0; top:0; z-index:0; overflow:hidden; cursor:default;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel{display:none; width:100%; height:31px; position:absolute; left:-1px; top:-36px; z-index:4; font-size:12px; cursor:default;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.textfield.filtering-field{width:150px; margin:5px 5px 0; float:left;}
+* + html div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.textfield.filtering-field input{width:95%;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.custom-select.filtering-menu{width:120px; margin:5px 5px 0; float:left; -moz-user-select:none;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container{display:none; background:url(imagescss/bg-button-grey01.png) repeat-x 0 -22px; width:auto; height:22px; line-height:22px; margin:4px 5px 0; float:left; position:relative; overflow:hidden; color:#FFF;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container div.left-side, div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container div.right-side{background:url(imagescss/bg-button-grey01.png) no-repeat scroll top; width:5px; height:100%; position:absolute; top:0; z-index:0;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container div.left-side{background-position:left 0; left:0;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container div.right-side{background-position:right 0; right:0;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container div.button-state{background:url(imagescss/bg-states.png) 0 center no-repeat; width:24px; height:100%; position:absolute; left:0; top:0; z-index:1;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container div.button-label{height:100%; padding:0 5px 0 25px; position:relative; z-index:2; white-space:nowrap; font-size:12px; color:#666; cursor:default; -moz-user-select:none;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container div.button-talk{background:url(imagescss/blank.gif); width:100%; height:100%; position:absolute; left:0; top:0; z-index:3; cursor:pointer;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container.search-start{display:block; background:url(imagescss/bg-buttons.png) -156px 0 no-repeat; width:26px; height:22px; line-height:22px; margin-left:0; top:1px;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container.search-start div.button-talk{position:relative;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container.search-prev-message{display:block; background:url(imagescss/bg-search-navbuttons.png) 0 -22px no-repeat; width:25px; height:22px; line-height:22px; margin-left:0; top:1px;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container.search-prev-message div.button-talk{display:none; position:relative;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container.search-next-message{display:block; background:url(imagescss/bg-search-navbuttons.png) -25px -22px no-repeat; width:25px; height:22px; line-height:22px; margin-left:0; top:1px;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel div.button-container.search-next-message div.button-talk{display:none; position:relative;}
+
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel.found div.button-container.search-prev-message{background-position:0 0;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel.found div.button-container.search-prev-message div.button-talk{display:block;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel.found div.button-container.search-next-message{background-position:-25px 0;}
+div#talkRoomsContainer ul.rooms li.room div.filtering-panel.found div.button-container.search-next-message div.button-talk{display:block;}
+
+div#talkRoomsContainer ul.rooms li.room div.room-title{display:none; background:#ECECEC; border:1px solid #BDBDBD; border-bottom:0; width:100%; height:35px; line-height:30px; position:absolute; left:-1px; top:-37px; z-index:2; font-size:12px; cursor:default;}
+
+div#talkRoomsContainer ul.rooms li.room div.room-title div.size{display:none; height:30px; position:absolute; right:10px; top:0; z-index:1; white-space:nowrap; font-weight:bold;}
+div#talkRoomsContainer ul.rooms li.room div.room-title div.button-talk.toggle-minimizing{background:url(imagescss/bg-states.png) -456px center no-repeat; width:24px; height:100%; position:absolute; right:0; top:0; z-index:2; cursor:pointer;}
+* html div#talkRoomsContainer ul.rooms li.room div.room-title div.button-talk.toggle-minimizing{background-image:url(imagescss/bg-states.gif);}
+
+div#talkRoomsContainer ul.rooms li.room div.room-separator{display:none; background:url(imagescss/bg-conferencesep.png) left center repeat-x; width:100%; height:10px; line-height:10px; margin:-5px 0 0; position:absolute; left:0; top:50%; z-index:3; cursor:default; -moz-user-select:none;}
+div#talkRoomsContainer ul.rooms li.room div.room-separator div.button-talk{cursor:pointer;}
+div#talkRoomsContainer ul.rooms li.room div.room-separator div.button-talk.toggle-minimizing{background:url(imagescss/btn-conference-minimized.png) center 0 no-repeat; width:56px; height:12px; line-height:12px; margin:0 0 0 -28px; overflow:hidden; position:absolute; left:50%; top:5px; -moz-user-select:none;}
+* html div#talkRoomsContainer ul.rooms li.room div.room-separator div.button-talk.toggle-minimizing, * + html div#talkRoomsContainer ul.rooms li.room div.room-separator div.button-talk.toggle-minimizing{height:13px; line-height:13px;}
+
+div#talkRoomsContainer ul.rooms li.room div.sub-panel{display:none; background:#ECECEC; height:50%; overflow-x:auto; overflow-y:auto; position:relative; z-index:2; cursor:default; -moz-user-select:none;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel div.splash-contactlist{display:none; width:100%; height:90px; margin:-40px 0 0; overflow:hidden; position:absolute; top:50%; overflow:hidden; text-align:center; -moz-user-select:none;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel div.splash-contactlist span.label{display:inline-block; font:normal 16px Arial,Tahoma,sans-serif; color:#666; white-space:nowrap; position:relative; -moz-user-select:none;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel div.splash-contactlist span.label span.state{display:inline-block; background:url(imagescss/bg-conferencesplash-logo.png) center center no-repeat; width:110px; height:60px; margin:0 0 0 -55px; position:absolute; left:50%; top:0; z-index:0; -moz-user-select:none;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel div.splash-contactlist span.label span.title{display:inline-block; margin:70px 0 0; position:relative; z-index:1; -moz-user-select:none;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist{display:block; list-style:none; height:100%; margin:0; padding:0;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact{background:transparent; border-bottom:1px dotted #A9A9A9; width:50%; height:25px; line-height:25px; padding:0; float:left; position:relative; cursor:default;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact:hover{background-color:#F7F7F7;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.odd{width:49%; float:left;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.even{width:49%; float:right;}
+* html div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.odd, * html div#talkRoomsContainer ul.rooms li.room ul.contactlist li.contact.even{width:46%;}
+* + html div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.odd, * + html div#talkRoomsContainer ul.rooms li.room ul.contactlist li.contact.even{width:46%;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact div.title{height:100%; margin:0 5px 0 0; padding:0 0 0 25px; overflow:hidden; position:relative; z-index:1; cursor:default; white-space:nowrap;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact div.state{background:url(imagescss/bg-states.png) -24px center; width:24px; height:100%; position:absolute; left:0; top:0; z-index:0;}
+* html div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact div.state{background-image:url(imagescss/bg-states.gif);}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.online div.state{background-position:-48px center;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.away div.state{background-position:-72px center;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.xa div.state{background-position:-96px center;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.master div.state{background-position:-120px center;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.invited{}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.invited div.state{background:url(imagescss/bg-smallloader.gif) center center no-repeat !important;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact div.toolbar{display:none; height:100%; position:absolute; right:0; top:0; z-index:2; text-align:right; cursor:default;}
+* html div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact div.toolbar{display:block;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact div.toolbar div.button-talk{display:none; background:url(imagescss/bg-states.png) left center; width:24px; height:100%; float:right; margin:0 5px 0 0; cursor:pointer;}
+* html div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact div.toolbar div.button-talk{background-image:url(imagescss/bg-states.gif);}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact div.toolbar div.button-talk.remove-member{background-position: -288px center;}
+div#talkRoomsContainer ul.rooms li.room div.sub-panel ul.contactlist li.contact.default{display:none;}
+div#talkRoomsContainer ul.rooms li.room ul.messages{list-style:none; background:#FFF; height:100%; margin:0; padding:0; position:relative;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message{background:#FFF url(imagescss/bg-messages-separator.png) 40px 5px no-repeat; font-size:12px; padding:9px 15px 10px; word-wrap:break-word; cursor:text;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message div.head{display:none; background:url(imagescss/bg-messages-state-cnt.gif) 0 0 no-repeat; min-height:20px; line-height:20px; padding:0 0 0 20px; position:relative;}
+* html div#talkRoomsContainer ul.rooms li.room ul.messages li.message div.head{height:20px;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message div.head span.title{display:inline-block; height:100%; margin:0 0 0 4px; font-weight:bold; color:#24799E;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message div.head span.date{display:inline-block; height:100%; margin:0 0 0 4px; color:#BEBEBE;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message.own{background-color:#F7F7F7;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message.own div.head{background:url(imagescss/bg-messages-state-own.gif) 0 0 no-repeat;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message.own div.head span.title{color:#E05E5C;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message.unread{background-color:#F5F9FB;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message.paragraph{background-image:none; padding-top:10px;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message.paragraph div.head{display:block;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message.more{padding-bottom:0;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message div.body{margin:0 0 0 24px;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message div.body a{vertical-align:bottom;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message div.body img{vertical-align:bottom;}
+div#talkRoomsContainer ul.rooms li.room ul.messages li.message.default{display:none;}
+div#talkRoomsContainer ul.rooms li.room div.messages{width:100%; height:100%; position:absolute; left:0; bottom:0; z-index:1;}
+body.engn-ios div#talkRoomsContainer ul.rooms li.room div.messages, body.engn-android div#talkRoomsContainer ul.rooms li.room div.messages{height:auto;}
+body.engn-ios div#talkRoomsContainer ul.rooms li.room div.messages ul.messages, body.engn-android div#talkRoomsContainer ul.rooms li.room div.messages ul.messages{height:auto;}
+div#talkRoomsContainer ul.rooms li.room div.messages ul.messages{overflow-x:auto; overflow-y:auto;}
+div#talkRoomsContainer ul.rooms li.room div.history{width:100%; height:100%; position:absolute; left:0; bottom:0; z-index:0;}
+div#talkRoomsContainer ul.rooms li.room div.history ul.messages{overflow-x:auto; overflow-y:scroll;}
+
+div#talkRoomsContainer ul.rooms li.room div.messages.loading{background:#FFF url(imagescss/bg-largeloader.gif) center center no-repeat;}
+div#talkRoomsContainer ul.rooms li.room div.messages.loading ul.messages{display:none;}
+
+div#talkRoomsContainer ul.rooms li.room div.history.loading{background:#FFF url(imagescss/bg-largeloader.gif) center center no-repeat;}
+div#talkRoomsContainer ul.rooms li.room div.history.loading ul.messages{display:none;}
+
+div#talkRoomsContainer ul.rooms li.room.current{z-index:1; overflow:visible;}
+div#talkRoomsContainer ul.rooms li.room.default{display:none;}
+
+div#talkRoomsContainer.chat.history{top:36px; z-index:3;}
+div#talkRoomsContainer.chat.history ul.rooms li.room div.room-separator{display:block; top:0;}
+div#talkRoomsContainer.chat.history ul.rooms li.room div.room-separator div.button-talk.toggle-minimizing{display:none;}
+div#talkRoomsContainer.chat.history ul.rooms li.room div.filtering-panel{display:block;}
+div#talkRoomsContainer.chat.history ul.rooms li.room div.filtering-panel div.button-container.close-history{display:block; margin:0; position:absolute; top:4px; right:4px; z-index:1;}
+div#talkRoomsContainer.chat.history ul.rooms li.room div.filtering-panel div.button-container.close-history div.button-state{background-position:-360px center;}
+div#talkRoomsContainer.chat.history ul.rooms li.room div.room-title{display:block;}
+div#talkRoomsContainer.chat.history ul.rooms li.room div.sub-panel{z-index:0;}
+div#talkRoomsContainer.chat.history ul.rooms li.room div.messages{z-index:0;}
+div#talkRoomsContainer.chat.history ul.rooms li.room div.history{z-index:1;}
+
+div#talkRoomsContainer ul.rooms li.room.mailing{}
+div#talkRoomsContainer ul.rooms li.room.mailing div.room-title{display:none;}
+div#talkRoomsContainer ul.rooms li.room.mailing div.room-separator{display:block;}
+div#talkRoomsContainer ul.rooms li.room.mailing div.sub-panel{display:block;}
+div#talkRoomsContainer ul.rooms li.room.mailing div.messages{display:block; height:50%;}
+div#talkRoomsContainer ul.rooms li.room.mailing div.head div.toolbar{display:block;}
+div#talkRoomsContainer ul.rooms li.room.mailing div.sub-panel ul.contactlist li.contact:hover div.toolbar{display:block;}
+div#talkRoomsContainer ul.rooms li.room.mailing div.sub-panel ul.contactlist li.contact div.toolbar div.button-talk.remove-member{display:block;}
+
+div#talkRoomsContainer ul.rooms li.room.mailing.start-splash div.sub-panel{overflow:hidden;}
+div#talkRoomsContainer ul.rooms li.room.mailing.start-splash div.sub-panel ul.contactlist{display:none;}
+div#talkRoomsContainer ul.rooms li.room.mailing.start-splash div.sub-panel div.splash-contactlist{display:block;}
+
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized{}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.room-title{display:block;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.room-title div.toolbar{display:none;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.room-title div.size{display:block;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.room-title div.button-talk.toggle-minimizing{background-position: -432px center;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.room-separator{top:0;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.room-separator div.button-talk.toggle-minimizing{background-position:center -12px;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.sub-panel{display:block; width:90%; height:30px !important; line-height:30px; overflow:hidden; position:absolute; left:0; top:-35px; z-index:2;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.sub-panel div.splash-contactlist{display:none;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.sub-panel ul.contactlist{display:block;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.sub-panel ul.contactlist li.contact{background:#ECECEC; border:0; width:auto; max-width:300px; height:100%; line-height:30px; margin:0 5px 0 0; float:left; overflow:hidden;}
+* html div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.sub-panel ul.contactlist li.contact{width:300px;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.sub-panel ul.contactlist li.contact div.title{margin:0;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.sub-panel ul.contactlist li.contact div.toolbar{display:none;}
+div#talkRoomsContainer ul.rooms li.room.mailing.minimized div.messages{height:100%;}
+
+div#talkRoomsContainer ul.rooms li.room.conference{}
+div#talkRoomsContainer ul.rooms li.room.conference div.room-title{display:none;}
+div#talkRoomsContainer ul.rooms li.room.conference div.room-separator{display:block;}
+div#talkRoomsContainer ul.rooms li.room.conference div.sub-panel{display:block;}
+div#talkRoomsContainer ul.rooms li.room.conference div.messages{display:block; height:50%;}
+div#talkRoomsContainer ul.rooms li.room.conference div.head div.toolbar{display:block;}
+div#talkRoomsContainer ul.rooms li.room.conference div.sub-panel ul.contactlist li.contact:hover div.toolbar{display:block;}
+div#talkRoomsContainer ul.rooms li.room.conference div.sub-panel ul.contactlist li.contact div.state{background-position:-48px center;}
+div#talkRoomsContainer ul.rooms li.room.conference.owner div.room-title div.toolbar div.button-container.remove-room{display:block;}
+div#talkRoomsContainer ul.rooms li.room.conference.moderator div.sub-panel ul.contactlist li.contact div.toolbar div.button-talk.remove-member{display:block;}
+div#talkRoomsContainer ul.rooms li.room.conference.moderator div.sub-panel ul.contactlist li.contact.me div.toolbar div.button-talk.remove-member{display:none;}
+div#talkRoomsContainer ul.rooms li.room.conference.moderator div.sub-panel ul.contactlist li.contact.invited div.toolbar div.button-talk.remove-member{display:none;}
+
+div#talkRoomsContainer ul.rooms li.room.conference.start-splash div.sub-panel{overflow:hidden;}
+div#talkRoomsContainer ul.rooms li.room.conference.start-splash div.sub-panel ul.contactlist{display:none;}
+div#talkRoomsContainer ul.rooms li.room.conference.start-splash div.sub-panel div.splash-contactlist{display:block;}
+
+div#talkRoomsContainer ul.rooms li.room.conference.minimized{}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.room-title{display:block;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.room-title div.toolbar{display:none;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.room-title div.size{display:block;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.room-title div.button-talk.toggle-minimizing{background-position: -432px center;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.room-separator{top:0;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.room-separator div.button-talk.toggle-minimizing{background-position:center -12px;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.sub-panel{display:block; background:url(imagescss/blank.gif); width:100%; height:30px !important; line-height:30px; overflow:hidden; position:absolute; left:0; top:-35px; z-index:2;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.sub-panel div.splash-contactlist{display:none;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.sub-panel ul.contactlist{display:block;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.sub-panel ul.contactlist li.contact{background:#ECECEC; border:0; width:auto; height:100%; line-height:30px; margin:0 5px 0 0; float:left;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.sub-panel ul.contactlist li.contact div.title{margin:0;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.sub-panel ul.contactlist li.contact div.toolbar{display:none;}
+div#talkRoomsContainer ul.rooms li.room.conference.minimized div.messages{height:100%;}
+
+div#talkRoomsContainer ul.rooms li.room div.sub-panel.mouseover{background-color:#EDF6FD;}
+
+div#talkVertSlider{background:url(imagescss/bg-versep.png) center center no-repeat; width:100%; height:10px; position:absolute; left:0; bottom:0; z-index:0; cursor:n-resize;}
+
+div#talkMeseditorContainer{border-top:1px solid #BDBDBD; width:100%; position:absolute; left:0; bottom:42px; z-index:2;}
+* html div#talkMeseditorContainer{bottom:0;}
+div#talkMeseditorContainer div.overflow-layer{display:none; background:transparent; width:100%; height:100%; position:absolute; left:0; top:0; z-index:1;}
+
+div#talkTextareaContainer{background:#FAFAFA; border:1px solid #BDBDBD; border-width:0 1px; height:100%; position:relative; z-index:0; cursor:default;}
+div#talkTextareaContainer ul.textareas{list-style:none; height:100%; overflow:hidden; margin:0; padding:0; position:relative;}
+div#talkTextareaContainer ul.textareas li.textarea{background:#FFF; width:100%; height:100%; overflow:hidden; margin:0; padding:0; visibility:hidden; position:absolute; left:0; top:-1000%; z-index:0;}
+div#talkTextareaContainer ul.textareas li.textarea.current{visibility:visible; z-index:1; top:0;}
+div#talkTextareaContainer ul.textareas li.textarea.default{display:none;}
+div#talkTextareaContainer iframe{display:block; border:0; margin:0; padding:0; width:100%; height:100%; outline:none; position:absolute; left:0; top:0;}
+div#talkTextareaContainer > iframe{overflow-x:hidden; overflow-y:auto;}
+* html div#talkTextareaContainer iframe, * + html div#talkTextareaContainer iframe{overflow-y:auto;}
+div#talkTextareaContainer textarea{display:block; border:0; margin:0; padding:0; width:100%; height:100%; outline:none; position:absolute; left:0; top:0;}
+div#talkTextareaContainer > textarea{overflow-x:hidden; overflow-y:auto;}
+* html div#talkTextareaContainer textarea, * + html div#talkTextareaContainer textarea{overflow-y:auto;}
+
+div#talkMeseditorToolbarContainer{background:#F5F5F5 url(imagescss/bg-toolbar.gif) left bottom repeat-x; border:1px solid #BDBDBD; height:40px; position:relative; z-index:1;}
+div#talkMeseditorToolbarContainer div.toolbar{background:url(imagescss/blank.gif); width:100%; height:22px; line-height:22px; position:absolute; left:15px; top:9px; z-index:0; -moz-user-select:none;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container{background:url(imagescss/bg-buttons.png) 0 0 no-repeat; width:26px; height:100%; margin:0 4px 0 0; float:left; white-space:nowrap; position:relative;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.not-available{display:none;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.send-file{background-position:-182px -22px; background-color:transparent; border:0; padding:0; visibility:visible !important;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.send-file.sending{background:url(imagescss/btn-load.gif) center center no-repeat !important;cursor: default;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.history{background-position:-234px -22px;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.history div.button-talk{display:none;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.toggle-sendbutton{background-position:-208px 0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.toggle-sendbutton.send-by-ctrlenter{background-position:-208px -22px;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.create-massend{background-position:-286px -22px;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.create-massend div.button-talk{display:none;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.create-conference{background-position:-260px -22px;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.create-conference div.button-talk{display:none;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions{width:42px; background-position:-312px 0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.helper{width:100%; height:1px; line-height:1px; position:absolute; left:0; top:-5px; z-index:1000;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container{display:none; width:212px; position:absolute; left:0; bottom:0; cursor:default;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container div.top-border{background:#FBFBFB; border-top:1px solid #D0D0D0; height:4px; line-height:4px; margin:0 10px; overflow:hidden; position:relative; z-index:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container div.left-top-side, div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container div.right-top-side{background:url(imagescss/bg-rect.png) no-repeat; width:10px; height:5px; line-height:5px; overflow:hidden; position:absolute; top:0; z-index:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container div.left-top-side{background-position:0 0; left:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container div.right-top-side{background-position:-10px 0; right:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container div.bottom-border{background:#FBFBFB; border-bottom:1px solid #D0D0D0; height:4px; line-height:4px; margin:0 10px; overflow:hidden; position:relative; z-index:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container div.left-bottom-side, div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container div.right-bottom-side{background:url(imagescss/bg-rect.png) no-repeat; width:10px; height:5px; line-height:5px; overflow:hidden; position:absolute; bottom:0; z-index:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container div.left-bottom-side{background-position:0 -15px; left:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container div.right-bottom-side{background-position:-10px -15px; right:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles{list-style:none; background:#FBFBFB; border:1px solid #D0D0D0; border-width:0 1px; height:160px; margin:0; padding:0 5px; position:relative; z-index:1;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile{background:#FFF url(imagescss/smiles/smile01.gif) center center no-repeat; width:40px; height:40px; float:left; cursor:pointer;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile:hover{background-color:#E9E9E9;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile01{background-image:url(imagescss/smiles/smile01.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile02{background-image:url(imagescss/smiles/smile02.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile03{background-image:url(imagescss/smiles/smile03.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile04{background-image:url(imagescss/smiles/smile04.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile05{background-image:url(imagescss/smiles/smile05.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile06{background-image:url(imagescss/smiles/smile06.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile07{background-image:url(imagescss/smiles/smile07.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile08{background-image:url(imagescss/smiles/smile08.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile09{background-image:url(imagescss/smiles/smile09.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile10{background-image:url(imagescss/smiles/smile10.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile11{background-image:url(imagescss/smiles/smile11.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile12{background-image:url(imagescss/smiles/smile12.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile13{background-image:url(imagescss/smiles/smile13.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile14{background-image:url(imagescss/smiles/smile14.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile15{background-image:url(imagescss/smiles/smile15.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile16{background-image:url(imagescss/smiles/smile16.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile17{background-image:url(imagescss/smiles/smile17.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile18{background-image:url(imagescss/smiles/smile18.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile19{background-image:url(imagescss/smiles/smile19.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.container ul.smiles li.smile.smile20{background-image:url(imagescss/smiles/smile20.gif);}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container div.button-talk{display:block; width:100%; height:100%; position:absolute; left:0; top:0; cursor:pointer;}
+
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-mailing{background:url(imagescss/bg-button-grey01.png) 0 -22px repeat-x; width:auto; display:none;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-mailing div.left-side, div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-mailing div.right-side{background:url(imagescss/bg-button-grey01.png) no-repeat; width:5px; height:100%; overflow:hidden; position:absolute; top:0; z-index:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-mailing div.left-side{background-position:left 0; left:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-mailing div.right-side{background-position:right 0; right:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-mailing div.button-state{background:url(imagescss/bg-states.png) -338px center no-repeat; width:24px; height:100%; position:absolute; left:0; top:0; z-index:1;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-mailing div.button-label{height:100%; padding:0 5px 0 25px; position:relative; z-index:2; white-space:nowrap; font-size:12px; color:#666; cursor:default; -moz-user-select:none;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-mailing div.button-talk{background:url(imagescss/blank.gif); width:100%; height:100%; position:absolute; left:0; top:0; z-index:3; cursor:pointer;}
+
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-conference{background:url(imagescss/bg-button-grey01.png) 0 -22px repeat-x; width:auto; display:none;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-conference div.left-side, div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-conference div.right-side{background:url(imagescss/bg-button-grey01.png) no-repeat; width:5px; height:100%; overflow:hidden; position:absolute; top:0; z-index:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-conference div.left-side{background-position:left 0; left:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-conference div.right-side{background-position:right 0; right:0;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-conference div.button-state{background:url(imagescss/bg-states.png) -338px center no-repeat; width:24px; height:100%; position:absolute; left:0; top:0; z-index:1;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-conference div.button-label{height:100%; padding:0 5px 0 25px; position:relative; z-index:2; white-space:nowrap; font-size:12px; color:#666; cursor:default; -moz-user-select:none;}
+div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-conference div.button-talk{background:url(imagescss/blank.gif); width:100%; height:100%; position:absolute; left:0; top:0; z-index:3; cursor:pointer;}
+
+div#talkMeseditorContainer.blocked div.overflow-layer{display:block;}
+
+div#talkMeseditorContainer.connected{}
+div#talkMeseditorContainer.connected div#talkMeseditorToolbarContainer div.toolbar div.button-container.create-massend{background-position:-286px 0;}
+div#talkMeseditorContainer.connected div#talkMeseditorToolbarContainer div.toolbar div.button-container.create-massend div.button-talk{display:block;}
+div#talkMeseditorContainer.connected div#talkMeseditorToolbarContainer div.toolbar div.button-container.create-conference{background-position:-260px 0;}
+div#talkMeseditorContainer.connected div#talkMeseditorToolbarContainer div.toolbar div.button-container.create-conference div.button-talk{display:block;}
+div#talkMeseditorContainer.connected div#talkMeseditorToolbarContainer div.toolbar div.button-container.send-file{background-position:-182px 0;cursor: pointer;}
+
+div#talkMeseditorContainer.chat{}
+div#talkMeseditorContainer.chat.history div#talkTextareaContainer ul.textareas{visibility:hidden;}
+div#talkMeseditorContainer.connected.chat div#talkMeseditorToolbarContainer div.toolbar div.button-container.history{background-position:-234px 0;}
+div#talkMeseditorContainer.connected.chat div#talkMeseditorToolbarContainer div.toolbar div.button-container.history div.button-talk{display:block;}
+
+div#talkMeseditorContainer.mailing{}
+div#talkMeseditorContainer.connected.mailing div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-mailing{display:block;}
+div#talkMeseditorContainer.mailing.unavailable div#talkMeseditorToolbarContainer div.toolbar div.button-container.send-file{background-position:-182px -22px;cursor: default;}
+
+div#talkMeseditorContainer.conference{}
+div#talkMeseditorContainer.conference.owner{}
+div#talkMeseditorContainer.conference.owner div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-conference{display:block;}
+
+div#talkMeseditorContainer.disabled{}
+div#talkMeseditorContainer.disabled div#talkMeseditorToolbarContainer div.toolbar div.button-container.send-file{background-position:-182px -22px;cursor: default;}
+div#talkMeseditorContainer.disabled div#talkMeseditorToolbarContainer div.toolbar div.button-container.history{background-position:-234px -22px;}
+div#talkMeseditorContainer.disabled div#talkMeseditorToolbarContainer div.toolbar div.button-container.history div.button-talk{display:none;}
+div#talkMeseditorContainer.disabled div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions{background-position:-312px -22px;}
+div#talkMeseditorContainer.disabled div#talkMeseditorToolbarContainer div.toolbar div.button-container.emotions div.button-talk{display:none;}
+div#talkMeseditorContainer.disabled div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-mailing{display:none;}
+div#talkMeseditorContainer.disabled div#talkMeseditorToolbarContainer div.toolbar div.button-container.remove-conference{display:none;}
+
+div#talkMeseditorContainer.disabled div#talkSendMenu{display:none; background-position:0 -66px;}
+div#talkMeseditorContainer.disabled div#talkSendMenu div.button-talk{display:none;}
+div#talkMeseditorContainer.disabled div#talkSendMenu div.left-side{background-position:left -44px;}
+div#talkMeseditorContainer.disabled div#talkSendMenu div.right-side{background-position:right -44px;}
+
+div#talkMeseditorContainer.unavailable div#talkSendMenu{display:none; background-position:0 -66px;}
+div#talkMeseditorContainer.unavailable div#talkSendMenu div.button-talk{display:none;}
+div#talkMeseditorContainer.unavailable div#talkSendMenu div.left-side{background-position:left -44px;}
+div#talkMeseditorContainer.unavailable div#talkSendMenu div.right-side{background-position:right -44px;}
+
+div#talkSendMenu{background:url(imagescss/bg-button-blue01.png) 0 -66px repeat-x; width:auto; height:22px; line-height:22px; position:absolute; right:15px; top:9px; z-index:1; overflow:hidden;}
+div#talkSendMenu div.left-side, div#talkSendMenu div.right-side{background:url(imagescss/bg-button-blue01.png) no-repeat; width:5px; height:100%; overflow:hidden; position:absolute; top:0; z-index:0;}
+div#talkSendMenu div.left-side{background-position:left -44px; left:0;}
+div#talkSendMenu div.right-side{background-position:right -44px; right:0;}
+div#talkSendMenu div.button-label{height:100%; padding:0 25px; position:relative; z-index:1; white-space:nowrap; font-size:12px; color:#FFF; cursor:default; -moz-user-select:none;}
+div#talkSendMenu div.button-talk{display:none; background:url(imagescss/blank.gif); width:100%; height:100%; position:absolute; left:0; top:0; z-index:2; cursor:pointer;}
+
+div#talkMeseditorContainer.connected div#talkMeseditorToolbarContainer div#talkSendMenu{background-position:0 -22px;}
+div#talkMeseditorContainer.connected div#talkMeseditorToolbarContainer div#talkSendMenu div.button-talk{display:block;}
+div#talkMeseditorContainer.connected div#talkMeseditorToolbarContainer div#talkSendMenu div.left-side{background-position:left 0;}
+div#talkMeseditorContainer.connected div#talkMeseditorToolbarContainer div#talkSendMenu div.right-side{background-position:right 0;}
+
+div#talkMeseditorContainer.empty div#talkMeseditorToolbarContainer div#talkSendMenu{background-position:0 -66px;}
+div#talkMeseditorContainer.empty div#talkMeseditorToolbarContainer div#talkSendMenu div.button-talk{display:none;}
+div#talkMeseditorContainer.empty div#talkMeseditorToolbarContainer div#talkSendMenu div.left-side{background-position:left -44px;}
+div#talkMeseditorContainer.empty div#talkMeseditorToolbarContainer div#talkSendMenu div.right-side{background-position:right -44px;}
+
+div#talkHorSlider{background:url(imagescss/bg-horsep.png) center center no-repeat; width:10px; height:100%; position:absolute; right:0; top:0; z-index:0; cursor:w-resize; -moz-user-select:none;}
+
+div#talkSidebarContainer{height:100%; position:absolute; right:0; top:0; z-index:1;}
+
+div#talkContactToolbarContainer{position:relative; z-index:1;}
+div#talkContactToolbarContainer div.toolbar{height:22px; line-height:22px; padding:0 0 10px; position:relative; z-index:0; -moz-user-select:none;}
+div#talkContactToolbarContainer div.toolbar div.button-container{background:url(imagescss/bg-buttons.png) 0 0 no-repeat; width:26px; height:100%; margin:0 4px 0 0; float:left; overflow:hidden;}
+div#talkContactToolbarContainer div.toolbar div.button-container div.button-talk{display:block; width:100%; height:100%; cursor:pointer;}
+div#talkContactToolbarContainer div.toolbar div.button-container.toggle-offlineusers{background-position:-26px 0;}
+div#talkContactToolbarContainer div.toolbar div.button-container.toggle-group{background-position:-78px 0;}
+div#talkContactToolbarContainer div.toolbar div.button-container.toggle-sounds{background-position:-104px 0;}
+div#talkContactToolbarContainer div.toolbar div.button-container.toggle-sounds.disabled{background-position:-104px -22px;}
+div#talkContactToolbarContainer div.toolbar div.button-container.toggle-notifications{background-position:-130px 0;}
+div#talkContactToolbarContainer div.toolbar div.button-container.toggle-notifications.disabled{background-position:-130px -22px;}
+div#talkContactToolbarContainer div.toolbar div.button-container.toggle-filter{background-position:-156px -22px;}
+
+div#talkContactToolbarContainer div.toolbar div.button-container.not-available{display:none;}
+div#talkContactToolbarContainer div.toolbar div.button-container.not-available div.button-talk{display:none;}
+
+div#talkContactToolbarContainer div.unread-messages{display:none; height:22px; line-height:22px; position:absolute; right:6px; top:0; z-index:1; cursor:pointer; -moz-user-select:none;}
+div#talkContactToolbarContainer div.unread-messages div.button-container{background:url(imagescss/bg-unreadmessage.png) left -20px repeat-x; height:20px; line-height:20px; margin:2px 0 0; position:relative;}
+div#talkContactToolbarContainer div.unread-messages div.button-container div.left-side, div#talkContactToolbarContainer div.unread-messages div.button-container div.right-side{background:url(imagescss/bg-unreadmessage.png) no-repeat; height:100%; position:absolute; top:0; z-index:0;}
+div#talkContactToolbarContainer div.unread-messages div.button-container div.left-side{background-position:left top; width:5px; left:0;}
+div#talkContactToolbarContainer div.unread-messages div.button-container div.right-side{background-position:right top; width:12px; right:0;}
+div#talkContactToolbarContainer div.unread-messages div.button-container div.button-talk{min-width:12px; height:100%; line-height:16px; padding:0 5px; position:relative; z-index:1; white-space:nowrap; color:#5A5A5A; font-weight:bold; font-size:10px; text-align:center; cursor:pointer;}
+* html div#talkContactToolbarContainer div.unread-messages div.button-container div.button-talk{width:12px;}
+div#talkContactToolbarContainer div.unread-messages.blik div.button-container{visibility:hidden;}
+
+div#talkContactToolbarContainer div.unread-messages span.label{font-weight:bold;}
+div#talkContactToolbarContainer div.unread-messages span.label span.value{margin:0 0 0 3px;}
+div#talkContactToolbarContainer.unread-messages div.unread-messages{display:block;}
+
+div#talkContactToolbarContainer div#talkFilterContainer{display:none; background:#FFF url(imagescss/bg-searchfield.gif) left center no-repeat; border:1px solid #BDBDBD; border-bottom:0;}
+div#talkContactToolbarContainer div#talkFilterContainer div.helper{margin:0 0 0 18px;}
+div#talkContactToolbarContainer div#talkFilterContainer div.helper input{display:block; border:0; width:99%; height:16px; margin:0; padding:2px 1px; outline:none;}
+
+div#talkContactsContainer{background:#FFF; border:1px solid #BDBDBD; position:relative; z-index:2; font-size:12px;}
+body.engn-ios div#talkContactsContainer, body.engn-android div#talkContactsContainer{overflow:hidden;}
+div#talkContactsContainer.processing{background:#FFF url(imagescss/bg-largeloader.gif) center center no-repeat;}
+div#talkContactsContainer ul.grouplist{list-style:none; height:100%; margin:0; padding:0 8px; overflow-x:hidden; overflow-y:auto; position:relative; -moz-user-select:none;}
+* html div#talkContactsContainer ul.grouplist, * + html div#talkContactsContainer ul.grouplist{overflow-y:scroll;}
+div#talkContactsContainer ul.grouplist li.group{position:relative;}
+div#talkContactsContainer ul.grouplist li.group div.separator{display:none;}
+div#talkContactsContainer ul.grouplist li.group div.separator.mouseover{background:#FFF; display:block !important; height:25px; line-height:25px;}
+div#talkContactsContainer ul.grouplist li.group div.head{border-bottom:1px dotted #A9A9A9; height:25px; line-height:25px; position:relative;}
+div#talkContactsContainer ul.grouplist li.group div.head div.title{height:100%; margin:0 40px 0 0; padding:0 0 0 16px; overflow:hidden; position:relative; z-index:1; cursor:pointer; font-weight:bold; white-space:nowrap;}
+div#talkContactsContainer ul.grouplist li.group div.head div.state{background:url(imagescss/bg-states.png) -388px center; width:24px; height:100%; position:absolute; left:0; top:0; z-index:0;}
+* html div#talkContactsContainer ul.grouplist li.group div.head div.state{background-image:url(imagescss/bg-states.gif);}
+div#talkContactsContainer ul.grouplist li.group div.head div.size{width:35px; height:100%; padding:0 5px 0 0; position:absolute; right:0; top:0; z-index:0; text-align:right; color:#999; cursor:default;}
+div#talkContactsContainer ul.grouplist li.group div.head div.size span.online{}
+div#talkContactsContainer ul.grouplist li.group div.head div.size span.all{}
+div#talkContactsContainer ul.grouplist li.group ul.contactlist{display:none; background:transparent; border:0; height:auto !important; margin:0 0 0 22px; overflow-x:hidden; overflow-y:hidden;}
+div#talkContactsContainer ul.grouplist li.group.open div.head div.state{background-position: -412px center;}
+div#talkContactsContainer ul.grouplist li.group.open ul.contactlist{display:block !important;}
+div#talkContactsContainer ul.grouplist li.group.none div.head{display:none;}
+div#talkContactsContainer ul.grouplist li.group.none ul.contactlist{display:block !important; margin-left:0;}
+div#talkContactsContainer ul.grouplist li.group.default{display:none;}
+div#talkContactsContainer ul.grouplist li.group.selected{display:none;}
+div#talkContactsContainer ul.grouplist li.group.rooms{}
+div#talkContactsContainer ul.grouplist li.group.rooms div.head div.title{color:#1D5B77;}
+div#talkContactsContainer ul.grouplist li.group.rooms ul.contactlist li.contact div.state{background-position:-144px center;}
+div#talkContactsContainer ul.grouplist li.group.mailings{}
+div#talkContactsContainer ul.grouplist li.group.mailings div.head div.title{color:#1D5B77;}
+div#talkContactsContainer ul.grouplist li.group.mailings div.head div.size span.online{display:none;}
+div#talkContactsContainer ul.grouplist li.group.mailings div.head div.size span.separator{display:none;}
+div#talkContactsContainer ul.grouplist li.group.mailings ul.contactlist li.contact div.state{background-position:-168px center;}
+div#talkContactsContainer ul.grouplist li.group.mailings{}
+div#talkContactsContainer ul.contactlist{list-style:none; height:100%; margin:0; padding:0; overflow-x:hidden; overflow-y:auto; position:relative; -moz-user-select:none;}
+* html div#talkContactsContainer ul.contactlist, * + html div#talkContactsContainer ul.contactlist{overflow-y:scroll;}
+body.engn-ios div#talkContactsContainer > ul.contactlist, body.engn-android div#talkContactsContainer > ul.contactlist{width:100%; height:auto; overflow-x:auto; overflow-y:auto; position:absolute; left:0; top:0;}
+div#talkContactsContainer ul.contactlist li.contact{border-bottom:1px dotted #A9A9A9; height:25px; line-height:25px; position:relative;}
+div#talkContactsContainer ul.contactlist li.contact.master{display:block !important;}
+div#talkContactsContainer ul.contactlist li.contact div.title{height:100%; margin:0 5px 0 0; padding:0 0 0 25px; overflow:hidden; position:relative; z-index:1; cursor:pointer; white-space:nowrap;}
+div#talkContactsContainer ul.contactlist li.contact div.state{background:url(imagescss/bg-states.png) -24px center; width:24px; height:100%; position:absolute; left:0; top:0; z-index:0;}
+* html div#talkContactsContainer ul.contactlist li.contact div.state{background-image:url(imagescss/bg-states.gif);}
+div#talkContactsContainer ul.contactlist li.contact div.toolbar{display:none; height:100%; position:absolute; right:0; top:0; z-index:2; text-align:right; cursor:default;}
+* html div#talkContactsContainer ul.contactlist li.contact div.toolbar{display:block;}
+div#talkContactsContainer ul.contactlist li.contact div.toolbar div.button-talk{background:url(imagescss/bg-states.png) 0 center no-repeat; width:24px; height:100%; margin:0 5px 0 0; float:right; cursor:pointer;}
+div#talkContactsContainer ul.contactlist li.contact div.toolbar div.button-talk.send-invite{display:none; background-position:-312px center;}
+div#talkContactsContainer ul.contactlist li.contact div.toolbar div.button-talk.add-to-mailing{display:none; background-position:-312px center;}
+div#talkContactsContainer ul.contactlist li.contact.online div.state{background-position:-48px center;}
+div#talkContactsContainer ul.contactlist li.contact.away div.state{background-position:-72px center;}
+div#talkContactsContainer ul.contactlist li.contact.xa div.state{background-position:-96px center;}
+div#talkContactsContainer ul.contactlist li.contact.master div.state{background-position:-120px center;}
+div#talkContactsContainer ul.contactlist li.contact.room div.state{background-position:-144px center;}
+div#talkContactsContainer ul.contactlist li.contact.mailing div.state{background-position:-168px center;}
+div#talkContactsContainer ul.contactlist li.contact.opening div.state{background:url(imagescss/bg-smallloader.gif) center center no-repeat !important;}
+div#talkContactsContainer ul.contactlist li.contact.new-message div.state{background:url(imagescss/ind-incoming.gif) center center no-repeat !important;}
+div#talkContactsContainer ul.contactlist li.contact.default{display:none}
+div#talkContactsContainer ul.contactlist li.contact:hover{background-color:#F7F7F7;}
+div#talkContactsContainer ul.contactlist li.contact.hover{background-color:#F7F7F7;}
+div#talkContactsContainer ul.contactlist li.contact:hover div.toolbar{display:block;}
+
+div#talkContactsContainer.mailing ul.contactlist li.contact div.toolbar div.button-talk.add-to-mailing{display:block;}
+div#talkContactsContainer ul.grouplist li.group.rooms ul.contactlist li.contact div.toolbar div.button-talk.add-to-mailing{display:none;}
+div#talkContactsContainer ul.grouplist li.group.mailings ul.contactlist li.contact div.toolbar div.button-talk.add-to-mailing{display:none;}
+div#talkContactsContainer.conference ul.contactlist li.contact div.toolbar div.button-talk.send-invite{display:block;}
+div#talkContactsContainer.conference ul.contactlist li.contact.offline div.toolbar div.button-talk.send-invite{display:none;}
+div#talkContactsContainer ul.grouplist li.group.rooms ul.contactlist li.contact div.toolbar div.button-talk.send-invite{display:none;}
+div#talkContactsContainer ul.grouplist li.group.mailings ul.contactlist li.contact div.toolbar div.button-talk.send-invite{display:none;}
+div#talkContactsContainer ul.contactlist li.contact.master div.toolbar div.button-talk.send-invite{display:none;}
+div#talkContactsContainer ul.contactlist li.contact.master div.toolbar div.button-talk.add-to-mailing{display:none;}
+div#talkContactsContainer ul.contactlist li.contact.mailing div.toolbar div.button-talk.add-to-mailing{display:none;}
+
+div#talkSidebarContainer.hide-offlineusers div#talkContactToolbarContainer div.toolbar div.button-container.toggle-offlineusers{background-position:-52px 0;}
+div#talkSidebarContainer.hide-offlineusers ul.grouplist li.group.empty{display:none !important;}
+div#talkSidebarContainer.hide-offlineusers ul.grouplist li.group.fixed{display:block !important;}
+div#talkSidebarContainer.hide-offlineusers ul.contactlist li.contact.offline{display:none !important;}
+div#talkSidebarContainer.hide-offlineusers ul.contactlist li.contact.room{display:block !important;}
+div#talkSidebarContainer.hide-offlineusers ul.contactlist li.contact.master{display:block !important;}
+div#talkSidebarContainer.hide-offlineusers ul.grouplist li.group.fixed ul.contactlist li.contact{display:block !important;}
+div#talkSidebarContainer.hide-offlineusers ul.grouplist li.group.fixed ul.contactlist li.contact.default{display:none !important;}
+
+div#talkSidebarContainer.grouplist div#talkContactToolbarContainer div.toolbar div.button-container.toggle-group{background-position:-78px 0;}
+div#talkSidebarContainer.grouplist div#talkContactsContainer ul.contactlist{display:none;}
+div#talkSidebarContainer.contactlist div#talkContactToolbarContainer div.toolbar div.button-container.toggle-group{background-position:-78px -22px;}
+div#talkSidebarContainer.contactlist div#talkContactsContainer ul.grouplist{display:none;}
+
+div#talkSidebarContainer.enable-filter div#talkContactToolbarContainer div.toolbar div.button-container.toggle-filter{background-position:-156px 0;}
+div#talkSidebarContainer.enable-filter div#talkContactToolbarContainer div#talkFilterContainer{display:block;}
+div#talkSidebarContainer.enable-filter div#talkContactsContainer ul.grouplist{display:none;}
+div#talkSidebarContainer.enable-filter div#talkContactsContainer ul.contactlist{display:block;}
+div#talkSidebarContainer.enable-filter div#talkContactsContainer ul.grouplist li.group{display:none;}
+div#talkSidebarContainer.enable-filter div#talkContactsContainer ul.grouplist li.group.checked-by-filter{display:block;}
+div#talkSidebarContainer.enable-filter div#talkContactsContainer ul.grouplist li.group.checked-by-filter div.head div.state{background-position: -384px center;}
+div#talkSidebarContainer.enable-filter div#talkContactsContainer ul.grouplist li.group.checked-by-filter ul.contactlist{display:block !important;}
+div#talkSidebarContainer.enable-filter div#talkContactsContainer ul.contactlist li.contact{display:none;}
+div#talkSidebarContainer.enable-filter div#talkContactsContainer ul.contactlist li.contact.selected{background-color:#EFFF79;}
+div#talkSidebarContainer.enable-filter div#talkContactsContainer ul.contactlist li.contact.checked-by-filter{display:block;}
+
+div#talkStatusContainer{background:#F5F5F5 url(imagescss/bg-toolbar.gif) left bottom repeat-x; border:1px solid #BDBDBD; height:40px; line-height:40px; margin:10px 0 0; padding:0 15px; position:relative; z-index:3; cursor:default; font-size:12px; -moz-user-select:none;}
+div#talkStatusContainer div.label{width:auto; height:100%; margin:0 5px 0 0; float:right; white-space:nowrap; color:#666;}
+
+div#talkStatusMenu{width:120px; height:22px; line-height:22px; margin:9px 0 0; float:right; position:relative; cursor:pointer;}
+div#talkStatusMenu div.left-side, div#talkStatusMenu div.right-side{background:url(imagescss/bg-statetitle.png) no-repeat; width:17px; height:100%;  position:absolute; top:0; z-index:1;}
+div#talkStatusMenu div.left-side{width:5px; background-position:left top; left:0;}
+div#talkStatusMenu div.right-side{width:12px; background-position:right top; right:0;}
+div#talkStatusMenu div#talkCurrentStatus{background:url(imagescss/bg-statetitle.png) left bottom repeat-x; height:100%; margin:0 12px 0 5px; position:relative; z-index:1;}
+* html div#talkStatusMenu div#talkCurrentStatus{margin:0 10px 0 5px;}
+div#talkStatusMenu div#talkCurrentStatus div.title{height:100%; padding:0 0 0 24px; position:relative; z-index:1; color:#333; text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+div#talkStatusMenu div#talkCurrentStatus div.state{background:url(imagescss/bg-states.png) -24px center no-repeat; width:24px; height:100%; position:absolute; left:0; top:0; z-index:0;}
+* html div#talkStatusMenu div#talkCurrentStatus div.state{background-image:url(imagescss/bg-states.gif);}
+div#talkStatusMenu div#talkCurrentStatus.offline div.state{background-position:-24px center;}
+div#talkStatusMenu div#talkCurrentStatus.online div.state{background-position:-48px center;}
+div#talkStatusMenu div#talkCurrentStatus.away div.state{background-position:-72px center;}
+div#talkStatusMenu div#talkCurrentStatus.xa div.state{background-position:-96px center;}
+div#talkStatusMenu div.helper{width:100%; height:1px; line-height:1px; position:absolute; left:0; top:1px; z-index:0;}
+div#talkStatusMenu div.container{display:none; width:100%; line-height:20px; padding:0; position:absolute; left:0; bottom:0;}
+div#talkStatusMenu div.container div.left-side, div#talkStatusMenu div.container div.right-side{background:url(imagescss/bg-rect.png) no-repeat; width:10px; height:10px; line-height:10px; overflow:hidden; position:absolute; top:0; z-index:0;}
+div#talkStatusMenu div.container div.left-side{background-position:left top; left:0;}
+div#talkStatusMenu div.container div.right-side{background-position:right top; right:0;}
+div#talkStatusMenu div.container div.top-border{background:#FBFBFB; border-top:1px solid #D0D0D0; height:2px; line-height:5px; margin:0 5px; overflow:hidden; position:relative; z-index:0;}
+div#talkStatusMenu div.container ul.statuses{list-style:none; background:#FBFBFB; border:1px solid #D0D0D0; border-width:0 1px; margin:0; padding:0 0 4px; position:relative; z-index:1;}
+div#talkStatusMenu div.container ul.statuses li.status{background:#FBFBFB; height:20px; margin:0 2px; padding:0 2px; position:relative; color:#999;}
+div#talkStatusMenu div.container ul.statuses li.status:hover{background:#E9E9E9;}
+div#talkStatusMenu div.container ul.statuses li.status div.state{background:url(imagescss/bg-states.png) 0 center no-repeat; width:24px; height:100%; position:absolute; left:0; top:0; z-index:0;}
+* html div#talkStatusMenu div.container ul.statuses li.status div.state{background-image:url(imagescss/bg-states.gif);}
+div#talkStatusMenu div.container ul.statuses li.status div.title{height:100%; padding:0 0 0 24px; position:relative; z-index:1;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+div#talkStatusMenu div.container ul.statuses li.status.offline div.state{background-position:-24px center;}
+div#talkStatusMenu div.container ul.statuses li.status.online div.state{background-position:-48px center;}
+div#talkStatusMenu div.container ul.statuses li.status.away div.state{background-position:-72px center;}
+div#talkStatusMenu div.container ul.statuses li.status.xa div.state{background-position:-96px center;}
+div#talkStatusMenu div.container ul.statuses li.status.current{display:none}
+div#talkStatusMenu.processing div#talkCurrentStatus div.state{background:url(imagescss/bg-smallloader.gif) center center no-repeat;}

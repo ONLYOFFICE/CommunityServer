@@ -1,0 +1,14 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+  <Target Name="Version">	 
+	  <AssemblyInfo  Condition="'$(BUILD_NUMBER)' != ''" CodeLanguage="CS"
+		  OutputFile="AssemblyInfo.cs"
+		  AssemblyVersion="$(BUILD_NUMBER)"
+		  AssemblyFileVersion="$(BUILD_NUMBER)"
+      AssemblyTitle="SharpBox"
+      AssemblyDescription="SharpBox - A cloud storage API"
+      AssemblyCompany="sharpbox.codeplex.com"
+      AssemblyCopyright="Copyright (c) 2010 - 2011 Dirk Eisenberg, Yury Averkiev, Renald Dubus, Jay Ongg" />  	
+  </Target>
+</Project>
+ 

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D51D3E43-6047-45DD-A0FA-321CE7C3885B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Files.Thirdparty</RootNamespace>
+    <AssemblyName>ASC.Files.Thirdparty</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TrunkDir>..\..\</TrunkDir>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AppLimit.CloudComputing.SharpBox">
+      <HintPath>..\..\redistributable\third-party\ShrapBox\compiled\AppLimit.CloudComputing.SharpBox.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Common">
+      <HintPath>..\..\redistributable\asc\ASC.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Core.Common">
+      <HintPath>..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Thrdparty">
+      <HintPath>..\..\redistributable\asc\ASC.Thrdparty.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Core">
+      <HintPath>..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Files">
+      <HintPath>..\..\redistributable\asc\ASC.Web.Files.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Studio">
+      <HintPath>..\..\redistributable\asc\ASC.Web.Studio.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\redistributable\third-party\Microsoft\SharePoint\Microsoft.SharePoint.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\redistributable\third-party\Microsoft\SharePoint\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GoogleDrive\GoogleDriveDaoBase.cs" />
+    <Compile Include="GoogleDrive\GoogleDriveDaoSelector.cs" />
+    <Compile Include="GoogleDrive\GoogleDriveFileDao.cs" />
+    <Compile Include="GoogleDrive\GoogleDriveFolderDao.cs" />
+    <Compile Include="GoogleDrive\GoogleDriveProviderInfo.cs" />
+    <Compile Include="GoogleDrive\GoogleDriveSecurityDao.cs" />
+    <Compile Include="GoogleDrive\GoogleDriveStorage.cs" />
+    <Compile Include="GoogleDrive\GoogleDriveTagDao.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProviderDao\DbDaoSelector.cs" />
+    <Compile Include="ProviderDao\IDaoSelector.cs" />
+    <Compile Include="ProviderDao\ProviderDaoBase.cs" />
+    <Compile Include="ProviderDao\ProviderFileDao.cs" />
+    <Compile Include="ProviderDao\ProviderFolderDao.cs" />
+    <Compile Include="ProviderDao\ProviderSecutiryDao.cs" />
+    <Compile Include="ProviderDao\ProviderTagDao.cs" />
+    <Compile Include="ProviderDao\RegexDaoSelectorBase.cs" />
+    <Compile Include="ProviderDaoFactory.cs" />
+    <Compile Include="SharePoint\SharePointDaoBase.cs" />
+    <Compile Include="SharePoint\SharePointDaoSelector.cs" />
+    <Compile Include="SharePoint\SharePointErrorEntry.cs" />
+    <Compile Include="SharePoint\SharePointFileDao.cs" />
+    <Compile Include="SharePoint\SharePointFolderDao.cs" />
+    <Compile Include="SharePoint\SharePointProviderInfo.cs" />
+    <Compile Include="SharePoint\SharePointSecurityDao.cs" />
+    <Compile Include="SharePoint\SharePointTagDao.cs" />
+    <Compile Include="Sharpbox\SharpBoxAccountDao.cs" />
+    <Compile Include="Sharpbox\SharpBoxDaoBase.cs" />
+    <Compile Include="Sharpbox\SharpBoxDaoSelector.cs" />
+    <Compile Include="Sharpbox\SharpBoxFileDao.cs" />
+    <Compile Include="Sharpbox\SharpBoxFolderDao.cs" />
+    <Compile Include="Sharpbox\SharpBoxProviderInfo.cs" />
+    <Compile Include="Sharpbox\SharpBoxSecurityDao.cs" />
+    <Compile Include="Sharpbox\SharpBoxTagDao.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

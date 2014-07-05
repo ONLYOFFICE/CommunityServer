@@ -1,0 +1,25 @@
+<clientConfig version="1.1">
+  <emailProvider id="posteo.de">
+    <domain>posteo.de</domain>
+    <domain>posteo.at</domain>
+    <domain>posteo.ch</domain>
+    <domain>posteo.org</domain>
+    <domain>posteo.eu</domain>
+    <displayName>Posteo</displayName>
+    <displayShortName>Posteo</displayShortName>
+    <incomingServer type="imap">
+      <hostname>posteo.de</hostname>
+      <port>143</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>posteo.de</hostname>
+      <port>587</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

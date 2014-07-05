@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/mood'
+    xmlns='http://jabber.org/protocol/mood'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0107: http://www.xmpp.org/extensions/xep-0107.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='mood'>
+    <xs:complexType>
+      <xs:sequence>
+	<xs:choice>
+          <xs:element name='afraid' type='empty'/>
+          <xs:element name='amazed' type='empty'/>
+          <xs:element name='angry' type='empty'/>
+          <xs:element name='annoyed' type='empty'/>
+          <xs:element name='anxious' type='empty'/>
+          <xs:element name='aroused' type='empty'/>
+          <xs:element name='ashamed' type='empty'/>
+          <xs:element name='bored' type='empty'/>
+          <xs:element name='brave' type='empty'/>
+          <xs:element name='calm' type='empty'/>
+          <xs:element name='cold' type='empty'/>
+          <xs:element name='confused' type='empty'/>
+          <xs:element name='contented' type='empty'/>
+          <xs:element name='cranky' type='empty'/>
+          <xs:element name='curious' type='empty'/>
+          <xs:element name='depressed' type='empty'/>
+          <xs:element name='disappointed' type='empty'/>
+          <xs:element name='disgusted' type='empty'/>
+          <xs:element name='distracted' type='empty'/>
+          <xs:element name='embarrassed' type='empty'/>
+          <xs:element name='excited' type='empty'/>
+          <xs:element name='flirtatious' type='empty'/>
+          <xs:element name='frustrated' type='empty'/>
+          <xs:element name='grumpy' type='empty'/>
+          <xs:element name='guilty' type='empty'/>
+          <xs:element name='happy' type='empty'/>
+          <xs:element name='hot' type='empty'/>
+          <xs:element name='humbled' type='empty'/>
+          <xs:element name='humiliated' type='empty'/>
+          <xs:element name='hungry' type='empty'/>
+          <xs:element name='hurt' type='empty'/>
+          <xs:element name='impressed' type='empty'/>
+          <xs:element name='in_awe' type='empty'/>
+          <xs:element name='in_love' type='empty'/>
+          <xs:element name='indignant' type='empty'/>
+          <xs:element name='interested' type='empty'/>
+          <xs:element name='intoxicated' type='empty'/>
+          <xs:element name='invincible' type='empty'/>
+          <xs:element name='jealous' type='empty'/>
+          <xs:element name='lonely' type='empty'/>
+          <xs:element name='mean' type='empty'/>
+          <xs:element name='moody' type='empty'/>
+          <xs:element name='nervous' type='empty'/>
+          <xs:element name='neutral' type='empty'/>
+          <xs:element name='offended' type='empty'/>
+          <xs:element name='playful' type='empty'/>
+          <xs:element name='proud' type='empty'/>
+          <xs:element name='relieved' type='empty'/>
+          <xs:element name='remorseful' type='empty'/>
+          <xs:element name='restless' type='empty'/>
+          <xs:element name='sad' type='empty'/>
+          <xs:element name='sarcastic' type='empty'/>
+          <xs:element name='serious' type='empty'/>
+          <xs:element name='shocked' type='empty'/>
+          <xs:element name='shy' type='empty'/>
+          <xs:element name='sick' type='empty'/>
+          <xs:element name='sleepy' type='empty'/>
+          <xs:element name='stressed' type='empty'/>
+          <xs:element name='surprised' type='empty'/>
+          <xs:element name='thirsty' type='empty'/>
+          <xs:element name='worried' type='empty'/>
+	</xs:choice>
+        <xs:element name='text' minOccurs='0' type='xs:string'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

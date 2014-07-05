@@ -1,0 +1,132 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+			.smart-banner {				
+				position:absolute; 
+				left:0; 
+				top:-82px; 
+				border-bottom:1px solid #e8e8e8; 
+				width:100%; 
+				height:78px; 
+				font-family:'Helvetica Neue',sans-serif; 
+				background:-webkit-linear-gradient(top, #f4f4f4 0%,#cdcdcd 100%); 
+				box-shadow:0 1px 2px rgba(0,0,0,0.5); 
+				z-index:9998; 
+				-webkit-font-smoothing:antialiased; 
+				overflow:hidden; 
+				-webkit-text-size-adjust:none;
+			}
+			#swb-save { 
+				position:absolute; 
+				right:20px; 
+				top:24px; 
+				border:1px solid #bfbfbf; 
+				width:10%; 
+				min-width:58px; 
+				height:24px; 
+				font-size:14px; 
+				line-height:24px; 
+				text-align:center; 
+				font-weight:bold; 
+				color:#6a6a6a; 
+				background:-webkit-linear-gradient(top, #efefef 0%,#dcdcdc 100%); 
+				text-transform:uppercase; 
+				text-decoration:none; 
+				text-shadow:0 1px 0 rgba(255,255,255,0.8); 
+				border-radius:3px; 
+				box-shadow:0 1px 0 rgba(255,255,255,0.6),0 1px 0 rgba(255,255,255,0.7) inset; 
+			}
+			#swb-save:active { 
+				line-height:25px; 
+				background:-webkit-linear-gradient(top, #dcdcdc 0%,#efefef 100%); 
+			}
+			.smart-glossy-icon {
+				width: 60px;
+				height: 60px;
+				box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+				border-radius: 12px;				
+				position:absolute; 
+				left:30px; 
+				top:10px; 
+				display:block; 
+			}
+			.rating-static { 
+    			width: 60px; 
+    			height: 14px;  
+    			display: block; 
+    			background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAgCAYAAADZubxIAAAB+klEQVR42u2ZsWrDMBCGvfYJ+np9jC55g1DoKySjlyweugTSJUsIJUPAOCaEeElpSmk7dClqf4HCYSTXCqXlTvfBQWL/i0+688l/limKIoyXxcK8bTYmFT1omuYqGf3TaGSeJxOTir4sS7NardLQY+cfh0MbKejBcrk0CJF6tDPseBdIzOfNhQ38pvc+drtb7no883q9Ni6QmPl8bgO/6T3X9rjrM7Qzl5RQHGez0w7hrseDT6dT0xV1Xb9K0VuQgFByUCXtyueuB6HkbLfbe4l6O5z0TY4E/X6/vy6KwtBAa5Oqz7ytrWNY4a7HO6udIFSASP374XAZanES9SDPc4NAYjCkuP8i9a69+YYXX5vjrkd7G4/HBmdIdw2DCRLkO1Ny12c0MRQcLXxfhbjruwgOKUL1iqIoiqIoym/A3d/FmTg1PzgK7v4ujkzV98G/r567HxyFBH8XWixw3yrg7gf/2P7afurjYGCjr//6n3pX4TSgrTz+qLPQ2Pu7sXD3d1HlWFR6HwtMLTRaESL83Vgk+LtU83BXnJJDv9dS2Pu75wxXnP1dVDJdYOeyhPTs/d1YuPu7tLW7BUZ0DTOc/eAoqJ/afp9x0Lc3REX80dBwwt0PPqs9c/V33YZoV3ioTbP3d88ZsnzXufi7XV+7YhOk/q6iKIryB3wBtjEcvuWoD/oAAAAASUVORK5CYII=') 0 0 no-repeat;
+			}
+			.rating-50 { background-position: 0 0; }
+			.rating-40 { background-position: -12px 0; } 
+			.rating-30 { background-position: -24px 0; }
+			.rating-20 { background-position: -36px 0; }
+			.rating-10 { background-position: -48px 0; }
+			.rating-0 { background-position: -60px 0; }
+			.rating-5  { background-position: -48px -16px; }
+			.rating-15 { background-position: -36px -16px; }
+			.rating-25 { background-position: -24px -16px; }
+			.rating-35 { background-position: -12px -16px; }
+			.rating-45 { background-position: 0 -16px; }			
+			#swb-close { 
+				position:absolute; 
+				left:5px; 
+				top:5px; 
+				display:block; 
+				border:2px solid #fff; 
+				width:14px; 
+				height:14px; 
+				font-family:'ArialRoundedMTBold'; 
+				font-size:10px; 
+				line-height:14px; 
+				text-align:center; 
+				color:#fff; 
+				background:#070707; 
+				text-decoration:none; 
+				text-shadow:none; 
+				border-radius:14px; 
+				box-shadow:0 2px 3px rgba(0,0,0,0.4); 
+				-webkit-font-smoothing:subpixel-antialiased; 
+			}
+			#swb-close:active { color:#aaa; }			
+			#swb-info { 
+				position:absolute; 
+				left:98px; 
+				top:14px; 
+				width:44%; 
+				font-size:11px; 
+				line-height:1.2em; 
+				font-weight:bold; 
+				color:#6a6a6a; 
+				text-shadow:0 1px 0 rgba(255,255,255,0.8); 
+			}
+			#swb-info strong { 
+				display:block; 
+				font-size:13px; 
+				color:#4d4d4d; 
+			}
+			#swb-info em { font-style:normal; text-transform:uppercase; }

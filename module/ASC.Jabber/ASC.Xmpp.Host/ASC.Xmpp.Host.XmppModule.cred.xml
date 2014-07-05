@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<module-credentials xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:asc.module-credentials">
+  <module id="329ba8cd-e108-48b8-8753-5c136257204b" key="FAMBAAGfThrlgC+G7oW2noWJIfujrQL7JAPEUhfSl8/WrrW5DS4S7gnVuIz20cCKitxpx4HCo8/tabJ4BrDAr8k3RsvPgUEDY+WNF+s9iRXILL4RRhefEaYVMHQTuO8wRA0fnDBpz4kWEVMTipBC/5yzoyIEKeiJqyaDj62x4OrWyuKl5Q==" xmlns="">
+    <part id="f87970ca-c9b7-4969-98fe-7845324a41f1">
+      <service id="4c59bad7-5575-41f2-9d5e-4ffe5f9d1f63" sign="Q48vqbZGb7rU+K9a4MCjouVBjZNidDq9SzL7JVnHE3wVU5YuJiAWSCh7z5APmqXy05bYbKKPJciqrzW2YDXjkGMgd+7POUSwK5CqRIHbuF4iAusA3mJGroU0awvqEGoQpBZdFYlCMHfhI/qDvAgnspWVFEi83eRyYOFVjzH0a2Q=" />
+    </part>
+  </module>
+</module-credentials>

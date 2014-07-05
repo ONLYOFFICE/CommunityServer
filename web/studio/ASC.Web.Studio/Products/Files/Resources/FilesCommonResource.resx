@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Create, edit, save and share documents directly on your portal.  Import docs base from Google Docs, Zoho, Box.net</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Show Versions</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Show File Actions</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Show Folder Actions</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Ошибка начала редактирования файла</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>The file was corrupted when you save</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>You don't have enough permission to perform the operation</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Sorry, this file format isn't supported</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Cannot delete the file because it is opened for editing</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Cannot delete the folder because one of the files is opened for editing</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>You don't have enough permission to delete the file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>You don't have enough permission to delete the folder</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>You don't have enough permission to view the file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>You don't have enough permission to view the folder content</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Cannot update the file because it's opened for editing</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>You don't have enough permission to view the folder content</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>You don't have enough permission to rename the file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>You don't have enough permission to rename the folder</value>
+  </data>
+  <data name="ErrorMassage_ImportToTrash" xml:space="preserve">
+    <value>You are not allowed to import to Trash</value>
+  </data>
+  <data name="ErrorMassage_CreateNewFolderInTrash" xml:space="preserve">
+    <value>You are not allowed to create folders in the Trash</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>You are not allowed to preview the elements in the Trash</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>The required folder was not found</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Can't authorize at {0} provider with given credentials.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Login" xml:space="preserve">
+    <value>Can't login with given credentials.</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>new</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Mark as read</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Enter a comment</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Permission Settings</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Subfolders</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Uploaded</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>You cannot update a file which is opened for editing</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Creation date</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Document Name</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Folder Name</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Empty file</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>The required file was not found</value>
+  </data>
+  <data name="ErrorMassage_PayTariffDocsEdition" xml:space="preserve">
+    <value>To use the edit documents pay tariff Docs Edition</value>
+  </data>
+  <data name="ImportFromBoxNet" xml:space="preserve">
+    <value>Import from Box.Net</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Import from Google Docs</value>
+  </data>
+  <data name="ImportFromZoho" xml:space="preserve">
+    <value>Import from Zoho</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Me</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Недостаточно прав для редактирования файла</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>Файл заблокирован другим пользователем</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>Файл разблокирован</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Version history:</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Отметить как версию</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Отметить как ревизию</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Convert &amp; Open</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Too many downloads.</value>
+  </data>
+  <data name="ErrorMassage_Reconverting" xml:space="preserve">
+    <value>The file is already in the queue for conversion.</value>
+  </data>
+  <data name="ErrorMassage_ManyImports" xml:space="preserve">
+    <value>Too many imports.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>You don't have enough permission to create</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Bad request.</value>
+  </data>
+  <data name="Access" xml:space="preserve">
+    <value>Access</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>You cannot copy the folder to its subfolder</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Оповещать при расшаривании</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Read Only</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Full Access</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Deny Access</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Everyone</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Guest</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Create, edit, save and share documents directly on your portal.</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Делать все то же, что и пользователь|Подключать аккаунты dropbox, boxnet и т.д. в разделе "Общие документы"|Настраивать права доступа к документам и папкам в разделе "Общие документы"</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Создавать и редактировать документы, как свои, так и те к которым предоставлен доступ с соответствующими правами|Предоставлять доступ другим пользователям к документам и папкам с правами на чтение/редатирование|Подключать аккаунты dropbox, boxnet и т.д. в разделе "Мои документы"</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Notify when shared folder</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Конвертировать в</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="CopyForEdit" xml:space="preserve">
+    <value>The document converted copy has been created to allow its editing</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Connection url</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Folder title</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Make a shared and put into Shared Documents</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} removed</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="ErrorMassage_FileSizeZip" xml:space="preserve">
+    <value>File larger than {0} will not be archived</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>File larger than {0} will not be converted</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Error occurred in the Documents Service</value>
+  </data>
+  <data name="IsOriginal" xml:space="preserve">
+    <value>original</value>
+  </data>
+  <data name="ErrorMassage_UnknownrProvider" xml:space="preserve">
+    <value>Unknown provider</value>
+  </data>
+  <data name="DemoVersion" xml:space="preserve">
+    <value>Demo Version</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>FirstName</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>LastName</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>You must grant access for work with the file</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Opening this file in Teamlab will create a new copy of this file into Office Open XML format in your Google Drive. By this way, the original file will not be modified. For further edits in Teamlab, you have to open the new copy.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Do not show this again</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>CONTINUE</value>
+  </data>
+  <data name="AppButtonCreate" xml:space="preserve">
+    <value>CREATE FILE</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Enter Filename</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Select Filetype</value>
+  </data>
+  <data name="AppDriveSpreadsheetException" xml:space="preserve">
+    <value>Google Drive doesn't allow to access the requested spreadsheet as it was created in a new format</value>
+  </data>
+</root>

@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Add and Create New Opportunity</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Add This Opportunity</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>All Opportunities</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Stake</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>fix</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>per day</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>per hour</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>per month</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>per week</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>per year</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Payment recurrence</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Opportunity contact</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>Add the first opportunity</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Add new opportunity</value>
+  </data>
+  <data name="CurrentDeal" xml:space="preserve">
+    <value>Current opportunity</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Opportunity at stage</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Opportunity</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Sum</value>
+  </data>
+  <data name="DealClientNoSet" xml:space="preserve">
+    <value>No client is specified</value>
+  </data>
+  <data name="DealCount" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Opportunity Stages</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Discussion</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>The potential buyer showed his/her interest and sees how your offering meets his/her goal</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>A start or a failure. The opportunity is either not started yet or closed due to the lack of perspective</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Zero-point</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>The potential buyer has agreed to meet and/or evaluate your offering</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Evaluation</value>
+  </data>
+  <data name="DealMilestone_Proposal_Description" xml:space="preserve">
+    <value>You have put forward a proposal for your offering to meet the potential buyer's objectives</value>
+  </data>
+  <data name="DealMilestone_Proposal_Title" xml:space="preserve">
+    <value>Proposal</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>The potential buyer has already discussed your offering in details</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Negotiation</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>The potential buyer has become curious about your offering</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Approach</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>The potential buyer has verbally agreed to do business with you</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Commitment</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>A deal. The opportunity is closed successfully</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Stage type</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Opportunities</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Delete opportunity</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Update opportunity «{0}»</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Update this opportunity</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>The opportunity list is empty</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>No opportunities to be displayed for this filter here</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Opportunities let you track potential sales to your clients. Determine the {0}opportunity stages{1} in accordance with your business process, keep history, assign tasks, upload documents, calculate profit with every client.</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Opportunity stages let you determine steps necessary to complete the deal. The default opportunity stages are approach, discussion, evaluation, negotiation, commitment, success, zero-point. To be able to edit them the portal administrator rights are needed.</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Enter the opportunity title</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Every opportunity must have a responsible one</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>The participant list is empty</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Add participants to your opportunity from the list of companies or persons. After this is done you will know what contacts are associated with this opportunity and who you can deal with.</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>My opportunities</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Opportunity title</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Budget is not set</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Other opportunity participants</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Participants</value>
+  </data>
+  <data name="PrivateDealDescription" xml:space="preserve">
+    <value>Private opportunity is accessible to certain users with proper access rights.</value>
+  </data>
+  <data name="PrivateDealLabelTex" xml:space="preserve">
+    <value>Yes, I understand. Add the opportunity as private.</value>
+  </data>
+  <data name="PrivateDealTitle" xml:space="preserve">
+    <value>Private opportunity</value>
+  </data>
+  <data name="PrivateDealUserListText" xml:space="preserve">
+    <value>Users with access to the opportunity</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Restrict access to the opportunity</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Success probability</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Responsible for the opportunity</value>
+  </data>
+  <data name="SaveAndCreateDealButton" xml:space="preserve">
+    <value>Save and Create a New Opportunity</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Customize user fields</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Page total</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>By stage</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>By contact</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>By participant</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>No opportunities matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the opportunities in this section. Or you can create the opportunity in case it is absent from the list.</value>
+  </data>
+  <data name="CreateDeal" xml:space="preserve">
+    <value>Create opportunity</value>
+  </data>
+  <data name="ByEstimated" xml:space="preserve">
+    <value>By Estimated/Actual due date</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Estimated/Actual due date</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>By stage/stage type</value>
+  </data>
+  <data name="MyDealFilter" xml:space="preserve">
+    <value>My</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Total opportunities</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Import opportunities</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Необходимо выбрать правильно оформленный CSV-файл на жёстком диске Вашего компьютера. Он должен содержать поля или столбцы, разделённые запятой, которые будут использоваться для импорта сделок.  Файлы, содержащие более {0} строк, следует разделить на меньшие части для правильного импортирования. Убедитесь, что Вы выбрали только тех пользователей портала, которым необходимо иметь доступ к этой импортируемой информации, иначе данные из CSV-файла станут доступны всем пользователям портала.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Выберите CSV файл и настройте права доступа для импорта возможных  сделок</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Сопоставьте колонки из своего файла с соответствующими полями в TeamLab CRM. Пожалуйста, обратите Ваше внимание на то, что для правильного импорта возможных сделок вы должны найти соответствие по крайней мере полям 'Название возможной сделки', 'Ответственный за возможную сделку' из Teamlab CRM столбцам из вашего файла. Только после этого Вы сможете перейти к следующему шагу. Поля содержащие дату должны быть заданы форматом {0}. Поле валюты должно быть задано в виде трех букв согластно международному коду (Например, USD, JPY, AUD). </value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Please, verify the fields</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>By stage type</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>OpportunityTag</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Opportunity Tag List</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Deal Participant</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Deal Participants</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Opportunity Tags</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total amount</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Show total amount</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Go to oppotunity list</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Import of  opportunities can take several minutes depending on the amount of your data.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Import started</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Start Import</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>InitialContact_Description</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Initial Contact</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Preapproach_Descriptions</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Preapproach</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Deleting opportunities</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Перейти в профиль</value>
+  </data>
+  <data name="MakePublicPanelCheckBoxLabelForDeal" xml:space="preserve">
+    <value>Allow access to the opportunity for all CRM users</value>
+  </data>
+  <data name="MakePublicPanelDescrForDeal" xml:space="preserve">
+    <value>The access is granted only to opportunity managers. To allow access to this opportunity for all users check the box below</value>
+  </data>
+  <data name="MakePublicPanelTitleForDeal" xml:space="preserve">
+    <value>Make this opportunity public</value>
+  </data>
+  <data name="SelectDealManagerError" xml:space="preserve">
+    <value>Select opportunity manager</value>
+  </data>
+  <data name="NotifyDealManager" xml:space="preserve">
+    <value>Notyfy opportunity manager by email</value>
+  </data>
+  <data name="AssignDealManager" xml:space="preserve">
+    <value>Assign manager to opportunity</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Link or create opportunity</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Права будут установлены только на те сделки, для которых вы являетесь автором</value>
+  </data>
+</root>

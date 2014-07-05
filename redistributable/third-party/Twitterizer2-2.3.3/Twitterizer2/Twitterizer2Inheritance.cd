@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Twitterizer.TwitterUser" Collapsed="true">
+    <Position X="1" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAATUAQkDAIxwBBoZAIZIiQBABEAEAICEoAwBABgAAA=</HashCode>
+      <FileName>TwitterEntities\TwitterUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Twitterizer.TwitterUserCollection">
+    <Position X="6.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAABAAAAAAAAAIAACAAgAADAAA=</HashCode>
+      <FileName>TwitterEntities\TwitterUserCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Twitterizer.Core.BaseCollection&lt;T&gt;" Collapsed="true">
+    <Position X="7.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Core\BaseCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Twitterizer.TwitterDirectMessageCollection" Collapsed="true">
+    <Position X="4.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TwitterEntities\TwitterDirectMessageCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Twitterizer.TwitterListCollection" Collapsed="true">
+    <Position X="9" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAABAAAAAAAAAIAACAAgAADAAA=</HashCode>
+      <FileName>TwitterEntities\TwitterListCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Twitterizer.TwitterStatusCollection" Collapsed="true">
+    <Position X="11.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TwitterEntities\TwitterStatusCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Twitterizer.Core.BaseObject" Collapsed="true">
+    <Position X="7.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAIAAAAAAAAAABAAA=</HashCode>
+      <FileName>Core\BaseObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Twitterizer.TwitterDirectMessage" Collapsed="true">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQACABgIAAAEAAAAAAABEBAAACAgAACAAIAAA=</HashCode>
+      <FileName>TwitterEntities\TwitterDirectMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Twitterizer.TwitterList" Collapsed="true">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQDQAAAAIAgAKAAAgAAAAQAACEAAAAQAQAAAAQAAAI=</HashCode>
+      <FileName>TwitterEntities\TwitterList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Twitterizer.TwitterListWrapper" Collapsed="true">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQIAACAAAAAAAAA=</HashCode>
+      <FileName>TwitterEntities\TwitterListWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Twitterizer.TwitterRateLimitStatus" Collapsed="true">
+    <Position X="10" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAIEAAAAAAEAAAQAAAAAAAA=</HashCode>
+      <FileName>TwitterEntities\TwitterRateLimitStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Twitterizer.TwitterRelationship" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TwitterEntities\TwitterRelationship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Twitterizer.TwitterStatus" Collapsed="true">
+    <Position X="14.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQDAAQAAgABAAAAICAAAAAEQAEAAAAIAgAACAAoAAA=</HashCode>
+      <FileName>TwitterEntities\TwitterStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

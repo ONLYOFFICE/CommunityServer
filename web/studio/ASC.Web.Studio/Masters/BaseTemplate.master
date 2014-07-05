@@ -1,0 +1,143 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Studio.Masters.BaseTemplate" CodeBehind="BaseTemplate.master.cs" %>
+
+<%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Web.Core.Mobile" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
+
+<%@ Register TagPrefix="client" Namespace="ASC.Web.Core.Client.Bundling" Assembly="ASC.Web.Core" %>
+<%@ Register TagPrefix="master" TagName="HeadStyles" Src="HeadStyles.ascx" %>
+<%@ Register TagPrefix="master" TagName="ThemeStyles" Src="ThemeStyles.ascx" %>
+<%@ Register TagPrefix="master" TagName="HeadScripts" Src="HeadScripts.ascx" %>
+<%@ Register TagPrefix="master" TagName="BodyScripts" Src="BodyScripts.ascx" %>
+<%@ Register TagPrefix="master" TagName="ClientLocalizationScript" Src="ClientLocalizationScript.ascx" %>
+<%@ Register TagPrefix="ucc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:900,800,700,600,500,400,300&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel="stylesheet" type="text/css" />
+    <title>ONLYOFFICE™</title>
+
+    <master:ThemeStyles ID="ThemeStyles" runat="server" CategoryName="common" />
+    <master:HeadStyles ID="HeadStyles" runat="server" />
+
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+
+    <ucc:FeedControl ID="feadControl" runat="server" Title="Teamlab Portal" ContentOnly="true" AutoFill="false" />
+</head>
+<body class="<%= ColorThemeClass %> <%= MobileDetector.IsMobile ? "mobile" : "" %>">
+    <form runat="server" id="Form" style="margin: 0; height: 100%; padding: 0;" enctype="multipart/form-data" method="post">
+
+        <%= RenderStatRequest() %>
+
+        <div class="main-content">
+            <div id="studioPageContent">
+                <asp:ContentPlaceHolder runat="server" ID="TopContent" />
+                <div class="mainPageLayout">
+                    <table class="mainPageTable <%= !DisabledSidePanel ? "with-mainPageTableSidePanel" : "" %>" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <% if (!DisabledSidePanel)
+                                   { %>
+                                <td class="borderBase mainPageTableSidePanel">
+                                    <div id="studio_sidePanel" class="<%=EnabledWebChat ? "sidepanel-with-chat" : ""  %>">
+                                        <asp:ContentPlaceHolder ID="SidePanel" runat="server" />
+                                    </div>
+                                    <asp:PlaceHolder ID="BannerHolder" runat="server" />
+                                    <% if (EnabledWebChat && !IsMobile)
+                                       { %>
+                                           <asp:PlaceHolder runat="server" ID="SmallChatHolder" />
+                                    <% } %>
+                                </td>
+                                <% } %>
+                                <asp:ContentPlaceHolder ID="AdditionalColumns" runat="server" />
+                                <td class="mainPageContent" valign="top">
+
+                                    <% if (!DisableTariffNotify)
+                                       { %>
+                                    <div id="infoBoxTariffNotify" class="info-box excl display-none">
+                                        <div class="header-base medium bold"><%= TariffNotify %></div>
+                                        <div><%= TariffNotifyText %></div>
+                                    </div>
+                                    <% } %>
+
+                                    <% if (!DisablePartnerPanel && Partner != null)
+                                       { %>
+                                    <div id="infoBoxPartnerPanel" class="info-box excl display-none">
+                                        <div><%= String.Format(Resources.Resource.HostedExclNonAuthorized, "<a target=\"_blank\" href=\"mailto:"+ (!string.IsNullOrEmpty(Partner.SupportEmail) ? Partner.SupportEmail : Partner.Email) + "\">", "</a>") %></div>
+                                    </div>
+                                    <% } %>
+
+                                    <asp:PlaceHolder ID="activateEmailPanel" runat="server" />
+                                    <asp:PlaceHolder ID="_contentHolder" runat="server" />
+                                    <asp:ContentPlaceHolder ID="PageContent" runat="server" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="container" style="position: absolute; top: 0; left: 0;"></div>
+                </div>
+            </div>
+            <asp:ContentPlaceHolder ID="FooterContent" runat="server" />
+        </div>
+    </form>
+
+    <master:HeadScripts ID="HeadScripts" runat="server" />
+    <%= RenderCustomScript() %>
+
+    <master:ClientLocalizationScript ID="ClientLocalizationScript" runat="server" />
+    <client:ClientScriptReference ID="baseTemplateMasterScripts" runat="server" />
+
+    <asp:ContentPlaceHolder ID="clientTemplatesResourcesPlaceHolder" runat="server" />
+
+    <ucc:InlineScript ID="InlineScriptBefore" runat="server" />
+    <master:BodyScripts ID="BodyScripts" runat="server" />
+    <ucc:InlineScript ID="InlineScript" runat="server" />
+
+
+    <% if (!CoreContext.Configuration.Standalone && CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0)
+       { %>
+
+    <% if(!SecurityContext.IsAuthenticated) { %>
+    <!-- Google Code for Personal 2014 all_pages -->
+    <!-- Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. For instructions on adding this tag and more information on the above requirements, read the setup guide: google.com/ads/remarketingsetup -->
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 1025072253;
+        var google_conversion_label = "QiTWCKO5twgQ_bjl6AM";
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+    </script>
+    <noscript>
+    <div style="display:inline;">
+    <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1025072253/?value=0&label=QiTWCKO5twgQ_bjl6AM&guid=ON&script=0"/>
+    </div>
+    </noscript>
+    <%} else { %>
+        <!-- Google Code for Personal 2014 login -->
+        <!-- Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. For instructions on adding this tag and more information on the above requirements, read the setup guide: google.com/ads/remarketingsetup -->
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            var google_conversion_id = 1025072253;
+            var google_conversion_label = "t0CMCJu6twgQ_bjl6AM";
+            var google_custom_params = window.google_tag_params;
+            var google_remarketing_only = true;
+            /* ]]> */
+        </script>
+        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+        </script>
+        <noscript>
+        <div style="display:inline;">
+        <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1025072253/?value=0&label=t0CMCJu6twgQ_bjl6AM&guid=ON&script=0"/>
+        </div>
+        </noscript> 
+    <%} %>
+    <%} %>
+</body>
+</html>

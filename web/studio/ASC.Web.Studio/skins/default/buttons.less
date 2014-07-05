@@ -1,0 +1,351 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*******************************************************************************
+   Buttons Style
+*******************************************************************************/
+.button, .button:visited, .button:hover, .button:active {
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    font-family: @baseFont;
+    font-size: 12px;
+    line-height: 13px;
+    padding: 4px 13px;
+    margin: 0;
+    .textButtonsStyle(@defaultButtonTextColor);
+    .bg-button-action ();
+    .borderRadius();
+    .noneSelect();
+}
+
+.button {
+    &.blue {
+        color: @defaultButtonTextColor;
+        .bg-button-action ();
+
+        &:hover {
+            color: @defaultButtonTextColor;
+        }
+    }
+
+    &.gray {
+        color: @grayButtonTextColor;
+        padding: 3px 12px;
+        .bg-button-default();
+        .border-button-default ();
+
+        &:hover {
+            color: @grayButtonTextColor;
+        }
+
+        &.disable {
+            color: @grayButtonTextColorDisable;
+        }
+
+        .plus {
+            background: url('@{img-change-url}/plus_12.png') no-repeat scroll -2px 2px transparent;
+            padding-left: 15px;
+        }
+
+        &.plus {
+            padding-left: 15px;
+            position: relative;
+
+            &:after {
+                background: url('@{img-change-url}/plus_12.png') no-repeat scroll 0 0 transparent;
+                content: "";
+                cursor: pointer;
+                display: block;
+                height: 12px;
+                left: 1px;
+                position: absolute;
+                top: 20%;
+                width: 12px;
+            }
+        }
+
+        .arrow-down {
+            border-width: 4px 4px 0;
+            border-color: @grayButtonTextColor transparent transparent transparent;
+            border-style: solid solid outset solid;
+            display: inline-block;
+            height: 0;
+            margin: 0 0 2px 3px;
+            width: 0;
+        }
+    }
+
+    &.green {
+        color: @defaultButtonTextColor;
+        .bg-button-create-new();
+    }
+
+    &.red {
+        color: @defaultButtonTextColor;
+        .bg-button-danger();
+
+        &:hover {
+            color: @defaultButtonTextColor;
+        }
+
+        &:active {
+            color: @defaultButtonTextColor;
+        }
+    }
+
+    &.btn-icon {
+        position: relative;
+        height: 23px;
+        width: 37px;
+
+        &:after {
+            content: "";
+            height: 15px;
+            width: 15px;
+            position: absolute;
+            top: 3px;
+        }
+
+        &.__play:after {
+            background: url("@{img-change-url}/monitoring.png") no-repeat -28px -4px transparent;
+            left: 10px;
+        }
+
+        &.__update:after {
+            background: url("@{img-change-url}/monitoring.png") no-repeat -4px -4px transparent;
+            left: 10px;
+        }
+    }
+
+    &.btn-action {
+        position: relative;
+        height: 16px;
+        width: 0;
+        
+        &:after {
+            content: "";
+            height: 16px;
+            width: 16px;
+            position: absolute;
+            top: 3px;
+        }
+
+        &.__apply:after {
+            background: url("@{img-change-url}/name_action.png") no-repeat 0px 0px transparent;
+            left: 4px;
+        }
+
+        &.__reset:after {
+            background: url("@{img-change-url}/name_action.png") no-repeat -20px 0px transparent;
+            left: 5px;
+        }
+    }
+}
+    
+.button.huge, .button.huge:visited, .button.huge:hover, .button.huge:active {
+    font-size: 15px;
+    line-height: 15px;
+    padding: 12px 30px 13px;
+    &.gray {
+        padding: 11px 30px 12px;
+    }
+}
+.button.big, .button.big:visited, .button.big:hover, .button.big:active { 
+    font-size:15px;
+    line-height: 17px;
+    padding: 7px 30px 8px;
+    &.gray {
+        padding: 6px 30px 7px;
+    }
+}
+.button.middle, .button.middle:visited, .button.middle:hover, .button.middle:active {
+    font-size: 12px;
+    line-height: 13px;
+    padding: 5px 24px 6px;
+    &.gray {
+        padding: 4px 24px 5px;
+    }
+}
+
+.button.group{
+    span {
+        background: url("@{imagesBaseUrl}/contentmenu/down_arrow_sprite.png") no-repeat right 3px transparent;
+        padding-right: 12px;
+    }
+    &.disable span {
+        background-position: right -9px;  
+    }
+}
+
+.on_off_button    
+{
+    background: url("@{img-change-url}bnt-onoff.png") no-repeat top center transparent;
+    height:16px;
+    width:41px;
+    display:inline-block;
+    cursor:pointer;
+    }
+
+
+.on_off_button.on 
+{
+    background-position: top center;
+    }  
+.on_off_button.off 
+{
+    background-position: bottom center;
+    }
+
+
+/*******************************************************************************
+   Button Containers
+*******************************************************************************/
+.small-button-container {
+    margin-top: 24px;
+    position: relative;
+}
+.middle-button-container {
+    margin-top: 32px;
+    position: relative;
+}
+.big-button-container {
+    margin-top: 40px;
+    position: relative;
+}
+
+/*******************************************************************************
+   Button in list/table with hover effect
+*******************************************************************************/
+.item-row {
+    .btn-row {
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px;
+        line-height: 16px;
+        padding: 4px 13px 4px 32px;
+        position: relative;
+        .borderButtons(transparent);
+        .textButtonsStyle(@textColorBlackLight);
+        .borderRadius();
+        .noneSelect();
+        background: transparent;
+
+        &:after {
+            background: url('@{imagesBaseUrl}/btn_row_icons.png') no-repeat scroll 0 0 transparent;
+            content: "";
+            height: 15px;
+            left: 12px;
+            margin-top: -8px;
+            position: absolute;
+            top: 50%;
+            width: 15px;
+        }
+
+        &.__share:after {
+            background-position: 0 0;
+        }
+
+        &.__lock:after {
+            background-position: -19px 0;
+        }
+
+        &.__list:after {
+            background-position: -37px 0;
+        }
+    }
+
+    &.row-hover:hover .btn-row {
+        color: @grayButtonTextColor;
+        .borderButtons(@border-button-default);
+        .bg-vertical-gradient(@bg-button-default-start, @bg-button-default-end);
+
+        &:after {
+            background-image: url('@{img-change-url}/btn_row_icons.png');
+        }
+
+        &:hover {
+            .bg-vertical-gradient(@bg-button-default-hover-start, @bg-button-default-hover-end);
+        }
+
+        &.__share:after {
+            background-position: 0 -19px;
+        }
+
+        &.__lock:after {
+            background-position: -19px -19px;
+        }
+
+        &.__list:after {
+            background-position: -37px -19px;
+        }
+    }
+
+    &.__active {
+        .btn-row {
+            &.__share:after {
+                background-position: 0 -19px;
+            }
+
+            &.__lock:after {
+                background-position: -19px -19px;
+            }
+
+            &.__list:after {
+                background-position: -37px -19px;
+            }
+        }
+    }
+}
+
+
+.try-button {
+        &,
+        &:hover,
+        &:visited{
+            background: url("@{imagesBaseUrl}/btn_64.png") no-repeat -8px -8px transparent;
+            color: #fff;
+            font-size: 7px;
+            height: 24px;
+            padding-top: 40px;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+            width: 64px;
+        }
+        &.document {
+             background-position: -8px -8px;
+        }
+        &.spreadsheet {
+             background-position: -8px -80px;
+        }
+        &.presentation {
+            background-position: -8px -152px;
+        }
+    }

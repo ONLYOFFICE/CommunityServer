@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{49F07FFF-98A5-47D2-A9E9-A46B98C41245}</ProjectGuid>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ASC.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>ASC.Api</RootNamespace>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MvcOnly|AnyCPU' ">
+    <OutputPath>bin\MvcOnly\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Database, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Caching.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Security.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="Unity.AutoRegistration, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Unity.AutoRegistration.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiDefaultConfig.cs" />
+    <Compile Include="ApiServer.cs" />
+    <Compile Include="ApiSetup.cs" />
+    <Compile Include="ApiSetupHttpModule.cs" />
+    <Compile Include="Attributes\ApiAttribute.cs" />
+    <Compile Include="Attributes\ApiCallFilter.cs" />
+    <Compile Include="Attributes\CacheAttribute.cs" />
+    <Compile Include="Attributes\PollAttribute.cs" />
+    <Compile Include="Batch\ApiBatchHttpHandler.cs" />
+    <Compile Include="Batch\ApiBatchRequest.cs" />
+    <Compile Include="Batch\ApiBatchResponse.cs" />
+    <Compile Include="Batch\ApiBatchRouteHandler.cs" />
+    <Compile Include="Batch\ApiWorkerRequest.cs" />
+    <Compile Include="Collections\CompiledSmartList.cs" />
+    <Compile Include="Collections\Extensions.cs" />
+    <Compile Include="Collections\ItemDictionary.cs" />
+    <Compile Include="Collections\ItemKeyValuePair.cs" />
+    <Compile Include="Collections\ItemList.cs" />
+    <Compile Include="Collections\SmartList.cs" />
+    <Compile Include="Collections\SmartListFactory.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Enums\ApiStatus.cs" />
+    <Compile Include="Exceptions\ApiBadHttpMethodException.cs" />
+    <Compile Include="Exceptions\ApiDuplicateRouteException.cs" />
+    <Compile Include="Exceptions\ApiArgumentMismatchException.cs" />
+    <Compile Include="Exceptions\ItemNotFound.cs" />
+    <Compile Include="GloabalFilters\RateLimitingFilter.cs" />
+    <Compile Include="Impl\ApiHttpHandlerBase.cs" />
+    <Compile Include="Impl\Constraints\ApiHttpMethodConstraint.cs" />
+    <Compile Include="Impl\Routing\ApiAccessControlRouteRegistrator.cs" />
+    <Compile Include="Impl\Routing\ApiBatchRouteRegitrator.cs" />
+    <Compile Include="Impl\Poll\ApiAsyncHttpHandler.cs" />
+    <Compile Include="Impl\ApiRouteConfigurator.cs" />
+    <Compile Include="Impl\Routing\ApiPollRouteRegistrator.cs" />
+    <Compile Include="Impl\Routing\ApiRouteRegistrator.cs" />
+    <Compile Include="Impl\Routing\ApiRouteRegistratorBase.cs" />
+    <Compile Include="Impl\Serializers\JsonStringConverter.cs" />
+    <Compile Include="Impl\Serializers\SerializerContractResolver.cs" />
+    <Compile Include="Utils\StringIgnoreCaseComparer.cs" />
+    <Compile Include="Interfaces\IApiSerializer.cs" />
+    <Compile Include="Impl\Serializers\JsonNetSerializer.cs" />
+    <Compile Include="Impl\Serializers\SerializerResponder.cs" />
+    <Compile Include="Interfaces\IApiAsyncHttpHandler.cs" />
+    <Compile Include="Interfaces\IApiBootstrapper.cs" />
+    <Compile Include="Interfaces\IApiDateTime.cs" />
+    <Compile Include="Impl\ApiAllowAllAuthorization.cs" />
+    <Compile Include="Impl\ApiArgumentBuilder.cs" />
+    <Compile Include="Impl\ApiCacheKeyBuilder.cs" />
+    <Compile Include="Impl\ApiConfiguration.cs" />
+    <Compile Include="Impl\ApiContext.cs" />
+    <Compile Include="Impl\ApiHttpHandler.cs" />
+    <Compile Include="Impl\ApiKeyValueInMemoryStorage.cs" />
+    <Compile Include="Impl\ApiManager.cs" />
+    <Compile Include="Impl\ApiMethodCall.cs" />
+    <Compile Include="Impl\ApiRouteHandler.cs" />
+    <Compile Include="Impl\ApiSmartListResponceFilter.cs" />
+    <Compile Include="Impl\ApiStandartResponce.cs" />
+    <Compile Include="Impl\ApiStoragePath.cs" />
+    <Compile Include="Impl\Invokers\ApiAdaptiveCachedMethodInvoker.cs" />
+    <Compile Include="Impl\Invokers\ApiCachedMethodInvoker.cs" />
+    <Compile Include="Impl\Invokers\ApiSimpleMethodInvoker.cs" />
+    <Compile Include="Impl\Responders\ContentResponder.cs" />
+    <Compile Include="Impl\Responders\DirectResponder.cs" />
+    <Compile Include="Interfaces\Cache\IApiCacheMethodKeyBuilder.cs" />
+    <Compile Include="Interfaces\IApiArgumentBuilder.cs" />
+    <Compile Include="Interfaces\IApiAuthorization.cs" />
+    <Compile Include="Interfaces\IApiConfiguration.cs" />
+    <Compile Include="Interfaces\IApiEntryPoint.cs" />
+    <Compile Include="Interfaces\IApiHttpHandler.cs" />
+    <Compile Include="Interfaces\IApiManager.cs" />
+    <Compile Include="Interfaces\IApiMethodCall.cs" />
+    <Compile Include="Interfaces\IApiMethodInvoker.cs" />
+    <Compile Include="Interfaces\IApiParamInspector.cs" />
+    <Compile Include="Interfaces\IApiResponceFilter.cs" />
+    <Compile Include="Interfaces\IApiResponder.cs" />
+    <Compile Include="Interfaces\IApiRouteConfigurator.cs" />
+    <Compile Include="Interfaces\IApiRouteHandler.cs" />
+    <Compile Include="Interfaces\IApiRouteRegistrator.cs" />
+    <Compile Include="Interfaces\IApiStandartResponce.cs" />
+    <Compile Include="Interfaces\IApiStoragePath.cs" />
+    <Compile Include="Interfaces\ResponseTypes\IApiContentResponce.cs" />
+    <Compile Include="Interfaces\ResponseTypes\IApiDirectResponce.cs" />
+    <Compile Include="Impl\SimpleApiParamInspector.cs" />
+    <Compile Include="Interfaces\Storage\IApiKeyValueStorage.cs" />
+    <Compile Include="Logging\ILog.cs" />
+    <Compile Include="Attributes\NoAutoRegistrationAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Publisher\ApiMethodCallData.cs" />
+    <Compile Include="Publisher\ApiPubSub.cs" />
+    <Compile Include="Publisher\AsyncHttpHandlerBase.cs" />
+    <Compile Include="Publisher\AsyncWaitRequestState.cs" />
+    <Compile Include="Publisher\DataHandler.cs" />
+    <Compile Include="Interfaces\IApiPubSub.cs" />
+    <Compile Include="Publisher\KeyHelper.cs" />
+    <Compile Include="Utils\Binder.cs" />
+    <Compile Include="Utils\ConvertUtils.cs" />
+    <Compile Include="Utils\ErrorHttpHandler.cs" />
+    <Compile Include="Utils\HttpRequestBaseExtensions.cs" />
+    <Compile Include="Utils\HttpUtils.cs" />
+    <Compile Include="Utils\LifetimeManagers.cs" />
+    <Compile Include="Utils\PathUtils.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
+    <Compile Include="Utils\Update.cs" />
+    <Compile Include="Routing\UrlPath.cs" />
+    <Compile Include="Utils\Validate.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile->'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath->'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

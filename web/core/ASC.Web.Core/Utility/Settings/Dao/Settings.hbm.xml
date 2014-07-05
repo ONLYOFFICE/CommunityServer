@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="ASC.Web.Core.Utility.Settings.Dao.Settings, ASC.Web.Core" table="WebStudioSettings">    
+    <composite-id>
+      <key-property name="ID" column="ID"/>
+      <key-property name="UserID" column="UserID"/>
+      <key-property name="TenantID" column="TenantID"/>
+    </composite-id>
+    <property name="Data" column="Data" />    
+  </class>
+</hibernate-mapping>

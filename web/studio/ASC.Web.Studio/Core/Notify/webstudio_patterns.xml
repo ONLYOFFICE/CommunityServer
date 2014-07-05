@@ -1,0 +1,299 @@
+<patterns>
+  <formatter type="ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common" />
+
+  <!-- self_profile_updated -->
+  <pattern id="self_profile_updated" sender="email.sender">
+    <subject resource="|subject_self_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_self_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="self_profile_updated" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_self_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- user_has_join -->
+  <pattern id="user_has_join" sender="email.sender">
+    <subject resource="|subject_user_has_join|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"></subject>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_user_has_join|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="user_has_join" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_user_has_join|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- for_admin_notify -->
+  <pattern id="for_admin_notify" sender="email.sender">
+    <subject resource="|subject_for_admin_notify|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"></subject>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_for_admin_notify|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="for_admin_notify" sender="messanger.sender">
+    <subject resource="|subject_for_admin_notify|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"></subject>
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_for_admin_notify|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- admin_sms_balance -->
+  <pattern id="admin_sms_balance" sender="email.sender">
+    <subject resource="|subject_admin_sms_balance|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"></subject>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_admin_sms_balance|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="admin_sms_balance" sender="messanger.sender">
+    <subject resource="|subject_admin_sms_balance|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"></subject>
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_admin_sms_balance|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- you_added_after_invite -->
+  <pattern id="you_added_after_invite" sender="email.sender">
+    <subject resource="|subject_you_added_after_invite|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_you_added_after_invite|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="you_added_after_invite" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_you_added_after_invite|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+    
+   <!-- you_added_like_guest -->
+   <pattern id="you_added_like_guest" sender="email.sender">
+      <subject resource="|subject_you_added_like_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+      <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_you_added_like_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+   </pattern>
+   <pattern id="you_added_like_guest" sender="messanger.sender">
+      <subject />
+      <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_you_added_like_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+   </pattern>
+
+    <!-- profile_updated -->
+  <pattern id="profile_updated" sender="email.sender">
+    <subject resource="|subject_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="profile_updated" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- send_pwd -->
+  <pattern id="send_pwd" sender="email.sender">
+    <subject resource="|subject_pwd_reminder|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_pwd_reminder|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="send_pwd" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_pwd_reminder|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- invite -->
+  <pattern id="invite" sender="email.sender">
+    <subject resource="|subject_invite|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_invite|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="invite" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_invite|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- join -->
+  <pattern id="join" sender="email.sender">
+    <subject resource="|subject_join|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_join|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="join" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_join|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- send_whats_new -->
+  <pattern id="send_whats_new" sender="email.sender">
+    <subject resource="|subject_send_whats_new|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_send_whats_new|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="send_whats_new" sender="messanger.sender">
+    <subject resource="|subject_send_whats_new|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">#foreach($activity in $Activities)
+$activity.Key
+
+#foreach($whatsNewActivity in $activity.Value)#foreach($b in $whatsNewActivity.BreadCrumbs) $b &gt; #end "$whatsNewActivity.Title":"$whatsNewActivity.URL"
+"$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL"    $whatsNewActivity.Date.ToShortTimeString()
+
+#end
+#end
+    </body>
+  </pattern>
+
+  <!-- backup_created -->
+  <pattern id="backup_created" sender="email.sender">
+    <subject resource="|subject_backup_created|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_backup_created|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="backup_created" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_backup_created|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- portal_deactivate -->
+  <pattern id="portal_deactivate" sender="email.sender">
+    <subject resource="|subject_portal_deactivate|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_portal_deactivate|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="portal_deactivate" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_portal_deactivate|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- portal_delete -->
+  <pattern id="portal_delete" sender="email.sender">
+    <subject resource="|subject_portal_delete|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_portal_delete|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="portal_delete" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_portal_delete|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- portal_delete_success -->
+  <pattern id="portal_delete_success" sender="email.sender">
+    <subject resource="|subject_portal_delete_success|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_portal_delete_success|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- profile_delete -->
+  <pattern id="profile_delete">
+    <subject resource="|subject_profile_delete|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_profile_delete|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- dns_change -->
+  <pattern id="dns_change">
+    <subject resource="|subject_dns_change|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_dns_change|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- owner_confirm_change -->
+  <pattern id="owner_confirm_change">
+    <subject resource="subject_confirm_owner_change|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_confirm_owner_change|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- activate -->
+  <pattern id="activate">
+    <subject resource="|subject_activate|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"/>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_activate|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+    
+  <!-- activate_guest -->
+  <pattern id="activate_guest">
+    <subject resource="|subject_activate_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"/>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_activate_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+    <!-- activate for your docs -->
+  <pattern id="activate_personal">
+    <subject resource="|subject_activate_personal|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"/>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_activate_personal|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- activate_email -->
+  <pattern id="activate_email">
+    <subject resource="|subject_activate_email|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_activate_email|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- change_email -->
+  <pattern id="change_email">
+    <subject resource="|subject_change_email|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_email|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- change_password -->
+  <pattern id="change_password">
+    <subject resource="|subject_change_password|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_password|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- change_pwd -->
+  <pattern id="change_pwd" sender="email.sender">
+    <subject resource="|subject_change_pwd|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_pwd|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="change_pwd" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_change_pwd|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- change_phone -->
+  <pattern id="change_phone">
+    <subject resource="|subject_change_phone|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_phone|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- congratulations -->
+  <pattern id="congratulations">
+    <subject resource="|subject_congratulations|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_congratulations|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- congratulations_notrial -->
+  <pattern id="congratulations_notrial">
+    <subject resource="|subject_congratulations|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_congratulations_notrial|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- migration_start -->
+  <pattern id="migration_start">
+    <subject resource="|subject_migration_start|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_migration_start|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+    
+  <!-- migration_success -->
+  <pattern id="migration_success">
+     <subject resource="|subject_migration_success|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_migration_success|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+    
+  <!-- migration_error -->
+  <pattern id="migration_error">
+     <subject resource="|subject_migration_error|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_migration_error|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- migration server failure -->
+  <pattern id="migration_server_failure">
+    <subject resource="|subject_migration_error|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_migration_server_failure|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- tariff warnings -->
+  <pattern id="tariff_warning_trial">
+    <subject resource="|subject_tariff_warning_trial|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_tariff_warning_trial|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="tariff_warning_trial2">
+    <subject resource="|subject_tariff_warning_trial2|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_tariff_warning_trial2|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="tariff_warning_trial3">
+    <subject resource="|subject_tariff_warning_trial3|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_tariff_warning_trial3|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="tariff_warning_trial4">
+    <subject resource="|subject_tariff_warning_trial4|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_tariff_warning_trial4|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  
+  <!-- after creation -->
+  <pattern id="after_creation1">
+    <subject resource="|subject_after_creation1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="after_creation2">
+    <subject resource="|subject_after_creation2|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation2|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="after_creation3">
+    <subject resource="|subject_after_creation3|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation3|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="after_creation4">
+    <subject resource="|subject_after_creation4|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation4|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+</patterns>

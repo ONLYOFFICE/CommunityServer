@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<signatures>
+    <signature from="Administrator" subject="Delivery Failure" body="Unable to deliver mail" search="" />
+    <signature from="Internet Mail Delivery" subject="Delivery has failed" body="cannot be delivered" search="Original address" />
+    <signature from="Mail Administrator" subject="Mail System Error" body="undeliverable" search="" />
+    <signature from="Mail Delivery Service" subject="Delivery Status Notification" body="Failed" search="" />
+    <signature from="Mail Delivery Subsystem" subject="Returned mail" body="permanent fatal errors" search="" />
+    <signature from="Mail Delivery System" subject="Undeliverable Mail" body="failed" search="" />
+    <signature from="Mail Delivery System" subject="Undelivered Mail" body="could not be delivered" search="The Postfix" />
+    <signature from="Mail Delivery System" subject="Mail delivery failed" body="could not be delivered" search="The Postfix" />
+    <signature from="MAILER-DAEMON" subject="failure notice" body="permanent error" search="" />
+    <signature from="MAILER-DAEMON" subject="Undeliverable mail" body="Failed" search="" />
+    <signature from="Mailer-Daemon" subject="undeliverable" body="" search="" />
+    <signature from="Postmaster" subject="Undeliverable Mail" body="Delivery failed" search="" />
+    <signature from="Postmaster" subject="Undeliverable Mail" body="undeliverable" search="" />
+    <signature from="Postmaster" subject="Undeliverable Mail" body="Unknown host" search="" />
+    <signature from="Postmaster" subject="Undeliverable Mail" body="Unknown user" search="" />
+    <signature from="postmaster" subject="Delivery Status Notification (Failure)" body="failed" search="" />
+    <signature from="postmaster" subject="Delivery Status Notification (Failure)" body="Unable to deliver" search="" />
+    <signature from="Postmaster" subject="DELIVERY FAILURE" body="was not delivered" search="" />
+    <signature from="Postmaster" subject="Undeliverable mail" body="was not delivered" search="" />
+    <signature from="postmaster" subject="Failed mail" body="" search="" />
+    <signature from="postmaster" subject="" body="could not be reached" search="" />
+    <signature from="QUOTA-GUARD" subject="Failure notice subject=" body="" search="" />
+    <signature from="The Post Office" subject="FAILED" body="" search="" />
+    <signature from="postmaster" subject="failure notice" body="permanent error" search="ignored" />
+    <signature from="Delivery Subsystem" subject="Message Delivery Failure" body="Message could not be delivered to some recipients" search="The following recipient(s) could not be reached" />
+</signatures>

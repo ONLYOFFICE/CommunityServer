@@ -1,0 +1,80 @@
+<!--
+ *
+ * System.Data.SQLite.Files.targets -
+ *
+ * Written by Joe Mistachkin.
+ * Released to the public domain, use at your own risk!
+ *
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+  ******************************************************************************
+  **                            Core Files (Common)                           **
+  ******************************************************************************
+  -->
+
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="SQLite3.cs" />
+    <Compile Include="SQLite3_UTF16.cs" />
+    <Compile Include="SQLiteBackup.cs" />
+    <Compile Include="SQLiteBase.cs" />
+    <Compile Include="SQLiteCommand.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SQLiteCommandBuilder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SQLiteConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SQLiteConnectionPool.cs" />
+    <Compile Include="SQLiteConnectionStringBuilder.cs" />
+    <Compile Include="SQLiteConvert.cs" />
+    <Compile Include="SQLiteDataAdapter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SQLiteDataReader.cs" />
+    <Compile Include="SQLiteException.cs" />
+    <Compile Include="SQLiteFactory.cs" />
+    <Compile Include="SQLiteFunction.cs" />
+    <Compile Include="SQLiteFunctionAttribute.cs" />
+    <Compile Include="SQLiteKeyReader.cs" />
+    <Compile Include="SQLiteLog.cs" />
+    <Compile Include="SQLiteMetaDataCollectionNames.cs" />
+    <Compile Include="SQLiteParameter.cs" />
+    <Compile Include="SQLiteParameterCollection.cs" />
+    <Compile Include="SQLiteStatement.cs" />
+    <Compile Include="SQLiteTransaction.cs" />
+    <Compile Include="SR.Designer.cs">
+      <DependentUpon>SR.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="UnsafeNativeMethods.cs" />
+    <EmbeddedResource Include="SR.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <!--
+  ******************************************************************************
+  **                        Core Files (Full Framework)                       **
+  ******************************************************************************
+  -->
+
+  <ItemGroup Condition="'$(IsCompactFramework)' == 'false'">
+    <Compile Include="SQLiteEnlistment.cs" />
+    <Compile Include="LINQ\SQLiteConnection_Linq.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LINQ\SQLiteFactory_Linq.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="SQLiteCommand.bmp" />
+    <EmbeddedResource Include="SQLiteConnection.bmp" />
+    <EmbeddedResource Include="SQLiteDataAdapter.bmp" />
+  </ItemGroup>
+</Project>

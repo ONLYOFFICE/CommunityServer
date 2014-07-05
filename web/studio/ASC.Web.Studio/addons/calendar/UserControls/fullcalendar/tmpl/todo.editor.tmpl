@@ -1,0 +1,42 @@
+<div id="fc_todo_editor">
+	<table border="0" cellspacing="0" cellpadding="0">
+		<tbody>
+			<tr>
+				<td colspan="3" class="iwrapper"><input id="fc_todo_title" type="text" value="New todo"/></td>
+			</tr>
+			<tr>
+				<td><label for="fc_todo_completed">completed</label></td>
+				<td colspan="2"><input id="fc_todo_completed" type="checkbox" class="cb"/></td>
+			</tr>
+			<tr>
+				<td><label for="fc_todo_priority">priority</label></td>
+				<td colspan="2">
+					<select id="fc_todo_priority">
+						<option value="0">urgent</option>
+						<option value="1">hi</option>
+						<option value="2">normal</option>
+						<option value="3">low</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="fc_todo_cal">calendar</label></td>
+				<td colspan="2">
+					<select id="fc_todo_cal">
+						<option>Project ABC</option>
+						<option>Admin</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="al-top"><label for="fc_todo_description">description</label></td>
+				<td colspan="2" class="iwrapper"><textarea id="fc_todo_description" cols="3" rows="3"/></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="pad-right pad-top btn"><button id="fc_todo_ok" type="button">Save</button></td>
+				<td class="pad-left pad-top btn"><button id="fc_todo_cancel" type="button">Cancel</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

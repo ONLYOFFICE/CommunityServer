@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/muc#owner'
+    xmlns='http://jabber.org/protocol/muc#owner'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0045: http://www.xmpp.org/extensions/xep-0045.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:import 
+      namespace='jabber:x:data'
+      schemaLocation='http://xmpp.org/schemas/x-data.xsd'/>
+
+  <xs:element name='query'>
+    <xs:complexType>
+      <xs:choice xmlns:xdata='jabber:x:data' minOccurs='0'>
+        <xs:element ref='xdata:x'/>
+        <xs:element ref='destroy'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='destroy'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='password' type='xs:string' minOccurs='0'/>
+        <xs:element name='reason' type='xs:string' minOccurs='0'/>
+      </xs:sequence>
+      <xs:attribute name='jid' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

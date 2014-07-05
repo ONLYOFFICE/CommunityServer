@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Video Properties dialog window.
+-->
+<html>
+	<head>
+		<title>Attach Properties</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta content="noindex, nofollow" name="robots">
+		<script src="../../dialog/common/fck_dialog_common.js" type="text/javascript"></script>
+		<script type="text/javascript">
+
+
+
+		var dialog	= window.parent ;
+		var oEditor = dialog.InnerDialogLoaded() ;
+
+		var FCK			= oEditor.FCK ;
+		var FCKLang		= oEditor.FCKLang ;
+		var FCKConfig	= oEditor.FCKConfig ;
+		var FCKRegexLib	= oEditor.FCKRegexLib ;
+		var FCKTools	= oEditor.FCKTools ;
+		var FCKSelection = oEditor.FCKSelection;
+		
+		var sFile;
+		
+		document.write( FCKTools.GetStyleHtml( GetCommonDialogCss() ) ) ;
+		
+		
+		var oRegex = new Object() ;
+
+		oRegex.UriProtocol = /^(((http|https|ftp|news):\/\/)|mailto:)/gi ;
+
+		oRegex.UrlOnChangeProtocol = /^(http|https|ftp|news):\/\/(?=.)/gi ;
+
+		oRegex.UrlOnChangeTestOther = /^((javascript:)|[#\/\.])/gi ;
+
+		oRegex.ReserveTarget = /^_(blank|self|top|parent)$/i ;
+
+		oRegex.PopupUri = /^javascript:void\(\s*window.open\(\s*'([^']+)'\s*,\s*(?:'([^']*)'|null)\s*,\s*'([^']*)'\s*\)\s*\)\s*$/ ;
+
+		// Accessible popups
+		oRegex.OnClickPopup = /^\s*on[cC]lick="\s*window.open\(\s*this\.href\s*,\s*(?:'([^']*)'|null)\s*,\s*'([^']*)'\s*\)\s*;\s*return\s*false;*\s*"$/ ;
+
+		oRegex.PopupFeatures = /(?:^|,)([^=]+)=(\d+|yes|no)/gi ;
+
+		
+		function OnDialogTabChange( tabCode )
+		{
+			ShowE('divUpload', true ) ;
+
+			dialog.SetAutoSize( true ) ;
+		}
+		
+		var oLink = dialog.Selection.GetSelection().MoveToAncestorNode( 'A' ) ;
+		if ( oLink )
+			FCK.Selection.SelectNode( oLink ) ;
+			
+		
+		window.onload = function()
+		{
+			// Translate the dialog box texts.
+			oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+			// Load the selected element information (if any).
+			LoadSelection() ;
+
+			GetE('divUpload').style.display = '' ;
+			
+			dialog.SetAutoSize( true ) ;
+			
+			if ( FCKConfig.LinkUpload )
+				GetE('frmUpload').action = FCKConfig.LinkUploadURL ;
+
+			// Activate the "OK" button.
+			dialog.SetOkButton( true ) ;
+
+			SelectField( 'txtName' ) ;
+		}
+
+		function LoadSelection()
+		{
+			
+			if ( oLink )
+			{
+				innerText = oLink.innerHTML;
+			}
+			else if (FCK.EditorWindow.getSelection) 
+			{ 
+			
+			 innerText = FCK.EditorWindow.getSelection(); 
+			} 
+			else if (FCK.EditorWindow.selection && FCK.EditorWindow.selection.createRange) 
+			{	
+				var range = FCK.EditorWindow.selection.createRange(); 
+				innerText  = range.text; 
+			}
+			else if(FCK.EditorDocument.selection && FCK.EditorDocument.selection.createRange)
+			{
+				var range = FCK.EditorDocument.selection.createRange(); 
+				innerText  = range.text; 
+			}
+			else 
+			{
+				innerText  = "";
+			}
+			
+			SetName(innerText);
+			
+			if ( !oLink ) return ;
+
+			var sType = 'url' ;
+
+			// Get the actual Link href.
+			var sHRef = oLink.getAttribute( '_fcksavedurl' ) ;
+			if ( sHRef == null )
+				sHRef = oLink.getAttribute( 'href' , 2 ) || '' ;
+			
+				
+				SetUrl(sHRef);
+		}
+
+		
+
+		//#### The OK button was hit.
+		function Ok()
+		{
+			
+			sFile = GetE('txtUploadFile').value ;
+
+			if ( sFile.length == 0 )
+			{
+				
+				var sHRef = null;
+				if(oLink)
+					sHRef = oLink.getAttribute( '_fcksavedurl' ) ;
+				
+				if ( sHRef == null && oLink)
+				{
+					sHRef = oLink.getAttribute( 'href' , 2 ) || '' ;
+				}
+				
+				if(sHRef == null || sHRef == '')
+				{
+					alert( 'Please select a file to upload' ) ;
+					return false ;
+				}
+				else
+				{
+					
+					SetUrl(sHRef);
+					SaveUrl();
+					return false;
+				}
+			}
+
+			if ( ( FCKConfig.LinkUploadAllowedExtensions.length > 0 && !oUploadAllowedExtRegex.test( sFile ) ) ||
+				( FCKConfig.LinkUploadDeniedExtensions.length > 0 && oUploadDeniedExtRegex.test( sFile ) ) )
+			{
+				OnUploadCompleted( 202 ) ;
+				return false ;
+			}
+
+			// Show animation
+			dialog.Throbber.Show( 100 ) ;
+			GetE( 'divUpload' ).style.display  = 'none' ;
+			GetE('frmUpload').submit();
+			
+			
+			return false ;
+		}	
+		
+		
+		
+
+		var oUploadAllowedExtRegex	= new RegExp( FCKConfig.LinkUploadAllowedExtensions, 'i' ) ;
+		var oUploadDeniedExtRegex	= new RegExp( FCKConfig.LinkUploadDeniedExtensions, 'i' ) ;
+		
+		function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
+		{
+			// Remove animation
+			dialog.Throbber.Hide() ;
+			GetE( 'divUpload' ).style.display  = '' ;
+
+			switch ( errorNumber )
+			{
+				case 0 :	// No errors
+					alert( 'Your file has been successfully uploaded' ) ;
+					break ;
+				case 1 :	// Custom error
+					alert( customMsg ) ;
+					return ;
+				case 101 :	// Custom warning
+					alert( customMsg ) ;
+					break ;
+				case 201 :
+					alert( 'A file with the same name is already available. The uploaded file has been renamed to "' + fileName + '"' ) ;
+					break ;
+				case 202 :
+					alert( 'Invalid file type' ) ;
+					return ;
+				case 203 :
+					alert( "Security error. You probably don't have enough permissions to upload. Please check your server." ) ;
+					return ;
+				case 500 :
+					alert( 'The connector is disabled' ) ;
+					break ;
+				default :
+					alert( 'Error on file upload. Error number: ' + errorNumber ) ;
+					return ;
+			}
+
+			SetUrl( fileUrl ) ;
+			GetE('frmUpload').reset() ;
+			SaveUrl();
+		}
+
+		function SaveUrl()
+		{
+			var sUri, sProtocol, sInnerHtml;
+			oEditor.FCKUndo.SaveUndoStep() ;
+
+			sUri = GetE('txtUrl').value ;
+			
+			
+						
+
+			
+
+			
+			var aLinks = oLink ? [ oLink ] : oEditor.FCK.CreateLink( sUri, true ) ;
+
+			
+			var aHasSelection = ( aLinks.length > 0 ) ;
+			if ( !aHasSelection )
+			{
+				sInnerHtml = sUri;
+
+				
+				
+				//TODO REVIEW!!!
+				var oLinkPathRegEx = new RegExp("//?([^?\"']+)([?].*)?$") ;
+				var asLinkPath = oLinkPathRegEx.exec( sUri ) ;
+				if (asLinkPath != null)
+					sInnerHtml = asLinkPath[1];  // use matched path
+						
+				// Create a new (empty) anchor.
+				aLinks = [ oEditor.FCK.InsertElement( 'a' ) ] ;
+			}
+
+			for ( var i = 0 ; i < aLinks.length ; i++ )
+			{
+				oLink = aLinks[i] ;
+
+				if ( aHasSelection )
+					sInnerHtml = oLink.innerHTML ;		// Save the innerHTML (IE changes it if it is like an URL).
+
+				oLink.href = sUri ;
+				SetAttribute( oLink, '_fcksavedurl', sUri ) ;
+
+				var onclick;
+				
+					// Check if the previous onclick was for a popup:
+					// In that case remove the onclick handler.
+					onclick = oLink.getAttribute( 'onclick_fckprotectedatt' ) ;
+					if ( onclick )
+					{
+						// Decode the protected string
+						onclick = decodeURIComponent( onclick ) ;
+
+						if( oRegex.OnClickPopup.test( onclick ) )
+							SetAttribute( oLink, 'onclick_fckprotectedatt', '' ) ;
+					}
+				
+
+				if(GetE('txtName').value.length > 0)
+				{
+					oLink.innerHTML = GetE('txtName').value ;		
+				}
+				else
+				{
+					if(aHasSelection && sInnerHtml && sInnerHtml != '')
+					{
+						oLink.innerHTML = sInnerHtml ;		// Set (or restore) the innerHTML	
+					}
+					else
+					{
+						var splitFileName = sFile.split('\\');
+						oLink.innerHTML =  splitFileName[splitFileName.length - 1];		// Set (or restore) the innerHTML
+					}
+					
+				}
+
+				
+				
+				//SetAttribute( oLink, 'target', null ) ;
+
+				// Let's set the "id" only for the first link to avoid duplication.
+			
+
+			}
+
+			// Select the (first) link.
+			SetAttribute( oLink, '_fckAttach', 'true' ) ;
+			SetAttribute( oLink, 'target', '_blank' ) ;
+			oEditor.FCKSelection.SelectNode( aLinks[0] );
+			
+			
+			dialog.CloseDialog();
+			return true ;
+		}
+		
+		
+		function SetUrl( url )
+		{
+			GetE('txtUrl').value = url ;
+		}
+
+		function SetName( name )
+		{
+			GetE('txtName').value = name ;
+		}
+		
+		</script> 
+	</head>
+	<body scroll="no" style="OVERFLOW: hidden">
+		<div id="divUpload" >
+			<div class="Caption">
+				<span fckLang="DlgLnkName">Name</span><br />
+				<input id="txtName" style="WIDTH: 100%" type="text" />
+				<input id="txtUrl" type="hidden" />
+			</div>
+			<div class="Caption">
+				<form id="frmUpload" method="post" target="UploadWindow" style="margin:0px;" enctype="multipart/form-data" action="" >
+					<span fckLang="DlgLnkUpload">Upload</span><br />
+					<input id="txtUploadFile" style="WIDTH: 100%; margin-bottom:0px;" type="file" size="40" name="NewFile" /><br />
+					<br />
+					<script type="text/javascript">
+						document.write( '<iframe name="UploadWindow" style="display: none" src="' + FCKTools.GetVoidUrl() + '"><\/iframe>' ) ;
+					</script>
+					
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

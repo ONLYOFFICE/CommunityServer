@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema
+    xmlns='urn:xmpp:langtrans#items' 
+    xmlns:xs='http://www.w3.org/2001/XMLSchema' 
+    targetNamespace='urn:xmpp:langtrans#items' 
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0171: http://www.xmpp.org/extensions/xep-0171.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='query'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='item' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='item'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='dictionary' type='xs:string'/>
+          <xs:attribute name='destination_lang' type='xs:language'/>
+          <xs:attribute name='engine' type='xs:string' use='optional'/>
+          <xs:attribute name='jid' type='xs:string' use='required'/>
+          <xs:attribute name='name' type='xs:string' use='optional'/>
+          <xs:attribute name='pivotable' type='xs:boolean' use='optional' default='false'/>
+          <xs:attribute name='source_lang' type='xs:language' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+        
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

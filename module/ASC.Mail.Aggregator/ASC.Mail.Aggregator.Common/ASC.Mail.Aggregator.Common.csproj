@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{26222FC6-1F6D-44E9-A82B-36BB8355220E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Mail.Aggregator.Common</RootNamespace>
+    <AssemblyName>ASC.Mail.Aggregator.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxPro.2">
+      <HintPath>..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.ActiveUp.Net.Common">
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.ActiveUp.Net.Imap4">
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Imap4.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.ActiveUp.Net.Mail">
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Mail.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.ActiveUp.Net.Pop3">
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Pop3.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.ActiveUp.Net.Smtp">
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Smtp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Api">
+      <HintPath>..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Data.Storage">
+      <HintPath>..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.FullTextIndex">
+      <HintPath>..\..\..\redistributable\asc\ASC.FullTextIndex.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Mail.Aggregator.Dal">
+      <HintPath>..\..\..\redistributable\asc\ASC.Mail.Aggregator.Dal.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Specific">
+      <HintPath>..\..\..\redistributable\asc\ASC.Specific.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Core">
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Studio">
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Studio.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\..\redistributable\third-party\HtmlAgilityPack\HtmlAgilityPack.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\..\redistributable\third-party\Nlog 2.1\net35\NLog.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiHelper.cs" />
+    <Compile Include="Collection\ItemList.cs" />
+    <Compile Include="Defines.cs" />
+    <Compile Include="Extension\DateTimeExtensions.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="FilesUploader.cs" />
+    <Compile Include="FormUpload.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\Log4NetLogger.cs" />
+    <Compile Include="Logging\LoggerFactory.cs" />
+    <Compile Include="Logging\NlogLogger.cs" />
+    <Compile Include="MailAttachment.cs" />
+    <Compile Include="MailBox.cs" />
+    <Compile Include="MailClientBuilder.cs" />
+    <Compile Include="MailMessageItem.cs" />
+    <Compile Include="MailServerHelper.cs" />
+    <Compile Include="MailServerSettings.cs" />
+    <Compile Include="MessageHandlerBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Extension\SqlQueryExtensions.cs" />
+    <Compile Include="Extension\StringExtensions.cs" />
+    <Compile Include="Utils\MailUtil.cs" />
+    <Compile Include="WellKnownPorts.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile->'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath->'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

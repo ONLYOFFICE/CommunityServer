@@ -1,0 +1,19 @@
+﻿[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=HAPDocumentation.chm
+Contents file=HAPDocumentation.hhc
+Index file=HAPDocumentation.hhk
+Default Topic=html\d4648875-d41a-783b-d5f4-638df39ee413.htm
+Full-text search=Yes
+Language=0x409 English (United States)
+Title=HAPDocumentation
+[FILES]
+html\*.htm
+icons\*.gif
+art\*.gif
+art\*.jpg
+art\*.png
+media\*.gif
+scripts\*.js
+styles\*.css
+[INFOTYPES]

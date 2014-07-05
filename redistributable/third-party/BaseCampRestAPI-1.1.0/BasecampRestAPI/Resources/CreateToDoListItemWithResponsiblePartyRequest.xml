@@ -1,0 +1,5 @@
+﻿<todo-item>
+	<content>{0}</content>
+	<responsible-party>{1}</responsible-party>
+	<notify type="boolean">{2}</notify>
+</todo-item>

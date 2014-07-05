@@ -1,0 +1,7 @@
+﻿<time-entry>
+	<person-id type="integer">{0}</person-id>
+	<date type="date">{1}</date>
+	<hours type="float">{2}</hours>
+	<description>{3}</description>
+	<todo-item-id type="integer">{4}</todo-item-id>
+</time-entry>

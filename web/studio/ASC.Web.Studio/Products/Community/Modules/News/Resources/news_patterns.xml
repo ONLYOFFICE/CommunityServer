@@ -1,0 +1,40 @@
+<patterns>
+  <formatter type="ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common" />
+
+  <pattern id="new feed" sender="email.sender">
+    <subject resource="|subject_new_text|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community.News" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_new_text|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community.News" />
+  </pattern>
+
+  <pattern id="new feed" sender="messanger.sender">
+    <subject resource="|subject_new_text|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community.News" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">#if($FEED_TYPE == "feed")$UserName
+
+$Text
+
+$URL#end#if($FEED_TYPE == "poll")$UserName
+#foreach($Answer in $Answers)
+#each
+
+$Answer
+#end
+
+$URL#end
+    </body>
+  </pattern>
+
+  <pattern id="new feed comment" sender="email.sender">
+    <subject resource="|subject_new_text_comment|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community.News" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_new_text_comment|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community.News" />
+  </pattern>
+
+  <pattern id="new feed comment" sender="messanger.sender">
+    <subject resource="|subject_new_text_comment|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community.News" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
+
+$CommentBody
+
+$CommentURL
+    </body>
+  </pattern>
+</patterns>

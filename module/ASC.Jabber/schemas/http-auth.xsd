@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/http-auth'
+    xmlns='http://jabber.org/protocol/http-auth'
+    elementFormDefault='qualified'>
+  
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0070: http://www.xmpp.org/extensions/xep-0070.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='confirm'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='id' use='required' type='xs:string'/>
+          <xs:attribute name='method' use='required' type='xs:NCName'/>
+          <xs:attribute name='url' use='required' type='xs:anyURI'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

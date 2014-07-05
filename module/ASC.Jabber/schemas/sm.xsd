@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:sm:2'
+    xmlns='urn:xmpp:sm:2'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0198: http://www.xmpp.org/extensions/xep-0198.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='a'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='h' 
+                        type='xs:integer' 
+                        use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='enable'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='max' 
+                        type='xs:positiveInteger' 
+                        use='optional'/>
+          <xs:attribute name='resume' 
+                        type='xs:boolean'
+                        use='optional'
+                        default='false'/>
+          <xs:attribute name='stanzas' 
+                        type='xs:unsignedShort' 
+                        use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='enabled'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='id' 
+                        type='xs:string'
+                        use='optional'/>
+          <xs:attribute name='max' 
+                        type='xs:positiveInteger' 
+                        use='optional'/>
+          <xs:attribute name='resume' 
+                        type='xs:boolean'
+                        use='optional'
+                        default='false'/>
+          <xs:attribute name='stanzas' 
+                        type='xs:unsignedShort' 
+                        use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='failed'>
+    <xs:complexType>
+      <xs:sequence xmlns:err='urn:ietf:params:xml:ns:xmpp-stanzas' 
+                   minOccurs='0'
+                   maxOccurs='1'>
+        <xs:group ref='err:stanzaErrorGroup'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='r'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='h' 
+                        type='xs:integer' 
+                        use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='resume' type='resumptionElementType'/>
+
+  <xs:element name='resumed' type='resumptionElementType'/>
+
+  <xs:element name='sm'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element name='optional' type='empty'/>
+        <xs:element name='required' type='empty'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='t'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='stanzas' 
+                        type='xs:unsignedShort' 
+                        use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name='resumptionElementType'>
+    <xs:simpleContent>
+      <xs:extension base='empty'>
+        <xs:attribute name='h' 
+                      type='xs:unsignedInt' 
+                      use='optional'/>
+        <xs:attribute name='previd' 
+                      type='xs:string' 
+                      use='optional'/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

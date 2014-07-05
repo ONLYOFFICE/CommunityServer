@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/waitinglist'
+    xmlns='http://jabber.org/protocol/waitinglist'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0130: http://www.xmpp.org/extensions/xep-0130.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:import namespace='jabber:client'
+             schemaLocation='http://xmpp.org/schemas/jabber-client.xsd'/>
+
+  <xs:element name='waitlist'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='item'
+                    minOccurs='0'
+                    maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='item'>
+    <xs:complexType>
+      <xs:choice minOccurs='0'
+                 maxOccurs='unbounded'
+                 xmlns:xmpp='jabber:client'>
+        <xs:sequence>
+          <xs:element ref='uri'/>
+          <xs:element ref='name' minOccurs='0'/>
+          <xs:element ref='xmpp:error' minOccurs='0'/>
+        </xs:sequence>
+        <xs:element ref='remove'/>
+      </xs:choice>
+      <xs:attribute name='id'
+                    type='xs:string'
+                    use='optional'/>
+      <xs:attribute name='jid'
+                    type='xs:string'
+                    use='optional'/>
+      <xs:attribute name='type'
+                    use='optional'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='error'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='uri'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='scheme'
+                        type='xs:NCNAME'
+                        use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='name' type='string1023'/>
+
+  <xs:element name='remove' type='empty'/>
+
+  <xs:simpleType name='string1023'>
+    <xs:restriction base='xs:string'>
+      <xs:maxLength value='1023'/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

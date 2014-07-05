@@ -1,0 +1,675 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>File Properties</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex, nofollow" />
+	<script type="text/javascript">
+
+var oEditor		= window.parent.InnerDialogLoaded() ;
+var FCK			= oEditor.FCK ;
+var FCKLang		= oEditor.FCKLang ;
+var FCKConfig	= oEditor.FCKConfig ;
+var FCKRegexLib	= oEditor.FCKRegexLib ;
+var FCKTools	= oEditor.FCKTools ;
+var dialog	= window.parent ;
+
+document.write( '<script type="text/javascript" src="' + oEditor.window.parent.getJQPath() + '"><\/script>' ) ;
+document.write( '<script type="text/javascript" src="' + oEditor.window.parent.getAjaxUploaderJsPath() + '"><\/script>' ) ;
+document.write( '<script src="' + FCKConfig.BasePath + 'dialog/common/fck_dialog_common.js" type="text/javascript"><\/script>' ) ;
+
+	</script>
+	<script type="text/javascript">
+
+// Get the selected file (if available).
+var oLink = dialog.Selection.GetSelection().MoveToAncestorNode( 'A' ) ;
+if ( oLink )
+	FCK.Selection.SelectNode( oLink ) ;
+
+window.onload = function()
+{
+	// Translate the dialog box texts.
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	var ajaxUpload =  new AjaxUpload('wikiFileUploadBtn', {
+            action: '../../FileUploader.aspx?ft=&hfUserID=' + oEditor.window.parent.getUserId() + '\'',
+            onComplete: TempFileLoaded,
+			onSubmit: TempFileSubmiting
+            });     
+	// Load the selected element information (if any).
+	LoadSelection() ;
+
+	//	UpdateOriginal() ;
+
+	if(oEditor.window.parent.wikiMaxFileUploadSizeString)
+		GetE('divMaxFileSizeBlock').innerHTML = oEditor.window.parent.wikiMaxFileUploadSizeString;
+	
+	if(oEditor.window.parent.wikiFileUploadProgress)
+		GetE('divLoading').innerHTML = oEditor.window.parent.wikiFileUploadProgress;
+		
+		
+	if(oEditor.window.parent.wikiDenyFileUpload)
+	{
+		GetE('divDummy').style.display = 'none';
+		GetE('divMaxFileSizeBlock').style.display = 'none';
+		GetE('txtUrl').style.width = '100%';
+	}
+	
+	window.parent.SetAutoSize( true ) ;
+	window.parent.SetOkButton( true ) ;
+	GetE('txtUrl').focus();
+}
+
+
+
+function ShowUploadProgress(show)
+{
+	if(show)
+	{
+		GetE('trLoading').style.display = '';
+		GetE('trUploadFile').style.display = 'none';
+	}
+	else
+	{
+		GetE('trLoading').style.display = 'none';
+		GetE('trUploadFile').style.display = '';
+	}
+}
+
+function TempFileSubmiting(file, response)
+{
+	ShowUploadProgress(true);
+	return true;
+}
+
+function TempFileLoaded(file, response)
+{
+	ShowUploadProgress(false);
+	
+	response = eval('(' + response + ')');
+	if(response.ErrorText != '')
+	{
+		alert(response.ErrorText);
+		return;
+	}
+	if(response.WebPath == '' || response.LocalPath == '')
+		return;
+		
+	GetE('txtUrl').value = file;
+	var prevResponse = new Object();
+	prevResponse.value = response.WebPath;
+	GetE('hfTempFileLocation').value = response.LocalPath; 
+	GetE('txtUrl').disabled = true;
+}
+
+function GetImageTopDiv(img)
+{
+	var parent = img;
+	while((parent = parent.parentNode))
+	{
+		if(parent.getAttribute( '_wikiInfo' ) != null)
+		{
+			break;
+		}
+	}
+	return parent;
+}
+
+function LoadSelection()
+{
+	var  innerText;
+	
+	if ( oLink )
+	{
+		innerText = oLink.innerHTML;
+	}
+	else if (FCK.EditorWindow.getSelection) 
+	{ 
+	 innerText = FCK.EditorWindow.getSelection(); 
+	 
+	} 
+	else if (FCK.EditorWindow.selection && FCK.EditorWindow.selection.createRange) 
+	{	
+		var range = FCK.EditorWindow.selection.createRange(); 
+		innerText  = range.text; 
+    }
+	else if(FCK.EditorDocument.selection && FCK.EditorDocument.selection.createRange)
+	{
+		var range = FCK.EditorDocument.selection.createRange(); 
+		innerText  = range.text; 
+	}
+	else 
+	{
+		innerText  = "";
+	} 
+	
+
+
+	if ( !oLink ) return ;
+
+	// Get the actual Link href.
+	var sHRef = oLink.getAttribute( '_fcksavedurl' ) ;
+	if ( sHRef == null )
+		sHRef = oLink.getAttribute( 'href' , 2 ) || '' ;
+
+	sHRef = FCKConfig.ProtectedSource.Revert(sHRef, 0);		//#2509
+
+	if ( sHRef == oLink.innerHTML )
+		bLinkEqualsName = true ;
+
+	if ( sHRef.toLowerCase().StartsWith( 'rtecolon' ) )
+		sHRef = ":" + sHRef.substring(8) ;
+
+	var fileName = FCK.DataProcessor._DecodeWikiPath(sHRef);
+	if(fileName.indexOf(':') < 0 & fileName.indexOf('.') >= 0)
+	{
+		GetE('txtAlt').value = innerText;
+		GetE('txtUrl').value = fileName;
+	}
+	
+}
+
+function ShowThrobber()
+{
+	window.parent.Throbber.Show( ) ;
+	GetE('divInfo').style.display='none';
+}
+
+function HideThrobber()
+{
+	window.parent.Throbber.Hide();
+	GetE('divInfo').style.display='';
+}
+
+function TempFileUpdates(response)
+{
+	HideThrobber();
+	var fName = response.value;
+	if(fName.replace(/\s/g, '') == '')
+	{
+		GetE('txtUrl').value = '';
+		return;
+	}
+	GetE('txtUrl').value = fName;
+	GetE('hfTempFileLocation').value = '';
+	window.parent.Ok();
+}
+
+//#### The OK button was hit.
+function Ok()
+{
+	if ( GetE('txtUrl').value.length == 0 )
+	{
+		GetE('txtUrl').focus() ;
+		return false ;
+	}
+
+	
+	if(GetE('hfTempFileLocation').value != '')
+	{
+		ShowThrobber();
+		GetE('hfUserID').value = oEditor.window.parent.getUserId();
+		var initValue = new Object();
+		initValue.FileName = GetE('txtUrl').value;
+		initValue.TempFileName = GetE('hfTempFileLocation').value;
+		initValue.UserId = GetE('hfUserID').value;
+		oEditor.window.parent.FCK_dlg_ajax( 'wfAjaxFCKeditorUpdateTempImage', initValue, TempFileUpdates ) ;
+		return false;
+	}
+	
+	
+	
+	var imgName	= GetE('txtUrl').value ;
+	var imgCaption	= GetE('txtAlt').value ;
+	var ajaxArg = '[[File:' + imgName ;
+
+	
+
+	if ( imgCaption.length > 0 )
+		ajaxArg += '|' + imgCaption ;
+		
+	ajaxArg += ']]';
+
+	oEditor.window.parent.FCK_sajax( 'wfAjaxFCKeditorGetImageHtml', ajaxArg, UpdateImageFromAjax ) ;
+
+	return false ;
+}
+
+function UpdateImageFromAjax( response )
+{
+	response = response.value;
+	oEditor.FCKUndo.SaveUndoStep() ;
+	
+	var bHasFile = ( oLink != null ) ;
+
+	if ( !bHasFile )
+	{
+		FCK.InsertHtml(response);
+	}
+	else
+	{
+					
+		FCK.Selection.SelectNode(oLink);
+		FCK.InsertHtml(response);
+	}
+
+	//UpdateImage( oImage, response.responseText ) ;
+
+	// Call it using setTimeout to avoid a strange behavior in Firefox.
+	window.setTimeout( window.parent.Cancel, 0 ) ;
+}
+
+
+var searchTimer ;
+
+//#### Called while the user types the URL.
+function OnUrlChange(event)
+{
+	var txt = GetE('txtUrl');
+	
+	var code;
+	if (!e) var e = event;
+	if (!e) var e = window.event;
+	
+	if (e.keyCode)
+	{ 
+		code = e.keyCode;
+	}
+	else if (e.which)
+	{
+		 code = e.which;
+	}
+
+	if (code == 38) {
+		MoveSelected(true);
+		return true;
+	}
+	else if (code == 40) {
+		MoveSelected(false);
+		return true;
+	}
+	else if (code == 27) {
+		txt.value = '';
+		HideSearchHelper();
+		return false;
+	}
+	else if ((code == 13)) {
+		if (SearchSelected) {
+			window.parent.Ok();
+			return false;
+		}
+		else {
+			SearchSelected = true;
+			txt.value = GetSelectedItemHTML();
+			HideSearchHelper();
+		}
+
+		return false;                
+   }
+   
+	var link = GetE('txtUrl').value.Trim() ;
+
+	if ( searchTimer )
+		window.clearTimeout( searchTimer ) ;
+
+	if ( link.length < 3  )
+	{
+		HideSearchHelper();
+		return;
+	}
+
+	searchTimer = window.setTimeout( StartSearch, 500 ) ;
+}
+
+function StartSearch()
+{
+	var link = GetE('txtUrl').value.Trim() ;
+
+	if ( link.length < 3  )
+		return ;
+
+	//SetSearchMessage( FCKLang.wikiLnkSearching || 'searching...' ) ;
+
+	// Make an Ajax search for the pages.
+	oEditor.window.parent.FCK_dlg_ajax( 'wfAjaxSearchFilesFCKeditor', link, LoadSearchResults ) ;
+}
+
+function ShowSearchHelper() {
+	var fileSearchHelp = document.getElementById('fileSearchHelp');
+	if(fileSearchHelp.style.display != 'none')
+	{
+		return;
+	}
+	
+	document.body.onclick=function(event)
+	{
+		var elt = (event.target) ? event.target : event.srcElement;
+		var isHide = true;
+		if(elt.id == 'fileSearchHelp' || elt.id == 'txtUrl')
+			isHide = false;
+		
+		var parent = elt.parentNode;
+		if(isHide)
+		{
+			while(parent)
+			{
+				if(parent.id == 'fileSearchHelp' || parent.id == 'txtUrl')
+				{
+					isHide = false
+					return false;
+				}
+				parent = parent.parentNode;
+			}
+		}
+		
+		if (isHide) {
+			HideSearchHelper();
+		}
+	}
+	
+	fileSearchHelp.style.display = 'block';
+}
+
+function HideSearchHelper() {
+	var fileSearchHelp = document.getElementById('fileSearchHelp');
+	fileSearchHelp.style.display = 'none';
+	document.body.onclick = null;
+}
+
+function LoadSearchResults( result )
+{
+
+	if (result.value.replace(/\s/g, '') != '') {
+		document.getElementById('fileSearchHelp').innerHTML = result.value;
+		ShowSearchHelper();
+	}
+	else {
+		document.getElementById('fileSearchHelp').innerHTML = '';
+		HideSearchHelper();
+	}
+	
+	/*var results = result.value ;
+	var select = GetE( 'xWikiResults' ) ;
+
+	ClearSearch() ;
+
+	if ( results.length == 0 || ( results.length == 1 && results[0].length == 0 ) )
+	{
+		SetSearchMessage( FCKLang.wikiImgSearchNothing || 'no images found' ) ;
+	}
+	else
+	{
+		if ( results.length == 1 )
+			SetSearchMessage( FCKLang.wikiImgSearch1Found || 'one image found' ) ;
+		else
+			SetSearchMessage( (FCKLang.wikiImgSearchSeveral || '%1 images found').replace( /%1/g, results.length ) ) ;
+
+		for ( var i = 0 ; i < results.length ; i++ )
+			FCKTools.AddSelectOption( select, results[i], results[i] ) ;
+	}*/
+}
+
+
+/*function ClearSearch()
+{
+	var select = GetE( 'xWikiResults' ) ;
+
+	while ( select.options.length > 0 )
+		select.remove( 0 )
+}
+
+function SetSearchMessage( message )
+{
+	GetE('xWikiSearchStatus').innerHTML = message ;
+}*/
+
+function SetUrl( url )
+{
+	if ( url.length > 0 )
+		GetE('txtUrl').value = url ;
+}
+
+
+
+
+function MoveSelected(toUp) {
+	if (document.getElementById('fileSearchHelp').style.display == 'none')
+		return;
+	var result = null;
+	var obj;
+	var items = document.getElementById('fileSearchHelp').getElementsByTagName('DIV');
+	SearchSelected = false;
+	for(var i = 0; i < items.length; i++)
+	{
+		obj = items[i];
+		if(obj.className.indexOf('seachHelpSelected') >= 0)
+		{
+			result = obj;
+			if (toUp && i > 0) {
+				result.className = result.className.replace(/\s*seachHelpSelected\s*/g, '');
+				items[i - 1].className += ' seachHelpSelected';
+			}
+
+			if (!toUp && i < items.length - 1) {
+				result.className = result.className.replace(/\s*seachHelpSelected\s*/g, '');
+				items[i + 1].className += ' seachHelpSelected';
+			}
+			
+			break;
+		}
+	}
+
+	if (result == null) {
+		items[0].className += ' seachHelpSelected';
+	}
+	
+	
+}
+
+function GetSelectedItemHTML() {
+	var result = '';
+	var obj;
+	var items = document.getElementById('fileSearchHelp').getElementsByTagName('DIV');
+	for (var i = 0; i < items.length; i++)
+	{
+		obj = items[i];
+		if(obj.className.indexOf('seachHelpSelected') >= 0)
+		{
+			result = obj.innerHTML;
+			break;
+		}
+	}
+	
+	return result;
+}
+
+var SearchSelected = true;
+
+function MouseSelectSearchPages(obj) {
+	var txt = GetE('txtUrl');
+	SearchSelected = true;
+	txt.value = obj.innerHTML;
+	HideSearchHelper();
+	
+}
+
+
+		
+		
+var oUploadAllowedExtRegex	= new RegExp( FCKConfig.ImageUploadAllowedExtensions, 'i' ) ;
+var oUploadDeniedExtRegex	= new RegExp( FCKConfig.ImageUploadDeniedExtensions, 'i' ) ;
+
+function CheckUpload()
+{
+	var sFile = GetE('filUpload').value ;
+
+	if ( sFile.length == 0 )
+	{
+		return false ;
+	}
+
+	if ( ( FCKConfig.ImageUploadAllowedExtensions.length > 0 && !oUploadAllowedExtRegex.test( sFile ) ) ||
+		( FCKConfig.ImageUploadDeniedExtensions.length > 0 && oUploadDeniedExtRegex.test( sFile ) ) )
+	{
+		return false ;
+	}
+
+	// Show animation
+	window.parent.Throbber.Show( 100 ) ;
+	return true ;
+}
+
+		
+document.onkeydown = function(e)
+{
+	return SearchSelected;
+}
+		
+
+	</script>
+	<style type="text/css">
+		.Caption
+		{
+			font-family:Arial;
+			font-size: 13px;
+			color:#656668;
+		}
+		
+		.fileHelpPanel
+		{
+			background-color:White;
+			border:1px solid #C7C7C7;
+			position:absolute;
+			width:349px;
+			//width:354px;
+			z-index:10;
+			overflow-x:hidden;
+			left:8px;
+		}
+		
+		div.seachHelpItem
+		{
+			cursor:pointer;
+			padding:2px 0px 2px 10px;
+		}
+
+		div.seachHelpSelected, div.seachHelpItem:hover
+		{
+			background-color:#EDF6FD;
+		}
+		
+		.dummyButton
+		{
+			display:inline-block;
+			background-image:url('button_bg.png');
+			background-repeat:repeat-x;
+			background-position:top;
+			text-decoration:none;  
+			background-color:#0e4969;    
+			border:solid 1px #105777;   
+			color:#ffffff;
+			font-weight:normal;
+			cursor:pointer;    
+			font-size:11px;
+			vertical-align:middle;
+			padding:2px 0px;
+			text-align:center;
+			width:72px;
+		}
+		
+		.dummyDiv a.hover
+		{
+			display:inline-block;
+			background-image:url('button_over_bg.png');
+			background-repeat:repeat-x;
+			background-position:top;
+			text-decoration:none;  
+			background-color:#0e4969;    
+			border:solid 1px #105777;   
+			color:#ffffff;
+			font-weight:normal;
+			cursor:pointer;    
+			font-size:11px;
+			vertical-align:middle;
+			padding:2px 0px;
+			text-align:center;
+			width:72px;
+		}
+		
+		div.maxFileSizeBlock
+		{
+			color:#656668;
+			display:inline-block;
+			margin-bottom:-10px;
+			position:relative;
+			text-align:center;
+			top:-5px;
+			width:100%;
+			*clear:both;
+			*margin-bottom:0px;
+			*top:0px;
+		}
+		
+		.textMediumDescribe
+		{
+			font-size: 11px; 
+			color:#787878;
+		}
+		
+		#divLoading
+		{
+			padding:11px 0px 12px;
+		}
+		
+	</style>
+	
+</head>
+<body scroll="no" style="overflow: hidden">
+	<div id="divInfo" style="">
+		<table cellspacing="1" cellpadding="1" border="0" width="100%">
+			<tr valign="top" id="trUploadFile">
+				<td valign="top">
+					<div class="Caption">
+						<span fcklang="wikiFileName">File name</span>:<br />
+						<input id="txtUrl" style="width:351px;float:left; margin-top:1px; margin-right:4px;" type="text" />
+						<div id="divDummy" style="width:72px; height:20px;overflow:hidden;"  class="dummyDiv">
+							<a fcklang="DlgImgUpload"  id="wikiFileUploadBtn"  class="dummyButton" href="javascript:;" style="cursor:default">Upload</a>
+							<input type="hidden" id="hfUserID" name="hfUserID"/>
+							<input type="hidden" id="hfTempFileLocation" name="hfTempFileLocation"/>
+							
+							<script type="text/javascript">
+								document.write( '<iframe name="UploadWindow" id="UploadWindow" onload="iFrameLoaded()" style="display: none" src="' + FCKTools.GetVoidUrl() + '"><\/iframe>' ) ;
+							</script>
+						</div>
+					</div>
+					<div  id="fileSearchHelp" class="fileHelpPanel" style="display: none;">
+					</div>
+					<div id="divMaxFileSizeBlock" class="maxFileSizeBlock">
+						&nbsp;
+					</div>
+					<script language="javascript">
+						GetE('txtUrl').onkeyup = OnUrlChange;
+					</script>
+				</td>
+			</tr>
+			<tr valign="top" id="trLoading" style="display:none;">
+				<td valign="top">
+					<div id="divLoading">
+		
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">
+					<div class="Caption">
+						<span fcklang="wikiImgCaption">Caption</span>:<br />
+						<input id="txtAlt" style="width: 100%" type="text">
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+</html>

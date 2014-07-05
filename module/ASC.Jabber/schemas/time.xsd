@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:time'
+    xmlns='urn:xmpp:time'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0202: http://www.xmpp.org/extensions/xep-0202.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='time'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0'>
+        <xs:element name='tzo' type='xs:string'/>
+        <xs:element name='utc' type='xs:string'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

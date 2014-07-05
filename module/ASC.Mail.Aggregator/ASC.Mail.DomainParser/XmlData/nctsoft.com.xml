@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="nctsoft.com">
+    <domain>nctsoft.com</domain>
+    <displayName>nctsoft</displayName>
+    <displayShortName>nct</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>mail.nctsoft.com</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%@%EMAILHOSTNAME%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>mail.nctsoft.com</hostname>
+      <port>25</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%@%EMAILHOSTNAME%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

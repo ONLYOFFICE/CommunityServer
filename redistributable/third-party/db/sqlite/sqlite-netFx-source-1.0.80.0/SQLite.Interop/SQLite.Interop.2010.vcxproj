@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ *
+ * SQLite.Interop.2010.vcxproj -
+ *
+ * Written by Joe Mistachkin.
+ * Released to the public domain, use at your own risk!
+ *
+-->
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugNativeOnly|x64">
+      <Configuration>DebugNativeOnly</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugNativeOnly|Win32">
+      <Configuration>DebugNativeOnly</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseNativeOnly|x64">
+      <Configuration>ReleaseNativeOnly</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseNativeOnly|Win32">
+      <Configuration>ReleaseNativeOnly</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>SQLite.Interop.2010</ProjectName>
+    <ProjectGuid>{53784BC1-A8BC-4AC8-8A3E-158D6807345A}</ProjectGuid>
+    <RootNamespace>SQLite.Interop</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="props\sqlite3.props" />
+  <Import Project="props\SQLite.Interop.2010.props" />
+  <PropertyGroup Condition="('$(Configuration)' == 'DebugNativeOnly' Or
+                             '$(Configuration)' == 'ReleaseNativeOnly') And
+                            (('$(Platform)' == 'Win32' And
+                             ('$(PROCESSOR_ARCHITECTURE)' != 'x86' Or
+                              '$(PROCESSOR_ARCHITEW6432)' != '')) Or
+                             ('$(Platform)' == 'x64' And
+                             ('$(PROCESSOR_ARCHITECTURE)' != 'x86' Or
+                              '$(PROCESSOR_ARCHITEW6432)' != 'AMD64')))"
+                 Label="PostBuildEvent">
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <TargetName>$(INTEROP_MIXED_NAME)</TargetName>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <TargetName>$(INTEROP_MIXED_NAME)</TargetName>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNativeOnly|Win32'" Label="Configuration">
+    <TargetName>$(INTEROP_NATIVE_NAME)</TargetName>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNativeOnly|x64'" Label="Configuration">
+    <TargetName>$(INTEROP_NATIVE_NAME)</TargetName>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <TargetName>$(INTEROP_MIXED_NAME)</TargetName>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <TargetName>$(INTEROP_MIXED_NAME)</TargetName>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNativeOnly|Win32'" Label="Configuration">
+    <TargetName>$(INTEROP_NATIVE_NAME)</TargetName>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNativeOnly|x64'" Label="Configuration">
+    <TargetName>$(INTEROP_NATIVE_NAME)</TargetName>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir>$(ProjectDir)..\bin\$(ConfigurationYear)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>..\obj\$(ConfigurationYear)\$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <LinkKeyFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(INTEROP_KEY_FILE)</LinkKeyFile>
+    <LinkKeyFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(INTEROP_KEY_FILE)</LinkKeyFile>
+    <LinkKeyFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(INTEROP_KEY_FILE)</LinkKeyFile>
+    <LinkKeyFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(INTEROP_KEY_FILE)</LinkKeyFile>
+    <LinkDelaySign Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkDelaySign>
+    <LinkDelaySign Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkDelaySign>
+    <LinkDelaySign Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkDelaySign>
+    <LinkDelaySign Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</LinkDelaySign>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;$(SQLITE_COMMON_DEFINES);$(SQLITE_EXTRA_DEFINES);$(SQLITE_DEBUG_DEFINES);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>$(SQLITE_DISABLE_WARNINGS);%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_UNICODE;UNICODE;INTEROP_RC_VERSION=$(INTEROP_RC_VERSION);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>$(INTEROP_ASSEMBLY_RESOURCES) %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>$(ProjectDir)..\bin\$(ConfigurationYear)\$(Configuration)Module\bin\System.Data.SQLite.netmodule;%(AdditionalDependencies)</AdditionalDependencies>
+      <Version>$(INTEROP_MANIFEST_VERSION)</Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX86</TargetMachine>
+      <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+      <KeyFile>$(INTEROP_KEY_FILE)</KeyFile>
+      <DelaySign>true</DelaySign>
+    </Link>
+    <Manifest>
+      <VerboseOutput>true</VerboseOutput>
+      <AssemblyIdentity>$(ProjectName), processorArchitecture=x86, version=$(INTEROP_MANIFEST_VERSION), type=win32</AssemblyIdentity>
+      <UpdateFileHashes>true</UpdateFileHashes>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>"$(FrameworkSDKDir)Bin\sn.exe" -Ra "$(TargetPath)" "$(INTEROP_KEY_FILE)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;x64;_DEBUG;_WINDOWS;_USRDLL;$(SQLITE_COMMON_DEFINES);$(SQLITE_EXTRA_DEFINES);$(SQLITE_DEBUG_DEFINES);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>$(SQLITE_DISABLE_WARNINGS);$(SQLITE_DISABLE_X64_WARNINGS);%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_UNICODE;UNICODE;INTEROP_RC_VERSION=$(INTEROP_RC_VERSION);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>$(INTEROP_ASSEMBLY_RESOURCES) %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>$(ProjectDir)..\bin\$(ConfigurationYear)\$(Configuration)Module\bin\System.Data.SQLite.netmodule;%(AdditionalDependencies)</AdditionalDependencies>
+      <Version>$(INTEROP_MANIFEST_VERSION)</Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX64</TargetMachine>
+      <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+      <KeyFile>$(INTEROP_KEY_FILE)</KeyFile>
+      <DelaySign>true</DelaySign>
+    </Link>
+    <Manifest>
+      <VerboseOutput>true</VerboseOutput>
+      <AssemblyIdentity>$(ProjectName), processorArchitecture=amd64, version=$(INTEROP_MANIFEST_VERSION), type=win32</AssemblyIdentity>
+      <UpdateFileHashes>true</UpdateFileHashes>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>"$(FrameworkSDKDir)Bin\sn.exe" -Ra "$(TargetPath)" "$(INTEROP_KEY_FILE)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugNativeOnly|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;$(SQLITE_COMMON_DEFINES);$(SQLITE_EXTRA_DEFINES);$(SQLITE_DEBUG_DEFINES);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>$(SQLITE_DISABLE_WARNINGS);%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_UNICODE;UNICODE;INTEROP_RC_VERSION=$(INTEROP_RC_VERSION);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <Version>$(INTEROP_MANIFEST_VERSION)</Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <VerboseOutput>true</VerboseOutput>
+      <AssemblyIdentity>$(ProjectName), processorArchitecture=x86, version=$(INTEROP_MANIFEST_VERSION), type=win32</AssemblyIdentity>
+      <UpdateFileHashes>true</UpdateFileHashes>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>XCOPY "$(TargetPath)" "$(OutDir)..\..\Debug\bin\$(Platform)\" /D /E /V /I /F /H /Y
+XCOPY "$(TargetPath)" "$(OutDir)..\..\Debug\bin\" /D /E /V /I /F /H /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugNativeOnly|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;x64;_DEBUG;_WINDOWS;_USRDLL;$(SQLITE_COMMON_DEFINES);$(SQLITE_EXTRA_DEFINES);$(SQLITE_DEBUG_DEFINES);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>$(SQLITE_DISABLE_WARNINGS);$(SQLITE_DISABLE_X64_WARNINGS);%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_UNICODE;UNICODE;INTEROP_RC_VERSION=$(INTEROP_RC_VERSION);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <Version>$(INTEROP_MANIFEST_VERSION)</Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Manifest>
+      <VerboseOutput>true</VerboseOutput>
+      <AssemblyIdentity>$(ProjectName), processorArchitecture=amd64, version=$(INTEROP_MANIFEST_VERSION), type=win32</AssemblyIdentity>
+      <UpdateFileHashes>true</UpdateFileHashes>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>XCOPY "$(TargetPath)" "$(OutDir)..\..\Debug\bin\$(Platform)\" /D /E /V /I /F /H /Y
+XCOPY "$(TargetPath)" "$(OutDir)..\..\Debug\bin\" /D /E /V /I /F /H /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;$(SQLITE_COMMON_DEFINES);$(SQLITE_EXTRA_DEFINES);$(SQLITE_RELEASE_DEFINES);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>$(SQLITE_DISABLE_WARNINGS);%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;_UNICODE;UNICODE;INTEROP_RC_VERSION=$(INTEROP_RC_VERSION);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>$(INTEROP_ASSEMBLY_RESOURCES) %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>$(ProjectDir)..\bin\$(ConfigurationYear)\$(Configuration)Module\bin\System.Data.SQLite.netmodule;%(AdditionalDependencies)</AdditionalDependencies>
+      <Version>$(INTEROP_MANIFEST_VERSION)</Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX86</TargetMachine>
+      <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+      <KeyFile>$(INTEROP_KEY_FILE)</KeyFile>
+      <DelaySign>true</DelaySign>
+    </Link>
+    <Manifest>
+      <VerboseOutput>true</VerboseOutput>
+      <AssemblyIdentity>$(ProjectName), processorArchitecture=x86, version=$(INTEROP_MANIFEST_VERSION), type=win32</AssemblyIdentity>
+      <UpdateFileHashes>true</UpdateFileHashes>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>"$(FrameworkSDKDir)Bin\sn.exe" -Ra "$(TargetPath)" "$(INTEROP_KEY_FILE)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;x64;NDEBUG;_WINDOWS;_USRDLL;$(SQLITE_COMMON_DEFINES);$(SQLITE_EXTRA_DEFINES);$(SQLITE_RELEASE_DEFINES);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>$(SQLITE_DISABLE_WARNINGS);$(SQLITE_DISABLE_X64_WARNINGS);%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;_UNICODE;UNICODE;INTEROP_RC_VERSION=$(INTEROP_RC_VERSION);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>$(INTEROP_ASSEMBLY_RESOURCES) %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>$(ProjectDir)..\bin\$(ConfigurationYear)\$(Configuration)Module\bin\System.Data.SQLite.netmodule;%(AdditionalDependencies)</AdditionalDependencies>
+      <Version>$(INTEROP_MANIFEST_VERSION)</Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX64</TargetMachine>
+      <CLRUnmanagedCodeCheck>true</CLRUnmanagedCodeCheck>
+      <KeyFile>$(INTEROP_KEY_FILE)</KeyFile>
+      <DelaySign>true</DelaySign>
+    </Link>
+    <Manifest>
+      <VerboseOutput>true</VerboseOutput>
+      <AssemblyIdentity>$(ProjectName), processorArchitecture=amd64, version=$(INTEROP_MANIFEST_VERSION), type=win32</AssemblyIdentity>
+      <UpdateFileHashes>true</UpdateFileHashes>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>"$(FrameworkSDKDir)Bin\sn.exe" -Ra "$(TargetPath)" "$(INTEROP_KEY_FILE)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNativeOnly|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;$(SQLITE_COMMON_DEFINES);$(SQLITE_EXTRA_DEFINES);$(SQLITE_RELEASE_DEFINES);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>$(SQLITE_DISABLE_WARNINGS);%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;_UNICODE;UNICODE;INTEROP_RC_VERSION=$(INTEROP_RC_VERSION);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <Version>$(INTEROP_MANIFEST_VERSION)</Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <VerboseOutput>true</VerboseOutput>
+      <AssemblyIdentity>$(ProjectName), processorArchitecture=x86, version=$(INTEROP_MANIFEST_VERSION), type=win32</AssemblyIdentity>
+      <UpdateFileHashes>true</UpdateFileHashes>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>XCOPY "$(TargetPath)" "$(OutDir)..\..\Release\bin\$(Platform)\" /D /E /V /I /F /H /Y
+XCOPY "$(TargetPath)" "$(OutDir)..\..\Release\bin\" /D /E /V /I /F /H /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseNativeOnly|x64'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;x64;NDEBUG;_WINDOWS;_USRDLL;$(SQLITE_COMMON_DEFINES);$(SQLITE_EXTRA_DEFINES);$(SQLITE_RELEASE_DEFINES);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>$(SQLITE_DISABLE_WARNINGS);$(SQLITE_DISABLE_X64_WARNINGS);%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;_UNICODE;UNICODE;INTEROP_RC_VERSION=$(INTEROP_RC_VERSION);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <Version>$(INTEROP_MANIFEST_VERSION)</Version>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <Manifest>
+      <VerboseOutput>true</VerboseOutput>
+      <AssemblyIdentity>$(ProjectName), processorArchitecture=amd64, version=$(INTEROP_MANIFEST_VERSION), type=win32</AssemblyIdentity>
+      <UpdateFileHashes>true</UpdateFileHashes>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>XCOPY "$(TargetPath)" "$(OutDir)..\..\Release\bin\$(Platform)\" /D /E /V /I /F /H /Y
+XCOPY "$(TargetPath)" "$(OutDir)..\..\Release\bin\" /D /E /V /I /F /H /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\win\AssemblyInfo.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\win\crypt.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\contrib\extension-functions.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\win\interop.c" />
+    <ClCompile Include="src\core\sqlite3.c">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="props\SQLite.Interop.2010.props" />
+    <None Include="props\sqlite3.props" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\core\sqlite3.h" />
+    <ClInclude Include="src\core\sqlite3ext.h" />
+    <ClInclude Include="src\win\interop.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\win\SQLite.Interop.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\System.Data.SQLite\SR.resx">
+      <LogicalName>System.Data.SQLite.%(Filename).resources</LogicalName>
+      <SubType>Designer</SubType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugNativeOnly|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugNativeOnly|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleaseNativeOnly|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ReleaseNativeOnly|x64'">true</ExcludedFromBuild>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

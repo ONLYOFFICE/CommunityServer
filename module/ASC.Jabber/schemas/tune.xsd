@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/tune'
+    xmlns='http://jabber.org/protocol/tune'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0118: http://www.xmpp.org/extensions/xep-0118.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='tune'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0'>
+        <xs:element name='artist' type='xs:string' minOccurs='0'/>
+        <xs:element name='length' type='xs:unsignedShort' minOccurs='0'/>
+        <xs:element name='rating'>
+          <xs:simpleType>
+            <xs:restriction base='xs:positiveInteger'>
+              <xs:maxInclusive value='10'/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name='source' type='xs:string' minOccurs='0'/>
+        <xs:element name='title' type='xs:string' minOccurs='0'/>
+        <xs:element name='track' type='xs:string' minOccurs='0'/>
+        <xs:element name='uri' type='xs:anyURI' minOccurs='0'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

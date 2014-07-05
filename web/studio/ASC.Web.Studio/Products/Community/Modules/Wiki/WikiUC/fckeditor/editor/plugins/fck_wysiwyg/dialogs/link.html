@@ -1,0 +1,544 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Link dialog window.
+-->
+<html>
+<head>
+	<title>Link Properties</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex, nofollow" />
+	<script type="text/javascript">
+
+var oEditor		= window.parent.InnerDialogLoaded() ;
+var FCK			= oEditor.FCK ;
+var FCKLang		= oEditor.FCKLang ;
+var FCKConfig	= oEditor.FCKConfig ;
+var FCKRegexLib	= oEditor.FCKRegexLib ;
+var FCKTools	= oEditor.FCKTools ;
+var dialog	= window.parent ;
+
+document.write( '<script src="' + FCKConfig.BasePath + 'dialog/common/fck_dialog_common.js" type="text/javascript"><\/script>' ) ;
+
+	</script>
+	<script type="text/javascript">
+
+// oLink: The actual selected link in the editor.
+var oLink = dialog.Selection.GetSelection().MoveToAncestorNode( 'A' ) ;
+if ( oLink )
+	FCK.Selection.SelectNode( oLink ) ;
+
+
+var bLinkEqualsName	= false ;
+
+window.onload = function()
+{
+	// Translate the dialog box texts.
+	
+	dialog.document.getElementById('btnOk').fckLang = 'DlgBtnInser';
+	dialog.document.getElementById('btnOk').value = FCKLang.DlgBtnInser;
+	
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+	
+	
+	// Load the selected link information (if any).
+	LoadSelection() ;
+
+	// Activate the "OK" button.
+	window.parent.SetOkButton( true ) ;
+	window.parent.SetAutoSize( true ) ;
+	GetE('txtUrl').focus();
+}
+
+function LoadSelection()
+{
+	var  innerText;
+	
+	if ( oLink )
+	{
+		innerText = oLink.innerHTML;
+	}
+	else if (FCK.EditorWindow.getSelection) 
+	{ 
+	 innerText = FCK.EditorWindow.getSelection(); 
+	 
+	} 
+	else if (FCK.EditorWindow.selection && FCK.EditorWindow.selection.createRange) 
+	{	
+		var range = FCK.EditorWindow.selection.createRange(); 
+		innerText  = range.text; 
+    }
+	else if(FCK.EditorDocument.selection && FCK.EditorDocument.selection.createRange)
+	{
+		var range = FCK.EditorDocument.selection.createRange(); 
+		innerText  = range.text; 
+	}
+	else 
+	{
+		innerText  = "";
+	} 
+	
+	SetName(innerText);
+	
+
+	if ( !oLink ) return ;
+
+	// Get the actual Link href.
+	var sHRef = oLink.getAttribute( '_fcksavedurl' ) ;
+	if ( sHRef == null )
+		sHRef = oLink.getAttribute( 'href' , 2 ) || '' ;
+
+	sHRef = FCKConfig.ProtectedSource.Revert(sHRef, 0);		//#2509
+
+	if ( sHRef == oLink.innerHTML )
+		bLinkEqualsName = true ;
+
+	if ( sHRef.toLowerCase().StartsWith( 'rtecolon' ) )
+		sHRef = ":" + sHRef.substring(8) ;
+
+	
+	GetE('txtUrl').value = decodeURI(FCK.DataProcessor._DecodeWikiPath(sHRef));
+}
+
+var searchTimer ;
+
+//#### Called while the user types the URL.
+function OnUrlChange(event)
+{
+
+
+	var txt = GetE('txtUrl');
+	
+	var code;
+	if (!e) var e = event;
+	if (!e) var e = window.event;
+	
+	if (e.keyCode)
+	{ 
+		code = e.keyCode;
+	}
+	else if (e.which)
+	{
+		 code = e.which;
+	}
+
+	if (code == 38) {
+		MoveSelected(true);
+		return true;
+	}
+	else if (code == 40) {
+		MoveSelected(false);
+		return true;
+	}
+	else if (code == 27) {
+		txt.value = '';
+		HideSearchHelper();
+		return false;
+	}
+	else if ((code == 13)) {
+		if (SearchSelected) {
+			window.parent.Ok();
+			return false;
+		}
+		else {
+			SearchSelected = true;
+			txt.value = FCKTools.HTMLDecode(GetSelectedItemHTML());
+			HideSearchHelper();
+		}
+
+		return false;                
+   }
+
+	var link = GetE('txtUrl').value.Trim() ;
+	
+	if ( searchTimer )
+		window.clearTimeout( searchTimer ) ;
+
+	if ( link.StartsWith( '#' ) )
+	{
+		//SetSearchMessage( FCKLang.wikiLnkNoSearchAnchor || 'anchor link... no search for it' ) ;
+		return ;
+	}
+
+	if ( link.StartsWith( 'mailto:' ) )
+	{
+		//SetSearchMessage( FCKLang.wikiLnkNoSearchMail || 'e-mail link... no search for it' ) ;
+		return ;
+	}
+
+	if( /^\w+:\/\//.test( link ) )
+	{
+		//SetSearchMessage( FCKLang.wikiLnkNoSearchExt || 'external link... no search for it' ) ;
+		return ;
+	}
+
+	if ( link.length < 3  )
+	{
+		//ClearSearch() ;
+		HideSearchHelper();
+		return;
+
+		/*if ( link.length == 0 )
+			//SetSearchMessage( FCKLang.wikiLnkStartTyping || 'start typing in the above field' ) ;
+		else
+			//SetSearchMessage( FCKLang.wikiLnkTooShort || 'too short... type more' ) ;
+		return ;*/
+	}
+
+	//SetSearchMessage( FCKLang.wikiLnkStopTyping || 'stop typing to search' ) ;
+	searchTimer = window.setTimeout( StartSearch, 500 ) ;
+}
+
+function StartSearch()
+{
+	var link = GetE('txtUrl').value.Trim() ;
+
+	if ( link.length < 3  )
+		return ;
+
+	//SetSearchMessage( FCKLang.wikiLnkSearching || 'searching...' ) ;
+
+	// Make an Ajax search for the pages.
+	oEditor.window.parent.FCK_dlg_ajax( 'wfAjaxSearchPagesFCKeditor', link, LoadSearchResults ) ;
+}
+
+
+function ShowSearchHelper() {
+	var pageSearchHelp = document.getElementById('pageSearchHelp');
+	if(pageSearchHelp.style.display != 'none')
+	{
+		return;
+	}
+	
+	document.body.onclick=function(event)
+	{
+		var elt = (event.target) ? event.target : event.srcElement;
+		var isHide = true;
+		if(elt.id == 'pageSearchHelp' || elt.id == 'txtUrl')
+			isHide = false;
+		
+		var parent = elt.parentNode;
+		if(isHide)
+		{
+			while(parent)
+			{
+				if(parent.id == 'pageSearchHelp' || parent.id == 'txtUrl')
+				{
+					isHide = false
+					return false;
+				}
+				parent = parent.parentNode;
+			}
+		}
+		
+		if (isHide) {
+			HideSearchHelper();
+		}
+	}
+	
+	pageSearchHelp.style.display = 'block';
+}
+
+function HideSearchHelper() {
+	var pageSearchHelp = document.getElementById('pageSearchHelp');
+	pageSearchHelp.style.display = 'none';
+	document.body.onclick = null;
+}
+
+
+
+function LoadSearchResults( result )
+{
+
+	if (result.value.replace(/\s/g, '') != '') {
+		document.getElementById('pageSearchHelp').innerHTML = FCKTools.HTMLDecode(result.value);
+		ShowSearchHelper();
+	}
+	else {
+		document.getElementById('pageSearchHelp').innerHTML = '';
+		HideSearchHelper();
+	}
+	/*var results = result.value ;
+	var select = GetE( 'xWikiResults' ) ;
+
+	ClearSearch() ;
+
+	if ( results.length == 0 || ( results.length == 1 && results[0].length == 0 ) )
+	{
+		//SetSearchMessage( FCKLang.wikiLnkSearchNothing || 'no articles found' ) ;
+	}
+	else
+	{
+		if ( results.length == 1 )
+			//SetSearchMessage( FCKLang.wikiLnkSearch1Found || 'one article found' ) ;
+		else
+			//SetSearchMessage( (FCKLang.wikiLnkSearchSeveral || '%1 articles found').replace( /%1/g, results.length ) ) ;
+
+		for ( var i = 0 ; i < results.length ; i++ )
+			FCKTools.AddSelectOption( select, results[i], results[i] ) ;
+	}*/
+}
+
+/*function ClearSearch()
+{
+	var select = GetE( 'xWikiResults' ) ;
+
+	while ( select.options.length > 0 )
+		select.remove( 0 )
+}*/
+
+//function SetSearchMessage( message )
+//{
+//	GetE('xWikiSearchStatus').innerHTML = message ;
+//}
+
+function SetUrl( url )
+{
+	GetE('txtUrl').value = FCKTools.HTMLDecode(url);
+}
+
+
+//#### The OK button was hit.
+function Ok()
+{
+	var sUri = GetE('txtUrl').value ;
+	sUri  = FCKConfig.ProtectedSource.Protect(sUri);		//#2509
+	var realUri = sUri;
+	if (sUri.StartsWith( ':' ) )
+		sUri = sUri.replace(/:/, "rtecolon");
+	var sInnerHtml ;
+
+	// If no link is selected, create a new one (it may result in more than one link creation - #220).
+	var aLinks = oLink ? [ oLink ] : oEditor.FCK.CreateLink( sUri ) ;
+
+	// If no selection, no links are created, so use the uri as the link text (by dom, 2006-05-26)
+	var noTitle = false;
+	var aHasSelection = ( aLinks.length > 0 ) ;
+	if ( !aHasSelection )
+	{
+		sInnerHtml = realUri;
+		noTitle = true;
+
+		var oLinkPathRegEx = new RegExp("//?([^?\"']+)([?].*)?$") ;
+		var asLinkPath = oLinkPathRegEx.exec( realUri ) ;
+		if (asLinkPath != null)
+			sInnerHtml = asLinkPath[1];  // use matched path
+
+		// Create a new (empty) anchor.
+		aLinks = [ oEditor.FCK.InsertElement( 'a' ) ] ;
+	}
+
+	oEditor.FCKUndo.SaveUndoStep() ;
+
+	var wikiInternalStart = window.parent.parent.wikiInternalStart;
+	
+	if(wikiInternalStart && wikiInternalStart != null)// && path.toLowerCase().StartsWith(wikiInternalStart.toLowerCase()))
+	{
+		if(sUri.indexOf(wikiInternalStart) >= 0)
+		{
+			sUri = sUri.substring(sUri.indexOf(wikiInternalStart));
+			sUri = sUri.replace(wikiInternalStart, '');
+			sUri = sUri.split('&')[0];
+			sUri = decodeURI(sUri);
+			sUri = sUri.replace(/([^_])_([^_]|$)/g, '$1 $2');
+			sUri = sUri.replace(/__/g, '_'); 
+		}
+		else
+		{
+			sUri = sUri;
+			sUri = sUri.replace(/http%3A\/\//gi, 'http://');
+		}
+		
+	}
+	else
+	{
+		sUri = encodeURI(sUri);
+		sUri = sUri.replace(/http%3A\/\//gi, 'http://');
+	}	
+	
+	
+	for ( var i = 0 ; i < aLinks.length ; i++ )
+	{
+		oLink = aLinks[i] ;
+
+		if ( aHasSelection )
+			sInnerHtml = oLink.innerHTML ;		// Save the innerHTML (IE changes it if it is like an URL).
+
+		oLink.href = sUri ;
+		SetAttribute( oLink, '_fcksavedurl', sUri ) ;
+
+		//if ( bLinkEqualsName )
+		//	oLink.innerHTML = realUri ;
+		//else
+		//	oLink.innerHTML = sInnerHtml ;		// Set (or restore) the innerHTML
+
+		if ( noTitle )
+			SetAttribute( oLink, '_fcknotitle','true');
+			
+		if(GetE('txtName').value.length > 0)
+		{
+			oLink.innerHTML = GetE('txtName').value ;		
+		}
+		else
+		{
+			oLink.innerHTML = sInnerHtml ;		// Set (or restore) the innerHTML
+		}
+	}
+
+	// Select the (first) link.
+	oEditor.FCKSelection.SelectNode( aLinks[0] );
+
+	return true ;
+}
+
+
+function MoveSelected(toUp) {
+	if (document.getElementById('pageSearchHelp').style.display == 'none')
+		return;
+	var result = null;
+	var obj;
+	var items = document.getElementById('pageSearchHelp').getElementsByTagName('DIV');
+	SearchSelected = false;
+	for(var i = 0; i < items.length; i++)
+	{
+		obj = items[i];
+		if(obj.className.indexOf('seachHelpSelected') >= 0)
+		{
+			result = obj;
+			if (toUp && i > 0) {
+				result.className = result.className.replace(/\s*seachHelpSelected\s*/g, '');
+				items[i - 1].className += ' seachHelpSelected';
+			}
+
+			if (!toUp && i < items.length - 1) {
+				result.className = result.className.replace(/\s*seachHelpSelected\s*/g, '');
+				items[i + 1].className += ' seachHelpSelected';
+			}
+			
+			break;
+		}
+	}
+
+	if (result == null) {
+		items[0].className += ' seachHelpSelected';
+	}
+	
+	
+}
+
+function GetSelectedItemHTML() {
+	var result = '';
+	var obj;
+	var items = document.getElementById('pageSearchHelp').getElementsByTagName('DIV');
+	for (var i = 0; i < items.length; i++)
+	{
+		obj = items[i];
+		if(obj.className.indexOf('seachHelpSelected') >= 0)
+		{
+			result = obj.innerHTML;
+			break;
+		}
+	}
+	
+	return result;
+}
+
+var SearchSelected = true;
+
+function MouseSelectSearchPages(obj) {
+	var txt = GetE('txtUrl');
+	SearchSelected = true;
+	txt.value = FCKTools.HTMLDecode(obj.innerHTML);
+	HideSearchHelper();
+}
+
+
+function SetName( name )
+{
+	try
+	{
+		GetE('txtName').value = FCKTools.HTMLDecode(name);
+	}
+	catch(ex)
+	{
+		GetE('txtName').value = name;
+	}
+}
+
+document.onkeydown = function(e)
+{
+	return SearchSelected;
+}
+
+	</script>
+	<style type="text/css">
+		.pageHelpPanel
+		{
+			background-color:White;
+			border:1px solid #C7C7C7;
+			position:absolute;
+			width:432px;
+			z-index:10;
+			overflow-x:hidden;
+		}
+		.Caption
+		{
+			font-family:Arial;
+			font-size: 13px;
+			color:#656668;
+		}
+		div.seachHelpItem
+		{
+			cursor:pointer;
+			padding:2px 0px 2px 10px;
+		}
+
+		div.seachHelpSelected, div.seachHelpItem:hover
+		{
+			background-color:#EDF6FD;
+		}
+	</style>
+</head>
+<body scroll="no" style="overflow: hidden">
+	<div id="divInfo">
+		<div id="divLinkTypeUrl" >
+			<div class="Caption">
+				<span fcklang="wikiPageNameOrLnk">Page Name or Link:</span><br />
+				<input id="txtUrl" style="width: 100%; margin-bottom:0px" type="text" />
+			</div>
+			<div  id="pageSearchHelp" class="pageHelpPanel" style="display: none;">
+			</div>
+			<div class="Caption" style="margin-top:10px">
+				<span fckLang="wikiLnkCaption" >Caption:</span><br />
+				<input id="txtName" style="WIDTH: 100%" type="text" />
+			</div>
+			<script language="javascript">
+				GetE('txtUrl').onkeyup = OnUrlChange;
+			</script>
+			<!-- div style="font-weight: bold; font-size: 13px; padding-top: 12px;">
+				<span fcklang="wikiLnkAutomatic">Automatic search results</span> <span style="font-weight:normal;"> (<span  fcklang="wikiLnkStartTyping" id="xWikiSearchStatus">start typing in the above field</span>)</span><br />
+				<select id="xWikiResults" size="10" style="width: 100%; height:150px" onclick="SetUrl( this.value );">
+				</select>
+			</div -->
+		</div>
+	</div>
+</body>
+</html>

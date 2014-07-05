@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig>
+  <emailProvider id="mail.wind.ne.jp">
+    <domain>mail.wind.ne.jp</domain>
+    <domain>mail.wind.jp</domain>
+    <domain>mail.wind.co.jp</domain>
+    <domain>mail.gunmanet.or.jp</domain>
+    <domain>mail.gunmanet.ne.jp</domain>
+    <domain>mail.gunmanet.jp</domain>
+    <displayName>群馬インターネット</displayName>
+    <displayShortName>wind</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>mail.wind.ne.jp</hostname>
+      <port>110</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>plain</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>mail.wind.ne.jp</hostname>
+      <port>587</port>
+      <socketType>plain</socketType>
+      <username>%EMAILLOCALPART%</username>
+      <authentication>plain</authentication>
+      <addThisServer>true</addThisServer>
+      <useGlobalPreferredServer>false</useGlobalPreferredServer>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

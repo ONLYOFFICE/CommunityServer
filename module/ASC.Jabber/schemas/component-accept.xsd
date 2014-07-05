@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    xmlns:xml='http://www.w3.org/XML/1998/namespace'
+    targetNamespace='jabber:component:accept'
+    xmlns='jabber:component:accept'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0114: http://www.xmpp.org/extensions/xep-0114.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:import namespace='urn:ietf:params:xml:ns:xmpp-streams'
+             schemaLocation='http://xmpp.org/schemas/streamerror.xsd'/>
+
+  <xs:import namespace='http://www.w3.org/XML/1998/namespace'
+             schemaLocation='http://www.w3.org/2001/03/xml.xsd'/>
+
+  <xs:element name='handshake' type='xs:string'/>
+
+  <xs:element name='message'>
+     <xs:complexType>
+        <xs:sequence>
+          <xs:choice minOccurs='0' maxOccurs='unbounded'>
+            <xs:element ref='subject'/>
+            <xs:element ref='body'/>
+            <xs:element ref='thread'/>
+          </xs:choice>
+          <xs:any     namespace='##other'
+                      minOccurs='0'
+                      maxOccurs='unbounded'/>
+          <xs:element ref='error'
+                      minOccurs='0'/>
+        </xs:sequence>
+        <xs:attribute name='from'
+                      type='xs:string'
+                      use='required'/>
+        <xs:attribute name='id'
+                      type='xs:NMTOKEN'
+                      use='optional'/>
+        <xs:attribute name='to'
+                      type='xs:string'
+                      use='required'/>
+        <xs:attribute name='type' use='optional' default='normal'>
+          <xs:simpleType>
+            <xs:restriction base='xs:NCName'>
+              <xs:enumeration value='chat'/>
+              <xs:enumeration value='error'/>
+              <xs:enumeration value='groupchat'/>
+              <xs:enumeration value='headline'/>
+              <xs:enumeration value='normal'/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute ref='xml:lang' use='optional'/>
+     </xs:complexType>
+  </xs:element>
+
+  <xs:element name='body'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute ref='xml:lang' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='subject'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute ref='xml:lang' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='thread' type='xs:NMTOKEN'/>
+
+  <xs:element name='presence'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs='0' maxOccurs='unbounded'>
+          <xs:element ref='show'/>
+          <xs:element ref='status'/>
+          <xs:element ref='priority'/>
+        </xs:choice>
+        <xs:any     namespace='##other'
+                    minOccurs='0'
+                    maxOccurs='unbounded'/>
+        <xs:element ref='error'
+                    minOccurs='0'/>
+      </xs:sequence>
+      <xs:attribute name='from'
+                    type='xs:string'
+                    use='required'/>
+      <xs:attribute name='id'
+                    type='xs:NMTOKEN'
+                    use='optional'/>
+      <xs:attribute name='to'
+                    type='xs:string'
+                    use='required'/>
+      <xs:attribute name='type' use='optional'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='subscribe'/>
+            <xs:enumeration value='subscribed'/>
+            <xs:enumeration value='unsubscribe'/>
+            <xs:enumeration value='unsubscribed'/>
+            <xs:enumeration value='unavailable'/>
+            <xs:enumeration value='probe'/>
+            <xs:enumeration value='error'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute ref='xml:lang' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='show'>
+    <xs:simpleType>
+      <xs:restriction base='xs:NCName'>
+        <xs:enumeration value='away'/>
+        <xs:enumeration value='chat'/>
+        <xs:enumeration value='dnd'/>
+        <xs:enumeration value='xa'/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <xs:element name='status'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute ref='xml:lang' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='priority' type='xs:byte'/>
+
+  <xs:element name='iq'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:any     namespace='##other'
+                    minOccurs='0'
+                    maxOccurs='1'/>
+        <xs:element ref='error'
+                    minOccurs='0'
+                    maxOccurs='1'/>
+      </xs:sequence>
+      <xs:attribute name='from'
+                    type='xs:string'
+                    use='required'/>
+      <xs:attribute name='id'
+                    type='xs:NMTOKEN'
+                    use='required'/>
+      <xs:attribute name='to'
+                    type='xs:string'
+                    use='required'/>
+      <xs:attribute name='type' use='required'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='get'/>
+            <xs:enumeration value='set'/>
+            <xs:enumeration value='result'/>
+            <xs:enumeration value='error'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute ref='xml:lang' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='error'>
+    <xs:complexType>
+      <xs:sequence  xmlns:err='urn:ietf:params:xml:ns:xmpp-streams'>
+        <xs:group   ref='err:stanzaErrorGroup'/>
+        <xs:element ref='err:text'
+                    minOccurs='0'
+                    maxOccurs='1'/>
+      </xs:sequence>
+      <xs:attribute name='code' type='xs:byte' use='optional'/>
+      <xs:attribute name='type' use='required'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='cancel'/>
+            <xs:enumeration value='continue'/>
+            <xs:enumeration value='modify'/>
+            <xs:enumeration value='auth'/>
+            <xs:enumeration value='wait'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

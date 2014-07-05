@@ -1,0 +1,21 @@
+<clientConfig  version="1.1">
+    <emailProvider id="kelcom.net">
+        <domain>kelcom.net</domain>
+        <displayName>KELCOM Internet</displayName>
+        <displayShortName>KELCOM</displayShortName>
+        <incomingServer type="pop3">
+            <hostname>pop1.kelcom.net</hostname>
+            <port>110</port>
+            <socketType>plain</socketType>
+            <username>%EMAILADDRESS%</username>
+            <authentication>password-cleartext</authentication>
+        </incomingServer>
+        <outgoingServer type="smtp">
+            <hostname>smtp.kelcom.net</hostname>
+            <port>25</port>
+            <socketType>plain</socketType>
+            <username>%EMAILADDRESS%</username>
+            <authentication>password-cleartext</authentication>
+        </outgoingServer>
+    </emailProvider>
+</clientConfig>

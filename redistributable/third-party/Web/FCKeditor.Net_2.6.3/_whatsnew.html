@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>FCKeditor.Net ChangeLog - What's New?</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		body { font-family: arial, verdana, sans-serif }
+		p { margin-left: 20px }
+		h1 { border-bottom: solid 1px gray; padding-bottom: 20px }
+	</style>
+</head>
+<body>
+	<h1>
+		FCKeditor.Net ChangeLog - What's New?</h1>
+	<h3>
+		Version 2.6.3</h3>
+	<p>
+		<strong><span style="color: #ff0000">Attention :</span></strong> <strong>FCKeditor 2.6.3</strong>
+		is required for Microsoft ASP.Net AJAX compatibility.</p>
+	<p>
+		Fixed Bugs:</p>
+	<ul>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/234">#234</a>] Fixed 
+ 			the incompatibility with the Microsoft ASP.Net AJAX UpdatePanel.</li>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/1908">#1908</a>] &amp;amp; was
+			decoded at the wrong time in the server, leading to data loss. </li>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/1945">#1945</a>] New folders
+			and file names are now properly sanitized against control characters. </li>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/1944">#1944</a>] The "\"
+			character is now properly verified for all connector requests.</li>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/1919">#1919</a>] The connector
+			responses are now compatible with custom document.domain settings.</li>
+	</ul>
+	<h3>
+		Version 2.5</h3>
+	<p>
+		<strong><span style="color: #ff0000">Attention :</span></strong> This version is not compatible with releases before <strong>FCKeditor 2.5.1</strong>.</p>
+	<p>
+		New Features and Improvements:</p>
+	<ul>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/1548">#1548</a>] Compatible
+			with <strong>Safari 3.0+</strong> and <strong>Opera 9.50+</strong>.</li>
+		<li>Added specific project files for <strong>Visual Studio .NET 2003</strong> and <strong>
+			Visual Studio 2005</strong>. It's easier now to open the source in your preferred
+			environment. Builds will end up in the "1.1" (VS2003) and "2.0" (VS2005) folders
+			inside bin/Debug and bin/Release. </li>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/79">#79</a>] The BasePath
+			property now defaults to "/fckeditor/" ("/FCKeditor/" previously).</li>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/79">#79</a>] Introduced
+			the <strong>FCKeditor.IsCompatibleBrowser</strong> static function, to check if
+			the requesting browser is compatible with FCKeditor. </li>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/79">#79</a>] Introduced
+			the <strong>FCKeditor.CreateHtml</strong> function, which returns the HTML needed
+			to create an editor instance in the page.</li>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/294">#294</a>] The HtmlEncodeOutput
+			setting is enforced by the editor component, to avoid having to set ValidateRequest="false"
+			on pages using the editor.</li>
+		<li>Several changes to the File Browser and Uploader:<ul>
+			<li>Several security checks have been introduced. <strong>Upgrading is hightly recommended</strong>.</li>
+			<li>The code has been reviewed according to our standards, aligning the FCKeditor.Net
+				File Browser to the same quality and feature level present in other server language
+				implementations of it, like the PHP implementation.</li>
+			<li>The connector can now be fully configured by using the "editor/filemanager/connectors/aspx/config.ascx"
+				file, available with FCKeditor 2.5.1.</li>
+			<li>For file uploads, the file extension is precisely controlled in a list defined in
+				the config.ascx file.</li>
+			<li>It is possible to define different folder locations for each file type.</li>
+			<li><strong><span style="color: #ff0000">Attention :</span></strong> For security, the
+				connector must be explicitly activated, by setting "Enabled = true" in the config.ascx
+				file.</li>
+			<li><span style="color: #ff0000"><strong>Attention :</strong></span> The default connector
+				path has been changed to "/userfiles/", instead of "/UserFiles/". This change should
+				not impact Windows installations.</li>
+		</ul>
+		</li>
+	</ul>
+	<p>
+		Fixed Bugs:</p>
+	<ul>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/551">#551</a>] The connector
+			and uploader will now correctly handle the Tilde ("~") in the UserFilesPath setting.
+		</li>
+		<li>[<a target="_blank" href="http://dev.fckeditor.net/ticket/415">#415</a>] The file
+			browser connector will not work properly on "Medium" trust web sites.</li>
+	</ul>
+	<h3>
+		Version 2.2</h3>
+	<p>
+		New Features and Improvements:</p>
+	<ul>
+		<li>The <strong>Quick File Uploader</strong> is now available. So you point&nbsp;allo
+			Uploading configuration&nbsp;setting&nbsp;to the editor/filemanager/upload/aspx/upload.aspx
+			file.</li>
+		<li>The rendered output is&nbsp;now <strong>XHTML</strong> compatible.</li>
+		<li>You can set the QueryString value "fcksource=true" to load the editor using the
+			source files (located in the _source directory) instead of the compressed ones.
+			Thanks to Kae Verens for the suggestion.</li>
+		<li><strong>Attention</strong>: for security reasons, it is not anymore possible to
+			pass the user files directory path by the URL.</li>
+	</ul>
+	<p>
+		Fixed Bugs:</p>
+	<ul>
+		<li>[<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1249796&amp;group_id=75348&amp;atid=543653"
+			target="_blank">SF BUG-1249796</a>] [<a href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1260153&amp;group_id=75348&amp;atid=543653"
+				target="_blank">SF BUG-1260153</a>] [<a href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1308718&amp;group_id=75348&amp;atid=543653"
+					target="_blank">SF BUG-1308718</a>] The editor is now loading correctly
+			over Firefox when placed inside a control hierarchy.</li>
+		<li>The configurations set in the editor are now saved in the viewstate and persist
+			during posts.</li>
+	</ul>
+	<h3>
+		Version 2.1</h3>
+	<p>
+		New Features and Improvements:</p>
+	<ul>
+		<li>All <strong>configurations</strong> can now be set as component <strong>properties</strong>.</li>
+		<li>The editor now resolves <strong>application relative paths</strong> (starting with
+			tilde "~"). Thanks to "theyoyoman".</li>
+		<li>The samples have been moved to the FCKeditor.Net package. In this way we can provide
+			a richer and more organized set of samples.</li>
+	</ul>
+	<p>
+		Fixed Bugs:</p>
+	<ul>
+		<li>[<a href="http://sourceforge.net/tracker/?group_id=75348&amp;atid=543653" target="_blank">SF
+			BUG-1118200</a>] [<a href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1117410&amp;group_id=75348&amp;atid=543653"
+				target="_blank">SF BUG-1117410</a>] [<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1091348&amp;group_id=75348&amp;atid=543653"
+					target="_blank">SF BUG-1091348</a>] [<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1150981&amp;group_id=75348&amp;atid=543653"
+						target="_blank">SF BUG-1150981</a>] [<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1109086&amp;group_id=75348&amp;atid=543653"
+							target="_blank">SF BUG-1109086</a>] There was an incorrect use of
+			the UniqueID property when rendering the editor HTML. It was causing errors when
+			running the editor over a User Control. It has been fixed.</li>
+		<li>The component now detects IE 5.5 browsers correctly. Thanks to "chayes20".</li>
+		<li>The references to fckeditor.js in the samples have been removed. There were never
+			required. It was just a "typo" in the sample pages.</li>
+	</ul>
+</body>
+</html>

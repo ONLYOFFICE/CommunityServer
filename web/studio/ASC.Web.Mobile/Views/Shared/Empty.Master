@@ -1,0 +1,18 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><%=Resources.MobileResource.PageTitle%></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="format-detection" content="address=no" />
+  <link href="<%=Url.Content("~/content/mc.style.empty.css")%>" rel="stylesheet" type="text/css" />
+  <asp:ContentPlaceHolder ID="Head" runat="server" />
+</head>
+<body>
+  <asp:ContentPlaceHolder ID="Body" runat="server" />
+  <script src="<%=Url.Content("~/scripts/mc.default.empty.js")%>" type="text/javascript"></script>
+</body>
+</html>

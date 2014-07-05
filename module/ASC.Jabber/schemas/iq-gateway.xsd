@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='jabber:iq:gateway'
+    xmlns='jabber:iq:gateway'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0100: http://www.xmpp.org/extensions/xep-0100.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='query'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element name='desc' minOccurs='0' type='xs:string'/>
+          <xs:element name='prompt' type='xs:string'/>
+        </xs:sequence>
+        <xs:element name='jid' type='xs:string'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Flash Properties dialog window.
+-->
+<html>
+	<head>
+		<title>Flash Properties</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta content="noindex, nofollow" name="robots">
+		<script src="common/fck_dialog_common.js" type="text/javascript"></script>
+		<script src="fck_flash/fck_flash.js" type="text/javascript"></script>
+		<script type="text/javascript">
+
+document.write( FCKTools.GetStyleHtml( GetCommonDialogCss() ) ) ;
+
+		</script>
+	</head>
+	<body scroll="no" style="OVERFLOW: hidden">
+		<div id="divInfo">
+			<table cellSpacing="1" cellPadding="1" width="100%" border="0">
+				<tr>
+					<td width="100%"   class="Caption">
+						<span fckLang="DlgImgURL" >URL:</span>
+						<input id="txtUrl" onblur="UpdatePreview();" style="WIDTH: 100%" type="text">
+					</td>
+				</tr>
+				<TR>
+					<TD>
+						<table cellSpacing="0" cellPadding="0" border="0">
+							<TR>
+								<TD   class="Caption">
+									<span fckLang="DlgImgWidth" >Width:</span><br>
+								</TD>
+								<TD >&nbsp;</TD>
+								<TD   class="Caption">
+									<span fckLang="DlgImgHeight" >Height"</span><br>
+								</TD>
+							</TR>
+							<tr>
+								<TD >
+									<input id="txtWidth" onkeypress="return IsDigit(event);" type="text" size="3" style="width:110px;">
+								</TD>
+								<TD class="Caption" style="padding:0px 5px;">X</TD>
+								<TD >
+									<input id="txtHeight" onkeypress="return IsDigit(event);" type="text" size="3"  style="width:110px;">
+								</TD>
+							</tr>
+							
+						</table>
+					</TD>
+				</TR>
+				<tr>
+					<td vAlign="top">
+						<table cellSpacing="0" cellPadding="0" width="100%" border="0">
+							<tr>
+								<td valign="top" width="100%">
+									<table cellSpacing="0" cellPadding="0" width="100%">
+										<tr>
+											<td   class="Caption"><span fckLang="DlgImgPreview" >Preview:</span></td>
+										</tr>
+										<tr>
+											<td id="ePreviewCell" valign="top" ><iframe src="fck_flash/fck_flash_preview.html" style="display:block; width:100%; margin-top:2px; border:1px solid #C7C7C7;" frameborder="0" marginheight="0" marginwidth="0"></iframe></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="divUpload" style="DISPLAY: none">
+			<form id="frmUpload" method="post" target="UploadWindow" enctype="multipart/form-data" action="" onsubmit="return CheckUpload();">
+				<div   class="Caption">
+				<span fcklang="DlgLnkUploadTitle">Upload:</span><br />
+				<input id="txtUploadFile" style="width: 100%; margin-top:2px;" type="file" size="40" name="NewFile" />
+				<input id="btnUpload" type="submit" style="margin-top:16px;" class="Button" value="Send to Server" fcklang="DlgLnkBtnUpload" />
+				<script type="text/javascript">
+					document.write( '<iframe name="UploadWindow" style="display: none" src="' + FCKTools.GetVoidUrl() + '"><\/iframe>' ) ;
+				</script>
+			</div>
+			</form>
+		</div>
+	</body>
+</html>

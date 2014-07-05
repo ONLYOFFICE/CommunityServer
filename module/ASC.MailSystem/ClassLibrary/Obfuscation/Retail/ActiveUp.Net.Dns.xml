@@ -1,0 +1,1203 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ActiveUp.Net.Dns</name>
+    </assembly>
+    <members>
+        <member name="T:ActiveUp.Net.Dns.IRecordData">
+            <summary>
+            Interface to allow different records to coexist in a list
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.A6Record.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference RFC 3363
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.A6Record.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.A6Record.PrefixLength">
+            <summary>
+            Return prefix length
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.A6Record.IpAddress">
+            <summary>
+            Return IP Address of the data record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.A6Record.Domain">
+            <summary>
+            Return Domain name of data record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.AAAARecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference RFC 3596
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.AAAARecord.ToString">
+            <summary>
+            Converts this data record to a string 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.AAAARecord.IpAddress">
+            <summary>
+            Return IP Address of the record
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.AfsdbRecord">
+            <summary>
+            Implementation Reference RFC 1183
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.AfsdbRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Create data record for AFSDB type from data buffer
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.AfsdbRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.AfsdbRecord.SubType">
+            <summary>
+            Return record subtype
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.AfsdbRecord.Domain">
+            <summary>
+            return domain name of record
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.Answer">
+            <summary>
+            Answer type derived from DNSEntry
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsEntry.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Create a DNSEntry record and dispatch to data constructor 
+            for thast record type
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsEntry.Domain">
+            <summary>
+            Return Domain name of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsEntry.RecType">
+            <summary>
+            return Record Type of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsEntry.ClassType">
+            <summary>
+            return class type of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsEntry.Ttl">
+            <summary>
+            return Time To Live for record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.ARecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Create A Record from Data Buffer
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.ARecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.ARecord.IpAddress">
+            <summary>
+            Return IP Address of record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DomainNameOnly.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Base class for all Record Types that have RDATA consisting of a single domain name
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DomainNameOnly.ToString">
+            <summary>
+            Return string representing record
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.CNameRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference RFC 1035
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.CNameRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.CNameRecord.Domain">
+            <summary>
+            Return domain name of record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.#ctor(System.Byte[])">
+            <summary>
+            Create Data Buffer from byte array and set the ptr to the first byte
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.#ctor(System.Byte[],System.Int32)">
+            <summary>
+            Create a Data Buffer froma byte array and set the pos pointer to pos
+            </summary>
+            <param name="data"></param>
+            <param name="pos"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadByte">
+            <summary>
+            Read the next byte and advance the pointer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadShortInt">
+            <summary>
+            Read a short int from the buffer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadBEShortInt">
+             <summary>
+             Read a short int from the buffer
+            Big Endian version of ReadShortInt 
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadShortUInt">
+            <summary>
+            Read Unsigned Short Int
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadBEShortUInt">
+            <summary>
+            Read Unsigned Short Int
+            BigEndian version of ReadShortUInt 
+            </summary>
+            <returns></returns>   
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadInt">
+            <summary>
+            Read 32 bit Integer from buffer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadUInt">
+            <summary>
+            Read unsigned 32 bit int from buffer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadLongInt">
+            <summary>
+            Read long int 64 bit from buffer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadDomainName">
+            <summary>
+            Reads a domain name from the byte array. Reference to RFC1035 - 4.1.4. 
+            To minimise the size of the message, if part of a domain
+            name has already been seen in the message, a pointer to the existing definition is used. 
+            Each word in a domain name is a label, and is preceded by its length the series is 
+            terminated with a null
+                    
+            </summary>
+            <returns>string containing Domain Name</returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadIPAddress">
+            <summary>
+            Read IP Addres from data buffer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadIPv6Address">
+            <summary>
+            Read IPv6 from Data Buffer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadBytes(System.Int32)">
+            <summary>
+            Read a bytre array of length from Data Buffer
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DataBuffer.ReadCharString">
+            <summary>
+            Read a short from the buffer and then read a string of bytes of that length 
+            and interpret them as a character string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DataBuffer.Next">
+            <summary>
+            Peek at next byte
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DataBuffer.Position">
+            <summary>
+            Get current position being read in the buffer
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DNameRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference RFC 2672
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DNameRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DNameRecord.DomainName">
+            <summary>
+            return domain name of the record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsAnswer.#ctor(System.Byte[])">
+            <summary>
+            Given a byte array  interpret them as a DnsEntry  
+            </summary>
+            <param name="response"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsAnswer.TestBit(System.Byte,System.Byte)">
+            <summary>
+            Test Bit position
+            </summary>
+            <param name="b"></param>
+            <param name="pos"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsAnswer.ReturnCode">
+            <summary>
+            Access return code from server
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsAnswer.Authoritative">
+            <summary>
+            Was response authoritative
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsAnswer.Recursive">
+            <summary>
+            Was answer recursive
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsAnswer.Truncated">
+            <summary>
+            was answer truncated
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsAnswer.Questions">
+            <summary>
+            Access the list of questions
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsAnswer.Answers">
+            <summary>
+            Access list of answers
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsAnswer.Servers">
+            <summary>
+            Access list of servers
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsAnswer.Additional">
+            <summary>
+            Access list of additional records
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsAnswer.Exceptions">
+            <summary>
+            access list of exceptions that were created during reading the response
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsAnswer.Entries">
+            <summary>
+            Concatenate all the lists and return as one big list
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.OpCode">
+            <summary>
+            As per RFC1035 Query Types for Dns Querys  types 3-16 are reserved for future use
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.DnsQueryException">
+            <summary>
+            Exception raised during Dns Query
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsQuery.#ctor">
+            <summary>
+            Default constructor for a Dns Query
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsQuery.#ctor(System.String)">
+            <summary>
+            Create a Dns Entry from a server Url
+            </summary>
+            <param name="serverUrl"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsQuery.#ctor(System.Net.IPAddress)">
+            <summary>
+            Create a Dns Entry from an IP Address
+            </summary>
+            <param name="dnsAddress"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsQuery.QueryServer(ActiveUp.Net.Dns.RecordType,System.Int32)">
+            <summary>
+            Quey a Dns Seerver for records of a specific type and timeout.
+            </summary>
+            <param name="recType"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsQuery.QueryServer(ActiveUp.Net.Dns.RecordType)">
+            <summary>
+            Quey a Dns Seerver for records of a specific type
+            </summary>
+            <param name="recType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsQuery.CreateDnsQuery(ActiveUp.Net.Dns.RecordType)">
+            <summary>
+            Create a byte array that conforms to a DNS Query Format
+            </summary>
+            <param name="recType"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsQuery.InsertDomainName(System.Collections.Generic.List{System.Byte},System.String)">
+            <summary>
+            Insert domain name into byte array
+            </summary>
+            <param name="data"></param>
+            <param name="domain"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DnsQuery.ValidRecordType(ActiveUp.Net.Dns.RecordType)">
+            <summary>
+            Is this a valid DNS Record type
+            </summary>
+            <param name="t">The t.</param>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsQuery.Query">
+            <summary>
+            Gets or sets the query.
+            </summary>
+            <value>The query.</value>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DnsQuery.DnsServer">
+            <summary>
+            Gets or sets the DNS server.
+            </summary>
+            <value>The DNS server.</value>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DSRecord.#ctor(ActiveUp.Net.Dns.DataBuffer,System.Int32)">
+            <summary>
+            Implementation Reference RFC 3658
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.DSRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DSRecord.Key">
+            <summary>
+            Return Record Key
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DSRecord.Algorithm">
+            <summary>
+            Return Record Algorithm
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DSRecord.DigestType">
+            <summary>
+            return record Digest Type
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.DSRecord.Digest">
+            <summary>
+            Retuirn Record Digest
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.TextOnly">
+            <summary>
+            Base class for all Record types that caontain RDATA consisting of a single text string
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.TextOnly.#ctor">
+            <summary>
+            default Text Constructor
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.TextOnly.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            create a text array from record bytes
+            </summary>
+            <param name="buffer"> buffer of bytes</param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.TextOnly.#ctor(ActiveUp.Net.Dns.DataBuffer,System.Int32)">
+            <summary>
+            create a text array from record bytes
+            </summary>
+            <param name="buffer"> buffer of bytes </param>
+            <param name="length"> length of bytes to use</param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.TextOnly.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TextOnly.Text">
+            <summary>
+            text of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TextOnly.Count">
+            <summary>
+            return number of strings in text record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TextOnly.Strings">
+            <summary>
+            return list of strings in record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.ExceptionRecord.#ctor(System.String)">
+            <summary>
+            Create an Excpetion record to encapsulate an exception created during the parsing of 
+            a Data Record
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.ExceptionRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.HInfoRecord.#ctor(ActiveUp.Net.Dns.DataBuffer,System.Int32)">
+            <summary>
+            Implementation Reference RFC 1035
+            </summary>
+            <param name="buffer"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.HInfoRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.HInfoRecord.Cpu">
+            <summary>
+            return Record CPU Type
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.HInfoRecord.Os">
+            <summary>
+            Return Record Operating System
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.IsdnRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference RFC 1183
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.IsdnRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.IsdnRecord.IsdnAddress">
+            <summary>
+            Isdn Address of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.IsdnRecord.SubAddress">
+            <summary>
+            Sub Address of record
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.KeyRecord">
+            <summary>
+            Implementation Refrence RFC 2535
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.KeyRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.KeyRecord.Flags">
+            <summary>
+            Return flags of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.KeyRecord.Protocol">
+            <summary>
+            Return protocol of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.KeyRecord.Algorithm">
+            <summary>
+            return Algorithm of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.KeyRecord.PublicKey">
+            <summary>
+            return Public Key of record
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.KXRecord">
+            <summary>
+            Implementation Reference RFC 2230
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.PrefAndDomain.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Common class for all record types that contain a preference and a domain name
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.PrefAndDomain.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.PrefAndDomain.Preference">
+            <summary>
+            return preference
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.PrefAndDomain.Domain">
+            <summary>
+            return domain name of record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.KXRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.LocRecord">
+            <summary>
+            Implementation Referecne RFC 1876
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.LocRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Create Location Record from Data Buffer
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.LocRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.LocRecord.Version">
+            <summary>
+            Version of record 
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.LocRecord.Size">
+            <summary>
+            Size of location 
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.LocRecord.HorzPrecision">
+            <summary>
+            Horizontal Precision of location
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.LocRecord.VertPrecision">
+            <summary>
+            Vertical Precision of location
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.LocRecord.Lattitude">
+            <summary>
+            Lattitude of location
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.LocRecord.Longitude">
+            <summary>
+            Longitude of location
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.LocRecord.Altitude">
+            <summary>
+            Altitude of location
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.MBRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference RFC 1035
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.MBRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.MBRecord.AdminMailboxDomain">
+            <summary>
+            return Administators Mail Box
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.MGRecord">
+            <summary>
+            Implementation Reference RFC 1035
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.MGRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.MGRecord.MailGroupDomain">
+            <summary>
+            return Mail Group Domain
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.MInfoRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.MInfoRecord.ResponsibleMailbox">
+            <summary>
+            rfeturn Responsible Person Mail Box
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.MInfoRecord.ErrorMailbox">
+            <summary>
+            return Error Reporting Mail box
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.MRRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.MRRecord.ForwardingAddress">
+            <summary>
+            returnb Forwarding Address for Domain
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.MXRecord">
+            <summary>
+            Implementation Reference RFC 
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.MXRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.NaptrRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference RFC 3403
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.NaptrRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.NaptrRecord.Order">
+            <summary>
+            retiurn Order of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.NaptrRecord.Priority">
+            <summary>
+            return Priority of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.NaptrRecord.Flags">
+            <summary>
+            return flags of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.NaptrRecord.Services">
+            <summary>
+            return services listed in record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.NaptrRecord.Regexp">
+            <summary>
+            return regexp of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.NaptrRecord.Replacement">
+            <summary>
+            return replacement domain of record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.NsapRecord.#ctor(ActiveUp.Net.Dns.DataBuffer,System.Int32)">
+            <summary>
+            Implementation Rference RFC 1706
+            RFC is unclear and self-contradictory record type not implemented
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.NSRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference RFC 1035
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.NSRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.NSRecord.NSDomain">
+            <summary>
+            return Namje Server Domain
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.NullRecord.#ctor(ActiveUp.Net.Dns.DataBuffer,System.Int32)">
+            <summary>
+            Implementation Reference RFC 1035
+            </summary>
+            <param name="buffer"></param>
+            <param name="?"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.NullRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.NullRecord.Text">
+            <summary>
+            return Text of null record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.PtrRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.PtrRecord.PtrDomain">
+            <summary>
+            return domain name of record
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.PXRecord">
+            <summary>
+            Implementation Referecne RFC 2163
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.PXRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.Question.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Create a Question record for Dns Answer
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.Question.Domain">
+            <summary>
+            Return domain name of question
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.Question.RecType">
+            <summary>
+            return Record Type of Question
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.Question.ClassType">
+            <summary>
+            return Class Type of question
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.Record.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Create a record for additional records in Dns Answer
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.RPRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference RFC 1183
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.RPRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.RPRecord.ResponsibleMailbox">
+            <summary>
+            return Responsible Person Mailbox
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.RPRecord.TextDomain">
+            <summary>
+            return Domain for Test responses from Responsible Person
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.RTRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference  RFC 1183 
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.RTRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.Server.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Ceate A server Record for server section of Dns Response
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.SigRecord.#ctor(ActiveUp.Net.Dns.DataBuffer,System.Int32)">
+            <summary>
+            Implementation Reference RFC 2535
+            </summary>
+            <param name="buffer"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.SigRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SigRecord.CoveredType">
+            <summary>
+            Return Covered Type of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SigRecord.Algorithm">
+            <summary>
+            return Algorithm of record type
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SigRecord.NumLabels">
+            <summary>
+            return Number of Labels of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SigRecord.Expiration">
+            <summary>
+            return expiration of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SigRecord.Inception">
+            <summary>
+            return inception of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SigRecord.KeyTag">
+            <summary>
+            return Key Tag of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SigRecord.Signer">
+            <summary>
+            return signer of record
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.SoaRecord">
+            <summary>
+            Implementation Reference RFC 1035
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.SoaRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SoaRecord.PrimaryNameServer">
+            <summary>
+            Primary Name  Server of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SoaRecord.ResponsibleMailAddress">
+            <summary>
+            Responsible Person Mail Address 
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SoaRecord.Serial">
+            <summary>
+            Serial of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SoaRecord.Refresh">
+            <summary>
+            Refresh of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SoaRecord.Retry">
+            <summary>
+            return retry of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SoaRecord.Expire">
+            <summary>
+            return expiration of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SoaRecord.DefaultTtl">
+            <summary>
+            return default ttl of record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.SrvRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation Reference RFC 2782
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.SrvRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SrvRecord.Priority">
+            <summary>
+            return Priority of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SrvRecord.Weight">
+            <summary>
+            return Weight of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SrvRecord.Port">
+            <summary>
+            return port of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.SrvRecord.Domain">
+            <summary>
+            return domain of record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.TKeyRecord.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Implementation References RFC 2930
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.TKeyRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TKeyRecord.Algorithm">
+            <summary>
+            return algorithm of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TKeyRecord.Inception">
+            <summary>
+            return inception time of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TKeyRecord.Expiration">
+            <summary>
+            return expiration time of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TKeyRecord.Mode">
+            <summary>
+            return mode of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TKeyRecord.Error">
+            <summary>
+            rfeturn error of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TKeyRecord.KeyData">
+            <summary>
+            return Key Data of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TKeyRecord.OtherData">
+            <summary>
+            return Other Data of record
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.TSigRecord">
+            <summary>
+            Implementation References RFC 2845
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.TSigRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TSigRecord.Algorithm">
+            <summary>
+            return Algorithm of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TSigRecord.TimeSigned">
+            <summary>
+            return signature time
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TSigRecord.Fudge">
+            <summary>
+            return fudge factor of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TSigRecord.Mac">
+            <summary>
+            return MAC Address
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TSigRecord.OriginalId">
+            <summary>
+            return Original ID of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TSigRecord.Error">
+            <summary>
+            return error of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.TSigRecord.OtherData">
+            <summary>
+            rfeturn Other Data of record
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.TxtRecord.#ctor(ActiveUp.Net.Dns.DataBuffer,System.Int32)">
+            <summary>
+            Text Record Type
+            </summary>
+            <param name="buffer"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.TxtRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.WksRecord.#ctor(ActiveUp.Net.Dns.DataBuffer,System.Int32)">
+            <summary>
+            WKS Record Type Consructor
+            </summary>
+            <param name="buffer"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.WksRecord.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.WksRecord.IpAddress">
+            <summary>
+            IP Address of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.WksRecord.Protocol">
+            <summary>
+            return Protocol of record
+            </summary>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.WksRecord.Services">
+            <summary>
+            return Services of record
+            </summary>
+        </member>
+        <member name="T:ActiveUp.Net.Dns.X25Record">
+            <summary>
+            Implementation Reference RFC 1183
+            </summary>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.X25Record.#ctor(ActiveUp.Net.Dns.DataBuffer)">
+            <summary>
+            Create X25 Record Type
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:ActiveUp.Net.Dns.X25Record.ToString">
+            <summary>
+            Converts this data record to a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActiveUp.Net.Dns.X25Record.PsdnAddress">
+            <summary>
+            return PSDN Address
+            </summary>
+        </member>
+    </members>
+</doc>

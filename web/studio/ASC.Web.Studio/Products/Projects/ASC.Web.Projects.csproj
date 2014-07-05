@@ -1,0 +1,730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{11ACB4CA-A305-4CAA-8546-392C6DAFC7C4}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Web.Projects</RootNamespace>
+    <AssemblyName>ASC.Web.Projects</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <TrunkDir>..\..\..\..\..\</TrunkDir>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxPro.2, Version=7.7.31.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.MessagingSystem">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.MessagingSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Projects.Core">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Projects.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Projects.Data">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Projects.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Projects.Engine">
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Projects.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Files, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Files.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Studio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Studio.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BasecampRestAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\BaseCampRestAPI-1.1.0\BasecampRestAPI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.29869, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Web\FredCK.FCKeditorV2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\Images\common-icons.png" />
+    <Content Include="App_Themes\Default\Images\gantt-legend.png" />
+    <Content Include="App_Themes\Default\Images\gantt_icons_left_panel.png" />
+    <Content Include="App_Themes\Default\Images\gantt_mode_butts.png" />
+    <Content Include="App_Themes\Default\Images\loader12.gif" />
+    <Content Include="App_Themes\Default\Images\loader_48.gif" />
+    <Content Include="App_Themes\Default\Images\small-icons.png" />
+    <Content Include="App_Themes\Default\Images\timer-icons.png" />
+    <Content Include="Controls\Common\CommonList.ascx" />
+    <Content Include="Controls\Common\CommonPopupContainer.ascx" />
+    <Content Include="Controls\Projects\ProjectAction.ascx" />
+    <Content Include="Controls\Templates\CreateProject.ascx" />
+    <Content Include="Controls\Templates\EditTemplate.ascx" />
+    <Content Include="js\common.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\FileEngine2.cs" />
+    <Compile Include="Classes\NotifyHelper.cs" />
+    <Compile Include="Classes\ResultsView.cs" />
+    <Compile Include="Classes\ReportHelper.cs" />
+    <Compile Include="Classes\Global.cs" />
+    <Compile Include="Classes\PathProvider.cs" />
+    <Compile Include="Classes\ReportInfo.cs" />
+    <Compile Include="Classes\ReportTransformer.cs" />
+    <Compile Include="Classes\RequestContext.cs" />
+    <Compile Include="Classes\UrlConstant.cs" />
+    <Compile Include="Classes\UrlParameters.cs" />
+    <Compile Include="Classes\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Classes\BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Configuration\ImportFromBasecamp.cs" />
+    <Compile Include="Configuration\ProductEntryPoint.cs" />
+    <Compile Include="Configuration\ProductSubscriptionManager.cs" />
+    <Compile Include="Configuration\ProjectsSpaceUsageStatManager.cs" />
+    <Compile Include="Configuration\SearchHandler.cs" />
+    <Compile Include="Contacts.aspx.cs">
+      <DependentUpon>Contacts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contacts.aspx.designer.cs">
+      <DependentUpon>Contacts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\CommonList.ascx.cs">
+      <DependentUpon>CommonList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\CommonList.ascx.designer.cs">
+      <DependentUpon>CommonList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\CommonPopupContainer.ascx.cs">
+      <DependentUpon>CommonPopupContainer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\CommonPopupContainer.ascx.designer.cs">
+      <DependentUpon>CommonPopupContainer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\NavigationSidePanel.ascx.cs">
+      <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\NavigationSidePanel.ascx.designer.cs">
+      <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dashboard\DashboardEmptyScreen.ascx.cs">
+      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Dashboard\DashboardEmptyScreen.ascx.designer.cs">
+      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Messages\DiscussionAction.ascx.cs">
+      <DependentUpon>DiscussionAction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Messages\DiscussionAction.ascx.designer.cs">
+      <DependentUpon>DiscussionAction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Messages\DiscussionDetails.ascx.cs">
+      <DependentUpon>DiscussionDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Messages\DiscussionDetails.ascx.designer.cs">
+      <DependentUpon>DiscussionDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Milestones\MilestoneAction.ascx.cs">
+      <DependentUpon>MilestoneAction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Milestones\MilestoneAction.ascx.designer.cs">
+      <DependentUpon>MilestoneAction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Projects\ProjectAction.ascx.cs">
+      <DependentUpon>ProjectAction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Projects\ProjectAction.ascx.designer.cs">
+      <DependentUpon>ProjectAction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Projects\ProjectNavigatePanel.ascx.cs">
+      <DependentUpon>ProjectNavigatePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Projects\ProjectNavigatePanel.ascx.designer.cs">
+      <DependentUpon>ProjectNavigatePanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportFilters.ascx.cs">
+      <DependentUpon>ReportFilters.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportFilters.ascx.designer.cs">
+      <DependentUpon>ReportFilters.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportTemplateView.ascx.cs">
+      <DependentUpon>ReportTemplateView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportTemplateView.ascx.designer.cs">
+      <DependentUpon>ReportTemplateView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportView.ascx.cs">
+      <DependentUpon>ReportView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Reports\ReportView.ascx.designer.cs">
+      <DependentUpon>ReportView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tasks\TaskAction.ascx.cs">
+      <DependentUpon>TaskAction.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Tasks\TaskAction.ascx.designer.cs">
+      <DependentUpon>TaskAction.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Tasks\TaskDescriptionView.ascx.cs">
+      <DependentUpon>TaskDescriptionView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Tasks\TaskDescriptionView.ascx.designer.cs">
+      <DependentUpon>TaskDescriptionView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Templates\CreateProject.ascx.cs">
+      <DependentUpon>CreateProject.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Templates\CreateProject.ascx.designer.cs">
+      <DependentUpon>CreateProject.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Templates\EditTemplate.ascx.cs">
+      <DependentUpon>EditTemplate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Templates\EditTemplate.ascx.designer.cs">
+      <DependentUpon>EditTemplate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GanttChart.aspx.cs">
+      <DependentUpon>GanttChart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GanttChart.aspx.designer.cs">
+      <DependentUpon>GanttChart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedReport.aspx.cs">
+      <DependentUpon>GeneratedReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GeneratedReport.aspx.designer.cs">
+      <DependentUpon>GeneratedReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Help.aspx.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help.aspx.designer.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Import.aspx.cs">
+      <DependentUpon>Import.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Import.aspx.designer.cs">
+      <DependentUpon>Import.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ClientScripts\ClientLocalizationResources.cs" />
+    <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
+    <Compile Include="Masters\ClientScripts\ClientUserResources.cs" />
+    <Compile Include="Messages.aspx.cs">
+      <DependentUpon>Messages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Messages.aspx.designer.cs">
+      <DependentUpon>Messages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Milestones.aspx.cs">
+      <DependentUpon>Milestones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Milestones.aspx.designer.cs">
+      <DependentUpon>Milestones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Projects.aspx.cs">
+      <DependentUpon>Projects.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects.aspx.designer.cs">
+      <DependentUpon>Projects.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\BasicTemplate.Master.cs">
+      <DependentUpon>BasicTemplate.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\BasicTemplate.Master.designer.cs">
+      <DependentUpon>BasicTemplate.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectTeam.aspx.cs">
+      <DependentUpon>ProjectTeam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectTeam.aspx.designer.cs">
+      <DependentUpon>ProjectTeam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectTemplates.aspx.cs">
+      <DependentUpon>ProjectTemplates.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectTemplates.aspx.designer.cs">
+      <DependentUpon>ProjectTemplates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ImportResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImportResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ProjectResource.Designer.cs">
+      <DependentUpon>ProjectResource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\ProjectsCommonResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectsCommonResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ProjectsFilterResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectsFilterResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ProjectsJSResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectsJSResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ProjectTemplatesResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectTemplatesResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ReportResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\TimeTrackingResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimeTrackingResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks.aspx.cs">
+      <DependentUpon>Tasks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tasks.aspx.designer.cs">
+      <DependentUpon>Tasks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Timer.aspx.cs">
+      <DependentUpon>Timer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Timer.aspx.designer.cs">
+      <DependentUpon>Timer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTracking.aspx.cs">
+      <DependentUpon>TimeTracking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TimeTracking.aspx.designer.cs">
+      <DependentUpon>TimeTracking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TMDocs.aspx.cs">
+      <DependentUpon>TMDocs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TMDocs.aspx.designer.cs">
+      <DependentUpon>TMDocs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ProjectsFileResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectsFileResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\GrammaticalResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GrammaticalResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MessageResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessageResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MilestoneResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MilestoneResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\TaskResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TaskResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_Data\ASC.Projects.db3" />
+    <Content Include="App_Themes\Default\css\allprojects.css" />
+    <Content Include="App_Themes\Default\css\alltasks.css" />
+    <Content Include="App_Themes\Default\css\discussions.css" />
+    <Content Include="App_Themes\Default\css\ganttchart.css" />
+    <Content Include="App_Themes\Default\css\import.css" />
+    <Content Include="App_Themes\Default\css\milestones.css" />
+    <Content Include="App_Themes\Default\css\projectaction.css" />
+    <Content Include="App_Themes\Default\css\projecttemplates.css" />
+    <Content Include="App_Themes\Default\Images\empty_screen_discussions.png" />
+    <Content Include="App_Themes\Default\Images\empty_screen_milestones.png" />
+    <Content Include="App_Themes\Default\Images\empty_screen_persons.png" />
+    <Content Include="App_Themes\Default\Images\empty_screen_tasks.png" />
+    <Content Include="App_Themes\Default\Images\empty_screen_time_tracking.png" />
+    <Content Include="App_Themes\Default\Images\filetype\discussion.png" />
+    <Content Include="App_Themes\Default\Images\filetype\employee.png" />
+    <Content Include="App_Themes\Default\Images\filetype\milestone.png" />
+    <Content Include="App_Themes\Default\Images\filetype\project.png" />
+    <Content Include="App_Themes\Default\Images\filetype\projectfile.png" />
+    <Content Include="App_Themes\Default\Images\filetype\task.png" />
+    <Content Include="App_Themes\Default\Images\gantt-icons.png" />
+    <Content Include="App_Themes\Default\Images\icon-discussion.png" />
+    <Content Include="App_Themes\Default\Images\icon-document.png" />
+    <Content Include="App_Themes\Default\Images\icon-milestones.png" />
+    <Content Include="App_Themes\Default\Images\icon-report.png" />
+    <Content Include="App_Themes\Default\Images\icon-tasks.png" />
+    <Content Include="App_Themes\Default\Images\icon_empty_gantt.png" />
+    <Content Include="App_Themes\Default\Images\product_disabled_logo.png" />
+    <Content Include="App_Themes\Default\Images\project-templates_logo.png" />
+    <Content Include="App_Themes\Default\Images\projects_entity_statuses.png" />
+    <Content Include="App_Themes\Default\Images\projects_logo.png" />
+    <Content Include="App_Themes\Default\Images\loader16.gif" />
+    <Content Include="App_Themes\Default\Images\product_logolarge.png" />
+    <Content Include="App_Themes\Default\Images\sort-btn.gif" />
+    <Content Include="App_Themes\Default\css\reportsPrint.css" />
+    <Content Include="Contacts.aspx" />
+    <Content Include="Controls\Common\NavigationSidePanel.ascx" />
+    <Content Include="Controls\Dashboard\DashboardEmptyScreen.ascx" />
+    <Content Include="Controls\Messages\DiscussionAction.ascx" />
+    <Content Include="Controls\Messages\DiscussionDetails.ascx" />
+    <Content Include="Controls\Milestones\MilestoneAction.ascx" />
+    <Content Include="Controls\Projects\ProjectNavigatePanel.ascx" />
+    <Content Include="Controls\Reports\ReportFilters.ascx" />
+    <Content Include="Controls\Reports\ReportTemplateView.ascx" />
+    <Content Include="Controls\Reports\ReportView.ascx" />
+    <Content Include="App_Themes\Default\css\common.css" />
+    <Content Include="App_Themes\Default\css\projectTeam.css" />
+    <Content Include="App_Themes\Default\css\reports.css" />
+    <Content Include="App_Themes\Default\css\tasks.css" />
+    <Content Include="App_Themes\Default\css\timetracking.css" />
+    <Content Include="App_Themes\Default\Images\product_logo.png" />
+    <Content Include="Controls\Tasks\TaskAction.ascx" />
+    <Content Include="Controls\Tasks\TaskDescriptionView.ascx" />
+    <Content Include="Default.aspx" />
+    <Content Include="GanttChart.aspx" />
+    <Content Include="GeneratedReport.aspx" />
+    <Content Include="Help.aspx" />
+    <Content Include="Import.aspx" />
+    <Content Include="js\common_filter_projects.js" />
+    <Content Include="js\contacts.js" />
+    <Content Include="js\ganttchart.js" />
+    <Content Include="js\discussions.js" />
+    <Content Include="js\import.js" />
+    <Content Include="js\subtasks.js" />
+    <Content Include="js\jq_projects_extensions.js" />
+    <Content Include="js\milestones.js" />
+    <Content Include="js\navsidepanel.js" />
+    <Content Include="js\projectnavpanel.js" />
+    <Content Include="js\projects.js" />
+    <Content Include="js\projectteam.js" />
+    <Content Include="js\projecttemplates.js" />
+    <Content Include="js\tasks.js" />
+    <Content Include="js\ganttchartpage.js" />
+    <Content Include="Masters\CommonBodyScripts.ascx" />
+    <Content Include="Masters\GanttBodyScripts.ascx" />
+    <Content Include="Masters\Styles.ascx" />
+    <Content Include="Messages.aspx" />
+    <Content Include="Milestones.aspx" />
+    <Content Include="Projects.aspx" />
+    <Content Include="js\apitimetraking.js" />
+    <Content Include="js\milestoneaction.js" />
+    <Content Include="js\projectaction.js" />
+    <Content Include="js\reports.js" />
+    <Content Include="js\taskaction.js" />
+    <Content Include="js\taskdescription.js" />
+    <Content Include="js\timetracking.js" />
+    <Content Include="Masters\BasicTemplate.Master" />
+    <Content Include="ProjectsTemplates\ActionPanelsTemplates.ascx" />
+    <Content Include="ProjectsTemplates\ListDiscussionsTemplates.ascx" />
+    <Content Include="ProjectsTemplates\ListMilestonesTemplates.ascx" />
+    <Content Include="ProjectsTemplates\ListProjectsTemplates.ascx" />
+    <Content Include="ProjectsTemplates\ListTasksTemplates.ascx" />
+    <Content Include="ProjectsTemplates\PopupContentTemplates.ascx" />
+    <Content Include="ProjectsTemplates\ProjectsTmplTemplates.ascx" />
+    <Content Include="ProjectsTemplates\SubtaskTemplates.ascx" />
+    <Content Include="ProjectsTemplates\TaskDescriptionTemplates.ascx" />
+    <Content Include="ProjectsTemplates\TimeTrackingTemplates.ascx" />
+    <Content Include="ProjectTeam.aspx" />
+    <Content Include="ProjectTemplates.aspx" />
+    <Content Include="Reports.aspx" />
+    <Content Include="Tasks.aspx" />
+    <EmbeddedResource Include="templates\MilestonesExpired.csv.xsl" />
+    <EmbeddedResource Include="templates\MilestonesNearest.csv.xsl" />
+    <EmbeddedResource Include="templates\ProjectsList.csv.xsl" />
+    <EmbeddedResource Include="templates\ProjectsWithoutActiveMilestones.csv.xsl" />
+    <EmbeddedResource Include="templates\ProjectsWithoutActiveTasks.csv.xsl" />
+    <EmbeddedResource Include="templates\TasksByProjects.csv.xsl" />
+    <EmbeddedResource Include="templates\TasksByUsers.csv.xsl" />
+    <EmbeddedResource Include="templates\TasksExpired.csv.xsl" />
+    <EmbeddedResource Include="templates\TasksExpired.html.xsl" />
+    <EmbeddedResource Include="templates\TimeSpend_0.csv.xsl" />
+    <EmbeddedResource Include="templates\TimeSpend_1.csv.xsl" />
+    <EmbeddedResource Include="templates\UsersActivity.csv.xsl" />
+    <EmbeddedResource Include="templates\UsersWithoutActiveTasks.csv.xsl" />
+    <EmbeddedResource Include="templates\UsersWorkload.csv.xsl" />
+    <EmbeddedResource Include="templates\EmptyReport.html.xsl" />
+    <Content Include="Timer.aspx" />
+    <Content Include="TimeTracking.aspx" />
+    <Content Include="TMDocs.aspx" />
+    <EmbeddedResource Include="templates\MilestonesExpired.html.xsl" />
+    <EmbeddedResource Include="templates\MilestonesNearest.html.xsl" />
+    <EmbeddedResource Include="templates\UsersWithoutActiveTasks.html.xsl" />
+    <EmbeddedResource Include="templates\ProjectsWithoutActiveMilestones.html.xsl" />
+    <EmbeddedResource Include="templates\ProjectsWithoutActiveTasks.html.xsl" />
+    <EmbeddedResource Include="templates\UsersWorkload.html.xsl" />
+    <EmbeddedResource Include="templates\email.xsl" />
+    <EmbeddedResource Include="templates\csv.xsl" />
+    <EmbeddedResource Include="templates\ProjectsList.html.xsl" />
+    <EmbeddedResource Include="templates\UsersActivity.html.xsl" />
+    <EmbeddedResource Include="templates\TimeSpend_0.html.xsl" />
+    <EmbeddedResource Include="templates\TimeSpend_1.html.xsl" />
+    <EmbeddedResource Include="templates\TasksByProjects.html.xsl" />
+    <EmbeddedResource Include="templates\TasksByUsers.html.xsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ImportResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImportResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProjectResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProjectsCommonResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectsCommonResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProjectsFileResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectsFileResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GrammaticalResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GrammaticalResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProjectsFilterResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectsFilterResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProjectsJSResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectsJSResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MessageResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessageResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MilestoneResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MilestoneResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ProjectTemplatesResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectTemplatesResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ReportResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ReportResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TaskResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TaskResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TimeTrackingResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TimeTrackingResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile-&gt;'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath-&gt;'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="BeforeBuild">
+    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1680</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/ASC.Web.Projects</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

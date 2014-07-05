@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="ewetel.de">
+    <domain>ewetel.de</domain>
+    <domain>ewetel.net</domain>
+    <displayName>EWE Tel</displayName>
+    <displayShortName>EWE Tel</displayShortName>
+    <incomingServer type="pop3">
+      <hostname>pop3s-1.ewetel.net</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILLOCALPART%</username>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>smtps-1.ewetel.net</hostname>
+      <port>25</port>
+      <socketType>STARTTLS</socketType>
+      <authentication>password-cleartext</authentication>
+      <username>%EMAILLOCALPART%</username>
+    </outgoingServer>
+  </emailProvider>
+</clientConfig>

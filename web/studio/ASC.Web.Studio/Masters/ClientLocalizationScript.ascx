@@ -1,0 +1,2 @@
+﻿<%@ OutputCache  Duration="120" VaryByParam="none"  VaryByCustom="Culture;Module;Page[tmdocs.aspx]" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Core.Client.Bundling.ResourceBundleControl" %>

@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <UsingTask TaskName="CssCompressorTask" AssemblyFile="..\..\..\redistributable\third-party\YUICompressor\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\..\..\redistributable\third-party\YUICompressor\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C042B4CC-8E22-4934-8440-6BC7D1459614}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Web.Mobile</RootNamespace>
+    <AssemblyName>ASC.Web.Mobile</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MvcBuildViews>true</MvcBuildViews>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxMin, Version=4.0.202.1, Culture=neutral, PublicKeyToken=24297a69a7eae424, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Api">
+      <HintPath>..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.FederatedLogin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.FederatedLogin.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.MessagingSystem, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.MessagingSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.MessagingSystem.DbSender">
+      <HintPath>..\..\..\redistributable\asc\ASC.MessagingSystem.DbSender.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Projects.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Projects.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.CRM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.CRM.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Files, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Files.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Studio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Studio.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK">
+      <HintPath>..\..\..\redistributable\third-party\Amazon\AWSSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="FileConverterUtils2">
+      <HintPath>..\..\..\redistributable\third-party\asc\FileConverterUtils2.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\SignalR\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\db\mysql\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TMResourceData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\TMResourceData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\MobileResource.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MobileResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Attributes\AscAuthorization.cs" />
+    <Compile Include="Attributes\ContentTypeAttribute.cs" />
+    <Compile Include="Attributes\Validation\EmailAttribute.cs" />
+    <Compile Include="Attributes\Validation\ValidatePasswordLengthAttribute.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FileViewerController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManifestController.cs" />
+    <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CombinedFileCollection.cs" />
+    <Compile Include="Helpers\HtmlExtension.cs" />
+    <Compile Include="Helpers\UrlHelperExtension.cs" />
+    <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ManifestModel.cs" />
+    <Compile Include="Models\ResourcesModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\FileOperator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="403.htm" />
+    <Content Include="404.htm" />
+    <Content Include="500.htm" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Shared\Site.Master" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\MobileResource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>MobileResource.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\jquery.scroller.css" />
+    <Content Include="Content\mc.style.css" />
+    <Content Include="Content\mc.style.desktop.css" />
+    <Content Include="Content\jquery.mvc.validation.css" />
+    <Content Include="Scripts\asc.anchorcontroller.js" />
+    <Content Include="Scripts\base64.js" />
+    <Content Include="Scripts\iscroll.js" />
+    <Content Include="Scripts\jquery.scroller.js" />
+    <Content Include="Scripts\json.js" />
+    <Content Include="Scripts\mc.common.js" />
+    <Content Include="Scripts\mc.default.js" />
+    <Content Include="Scripts\mc.default.community.js" />
+    <Content Include="Scripts\mc.default.projects.js" />
+    <Content Include="Scripts\mc.default.documents.js" />
+    <Content Include="Scripts\mc.default.people.js" />
+    <Content Include="Scripts\smart-app-banner.js" />
+    <Content Include="Scripts\smart-app-banner.min.js" />
+    <Content Include="Views\Account\SignIn.aspx" />
+    <Content Include="Views\Manifest\Index.aspx" />
+    <Content Include="Views\Shared\CommBlogPageTmpl.ascx" />
+    <Content Include="Views\Shared\CommBookmarkPageTmpl.ascx" />
+    <Content Include="Views\Shared\CommEventPageTmpl.ascx" />
+    <Content Include="Views\Shared\CommForumPageTmpl.ascx" />
+    <Content Include="Views\Shared\CommPollPageTmpl.ascx" />
+    <Content Include="Views\Shared\CommunityPageTmpl.ascx" />
+    <Content Include="Views\Shared\DefaultPageTmpl.ascx" />
+    <Content Include="Views\Shared\GnrlAddCommentPageTmpl.ascx" />
+    <Content Include="Views\Shared\GnrlAddCommentTmpl.ascx" />
+    <Content Include="Views\Shared\GnrlCommentsTmpl.ascx" />
+    <Content Include="Views\Shared\GnrlProjectTeamTmpl.ascx" />
+    <Content Include="Views\Shared\CommTimeLineTmpl.ascx" />
+    <Content Include="Views\Shared\PeoplePageTmpl.ascx" />
+    <Content Include="Views\Shared\PeopPersonPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjAddTaskPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjectsPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjTaskPageTmpl.ascx" />
+    <Content Include="Views\Shared\SignInPageTmpl.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\mc.style.inline-img0.css" />
+    <Content Include="Content\mc.style.inline-img1.css" />
+    <Content Include="Content\mc.style.inline-img2.css" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.mvc.validation.js" />
+    <Content Include="Scripts\jquery.tmpl.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\mc.teamlab.js" />
+    <Content Include="Scripts\mc.teamlab.community.js" />
+    <Content Include="Scripts\mc.teamlab.people.js" />
+    <Content Include="Scripts\mc.teamlab.projects.js" />
+    <Content Include="Scripts\mc.teamlab.documents.js" />
+    <Content Include="Scripts\mc.teamlab.crm.js" />
+    <Content Include="Views\Shared\ProjItemsPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjProjectMilestonesPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjProjectPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjProjectTasksPageTmpl.ascx" />
+    <Content Include="Views\Shared\Scripts.ascx" />
+    <Content Include="Views\Shared\Styles.ascx" />
+    <Content Include="Web.unity.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\mc.style.inline-img3.css" />
+    <Content Include="Scripts\jquery.userlink.js" />
+    <Content Include="Views\Resources\Index.aspx" />
+    <Content Include="Views\Shared\CommAddBlogPageTmpl.ascx" />
+    <Content Include="Views\Shared\CommAddBookmarkPageTmpl.ascx" />
+    <Content Include="Views\Shared\CommAddEventPageTmpl.ascx" />
+    <Content Include="Views\Shared\CommAddForumPageTmpl.ascx" />
+    <Content Include="Views\Shared\CommAddPollPageTmpl.ascx" />
+    <Content Include="Views\Shared\DocsFilePageTmpl.ascx" />
+    <Content Include="Views\Shared\DocumentsPageTmpl.ascx" />
+    <Content Include="Views\Shared\GnrlCommunityThreadsTmpl.ascx" />
+    <Content Include="Views\Shared\GnrlExceptionPageTmpl.ascx" />
+    <Content Include="Views\Shared\GnrlProjectMilestonesTmpl.ascx" />
+    <Content Include="Views\Shared\ProjAddDiscussionPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjAddMilestonePageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjAddTodoPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjTasksTmpl.ascx" />
+    <Content Include="Views\Shared\ProjDiscussionPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjMilestoneTasksPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjProjectDiscussionsPageTmpl.ascx" />
+    <Content Include="Views\Shared\ProjProjectTeamPageTmpl.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\mc.style.inline-img4.css" />
+    <Content Include="Content\mc.style.inline-img5.css" />
+    <Content Include="Content\mc.style.inline-img6.css" />
+    <Content Include="Content\mc.style.inline-img7.css" />
+    <Content Include="Views\Shared\Empty.Master" />
+    <Content Include="Views\Shared\ProjProjectFilesPageTmpl.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\mc.style.crm.contact.css" />
+    <Content Include="Content\mc.style.crm.tasks.css" />
+    <Content Include="Content\mc.style.empty.css" />
+    <Content Include="Content\mc.style.inline-img8.css" />
+    <Content Include="Content\mc.style.inline-img9.css" />
+    <Content Include="Scripts\jquery.json.js" />
+    <Content Include="Scripts\mc.default.crm.js" />
+    <Content Include="Scripts\mc.default.empty.js" />
+    <Content Include="Scripts\mc.helper.search.js" />
+    <Content Include="Views\Shared\CrmAddCompanyPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmAddCustomerDialogTmpl.ascx" />
+    <Content Include="Views\Shared\CrmAddHistoryEventPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmAddNotePageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmAddPersonePageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmAddTaskPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmAddToContactDialog.ascx" />
+    <Content Include="Views\Shared\CrmCompanyPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmContactFilesPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmContactPersonesPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmContactTasksPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmDataCategotyTmpl.ascx" />
+    <Content Include="Views\Shared\CrmHistoryPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmNavigateDialog.ascx" />
+    <Content Include="Views\Shared\CrmNavigateDialogTmpl.ascx" />
+    <Content Include="Views\Shared\CrmPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmPersonesTimeLineTmpl.ascx" />
+    <Content Include="Views\Shared\CrmPersonPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmTaskPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmTasksPageTmpl.ascx" />
+    <Content Include="Views\Shared\CrmTasksTimeLineTmpl.ascx" />
+    <Content Include="Views\Shared\CrmTimeLineTmpl.ascx" />
+    <Content Include="Views\Shared\DocsAddDocumentPageTmpl.ascx" />
+    <Content Include="Views\Shared\DocsAddFileDialogTmpl.ascx" />
+    <Content Include="Views\Shared\DocsAddFilePageTmpl.ascx" />
+    <Content Include="Views\Shared\DocsAddFolderPageTmpl.ascx" />
+    <Content Include="Views\Shared\DocsAddItemPageTmpl.ascx" />
+    <Content Include="Views\Shared\DocsEditFilePageTmpl.ascx" />
+    <Content Include="Views\Shared\GnrlProjsearchItemsTmpl.ascx" />
+    <Content Include="Views\Shared\SearchPageTmpl.ascx" />
+    <Content Include="web.log4net.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Themes\Default\" />
+    <Folder Include="Content\images\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets. -->
+  <Target Name="BeforeBuild">
+    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
+  </Target>
+  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/asc.anchorcontroller.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/asc.anchorcontroller.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/json.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/json.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/base64.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/base64.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/iscroll.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/iscroll.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/jquery.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/jquery.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/jquery.json.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/jquery.json.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/jquery.tmpl.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/jquery.tmpl.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/jquery.validate.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/jquery.validate.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/jquery.userlink.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/jquery.userlink.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/jquery.scroller.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/jquery.scroller.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/jquery.mvc.validation.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/jquery.mvc.validation.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.common.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.common.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.helper.search.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.helper.search.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.teamlab.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.teamlab.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.teamlab.people.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.teamlab.people.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.teamlab.community.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.teamlab.community.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.teamlab.projects.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.teamlab.projects.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.teamlab.documents.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.teamlab.documents.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.teamlab.crm.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.teamlab.crm.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.default.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.default.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.default.empty.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.default.empty.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.default.community.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.default.community.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.default.projects.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.default.projects.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.default.documents.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.default.documents.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.default.people.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.default.people.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <JavaScriptCompressorTask SourceFiles="$(ProjectDir)Scripts/mc.default.crm.js" DeleteSourceFiles="false" OutputFile="$(ProjectDir)Scripts/mc.default.crm.min.js" ObfuscateJavaScript="True" CompressionType="Standard" EncodingType="Default" LineBreakPosition="-1" DisableOptimizations="false" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\jquery.scroller.css" OutputFile="$(ProjectDir)Content\jquery.scroller.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\jquery.mvc.validation.css" OutputFile="$(ProjectDir)Content\jquery.mvc.validation.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.css" OutputFile="$(ProjectDir)Content\mc.style.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.empty.css" OutputFile="$(ProjectDir)Content\mc.style.empty.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.desktop.css" OutputFile="$(ProjectDir)Content\mc.style.desktop.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.crm.contact.css" OutputFile="$(ProjectDir)Content\mc.style.crm.contact.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.crm.tasks.css" OutputFile="$(ProjectDir)Content\mc.style.crm.tasks.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.empty.css" OutputFile="$(ProjectDir)Content\mc.style.empty.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.inline-img0.css" OutputFile="$(ProjectDir)Content\mc.style.inline-img0.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.inline-img1.css" OutputFile="$(ProjectDir)Content\mc.style.inline-img1.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.inline-img2.css" OutputFile="$(ProjectDir)Content\mc.style.inline-img2.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.inline-img3.css" OutputFile="$(ProjectDir)Content\mc.style.inline-img3.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.inline-img4.css" OutputFile="$(ProjectDir)Content\mc.style.inline-img4.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.inline-img5.css" OutputFile="$(ProjectDir)Content\mc.style.inline-img5.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.inline-img6.css" OutputFile="$(ProjectDir)Content\mc.style.inline-img6.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.inline-img7.css" OutputFile="$(ProjectDir)Content\mc.style.inline-img7.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.inline-img8.css" OutputFile="$(ProjectDir)Content\mc.style.inline-img8.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+    <CssCompressorTask SourceFiles="$(ProjectDir)Content\mc.style.inline-img9.css" OutputFile="$(ProjectDir)Content\mc.style.inline-img9.min.css" DeleteSourceFiles="false" CompressionType="Standard" LoggingType="Info" PreserveComments="false" LineBreakPosition="-1" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56059</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

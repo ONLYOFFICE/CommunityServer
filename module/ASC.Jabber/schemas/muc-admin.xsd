@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/muc#admin'
+    xmlns='http://jabber.org/protocol/muc#admin'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0045: http://www.xmpp.org/extensions/xep-0045.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='query'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='item' maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='item'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='actor' minOccurs='0'/>
+        <xs:element ref='reason' minOccurs='0'/>
+      </xs:sequence>
+      <xs:attribute name='affiliation' use='optional'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='admin'/>
+            <xs:enumeration value='member'/>
+            <xs:enumeration value='none'/>
+            <xs:enumeration value='outcast'/>
+            <xs:enumeration value='owner'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name='jid' type='xs:string' use='optional'/>
+      <xs:attribute name='nick' type='xs:string' use='optional'/>
+      <xs:attribute name='role' use='optional'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='moderator'/>
+            <xs:enumeration value='none'/>
+            <xs:enumeration value='participant'/>
+            <xs:enumeration value='visitor'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='actor'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='jid' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='reason' type='xs:string'/>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

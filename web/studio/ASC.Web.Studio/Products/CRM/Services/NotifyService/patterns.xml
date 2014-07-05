@@ -1,0 +1,123 @@
+﻿<patterns>
+  <formatter type="ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common" />
+
+  <!--Export is completed-->
+  <pattern id="ExportCompleted" sender="email.sender">
+    <subject resource="|subject_ExportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ExportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+  </pattern>
+  <pattern id="ExportCompleted" sender="messanger.sender">
+    <subject resource="|subject_ExportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+${EntityRelativeURL}
+    </body>
+  </pattern>
+
+  <!--Import is completed-->
+  <pattern id="ImportCompleted" sender="email.sender">
+    <subject resource="|subject_ImportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ImportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+  </pattern>
+  <pattern id="ImportCompleted" sender="messanger.sender">
+    <subject resource="|subject_ImportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+     
+    </body>
+  </pattern>
+
+  <!--Responsible for task-->
+  <pattern id="TaskReminder" sender="email.sender">
+    <subject resource="|subject_TaskReminder|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_TaskReminder|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+  </pattern>
+  <pattern id="TaskReminder" sender="messanger.sender">
+    <subject resource="|subject_TaskReminder|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+      $AdditionalData.get_item("TaskDescription")
+
+      ${__VirtualRootPath}/products/crm/tasks.aspx
+    </body>
+  </pattern>
+
+  <!--Responsible for task-->
+  <pattern id="ResponsibleForTask" sender="email.sender">
+    <subject resource="|subject_ResponsibleForTask|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ResponsibleForTask|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+  </pattern>
+  <pattern id="ResponsibleForTask" sender="messanger.sender">
+    <subject resource="|subject_ResponsibleForTask|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+    $AdditionalData.get_item("TaskDescription")
+
+    ${__VirtualRootPath}/products/crm/tasks.aspx
+    </body>
+  </pattern>
+
+  
+  <!--Responsible for opportunity-->
+  <pattern id="ResponsibleForOpportunity" sender="email.sender">
+    <subject resource="|subject_ResponsibleForOpportunity|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ResponsibleForOpportunity|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+  </pattern>
+  <pattern id="ResponsibleForOpportunity" sender="messanger.sender">
+    <subject resource="|subject_ResponsibleForOpportunity|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+      $AdditionalData.get_item("OpportunityDescription")
+
+      ${__VirtualRootPath}/products/crm/deals.aspx?id=$EntityID
+    </body>
+  </pattern>
+  
+  <!-- Add relationship event -->
+  <pattern id="AddRelationshipEvent" sender="email.sender">
+    <subject resource="|subject_AddRelationshipEvent|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_AddRelationshipEvent|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+  </pattern>
+  <pattern id="AddRelationshipEvent" sender="messanger.sender">
+    <subject resource="|subject_AddRelationshipEvent|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+
+      $AdditionalData.get_item("EventContent")
+
+      #foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+      #beforeall
+
+      ----------------------------------------
+
+      #each
+
+      "$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+      #end
+
+      ${__VirtualRootPath}/${EntityRelativeURL}
+    </body>
+  </pattern>
+
+  <!-- Set access event -->
+  <pattern id="SetAccess" sender="email.sender">
+    <subject resource="|subject_SetAccess|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_SetAccess|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+  </pattern>
+  <pattern id="SetAccess" sender="messanger.sender">
+    <subject resource="|subject_SetAccess|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+$EntityTitle
+    </body>
+  </pattern>
+
+  <!-- Create new contact from web form -->
+  <pattern id="CreateNewContact" sender="email.sender">
+    <subject resource="|subject_CreateNewContact|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_CreateNewContact|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+  </pattern>
+  <pattern id="CreateNewContact" sender="messanger.sender">
+    <subject resource="|subject_CreateNewContact|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+$EntityTitle
+    </body>
+  </pattern>
+
+
+</patterns>

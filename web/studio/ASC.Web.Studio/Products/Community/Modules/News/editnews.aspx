@@ -1,0 +1,55 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Products/Community/Modules/News/news.Master" AutoEventWireup="true" CodeBehind="editnews.aspx.cs" Inherits="ASC.Web.Community.News.EditNews" %>
+
+<%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
+
+<%@ Import Namespace="ASC.Data.Storage" %>
+<%@ Import Namespace="ASC.Web.Community.News.Resources" %>
+
+<asp:Content ContentPlaceHolderID="HeadContent" runat="Server">
+</asp:Content>
+
+<asp:Content ID="PageContent" ContentPlaceHolderID="NewsContents" runat="server">
+    <div id="actionNewsPage" style="margin-top: 15px;">
+    <div class="headerPanel-splitter requiredField">
+        <span class="requiredErrorText"><%=NewsResource.RequaredFieldValidatorCaption%></span>
+        <div class="headerPanelSmall-splitter headerPanelSmall" id="newsCaption">
+            <b><%=NewsResource.NewsCaption%>:</b>
+        </div>
+        <asp:TextBox runat="server" ID="feedName" class="textEdit" Style="width: 100%" />
+    </div>
+    <div class="headerPanel-splitter">
+        <div style="float: left; margin-right: 8px;">
+            <b><%=NewsResource.NewsType%>:</b>
+        </div>
+        <asp:DropDownList runat="server" ID="feedType" class="comboBox" DataTextField="TypeName" DataValueField="id" CssClass="display-none" />
+    </div>
+    <div class="headerPanel-splitter">
+        <div class="headerPanelSmall-splitter">
+            <b><%=NewsResource.NewsBody%>:</b>
+        </div>
+        <textarea id="ckEditor" name="mobiletext" style="width:100%; height:400px;" autocomplete="off"><%=_text%></textarea>
+    </div>
+    
+    <div class="big-button-container" id="panel_buttons">
+        <a href="javascript:void(0);" id="lbSave" class="button blue big" onclick="NewsBlockButtons(); CheckDataNews();"><%=NewsResource.PostButton%></a>
+        <span class="splitter-buttons"></span>
+        <a href="javascript:void(0);" onclick="GetPreviewFull(); return false;"
+            class="button blue big">
+            <%=NewsResource.Preview%></a>
+        <span class="splitter-buttons"></span>
+            <asp:LinkButton ID="lbCancel" CssClass="button gray big cancelFckEditorChangesButtonMarker"
+            OnClick="CancelFeed" CausesValidation="true" OnClientClick="javascript:NewsBlockButtons();" runat="server"><%=NewsResource.CancelButton%></asp:LinkButton>
+             
+    </div>
+    </div>
+    <div id="feedPrevDiv" style="display: none; padding-top: 20px">
+        <div class="headerPanel">
+            <%=NewsResource.FeedPrevCaption%>
+        </div>
+        <input id="feedPrevDiv_Caption" class="feedPrevCaption" />
+        <div id="feedPrevDiv_Body" class="feedPrevBody clearFix longWordsBreak">
+        </div>
+        <div style='margin-top:25px;'><a class="button blue big" href='javascript:void(0);' onclick='HidePreview(); return false;'><%= NewsResource.HideButton%></a></div>
+    </div>
+    
+</asp:Content>

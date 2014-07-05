@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:ietf:params:xml:ns:xmpp-streams'
+    xmlns='urn:ietf:params:xml:ns:xmpp-streams'
+    elementFormDefault='qualified'>
+
+  <xs:import namespace='http://www.w3.org/XML/1998/namespace'
+             schemaLocation='http://www.w3.org/2001/03/xml.xsd'/>
+
+  <xs:element name='bad-format' type='empty'/>
+  <xs:element name='bad-namespace-prefix' type='empty'/>
+  <xs:element name='conflict' type='empty'/>
+  <xs:element name='connection-timeout' type='empty'/>
+  <xs:element name='host-gone' type='empty'/>
+  <xs:element name='host-unknown' type='empty'/>
+  <xs:element name='improper-addressing' type='empty'/>
+  <xs:element name='internal-server-error' type='empty'/>
+  <xs:element name='invalid-from' type='empty'/>
+  <xs:element name='invalid-id' type='empty'/>
+  <xs:element name='invalid-namespace' type='empty'/>
+  <xs:element name='invalid-xml' type='empty'/>
+  <xs:element name='not-authorized' type='empty'/>
+  <xs:element name='policy-violation' type='empty'/>
+  <xs:element name='remote-connection-failed' type='empty'/>
+  <xs:element name='resource-constraint' type='empty'/>
+  <xs:element name='restricted-xml' type='empty'/>
+  <xs:element name='see-other-host' type='xs:string'/>
+  <xs:element name='system-shutdown' type='empty'/>
+  <xs:element name='undefined-condition' type='empty'/>
+  <xs:element name='unsupported-encoding' type='empty'/>
+  <xs:element name='unsupported-stanza-type' type='empty'/>
+  <xs:element name='unsupported-version' type='empty'/>
+  <xs:element name='xml-not-well-formed' type='empty'/>
+
+  <xs:group name='streamErrorGroup'>
+    <xs:choice>
+      <xs:element ref='bad-format'/>
+      <xs:element ref='bad-namespace-prefix'/>
+      <xs:element ref='conflict'/>
+      <xs:element ref='connection-timeout'/>
+      <xs:element ref='host-gone'/>
+      <xs:element ref='host-unknown'/>
+      <xs:element ref='improper-addressing'/>
+      <xs:element ref='internal-server-error'/>
+      <xs:element ref='invalid-from'/>
+      <xs:element ref='invalid-id'/>
+      <xs:element ref='invalid-namespace'/>
+      <xs:element ref='invalid-xml'/>
+      <xs:element ref='not-authorized'/>
+      <xs:element ref='policy-violation'/>
+      <xs:element ref='remote-connection-failed'/>
+      <xs:element ref='resource-constraint'/>
+      <xs:element ref='restricted-xml'/>
+      <xs:element ref='see-other-host'/>
+      <xs:element ref='system-shutdown'/>
+      <xs:element ref='undefined-condition'/>
+      <xs:element ref='unsupported-encoding'/>
+      <xs:element ref='unsupported-stanza-type'/>
+      <xs:element ref='unsupported-version'/>
+      <xs:element ref='xml-not-well-formed'/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:element name='text'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute ref='xml:lang' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

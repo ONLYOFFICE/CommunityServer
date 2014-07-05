@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<!--
+This file is used as an extension of the documentation included in the source code files.
+
+To add documentation to an item:
+
+1) Add a new task element under docs. 
+Set the name attribute to a value unique to the file:
+If you are documenting a class, use the class name (ex: name="XmlMassUpdate"). 
+If you are documenting a class member,
+  use the class name, a period, then the member name (ex: name="XmlMassUpdate.SubstitutionsRoot")
+
+2) Within the task element, use any recognized documentation tags to provide more information.
+
+3) In the source code, add an include doc comment where you would like the additional documentation to appear.
+Ex:
+<include file='AdditionalDocumentation.xml' path='docs/task[@name="TaskName"]/*'/>
+
+Note that the file attribute is relative to the source code file. If your source file is in a subfolder, you
+must reference this file using the parent path.
+Ex:
+<include file='..\AdditionalDocumentation.xml' path='docs/task[@name="XmlMassUpdate"]/*'/>
+-->
+
+<docs>
+  <task name="Beep">
+    <remarks>
+      By default, the beep plays at a frequency of 800 hertz for a duration of 200 milliseconds.
+    </remarks>
+    <example>
+      To play the sound of a beep at a frequency of 800 hertz and for a duration of 200 milliseconds, use
+      <code>
+        <![CDATA[<Beep />]]>
+      </code>
+    </example>
+    <example>
+      To play the sound of a beep at a frequency of 440 hertz and for a duration of 300 milliseconds, use
+      <code>
+        <![CDATA[<Beep Frequency="440" Duration="300" />]]>
+      </code>
+    </example>
+  </task>
+
+  <task name="InstallAspNet">
+    <example>
+      Install the latest version of ASP.NET on the server:
+      <code>
+        <![CDATA[ <InstallAspNet /> ]]>
+      </code>
+    </example>
+    <example>
+      Install the latest version of ASP.NET on the server, but do not update script maps:
+      <code>
+        <![CDATA[ <InstallAspNet ApplyScriptMaps="Never" /> ]]>
+      </code>
+    </example>
+    <example>
+      Install the script maps for ASP.NET 2.0 on a web directory on the default website:
+      <code>
+        <![CDATA[ <InstallAspNet Path="MyApplication" Version="Version20" /> ]]>
+      </code>
+    </example>
+    <example>
+      Install the script maps for ASP.NET 1.1 on a web directory on a non-default website:
+      <code>
+        <![CDATA[ <InstallAspNet Path="MyApplication" Version="W3SVC/3/Root/Version11" /> ]]>
+      </code>
+    </example>
+    <example>
+      Install client side script only for the latest version:
+      <code>
+        <![CDATA[ <InstallAspNet ClientScriptsOnly="True" /> ]]>
+      </code>
+    </example>
+  </task>
+
+  <task name="InstallAssembly">
+    <example>
+      Install multiple assemblies by specifying the file names:
+      <code>
+        <![CDATA[
+<InstallAssembly AssemblyFiles="Engine.dll;Presenter.dll" />
+]]>
+      </code>
+    </example>
+    <example>
+      Install an assembly using the assembly name. Also disable the log file by setting it to a single space:
+      <code>
+        <![CDATA[
+<InstallAssembly AssemblyNames="Engine,Version=1.5.0.0,Culture=neutral" LogFile=" "/>
+]]>
+      </code>
+    </example>
+    <example>
+      You can easily chain an install to the result of a build:
+      <code>
+        <![CDATA[
+<MSBuild Projects="Project1.csproj;Project2.csproj">
+ <Output TaskParameter="TargetOutputs" ItemName="ProjectBinaries" />
+</MSBuild>
+<InstallAssembly AssemblyFiles="@(ProjectBinaries)" />
+]]>
+      </code>
+    </example>
+  </task>
+
+  <task name="Math.Divide">
+    <example>
+      <code>
+        <![CDATA[
+<Math.Divide Numbers="1;2">
+    <Output TaskParameter="Result" PropertyName="Result" />
+</Math.Divide>
+<Message Text="Divide 1/2= $(Result)"/>
+]]>
+      </code>
+      Above example will display:
+      <code>Divide 1/2= 0.5</code>
+    </example>
+    <example>
+      Truncate the result to always return an integer:
+      <code>
+        <![CDATA[
+<Math.Divide Numbers="7;3" TruncateResult="true">
+    <Output TaskParameter="Result" PropertyName="Result" />
+</Math.Divide>
+<Message Text="Divide 7/3= $(Result)"/>
+]]>
+      </code>
+      Above example will display:
+      <code>Divide 7/3= 2</code>
+    </example>
+  </task>
+
+  <task name="Math.Modulo">
+    <remarks>
+      The modulo operation finds the remainder of the division of one number by another.
+      <para>When the second number (modulus) is a fractional value, the result can be a fractional value.</para>
+      <para>
+        Equivalent to the % operator in C# or the Mod operator in Visual Basic.
+      </para>
+    </remarks>
+    <example>
+      Numbers evenly divide:
+      <code>
+        <![CDATA[
+<Math.Modulo Numbers="12;4">
+    <Output TaskParameter="Result" PropertyName="Result" />
+</Math.Modulo>
+<Message Text="12 modulo 4 = $(Result)"/>
+]]>
+      </code>
+      Above example will display:
+      <code>12 modulo 4 = 0</code>
+    </example>
+    <example>
+      Division on the numbers produces a remainder:
+      <code>
+        <![CDATA[
+<Math.Modulo Numbers="14;4">
+    <Output TaskParameter="Result" PropertyName="Result" />
+</Math.Modulo>
+<Message Text="14 modulo 4 = $(Result)"/>
+]]>
+      </code>
+      Above example will display:
+      <code>14 modulo 4 = 2</code>
+    </example>
+    <example>
+      Modulus is a fractional value:
+      <code>
+        <![CDATA[
+<Math.Modulo Numbers="12;3.5">
+    <Output TaskParameter="Result" PropertyName="Result" />
+</Math.Modulo>
+<Message Text="12 modulo 3.5 = $(Result)"/>
+]]>
+      </code>
+      Above example will display:
+      <code>12 modulo 3.5 = 1.5</code>
+    </example>
+  </task>
+
+  <task name="Script">
+    <example>
+      <para>Simple script that writes to the console</para>
+      <code>
+        <![CDATA[
+<PropertyGroup>
+    <HelloCode>
+        <![CDATA[
+        public static void ScriptMain() {
+            Console.WriteLine("Hello MSBuild Community Scripting World.");
+        }
+        ]] >
+    </HelloCode>
+</PropertyGroup>
+<Target Name="Hello">
+    <Script Language="C#" Code="$(HelloCode)" Imports="System" />
+</Target>
+]]>
+      </code>
+    </example>
+    <example>
+      <para>Script that returns a value.</para>
+      <code>
+        <![CDATA[
+<PropertyGroup>
+    <GetProgramFilesCode>
+        <![CDATA[
+        public static string ScriptMain() {
+            return Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+        }
+        ]] >
+    </GetProgramFilesCode>
+</PropertyGroup>
+<Target Name="GetProgramFilesFolder">
+    <Script Language="C#" Code="$(GetProgramFilesCode)">
+        <Output TaskParameter="ReturnValue" PropertyName="ProgramFilesFolder" />
+    </Script>
+    <Message Text="Program files are in: $(ProgramFilesFolder)" />
+</Target>
+]]>
+      </code>
+    </example>
+  </task>
+
+  <task name="Sound">
+    <remarks>
+      You must specify either
+      a file or URL (<see cref="SoundLocation"/>),
+      a file relative to the <see cref="Environment.SystemDirectory"/> (<see cref="SystemSoundFile"/>),
+      or a file within the <see cref="Environment.SpecialFolder.MyMusic"/> folder (<see cref="MyMusicFile"/>).
+    </remarks>
+    <example>
+      To play the windows XP startup sound, use
+      <code>
+        <![CDATA[<Sound SystemSoundFile="..\Media\Windows XP Startup.wav" />]]>
+      </code>
+    </example>
+    <example>
+      To play a wav file from the "MyMusic" folder, use
+      <code>
+        <![CDATA[<Sound MyMusicFile="25881_acclivity_3beeps1000.wav" />]]>
+      </code>
+    </example>
+  </task>
+
+  <task name="XmlMassUpdate">
+    <remarks>
+      XmlMassUpdate allows to to specify multiple changes to make to an XML file (the <see cref="ContentFile" />. By default, the changes are applied to the <see cref="ContentFile" />, but you can create a new file by providing the <see cref="MergedFile" /> attribute.  The change instructions are specified using XML in the <see cref="SubstitutionsFile" />. If the <see cref="SubstitutionsFile" /> does not mirror the structure of the <see cref="ContentFile" /> exactly, you can specify the <see cref="ContentRoot" /> and <see cref="SubstitutionsRoot" /> XPath expressions which determine how the files should be mapped to each other.
+      <para>
+        Any element within the <see cref="SubstitutionsRoot" /> will find the corresponding element in the <see cref="ContentRoot" />. If it does not exist, it will be created with all of its attributes. If it does exist, the attributes will be added or updated as specified.
+      </para>
+      <para>
+        Any attribute declared within the <see cref="UpdateControlNamespace" /> will not be copied to the modified file. Valid attributes are <c>key</c> and <c>action</c>. The <c>key</c> attribute allows you to define an attribute to use as the identifying attribute when you only want to update a single element, and multiple elements with the same name exist. You can also use the <c>action="remove"</c> attribute to specify that an element should be deleted instead of updated.
+      </para>
+    </remarks>
+    <example>
+      <para>
+        These examples will demonstrate how to make multiple updates to a XML file named web.config. It looks like:
+        <code>
+          <![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    <add key="ItemsPerPage" value="10" />
+    <add key="EnableCaching" value="true" />
+    <add key="DefaultServer" value="TIGRIS" />
+  </appSettings>
+    <system.web>
+        <compilation defaultLanguage="c#" debug="true" />
+        <customErrors mode="Off" />
+        <trace enabled="true" requestLimit="10" pageOutput="true" />
+        <globalization requestEncoding="utf-8" responseEncoding="utf-8" />
+    </system.web>
+</configuration> ]]>
+        </code>
+      </para>
+    </example>
+    <example>
+      You can update the file using instructions from an external file (specified as the <see cref="SubstitutionsFile" />):
+      <code>
+        <![CDATA[<XmlMassUpdate ContentFile="web.config" SubstitutionsFile="changes.xml" ContentRoot="/configuration/system.web" SubstitutionsRoot="/system.web" /> ]]>
+      </code>
+      The <see cref="SubstitutionsFile" /> is named changes.xml and contains:
+      <code>
+        <![CDATA[<system.web>
+        <compilation debug="false" />
+        <customErrors mode="RemoteOnly" defaultRedirect="Error.htm">
+          <error statusCode="401" redirect="AccessDenied.aspx" />
+        </customErrors>
+        <trace enabled="false" />
+      </system.web> ]]>
+      </code>
+    </example>
+    <example>
+      You can also provide the update instructions within the MSBuild project file itself. It takes advantage of the MSBuild ProjectExtensions element which allows you to add XML to a project file that will be ignored by the MSBuild engine. This example also demonstrates how to use <see cref="NamespaceDefinitions" />:
+      <code>
+        <![CDATA[<ProjectExtensions>
+  <system.web>
+    <compilation debug="false" />
+    <trace enabled="false" />
+  </system.web>
+</ProjectExtensions>
+<Target Name="SubstituteFromProj">
+  <XmlMassUpdate ContentFile="web.config" ContentRoot="/configuration/system.web"
+    NamespaceDefinitions="msb=http://schemas.microsoft.com/developer/msbuild/2003"
+    SubstitutionsFile="$(MSBuildProjectFullPath)"
+    SubstitutionsRoot="/msb:Project/msb:ProjectExtensions/msb:system.web" />
+</Target> ]]>
+      </code>
+    </example>
+    <example>
+      The following example demonstrates how to deal with "keyed" elements. When you need to update an element, and multiple elements exist with the same name, it must be be differentied by one of its attributes. You designate the differentiating attribute using the "key" attribute declared in the <see cref="UpdateControlNamespace" />.
+      If an element matching the keyed attribute is not found, a new element will be created (DefaultSort in the example). This example also demonstrates creating a new file with the merged changes instead of modifying the original file.
+      <code>
+        <![CDATA[ <XmlMassUpdate ContentFile="web.config" SubstitutionsFile="changes.xml" MergedFile="web.config.keyed.xml"  /> ]]>
+      </code>
+      Using a changes.xml file with the following contents:
+      <code>
+        <![CDATA[<configuration xmlns:xmu="urn:msbuildcommunitytasks-xmlmassupdate">
+  <appSettings>
+        <add xmu:key="key" key="EnableCaching" value="false" />
+        <add xmu:key="key" key="DefaultSort" value="LastName" />
+  </appSettings>
+</configuration> ]]>
+      </code>
+    </example>
+    <example>
+      Use a changes.xml file with the following contents to demonstrate how to remove an element from the updated file:
+      <code>
+        <![CDATA[<configuration xmlns:xmu="urn:msbuildcommunitytasks-xmlmassupdate">
+  <appSettings>
+        <add xmu:key="key" key="ItemsPerPage" xmu:action="remove" />
+        <trace xmu:action="remove" />
+  </appSettings>
+</configuration> ]]>
+      </code>
+    </example>
+    <example>
+      You can also specify the changes to apply from within the target document. By making use of the <see cref="SubstitutionsRoot" /> property, you can store multiple sets of changes to apply based on runtime conditions.
+      Consider the following source web.config file:
+      <code>
+        <![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <system.web>
+        <compilation defaultLanguage="c#" debug="true" />
+        <customErrors mode="Off" />
+        <trace enabled="true" requestLimit="10" pageOutput="true" />
+        <globalization requestEncoding="utf-8" responseEncoding="utf-8" />
+    </system.web>
+    <substitutions>
+      <test>
+        <system.web>
+          <compilation debug="false" />
+          <trace enabled="true" />
+        </system.web>
+      </test>
+      <prod>
+        <system.web>
+          <compilation debug="false" />
+          <trace enabled="false" />
+        </system.web>
+      </prod>
+    </substitutions>
+</configuration> ]]>
+      </code>
+      You could use the following task definition, which relies on a property "TargetEnvironment" to determine which set of changes to apply:
+      <code>
+        <![CDATA[ <XmlMassUpdate ContentFile="web.config" ContentRoot="/configuration" SubstitutionsRoot="/configuration/substitutions/$(TargetEnvironment)" /> ]]>
+      </code>
+      You will need to provide a value of "test" or "prod" to the TargetEnvironment property. The property can be defined in a PropertyGroup section of the MSBuild file, or passed as a command-line parameter.
+      <code>
+        <![CDATA[ msbuild build.proj /p:TargetEnvironment=prod ]]>
+      </code>
+
+    </example>
+  </task>
+
+  <task name="XmlQuery">
+    <remarks>
+      Use the Lines property (possibly populated from the the ReadLinesFromFile task) if you want to perform multiple
+      queries against some XML in memory. Use the XmlFileName property to query a large XML file.
+      <para>
+        An XPath expression can return multiple nodes in the <see cref="Values"/> collection.
+        The number of nodes returned is availabe in the <see cref="ValuesCount"/> output TaskParameter.
+      </para>
+      <para>
+        When the XPath expression resolves to an element node, all of the
+        attributes of the element are added as metadata to the returned <see cref="ITaskItem"/>.
+        In addition, some reserved metadata properties are available on all element nodes.
+        They are all prefixed with the <see cref="ReservedMetaDataPrefix"/>,
+        which is a single underscore (_) by default.
+        <list type="table">
+          <listheader>
+            <term>Reserved Property</term>
+          </listheader>
+          <item>
+            <term>_value</term>
+            <description>The value of the node (non-xml text between the opening and closing tags).</description>
+          </item>
+          <item>
+            <term>_innerXml</term>
+            <description>The markup representing the children of this node.</description>
+          </item>
+          <item>
+            <term>_outerXml</term>
+            <description>The markup representing this node and all its child nodes.</description>
+          </item>
+        </list>
+      </para>
+    </remarks>
+    <example>
+      Read an attribute value by selecting it with an XPath expression:
+      <code>
+        <![CDATA[
+<ReadLinesFromFile File="web.config">
+    <Output TaskParameter="Lines" ItemName="FileContents" />
+</ReadLinesFromFile>
+
+<XmlQuery Lines="@(FileContents)"
+    XPath = "/configuration/system.web/compilation/@defaultLanguage">
+  <Output TaskParameter="Values" PropertyName="CompilationLanguage" />
+</XmlQuery>
+
+<Message Text="The default language is $(CompilationLanguage)." />
+]]>
+      </code>
+    </example>
+    <example>
+      Read attribute values (from an XML file) using item metadata on a selected element node:
+      <code>
+        <![CDATA[
+<XmlQuery XmlFileName="$(MSBuildProjectDirectory)\web.config"
+    XPath = "/configuration/system.web/compilation">
+  <Output TaskParameter="Values" ItemName="CompilationElement" />
+</XmlQuery>
+
+<Message Text="The default language is: $(CompilationElement.defaultLanguage)." />
+<Message Text="Debug is enabled: $(CompilationElement.debug)." />
+]]>
+      </code>
+    </example>
+    <example>
+      Read an element value (requires use of the reserved metadata property "_value"):
+      <code>
+        <![CDATA[
+<ReadLinesFromFile File="web.config">
+    <Output TaskParameter="Lines" ItemName="FileContents" />
+</ReadLinesFromFile>
+
+<XmlQuery Lines="@(FileContents)"
+    XPath = "/configuration/singleValue/LastName">
+  <Output TaskParameter="Values" PropertyName="LastNameElement" />
+</XmlQuery>
+
+<Message Text="The last name is %(LastNameElement._value)" />
+]]>
+      </code>
+    </example>
+  </task>
+
+  <task name="XmlQuery.NamespaceDefinitions">
+    <example>
+      Defining multiple namespaces:
+      <code>
+        <![CDATA[
+<XmlMassUpdate ContentFile="web.config"
+  SubstitutionsRoot="/configuration/substitutions"
+  NamespaceDefinitions = "soap=http://www.w3.org/2001/12/soap-envelope;x=http://www.w3.org/1999/XSL/Transform">
+/>]]>
+      </code>
+    </example>
+  </task>
+
+  <task name="Xslt">
+    <remarks>
+      <p>
+        The xml files of parameter <see cref="Inputs"/>
+        are merged into one xml document,
+        wrapped with a root tag <see cref="RootTag"/>
+      </p>
+      <p>
+        If only one input file is provided,
+        merging and wrapping can be omitted
+        by setting <see cref="RootTag"/> to an empty string.
+      </p>
+      <p>
+        The root tag can be given any number of attributes
+        by providing a list of semicolon-delimited name/value pairs
+        to parameter <see cref="RootAttributes"/>.
+        For example: <code>RootAttributes="foo=bar;date=$(buildDate)"</code>
+      </p>
+      <p>
+        Parameter <see cref="RootAttributes"/> defaults to
+        one attribute with a name specified by <see cref="CreatedAttributeName"/>,
+        and a local time stamp as value.
+        To suppress the default value, an empty parameter
+        <code>RootAttributes=""</code>
+        must be specified explicitely.
+      </p>
+      <p>
+        The xsl transformation file
+        specified by parameter <see cref="Xsl"/>
+        is applied on the input.
+      </p>
+      <p>
+        The <see cref="ITaskItem"/> <see cref="Xsl"/>
+        can be given any number of metadata,
+        which will be handed to the xsl transformation
+        as parameters.
+      </p>
+      <p>
+        If only one input file is given with <see cref="ITaskItem"/> <see cref="Inputs"/>,
+        metadata will also be handed to the xsl transformation.
+        However, the <see cref="Xsl"/> metadata is preferred in case of equal names.
+        To overcome this limitation, for each input item metadatum, an additional parameter
+        prefixed with <see cref="InputMetadataArgumentPrefix"/> is created.
+      </p>
+      <p>
+        The output is written to the file
+        specified by parameter <see cref="Output"/>.
+      </p>
+    </remarks>
+    <example>
+      This example for generating a report
+      from a set of NUnit xml results:
+      <code>
+        <![CDATA[
+<ItemGroup>
+    <nunitReportXslFile Include="$(MSBuildCommunityTasksPath)\$(nunitReportXsl)">
+        <project>$(project)</project>
+        <configuration>$(configuration)</configuration>
+        <msbuildFilename>$(MSBuildProjectFullPath)</msbuildFilename>
+        <msbuildBinpath>$(MSBuildBinPath)</msbuildBinpath>
+        <xslFile>$(MSBuildCommunityTasksPath)\$(nunitReportXsl)</xslFile>
+    </nunitReportXslFile>
+</ItemGroup>
+
+<Target Name="test-report" >
+    <Xslt Inputs="@(nunitFiles)"
+        RootTag="mergedroot"
+        Xsl="@(nunitReportXslFile)" 
+        Output="$(testDir)\TestReport.html" />
+</Target>]]>
+      </code>
+
+      This examples shows all available task attributes:
+      <code>
+        <![CDATA[
+<Time Format="yyyyMMddHHmmss">
+    <Output TaskParameter="LocalTimestamp" PropertyName="buildDate" />
+</Time>
+
+<Xslt
+     Inputs="@(xmlfiles)"
+     RootTag="mergedroot"
+     RootAttributes="foo=bar;date=$(buildDate)"
+     Xsl="transformation.xsl"
+     Output="report.html"
+/>]]>
+      </code>
+    </example>
+  </task>
+  <task name="RegexCompiler">
+    <remarks>
+      <para>
+        When defining the regular expressions in an MSBuild project file, the ItemGroup
+        item must have a metadata tag called 'Pattern' that is the actually regular expression.
+        Other optional metadata tags are the following.
+        <list type="table">
+          <listheader>
+            <term>Metadata Tags</term>
+            <description>Description</description>
+          </listheader>
+          <item>
+            <term>Pattern</term>
+            <description>The actually regular expression pattern to be compiled. (Required)</description>
+          </item>
+          <item>
+            <term>Options</term>
+            <description>The RegexOptions for the expression.</description>
+          </item>
+          <item>
+            <term>Namespace</term>
+            <description>The class namespace for the compile class.</description>
+          </item>
+          <item>
+            <term>IsPublic</term>
+            <description>A flag if the generated expression should be public.</description>
+          </item>
+        </list>
+      </para>
+    </remarks>
+    <example>
+      Creates an assembly with the compiled regular expressions.
+      <code>
+        <![CDATA[
+  <ItemGroup>
+    <RegexPatterns Include="TextRegex">
+      <Pattern>\G[^&lt;]+</Pattern>
+      <Options>RegexOptions.Singleline | RegexOptions.Multiline</Options>
+    </RegexPatterns>
+    <RegexPatterns Include="CommentRegex">
+      <Pattern>\G&lt;%--(([^-]*)-)*?-%&gt;</Pattern>
+      <Options>RegexOptions.Singleline | RegexOptions.Multiline</Options>
+    </RegexPatterns>
+    <RegexPatterns Include="CodeRegex">
+      <Pattern>\G&lt;%(?![@%])(?&lt;code&gt;.*?)%&gt;</Pattern>
+      <Options>RegexOptions.Singleline | RegexOptions.Multiline</Options>
+      <Namespace>MSBuild.Community.RegularExpressions</Namespace>
+    </RegexPatterns>
+  </ItemGroup>
+
+  <Target Name="RegexCompiler">
+    <RegexCompiler
+      OutputDirectory="Test"
+      RegularExpressions="@(RegexPatterns)"
+      Namespace="MSBuild.RegularExpressions"
+      AssemblyName="MSBuild.RegularExpressions.dll"
+      AssemblyTitle="MSBuild.RegularExpressions"
+      AssemblyDescription="MSBuild Community Tasks Regular Expressions"
+      AssemblyCompany="Company Name, LLC"
+      AssemblyProduct="MSBuildTasks"
+      AssemblyCopyright="Copyright (c) MSBuildTasks 2008"
+      AssemblyVersion="1.0.0.0"
+      AssemblyFileVersion="1.0.0.0" />
+  </Target>
+]]>
+      </code>
+    </example>
+  </task>
+
+</docs>

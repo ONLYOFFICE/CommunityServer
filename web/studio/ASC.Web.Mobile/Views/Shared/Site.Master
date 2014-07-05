@@ -1,0 +1,44 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><%=Resources.MobileResource.PageTitle%></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="format-detection" content="address=no" />
+  <meta name="apple-itunes-app" content="app-id=670964140" />
+  <link rel="apple-touch-icon-precomposed" href="<%=Url.Content("~/content/images/iphone-114x114.png")%>" />
+  <link rel="apple-touch-icon" href="<%=Url.Content("~/content/images/iphone-114x114.png")%>" />
+  <%Html.RenderPartial("Styles"); %>  
+  <asp:ContentPlaceHolder ID="Head" runat="server" />
+</head>
+
+<body>
+  <div id="bodyWrapper">
+    <asp:ContentPlaceHolder ID="Body" runat="server" />
+  </div>
+
+  <script src="<%=Url.Content("~/scripts/" + System.Threading.Thread.CurrentThread.CurrentCulture.Name.ToLower() + "/resources.js")%>" type="text/javascript"></script>
+  <%Html.RenderPartial("Scripts"); %>
+  <asp:ContentPlaceHolder ID="Script" runat="server" />
+
+  <asp:ContentPlaceHolder ID="JsTemplate" runat="server" />
+  <% if (ConfigurationManager.AppSettings["mobile.google-analytic"] == "true"){%>
+    <script type="text/javascript">
+      var _gaq = [];
+      _gaq.push(['_setAccount', 'UA-12442749-7']);
+      _gaq.push(['_setDomainName', '.teamlab.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <%}%>
+</body>
+</html>

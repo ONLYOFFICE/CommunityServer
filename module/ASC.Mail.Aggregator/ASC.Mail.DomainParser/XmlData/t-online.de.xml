@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientConfig version="1.1">
+  <emailProvider id="t-online.de">
+    <domain>t-online.de</domain>
+    <displayName>T-Online</displayName>
+    <displayShortName>T-Online</displayShortName>
+    <incomingServer type="imap">
+      <hostname>secureimap.t-online.de</hostname>
+      <port>993</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <incomingServer type="pop3">
+      <hostname>securepop.t-online.de</hostname>
+      <port>995</port>
+      <socketType>SSL</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </incomingServer>
+    <outgoingServer type="smtp">
+      <hostname>securesmtp.t-online.de</hostname>
+      <port>587</port>
+      <socketType>STARTTLS</socketType>
+      <username>%EMAILADDRESS%</username>
+      <authentication>password-cleartext</authentication>
+    </outgoingServer>
+    <enable visiturl="https://kundencenter.telekom.de/kundencenter/registriert/dienste-abos/ngcs/email-einstellungen/index.html">
+      <instruction>You need to set up an E-Mail-Password. Attention: The normal password for the T-Online-Website and Webmail does *not* work for email aplications.</instruction>
+      <instruction lang="de">Sie müssen ein E-Mail-Passwort einrichten. Achtung: Das Passwort für die T-Online-Website und Webmail funktioniert *nicht* für E-Mail-Programme!</instruction>
+    </enable>
+    <documentation url="http://hilfe.telekom.de/hsp/cms/content/HSP/de/3378/theme-45858870/theme-45858718/theme-45858716/theme-45858715/faq-45855229">
+      <descr lang="en">Set up your email address</descr>
+      <descr>Richten Sie Ihre Email-Adresse ein</descr>
+    </documentation>
+  </emailProvider>
+</clientConfig>

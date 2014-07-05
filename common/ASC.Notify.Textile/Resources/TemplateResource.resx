@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FooterWithPhoto" xml:space="preserve">
+    <value>&lt;table cellspacing="0" cellpadding="0" style="margin: 0; border-spacing: 0; empty-cells: show;"&gt;
+				&lt;tbody&gt;
+					&lt;tr style="height: 10px"&gt;
+						&lt;td colspan="2" style="width: 40px; background-color: #09669C;"&gt;&lt;div style="width: 40px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 600px; background-color: #fff;"&gt;&lt;div style="width: 600px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td colspan="2" style="width: 40px; background-color: #09669C;"&gt;&lt;div style="width: 40px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr style="height: 10px"&gt;
+						&lt;td colspan="5" style="width: 680px; background-color: #09669C;"&gt;&lt;div style="width: 680px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr style="height: 10px"&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #09669C;"&gt;&lt;div style="width: 7px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 600px; background-color: #fff;"&gt;&lt;div style="width: 600px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #09669C;"&gt;&lt;div style="width: 7px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/tbody&gt;
+			&lt;/table&gt;
+&lt;table cellpadding="0" cellspacing="0" style="margin: 0; border-spacing: 0; empty-cells: show;"&gt;
+   				&lt;tbody&gt;
+   					&lt;tr style="color: #333;"&gt;
+   						&lt;td style="width: 33px"&gt;&lt;/td&gt;
+   						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;/td&gt;
+   						&lt;td style="width: 300px; background-color: #fff;" colspan="2"&gt;
+   							&lt;h3 style="font-size: 16px; margin: 0px; padding: 15px 0px 10px 30px"&gt;Need tech assistance?&lt;/h3&gt;
+   						&lt;/td&gt;
+   						&lt;td style="width: 300px; background-color: #fff;" colspan="2"&gt;
+   							&lt;h3 style="font-size: 16px; margin: 0px; padding: 15px 0px 10px 30px"&gt;Any purchase questions?&lt;/h3&gt;
+   						&lt;/td&gt;
+   						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;/td&gt;
+   						&lt;td style="width: 33px"&gt;&lt;/td&gt;
+   					&lt;/tr&gt;
+   					&lt;tr style="color: #333;"&gt;
+   						&lt;td style="width: 33px"&gt;&lt;/td&gt;
+   						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;/td&gt;
+   						&lt;td style="width: 130px; background-color: #fff;"&gt;
+   							&lt;img style="margin: 15px 0px 0px 30px;" src="http://cdn.teamlab.com/media/newsletters/images/photo03.jpg" /&gt;
+   						&lt;/td&gt;
+   						&lt;td style="width: 170px; background-color: #fff;"&gt;
+   							&lt;p style="font-size: 16px; font-weight: bold; color: #333; margin: 0; padding: 25px 0 5px 20px;"&gt;Evgeniya&lt;br /&gt;Olshanskaya&lt;/p&gt;
+   							&lt;p style="font-size: 12px; font-style: italic; color: #808080; margin: 0; padding: 5px 0px 0px 20px;"&gt;Support Manager&lt;/p&gt;
+   							&lt;p style="font-size: 14px; color: #fff; margin: 0; padding: 20px 0 10px 20px;"&gt;
+   								&lt;a style="text-decoration: none; color: #fff; padding: 5px 15px; background-color: #f5942d;" href="mailto:support@teamlab.com"&gt;Contact me&lt;/a&gt;
+   							&lt;/p&gt;
+   						&lt;/td&gt;
+   						&lt;td style="width: 130px; background-color: #fff;"&gt;
+   							&lt;img style="margin: 15px 0px 0px 30px;" src="http://cdn.teamlab.com/media/newsletters/images/photo04.jpg" /&gt;
+   						&lt;/td&gt;
+                           &lt;td style="width: 170px; background-color: #fff;"&gt;
+                               &lt;p style="font-size: 16px; font-weight: bold; color: #333; margin: 0; padding: 25px 0 5px 20px;"&gt;Alexander&lt;br /&gt;Galkin&lt;/p&gt;
+                               &lt;p style="font-size: 12px; font-style: italic; color: #808080; margin: 0; padding: 5px 0 10px 20px;"&gt;Sales Manager&lt;/p&gt;
+                               &lt;p style="font-size: 14px; color: #fff; margin: 0; padding: 10px 0 10px 20px;"&gt;
+                                   &lt;a style="text-decoration: none; color: #fff; padding: 5px 15px; background-color: #f5942d;" href="mailto:sales@teamlab.com"&gt;Contact me&lt;/a&gt;
+                               &lt;/p&gt;
+                           &lt;/td&gt;
+                           &lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;/td&gt;
+                           &lt;td style="width: 33px"&gt;&lt;/td&gt;
+                       &lt;/tr&gt;
+                       &lt;tr style="height: 26px"&gt;
+                           &lt;td style="width: 33px"&gt;&lt;div style="width: 33px; height: 26px;"&gt;&lt;/div&gt;&lt;/td&gt;
+                           &lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px; height: 26px;"&gt;&lt;/div&gt;&lt;/td&gt;
+                           &lt;td style="width: 600px; background-color: #fff;" colspan="4"&gt;&lt;div style="width: 600px; height: 26px;"&gt;&lt;/div&gt;&lt;/td&gt;
+                           &lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px; height: 26px;"&gt;&lt;/div&gt;&lt;/td&gt;
+                           &lt;td style="width: 33px"&gt;&lt;div style="width: 33px; height: 26px;"&gt;&lt;/div&gt;&lt;/td&gt;
+                       &lt;/tr&gt;                       
+                   &lt;/tbody&gt;
+               &lt;/table&gt;</value>
+  </data>
+  <data name="HtmlMaster" xml:space="preserve">
+    <value>&lt;body style="margin: 0; padding: 0; text-align: center; width: 100%; font-family: Arial, sans-serif; font-size: 14px; color: #333;"&gt;
+	&lt;div id="common_style" style="background-image: url('http://cdn.teamlab.com/media/newsletters/images/header_05.jpg'); background-repeat: no-repeat; background-color: #09669C; width: 680px; margin: 20px auto; text-align: left;"&gt;
+		&lt;table background="http://cdn.teamlab.com/media/newsletters/images/header_05.jpg" cellpadding="0" cellspacing="0" style="background-repeat: no-repeat; background-position: 0 0; margin: 0; border-spacing: 0; empty-cells: show;"&gt;
+			&lt;tbody&gt;
+				&lt;tr style="height: 130px;"&gt;
+					&lt;td style="width: 510px; height: 130px; margin: 0; padding: 0; vertical-align: top;"&gt;&lt;a style="text-decoration: none; margin: 0; padding: 0;" href="http://www.teamlab.com/"&gt;&lt;img style="border: 0; margin: 0; padding: 0; color: #fff; font-size: 26px; font-weight: 700; width: 510px; height: 110px; display: block;" alt="TeamLab Office" src=%LOGO% /&gt;&lt;/a&gt;&lt;/td&gt;
+					&lt;td style="width: 170px; height: 130px;"&gt;&lt;div style="width: 170px; height: 130px;"&gt;&lt;/div&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;div id="content"&gt;
+		    &lt;table cellpadding="0" cellspacing="0" style="margin: 0; border-spacing: 0; empty-cells: show; word-wrap: break-word;"&gt;
+		        &lt;tbody&gt;
+		            &lt;tr style="height: 20px"&gt;
+		                &lt;td style="width: 40px" colspan="2"&gt;&lt;div style="width: 40px; height: 20px;"&gt;&lt;/div&gt;&lt;/td&gt;
+		                &lt;td style="width: 600px; background-color: #fff;"&gt;&lt;div style="width: 600px; height: 20px;"&gt;&lt;/div&gt;&lt;/td&gt;
+		                &lt;td style="width: 40px" colspan="2"&gt;&lt;div style="width: 40px; height: 20px;"&gt;&lt;/div&gt;&lt;/td&gt;
+		            &lt;/tr&gt;
+		            &lt;tr&gt;
+		                &lt;td style="width: 33px"&gt;&lt;div style="width: 33px;"&gt;&lt;/div&gt;&lt;/td&gt;
+		                &lt;td style="width: 7px; background-color: #38A4E2"&gt;&lt;div style="width: 7px;"&gt;&lt;/div&gt;&lt;/td&gt;
+		                &lt;td style="width: 600px; background-color: #fff;"&gt;
+		                    &lt;div style="font-family: Arial; font-size: 14px; color: #333; background-color: #fff; padding: 5px 30px 10px 30px; width: 540px; overflow: hidden; word-wrap: break-word;"&gt;
+		                        %CONTENT%
+		                    &lt;/div&gt;
+		                &lt;/td&gt;
+		                &lt;td style="width: 7px; background-color: #38A4E2"&gt;&lt;div style="width: 7px;"&gt;&lt;/div&gt;&lt;/td&gt;
+		                &lt;td style="width: 33px"&gt;&lt;div style="width: 33px;"&gt;&lt;/div&gt;&lt;/td&gt;
+		            &lt;/tr&gt;		            
+		        &lt;/tbody&gt;
+		    &lt;/table&gt;
+		    %FOOTER%
+            &lt;table cellspacing="0" cellpadding="0" style="margin: 0; border-spacing: 0; empty-cells: show;"&gt;
+                &lt;tbody&gt;
+                    &lt;tr style="height: 10px; background-color: #004b75;"&gt;
+                        &lt;td colspan="2" style="width: 40px; background-color: #004b75;"&gt;
+                            &lt;div style="width: 40px; height: 10px;"&gt;&lt;/div&gt;
+                        &lt;/td&gt;
+                        &lt;td colspan="3" style="width: 600px; background-color: #fff;"&gt;
+                            &lt;div style="width: 600px; height: 10px;"&gt;&lt;/div&gt;
+                        &lt;/td&gt;
+                        &lt;td colspan="2" style="width: 40px; background-color: #004b75;"&gt;
+                            &lt;div style="width: 40px; height: 10px;"&gt;&lt;/div&gt;
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+				&lt;table cellpadding="0" cellspacing="0" background="http://cdn.teamlab.com/media/newsletters/images/footer1.jpg" style="background-position: 0 0; background-repeat: repeat-y; background-color: #004b75; margin: 0; padding: 0; border: 0; border-collapse: collapse; empty-cells: show; border-spacing: 0;"&gt;
+					&lt;tr&gt;
+						&lt;td style="font-family: Arial; width: 680px; height: 58px; font-size: 11px; vertical-align: top; margin: 0; padding: 0;"&gt;
+							&lt;p style="font-family: Arial; font-size: 11px; color: #6ea5c5; margin: 11px 40px 10px; height: 38px; text-align: center; padding: 0 30px;"&gt;%TEXTFOOTER%&lt;/p&gt;
+						&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/table&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;</value>
+  </data>
+  <data name="FooterWithLinks" xml:space="preserve">
+    <value>&lt;table cellspacing="0" cellpadding="0" style="margin: 0; border-spacing: 0; empty-cells: show;"&gt;
+				&lt;tbody&gt;
+					&lt;tr style="height: 10px"&gt;
+						&lt;td colspan="2" style="width: 40px; background-color: #09669C;"&gt;&lt;div style="width: 40px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 600px; background-color: #fff;"&gt;&lt;div style="width: 600px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td colspan="2" style="width: 40px; background-color: #09669C;"&gt;&lt;div style="width: 40px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr style="height: 10px"&gt;
+						&lt;td colspan="5" style="width: 680px; background-color: #09669C;"&gt;&lt;div style="width: 680px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr style="height: 10px"&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #09669C;"&gt;&lt;div style="width: 7px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 600px; background-color: #fff;"&gt;&lt;div style="width: 600px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #09669C;"&gt;&lt;div style="width: 7px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/tbody&gt;
+			&lt;/table&gt;
+&lt;table cellpadding="0" cellspacing="0" style="margin: 0; border-spacing: 0; empty-cells: show;"&gt;
+				&lt;tbody&gt;
+					&lt;tr style="color: #333;"&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 200px; background-color: #fff;"&gt;
+							&lt;h3 style="font-family: Arial; font-size: 16px; margin: 0px; padding: 15px 0px 10px 30px"&gt;Need tech help?&lt;/h3&gt;
+						&lt;/td&gt;
+						&lt;td style="width: 200px; background-color: #fff;"&gt;
+							&lt;h3 style="font-family: Arial; font-size: 16px; margin: 0px; padding: 15px 0px 10px 20px"&gt;Sales questions?&lt;/h3&gt;
+						&lt;/td&gt;
+						&lt;td style="width: 200px; background-color: #fff;"&gt;
+							&lt;h3 style="font-family: Arial; font-size: 16px; margin: 0px; padding: 15px 0 10px 20px"&gt;Stay tuned!&lt;/h3&gt;
+						&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr style="color: #333;"&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="background-color: #fff; vertical-align: top; padding-left: 30px;"&gt;
+							&lt;a style="color: #0078bd; font-family: Arial; font-size: 14px;" href="mailto:support@teamlab.com"&gt;support@teamlab.com&lt;/a&gt;
+							&lt;br /&gt;+371 66016425
+						&lt;/td&gt;
+						&lt;td style="background-color: #fff; vertical-align: top; padding-left: 20px;"&gt;
+							&lt;a style="color: #0078bd; font-family: Arial; font-size: 14px;" href="mailto:sales@teamlab.com"&gt;sales@teamlab.com&lt;/a&gt;
+						&lt;/td&gt;
+						&lt;td style="background-color: #fff; vertical-align: top; padding-left: 20px; font-family: Arial; font-size: 14px;"&gt;
+							&lt;a target="_blank" style="color: #3D4A6B;" href="http://www.facebook.com/TeamLab"&gt;&lt;img style="vertical-align: middle; border: 0; width: 26px; height: 26px;" src="http://cdn.teamlab.com/media/newsletters/images/social_01.jpg" alt="Facebook" title="Facebook" /&gt;&lt;/a&gt;
+							&lt;a target="_blank" style="color: #3D4A6B;" href="http://twitter.com/teamlabdotcom"&gt;&lt;img src="http://cdn.teamlab.com/media/newsletters/images/social_02.jpg" alt="Twitter" title="Twitter" style="vertical-align: middle; border: 0; width: 26px; height: 26px;" /&gt;&lt;/a&gt;
+							&lt;a target="_blank" style="color: #3D4A6B;" href="https://plus.google.com/u/0/+teamlab/"&gt;&lt;img src="http://cdn.teamlab.com/media/newsletters/images/social_03.jpg" alt="Google+" title="Google+" style="vertical-align: middle; border: 0; width: 26px; height: 26px;" /&gt;&lt;/a&gt;
+							&lt;a target="_blank" style="color: #3D4A6B;" href="http://www.linkedin.com/groups?home=&amp;amp;gid=3159387&amp;amp;trk=anet_ug_hm"&gt;&lt;img src="http://cdn.teamlab.com/media/newsletters/images/social_04.jpg" alt="Linked In" title="Linked In" style="vertical-align: middle; border: 0; width: 26px; height: 26px;" /&gt;&lt;/a&gt;
+						&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+                    &lt;tr style="height: 26px"&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+                        &lt;td style="width: 600px; background-color: #fff;" colspan="3"&gt;&lt;div style="width: 600px; height: 26px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                    
+                &lt;/tbody&gt;
+            &lt;/table&gt;</value>
+  </data>
+  <data name="TextForFooter" xml:space="preserve">
+    <value>If you want to unsubscribe from TeamLab newsletters, &lt;a href="{0}" target="_blank" style="font-family: Arial; font-size: 11px; color: #fff;" title="click here"&gt;click here&lt;/a&gt; &lt;br /&gt; &amp;copy; Ascensio System SIA {1}. All rights reserved.</value>
+  </data>
+</root>

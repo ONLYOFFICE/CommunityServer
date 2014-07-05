@@ -1,0 +1,1982 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <WebGreaseLibPath>..\..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E7BE6CE8-F6B0-4B9B-831B-BA0C85C8D130}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Web.Studio</RootNamespace>
+    <AssemblyName>ASC.Web.Studio</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SignAssembly>false</SignAssembly>
+    <TrunkDir>..\..\..\</TrunkDir>
+    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
+    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxMin, Version=4.0.202.1, Culture=neutral, PublicKeyToken=24297a69a7eae424, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxPro.2, Version=7.7.31.1, Culture=neutral, PublicKeyToken=eabb1b8f6347d5af, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.ActiveDirectory">
+      <HintPath>..\..\..\redistributable\asc\ASC.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.AuditTrail, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.AuditTrail.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.FederatedLogin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.FederatedLogin.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Feed, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Feed.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.FullTextIndex, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.FullTextIndex.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.MessagingSystem">
+      <HintPath>..\..\..\redistributable\asc\ASC.MessagingSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.MessagingSystem.DbSender">
+      <HintPath>..\..\..\redistributable\asc\ASC.MessagingSystem.DbSender.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Notify.Textile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Notify.Textile.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.SingleSignOn">
+      <HintPath>..\..\..\redistributable\asc\ASC.SingleSignOn.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Thrdparty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Thrdparty.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK, Version=1.1.1.0, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Amazon\AWSSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="CsvHelper">
+      <HintPath>..\..\..\redistributable\third-party\CsvHelper.2.3.0\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="dotless.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Web\dotless\dotless.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth, Version=4.1.0.12182, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.ApplicationBlock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\DotNetOpenAuth.ApplicationBlock.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\..\..\redistributable\third-party\EPPlus.3.1.3.3\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook, Version=5.0.26.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\FacebookSDK\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="FileConverterUtils2">
+      <HintPath>..\..\..\redistributable\third-party\asc\FileConverterUtils2.dll</HintPath>
+    </Reference>
+    <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.29869, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Web\FredCK.FCKeditorV2.dll</HintPath>
+    </Reference>
+    <Reference Include="Hammock.ClientProfile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\TweetSharp\3.5\Hammock.ClientProfile.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.3.9.1, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\HtmlAgilityPack\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlSanitizationLibrary, Version=4.0.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\AntiXss\HtmlSanitizationLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\DotNotZip\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Jurassic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Web\Jurassic.dll</HintPath>
+    </Reference>
+    <Reference Include="LinkedIn, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\LinkedIn\LinkedIn.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Lucene.Net\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\Microsoft.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client">
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\SharePoint\Microsoft.SharePoint.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client.Runtime">
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\SharePoint\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Administration, Version=7.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\Microsoft.Web.Administration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.2.2.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\db\mysql\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NVelocity, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\NVelocity\NVelocity.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt">
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\WIFExtensions\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\System.Web.Mvc.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Textile, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Textile\Textile.dll</HintPath>
+    </Reference>
+    <Reference Include="TMResourceData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\asc\TMResourceData.dll</HintPath>
+    </Reference>
+    <Reference Include="TweetSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\TweetSharp\3.5\TweetSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\Microsoft\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Yahoo.Yui.Compressor, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\redistributable\third-party\YUICompressor\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\InlineScript.cs" />
+    <Compile Include="Controls\FileUploader\FileToUpload.cs" />
+    <Compile Include="Controls\FileUploader\FileUploaderFlashParams.cs" />
+    <Compile Include="Controls\FileUploader\HttpModule\EntityBodyChunkReader.cs" />
+    <Compile Include="Controls\FileUploader\HttpModule\EntityBodyChunkStateWaiter.cs" />
+    <Compile Include="Controls\FileUploader\HttpModule\EntityBodyInspector.cs" />
+    <Compile Include="Controls\FileUploader\HttpModule\HttpUploadWorkerRequest.cs" />
+    <Compile Include="Controls\FileUploader\HttpModule\UploadProgressHandler.cs" />
+    <Compile Include="Controls\FileUploader\HttpModule\UploadProgressModule.cs" />
+    <Compile Include="Controls\FileUploader\HttpModule\UploadProgressStatistic.cs" />
+    <Compile Include="Controls\FileUploader\HttpModule\UploadProgressUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="App_Themes\codehighlighter\ascetic.css" />
+    <Content Include="App_Themes\codehighlighter\dark.css" />
+    <Content Include="App_Themes\codehighlighter\default.css" />
+    <Content Include="App_Themes\codehighlighter\far.css" />
+    <Content Include="App_Themes\codehighlighter\idea.css" />
+    <Content Include="App_Themes\codehighlighter\magula.css" />
+    <Content Include="App_Themes\codehighlighter\sunburst.css" />
+    <Content Include="App_Themes\codehighlighter\vs.css" />
+    <Content Include="App_Themes\codehighlighter\zenburn.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\Users\AdvancedUserSelector.cs" />
+    <Compile Include="Core\Backup\BackupAjaxHandler.cs" />
+    <Compile Include="Core\Backup\BackupFileUploadHandler.cs" />
+    <Compile Include="Core\Notify\WebstudioPatternResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WebstudioPatternResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\PersonalSettings.cs" />
+    <Compile Include="Core\HelpCenter\HelpCenterHelper.cs" />
+    <Compile Include="Core\HelpCenter\HelpCenterStorage.cs" />
+    <Compile Include="Core\HelpCenter\UserVideoSettings.cs" />
+    <Compile Include="Core\HelpCenter\VideoGuideStorage.cs" />
+    <Compile Include="Core\Import\ActiveDirectoryUserImporter.cs" Condition=" Exists('Core\Import\ActiveDirectoryUserImporter.cs') And '$(DeployTo)' != 'INSTALL.STANDALONE' " />
+    <Compile Include="Core\Import\ActiveDirectoryUserImporter2.cs" Condition=" !Exists('Core\Import\ActiveDirectoryUserImporter.cs') Or '$(DeployTo)' == 'INSTALL.STANDALONE' " />
+    <Compile Include="HttpHandlers\JwtHandler.cs" />
+    <Compile Include="HttpHandlers\SamlHandler.cs" />
+    <Compile Include="PublicResources\AuditResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuditResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PublicResources\ChatResource.Designer.cs">
+      <DependentUpon>ChatResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="PublicResources\StudioCountriesResource.Designer.cs">
+      <DependentUpon>StudioCountriesResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="PublicResources\MonitoringResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MonitoringResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PublicResources\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PublicResources\ResourceJS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceJS.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PublicResources\UserControlsCommonResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserControlsCommonResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\CodeHighlighter.cs" />
+    <Compile Include="Controls\Common\CommonResultsView.cs" />
+    <Compile Include="Controls\Common\Container.cs" />
+    <Compile Include="Controls\Common\EmptyScreenControl.cs" />
+    <Compile Include="Controls\Common\PageNavigator.cs" />
+    <Compile Include="Controls\Common\ResultsView.cs" />
+    <Compile Include="Core\FileSizeComment.cs" />
+    <Compile Include="Core\Sms\SmsSender.cs" Condition=" Exists('Core\Sms\SmsSender.cs') And '$(DeployTo)' != 'INSTALL.STANDALONE' " />
+    <Compile Include="Core\Sms\SmsKeyStorage.cs" Condition=" Exists('Core\Sms\SmsKeyStorage.cs') And '$(DeployTo)' != 'INSTALL.STANDALONE' " />
+    <Compile Include="Core\Sms\SmsManager.cs" Condition=" Exists('Core\Sms\SmsManager.cs') And '$(DeployTo)' != 'INSTALL.STANDALONE' " />
+    <Compile Include="Core\Sms\SmsManager2.cs" Condition=" !Exists('Core\Sms\SmsManager.cs') Or '$(DeployTo)' == 'INSTALL.STANDALONE' " />
+    <Compile Include="Core\Sms\StudioSmsNotificationSettings.cs" />
+    <Compile Include="Core\CountriesResources.cs" />
+    <Compile Include="Core\StudioAdminMessageSettings.cs" />
+    <Compile Include="Core\DebugInfo.cs" />
+    <Compile Include="Core\EmailOperationService.cs" />
+    <Compile Include="Core\Import\ContactInfo.cs" />
+    <Compile Include="Core\Import\IUserImporter.cs" />
+    <Compile Include="Core\Import\OutlookCSVUserImporter.cs" />
+    <Compile Include="Core\Import\TextFileUserImporter.cs" />
+    <Compile Include="Core\Notify\PatternHelper.cs" />
+    <Compile Include="Core\Search\SearchComparer.cs" />
+    <Compile Include="Core\Search\SearchResult.cs" />
+    <Compile Include="Core\SecutiryConstants.cs" />
+    <Compile Include="Core\StudioPasswordSettings.cs" />
+    <Compile Include="Core\StudioNotifyBarSettings.cs" />
+    <Compile Include="Core\Users\CustomNamingPeople.cs" />
+    <Compile Include="Core\Users\NamingPeopleResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NamingPeopleResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\WebStudioCommonModule.cs" />
+    <Compile Include="Terms.aspx.cs">
+      <DependentUpon>Terms.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Terms.aspx.designer.cs">
+      <DependentUpon>Terms.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\AuthorizeDocs\AuthorizeDocs.ascx.cs">
+      <DependentUpon>AuthorizeDocs.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\AuthorizeDocs\AuthorizeDocs.ascx.designer.cs">
+      <DependentUpon>AuthorizeDocs.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\Authorize\Authorize.ascx.cs">
+      <DependentUpon>Authorize.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\Authorize\Authorize.ascx.designer.cs">
+      <DependentUpon>Authorize.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\Comments\CommentInfo.cs" />
+    <Compile Include="UserControls\Common\Comments\Comments.cs" />
+    <Compile Include="UserControls\Common\Comments\CommentsHelper.cs" />
+    <Compile Include="UserControls\Common\HelpTour\HelpTour.ascx.cs">
+      <DependentUpon>HelpTour.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\HelpTour\HelpTour.ascx.designer.cs">
+      <DependentUpon>HelpTour.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\PersonalFooter\PersonalFooter.ascx.cs">
+      <DependentUpon>PersonalFooter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\PersonalFooter\PersonalFooter.ascx.designer.cs">
+      <DependentUpon>PersonalFooter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\PollForm\PollForm.cs" />
+    <Compile Include="UserControls\Common\PollForm\PollFormMaster.cs" />
+    <Compile Include="UserControls\Common\SmallChat\SmallChat.ascx.cs">
+      <DependentUpon>SmallChat.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\SmallChat\SmallChat.ascx.designer.cs">
+      <DependentUpon>SmallChat.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\TabsNavigator\TabsNavigator.cs" />
+    <Compile Include="UserControls\Common\TabsNavigator\TabsNavigatorItem.cs" />
+    <Compile Include="UserControls\Common\ViewSwitcher\ViewSwitcher.cs" />
+    <Compile Include="UserControls\Common\ViewSwitcher\ViewSwitcherBaseItem.cs" />
+    <Compile Include="UserControls\Common\ViewSwitcher\ViewSwitcherLinkItem.cs" />
+    <Compile Include="UserControls\Common\ViewSwitcher\ViewSwitcherTabItem.cs" />
+    <Compile Include="StartScriptsStyles.aspx.cs">
+      <DependentUpon>StartScriptsStyles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StartScriptsStyles.aspx.designer.cs">
+      <DependentUpon>StartScriptsStyles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\AuditTrail\AuditTrail.ascx.cs">
+      <DependentUpon>AuditTrail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\AuditTrail\AuditTrail.ascx.designer.cs">
+      <DependentUpon>AuditTrail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\AuthorizationKeys\AuthorizationKeys.ascx.cs">
+      <DependentUpon>AuthorizationKeys.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\AuthorizationKeys\AuthorizationKeys.ascx.designer.cs">
+      <DependentUpon>AuthorizationKeys.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\AuthorizationKeys\AuthService.cs" />
+    <Compile Include="UserControls\Management\Backup\Backup.ascx.cs" Condition="Exists('UserControls\Management\Backup\Backup.ascx.cs')">
+      <DependentUpon>Backup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\Backup\Backup.ascx.designer.cs" Condition="Exists('UserControls\Management\Backup\Backup.ascx.designer.cs')">
+      <DependentUpon>Backup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\ColorThemes\ColorThemes.ascx.cs">
+      <DependentUpon>ColorThemes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\ColorThemes\ColorThemes.ascx.designer.cs">
+      <DependentUpon>ColorThemes.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\LdapSettings\LdapSettings.ascx.cs" Condition="Exists('UserControls\Management\LdapSettings\LdapSettings.ascx.cs')">
+      <DependentUpon>LdapSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\LdapSettings\LdapSettings.ascx.designer.cs" Condition="Exists('UserControls\Management\LdapSettings\LdapSettings.ascx.designer.cs')">
+      <DependentUpon>LdapSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\LoginHistory\LoginHistory.ascx.cs">
+      <DependentUpon>LoginHistory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\LoginHistory\LoginHistory.ascx.designer.cs">
+      <DependentUpon>LoginHistory.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\Monitoring\LogHelper.ascx.cs">
+      <DependentUpon>LogHelper.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\Monitoring\LogHelper.ascx.designer.cs">
+      <DependentUpon>LogHelper.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\Monitoring\PortsChecker.ascx.cs">
+      <DependentUpon>PortsChecker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\Monitoring\PortsChecker.ascx.designer.cs">
+      <DependentUpon>PortsChecker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\Monitoring\ServiceHealthChecker.ascx.cs">
+      <DependentUpon>ServiceHealthChecker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\Monitoring\ServiceHealthChecker.ascx.designer.cs">
+      <DependentUpon>ServiceHealthChecker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\PromoCode\PromoCode.ascx.cs">
+      <DependentUpon>PromoCode.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\PromoCode\PromoCode.ascx.designer.cs">
+      <DependentUpon>PromoCode.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx.cs">
+      <DependentUpon>SingleSignOnSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx.designer.cs">
+      <DependentUpon>SingleSignOnSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\SmsControls\SmsBuy.ascx.cs">
+      <DependentUpon>SmsBuy.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\SmsControls\SmsBuy.ascx.designer.cs">
+      <DependentUpon>SmsBuy.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\SmtpSettings\SmtpSettings.ascx.cs">
+      <DependentUpon>SmtpSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\SmtpSettings\SmtpSettings.ascx.designer.cs">
+      <DependentUpon>SmtpSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffUsage.ascx.cs">
+      <DependentUpon>TariffUsage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffUsage.ascx.designer.cs">
+      <DependentUpon>TariffUsage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\UploadHttps\UploadHttps.ascx.cs">
+      <DependentUpon>UploadHttps.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\UploadHttps\UploadHttps.ascx.designer.cs">
+      <DependentUpon>UploadHttps.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\LoadPhotoControl.ascx.cs">
+      <DependentUpon>LoadPhotoControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\LoadPhotoControl.ascx.designer.cs">
+      <DependentUpon>LoadPhotoControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\BBCodeParser\ExpressionReplacement.cs" />
+    <Compile Include="Utility\BBCodeParser\ParserConfiguration.cs" />
+    <Compile Include="Utility\BBCodeParser\RegularExpressionTemplate.cs" />
+    <Compile Include="Utility\BBCodeParser\Smiles.cs" />
+    <Compile Include="Utility\BBCodeParser\TagConfiguration.cs" />
+    <Compile Include="Utility\BBCodeParser\TagParamOption.cs" />
+    <Compile Include="Utility\HtmlUtility\CodeFormat\CLikeFormat.cs" />
+    <Compile Include="Utility\HtmlUtility\CodeFormat\CodeFormat.cs" />
+    <Compile Include="Utility\HtmlUtility\CodeFormat\CppFormat.cs" />
+    <Compile Include="Utility\HtmlUtility\CodeFormat\CSharpFormat.cs" />
+    <Compile Include="Utility\HtmlUtility\CodeFormat\HtmlFormat.cs" />
+    <Compile Include="Utility\HtmlUtility\CodeFormat\JavaScriptFormat.cs" />
+    <Compile Include="Utility\HtmlUtility\CodeFormat\MshFormat.cs" />
+    <Compile Include="Utility\HtmlUtility\CodeFormat\SourceFormat.cs" />
+    <Compile Include="Utility\HtmlUtility\CodeFormat\TsqlFormat.cs" />
+    <Compile Include="Utility\HtmlUtility\CodeFormat\VisualBasicFormat.cs" />
+    <Compile Include="Utility\HtmlUtility\Highlighter.cs" />
+    <Compile Include="Utility\HtmlUtility\HtmlUtility.cs" />
+    <Compile Include="Utility\HtmlUtility\LangType.cs" />
+    <Compile Include="Utility\LicenseReader.cs" />
+    <Compile Include="Utility\TenantExtra.cs" />
+    <Compile Include="Services\WhatsNew\feed.ashx.cs">
+      <DependentUpon>feed.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\Attachments\Attachments.ascx.cs">
+      <DependentUpon>Attachments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\Attachments\Attachments.ascx.designer.cs">
+      <DependentUpon>Attachments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\ProjectDocumentsPopup\ProjectDocumentsPopup.ascx.cs">
+      <DependentUpon>ProjectDocumentsPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\ProjectDocumentsPopup\ProjectDocumentsPopup.ascx.designer.cs">
+      <DependentUpon>ProjectDocumentsPopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FirstTime\EmailAndPassword.ascx.cs">
+      <DependentUpon>EmailAndPassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\FirstTime\EmailAndPassword.ascx.designer.cs">
+      <DependentUpon>EmailAndPassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FirstTime\HowTo\HowTo.ascx.cs">
+      <DependentUpon>HowTo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\FirstTime\HowTo\HowTo.ascx.designer.cs">
+      <DependentUpon>HowTo.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FirstTime\StepContainer.ascx.cs">
+      <DependentUpon>StepContainer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\FirstTime\StepContainer.ascx.designer.cs">
+      <DependentUpon>StepContainer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\Search\SearchResults.ascx.cs">
+      <DependentUpon>SearchResults.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\Search\SearchResults.ascx.designer.cs">
+      <DependentUpon>SearchResults.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\SharingSettings\SharingSettings.ascx.cs">
+      <DependentUpon>SharingSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\SharingSettings\SharingSettings.ascx.designer.cs">
+      <DependentUpon>SharingSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\AccessRights\AccessRights.ascx.cs">
+      <DependentUpon>AccessRights.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\AccessRights\AccessRights.ascx.designer.cs">
+      <DependentUpon>AccessRights.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\AccessRights\AccessRightsProductItem.ascx.cs">
+      <DependentUpon>AccessRightsProductItem.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\AccessRights\AccessRightsProductItem.ascx.designer.cs">
+      <DependentUpon>AccessRightsProductItem.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\AdminMessageSettings\AdminMessageSettings.ascx.cs">
+      <DependentUpon>AdminMessageSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\AdminMessageSettings\AdminMessageSettings.ascx.designer.cs">
+      <DependentUpon>AdminMessageSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\AdminSettings\ConfirmPortalOwner.ascx.cs">
+      <DependentUpon>ConfirmPortalOwner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\AdminSettings\ConfirmPortalOwner.ascx.designer.cs">
+      <DependentUpon>ConfirmPortalOwner.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\ConfirmActivation.ascx.cs">
+      <DependentUpon>ConfirmActivation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\ConfirmActivation.ascx.designer.cs">
+      <DependentUpon>ConfirmActivation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\ConfirmInviteActivation\ConfirmInviteActivation.ascx.cs">
+      <DependentUpon>ConfirmInviteActivation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\ConfirmInviteActivation\ConfirmInviteActivation.ascx.designer.cs">
+      <DependentUpon>ConfirmInviteActivation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\GreetingSettings\GreetingSettingsContent.ascx.cs">
+      <DependentUpon>GreetingSettingsContent.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\GreetingSettings\GreetingSettingsContent.ascx.designer.cs">
+      <DependentUpon>GreetingSettingsContent.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\InviteLink\InviteLink.ascx.cs">
+      <DependentUpon>InviteLink.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\InviteLink\InviteLink.ascx.designer.cs">
+      <DependentUpon>InviteLink.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\MailDomainSettings\MailDomainSettings.ascx.cs">
+      <DependentUpon>MailDomainSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\MailDomainSettings\MailDomainSettings.ascx.designer.cs">
+      <DependentUpon>MailDomainSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\GreetingSettings\GreetingSettings.ascx.cs">
+      <DependentUpon>GreetingSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\GreetingSettings\GreetingSettings.ascx.designer.cs">
+      <DependentUpon>GreetingSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\NamingPeopleSettings\NamingPeopleSettings.ascx.cs">
+      <DependentUpon>NamingPeopleSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\NamingPeopleSettings\NamingPeopleSettings.ascx.designer.cs">
+      <DependentUpon>NamingPeopleSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\NamingPeopleSettings\NamingPeopleSettingsContent.ascx.cs">
+      <DependentUpon>NamingPeopleSettingsContent.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\NamingPeopleSettings\NamingPeopleSettingsContent.ascx.designer.cs">
+      <DependentUpon>NamingPeopleSettingsContent.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\PasswordSettings\PasswordSettings.ascx.cs">
+      <DependentUpon>PasswordSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\PasswordSettings\PasswordSettings.ascx.designer.cs">
+      <DependentUpon>PasswordSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\ProfileOperation.ascx.cs">
+      <DependentUpon>ProfileOperation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\ProfileOperation.ascx.designer.cs">
+      <DependentUpon>ProfileOperation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffSettings.ascx.cs">
+      <DependentUpon>TariffSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffSettings.ascx.designer.cs">
+      <DependentUpon>TariffSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\TimeAndLanguage\TimeAndLanguage.ascx.cs">
+      <DependentUpon>TimeAndLanguage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\TimeAndLanguage\TimeAndLanguage.ascx.designer.cs">
+      <DependentUpon>TimeAndLanguage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\VersionSettings\VersionSettings.ascx.cs">
+      <DependentUpon>VersionSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\VersionSettings\VersionSettings.ascx.designer.cs">
+      <DependentUpon>VersionSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\AuthCommunications\AuthCommunications.ascx.cs">
+      <DependentUpon>AuthCommunications.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\AuthCommunications\AuthCommunications.ascx.designer.cs">
+      <DependentUpon>AuthCommunications.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Statistics\TenantStatisticsProvider.cs">
+    </Compile>
+    <Compile Include="UserControls\Users\ImportUsers\ImportUsers.ascx.cs">
+      <DependentUpon>ImportUsers.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\ImportUsers\ImportUsers.ascx.designer.cs">
+      <DependentUpon>ImportUsers.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\ImportUsers\ImportUsersTemplate.ascx.cs">
+      <DependentUpon>ImportUsersTemplate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\ImportUsers\ImportUsersTemplate.ascx.designer.cs">
+      <DependentUpon>ImportUsersTemplate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\ImportUsers\ImportUsersWebControl.cs" />
+    <Compile Include="UserControls\Users\ImportUsers\UserData.cs" />
+    <Compile Include="UserControls\Users\ResendInvitesControl\ResendInvitesControl.ascx.cs">
+      <DependentUpon>ResendInvitesControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\ResendInvitesControl\ResendInvitesControl.ascx.designer.cs">
+      <DependentUpon>ResendInvitesControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\AccountLinkControl.ascx.cs">
+      <DependentUpon>AccountLinkControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\AccountLinkControl.ascx.designer.cs">
+      <DependentUpon>AccountLinkControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserEmailControl.ascx.cs">
+      <DependentUpon>UserEmailControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserEmailControl.ascx.designer.cs">
+      <DependentUpon>UserEmailControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserSubscriptions\UserSubscriptions.ascx.cs">
+      <DependentUpon>UserSubscriptions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserSubscriptions\UserSubscriptions.ascx.designer.cs">
+      <DependentUpon>UserSubscriptions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="confirm.aspx.cs">
+      <DependentUpon>confirm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="confirm.aspx.designer.cs">
+      <DependentUpon>confirm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\MenuItem.cs" />
+    <Compile Include="Controls\Common\NotFoundControl.cs" />
+    <Compile Include="Controls\Common\SideContainer.cs" />
+    <Compile Include="Controls\Users\EmployeeUserCard.cs" />
+    <Compile Include="Core\FCKUploadsDBManager.cs" />
+    <Compile Include="Core\Notify\Constants.cs" />
+    <Compile Include="Core\Notify\NotifyConfiguration.cs" />
+    <Compile Include="Core\Notify\WebPatternResource.Designer.cs">
+      <DependentUpon>WebPatternResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Core\InfoType.cs" />
+    <Compile Include="Core\Notify\StudioNotifyService.cs" />
+    <Compile Include="Core\Notify\StudioNotifySource.cs" />
+    <Compile Include="Core\Notify\StudioSubscriptionManager.cs" />
+    <Compile Include="Core\SearchHandlers\StudioSearchHandler.cs" />
+    <Compile Include="Core\SetupInfo.cs" />
+    <Compile Include="Core\Statistic\StatisticManager.cs" />
+    <Compile Include="Core\Statistic\UserVisit.cs" />
+    <Compile Include="Core\TenantInfoSettings.cs" />
+    <Compile Include="Core\Users\SocialContactsManager.cs" />
+    <Compile Include="Core\Users\UserManagerWrapper.cs" />
+    <Compile Include="Core\WizardSettings.cs" />
+    <Compile Include="Core\DateTimeExtension.cs" />
+    <Compile Include="Core\Users\UserInfoExtension.cs" />
+    <Compile Include="HttpHandlers\AjaxFileUploadHandler.cs" />
+    <Compile Include="HttpHandlers\FCKEditorFileUploadHandler.cs" />
+    <Compile Include="HttpHandlers\TemplatingHandler.cs" />
+    <Compile Include="My.aspx.cs">
+      <DependentUpon>My.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="My.aspx.designer.cs">
+      <DependentUpon>My.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServerError.aspx.cs">
+      <DependentUpon>ServerError.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ServerError.aspx.designer.cs">
+      <DependentUpon>ServerError.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\BaseTemplate.master.cs">
+      <DependentUpon>BaseTemplate.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\BaseTemplate.master.designer.cs">
+      <DependentUpon>BaseTemplate.master</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\MainPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Auth.aspx.cs">
+      <DependentUpon>Auth.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Auth.aspx.designer.cs">
+      <DependentUpon>Auth.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Management.aspx.cs">
+      <DependentUpon>Management.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Management.aspx.designer.cs">
+      <DependentUpon>Management.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\Common\Confirm\Confirm.ascx.cs">
+      <DependentUpon>Confirm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\Confirm\Confirm.ascx.designer.cs">
+      <DependentUpon>Confirm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\ConfirmPortalActivity.ascx.cs">
+      <DependentUpon>ConfirmPortalActivity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\ConfirmPortalActivity.ascx.designer.cs">
+      <DependentUpon>ConfirmPortalActivity.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\PwdTool.ascx.cs">
+      <DependentUpon>PwdTool.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\PwdTool.ascx.designer.cs">
+      <DependentUpon>PwdTool.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\StudioSettings\StudioSettings.ascx.cs">
+      <DependentUpon>StudioSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\StudioSettings\StudioSettings.ascx.designer.cs">
+      <DependentUpon>StudioSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Statistics\ProductQuotes\ProductQuotes.ascx.cs">
+      <DependentUpon>ProductQuotes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Statistics\ProductQuotes\ProductQuotes.ascx.designer.cs">
+      <DependentUpon>ProductQuotes.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Statistics\VisitorsChart\VisitorsChart.ascx.cs">
+      <DependentUpon>VisitorsChart.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Statistics\VisitorsChart\VisitorsChart.ascx.designer.cs">
+      <DependentUpon>VisitorsChart.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\AddContent\AddContentControl.ascx.cs">
+      <DependentUpon>AddContentControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\AddContent\AddContentControl.ascx.designer.cs">
+      <DependentUpon>AddContentControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\ThumbnailEditor\ThumbnailEditor.ascx.cs">
+      <DependentUpon>ThumbnailEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\ThumbnailEditor\ThumbnailEditor.ascx.designer.cs">
+      <DependentUpon>ThumbnailEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserProfileControl.ascx.cs">
+      <DependentUpon>UserProfileControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserProfileControl.ascx.designer.cs">
+      <DependentUpon>UserProfileControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserSelector\UserSelector.ascx.cs">
+      <DependentUpon>UserSelector.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserSelector\UserSelector.ascx.designer.cs">
+      <DependentUpon>UserSelector.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\AjaxResponse.cs" />
+    <Compile Include="Utility\CommonControlsConfigurer.cs" />
+    <Compile Include="Utility\HeaderStringHelper.cs" />
+    <Compile Include="Wizard.aspx.cs">
+      <DependentUpon>Wizard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wizard.aspx.designer.cs">
+      <DependentUpon>Wizard.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="js\asc\core\asc.mail.utility.js" />
+    <Content Include="js\asc\plugins\jquery-contactadvansedselector.js" />
+    <Content Include="js\asc\plugins\jquery-groupadvansedselector.js" />
+    <Content Include="js\asc\plugins\jquery-milestoneadvansedselector.js" />
+    <Content Include="js\asc\plugins\jquery-projectadvansedselector.js" />
+    <Content Include="js\third-party\jquery\jquery.caret.1.02.min.js" />
+    <Content Include="js\third-party\jquery\jquery.hubs.js" />
+    <Content Include="js\third-party\jquery\jquery.linkify.js" />
+    <Content Include="js\third-party\jquery\jquery.notification.js" />
+    <Content Include="js\third-party\jquery\jquery.signalr.js" />
+    <Content Include="js\third-party\jquery\noty\bottomRight.js" />
+    <Content Include="js\third-party\jquery\noty\default.js" />
+    <Content Include="js\third-party\jquery\noty\jquery.noty.js" />
+    <Content Include="Masters\BaseTemplate.master" />
+    <Content Include="Masters\ClientLocalizationScript.ascx" />
+    <Content Include="Masters\BodyScripts.ascx" />
+    <Content Include="Masters\CommonBodyScripts.ascx" />
+    <Content Include="Masters\CommonStyles.ascx" />
+    <Content Include="Masters\HeadScripts.ascx" />
+    <Content Include="Masters\HeadStyles.ascx" />
+    <Content Include="Masters\ThemeStyles.ascx" />
+    <Content Include="skins\bright-blue\img\16_delete.png" />
+    <Content Include="skins\bright-blue\img\actions_icon.png" />
+    <Content Include="skins\bright-blue\img\bnt-onoff.png" />
+    <Content Include="skins\bright-blue\img\combobox_black.png" />
+    <Content Include="skins\bright-blue\img\convert_pencil.png" />
+    <Content Include="skins\bright-blue\img\edit_pencil.png" />
+    <Content Include="skins\bright-blue\img\mainmenu_upload.png" />
+    <Content Include="skins\bright-blue\img\unfollow.png" />
+    <Content Include="skins\dark-green\img\16_delete.png" />
+    <Content Include="skins\dark-green\img\actions_icon.png" />
+    <Content Include="skins\dark-green\img\bnt-onoff.png" />
+    <Content Include="skins\dark-green\img\combobox_black.png" />
+    <Content Include="skins\dark-green\img\convert_pencil.png" />
+    <Content Include="skins\dark-green\img\edit_pencil.png" />
+    <Content Include="skins\dark-green\img\mainmenu_upload.png" />
+    <Content Include="skins\dark-green\img\unfollow.png" />
+    <Content Include="skins\deep-blue\img\16_delete.png" />
+    <Content Include="skins\deep-blue\img\actions_icon.png" />
+    <Content Include="skins\deep-blue\img\bnt-onoff.png" />
+    <Content Include="skins\deep-blue\img\combobox_black.png" />
+    <Content Include="skins\deep-blue\img\convert_pencil.png" />
+    <Content Include="skins\deep-blue\img\edit_pencil.png" />
+    <Content Include="skins\deep-blue\img\mainmenu_upload.png" />
+    <Content Include="skins\deep-blue\img\unfollow.png" />
+    <Content Include="skins\default\advuserselector.css" />
+    <Content Include="skins\default\codestyle.css" />
+    <Content Include="skins\default\groupselector.css" />
+    <Content Include="skins\default\Images\empty_screen_filter.png" />
+    <Content Include="skins\default\jquery-advansedselector.css" />
+    <Content Include="skins\default\magnific-popup.css" />
+    <Content Include="skins\default\toastr.css" />
+    <Content Include="skins\pure-orange\img\actions_icon.png" />
+    <Content Include="skins\pure-orange\img\bnt-onoff.png" />
+    <Content Include="skins\pure-orange\img\combobox_black.png" />
+    <Content Include="skins\pure-orange\img\convert_pencil.png" />
+    <Content Include="skins\pure-orange\img\edit_pencil.png" />
+    <Content Include="skins\pure-orange\img\mainmenu_upload.png" />
+    <Content Include="skins\pure-orange\img\unfollow.png" />
+    <Content Include="skins\wild-pink\img\16_delete.png" />
+    <Content Include="skins\wild-pink\img\actions_icon.png" />
+    <Content Include="skins\wild-pink\img\bnt-onoff.png" />
+    <Content Include="skins\wild-pink\img\combobox_black.png" />
+    <Content Include="skins\wild-pink\img\convert_pencil.png" />
+    <Content Include="skins\wild-pink\img\edit_pencil.png" />
+    <Content Include="skins\wild-pink\img\mainmenu_upload.png" />
+    <Content Include="skins\wild-pink\img\unfollow.png" />
+    <Content Include="Templates\AdvansedSelectorTemplate.ascx" />
+    <Content Include="Templates\AdvUserSelectorTemplate.ascx" />
+    <Content Include="Templates\GroupSelectorTemplate.ascx" />
+    <Content Include="Templates\SharingSettingsTemplate.ascx" />
+    <Content Include="Terms.aspx" />
+    <Content Include="UserControls\Common\Attachments\css\ImagesCss\attach.png" />
+    <Content Include="UserControls\Common\Attachments\css\ImagesCss\download_action.png" />
+    <Content Include="UserControls\Common\Attachments\css\ImagesCss\new_file.png" />
+    <Content Include="UserControls\Common\Attachments\css\ImagesCss\pencil.png" />
+    <Content Include="UserControls\Common\Attachments\css\ImagesCss\trash.png" />
+    <Content Include="UserControls\Common\Attachments\css\ImagesCss\upload.png" />
+    <Content Include="UserControls\Common\Attachments\css\attachments.less" />
+    <Content Include="UserControls\Common\Attachments\Attachments.ascx" />
+    <Content Include="UserControls\Common\Attachments\Images\documents-logo.png" />
+    <Content Include="UserControls\Common\Attachments\js\attachments.js" />
+    <Content Include="UserControls\Common\AuthorizeDocs\AuthorizeDocs.ascx" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\bg01_top-center.jpg" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\bg01_top-right.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\bg_comp.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\btn_64.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\flags.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\services_48.png" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\authorizedocs.less" />
+    <Content Include="UserControls\Common\AuthorizeDocs\js\authorizedocs.js" />
+    <Content Include="UserControls\Common\AuthorizeDocs\js\bootstrap-carousel.js" />
+    <Content Include="UserControls\Common\Authorize\Authorize.ascx" />
+    <Content Include="UserControls\Common\Authorize\js\authorize.js" />
+    <Content Include="UserControls\Common\Comments\js\comments.js" />
+    <Content Include="UserControls\Common\Comments\js\onReady.js" />
+    <Content Include="UserControls\Common\HelpTour\HelpTour.ascx" />
+    <Content Include="UserControls\Common\HelpTour\js\helptour.js" />
+    <Content Include="UserControls\Common\PersonalFooter\js\personalfooter.js" />
+    <Content Include="UserControls\Common\PersonalFooter\PersonalFooter.ascx" />
+    <Content Include="UserControls\Common\PollForm\css\style.css" />
+    <Content Include="UserControls\Common\PollForm\js\pollform.js" />
+    <Content Include="UserControls\Common\SmallChat\css\images\icon_ch-size.png" />
+    <Content Include="UserControls\Common\SmallChat\css\images\loader16.gif" />
+    <Content Include="UserControls\Common\SmallChat\css\images\loader_48.gif" />
+    <Content Include="UserControls\Common\SmallChat\css\images\main_icons_sprite.png" />
+    <Content Include="UserControls\Common\SmallChat\css\images\status_sprite.png" />
+    <Content Include="UserControls\Common\SmallChat\css\jquery.cssemoticons.css" />
+    <Content Include="UserControls\Common\SmallChat\css\smallChat.css" />
+    <Content Include="UserControls\Common\SmallChat\css\sounds\chat.mp3" />
+    <Content Include="UserControls\Common\SmallChat\css\sounds\chat.wav" />
+    <Content Include="UserControls\Common\SmallChat\js\smallChat.js" />
+    <Content Include="UserControls\Common\SmallChat\SmallChat.ascx" />
+    <Content Include="UserControls\Common\TabsNavigator\js\tabsnavigator.js" />
+    <Content Include="UserControls\Common\ViewSwitcher\css\viewswitcher.css" />
+    <Content Include="UserControls\Common\ViewSwitcher\js\viewswitcher.js" />
+    <Content Include="UserControls\FirstTime\css\images\clouds.png" />
+    <Content Include="UserControls\FirstTime\css\images\clouds_fond.png" />
+    <Content Include="UserControls\FirstTime\css\images\collapse_down_dark.png" />
+    <Content Include="UserControls\FirstTime\css\images\collapse_right_light.png" />
+    <Content Include="UserControls\FirstTime\css\images\round.png" />
+    <Content Include="UserControls\FirstTime\css\images\warning_16.png" />
+    <Content Include="StartScriptsStyles.aspx" />
+    <Content Include="UserControls\Management\AuditTrail\AuditTrail.ascx" />
+    <Content Include="UserControls\Management\AuditTrail\img\audit_trail_empty_screen.jpg" />
+    <Content Include="UserControls\Management\AuditTrail\js\audittrail.js" />
+    <Content Include="UserControls\Management\AuthorizationKeys\AuthorizationKeys.ascx" />
+    <Content Include="UserControls\Management\AuthorizationKeys\css\authorizationkeys.css" />
+    <Content Include="UserControls\Management\AuthorizationKeys\js\authorizationkeys.js" />
+    <Content Include="UserControls\Management\Backup\Backup.ascx" />
+    <Content Include="UserControls\Management\Backup\css\backup.css" />
+    <Content Include="UserControls\Management\Backup\js\backup.js" />
+    <Content Include="UserControls\Management\ColorThemes\ColorThemes.ascx" />
+    <Content Include="UserControls\Management\ColorThemes\css\colorthemes.css" />
+    <Content Include="UserControls\Management\ColorThemes\js\colorthemes.js" />
+    <Content Include="UserControls\Management\LdapSettings\css\Default\ldapsettings.css" />
+    <Content Include="UserControls\Management\LdapSettings\js\ldapsettings.js" />
+    <Content Include="UserControls\Management\LdapSettings\LdapSettings.ascx" />
+    <Content Include="UserControls\Management\LoginHistory\img\login_history_empty_screen.jpg" />
+    <Content Include="UserControls\Management\LoginHistory\js\loginhistory.js" />
+    <Content Include="UserControls\Management\LoginHistory\LoginHistory.ascx" />
+    <Content Include="UserControls\Management\Monitoring\js\loghelper.js" />
+    <Content Include="UserControls\Management\Monitoring\js\portschecker.js" />
+    <Content Include="UserControls\Management\Monitoring\js\servicehealthchecker.js" />
+    <Content Include="UserControls\Management\Monitoring\LogHelper.ascx" />
+    <Content Include="UserControls\Management\Monitoring\PortsChecker.ascx" />
+    <Content Include="UserControls\Management\Monitoring\ServiceHealthChecker.ascx" />
+    <Content Include="UserControls\Management\NamingPeopleSettings\css\images\info_icon.png" />
+    <Content Include="UserControls\Management\PasswordSettings\css\images\slider.png" />
+    <Content Include="UserControls\Management\PromoCode\PromoCode.ascx" />
+    <Content Include="UserControls\Management\PromoCode\promocode.js" />
+    <Content Include="UserControls\Management\SingleSignOnSettings\css\singlesignonsettings.css" />
+    <Content Include="UserControls\Management\SingleSignOnSettings\js\singlesignonsettings.js" />
+    <Content Include="UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx" />
+    <Content Include="UserControls\Management\SmtpSettings\css\smtpsettings.css" />
+    <Content Include="UserControls\Management\SmtpSettings\js\smtpsettings.js" />
+    <Content Include="UserControls\Management\SmtpSettings\SmtpSettings.ascx" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\add_users_info.png" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\icon_exclamation.png" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\icon_online_editors.png" />
+    <Content Include="UserControls\Management\TariffSettings\css\img\icon_storage.png" />
+    <Content Include="UserControls\Management\UploadHttps\UploadHttps.ascx" />
+    <Content Include="UserControls\Management\UploadHttps\js\uploadhttps.js" />
+    <Content Include="UserControls\Users\UserProfile\css\images\acc_facebook.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\acc_facebook_small.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\acc_google.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\acc_google_small.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\acc_linked.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\acc_linkedin.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\acc_linkedin_small.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\acc_twitter.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\acc_twitter_small.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\actions_icon.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\birthday.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\btn-edit.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\facebook-button.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\flags.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\google-button.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\linkedin-button.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\messages_user.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_aim.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_blogger.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_facebook.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_gbuzz.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_gmail.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_gtalk.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_icq.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_jabber.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_livejournal.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_mail.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_mobile.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_mobile_key.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_msn.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_myspace.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_phone.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_skype.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_twitter.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_yahoo.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\sc_yahoobuzz.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\social-icons-grey.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\social-icons-small.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\social-icons.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\status_offline.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\status_online.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\triangle_grey_tree-down.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\twitter-button.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\user-blocked.png" />
+    <Content Include="UserControls\Users\UserProfile\css\images\user-waiting.png" />
+    <Content Include="UserControls\Users\UserProfile\css\accountlink_style.less" />
+    <Content Include="UserControls\Users\UserProfile\css\profileeditcontrol_style.less" />
+    <Content Include="UserControls\Users\UserProfile\css\userprofilecontrol_style.less" />
+    <Content Include="UserControls\Users\UserProfile\css\loadphoto_style.less" />
+    <Content Include="UserControls\Users\UserProfile\js\deleteuser.js" />
+    <Content Include="UserControls\Users\UserProfile\js\loadphoto.js" />
+    <Content Include="UserControls\Users\UserProfile\js\userlanguage.js" />
+    <Content Include="UserControls\Users\UserProfile\js\userprofilecontrol.js" />
+    <Content Include="UserControls\Users\UserProfile\js\accountlinker.js" />
+    <Content Include="UserControls\Users\UserProfile\js\pwdtool.js" />
+    <Content Include="UserControls\Users\UserProfile\js\userprofileeditcontrol.js" />
+    <Content Include="UserControls\Users\UserProfile\LoadPhotoControl.ascx" />
+    <Content Include="UserControls\Users\UserProfile\AccountLinkControl.ascx" />
+    <Content Include="UserControls\Users\UserProfile\UserEmailControl.ascx" />
+    <Content Include="UserControls\Users\UserProfile\UserProfileControl.ascx" />
+    <Content Include="UserControls\Users\UserProfile\PwdTool.ascx" />
+    <Content Include="UserControls\Users\UserProfile\ConfirmationDeleteUser.ascx" />
+    <Content Include="UserControls\Users\UserProfile\UserEmailChange.ascx" />
+    <Content Include="UserControls\Users\UserProfile\UserLanguage.ascx" />
+    <Content Include="UserControls\Users\UserProfile\UserProfileActions.ascx" />
+    <Content Include="UserControls\Users\UserProfile\UserProfileEditControl.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Auth.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Management.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PublicResources\AuditResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AuditResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublicResources\ChatResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ChatResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublicResources\StudioCountriesResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StudioCountriesResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublicResources\FeedResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FeedResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublicResources\MonitoringResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MonitoringResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublicResources\Resource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublicResources\ResourceJS.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceJS.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublicResources\UserControlsCommonResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserControlsCommonResource.designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Notify\WebPatternResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WebPatternResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Notify\WebstudioPatternResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WebstudioPatternResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Notify\webstudio_patterns.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Users\NamingPeopleResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NamingPeopleResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Core\Users\PeopleNames.xml" />
+    <Content Include="crossdomain.xml" />
+    <Content Include="login.ashx" />
+    <Content Include="robots.txt" />
+    <Content Include="UserControls\FirstTime\EmailAndPassword.ascx" />
+    <Content Include="UserControls\FirstTime\js\manager.js" />
+    <Content Include="UserControls\FirstTime\js\view.js" />
+    <Content Include="UserControls\FirstTime\StepContainer.ascx" />
+    <Content Include="skins\default\jquery-advansedfilter.css" />
+    <Content Include="UserControls\Common\Search\SearchResults.ascx" />
+    <Content Include="UserControls\Common\Search\js\searchresults.js" />
+    <Content Include="UserControls\Common\Search\css\searchResults.less" />
+    <Content Include="UserControls\Common\SharingSettings\js\sharingsettings.js" />
+    <Content Include="UserControls\Common\SharingSettings\SharingSettings.ascx" />
+    <Content Include="UserControls\Management\AdminSettings\ConfirmPortalOwner.ascx" />
+    <Content Include="UserControls\Management\ConfirmActivation.ascx" />
+    <Content Include="UserControls\Management\GreetingSettings\GreetingSettingsContent.ascx" />
+    <Content Include="UserControls\Management\GreetingSettings\js\greetingsettings.js" />
+    <Content Include="UserControls\Management\MailDomainSettings\js\maildomainsettings.js" />
+    <Content Include="UserControls\Management\MailDomainSettings\MailDomainSettings.ascx" />
+    <Content Include="UserControls\Management\NamingPeopleSettings\js\namingpeoplecontent.js" />
+    <Content Include="UserControls\Management\NamingPeopleSettings\NamingPeopleSettingsContent.ascx" />
+    <Content Include="UserControls\Management\PasswordSettings\js\passwordSettings.js" />
+    <Content Include="UserControls\Management\PasswordSettings\PasswordSettings.ascx" />
+    <Content Include="UserControls\Management\TariffSettings\js\tariffsettings.js" />
+    <Content Include="UserControls\Management\TariffSettings\TariffSettings.ascx" />
+    <Content Include="UserControls\Management\TimeAndLanguage\js\timeandlanguage.js" />
+    <Content Include="UserControls\Management\TimeAndLanguage\TimeAndLanguage.ascx" />
+    <Content Include="UserControls\Users\UserSubscriptions\js\subscription_manager.js" />
+    <Content Include="UserControls\Users\UserSubscriptions\UserSubscriptions.ascx" />
+    <Content Include="Web.consumers.config" />
+    <Content Include="health.ashx" />
+    <Content Include="UserControls\Management\GreetingSettings\GreetingSettings.ascx" />
+    <Content Include="UserControls\Management\GreetingSettings\js\greetingsettingscontent.js" />
+    <Content Include="UserControls\Management\NamingPeopleSettings\js\namingpeople.js" />
+    <Content Include="UserControls\Management\NamingPeopleSettings\NamingPeopleSettings.ascx" />
+    <Content Include="confirm.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="My.aspx" />
+    <Content Include="skins\default\common_style.de-de.css" />
+    <Content Include="skins\default\common_style.fr-fr.css" />
+    <Content Include="UserControls\Management\ConfirmPortalActivity.ascx" />
+    <Content Include="UserControls\Statistics\ProductQuotes\ProductQuotes.ascx" />
+    <Content Include="UserControls\Statistics\VisitorsChart\css\visitorschart_style.less" />
+    <Content Include="UserControls\Statistics\VisitorsChart\js\excanvas.min.js" />
+    <Content Include="UserControls\Statistics\VisitorsChart\js\jquery.flot.js" />
+    <Content Include="UserControls\Statistics\VisitorsChart\js\tooltip.js" />
+    <Content Include="UserControls\Statistics\VisitorsChart\js\visitorschart.js" />
+    <Content Include="UserControls\Statistics\VisitorsChart\VisitorsChart.ascx" />
+    <Content Include="UserControls\Users\ThumbnailEditor\css\thumbnaileditor.less" />
+    <Content Include="UserControls\Users\ThumbnailEditor\css\images\Jcrop.gif" />
+    <Content Include="UserControls\Users\ThumbnailEditor\js\thumbnaileditor.js" />
+    <Content Include="UserControls\Users\ThumbnailEditor\ThumbnailEditor.ascx" />
+    <Content Include="UserControls\Users\ThumbnailEditor\js\jquery.Jcrop.js" />
+    <Content Include="web.log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="web.connections.config" />
+    <Content Include="Services\WhatsNew\feed.ashx" />
+    <Content Include="web.unity.config" />
+    <Content Include="web.storage.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="web.appsettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="skins\default\common_style.css" />
+    <Content Include="skins\default\ImagesCSS\add_group.png" />
+    <Content Include="skins\default\ImagesCSS\alert_16.png" />
+    <Content Include="skins\default\ImagesCSS\blank.gif" />
+    <Content Include="skins\default\ImagesCSS\cross-blue.png" />
+    <Content Include="skins\default\ImagesCSS\cross-grey.png" />
+    <Content Include="skins\default\ImagesCSS\header_bg.png" />
+    <Content Include="skins\default\ImagesCSS\info_16.gif" />
+    <Content Include="skins\default\ImagesCSS\move.png" />
+    <Content Include="skins\default\ImagesCSS\move2.png" />
+    <Content Include="skins\default\ImagesCSS\popup_close_bg.png" />
+    <Content Include="skins\default\ImagesCSS\popup_header_bg.png" />
+    <Content Include="skins\default\ImagesCSS\profile.gif" />
+    <Content Include="skins\default\ImagesCSS\quoteBord-b.gif" />
+    <Content Include="skins\default\ImagesCSS\quoteBord-l.gif" />
+    <Content Include="skins\default\ImagesCSS\quoteBord-r.gif" />
+    <Content Include="skins\default\ImagesCSS\quoteBord-t.gif" />
+    <Content Include="skins\default\ImagesCSS\search.png" />
+    <Content Include="skins\default\ImagesCSS\calendar.gif" />
+    <Content Include="skins\default\ImagesCSS\add_user.png" />
+    <Content Include="skins\default\ImagesCSS\delete.png" />
+    <Content Include="skins\default\ImagesCSS\edit_small_blue.PNG" />
+    <Content Include="skins\default\ImagesCSS\button-cut.png" />
+    <Content Include="skins\default\ImagesCSS\combobox_black.png" />
+    <Content Include="skins\default\ImagesCSS\combobox_white.png" />
+    <Content Include="skins\default\ImagesCSS\cut-scissors.png" />
+    <Content Include="skins\default\ImagesCSS\entity_action_icon.png" />
+    <Content Include="skins\default\ImagesCSS\icons_nav_panel.png" />
+    <Content Include="skins\default\ImagesCSS\menu_small.png" />
+    <Content Include="skins\default\ImagesCSS\teamlab_7.0_pop-up.png" />
+    <Content Include="skins\default\ImagesCSS\triangle_grey_tree_sprite.png" />
+    <Content Include="skins\default\ImagesCSS\blue_pluses.png" />
+    <Content Include="skins\default\ImagesCSS\help_icon.png" />
+    <Content Include="skins\default\ImagesCSS\sort_down_black.png" />
+    <Content Include="skins\default\ImagesCSS\sort_down_gray.png" />
+    <Content Include="skins\default\ImagesCSS\toast_icon01.png" />
+    <Content Include="skins\default\ImagesCSS\toast_icon02.png" />
+    <Content Include="skins\default\ImagesCSS\toast_icon03.png" />
+    <Content Include="skins\default\ImagesCSS\loader_small.gif" />
+    <Content Include="skins\default\ImagesCSS\flags.gif" />
+    <Content Include="skins\default\ImagesCSS\plus_16.png" />
+    <Content Include="skins\default\ImagesCSS\trash_16.png" />
+    <Content Include="skins\default\Images\blank.gif" />
+    <Content Include="skins\default\Images\collapse_down_dark.png" />
+    <Content Include="skins\default\Images\collapse_down_light.png" />
+    <Content Include="skins\default\Images\collapse_right_dark.png" />
+    <Content Include="skins\default\Images\collapse_right_light.png" />
+    <Content Include="skins\default\Images\common_search_icon.png" />
+    <Content Include="skins\default\Images\default_greeting_logo.jpg" />
+    <Content Include="skins\default\Images\Employee_Card_icon.png" />
+    <Content Include="skins\default\Images\Employee_Department_icon.png" />
+    <Content Include="skins\default\Images\lastadded_widget.png" />
+    <Content Include="skins\default\Images\mail.png" />
+    <Content Include="skins\default\Images\mail_user.png" />
+    <Content Include="skins\default\Images\people_search_icon.png" />
+    <Content Include="skins\default\Images\profile.gif" />
+    <Content Include="skins\default\Images\smile1.gif" />
+    <Content Include="skins\default\Images\smile10.gif" />
+    <Content Include="skins\default\Images\smile11.gif" />
+    <Content Include="skins\default\Images\smile12.gif" />
+    <Content Include="skins\default\Images\smile13.gif" />
+    <Content Include="skins\default\Images\smile14.gif" />
+    <Content Include="skins\default\Images\smile15.gif" />
+    <Content Include="skins\default\Images\smile16.gif" />
+    <Content Include="skins\default\Images\smile17.gif" />
+    <Content Include="skins\default\Images\smile18.gif" />
+    <Content Include="skins\default\Images\smile19.gif" />
+    <Content Include="skins\default\Images\smile2.gif" />
+    <Content Include="skins\default\Images\smile20.gif" />
+    <Content Include="skins\default\Images\smile21.gif" />
+    <Content Include="skins\default\Images\smile3.gif" />
+    <Content Include="skins\default\Images\smile4.gif" />
+    <Content Include="skins\default\Images\smile5.gif" />
+    <Content Include="skins\default\Images\smile6.gif" />
+    <Content Include="skins\default\Images\smile7.gif" />
+    <Content Include="skins\default\Images\smile8.gif" />
+    <Content Include="skins\default\Images\smile9.gif" />
+    <Content Include="skins\default\Images\smile_common.png" />
+    <Content Include="skins\default\Images\status_offline.png" />
+    <Content Include="skins\default\Images\status_online.png" />
+    <Content Include="skins\default\Images\talk.png" />
+    <Content Include="skins\default\Images\to_left.png" />
+    <Content Include="skins\default\Images\to_right.png" />
+    <Content Include="skins\default\Images\recent_activity.png" />
+    <Content Include="skins\default\Images\group_12.png" />
+    <Content Include="skins\default\Images\user_12.png" />
+    <Content Include="skins\default\Images\trash_12.png" />
+    <Content Include="skins\default\Images\Employee.png" />
+    <Content Include="skins\default\Images\helper-corner-down-left.png" />
+    <Content Include="skins\default\Images\helper-corner-down.png" />
+    <Content Include="skins\default\Images\helper-corner-left.png" />
+    <Content Include="skins\default\Images\helper-corner.png" />
+    <Content Include="skins\default\Images\logo\logo.png" />
+    <Content Include="skins\default\Images\logo\top_logo.png" />
+    <Content Include="skins\default\Images\logo\logo_personal.png" />
+    <Content Include="skins\default\Images\dropdown-corner-top.gif" />
+    <Content Include="skins\default\Images\tlcombobox-button.gif" />
+    <Content Include="Search.aspx" />
+    <Content Include="ServerError.aspx" />
+    <Content Include="UserControls\Common\Confirm\Confirm.ascx" />
+    <Content Include="UserControls\Common\Confirm\js\confirm.js" />
+    <Content Include="UserControls\Management\StudioSettings\StudioSettings.ascx" />
+    <Content Include="UserControls\Management\StudioSettings\studiosettings.js" />
+    <Content Include="UserControls\Users\AddContent\AddContentControl.ascx" />
+    <Content Include="UserControls\Users\UserSelector\js\userselector.js" />
+    <Content Include="UserControls\Users\UserSelector\UserSelector.ascx" />
+    <Content Include="Wizard.aspx" />
+    <Content Include="UserControls\Feed\css\feed.less" />
+    <Content Include="UserControls\Users\UserSelector\css\userselector.less" />
+    <Content Include="UserControls\Users\UserSubscriptions\css\subscriptions.less" />
+    <Content Include="UserControls\Users\ImportUsers\css\import.less" />
+    <Content Include="UserControls\Users\AddContent\css\addcontentcontrol_style.less" />
+    <Content Include="UserControls\Statistics\ProductQuotes\css\productquotes_style.less" />
+    <Content Include="UserControls\Management\TransferPortal\css\transferportal.less" />
+    <Content Include="UserControls\Management\VersionSettings\css\versionsettings.less" />
+    <Content Include="UserControls\Management\TimeAndLanguage\css\timeandlanguage.less" />
+    <Content Include="UserControls\Management\TariffSettings\css\tarifflimitexceed.less" />
+    <Content Include="UserControls\Management\TariffSettings\css\tariffpartner.less" />
+    <Content Include="UserControls\Management\TariffSettings\css\tariffsettings.less" />
+    <Content Include="UserControls\Management\SmsControls\css\confirmmobile.less" />
+    <Content Include="UserControls\Management\PasswordSettings\css\PasswordSettings.less" />
+    <Content Include="UserControls\Management\NamingPeopleSettings\css\namingpeople.less" />
+    <Content Include="UserControls\Management\MailDomainSettings\css\maildomainsettings.less" />
+    <Content Include="UserControls\Management\InviteLink\css\invitelink.less" />
+    <Content Include="UserControls\Management\GreetingSettings\css\greetingsettings.less" />
+    <Content Include="UserControls\Management\ConfirmInviteActivation\css\confirm_invite_activation.less" />
+    <Content Include="UserControls\Management\AdminMessageSettings\css\admMess.less" />
+    <Content Include="UserControls\Management\AccessRights\css\accessrights.less" />
+    <Content Include="UserControls\FirstTime\css\EmailAndPassword.less" />
+    <Content Include="UserControls\FirstTime\css\stepContainer.less" />
+    <Content Include="UserControls\FirstTime\HowTo\css\howto.less" />
+    <Content Include="UserControls\Management\ProductsAndInstruments\css\productsandinstruments.less" />
+    <Content Include="skins\default\main.less" />
+    <Content Include="skins\default\params.less" />
+    <Content Include="skins\default\topstudiopanel.less" />
+    <Content Include="skins\pure-orange\main.less" />
+    <Content Include="skins\pure-orange\params.less" />
+    <Content Include="skins\wild-pink\main.less" />
+    <Content Include="skins\wild-pink\params.less" />
+    <Content Include="skins\page_default.less" />
+    <Content Include="UserControls\Common\Authorize\css\authorize.less" />
+    <Content Include="skins\default\contentmenu.less" />
+    <Content Include="skins\default\headers.less" />
+    <Content Include="skins\default\links.less" />
+    <Content Include="skins\default\lists.less" />
+    <Content Include="skins\default\sidepanel.less" />
+    <Content Include="skins\default\phonecontroller.css" />
+    <Content Include="UserControls\Common\PersonalFooter\css\personalfooter.less" />
+    <Content Include="UserControls\Users\UserProfile\css\userlanguages.less" />
+    <Content Include="skins\default\magnific-popup.less" />
+    <Content Include="UserControls\Management\AuditTrail\css\audittrail.less" />
+    <Content Include="UserControls\Management\LoginHistory\css\loginhistory.less" />
+    <Content Include="UserControls\Common\SmallChat\css\sounds\chat.ogg" />
+    <Content Include="UserControls\Management\Monitoring\css\monitoring.less" />
+    <Content Include="skins\default\dashboard.less" />
+    <Content Include="UserControls\Common\AuthorizeDocs\js\quotes.json" />
+    <Content Include="skins\personal.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="403.htm" />
+    <Content Include="skins\default\filetype_style.css" />
+    <Content Include="UserControls\Common\ProjectDocumentsPopup\js\projectDocumentsPopup.js" />
+    <Content Include="UserControls\Common\ProjectDocumentsPopup\ProjectDocumentsPopup.ascx" />
+    <Content Include="UserControls\FirstTime\HowTo\HowTo.ascx" />
+    <Content Include="UserControls\FirstTime\HowTo\images\free_proj_manag.png" />
+    <Content Include="UserControls\Management\AdminMessageSettings\AdminMessageSettings.ascx" />
+    <Content Include="UserControls\Management\AdminMessageSettings\js\admmess.js" />
+    <Content Include="UserControls\Management\ConfirmInviteActivation\ConfirmInviteActivation.ascx" />
+    <Content Include="UserControls\Management\InviteLink\InviteLink.ascx" />
+    <Content Include="UserControls\Management\ProfileOperation.ascx" />
+    <Content Include="UserControls\Users\AuthCommunications\AuthCommunications.ascx" />
+    <Content Include="UserControls\Users\AuthCommunications\js\authcommunications.js" />
+    <Content Include="UserControls\Users\ImportUsers\images\collapse.png" />
+    <Content Include="UserControls\Users\ImportUsers\images\from_file.png" />
+    <Content Include="UserControls\Users\ImportUsers\images\icon_add_users.png" />
+    <Content Include="UserControls\Users\ImportUsers\images\remove_red.png" />
+    <Content Include="UserControls\Users\ImportUsers\images\trash_fu.png" />
+    <Content Include="UserControls\Users\ImportUsers\ImportUsers.ascx" />
+    <Content Include="UserControls\Users\ImportUsers\ImportUsersTemplate.ascx" />
+    <Content Include="UserControls\Users\ImportUsers\js\importUsers.js" />
+    <Content Include="UserControls\Users\ResendInvitesControl\ResendInvitesControl.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UserControls\Common\ProjectDocumentsPopup\Images\project-documents.png" />
+    <Content Include="UserControls\Management\AccessRights\AccessRights.ascx" />
+    <Content Include="UserControls\Management\AccessRights\AccessRightsProductItem.ascx" />
+    <Content Include="UserControls\Management\AccessRights\js\accessrights.js" />
+    <Content Include="UserControls\Management\VersionSettings\js\script.js" />
+    <Content Include="UserControls\Management\VersionSettings\VersionSettings.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UserControls\Management\TariffSettings\TariffUsage.ascx" />
+    <Content Include="js\uploader\plupload.js" />
+    <Content Include="js\uploader\pluploadManager.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="js\flash\Moxie.swf" />
+    <Content Include="js\flash\zeroclipboard\ZeroClipboard10.swf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="404.htm" />
+    <Content Include="500.htm" />
+    <Content Include="browser-not-supported.htm" />
+    <Content Include="migration-portal.htm" />
+    <Content Include="Feed.aspx" />
+    <Content Include="js\asc\api\api.factory.js" />
+    <Content Include="js\asc\api\api.helper.js" />
+    <Content Include="js\asc\api\api.service.js" />
+    <Content Include="js\asc\api\asc.teamlab.js" />
+    <Content Include="js\asc\core\advuserselector.js" />
+    <Content Include="js\asc\core\asc.pagenavigator.js" />
+    <Content Include="js\asc\core\asc.anchorcontroller.js" />
+    <Content Include="js\asc\core\asc.customevents.js" />
+    <Content Include="js\asc\core\asc.feedreader.js" />
+    <Content Include="js\asc\core\asc.files.utility.js" />
+    <Content Include="js\asc\core\asc.listscript.js" />
+    <Content Include="js\asc\core\asc.tabsnavigator.js" />
+    <Content Include="js\asc\core\asc.topstudiopanel.js" />
+    <Content Include="js\asc\core\basetemplate.master.init.js" />
+    <Content Include="js\asc\core\common.js" />
+    <Content Include="js\asc\core\decoder.js" />
+    <Content Include="js\asc\core\groupselector.js" />
+    <Content Include="js\asc\plugins\jquery-advansedfilter.js" />
+    <Content Include="js\asc\plugins\jquery-customcombobox.js" />
+    <Content Include="js\asc\plugins\jquery.base64.js" />
+    <Content Include="js\asc\plugins\jquery.browser.js" />
+    <Content Include="js\asc\plugins\jquery.dropdownToggle.js" />
+    <Content Include="js\asc\plugins\jquery.helper.js" />
+    <Content Include="js\asc\plugins\jquery.sets.js" />
+    <Content Include="js\asc\plugins\jquery.tlblock.js" />
+    <Content Include="js\asc\plugins\jquery.tlcombobox.js" />
+    <Content Include="js\asc\plugins\jquery-advansedselector.js" />
+    <Content Include="js\asc\plugins\jquery-useradvansedselector.js" />
+    <Content Include="js\asc\plugins\popupBox.js" />
+    <Content Include="js\asc\plugins\tagsAutocompleteBox.js" />
+    <Content Include="js\asc\plugins\countries.js" />
+    <Content Include="js\asc\plugins\phonecontroller.js" />
+    <Content Include="js\third-party\jquery\jquery.autosize.js" />
+    <Content Include="js\third-party\jquery\jquery.magnific-popup.js" />
+    <Content Include="js\third-party\jquery\jquery.blockUI.js" />
+    <Content Include="js\third-party\jquery\jquery.colors.js" />
+    <Content Include="js\third-party\jquery\jquery.cookies.js" />
+    <Content Include="js\third-party\jquery\jquery.core.js" />
+    <Content Include="js\third-party\jquery\jquery.cssemoticons.js" />
+    <Content Include="js\third-party\jquery\jquery.json.js" />
+    <Content Include="js\third-party\jquery\jquery.mask.js" />
+    <Content Include="js\third-party\jquery\jquery.mousewheel.js" />
+    <Content Include="js\third-party\jquery\jquery.scrollTo.js" />
+    <Content Include="js\third-party\jquery\jquery.tmpl.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.autocomplete.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.button.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.core.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.dialog.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.draggable.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.mouse.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.position.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.resizable.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.slider.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.sortable.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.widget.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.datepicker.js" />
+    <Content Include="js\third-party\jquery\jquery.ui.menu.js" />
+    <Content Include="js\third-party\jquery\jquery.uri.js" />
+    <Content Include="js\third-party\jquery\jquery.watermarkinput.js" />
+    <Content Include="js\third-party\jquery\toastr.js" />
+    <Content Include="js\third-party\ajaxpro.core.js" />
+    <Content Include="js\third-party\highlight.pack.js" />
+    <Content Include="js\third-party\sorttable.js" />
+    <Content Include="js\third-party\zeroclipboard.js" />
+    <Content Include="js\third-party\head.load.min.js" />
+    <Content Include="js\third-party\setImmediate.js" />
+    <Content Include="js\uploader\ajaxupload.js" />
+    <Content Include="Masters\FeedBodyScripts.ascx" />
+    <Content Include="skins\default\jquery_style.css" />
+    <Content Include="Tariffs.aspx" />
+    <Content Include="Templates\AdvansedFilterTemplate.ascx" />
+    <Content Include="Templates\FeedListTemplate.ascx" />
+    <Content Include="Templates\DropFeedTemplate.ascx" />
+    <Content Include="Templates\UserProfileCardTemplate.ascx" />
+    <Content Include="UserControls\Common\ActivateEmailPanel.ascx" />
+    <Content Include="UserControls\Common\Banner\Banner.ascx" />
+    <Content Include="UserControls\Common\Banner\js\banner.js" />
+    <Content Include="UserControls\Common\HelpCenter\HelpCenter.ascx" />
+    <Content Include="UserControls\Common\HelpCenter\js\help-center.js" />
+    <Content Include="UserControls\Common\LoginWithThirdParty.ascx" />
+    <Content Include="UserControls\Common\Support\Support.ascx" />
+    <Content Include="UserControls\Common\TopStudioPanel\TopStudioPanel.ascx" />
+    <Content Include="UserControls\Feed\FeedList.ascx" />
+    <Content Include="UserControls\Feed\images\arrow-right-blue.png" />
+    <Content Include="UserControls\Feed\images\arrow-right.png" />
+    <Content Include="UserControls\Feed\images\empty_filter.png" />
+    <Content Include="UserControls\Feed\images\empty_screen_feed.png" />
+    <Content Include="UserControls\Feed\images\fade.png" />
+    <Content Include="UserControls\Feed\images\loader16.gif" />
+    <Content Include="UserControls\Feed\js\feed.filter.js" />
+    <Content Include="UserControls\Feed\js\feed.js" />
+    <Content Include="UserControls\Feed\NewNavigationPanel.ascx" />
+    <Content Include="UserControls\FirstTime\js\start.js" />
+    <Content Include="UserControls\Management\ConfirmInviteActivation\js\confirm_invite_activation.js" />
+    <Content Include="UserControls\Management\DefaultPageSettings\DefaultPageSettings.ascx" />
+    <Content Include="UserControls\Management\DefaultPageSettings\js\defaultpage.js" />
+    <Content Include="UserControls\Management\InviteLink\js\invitelink.js" />
+    <Content Include="UserControls\Management\ProductsAndInstruments\js\productsandinstruments.js" />
+    <Content Include="UserControls\Management\ProductsAndInstruments\ProductsAndInstruments.ascx" />
+    <Content Include="UserControls\Management\SmsControls\ConfirmMobileActivation.ascx" />
+    <Content Include="UserControls\Management\SmsControls\js\confirmmobile.js" />
+    <Content Include="UserControls\Management\SmsControls\js\smsvalidation.js" />
+    <Content Include="UserControls\Management\SmsControls\js\changemobile.js" />
+    <Content Include="UserControls\Management\SmsControls\js\smsbuy.js" />
+    <Content Include="UserControls\Management\SmsControls\SmsBuy.ascx" />
+    <Content Include="UserControls\Management\SmsControls\SmsValidationSettings.ascx" />
+    <Content Include="UserControls\Management\SmsControls\ChangeMobileNumber.ascx" />
+    <Content Include="UserControls\Management\TariffSettings\js\tarifflimitexceed.js" />
+    <Content Include="UserControls\Management\TariffSettings\js\tariffpartner.js" />
+    <Content Include="UserControls\Management\TariffSettings\TariffLimitExceed.ascx" />
+    <Content Include="UserControls\Management\TariffSettings\TariffPartner.ascx" />
+    <Content Include="UserControls\Management\TransferPortal\js\transferportal.js" />
+    <Content Include="UserControls\Management\TransferPortal\TransferPortal.ascx" />
+    <Content Include="UserControls\Users\ImportUsers\images\bg_check_all.png" />
+    <Content Include="UserControls\Users\ImportUsers\images\error_info.png" />
+    <Content Include="UserControls\Users\ResendInvitesControl\js\resendinvitescontrol.js" />
+    <Content Include="UserControls\Users\UserSubscriptions\css\img\bnt-onoff.png" />
+    <Content Include="UserControls\Users\UserSubscriptions\css\img\hmenu-selected.png" />
+    <Content Include="UserControls\Users\UserSubscriptions\css\img\icons_titles.png" />
+    <Content Include="Welcome.aspx" />
+    <Compile Include="Controls\Common\FeedControl.cs" />
+    <Compile Include="Core\StudioTrustedDomainSettings.cs" />
+    <Compile Include="Core\CollaboratorSettings.cs" />
+    <Compile Include="Core\StudioKeySettings.cs" />
+    <Compile Include="Core\Users\AffiliateHelper.cs" />
+    <Compile Include="Core\Users\MyContact.cs" />
+    <Compile Include="Core\Users\ProfileHelper.cs" />
+    <Compile Include="Core\StudioDefaultPageSettings.cs" />
+    <Compile Include="Feed.aspx.cs">
+      <DependentUpon>Feed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Feed.aspx.designer.cs">
+      <DependentUpon>Feed.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HttpHandlers\InvoiceHandler.cs" />
+    <Compile Include="HttpHandlers\KeepSessionAliveHandler.cs" />
+    <Compile Include="HttpHandlers\UserPhotoHandler.cs" />
+    <Compile Include="Masters\MasterManagement\StudioMasterExtensions.cs" />
+    <Compile Include="Masters\MasterResources\MasterFileUtilityResources.cs" />
+    <Compile Include="Masters\MasterResources\MasterSettingsResources.cs" />
+    <Compile Include="Masters\MasterResources\MasterTemplateResources.cs" />
+    <Compile Include="Masters\MasterResources\MasterUserResources.cs" />
+    <Compile Include="Masters\MasterResources\MasterLocalizationResources.cs" />
+    <Compile Include="PublicResources\FeedResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FeedResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tariffs.aspx.cs">
+      <DependentUpon>Tariffs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tariffs.aspx.designer.cs">
+      <DependentUpon>Tariffs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\ActivateEmailPanel.ascx.cs">
+      <DependentUpon>ActivateEmailPanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\ActivateEmailPanel.ascx.designer.cs">
+      <DependentUpon>ActivateEmailPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\Banner\Banner.ascx.cs">
+      <DependentUpon>Banner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\Banner\Banner.ascx.designer.cs">
+      <DependentUpon>Banner.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\HelpCenter\HelpCenter.ascx.cs">
+      <DependentUpon>HelpCenter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\HelpCenter\HelpCenter.ascx.designer.cs">
+      <DependentUpon>HelpCenter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\LoginWithThirdParty.ascx.cs">
+      <DependentUpon>LoginWithThirdParty.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\LoginWithThirdParty.ascx.designer.cs">
+      <DependentUpon>LoginWithThirdParty.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\Support\Support.ascx.cs">
+      <DependentUpon>Support.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\Support\Support.ascx.designer.cs">
+      <DependentUpon>Support.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\TopStudioPanel\TopStudioPanel.ascx.cs">
+      <DependentUpon>TopStudioPanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\TopStudioPanel\TopStudioPanel.ascx.designer.cs">
+      <DependentUpon>TopStudioPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Feed\FeedList.ascx.cs">
+      <DependentUpon>FeedList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Feed\FeedList.ascx.designer.cs">
+      <DependentUpon>FeedList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Feed\NewNavigationPanel.ascx.cs">
+      <DependentUpon>NewNavigationPanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Feed\NewNavigationPanel.ascx.designer.cs">
+      <DependentUpon>NewNavigationPanel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FirstTime\FirstTimeTenantSettings.cs" />
+    <Compile Include="UserControls\Management\DefaultPageSettings\DefaultPageSettings.ascx.cs">
+      <DependentUpon>DefaultPageSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\DefaultPageSettings\DefaultPageSettings.ascx.designer.cs">
+      <DependentUpon>DefaultPageSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\ProductsAndInstruments\ProductsAndInstruments.ascx.cs">
+      <DependentUpon>ProductsAndInstruments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\ProductsAndInstruments\ProductsAndInstruments.ascx.designer.cs">
+      <DependentUpon>ProductsAndInstruments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\SmsControls\ConfirmMobileActivation.ascx.cs">
+      <DependentUpon>ConfirmMobileActivation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\SmsControls\ConfirmMobileActivation.ascx.designer.cs">
+      <DependentUpon>ConfirmMobileActivation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\SmsControls\SmsValidationSettings.ascx.cs">
+      <DependentUpon>SmsValidationSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\SmsControls\SmsValidationSettings.ascx.designer.cs">
+      <DependentUpon>SmsValidationSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\SmsControls\ChangeMobileNumber.ascx.cs">
+      <DependentUpon>ChangeMobileNumber.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\SmsControls\ChangeMobileNumber.ascx.designer.cs">
+      <DependentUpon>ChangeMobileNumber.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffLimitExceed.ascx.cs">
+      <DependentUpon>TariffLimitExceed.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffLimitExceed.ascx.designer.cs">
+      <DependentUpon>TariffLimitExceed.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffPartner.ascx.cs">
+      <DependentUpon>TariffPartner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\TariffPartner.ascx.designer.cs">
+      <DependentUpon>TariffPartner.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\TransferPortal\TransferPortal.ascx.cs">
+      <DependentUpon>TransferPortal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\TransferPortal\TransferPortal.ascx.designer.cs">
+      <DependentUpon>TransferPortal.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\ConfirmationDeleteUser.ascx.cs">
+      <DependentUpon>ConfirmationDeleteUser.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\ConfirmationDeleteUser.ascx.designer.cs">
+      <DependentUpon>ConfirmationDeleteUser.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserEmailChange.ascx.cs">
+      <DependentUpon>UserEmailChange.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserEmailChange.ascx.designer.cs">
+      <DependentUpon>UserEmailChange.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserLanguage.ascx.cs">
+      <DependentUpon>UserLanguage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserLanguage.ascx.designer.cs">
+      <DependentUpon>UserLanguage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserProfileActions.ascx.cs">
+      <DependentUpon>UserProfileActions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserProfileActions.ascx.designer.cs">
+      <DependentUpon>UserProfileActions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserProfileEditControl.ascx.cs">
+      <DependentUpon>UserProfileEditControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\UserProfile\UserProfileEditControl.ascx.designer.cs">
+      <DependentUpon>UserProfileEditControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\CustomResourceHelper.cs" />
+    <Compile Include="Utility\TransferResourceHelper.cs" />
+    <Compile Include="Welcome.aspx.cs">
+      <DependentUpon>Welcome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Welcome.aspx.designer.cs">
+      <DependentUpon>Welcome.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="skins\base.less" />
+    <Content Include="skins\bright-blue\main.less" />
+    <Content Include="skins\bright-blue\params.less" />
+    <Content Include="skins\dark-green\main.less" />
+    <Content Include="skins\dark-green\params.less" />
+    <Content Include="skins\deep-blue\main.less" />
+    <Content Include="skins\deep-blue\params.less" />
+    <Content Include="skins\default\common.less" />
+    <Content Include="skins\default\actionpanel.less" />
+    <Content Include="skins\default\buttons.less" />
+    <None Include="skins\default\common_style.wide-screen.less" />
+    <Content Include="UserControls\Common\SharingSettings\css\sharingsettings.less" />
+    <Content Include="UserControls\Common\ProjectDocumentsPopup\css\projectDocumentsPopup.less" />
+    <Content Include="UserControls\Common\HelpCenter\css\help-center.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="App_Themes\Default\" />
+    <Folder Include="Products\" />
+    <Folder Include="UserControls\Management\ColorThemes\css\img\" />
+    <Folder Include="UserControls\Management\DefaultPageSettings\css\" />
+    <Folder Include="UserControls\Users\AddContent\js\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile-&gt;'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
+    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath-&gt;'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
+    <!-- Copy api files -->
+    <CreateItem Include="$(RedDir)ASC.Api.*.dll;$(RedDir)ASC.Specific.dll;$(RedDir)ASC.Feed.dll;$(RedDir)ASC.Feed.Aggregator.dll;$(RedDir)ASC.Mail.Aggregator.Common.dll;$(RedDir)ASC.Mail.Aggregator.Dal.dll;$(RedDir)ASC.Mail.Aggregator.dll;$(RedDir)ASC.Mail.Aggregator.Contacts.dll;$(RedDir)ASC.Mail.Aggregator.EmailIn.dll;$(RedDir)ASC.ActiveUp.Net.Common.dll;$(RedDir)ASC.ActiveUp.Net.Dns.dll;$(RedDir)ASC.ActiveUp.Net.Imap4.dll;$(RedDir)ASC.ActiveUp.Net.Mail.dll;$(RedDir)ASC.ActiveUp.Net.Pop3.dll;$(RedDir)ASC.ActiveUp.Net.Smtp.dll">
+      <Output ItemName="ApiFiles" TaskParameter="Include" />
+    </CreateItem>
+    <Copy SourceFiles="@(ApiFiles)" DestinationFolder="$(TargetDir)" Condition="Exists('$(RedDir)%(Filename)%(Extension)')" />
+    <!-- Copy Mail third-party -->
+    <Copy SourceFiles="$(TrunkDir)redistributable\third-party\CharsetDetector\Ude.dll" DestinationFolder="$(TargetDir)" ContinueOnError="true" />
+    <Copy SourceFiles="$(TrunkDir)redistributable\third-party\Nlog 2.1\net35\NLog.dll" DestinationFolder="$(TargetDir)" ContinueOnError="true" />
+    <!-- Copy SQLite -->
+    <Copy SourceFiles="$(TrunkDir)redistributable\third-party\db\sqlite\System.Data.SQLite.DLL" DestinationFolder="$(OutDir)" ContinueOnError="true" />
+    <Copy SourceFiles="$(TrunkDir)redistributable\third-party\db\sqlite\x64\SQLite.Interop.dll" DestinationFolder="$(OutDir)x64" ContinueOnError="true" />
+    <Copy SourceFiles="$(TrunkDir)redistributable\third-party\db\sqlite\x86\SQLite.Interop.dll" DestinationFolder="$(OutDir)x86" ContinueOnError="true" />
+  </Target>
+  <Target Name="BeforeBuild">
+    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+</Project>

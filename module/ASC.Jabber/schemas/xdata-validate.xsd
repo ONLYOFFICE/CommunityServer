@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+  
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/xdata-validate'
+    xmlns='http://jabber.org/protocol/xdata-validate'
+    elementFormDefault='qualified'>
+
+  <xs:element name='validate'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs='0' maxOccurs='1'>
+          <xs:element ref='basic'/>
+          <xs:element ref='open'/>
+          <xs:element ref='range'/>
+          <xs:element ref='regex'/>
+        </xs:choice>
+        <xs:element ref='list-range' minOccurs='0' maxOccurs='1'/>
+      </xs:sequence>
+      <xs:attribute name='datatype' 
+                    type='xs:string' 
+                    use='optional' 
+                    default='xs:string'/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name='basic' type='empty'/>
+  
+  <xs:element name='open' type='empty'/>
+  
+  <xs:element name='range'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='min' use='optional'/>
+          <xs:attribute name='max' use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name='regex' type='xs:string'/>
+  
+  <xs:element name='list-range'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='min' 
+                        type='xs:unsignedInteger'
+                        use='optional'/>
+          <xs:attribute name='max' 
+                        type='xs:unsignedInteger'
+                        use='optional'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,34 @@
+<patterns>
+  <formatter type="ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common" />
+
+  <!--New bookmark comment-->
+  <pattern id="new bookmark comment created" sender="email.sender">
+    <subject resource="|subject_BookmarkCommentCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community.Bookmarking" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_BookmarkCommentCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community.Bookmarking" />
+  </pattern>
+  <!--New bookmark comment-->
+  <pattern id="new bookmark comment created" sender="messanger.sender">
+    <subject resource="|subject_BookmarkCommentCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community.Bookmarking" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$__AuthorName
+
+$CommentBody
+
+$BookmarkUrl
+    </body>
+  </pattern>
+  <!--New bookmark-->
+  <pattern id="new bookmark created" sender="email.sender">
+    <subject resource="|subject_BookmarkCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community.Bookmarking" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_BookmarkCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community.Bookmarking" />
+  </pattern>
+  <!--New bookmark-->
+  <pattern id="new bookmark created" sender="messanger.sender">
+    <subject resource="|subject_BookmarkCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community.Bookmarking" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$__AuthorName
+
+$BookmarkDescription
+
+$BookmarkUrl
+    </body>
+  </pattern>
+</patterns>

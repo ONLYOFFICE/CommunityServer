@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttribDirectory" xml:space="preserve">
+    <value>Attrib directory '{0}'. {1}</value>
+  </data>
+  <data name="AttribFile" xml:space="preserve">
+    <value>Attrib file '{0}'. {1}</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>File Not Found: {0}</value>
+  </data>
+  <data name="FtpLocalNotFound" xml:space="preserve">
+    <value>Local File Not Found: {0}</value>
+  </data>
+  <data name="FtpPercentComplete" xml:space="preserve">
+    <value>  {0}% Complete ({1})</value>
+  </data>
+  <data name="FtpTransfered" xml:space="preserve">
+    <value>Transfered {0} ({1}) in {2}</value>
+  </data>
+  <data name="FtpUploadComplete" xml:space="preserve">
+    <value>Upload File Complete, {0}</value>
+  </data>
+  <data name="FtpUploading" xml:space="preserve">
+    <value>Uploading "{0}"
+   to "{1}"
+</value>
+  </data>
+  <data name="FtpUriInvalid" xml:space="preserve">
+    <value>The URI "{0}" scheme is not valid.</value>
+  </data>
+  <data name="JSCompressCompressed" xml:space="preserve">
+    <value>Compressed by {0}, from {1} to {2} byte(s)</value>
+  </data>
+  <data name="JSCompressCompressing" xml:space="preserve">
+    <value>Compressing JavaScript in "{0}".</value>
+  </data>
+  <data name="JSCompressWriting" xml:space="preserve">
+    <value>Writing compressed JavaScript back to "{0}" using {1}.</value>
+  </data>
+  <data name="MailEmailing" xml:space="preserve">
+    <value>Emailing "{0}".</value>
+  </data>
+  <data name="MathNotNumber" xml:space="preserve">
+    <value>"{0}" is not a number.</value>
+  </data>
+  <data name="CreatingDirectory" xml:space="preserve">
+    <value>Creating directory "{0}".</value>
+  </data>
+  <data name="TaskDestinationIsDirectory" xml:space="preserve">
+    <value>Could not {0} the file "{1}" to the destination file "{2}", because the destination is a folder instead of a file. To {0} the source file into a folder, consider using the DestinationFolder parameter instead of DestinationFiles.</value>
+  </data>
+  <data name="MoveError" xml:space="preserve">
+    <value>Unable to move file "{0}" to "{1}". {2}</value>
+  </data>
+  <data name="ExactlyOneTypeOfDestination" xml:space="preserve">
+    <value>Both "{0}" and "{1}" were specified as input parameters in the project file. Please choose one or the other.</value>
+  </data>
+  <data name="MoveFileComment" xml:space="preserve">
+    <value>Moving file from "{0}" to "{1}".</value>
+  </data>
+  <data name="TaskNeedsDestination" xml:space="preserve">
+    <value>No destination specified for {0}. Please supply either "{1}" or "{2}".</value>
+  </data>
+  <data name="TaskSourceIsDirectory" xml:space="preserve">
+    <value>The source file "{0}" is actually a directory.  The "{1}" task does not support moving directories.</value>
+  </data>
+  <data name="NUnitNotFound" xml:space="preserve">
+    <value>Could not find the NUnit Project File open command. Please make sure NUnit is installed.</value>
+  </data>
+  <data name="OracleHomeCheck" xml:space="preserve">
+    <value>Checking Oracle Home: {0}</value>
+  </data>
+  <data name="ParameterNotUsed" xml:space="preserve">
+    <value>The parameter "{1}" does not apply to the current use of task "{0}".</value>
+  </data>
+  <data name="ParameterRequired" xml:space="preserve">
+    <value>The "{0}" task was not given a value for the required parameter "{1}".</value>
+  </data>
+  <data name="RegistryRead" xml:space="preserve">
+    <value>Read Windows Registry</value>
+  </data>
+  <data name="RegistryWrite" xml:space="preserve">
+    <value>Write Windows Registry</value>
+  </data>
+  <data name="ServiceCannotContinue" xml:space="preserve">
+    <value>Cannot continue service {0} on computer '{1}' as it does not support the pause and continue.</value>
+  </data>
+  <data name="ServiceCannotPause" xml:space="preserve">
+    <value>Cannot pause service {0} on computer '{1}' as it does not support the pause and continue.</value>
+  </data>
+  <data name="ServiceCannotStop" xml:space="preserve">
+    <value>Cannot stop service {0} on computer '{1}'.</value>
+  </data>
+  <data name="ServiceContinued" xml:space="preserve">
+    <value>{0} service was continued successfully.</value>
+  </data>
+  <data name="ServiceContinuing" xml:space="preserve">
+    <value>{0} service is continuing ...</value>
+  </data>
+  <data name="ServiceNotFound" xml:space="preserve">
+    <value>Couldn't find the '{0}' service on '{1}'</value>
+  </data>
+  <data name="ServiceNotPaused" xml:space="preserve">
+    <value>Cannot continue service {0} on computer '{1}' as its not currently paused.</value>
+  </data>
+  <data name="ServiceNotStarted" xml:space="preserve">
+    <value>Cannot pause service {0} on computer '{1}' as its not currently started.</value>
+  </data>
+  <data name="ServicePaused" xml:space="preserve">
+    <value>{0} service was paused successfully.</value>
+  </data>
+  <data name="ServicePausing" xml:space="preserve">
+    <value>{0} service is pausing ...</value>
+  </data>
+  <data name="ServiceStarted" xml:space="preserve">
+    <value>{0} service was started successfully.</value>
+  </data>
+  <data name="ServiceStarting" xml:space="preserve">
+    <value>{0} service is starting ...</value>
+  </data>
+  <data name="ServiceStatus" xml:space="preserve">
+    <value>The '{0}' service on '{1}' is '{2}'.</value>
+  </data>
+  <data name="ServiceStopped" xml:space="preserve">
+    <value>{0} service was stopped successfully.</value>
+  </data>
+  <data name="ServiceStopping" xml:space="preserve">
+    <value>{0} service is stopping ...</value>
+  </data>
+  <data name="SolutionNotFound" xml:space="preserve">
+    <value>Solution file "{0}" not found.</value>
+  </data>
+  <data name="SvnLocalPathNotWorkCopy" xml:space="preserve">
+    <value>LocalPath is not a working subversion copy.</value>
+  </data>
+  <data name="TimeFormatException" xml:space="preserve">
+    <value>Failed to get current date!</value>
+    <comment>Log message</comment>
+  </data>
+  <data name="TimeGettingCurrentDate" xml:space="preserve">
+    <value>Getting current date.</value>
+    <comment>Log message</comment>
+  </data>
+  <data name="TnsnameAdded" xml:space="preserve">
+    <value>Adding TNSNAMES entry "{0}" to "{1}"</value>
+  </data>
+  <data name="TnsNamesFileCheck" xml:space="preserve">
+    <value>Looking for {0}</value>
+  </data>
+  <data name="TnsNamesFileNotFound" xml:space="preserve">
+    <value>Unable to locate a TNSNAMES.ORA file. Please specify a value for TnsNamesFile.</value>
+  </data>
+  <data name="TnsnameUpdateAborted" xml:space="preserve">
+    <value>TNSNAME entry "{0}" already exists in "{1}" and AllowUpdates=false.</value>
+  </data>
+  <data name="TnsnameUpdated" xml:space="preserve">
+    <value>Updating TNSNAMES entry "{0}" in "{1}"</value>
+  </data>
+  <data name="TwoVectorsMustHaveSameLength" xml:space="preserve">
+    <value>"{2}" refers to {0} item(s), and "{3}" refers to {1} item(s). They must have the same number of items.</value>
+  </data>
+  <data name="UnzipExtracted" xml:space="preserve">
+    <value>  extracted "{0}"</value>
+  </data>
+  <data name="UnzipFileToDirectory" xml:space="preserve">
+    <value>Unzip File "{0}"
+    to Directory "{1}"
+</value>
+  </data>
+  <data name="UnzipSuccessfully" xml:space="preserve">
+    <value>Unzipped file "{0}" successfully.</value>
+  </data>
+  <data name="VaultAddFileCommitFailed" xml:space="preserve">
+    <value>Commitment of change set failed!</value>
+  </data>
+  <data name="VaultAddFileCommitSucceeded" xml:space="preserve">
+    <value>Files added to Vault repository successfully.</value>
+  </data>
+  <data name="VaultAddFilesException" xml:space="preserve">
+    <value>Files specified for addition to repository cannot be found.</value>
+  </data>
+  <data name="VaultCheckinFileException" xml:space="preserve">
+    <value>The file {0} could not be checked in: {1}.</value>
+  </data>
+  <data name="VaultCheckinFileNotFoundException" xml:space="preserve">
+    <value>File or folder {0} not found for checkin.</value>
+  </data>
+  <data name="VaultCheckinFolderException" xml:space="preserve">
+    <value>The folder {0} could not be checked in: {1}.</value>
+  </data>
+  <data name="VaultCheckinSuccessful" xml:space="preserve">
+    <value>{0} successfully checked out.</value>
+  </data>
+  <data name="VaultCheckoutSuccessful" xml:space="preserve">
+    <value>{0} successfully checked out.</value>
+  </data>
+  <data name="VaultDiskFileDoesNotExist" xml:space="preserve">
+    <value>Specified diskfile {0} does not exist.</value>
+  </data>
+  <data name="VaultFileAddedToChangeSet" xml:space="preserve">
+    <value>File [{0}] added to change set.</value>
+  </data>
+  <data name="VaultFolderAddedToChangeSet" xml:space="preserve">
+    <value>Folder [{0}] added to change set.</value>
+  </data>
+  <data name="VaultIncorrectParameters" xml:space="preserve">
+    <value>Incorrect parameters passed to VaultSession.</value>
+  </data>
+  <data name="VaultLoginFailed" xml:space="preserve">
+    <value>Login to Vault repository failed.</value>
+  </data>
+  <data name="VaultPathValidationException" xml:space="preserve">
+    <value>Error validating path "{0}".</value>
+  </data>
+  <data name="VaultRepositorySelectionFailure" xml:space="preserve">
+    <value>Selection of the repository failed: {0}.</value>
+  </data>
+  <data name="VaultResourceNotFound" xml:space="preserve">
+    <value>File or folder {0} not found for checkout.</value>
+  </data>
+  <data name="VaultSetNewWorkingFolder" xml:space="preserve">
+    <value>Set working folder for {0} to {1} from {2}.</value>
+  </data>
+  <data name="VaultTreeCacheFailure" xml:space="preserve">
+    <value>ClientInstance.TreeCache has not been initialized, Common cause is that SelectRepository has not been called sucessfully.</value>
+  </data>
+  <data name="VaultUndoCheckoutSuccessful" xml:space="preserve">
+    <value>Successfully undid check out for {0}.</value>
+  </data>
+  <data name="VaultUrlRequired" xml:space="preserve">
+    <value>Url specifying vault location is required.</value>
+  </data>
+  <data name="VaultUsernameRequired" xml:space="preserve">
+    <value>Username must be set to access repository.</value>
+  </data>
+  <data name="VaultWorkingFolderCleared" xml:space="preserve">
+    <value>Clearing working folder for {0}.</value>
+  </data>
+  <data name="VaultWorkingFolderRestored" xml:space="preserve">
+    <value>Restoring working folder for {0} to {1}.</value>
+  </data>
+  <data name="VersionFileNotFound" xml:space="preserve">
+    <value>Version file "{0}" not found - creating new file.</value>
+  </data>
+  <data name="VersionModifiedValue" xml:space="preserve">
+    <value>Updated to version {0}</value>
+  </data>
+  <data name="VersionOriginalValue" xml:space="preserve">
+    <value>Initialized to version {0}</value>
+  </data>
+  <data name="VersionRead" xml:space="preserve">
+    <value>Reading version from file "{0}".</value>
+  </data>
+  <data name="VersionReadException" xml:space="preserve">
+    <value>Unable to read version number from "{0}". {1}</value>
+  </data>
+  <data name="VersionWriteException" xml:space="preserve">
+    <value>Unable to write version number to "{0}". {1}"</value>
+  </data>
+  <data name="VersionWrote" xml:space="preserve">
+    <value>Wrote version to file "{0}".</value>
+  </data>
+  <data name="WebDirectoryInvalidDirectory" xml:space="preserve">
+    <value>Web directory {0} does not exist on {1}.</value>
+  </data>
+  <data name="WebDirectoryScriptMapUpdate" xml:space="preserve">
+    <value>Setting scriptmap for {0} on web directory {1} on {2}.</value>
+  </data>
+  <data name="WebDirectorySettingInvalidSetting" xml:space="preserve">
+    <value>Web directory {0} on {1} does not have a setting called {2}.</value>
+  </data>
+  <data name="WebDirectorySettingStatusRead" xml:space="preserve">
+    <value>Reading {0} property of web directory {1} on {2}.</value>
+  </data>
+  <data name="WebDirectorySettingStatusSet" xml:space="preserve">
+    <value>Setting {0} property of web directory {1} on {2}.</value>
+  </data>
+  <data name="XmlReadDocument" xml:space="preserve">
+    <value>Reading Xml Document "{0}".</value>
+  </data>
+  <data name="XmlReadNodes" xml:space="preserve">
+    <value>  {0} node(s) selected for read.</value>
+  </data>
+  <data name="XmlReadResult" xml:space="preserve">
+    <value>XmlRead Result: "{0}"</value>
+  </data>
+  <data name="XmlUpdateDocument" xml:space="preserve">
+    <value>Updating Xml Document "{0}".</value>
+  </data>
+  <data name="XmlUpdateNodes" xml:space="preserve">
+    <value>  {0} node(s) selected for update.</value>
+  </data>
+  <data name="XmlUpdateResult" xml:space="preserve">
+    <value>XmlUpdate Wrote: "{0}".</value>
+  </data>
+  <data name="XsltAddingParameter" xml:space="preserve">
+    <value>Adding Parameter "{0}": "{1}".</value>
+  </data>
+  <data name="XsltAddingRootAttribute" xml:space="preserve">
+    <value>Adding root attribute {0}="{1}".</value>
+  </data>
+  <data name="XsltCreatingRootTag" xml:space="preserve">
+    <value>Creating root tag "{0}".</value>
+  </data>
+  <data name="XsltNoInputFiles" xml:space="preserve">
+    <value>No input files.</value>
+  </data>
+  <data name="XsltNoRootTag" xml:space="preserve">
+    <value>No root tag inserted.</value>
+  </data>
+  <data name="ZipAdded" xml:space="preserve">
+    <value>  added "{0}".</value>
+  </data>
+  <data name="ZipCreating" xml:space="preserve">
+    <value>Creating zip file "{0}".</value>
+  </data>
+  <data name="ZipFileNotFound" xml:space="preserve">
+    <value>Zip File Not Found: {0}.</value>
+  </data>
+  <data name="ZipSuccessfully" xml:space="preserve">
+    <value>Created zip file "{0}" successfully.</value>
+  </data>
+  <data name="CouldNotResolveServerHostName" xml:space="preserve">
+    <value>Couldn't resolve server host name {0}.</value>
+  </data>
+  <data name="CouldNotConnectToRemoteServer" xml:space="preserve">
+    <value>Couldn't connect to remove server.</value>
+  </data>
+  <data name="ActiveDirectoryLookupException" xml:space="preserve">
+    <value>Failed to lookup information for {0} in Active Directory.</value>
+  </data>
+  <data name="MergeCompleteNoSourceFiles" xml:space="preserve">
+    <value>Merge Complete: No source files to merge.</value>
+  </data>
+  <data name="MergeComplete" xml:space="preserve">
+    <value>Merge Complete: {0} files merged into '{1}'.</value>
+  </data>
+  <data name="MergingFile" xml:space="preserve">
+    <value>Merging file '{0}' into '{1}'</value>
+  </data>
+</root>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:bob'
+    xmlns='urn:xmpp:bob'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0231: http://www.xmpp.org/extensions/xep-0231.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='data'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:base64Binary'>
+          <xs:attribute name='cid' type='xs:string' use='required'/>
+          <xs:attribute name='max-age' type='xs:nonNegativeInteger' use='optional'/>
+          <xs:attribute name='type' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

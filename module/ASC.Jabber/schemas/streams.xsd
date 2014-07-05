@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://etherx.jabber.org/streams'
+    xmlns='http://etherx.jabber.org/streams'
+    elementFormDefault='unqualified'>
+
+  <xs:import namespace='jabber:client'
+             schemaLocation='http://xmpp.org/schemas/jabber-client.xsd'/>
+
+  <xs:import namespace='jabber:server'
+             schemaLocation='http://xmpp.org/schemas/jabber-server.xsd'/>
+
+  <xs:import namespace='jabber:server:dialback'
+             schemaLocation='http://xmpp.org/schemas/dialback.xsd'/>
+
+  <xs:import namespace='urn:ietf:params:xml:ns:xmpp-streams'
+             schemaLocation='http://xmpp.org/schemas/streamerror.xsd'/>
+
+  <xs:import namespace='http://www.w3.org/XML/1998/namespace'
+             schemaLocation='http://www.w3.org/2001/03/xml.xsd'/>
+
+  <xs:element name='stream'>
+    <xs:complexType>
+      <xs:sequence xmlns:client='jabber:client'
+                   xmlns:server='jabber:server'
+                   xmlns:db='jabber:server:dialback'>
+        <xs:element ref='features' minOccurs='0' maxOccurs='1'/>
+        <xs:any namespace='urn:ietf:params:xml:ns:xmpp-tls'
+                minOccurs='0'
+                maxOccurs='unbounded'/>
+        <xs:any namespace='urn:ietf:params:xml:ns:xmpp-sasl'
+                minOccurs='0'
+                maxOccurs='unbounded'/>
+        <xs:choice minOccurs='0' maxOccurs='1'>
+          <xs:choice minOccurs='0' maxOccurs='unbounded'>
+            <xs:element ref='client:message'/>
+            <xs:element ref='client:presence'/>
+            <xs:element ref='client:iq'/>
+          </xs:choice>
+          <xs:choice minOccurs='0' maxOccurs='unbounded'>
+            <xs:element ref='server:message'/>
+            <xs:element ref='server:presence'/>
+            <xs:element ref='server:iq'/>
+            <xs:element ref='db:result'/>
+            <xs:element ref='db:verify'/>
+          </xs:choice>
+        </xs:choice>
+        <xs:element ref='error' minOccurs='0' maxOccurs='1'/>
+      </xs:sequence>
+      <xs:attribute name='from' type='xs:string' use='optional'/>
+      <xs:attribute name='id' type='xs:NMTOKEN' use='optional'/>
+      <xs:attribute name='to' type='xs:string' use='optional'/>
+      <xs:attribute name='version' type='xs:decimal' use='optional'/>
+      <xs:attribute ref='xml:lang' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='features'>
+    <xs:complexType>
+      <xs:choice minOccurs='0' maxOccurs='unbounded'>
+        <xs:any namespace='##other'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='error'>
+    <xs:complexType>
+      <xs:sequence  xmlns:err='urn:ietf:params:xml:ns:xmpp-streams'>
+        <xs:group   ref='err:streamErrorGroup'/>
+        <xs:element ref='err:text'
+                    minOccurs='0'
+                    maxOccurs='1'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

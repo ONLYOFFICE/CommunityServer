@@ -1,0 +1,713 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema version="1.01" elementFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- Copyright 2008 by Roger Knapp, Licensed under the Apache License, Version 2.0 -->
+  <xs:annotation>
+    <xs:documentation>
+      <![CDATA[
+Author: Roger Knapp
+Url:    http://csharptest.net/downloads/schema/log4net.xsd
+Proj:   http://csharptest.net/downloads/projects/log4net.config.zip
+Date:   November 7th, 2008
+Rev:    1.01
+Usage:  You only need to add the following to the log4net element:
+        <log4net 
+          xsi:noNamespaceSchemaLocation="http://csharptest.net/downloads/schema/log4net.xsd" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+Preface:
+Please be aware that though this xsd attempts to cover most of the usages you 
+will encounter with log4net configurations it is by no means complete.  The 
+primary reason (excuse) for this is that the xml format used by log4net config 
+files does not conform to any real standard.  This is both it's primary 
+weakness and it's strength.  As such there are a few things you should know
+about how log4net interprets your configuration before creating one.
+
+Firstly most of the elements described in this document are really not needed.  
+This is due to the fact that a <param name='x' ...> can be used in place of
+the element <x ...>.  For instance, the following are equivalent:
+    <maximumFileSize value="1MB" />
+    <param name="maximumFileSize" value="1MB" />
+
+So Why Use This Xsd?:
+This xsd attempts to utilize the former convention and to declare as much as
+possible for the benefit of auto-completion and sanity checking.  However, 
+since most of the param names vary by the containing element's 'type' attribute 
+it is impossible to describe this correctly in xsd (at least to my knowledge).  
+So use this schema if you like and remember that there is life beyond it's 
+limited capability.
+
+If you would like to contribute back to this schema you can send email to the
+follow address (remove all the spaces and slashes): schema / @ / csharptest.net
+Be sure to include the schema name "log4net.xsd" in the subject-line.  If you
+know someone on the log4net project please convince them to adopt a schema,
+I don't care which one, just have one.
+
+Legal:
+   Copyright 2008 by Roger Knapp
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+]]>
+    </xs:documentation>
+    <xs:appinfo source="http://logging.apache.org/log4net/release/manual/configuration.html" />
+  </xs:annotation>
+  <xs:element name="log4net" type="log4net">
+    <xs:key name="appenderNamesKey">
+      <xs:selector xpath="./appender" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <xs:keyref name="appenderExists" refer="appenderNamesKey">
+      <xs:selector xpath=".//appender-ref"/>
+      <xs:field xpath="@ref"/>
+    </xs:keyref>
+  </xs:element>
+  <xs:complexType name="log4net">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="param" type="param" />
+        <xs:element minOccurs="0" maxOccurs="1" name="logger" type="logger" />
+        <xs:element minOccurs="0" maxOccurs="1" name="renderer" type="renderer" />
+        <xs:element minOccurs="0" maxOccurs="1" name="root" type="root" />
+        <xs:element minOccurs="0" maxOccurs="1" name="appender" type="appender" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute default="false" name="debug" type="xs:boolean" />
+    <xs:attribute default="Merge" name="update" type="log4netUpdateAttribute" />
+    <xs:attribute default="ALL" name="threshold" type="log4netLevel" />
+  </xs:complexType>
+  <xs:complexType name="param">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="param" type="param" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="value" type="xs:string" />
+    <xs:attribute name="type" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="logger">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="param" type="param" />
+        <xs:element minOccurs="0" maxOccurs="1" name="level" type="level" />
+        <xs:element minOccurs="0" maxOccurs="1" name="appender-ref" type="appender_ref" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute default="true" name="additivity" type="xs:boolean" />
+  </xs:complexType>
+  <xs:complexType name="level">
+    <xs:attribute name="value" type="log4netLevel" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="log4netLevel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ALL" />
+      <xs:enumeration value="DEBUG" />
+      <xs:enumeration value="INFO" />
+      <xs:enumeration value="WARN" />
+      <xs:enumeration value="ERROR" />
+      <xs:enumeration value="FATAL" />
+      <xs:enumeration value="OFF" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="appender_ref">
+    <xs:attribute name="ref" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="renderer">
+    <xs:attribute name="renderingClass" type="xs:string" />
+    <xs:attribute name="renderedClass" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="root">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="appender-ref" type="appender_ref" />
+        <xs:element minOccurs="0" maxOccurs="1" name="level" type="level" />
+        <xs:element minOccurs="0" maxOccurs="1" name="param" type="param" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="appender">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="facility" type="facility" />
+        <xs:element minOccurs="0" maxOccurs="1" name="reconnectOnError" type="reconnectOnError" />
+        <xs:element minOccurs="0" maxOccurs="1" name="useTransactions" type="useTransactions" />
+        <xs:element minOccurs="0" maxOccurs="1" name="target" type="target" />
+        <xs:element minOccurs="0" maxOccurs="1" name="mapping" type="mapping" />
+        <xs:element minOccurs="0" maxOccurs="1" name="immediateFlush" type="immediateFlush" />
+        <xs:element minOccurs="0" maxOccurs="1" name="applicationName" type="applicationName" />
+        <xs:element minOccurs="0" maxOccurs="1" name="logName" type="logName" />
+        <xs:element minOccurs="0" maxOccurs="1" name="machineName" type="machineName" />
+        <xs:element minOccurs="0" maxOccurs="1" name="appendToFile" type="appendToFile" />
+        <xs:element minOccurs="0" maxOccurs="1" name="encoding" type="encoding" />
+        <xs:element minOccurs="0" maxOccurs="1" name="file" type="file" />
+        <xs:element minOccurs="0" maxOccurs="1" name="lockingModel" type="lockingModel" />
+        <xs:element minOccurs="0" maxOccurs="1" name="appender-ref" type="appender_ref" />
+        <xs:element minOccurs="0" maxOccurs="1" name="identity" type="identity" />
+        <xs:element minOccurs="0" maxOccurs="1" name="recipient" type="recipient" />
+        <xs:element minOccurs="0" maxOccurs="1" name="sender" type="sender" />
+        <xs:element minOccurs="0" maxOccurs="1" name="server" type="server" />
+        <xs:element minOccurs="0" maxOccurs="1" name="sink" type="sink" />
+        <xs:element minOccurs="0" maxOccurs="1" name="countDirection" type="countDirection" />
+        <xs:element minOccurs="0" maxOccurs="1" name="datePattern" type="datePattern" />
+        <xs:element minOccurs="0" maxOccurs="1" name="maxFileSize" type="maxFileSize" />
+        <xs:element minOccurs="0" maxOccurs="1" name="maximumFileSize" type="maximumFileSize" />
+        <xs:element minOccurs="0" maxOccurs="1" name="parameter" type="parameter" />
+        <xs:element minOccurs="0" maxOccurs="1" name="rollingStyle" type="rollingStyle" />
+        <xs:element minOccurs="0" maxOccurs="1" name="staticLogFileName" type="staticLogFileName" />
+        <xs:element minOccurs="0" maxOccurs="1" name="from" type="from" />
+        <xs:element minOccurs="0" maxOccurs="1" name="priority" type="priority" />
+        <xs:element minOccurs="0" maxOccurs="1" name="subject" type="subject" />
+        <xs:element minOccurs="0" maxOccurs="1" name="to" type="to" />
+        <xs:element minOccurs="0" maxOccurs="1" name="authentication" type="authentication" />
+        <xs:element minOccurs="0" maxOccurs="1" name="password" type="password" />
+        <xs:element minOccurs="0" maxOccurs="1" name="smtpHost" type="smtpHost" />
+        <xs:element minOccurs="0" maxOccurs="1" name="username" type="userName" />
+        <xs:element minOccurs="0" maxOccurs="1" name="port" type="port" />
+        <xs:element minOccurs="0" maxOccurs="1" name="pickupDir" type="pickupDir" />
+        <xs:element minOccurs="0" maxOccurs="1" name="localPort" type="localPort" />
+        <xs:element minOccurs="0" maxOccurs="1" name="remoteAddress" type="remoteAddress" />
+        <xs:element minOccurs="0" maxOccurs="1" name="remotePort" type="remotePort" />
+        <xs:element minOccurs="0" maxOccurs="1" name="maxSizeRollBackups" type="maxSizeRollBackups" />
+        <xs:element minOccurs="0" maxOccurs="1" name="filter" type="filter" />
+        <xs:element minOccurs="0" maxOccurs="1" name="layout" type="layout" />
+        <xs:element minOccurs="0" maxOccurs="1" name="param" type="param" />
+        <xs:element minOccurs="0" maxOccurs="1" name="securityContext" type="securityContext" />
+        <xs:element minOccurs="0" maxOccurs="1" name="bufferSize" type="bufferSize" />
+        <xs:element minOccurs="0" maxOccurs="1" name="threshold" type="threshold" />
+        <xs:element minOccurs="0" maxOccurs="1" name="lossy" type="lossy" />
+        <xs:element minOccurs="0" maxOccurs="1" name="evaluator" type="evaluator" />
+        <xs:element minOccurs="0" maxOccurs="1" name="commandText" type="commandText" />
+        <xs:element minOccurs="0" maxOccurs="1" name="commandType" type="commandType" />
+        <xs:element minOccurs="0" maxOccurs="1" name="connectionString" type="connectionString" />
+        <xs:element minOccurs="0" maxOccurs="1" name="connectionType" type="connectionType" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="type" type="log4netAppenderTypes" use="required" />
+  </xs:complexType>
+  <xs:complexType name="facility">
+    <xs:attribute name="value" type="facilityTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="facilityTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Kernel" />
+      <xs:enumeration value="User" />
+      <xs:enumeration value="Mail" />
+      <xs:enumeration value="Daemons" />
+      <xs:enumeration value="Authorization" />
+      <xs:enumeration value="Syslog" />
+      <xs:enumeration value="Printer" />
+      <xs:enumeration value="News" />
+      <xs:enumeration value="Uucp" />
+      <xs:enumeration value="Clock" />
+      <xs:enumeration value="Authorization2" />
+      <xs:enumeration value="Ftp" />
+      <xs:enumeration value="Ntp" />
+      <xs:enumeration value="Audit" />
+      <xs:enumeration value="Alert" />
+      <xs:enumeration value="Clock2" />
+      <xs:enumeration value="Local0" />
+      <xs:enumeration value="Local1" />
+      <xs:enumeration value="Local2" />
+      <xs:enumeration value="Local3" />
+      <xs:enumeration value="Local4" />
+      <xs:enumeration value="Local5" />
+      <xs:enumeration value="Local6" />
+      <xs:enumeration value="Local7" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="reconnectOnError">
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="useTransactions">
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="target">
+    <xs:attribute name="value" type="consoleTargetTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="consoleTargetTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Console.Out" />
+      <xs:enumeration value="Console.Error" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="mapping">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="foreColor" type="foreColor" />
+        <xs:element minOccurs="0" maxOccurs="1" name="eventLogEntryType" type="eventLogEntryType" />
+        <xs:element minOccurs="0" maxOccurs="1" name="severity" type="severity" />
+        <xs:element minOccurs="0" maxOccurs="1" name="level" type="level" />
+        <xs:element minOccurs="0" maxOccurs="1" name="attributes" type="attributes" />
+        <xs:element minOccurs="0" maxOccurs="1" name="backColor" type="backColor" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="foreColor">
+    <xs:attribute name="value" type="allColorTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="allColorTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Black" />
+      <xs:enumeration value="Blue" />
+      <xs:enumeration value="Cyan" />
+      <xs:enumeration value="Green" />
+      <xs:enumeration value="HighIntensity" />
+      <xs:enumeration value="Magenta" />
+      <xs:enumeration value="Purple" />
+      <xs:enumeration value="Red" />
+      <xs:enumeration value="White" />
+      <xs:enumeration value="Yellow" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="eventLogEntryType">
+    <xs:attribute name="value" type="EventLogEntryType" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="EventLogEntryType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Error" />
+      <xs:enumeration value="Warning" />
+      <xs:enumeration value="Information" />
+      <xs:enumeration value="SuccessAudit" />
+      <xs:enumeration value="FailureAudit" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="severity">
+    <xs:attribute name="value" type="severityTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="severityTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Emergency" />
+      <xs:enumeration value="Alert" />
+      <xs:enumeration value="Critical" />
+      <xs:enumeration value="Error" />
+      <xs:enumeration value="Warning" />
+      <xs:enumeration value="Notice" />
+      <xs:enumeration value="Informational" />
+      <xs:enumeration value="Debug" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="attributes">
+    <xs:attribute name="value" type="attributesTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="attributesTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Bright" />
+      <xs:enumeration value="Dim" />
+      <xs:enumeration value="Underscore" />
+      <xs:enumeration value="Blink" />
+      <xs:enumeration value="Reverse" />
+      <xs:enumeration value="Hidden" />
+      <xs:enumeration value="Strikethrough" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="backColor">
+    <xs:attribute name="value" type="allColorTypes" use="required" />
+  </xs:complexType>
+  <xs:complexType name="immediateFlush">
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="applicationName">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="logName">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="machineName">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="appendToFile">
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="encoding">
+    <xs:attribute name="value" type="encodingTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="encodingTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="us-ascii" />
+      <xs:enumeration value="utf-7" />
+      <xs:enumeration value="utf-8" />
+      <xs:enumeration value="utf-16" />
+      <xs:enumeration value="unicodeFFFE" />
+      <xs:enumeration value="utf-32" />
+      <xs:enumeration value="utf-32BE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="file">
+    <xs:attribute name="value" type="xs:string" />
+    <xs:attribute name="type" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="lockingModel">
+    <xs:attribute name="type" type="lockingModelTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="lockingModelTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="log4net.Appender.FileAppender+ExclusiveLock" />
+      <xs:enumeration value="log4net.Appender.FileAppender+MinimalLock" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="identity">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="recipient">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="sender">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="server">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="sink">
+    <xs:attribute name="value" type="xs:anyURI" />
+  </xs:complexType>
+  <xs:complexType name="countDirection">
+    <xs:attribute name="value" type="countDirectionTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="countDirectionTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="-1" />
+      <xs:enumeration value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="datePattern">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="maxFileSize">
+    <xs:attribute name="value" type="xs:long" use="required" />
+  </xs:complexType>
+  <xs:complexType name="maximumFileSize">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="parameter">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="dbType" type="dbType" />
+        <xs:element minOccurs="0" maxOccurs="1" name="parameterName" type="parameterName" />
+        <xs:element minOccurs="0" maxOccurs="1" name="layout" type="layout" />
+        <xs:element minOccurs="0" maxOccurs="1" name="precision" type="precision" />
+        <xs:element minOccurs="0" maxOccurs="1" name="scale" type="scale" />
+        <xs:element minOccurs="0" maxOccurs="1" name="size" type="size" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dbType">
+    <xs:attribute name="value" type="DbType" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="DbType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AnsiString" />
+      <xs:enumeration value="Binary" />
+      <xs:enumeration value="Byte" />
+      <xs:enumeration value="Boolean" />
+      <xs:enumeration value="Currency" />
+      <xs:enumeration value="Date" />
+      <xs:enumeration value="DateTime" />
+      <xs:enumeration value="Decimal" />
+      <xs:enumeration value="Double" />
+      <xs:enumeration value="Guid" />
+      <xs:enumeration value="Int16" />
+      <xs:enumeration value="Int32" />
+      <xs:enumeration value="Int64" />
+      <xs:enumeration value="Object" />
+      <xs:enumeration value="SByte" />
+      <xs:enumeration value="Single" />
+      <xs:enumeration value="String" />
+      <xs:enumeration value="Time" />
+      <xs:enumeration value="UInt16" />
+      <xs:enumeration value="UInt32" />
+      <xs:enumeration value="UInt64" />
+      <xs:enumeration value="VarNumeric" />
+      <xs:enumeration value="AnsiStringFixedLength" />
+      <xs:enumeration value="StringFixedLength" />
+      <xs:enumeration value="Xml" />
+      <xs:enumeration value="DateTime2" />
+      <xs:enumeration value="DateTimeOffset" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="parameterName">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="layout">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="base64EncodeProperties" type="base64EncodeProperties" />
+        <xs:element minOccurs="0" maxOccurs="1" name="base64EncodeMessage" type="base64EncodeMessage" />
+        <xs:element minOccurs="0" maxOccurs="1" name="key" type="key" />
+        <xs:element minOccurs="0" maxOccurs="1" name="header" type="header" />
+        <xs:element minOccurs="0" maxOccurs="1" name="footer" type="footer" />
+        <xs:element minOccurs="0" maxOccurs="1" name="ignoresException" type="ignoresException" />
+        <xs:element minOccurs="0" maxOccurs="1" name="conversionPattern" type="conversionPattern" />
+        <xs:element minOccurs="0" maxOccurs="1" name="param" type="param" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="type" type="log4netLayoutTypes" use="required" />
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="base64EncodeProperties">
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="base64EncodeMessage">
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="key">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="header">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="footer">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="ignoresException">
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="conversionPattern">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:simpleType name="log4netLayoutTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="log4net.Layout.ExceptionLayout" />
+      <xs:enumeration value="log4net.Layout.PatternLayout" />
+      <xs:enumeration value="log4net.Layout.RawPropertyLayout" />
+      <xs:enumeration value="log4net.Layout.RawTimeStampLayout" />
+      <xs:enumeration value="log4net.Layout.RawUtcTimeStampLayout" />
+      <xs:enumeration value="log4net.Layout.SimpleLayout" />
+      <xs:enumeration value="log4net.Layout.XmlLayout" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="precision">
+    <xs:attribute name="value" type="xs:unsignedByte" use="required" />
+  </xs:complexType>
+  <xs:complexType name="scale">
+    <xs:attribute name="value" type="xs:unsignedByte" use="required" />
+  </xs:complexType>
+  <xs:complexType name="size">
+    <xs:attribute name="value" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="rollingStyle">
+    <xs:attribute name="value" type="rollingStyleTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="rollingStyleTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Once" />
+      <xs:enumeration value="Size" />
+      <xs:enumeration value="Date" />
+      <xs:enumeration value="Composite" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="staticLogFileName">
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="from">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="priority">
+    <xs:attribute name="value" type="priorityTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="priorityTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Normal" />
+      <xs:enumeration value="Low" />
+      <xs:enumeration value="High" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="subject">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="to">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="authentication">
+    <xs:attribute name="value" type="authenticationTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="authenticationTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Basic" />
+      <xs:enumeration value="Ntlm" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="password">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="smtpHost">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="userName">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="port">
+    <xs:attribute name="value" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="pickupDir">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="localPort">
+    <xs:attribute name="value" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="remoteAddress">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="remotePort">
+    <xs:attribute name="value" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="maxSizeRollBackups">
+    <xs:attribute name="value" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="filter">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="levelMax" type="levelMax" />
+        <xs:element minOccurs="0" maxOccurs="1" name="levelToMatch" type="levelToMatch" />
+        <xs:element minOccurs="0" maxOccurs="1" name="levelMin" type="levelMin" />
+        <xs:element minOccurs="0" maxOccurs="1" name="acceptOnMatch" type="acceptOnMatch" />
+        <xs:element minOccurs="0" maxOccurs="1" name="loggerToMatch" type="loggerToMatch" />
+        <xs:element minOccurs="0" maxOccurs="1" name="key" type="key" />
+        <xs:element minOccurs="0" maxOccurs="1" name="stringToMatch" type="stringToMatch" />
+        <xs:element minOccurs="0" maxOccurs="1" name="param" type="param" />
+        <xs:element minOccurs="0" maxOccurs="1" name="regexToMatch" type="regexToMatch" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="type" type="log4netFilterTypes" use="required" />
+  </xs:complexType>
+  <xs:complexType name="levelMax">
+    <xs:attribute name="value" type="log4netLevel" use="required" />
+  </xs:complexType>
+  <xs:complexType name="levelToMatch">
+    <xs:attribute name="value" type="log4netLevel" use="required" />
+  </xs:complexType>
+  <xs:complexType name="levelMin">
+    <xs:attribute name="value" type="log4netLevel" use="required" />
+  </xs:complexType>
+  <xs:complexType name="acceptOnMatch">
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="loggerToMatch">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="stringToMatch">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="regexToMatch">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:simpleType name="log4netFilterTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="log4net.Filter.DenyAllFilter" />
+      <xs:enumeration value="log4net.Filter.LevelMatchFilter" />
+      <xs:enumeration value="log4net.Filter.LevelRangeFilter" />
+      <xs:enumeration value="log4net.Filter.LoggerMatchFilter" />
+      <xs:enumeration value="log4net.Filter.MdcFilter" />
+      <xs:enumeration value="log4net.Filter.NdcFilter" />
+      <xs:enumeration value="log4net.Filter.PropertyFilter" />
+      <xs:enumeration value="log4net.Filter.StringMatchFilter" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="securityContext">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="userName" type="userName" />
+      <xs:element minOccurs="0" maxOccurs="1" name="password" type="password" />
+      <xs:element minOccurs="0" maxOccurs="1" name="domain" type="domain" />
+    </xs:sequence>
+    <xs:attribute name="type" type="securityContextTypes" use="required" />
+  </xs:complexType>
+  <xs:complexType name="domain">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:simpleType name="securityContextTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="log4net.Util.NullSecurityContext" />
+      <xs:enumeration value="log4net.Util.WindowsSecurityContext" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="bufferSize">
+    <xs:attribute name="value" type="xs:int" use="required" />
+  </xs:complexType>
+  <xs:complexType name="threshold">
+    <xs:attribute name="value" type="log4netLevel" use="required" />
+  </xs:complexType>
+  <xs:complexType name="lossy">
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="evaluator">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="threshold" type="threshold" />
+    </xs:sequence>
+    <xs:attribute name="type" type="evaluatorTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="evaluatorTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="log4net.Core.LevelEvaluator" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="commandText">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="commandType">
+    <xs:attribute name="value" type="CommandType" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="CommandType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Text" />
+      <xs:enumeration value="StoredProcedure" />
+      <xs:enumeration value="TableDirect" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="connectionString">
+    <xs:attribute name="value" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="connectionType">
+    <xs:attribute name="value" type="connectionTypeTypes" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="connectionTypeTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="System.Data.OleDb.OleDbConnection, System.Data" />
+      <xs:enumeration value="System.Data.SqlClient.SqlConnection, System.Data" />
+      <xs:enumeration value="Microsoft.Data.Odbc.OdbcConnection, Microsoft.Data.Odbc" />
+      <xs:enumeration value="System.Data.OracleClient.OracleConnection, System.Data.OracleClient" />
+      <xs:enumeration value="MySql.Data.MySqlClient.MySqlConnection, MySql.Data" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="log4netAppenderTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="log4net.Appender.AdoNetAppender" />
+      <xs:enumeration value="log4net.Appender.AnsiColorTerminalAppender" />
+      <xs:enumeration value="log4net.Appender.AspNetTraceAppender" />
+      <xs:enumeration value="log4net.Appender.BufferingForwardingAppender" />
+      <xs:enumeration value="log4net.Appender.ColoredConsoleAppender" />
+      <xs:enumeration value="log4net.Appender.ConsoleAppender" />
+      <xs:enumeration value="log4net.Appender.DebugAppender" />
+      <xs:enumeration value="log4net.Appender.EventLogAppender" />
+      <xs:enumeration value="log4net.Appender.FileAppender" />
+      <xs:enumeration value="log4net.Appender.ForwardingAppender" />
+      <xs:enumeration value="log4net.Appender.LocalSyslogAppender" />
+      <xs:enumeration value="log4net.Appender.MemoryAppender" />
+      <xs:enumeration value="log4net.Appender.NetSendAppender" />
+      <xs:enumeration value="log4net.Appender.OutputDebugStringAppender" />
+      <xs:enumeration value="log4net.Appender.RemoteSyslogAppender" />
+      <xs:enumeration value="log4net.Appender.RemotingAppender" />
+      <xs:enumeration value="log4net.Appender.RollingFileAppender" />
+      <xs:enumeration value="log4net.Appender.SmtpAppender" />
+      <xs:enumeration value="log4net.Appender.SmtpPickupDirAppender" />
+      <xs:enumeration value="log4net.Appender.TelnetAppender" />
+      <xs:enumeration value="log4net.Appender.TextWriterAppender" />
+      <xs:enumeration value="log4net.Appender.TraceAppender" />
+      <xs:enumeration value="log4net.Appender.UdpAppender" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="log4netUpdateAttribute">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Merge" />
+      <xs:enumeration value="Overwrite" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

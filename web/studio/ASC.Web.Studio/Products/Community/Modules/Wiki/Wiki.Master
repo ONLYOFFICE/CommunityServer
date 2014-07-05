@@ -1,0 +1,61 @@
+<%@ Assembly Name="ASC.Web.Community.Wiki" %>
+<%@ Assembly Name="ASC.Web.Core" %>
+
+<%@ Master Language="C#" MasterPageFile="~/Products/Community/Community.master" AutoEventWireup="true"
+    CodeBehind="Wiki.Master.cs" Inherits="ASC.Web.Community.Wiki.WikiMaster" %>
+
+<%@ Assembly Name="ASC.Web.Community.Wiki" %>
+<%@ Import Namespace="ASC.Web.Community.Wiki" %>
+<%@ Import Namespace="ASC.Web.Studio.Controls.Common" %>
+<%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
+
+<asp:Content ID="ContentHeader" ContentPlaceHolderID="CommunityPageHeader" runat="server">    
+
+
+    <script language="javascript">
+        function FCKConfig_OnLoad(config) {
+            if (typeof (WikiConfigAdditionalInfo) == 'function') {
+                WikiConfigAdditionalInfo(config);
+            }
+        }
+
+        function ShowUploadFileBox()
+        {
+            try {
+                var wiki_blockOverlay = document.getElementById('wiki_blockOverlay');
+                var wiki_UploadFileBox = document.getElementById('wiki_UploadFileBox');
+
+                wiki_blockOverlay.style.display = '';
+                wiki_UploadFileBox.style.display = '';
+            }
+            catch (e) { };
+        };
+
+        function HideUploadFileBox() {
+            try {
+                var wiki_blockOverlay = document.getElementById('wiki_blockOverlay');
+                var wiki_UploadFileBox = document.getElementById('wiki_UploadFileBox');
+
+                wiki_blockOverlay.style.display = 'none';
+                wiki_UploadFileBox.style.display = 'none';
+            }
+            catch (e) { };
+        };
+        
+    </script>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="SideContent" ContentPlaceHolderID="CommunitySidePanel" runat="server">
+</asp:Content>
+<asp:Content ID="PageContent" ContentPlaceHolderID="CommunityPageContent" runat="server">
+    <sc:Container ID="MainWikiContainer" runat="server">
+        <header></header>
+        <body>
+            <asp:ContentPlaceHolder ID="WikiContents" runat="server">
+            </asp:ContentPlaceHolder>
+        </body>
+        
+    </sc:Container>
+</asp:Content>

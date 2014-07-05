@@ -1,0 +1,379 @@
+OnlyOffice uses code from the following 3rd party projects.
+
+
+1. AWSSDK - Amazon Web Services SDK for .NET. (http://aws.amazon.com/sdkfornet/)
+
+License:        Apache 2.0 license
+License File:   redistributable\third-party\Amazon\AWSLicense.txt
+
+
+2. Devart.Data.MySql - Connector/Net is a fully-managed ADO.NET driver for MySQL. (http://www.devart.com/dotconnect/mysql/download.html)
+
+License:        dotConnect for MySQL License Agreement
+License File:   redistributable\third-party\db\Devart.MySql\License.rtf
+
+
+3. System.Data.SQLite - ADO.NET 2.0/3.5 SQLite Data Provider. (http://sqlite.phxsoftware.com/)
+
+License:        Public Domain
+
+
+4. HtmlAgilityPack - This is an agile HTML parser that builds a read/write DOM and supports plain XPATH or XSLT. (http://htmlagilitypack.codeplex.com/)
+
+License:        Microsoft Public License (Ms-PL)
+License File:   redistributable\third-party\HtmlAgilityPack\HtmlAgilityPack.license
+
+
+5. log4net - log4net is a tool to help the programmer output log statements to a variety of output targets. (http://logging.apache.org/log4net/index.html)
+
+License:        Apache 2.0 license
+License File:   redistributable\third-party\log4net\log4net.license
+
+
+6. Lucene.Net - dotLucene/Lucene.Net is the .NET implementation of the Lucene full-text search engine library. (http://sourceforge.net/projects/dotlucene/)
+
+License:        Apache 2.0 license
+License File:   redistributable\third-party\Lucene.Net\LICENSE.TXT
+
+
+7. NUnit - NUnit is a unit-testing framework for all .Net languages. (http://www.nunit.org/)
+
+License:        AS-IS
+License File:   redistributable\third-party\NUnit 2.4.6\license.txt
+
+
+8. NVelocity - NVelocity is a port of the excellent Apache Jakarta Velocity project. (http://www.castleproject.org/others/nvelocity/index.html)
+
+License:        Apache 2.0 license
+License File:   redistributable\third-party\NVelocity\ASL - Apache Software Foundation License.txt
+
+
+9. AjaxPro - Ajax.NET Professional (AjaxPro) is one of the first AJAX frameworks available for Microsoft ASP.NET and is working with .NET 1.1 and 2.0. (http://www.ajaxpro.info/)
+
+License:        AS-IS
+License File:   redistributable\third-party\Web\AjaxPro.2.license
+
+
+10. Ionic.Zip.dll - The Zip, implementation for .NET. (http://dotnetzip.codeplex.com/)
+
+License:        Microsoft Public License (Ms-PL)
+License File:   redistributable\third-party\DotNotZip\License.txt
+
+11. FredCK.FCKeditorV2 - FCKeditor is a text editor to be used inside web pages. In 2009 it was renamed CKEditor. (http://ckeditor.com/what-is-ckeditor)
+
+License:        MPL, GPL, LGPL
+License File:   redistributable\third-party\Web\FCKeditor.license
+
+12. Microsoft.ServiceModel.Web - WCF REST Starter Kit Preview 2. (http://aspnet.codeplex.com/wikipage?title=WCF%20REST&referringTitle=Home)
+
+License:        Microsoft Source License for ASP.NET Pre-Release Components
+License File:   redistributable\third-party\Microsoft\Microsoft Source License for ASP.NET Pre-Release Components.license
+
+
+13. LumiSoft Mail Server - Programm LumiSoft Mail Server is a mailserver. (http://www.lumisoft.ee/)
+
+License:        AS-IS
+License File:   module\ASC.Mail\ASC.Mail.Core\Net\license.txt
+
+
+14. jQuery - Query is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development. (http://jquery.com/)
+
+License:        The MIT License (MIT)
+License File:   web\studio\ASC.Web.Studio\js\MIT-LICENSE.txt
+
+
+15. BaseCampRestAPI - C# API to access the REST based BaseCamp services (http://basecamprestapi.codeplex.com)
+
+License:        LGPL
+License File:   redistributable\third-party\BaseCampRestAPI-1.1.0\BasecampRestAPI.license 
+
+16. LumenWorks.Framework.IO - A Fast CSV Reader (http://www.codeproject.com/Articles/9258/A-Fast-CSV-Reader)
+
+License:        The MIT License (MIT)
+License File:   redistributable\third-party\CSVReader\MIT-LICENSE.txt 
+
+
+17. DotNetOpenAuth - DotNetOpenAuth is a well established open source library that bring OpenID, OAuth, and ICard capabilities to the Microsoft .NET Framework. (http://www.dotnetopenauth.net/)
+
+License:        The MIT License (MIT)
+License File:   redistributable\third-party\DotNetOpenAuth\4\MIT-LICENSE.txt
+
+
+18. Facebook.dll - The Facebook C# SDK helps .Net developers build web, desktop, phone and Windows 8 Metro style applications that integrate with Facebook. (http://csharpsdk.org/)
+
+License:        Microsoft Public License (Ms-PL)
+License File:   redistributable\third-party\FacebookSDK\LICENSE.txt
+
+
+19. LinkedIn.dll - The LinkedIn Developer Toolkit is a open source library build in C# for using the LinkedIn® API in your .Net web applications. (http://linkedintoolkit.codeplex.com/)
+
+License:        Microsoft Public License (Ms-PL)
+License File:   redistributable\third-party\LinkedIn\LinkedIn.license
+
+
+20. SharpBox - Store everything (http://sharpbox.codeplex.com/)
+
+License:        The MIT License (MIT)
+License File:   redistributable\third-party\ShrapBox\SharpBox-1.2.0.542\MIT - MIT license.txt
+
+
+21. Textile.NET - Textile.NET is, surprisingly, a textile formatter for .NET projects. (http://textilenet.codeplex.com/)
+
+License:        Creative Commons' Attribution-ShareAlike 3.0 Unported License
+License File:   redistributable\third-party\Textile\src\LICENSE.txt
+
+
+22. YUICompressor - (http://developer.yahoo.com/yui/compressor/)
+
+License:        New BSD License
+License File:   redistributable\third-party\YUICompressor\New BSD License.txt
+
+
+23. Twitterizer2 - (http://www.twitterizer.net/tag/twitterizer2/)
+
+License:        AS-IS
+License File:   redistributable\third-party\Twitterizer2-2.3.3\Twitterizer2.license.txt 
+
+
+24. Ude - Ude is a C# port of Mozilla Universal Charset Detector. (http://code.google.com/p/ude/)
+
+License:        LGPL
+License File:   redistributable\third-party\CharsetDetector\license\lgpl-2.1
+
+
+25. NLog - NLog is a logging platform for .NET with rich log routing and management capabilities. It can help you produce and manage high-quality logs for your application regardless of its size or complexity. (http://nlog-project.org/)
+
+License:        BSD-3-Clause
+License File:   redistributable\third-party\NLog\LICENSE.txt
+
+
+26. PushSharp - A server-side library for sending Push Notifications to iOS (iPhone/iPad APNS & PassKit), Mac OSX (Mountain Lion+), Android (GCM/C2DM), Windows Phone 7/8, Windows 8, and FirefoxOS (soon) (https://github.com/Redth/PushSharp)
+
+License:        Apache 2.0 license
+License File:   redistributable\third-party\PushSharp\LICENSE.txt
+
+
+27. TweetSharp - TweetSharp v2 is a fast, clean wrapper around the Twitter API. It uses T4 templates to make adding new endpoints easy. (https://github.com/danielcrenna/tweetsharp)
+
+License:        AS-IS
+License File:   redistributable\third-party\TweetSharp\
+
+
+28. dotless - .NET Port of the ruby Less CSS lib (http://www.dotlesscss.org)
+
+License:        Apache 2.0 license
+License File:   redistributable\third-party\Web\dotless\license.txt
+
+
+29. Json.NET - Json.NET is a popular high-performance JSON framework for .NET (https://github.com/JamesNK/Newtonsoft.Json)
+
+License:        The MIT License (MIT)
+License File:   redistributable\third-party\Web\Newtonsoft.Json.license
+
+
+30. Jurassic - Jurassic is an implementation of the ECMAScript language and runtime. (http://jurassic.codeplex.com/)
+
+License:        Microsoft Public License (Ms-PL)
+License File:   redistributable\third-party\Web\Jurassic.license.txt
+
+
+31. Command Line Parser Library - The Command Line Parser Library offers to CLR applications a clean and concise API for manipulating command line arguments and related tasks. (https://github.com/gsscoder/commandline)
+
+License:        The MIT License (MIT)
+License File:   redistributable\third-party\CommandLine\LICENSE
+
+
+32. MailSystem.NET - MailSystem is a suite of .NET components that provide users with an extensive set of email tools. MailSystem provides full support for SMTP, POP3, IMAP4, NNTP, MIME, S/MIME, OpenPGP, DNS, vCard, vCalendar, Anti-Spam (Bayesian , RBL, DomainKeys), Queueing, Mail Merge and WhoIs (http://mailsystem.codeplex.com/)
+
+License:        LGPL v3
+License File:   module\ASC.MailSystem\LICENSE.txt
+
+
+33. jquery.placeholder.js - Placeholder plugin for jQuery (http://www.xiper.net/examples/js-plugins/html5-and-css3/placeholder/js/jquery.placeholder.js)
+
+License:        MIT, BSD, GPL
+
+
+34. jQuery Text Change Event - Simple cross browser detection of text changes for input and textarea elements using a jQuery custom event plugin by ZURB. (http://zurb.com/playground/jquery-text-change-custom-event)
+
+License:        MIT
+
+
+35. waitForImages - A jQuery plugin that lets you attach callbacks to useful image loading events. (https://github.com/alexanderdickson/waitForImages)
+
+License:        MIT
+
+
+36. SortTable - Make all your tables sortable (http://www.kryogenix.org/code/browser/sorttable/)
+
+License:        MIT
+
+
+37. LESS - The dynamic stylesheet language. (http://lesscss.org/)
+
+License:        Apache 2.0 license
+
+
+38. Head JS - The only script in your <HEAD> (http://headjs.com)
+
+License:        MIT
+
+
+39. jQuery BlockUI Plugin - The jQuery BlockUI Plugin lets you simulate synchronous behavior when using AJAX, without locking the browser. (http://malsup.com/jquery/block/)
+
+License:        MIT, GPL
+
+
+40. jquery.colorbox.js - A lightweight customizable lightbox plugin for jQuery. (http://www.jacklmoore.com/colorbox/)
+
+License:        MIT
+
+
+41. jquery.cookies.js - Javascript Cookie Library with jQuery bindings and JSON support. (https://code.google.com/p/cookies/)
+
+License:        BSD, MIT, GPL
+
+
+42. jquery.json.js - jQuery JSON plugin
+
+License:        MIT
+
+
+43. jquery.scrollTo.js - Easy element scrolling using jQuery. (http://flesler.blogspot.com/2007/10/jqueryscrollto.html)
+
+License:        MIT, GPL
+
+
+44. jquery.tmpl.js
+
+License:        MIT, GPL
+
+
+45. jQuery UI - jQuery  UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library. Whether you're  building highly interactive web applications or you just need to add a date picker to a form control, jQuery UI is the perfect choice.  (http://jqueryui.com/)
+
+License:        MIT
+
+
+46. jquery.watermarkinput.js - Watermark Input Plugin. (http://digitalbush.com/projects/watermark-input-plugin/)
+
+License:        MIT
+
+
+47. toastr - Simple javascript toast notifications. (https://github.com/CodeSeven/toastr)
+
+License:        MIT
+
+
+48. jQuery Color - jQuery plugin for color manipulation and animation support.
+
+License:        MIT
+
+
+49. jQuery-Mask-Plugin - A jQuery Plugin to make masks on form fields and HTML elements. (https://github.com/igorescobar/jQuery-Mask-Plugin)
+
+License:        MIT
+
+
+50. jquery-mousewheel - A jQuery plugin that adds cross-browser mouse wheel support. (https://github.com/brandonaaron/jquery-mousewheel)
+
+License:        MIT
+
+
+51. Plupload - Plupload  allows you to upload files using HTML5, Gears, Silverlight, Flash, BrowserPlus or normal forms, providing some unique features such as upload progress, image resizing and chunked uploads.  (http://www.plupload.com)
+
+License:        GPLv2, Commercial
+License File:   web\studio\ASC.Web.Studio\js\uploader\plupload_commercial_oem.txt
+
+
+52. AjaxUpload
+
+License:        MIT
+
+
+53. SWFUpload - SWFUpload  is a JavaScript Library that wraps the Flash Player's upload function. It brings your uploads to the next level with Multiple File Selection, Upload Progress and Client-side File Size Checking. (https://code.google.com/p/swfupload/)
+
+License:        MIT
+
+
+54. Modernizr - Modernizr is a JavaScript library that detects HTML5 and CSS3 features in the user’s browser. (http://modernizr.com/)
+
+License:        MIT
+
+
+55. bootstrap - Sleek, intuitive, and powerful front-end framework for faster and easier web development. (http://getbootstrap.com)
+
+License:        Apache 2.0 license
+
+
+56. Javascript MD5 - A JavaScript implementation of the RSA Data Security, Inc. MD5 Message (http://pajhome.org.uk/crypt/md5)
+
+License:        BSD
+
+
+57. iScroll - iScroll Lite Edition based on iScroll v4.0 Beta 4
+
+License:        MIT
+
+
+58. Jcrop - Jcrop is the quick and easy way to add image cropping functionality to your web application. (http://deepliquid.com/content/Jcrop.html)
+
+License:        MIT
+
+
+59. Flot - Flot is a pure JavaScript plotting library for jQuery, with a focus on simple usage, attractive looks and interactive features. (http://www.flotcharts.org/)
+
+License:        MIT
+
+
+60. flXHR - This plugin implements cross-domain XmlHttpRequests via an invisible Flash plugin.
+
+License:        MIT
+
+
+61. Antlr3.Runtime - ANother Tool for Language Recognition, is a language tool that provides a framework for constructing recognizers, interpreters, compilers, and translators from grammatical descriptions containing actions in a variety of target languages. ANTLR provides excellent support for tree construction, tree walking, translation, error recovery, and error reporting. 
+
+License:        The BSD License
+License File:   redistributable\third-party\Microsoft\Antlr3.Runtime.license
+
+
+62. CsvHelper - A library for reading and writing CSV files. Extremely fast, flexible, and easy to use. Supports reading and writing of custom class objects.
+
+License:        MS-PL
+License File:   redistributable\third-party\CsvHelper.2.3.0\License.txt
+
+
+63. EPPlus - EPPlus is a .net library that reads and writes Excel 2007/2010 files using the Open Office Xml format (xlsx). 
+
+License:        LGPL 2.1
+License File:   redistributable\third-party\EPPlus.3.1.3.3\License.txt
+
+
+64. SignalR - ASP.NET SignalR is a new library for ASP.NET developers that makes it incredibly simple to add real-time web functionality to your applications. What is "real-time web" functionality? It's the ability to have your server-side code push content to the connected clients as it happens, in real-time.
+
+License:        Apache 2.0 License
+
+
+65. MySql.Data - Connector/Net is a fully-managed ADO.NET driver for MySQL.
+
+License:        GNU GENERAL PUBLIC LICENSE (v2)
+License File:   redistributable\third-party\db\mysql\License.txt
+
+
+66. PushSharp - A server-side library for sending Push Notifications to iOS (iPhone/iPad APNS), OSX (APNS 10.8+) Android (C2DM and GCM - Google Cloud Message), Chrome (GCM) Windows Phone, Windows 8, Blackberry (PAP), and Amazon (ADM) devices!
+
+License:        Apache 2.0 License
+License File:   redistributable\third-party\PushSharp\LICENSE.txt
+
+67. UAParser - Browser user agent parser
+
+License:        Apache 2.0 License
+
+
+68. WebGrease - WebGrease is a suite of tools for optimizing javascript, css files and images.
+
+License:        Apache 2.0 License
+
+
+69. YamlDotNet - YamlDotNet is a .NET library for YAML.
+
+License:        AS-IS

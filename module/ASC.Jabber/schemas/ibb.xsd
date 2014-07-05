@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/ibb'
+    xmlns='http://jabber.org/protocol/ibb'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0047: http://www.xmpp.org/extensions/xep-0047.html
+    </xs:documentation>
+  </xs:annotation>
+
+   <xs:element name='open'>
+     <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='sid' type='xs:string' use='required'/>
+          <xs:attribute name='block-size' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+     </xs:complexType>
+   </xs:element>
+
+   <xs:element name='close'>
+     <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='sid' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+     </xs:complexType>
+   </xs:element>
+
+   <xs:element name='data'>
+     <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='sid' type='xs:string' use='required'/>
+          <xs:attribute name='seq' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+     </xs:complexType>
+   </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

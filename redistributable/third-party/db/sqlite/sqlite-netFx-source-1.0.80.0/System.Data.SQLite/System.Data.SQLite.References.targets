@@ -1,0 +1,42 @@
+<!--
+ *
+ * System.Data.SQLite.References.targets -
+ *
+ * Written by Joe Mistachkin.
+ * Released to the public domain, use at your own risk!
+ *
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+  ******************************************************************************
+  **                     Core References (Full Framework)                     **
+  ******************************************************************************
+  -->
+
+  <ItemGroup Condition="'$(IsCompactFramework)' == 'false'">
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+
+  <!--
+  ******************************************************************************
+  **                    Core References (Compact Framework)                   **
+  ******************************************************************************
+  -->
+
+  <ItemGroup Condition="'$(IsCompactFramework)' != 'false'">
+    <Reference Include="mscorlib" />
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

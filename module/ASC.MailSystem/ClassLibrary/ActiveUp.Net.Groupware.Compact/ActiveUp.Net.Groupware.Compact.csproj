@@ -1,0 +1,234 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{23B49501-057B-4B15-B0EF-C867412D59C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ActiveUp.Net.Groupware.Compact</RootNamespace>
+    <AssemblyName>ActiveUp.Net.Groupware.Compact</AssemblyName>
+    <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <OSVersion>5.0</OSVersion>
+    <DeployDirSuffix>ActiveUp.Net.Groupware.Compact</DeployDirSuffix>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FormFactorID>
+    </FormFactorID>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <NativePlatformName>Windows CE</NativePlatformName>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PocketPC</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;PocketPC</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <FileAlignment>512</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <OutputPath>bin\Retail\</OutputPath>
+    <DefineConstants>TRACE;PocketPC</DefineConstants>
+    <Optimize>true</Optimize>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>bin\Retail\ActiveUp.Net.Groupware.Compact.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Trial|AnyCPU' ">
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <OutputPath>bin\Trial\</OutputPath>
+    <DefineConstants>TRACE;PocketPC</DefineConstants>
+    <Optimize>true</Optimize>
+    <FileAlignment>512</FileAlignment>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>bin\Trial\ActiveUp.Net.Groupware.Compact.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Address.cs">
+      <Link>vCalendar.Address.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Attachment.cs">
+      <Link>vCalendar.Attachment.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.AttachmentCollection.cs">
+      <Link>vCalendar.AttachmentCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Attendee.cs">
+      <Link>vCalendar.Attendee.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.AttendeeCollection.cs">
+      <Link>vCalendar.AttendeeCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.AudioReminder.cs">
+      <Link>vCalendar.AudioReminder.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Classification.cs">
+      <Link>vCalendar.Classification.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.DayLightSavings.cs">
+      <Link>vCalendar.DayLightSavings.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.DisplayReminder.cs">
+      <Link>vCalendar.DisplayReminder.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Duration.cs">
+      <Link>vCalendar.Duration.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Entity.cs">
+      <Link>vCalendar.Entity.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.EntityCollection.cs">
+      <Link>vCalendar.EntityCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Expectation.cs">
+      <Link>vCalendar.Expectation.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.GeographicalPosition.cs">
+      <Link>vCalendar.GeographicalPosition.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.MailReminder.cs">
+      <Link>vCalendar.MailReminder.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Parser.cs">
+      <Link>vCalendar.Parser.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.ProcedureReminder.cs">
+      <Link>vCalendar.ProcedureReminder.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Property.cs">
+      <Link>vCalendar.Property.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.RecurrenceType..cs">
+      <Link>vCalendar.RecurrenceType..cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Reminder.cs">
+      <Link>vCalendar.Reminder.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Role.cs">
+      <Link>vCalendar.Role.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.Status.cs">
+      <Link>vCalendar.Status.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.vAlarm.cs">
+      <Link>vCalendar.vAlarm.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.ValueType.cs">
+      <Link>vCalendar.ValueType.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.vCalendar.cs">
+      <Link>vCalendar.vCalendar.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.vEvent.cs">
+      <Link>vCalendar.vEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.vEventCollection.cs">
+      <Link>vCalendar.vEventCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.vTodo.cs">
+      <Link>vCalendar.vTodo.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCalendar.vTodoCollection.cs">
+      <Link>vCalendar.vTodoCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.Address.cs">
+      <Link>vCard.Address.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.AddressCollection.cs">
+      <Link>vCard.AddressCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.EmailAddress.cs">
+      <Link>vCard.EmailAddress.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.EmailAddressCollection.cs">
+      <Link>vCard.EmailAddressCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.GeographicalPosition.cs">
+      <Link>vCard.GeographicalPosition.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.Label.cs">
+      <Link>vCard.Label.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.LabelCollection.cs">
+      <Link>vCard.LabelCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.Name.cs">
+      <Link>vCard.Name.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.Parser.cs">
+      <Link>vCard.Parser.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.TelephoneNumber.cs">
+      <Link>vCard.TelephoneNumber.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.TelephoneNumberCollection.cs">
+      <Link>vCard.TelephoneNumberCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActiveUp.Net.Groupware\vCard.vCard.cs">
+      <Link>vCard.vCard.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v1.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.v1.targets" />
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v2.0'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}">
+        <HostingProcess disable="1" />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "../../../../Samples/Lib/$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <Import Condition="'$(TargetFrameworkVersion)' == 'v3.5'" Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
+</Project>

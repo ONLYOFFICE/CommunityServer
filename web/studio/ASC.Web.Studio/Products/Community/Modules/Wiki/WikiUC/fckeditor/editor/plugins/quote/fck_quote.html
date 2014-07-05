@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Video Properties dialog window.
+-->
+<html>
+	<head>
+		<title>Quote Properties</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta content="noindex, nofollow" name="robots">
+		<script src="../../dialog/common/fck_dialog_common.js" type="text/javascript"></script>
+		<script type="text/javascript">
+
+
+
+var dialog	= window.parent ;
+var oEditor = dialog.InnerDialogLoaded() ;
+
+var FCK			= oEditor.FCK ;
+var FCKLang		= oEditor.FCKLang ;
+var FCKConfig	= oEditor.FCKConfig ;
+var FCKRegexLib	= oEditor.FCKRegexLib ;
+var FCKTools	= oEditor.FCKTools ;
+var FCKSelection = oEditor.FCKSelection;
+var FCKBrowserInfo = oEditor.FCKBrowserInfo;
+
+
+function OnDialogTabChange( tabCode )
+{
+	ShowE('divMain', true ) ;
+
+	dialog.SetAutoSize( true ) ;
+}
+
+			
+
+window.onload = function()
+{
+	// Translate the dialog box texts.
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	// Load the selected element information (if any).
+	LoadSelection() ;
+
+	GetE('divMain').style.display = '' ;
+	
+	dialog.SetOkButton( true ) ;
+	dialog.SetAutoSize( true ) ;
+	
+	SelectField( 'txtName' ) ;
+}
+
+
+function LoadSelection()
+{
+	var selection = '';
+
+	FCKSelection.GetSelection();
+	
+	if (FCK.EditorWindow.getSelection) {
+		selection = FCK.EditorWindow.getSelection();
+
+		var d = FCK.EditorDocument.createElement('DIV');
+		for (var i = 0; i < selection.rangeCount; i++) {
+			d.appendChild(selection.getRangeAt(i).cloneContents());
+		}
+		selection = d.innerHTML;
+
+	} else if (FCK.EditorDocument.selection) {
+		var range = FCK.EditorDocument.selection.createRange();
+
+		var type = FCKSelection.GetType();
+		if (type == 'Control') {
+			selection = range.item(0).outerHTML;
+		} else if (type == 'None') {
+			selection = '';
+		} else {
+			selection = range.htmlText;
+		}
+	}
+
+	if (selection != '') {
+		selection += ''; 
+	}
+	
+
+	
+	var sFrameUrl = !oEditor.FCK_IS_CUSTOM_DOMAIN || !FCKBrowserInfo.IsIE ?
+		'javascript:void(0)' :
+		'javascript:void( (function(){' +
+			'document.open() ;' +
+			'document.domain=\'' + document.domain + '\' ;' +
+			'document.write(\'<html><head><script>window.onerror = function() { return true ; };<\/script><\/head><body><\/body><\/html>\') ;' +
+			'document.close() ;' +
+			'document.body.contentEditable = true ;' +
+			'window.focus() ;' +
+			'})() )' ;
+
+	var eFrameSpace = document.getElementById( 'xFrameSpace' ) ;
+	eFrameSpace.innerHTML = '<iframe id="frmData" src="' + sFrameUrl + '" ' +
+				'height="100%" width="100%" frameborder="0" style="border: 1px solid #000000; background-color: #ffffff"><\/iframe>' ;
+
+	var oFrame = eFrameSpace.firstChild ;
+
+	if ( !oEditor.FCK_IS_CUSTOM_DOMAIN || !FCKBrowserInfo.IsIE )
+	{
+		// Avoid errors if the pasted content has any script that fails: #389
+		var oDoc = oFrame.contentWindow.document ;
+		oDoc.open() ;
+		oDoc.write('<html><head><script>window.onerror = function() { return true ; };<\/script><link rel="stylesheet" type="text/css" href="' + FCKConfig.EditorAreaCSS + '"><\/head><body>' + selection + '<\/body><\/html>') ;
+		oDoc.close() ;
+
+		if ( FCKBrowserInfo.IsIE )
+			oDoc.body.contentEditable = true ;
+		else
+			oDoc.designMode = 'on' ;
+
+		oFrame.contentWindow.focus();
+	}
+
+}
+
+
+//#### The OK button was hit.
+function Ok()
+{
+	if(GetE('txtName').value == '')
+	{
+		GetE('txtName').focus() ;
+		alert( FCKLang.QuoteOwnerAlert ) ;
+		return false ;
+	}
+	
+	oEditor.FCKUndo.SaveUndoStep() ;
+	
+	
+	var oFrame = document.getElementById('frmData') ;
+	var oBody ;
+
+	if ( oFrame.contentDocument )
+		oBody = oFrame.contentDocument.body ;
+	else
+		oBody = oFrame.contentWindow.document.body ;
+
+	sHtml = oBody.innerHTML ;
+
+	// Fix relative anchor URLs (IE automatically adds the current page URL).
+	var re = new RegExp( window.location + "#", "g" ) ;
+	sHtml = sHtml.replace( re, '#') ;
+
+		
+	var html = '<div class="mainQuote">';
+		html += '	<div class="quoteCaption"><span class="bold">' + GetE('txtName').value + '</span>&nbsp;' + FCKLang.QuoteWrote + '</div>';
+		html += '		<div id="quote" >';
+		html += '		<div class="bord"><div class="t"><div class="r">';
+		html += '		<div class="b"><div class="l"><div class="c">';
+		html += '			<div class="reducer">';
+		html += 				sHtml;
+		html += '			</div>';
+		html += '		</div></div></div>';
+		html += '		</div></div></div>';
+		html += '	</div>';
+		html += '</div>';
+		
+		
+		//alert(sHtml);
+		
+		if(FCKBrowserInfo.IsSafari)
+		{
+			html = '<div>&nbsp;<div>' + html + '<div>&nbsp;<div>';
+		}
+		else
+		{
+			html = html + '<br/>';
+		}
+		
+		
+		FCK.InsertHtml( html ) ;
+		
+		
+		
+		FCK.OnAfterSetHTML();
+		
+	
+		//FCK.Focus();
+		
+		//FCK.ToolbarSet.RefreshItemsState();
+
+	return true;
+}	
+		
+		
+		
+		
+		</script> 
+	</head>
+	<body scroll="no" style="OVERFLOW: hidden">
+		<div id="divMain" >
+			<div class="Caption">
+				<span fckLang="DlgLnkName">Name:</span><br />
+				<input id="txtName" style="WIDTH: 100%" type="text" />
+			</div>
+			<div class="Caption">
+				<span fckLang="QuoteLnkBody">Quote:</span><br />
+				<div id="xFrameSpace" style="padding:2px 0px 7px 0px; height:160px; font-weight: normal;">
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

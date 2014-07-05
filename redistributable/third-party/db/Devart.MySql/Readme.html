@@ -1,0 +1,335 @@
+<!-- saved from url=(0013)about:internet --> <!-- Disable WinXP SP2 and Vista warning when opened locally -->
+<!doctype html public "-//w3c//dtd html 4.0 Transitional//en">
+<html>
+<head>
+  <title>dotConnect for MySQL Readme</title>
+
+  <style>
+  body {
+    overflow: hidden;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background: #ffffff;
+    color: #000000;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 70%;
+    width: 100%;
+    }
+  p
+    {
+    margin: .5em 0em .5em 0em;
+    }
+  ol, ul
+    {
+    margin-top: .5em;
+    }
+  li
+    {
+    margin-bottom: .5em;
+    }
+  ul p, ol p, dl p
+    {
+    margin-left: 0em;
+    }
+  blockquote.dxOverload
+    {
+    margin: .5em 1.5em .5em 1.5em;
+    }
+  h1, h2, h3, h4
+    {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    margin-bottom: .4em;
+    margin-top: 1em;
+    font-weight: bold;
+    }
+  h1
+    {
+    font-size: 120%;
+    margin-top: 0em;
+    }
+  h2
+    {
+    font-size: 130%;
+    }
+  h3
+    {
+    font-size: 115%;
+    }
+  h4
+    {
+    font-size: 100%;
+    }
+  .dxH1, .dxH2, .dxH3, .dxH4
+    {
+    margin-left: -18px;
+    }
+  A
+    {
+    color: #0000FF;
+    }
+  A:link
+    {
+    color: #0000FF;
+    }
+  A:active
+    {
+    color: #000080;
+    }
+  A:visited
+    {
+    color: #800080;
+    }
+  A:hover
+    {
+    color: #FF0000;
+    }
+  pre
+    {
+    font-family: Courier New;
+    font-size: 9pt;
+    color: #000060;
+    margin-top: 0px;
+    }
+  code, p.example, p.sourcecode, table.sourcecode, tr.sourcecode, td.sourcecode
+    {
+    font-family: Courier New;
+    font-size: 9pt;
+    color: #000060;
+    }
+  div#pagetop {
+    margin: 0px;
+    padding: 0px;
+    background-color: #99ccff;
+    height: 44;
+    width: 100%;
+    border-bottom: 1px solid #999999;
+    }
+  div#pagebody {
+    margin: 0px 0px 0px 0px;
+    padding: 5px 10px 0px 22px;
+    height: 90%;
+    width: 100%;
+    overflow: auto;
+    background-color: #FFFFFF;
+    vertical-align: top;
+    }
+  table#BannerTable
+    {
+    width: 100%;
+    height: 100%;
+    border-collapse:collapse;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    }
+  table#BannerTable td
+    {
+    padding-left: 8px;
+    padding-right: 8px;
+    }
+  tr#BannerTopRow
+    {
+    font-style: italic;
+    font-size: 70%;
+    }
+  tr#Banner2ndRow
+    {
+    font-weight: bold;
+    font-size: 80%;
+    }
+  table.filtereditemlisttable, table.xmldoctable
+    {
+    width: 95%;
+    margin-top: .6em;
+    margin-bottom: .3em;
+    border-width: 1px 1px 0px 0px;
+    border-style: solid;
+    border-color: #999999;
+    background-color: #999999;
+    font-size: 100%;
+    border-collapse:collapse;
+    }
+  table.filtereditemlisttable th, table.filtereditemlisttable td, table.xmldoctable th, table.xmldoctable td
+    {
+    border-style: solid;
+    border-width: 0px 0px 1px 1px;
+    border-style: solid;
+    border-color: #999999;
+    padding: 4px 6px;
+    text-align: left;
+    vertical-align: top;
+    }
+  table.filtereditemlisttable th, table.xmldoctable th
+    {
+    background: #cccccc;
+    vertical-align: bottom;
+    }
+  table.filtereditemlisttable td, table.xmldoctable td
+    {
+    background-color: #ffffff;
+    vertical-align: top;
+    }
+  </style>
+
+  <script>
+
+  var Engine;
+  var enOpera = 'Opera';
+  var enIE = 'IE';
+  var enGecko = 'Gecko';
+
+  function TestEngine()
+  {
+    if (document.all) {
+      if (window.opera) {
+        Engine = enOpera;
+      }
+      else {
+        Engine = enIE;
+      }
+    }
+    else {
+      Engine = enGecko;
+    }
+  }
+
+
+  function AdjustContentSize()
+  {
+    var cDiv = document.getElementById("pagebody");
+    if ((Engine == enGecko)||(Engine == enOpera))//amend padding
+      {
+        var w = document.body.clientWidth;
+        cDiv.style.width = w - 32;
+      }
+    var h = document.body.clientHeight;
+    
+    if (h > 0)
+    {
+        var diff = 44;
+        
+        if ((Engine == enGecko)||(Engine == enOpera)) 
+        {
+           diff = diff + 6;
+        }        
+           
+        cDiv.style.height = h - diff + 'px';        
+    }
+  }
+
+
+  function Startup()
+  {
+    //add startup code here
+  }
+  </script>
+
+</head>
+
+
+<body onresize="AdjustContentSize()" onload="Startup()">
+
+<div id="pagetop">
+  <table id="BannerTable">
+    <tr id="BannerTopRow">
+      <td>dotConnect for MySQL</td>
+      <td align="right">support@devart.com</td>
+    </tr>
+    <tr id="Banner2ndRow">
+      <td>Readme</td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+</div>
+
+<div id="pagebody">
+<!-- begin content -->
+
+<h4 class="dxH4">Product Description</h4>
+
+<p>
+dotConnect for MySQL, formerly known as MySQLDirect .NET or MyDirect .NET, is
+an enhanced data provider for MySQL that builds on ADO.NET technology to
+present a complete solution for developing MySQL-based database applications.
+As part of the Devart database application development framework,
+dotConnect for MySQL offers both high performance native connectivity to the
+MySQL database and a number of innovative development tools and technologies.
+dotConnect for MySQL introduces new approaches for designing application
+architecture, boosts productivity, and leverages database application
+implementation.
+</p>
+
+<p>
+dotConnect for MySQL is a scalable data access solution developed with wide adaptability
+in mind. It can be successfully used in WinForms, ASP.NET, two-tier, multi-tier
+applications; within the ASP.NET Provider Model; in conjunction with the Enterprise Library;
+under .NET Compact Framework, Mono Framework and so on. Depending on the edition you
+choose, dotConnect for MySQL can be used as powerful ADO.NET data provider, or an effective
+application development framework.
+</p>
+
+<h4 class="dxH4">Requirements</h4>
+
+<p>
+Prior to running Setup to install the dotConnect for MySQL, you
+must already have the .NET Framework 2.0, 3.0, or 3.5 installed on the
+computer. If the .NET Framework is not installed, the Setup program for
+the provider will fail.
+</p>
+
+<p>
+Data provider can access MySQL server either using native MySQL network
+protocol directly or through MySQL client library. It allows you to create
+lightweight and fast applications working with MySQL.
+</p>
+
+<h4 class="dxH4">Installation</h4>
+
+<p>
+dotConnect for MySQL is provided as single setup package that contains all
+required files and documentation. By default all files are installed in
+"Program Files\Devart\dotConnect\MySQL" folder. The setup program also adds
+the necessary assemblies to the Global Assembly Cache.
+</p>
+
+<p>
+If you have problems with registering dotConnect for MySQL components in IDE toolbox,
+refer to corresponding topic in dotConnect for MySQL documentation.
+</p>
+
+<h4 class="dxH4">Documentation and Informational Resources</h4>
+
+<p>
+dotConnect for MySQL has exhaustive documentation integrated into IDE, where every aspect of using the
+product is covered in details. The documentation contains reference information and set of articles
+that enlight most of dotConnect for MySQL features. You can also download the documentation in <b>chm</b>
+format from  <a href="http://www.devart.com/dotconnect/mysql/download.html" target="_blank">our site</a>.
+</p>
+
+<p>
+If you have a question regarding dotConnect for MySQL, take a look through
+list of <a href="FAQ.html">Frequently Asked Questions</a>. Common problems
+with viewing documentation are described there as well.
+</p>
+
+<p>
+There is a <a href="http://www.devart.com/forums/viewforum.php?f=2" target="_blank">forum</a> dedicated to dotConnect for MySQL.
+</p>
+
+<h4 class="dxH4">Getting Support</h4>
+
+<p>
+If your problem is not covered in documentation or FAQ, consult the
+<i>Getting Support</i> topic of dotConnect for MySQL documentation
+prior to contacting the support team through the <a href="http://www.devart.com/forums/viewforum.php?f=2" target="_blank">forum</a> or <a href="mailto:support@devart.com">e-mail</a>.
+</p>
+
+<!-- end content -->
+
+<p>&nbsp;</p><p>&nbsp;</p><hr size=1><p>&copy; 2002-2013 Devart. All rights reserved.</p>
+</div>
+
+<script>
+TestEngine();
+AdjustContentSize();
+</script>
+</body>
+</html>

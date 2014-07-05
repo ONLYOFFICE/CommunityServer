@@ -1,0 +1,48 @@
+<xs:schema targetNamespace="http://www.w3.org/1999/xhtml"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.w3.org/1999/xhtml">
+
+  <xs:annotation>
+    <xs:documentation>
+      Images    
+      This is the XML Schema Images module for XHTML
+    
+        * img
+    
+      This module provides markup to support basic image embedding.
+      
+      To avoid problems with text-only UAs as well as to make
+      image content understandable and navigable to users of
+      non-visual UAs, you need to provide a description with
+      the 'alt' attribute, and avoid server-side image maps.
+      
+      
+      $Id$
+    </xs:documentation>
+    <xs:documentation source="xhtml-copyright-1.xsd"/>
+    <xs:documentation 
+       source="http://www.w3.org/TR/2001/REC-xhtml-modularization-20010410/abstract_modules.html#s_imagemodule"/>    
+  </xs:annotation>
+
+
+  <xs:attributeGroup name="img.attlist">
+    <xs:attributeGroup ref="Common.attrib"/>
+    <xs:attribute name="src" type="URI" use="required"/>
+    <xs:attribute name="alt" type="Text" use="required"/>
+    <xs:attribute name="longdesc" type="URI"/>
+    <xs:attribute name="height" type="Length"/>
+    <xs:attribute name="width" type="Length"/>
+  </xs:attributeGroup>
+
+  <xs:group name="img.content">
+     <xs:sequence/>
+  </xs:group>  
+    
+  <xs:complexType name="img.type">
+     <xs:group ref="img.content"/>
+     <xs:attributeGroup ref="img.attlist"/>
+  </xs:complexType>
+
+  <xs:element name="img" type="img.type"/>
+
+</xs:schema>

@@ -1,0 +1,96 @@
+Received: from [62.141.94.154] (HELO mx4.ks.pochta.ru)
+	by node8-1.ks.pochta.ru with QIP.RU LMTP
+	for zoobublik@qip.ru;
+	Tue, 24 Apr 2012 13:23:53 +0400
+X-QIP-Domain: qip.ru
+X-QIP-Sender: 62.141.94.202
+Received: from web22.pochta.ru (web22.pochta.ru [62.141.94.202] #t)
+	by mx4.ks.pochta.ru with QIP.RU SMTP
+	envelope from <>
+	for zoobublik@qip.ru; Tue, 24 Apr 2012 13:23:53 +0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=qip.ru; s=dkim;
+	h=Resent-Date:Resent-Message-Id:ReSent-From:ReSent-To:Message-Id:Subject:Cc:To:From:Date:Content-Transfer-Encoding:MIME-Version:Content-Type; bh=y2HTKWjVi+haRwj6lBwa1CYpAAxTxV4PeAE1QCMh3Yc=;
+	b=cdNtz3ewOr1mJbIq0EnZ1T5P7fPpX1jUukyKpKmHT24fjP0hSBoXQjLUyWnLqzblClQ54e/MLLatxQqBUb5WCiII9BLKC9X9sRT5O16td0rfDQgAZSN4iys/uPIblMIA;
+Received: from [127.0.0.1] (port=50672 helo=127.0.0.1)
+	by web22.pochta.ru with esmtp id 1SMbyT-0007El-52
+	for zoobublik@qip.ru; Tue, 24 Apr 2012 13:23:53 +0400
+Received: from [62.141.94.152] (HELO mx2.ks.pochta.ru)
+	by node6-2.ks.pochta.ru with QIP.RU LMTP
+	for 1024@nm.ru;
+	Thu, 19 Apr 2012 07:55:57 +0400
+Received-SPF: softfail (mx2.ks.pochta.ru: transitioning domain of narod.ru does not designate 123.49.35.122 as permitted sender) client-ip=123.49.35.122; envelope-from=tweaksse@narod.ru; helo=[123.49.35.122];
+X-QIP-Domain: [123.49.35.122]
+X-QIP-Sender: 123.49.35.122
+Received: from host122.btcl.net.bd ([123.49.35.122] [123.49.35.122] #r)
+	by mx2.ks.pochta.ru with QIP.RU SMTP
+	envelope from tweaksse@narod.ru
+	for *1023813922.20060807123814@nm.ru,*1023862729.20040622131756@nm.ru,*1023970765.20070524103513@nm.ru,*10241396484.20041022234742@nm.ru,*1024534363.20041025134114@nm.ru,*102455533250.20040825170532@nm.ru,1024@nm.ru,1024x768@nm.ru,*1026102251.20060726175543@nm.ru; Thu, 19 Apr 2012 07:55:57 +0400
+Content-Type: text/html; charset="koi8-r"
+MIME-Version: 1.0
+X-Mailer: EDMAIL R6.00.02
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Date: Thu, 19 Apr 2012 09:47:19 +0600
+From: =?koi8-r?B?5czFzsEg+8nS0cXX?= <toothyl6@rambler.ru>
+To: <1023813922.20060807123814@nm.ru>,
+	<1023862729.20040622131756@nm.ru>,
+	<1023970765.20070524103513@nm.ru>,
+	<10241396484.20041022234742@nm.ru>,
+	<1024534363.20041025134114@nm.ru>,
+	<102455533250.20040825170532@nm.ru>,
+	<1024@nm.ru>
+Cc: <102672436.20061002094729@nm.ru>
+Subject: =?koi8-r?B?8sHazcXdxc7JxSDPwt/R18zFzsnKIM7BIMTP08vByA==?=
+Message-Id: <00f683130519822a6e939e8996f36ce720d3b352@mail.qip.ru>
+ReSent-To: zoobublik@qip.ru
+ReSent-From: 1024@nm.ru
+Resent-Message-Id: <20120419094719.X5F44MCH97JOS@www.narod.ru>
+Resent-Date: Tue, 24 Apr 2012 13:23:53 +0400
+X-NoSpam-Exim-Host: 62.141.94.133
+X-NoSpam-Exim-Port: 8092
+X-NoSpam-Exim-Scanned: Yes
+X-NoSpam-Exim-Result: OK
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE></TITLE>
+</HEAD>
+<BODY>
+
+<p align="center"><font color="#707070" size="5" face="Verdana, Arial, Helvetica, sans-serif">ПОСТИНГ ОБЪЯВЛЕНИЙ</font><font color="#707070" size="4" face="Verdana, Arial, Helvetica, sans-serif"><br />
+    <font color="#FF6633">НА ФОРУМЫ И ДОСКИ ОБЪЯВЛЕНИЙ</font></font></p>
+<p align="center"><font color="#707070" size="4" face="Verdana, Arial, Helvetica, sans-serif">ЧТО ЭТО ДАЕТ:</font><font size="3" face="Verdana, Arial, Helvetica, sans-serif"><br />
+  - Ваши объявления будут находить люди в поисковых системах;<br />
+  - У Вашего сайта повыситься Pr и ТИЦ;<br />
+  - Дополнительный приток посетителей на сайт;<br />
+  - Повышение позиций сайта в поисковых системах.</font></p>
+<p align="center"><font color="#707070" size="4" face="Verdana, Arial, Helvetica, sans-serif">СКОЛЬКО СТОИТ:</font><font size="3" face="Verdana, Arial, Helvetica, sans-serif"><br />
+    <strong>4 000</strong> разосланных объявлений - <font color="#FF6633"><strong>3 100 руб.</strong></font><br />
+    <strong>6 000</strong> разосланных объявлений - <font color="#FF6633"><strong>4 600 руб.</strong></font><br />
+    <strong>8 000</strong> разосланных объявлений - <font color="#FF6633"><strong>5 900 руб.</strong></font><br />
+    <strong>10 000</strong> разосланных объявлений - <strong><font color="#FF6633">7 300 руб.</font></strong><br />
+    <strong>12 000</strong> разосланных объявлений - <font color="#FF6633"><strong>8 400 руб.</strong></font></font></p>
+<p align="center"><font color="#707070" size="4" face="Verdana, Arial, Helvetica, sans-serif">ОТЧЕТ:</font><font size="3" face="Verdana, Arial, Helvetica, sans-serif"><br />
+  Отчет в виде ссылок на размещенные объявления.</font></p>
+<p align="center"><font color="#707070" size="4" face="Verdana, Arial, Helvetica, sans-serif">ПОЧЕМУ ИМЕННО МЫ:</font><font size="3" face="Verdana, Arial, Helvetica, sans-serif"><br />
+    <font color="#FF6633" size="4"><strong>-</strong></font> Мы используем дорогостоящее <strong>лицензионное программное обеспечение</strong>;<br />
+  <br />
+</font><strong><font color="#FF6633" size="4" face="Verdana, Arial, Helvetica, sans-serif">-</font></strong><font size="3" face="Verdana, Arial, Helvetica, sans-serif"> Размещение объявлений происходит, <strong>с распознаванием Капчи</strong>(поэтому объявления будут опубликованы даже на самых крупных сайтах);<br />
+  <br />
+  <strong><font color="#FF6633" size="4">-</font></strong> Наше агентство <strong>специализируется на рассылках</strong> любого вида, мы постоянно обновляняем базы данных и софт,
+  вкладываем средства улучшение методов рассылок.</font></p>
+<p align="center"><font color="#707070" size="4" face="Verdana, Arial, Helvetica, sans-serif">КАК БЫСТРО ЭТО ПРОИСХОДИТ:</font><font size="3" face="Verdana, Arial, Helvetica, sans-serif"><br />
+  Размещение объявлений занимаем от 1 до 3 дней, в зависимости от объема.</font></p>
+<p align="center"><font color="#707070" size="4" face="Verdana, Arial, Helvetica, sans-serif">НА СКОЛЬКО ЭТО ЗАКОННО:</font><font size="3" face="Verdana, Arial, Helvetica, sans-serif"><br />
+  Публиковать объявления на форумах и досках <strong>100% законно</strong>, т. к. эти сайты созданы специально для того чтобы на них размещать объявления.</font></p>
+<p align="center"><font color="#707070" size="4" face="Verdana, Arial, Helvetica, sans-serif">КАК СДЕЛАТЬ ЗАКАЗ:</font><font size="3" face="Verdana, Arial, Helvetica, sans-serif"><br />
+  Свяжитесь с нами, предоставьте объявление которое Вы хотите разместить, произведите оплату любым удобным способом<br />
+  (Банковский перевод для юр. лиц, WebMoney, ЯндексДеньги, Через курьера по Москве).</font></p>
+<p align="center"><font color="#FF6633" size="4" face="Verdana, Arial, Helvetica, sans-serif">ОБРАЩАЙТЕСЬ ПО ЛЮБЫМ ВОПРОСАМ:</font><font size="3" face="Verdana, Arial, Helvetica, sans-serif"><br />
+    <strong>Телефон:</strong> 7(Ч 9  5)5 8 9~8 1 ~5 4<br />
+    <strong>ICQ:</strong> 39-70-9580-7<br />
+Email: qvocogsolu@mail.ru</font></p>
+
+</BODY></HTML>
+
+
+

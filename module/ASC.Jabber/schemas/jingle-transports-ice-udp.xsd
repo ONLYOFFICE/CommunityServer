@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:jingle:transports:ice-udp:1'
+    xmlns='urn:xmpp:jingle:transports:ice-udp:1'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0176: http://www.xmpp.org/extensions/xep-0176.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='transport'>
+    <xs:complexType>
+      <xs:choice minOccurs='0'>
+        <xs:sequence>
+          <xs:element name='candidate' 
+                      type='candidateElementType'
+                      minOccurs='1' 
+                      maxOccurs='unbounded'/>
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element name='remote-candidate' 
+                      type='remoteCandidateElementType'
+                      minOccurs='1' 
+                      maxOccurs='1'/>
+        </xs:sequence>
+      </xs:choice>
+      <xs:attribute name='pwd' type='xs:string' use='optional'/>
+      <xs:attribute name='ufrag' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name='candidateElementType'>
+    <xs:simpleContent>
+      <xs:extension base='empty'>
+        <xs:attribute name='component' type='xs:unsignedByte' use='required'/>
+        <xs:attribute name='foundation' type='xs:unsignedByte' use='required'/>
+        <xs:attribute name='generation' type='xs:unsignedByte' use='required'/>
+        <xs:attribute name='id' type='xs:NCName' use='required'/>
+        <xs:attribute name='ip' type='xs:string' use='required'/>
+        <xs:attribute name='network' type='xs:unsignedByte' use='required'/>
+        <xs:attribute name='port' type='xs:unsignedShort' use='required'/>
+        <xs:attribute name='priority' type='xs:positiveInteger' use='required'/>
+        <xs:attribute name='protocol' type='xs:NCName' use='required'/>
+        <xs:attribute name='rel-addr' type='xs:string' use='optional'/>
+        <xs:attribute name='rel-port' type='xs:unsignedShort' use='optional'/>
+        <xs:attribute name='type' use='required'>
+          <xs:simpleType>
+            <xs:restriction base='xs:NCName'>
+              <xs:enumeration value='host'/>
+              <xs:enumeration value='prflx'/>
+              <xs:enumeration value='relay'/>
+              <xs:enumeration value='srflx'/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name='remoteCandidateElementType'>
+    <xs:simpleContent>
+      <xs:extension base='empty'>
+        <xs:attribute name='component' type='xs:unsignedByte' use='required'/>
+        <xs:attribute name='ip' type='xs:string' use='required'/>
+        <xs:attribute name='port' type='xs:unsignedShort' use='required'/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

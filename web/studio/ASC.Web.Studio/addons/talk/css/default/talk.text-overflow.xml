@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <binding id="ellipsis30">
+    <content>
+      <xul:label crop="end" style="display:block; width:100%; height:30px; line-height:30px; padding:8px 0 0;">
+        <children />
+      </xul:label>
+    </content>
+    <implementation>
+      <method name="setTextContentToValue">
+        <body>
+          <![CDATA[
+            var eDescription = document.getAnonymousNodes(this)[0];
+            if (eDescription) eDescription.value = this.textContent;
+          // ]]>
+        </body>
+      </method>
+      <constructor>setTextContentToValue();</constructor>
+    </implementation>
+    <handlers>
+      <handler event="DOMSubtreeModified">setTextContentToValue();</handler>
+    </handlers>
+  </binding>
+  <binding id="ellipsis25">
+    <content>
+      <xul:label crop="end" style="display:block; width:100%; height:25px; line-height:25px; padding:5px 0 0;">
+        <children />
+      </xul:label>
+    </content>
+    <implementation>
+      <method name="setTextContentToValue">
+        <body>
+          <![CDATA[
+            var eDescription = document.getAnonymousNodes(this)[0];
+            if (eDescription) eDescription.value = this.textContent;
+          // ]]>
+        </body>
+      </method>
+      <constructor>setTextContentToValue();</constructor>
+    </implementation>
+    <handlers>
+      <handler event="DOMSubtreeModified">setTextContentToValue();</handler>
+    </handlers>
+  </binding>
+  <binding id="ellipsis24">
+    <content>
+      <xul:label crop="end" style="display:block; width:100%; height:24px; line-height:24px; padding:5px 0 0;">
+        <children />
+      </xul:label>
+    </content>
+    <implementation>
+      <method name="setTextContentToValue">
+        <body>
+          <![CDATA[
+            var eDescription = document.getAnonymousNodes(this)[0];
+            if (eDescription) eDescription.value = this.textContent;
+          // ]]>
+        </body>
+      </method>
+      <constructor>setTextContentToValue();</constructor>
+    </implementation>
+    <handlers>
+      <handler event="DOMSubtreeModified">setTextContentToValue();</handler>
+    </handlers>
+  </binding>
+  <binding id="ellipsis20">
+    <content>
+      <xul:label crop="end" style="display:block; width:100%; height:20px; line-height:20px; padding:3px 0 0;">
+        <children />
+      </xul:label>
+    </content>
+    <implementation>
+      <method name="setTextContentToValue">
+        <body>
+          <![CDATA[
+            var eDescription = document.getAnonymousNodes(this)[0];
+            if (eDescription) eDescription.value = this.textContent;
+          // ]]>
+        </body>
+      </method>
+      <constructor>setTextContentToValue();</constructor>
+    </implementation>
+    <handlers>
+      <handler event="DOMSubtreeModified">setTextContentToValue();</handler>
+    </handlers>
+  </binding>
+  <binding id="ellipsis16">
+    <content>
+      <xul:label crop="end" style="display:block; width:100%; height:16px; line-height:16px;">
+        <children />
+      </xul:label>
+    </content>
+    <implementation>
+      <method name="setTextContentToValue">
+        <body>
+          <![CDATA[
+            var eDescription = document.getAnonymousNodes(this)[0];
+            if (eDescription) eDescription.value = this.textContent;
+          // ]]>
+        </body>
+      </method>
+      <constructor>setTextContentToValue();</constructor>
+    </implementation>
+    <handlers>
+      <handler event="DOMSubtreeModified">setTextContentToValue();</handler>
+    </handlers>
+  </binding>
+  <binding id="none">
+    <content>
+      <children />
+    </content>
+  </binding>
+</bindings>

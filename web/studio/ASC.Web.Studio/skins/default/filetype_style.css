@@ -1,0 +1,125 @@
+/*
+(c) Copyright Ascensio System SIA 2010-2014
+
+This program is a free software product.
+You can redistribute it and/or modify it under the terms 
+of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
+any third-party rights.
+
+This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
+the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+
+You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+
+The  interactive user interfaces in modified source and object code versions of the Program must 
+display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ 
+Pursuant to Section 7(b) of the License you must retain the original Product logo when 
+distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
+trademark law for use of our trademarks.
+ 
+All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+*/
+
+/*
+    Copyright (c) Ascensio System SIA 2013. All rights reserved.
+    http://www.teamlab.com
+*/
+.ftFile_21, .ftFile_32,
+.ftFolder_21, .ftFolder_32
+{
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	background-color: transparent;
+	background-position: 0 0;
+	height:32px;
+	width:32px;
+}
+.ftFile_21, .ftFolder_21,
+.compact .ftFile_32, .compact .ftFolder_32
+{
+	background-position: 0 -39px;
+	height:21px;
+	width:21px;
+}
+/*folder default*/
+.ftFolder_21, .ftFolder_32{background-image:url('images/filetype/folder.png');}
+/*file default*/
+.ftFile_21, .ftFile_32{background-image:url('images/filetype/file.png');}
+
+
+/*".zip", ".rar", ".ace", ".arc", ".arj", ".bh", ".cab", ".enc", ".gz", ".ha", ".jar", ".lha", ".lzh", ".pak", ".pk3", ".tar", ".tgz", ".uu", ".uue", ".xxe", ".z", ".zoo"*/
+.ft_Archive{background-image:url('images/filetype/file_archive.png');}
+/*".avi"*/
+.ft_Avi{background-image:url('images/filetype/file_avi.png');}
+/*".csv"*/
+.ft_Csv{background-image:url('images/filetype/file_csv.png');}
+/*".djvu"*/
+.ft_Djvu{background-image:url('images/filetype/file_djvu.png');}
+/*".doc", ".docx"*/
+.ft_Doc{background-image:url('images/filetype/file_doc.png');}
+/*".doct"*/
+.ft_Doct{background-image:url('images/filetype/file_doct.png');}
+/*".epub", ".fb2"*/
+.ft_Ebook{background-image:url('images/filetype/file_ebook.png');}
+/*".flv", ".fla"*/
+.ft_Flv{background-image:url('images/filetype/file_flv.png');}
+/*".html", ".htm", ".mht"*/
+.ft_Html{background-image:url('images/filetype/file_html.png');}
+/*".iaf"*/
+.ft_Iaf{background-image:url('images/filetype/file_iaf.png');}
+/*".bmp", ".cod", ".gif", ".ief", ".jpe", ".jpeg", ".jpg", ".jfif", ".tiff", ".tif", ".cmx", ".ico", ".png", ".pnm", ".pbm", ".ppm", ".rgb", ".xbm", ".xpm", ".xwd"*/
+.ft_Image{background-image:url('images/filetype/file_image.png');}
+/*".m2ts"*/
+.ft_M2ts{background-image:url('images/filetype/file_m2ts.png');}
+/*".mkv"*/
+.ft_Mkv{background-image:url('images/filetype/file_mkv.png');}
+/*".mov"*/
+.ft_Mov{background-image:url('images/filetype/file_mov.png');}
+/*".mp4"*/
+.ft_Mp4{background-image:url('images/filetype/file_mp4.png');}
+/*".mpg"*/
+.ft_Mpg{background-image:url('images/filetype/file_mpg.png');}
+/*".odp"*/
+.ft_Odp{background-image:url('images/filetype/file_odp.png');}
+/*".ods"*/
+.ft_Ods{background-image:url('images/filetype/file_ods.png');}
+/*".odt"*/
+.ft_Odt{background-image:url('images/filetype/file_odt.png');}
+/*".pdf"*/
+.ft_Pdf{background-image:url('images/filetype/file_pdf.png');}
+/*".pps", ".ppsx"*/
+.ft_Pps{background-image:url('images/filetype/file_pps.png');}
+/*".ppt", ".pptx"*/
+.ft_Ppt{background-image:url('images/filetype/file_ppt.png');}
+/*".pptt"*/
+.ft_Pptt{background-image:url('images/filetype/file_pptt.png');}
+/*".rtf"*/
+.ft_Rtf{background-image:url('images/filetype/file_rtf.png');}
+/*".mp3", ".wav", ".pcm", ".aiff", ".3gp", ".flac", ".fla", ".cda"*/
+.ft_Sound{background-image:url('images/filetype/file_sound.png');}
+/*".svg"*/
+.ft_Svg{background-image:url('images/filetype/file_svg.png');}
+/*".txt"*/
+.ft_Txt{background-image:url('images/filetype/file_txt.png');}
+/*".vob"*/
+.ft_Dvd{background-image:url('images/filetype/file_dvd.png');}
+/*".xls", ".xlsx"*/
+.ft_Xls{background-image:url('images/filetype/file_xls.png');}
+/*".xlst"*/
+.ft_Xlst{background-image:url('images/filetype/file_xlst.png');}
+/*".xml"*/
+.ft_Xml{background-image:url('images/filetype/file_xml.png');}
+/*".xml"*/
+.ft_Xps{background-image:url('images/filetype/file_xps.png');}
+/*".gdoc"*/
+.ft_Gdoc{background-image:url('images/filetype/file_gdoc.png');}
+/*".gsheet"*/
+.ft_Gsheet{background-image:url('images/filetype/file_gsheet.png');}
+/*".gslides"*/
+.ft_Gslides{background-image:url('images/filetype/file_gslides.png');}
