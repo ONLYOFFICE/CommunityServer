@@ -3,45 +3,25 @@ Overview
 Free open source office suite and business productivity tools in one solution: online document editors, file and project management, CRM.
 
 * Online Document Editors
-
 * Collaborative editing and commenting
-
 * CRM
-
 * Web-to-lead form
-
 * Document management
-
 * File sharing
-
 * Document versions
-
 * Document embedding
-
 * Project Management
-
 * Gantt Chart
-
 * Milestones
-
 * Task dependencies and subtasks
-
 * Time tracking
-
 * Business Collaboration
-
 * Blogs, forums, polls
-
 * Calendar
-
 * Email Aggregator
-
 * People module (portal members' database)
-
 * Instant Messanger
-
 * Support of 20 languages
-
 
 Project Information
 ========================
