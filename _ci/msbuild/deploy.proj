@@ -4,7 +4,7 @@
   <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.Xml.XmlMassUpdate" />
   <PropertyGroup>
     <RootDir Condition=" '$(RootDir)' == '' ">..\..\</RootDir>
-    <DeployTo Condition=" '$(DeployTo)' == '' ">localhost</DeployTo>
+    <DeployTo Condition=" '$(DeployTo)' == '' ">STANDALONE</DeployTo>
     <DeployDir Condition=" '$(DeployDir)' == '' ">$(RootDir)_ci\deploy\</DeployDir>
     <OutDir Condition=" '$(OutDir)' == '' ">$(DeployDir)$(DeployTo)\</OutDir>
     <SQLite3>$(RootDir)redistributable\third-party\db\sqlite\sqlite3</SQLite3>
