@@ -35,10 +35,9 @@ namespace ASC.Files.Core
         public static readonly string ModuleId = "files";
 
         public static readonly string StorageModule = "files";
-
         public static readonly string StorageDomainTmp = "files_temp";
-
         public static readonly string StorageDomainTemplate = "files_template";
+        public static readonly string StoragePartnerDocuments = "startdocuments";
 
         public static readonly string DatabaseId = "files";
 

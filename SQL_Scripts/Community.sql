@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `blogs_comments` (
   PRIMARY KEY (`Tenant`,`id`),
   KEY `ixComments_PostId` (`Tenant`,`post_id`),
   KEY `ixComments_Created` (`created_when`,`Tenant`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- blogs_posts
 CREATE TABLE IF NOT EXISTS `blogs_posts` (
   `id` char(38) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `blogs_posts` (
   KEY `ixPosts_LastCommentId` (`Tenant`,`LastCommentId`),
   KEY `ixPosts_CreatedWhen` (`created_when`,`Tenant`),
   KEY `LastModified` (`LastModified`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- blogs_reviewposts
 CREATE TABLE IF NOT EXISTS `blogs_reviewposts` (
   `post_id` char(38) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `blogs_reviewposts` (
   `timestamp` datetime NOT NULL,
   `Tenant` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Tenant`,`post_id`,`reviewed_by`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- blogs_tags
 CREATE TABLE IF NOT EXISTS `blogs_tags` (
   `post_id` varchar(38) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `blogs_tags` (
   `Tenant` int(11) NOT NULL,
   PRIMARY KEY (`Tenant`,`post_id`,`name`),
   KEY `name` (`name`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- bookmarking_bookmark
 CREATE TABLE IF NOT EXISTS `bookmarking_bookmark` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `bookmarking_bookmark` (
   PRIMARY KEY (`ID`),
   KEY `Tenant` (`Tenant`),
   KEY `DateIndex` (`Date`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- bookmarking_bookmarktag
 CREATE TABLE IF NOT EXISTS `bookmarking_bookmarktag` (
   `BookmarkID` int(11) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `bookmarking_bookmarktag` (
   `Tenant` int(11) NOT NULL,
   PRIMARY KEY (`BookmarkID`,`TagID`),
   KEY `Tenant` (`Tenant`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- bookmarking_comment
 CREATE TABLE IF NOT EXISTS `bookmarking_comment` (
   `ID` char(38) NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `bookmarking_comment` (
   `Tenant` int(11) NOT NULL,
   PRIMARY KEY (`Tenant`,`ID`),
   KEY `IndexCommentBookmarkID` (`Tenant`,`BookmarkID`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- bookmarking_tag
 CREATE TABLE IF NOT EXISTS `bookmarking_tag` (
   `TagID` int(11) NOT NULL AUTO_INCREMENT,
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `bookmarking_tag` (
   `Tenant` int(11) NOT NULL,
   PRIMARY KEY (`TagID`),
   KEY `Name` (`Tenant`,`Name`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- bookmarking_userbookmark
 CREATE TABLE IF NOT EXISTS `bookmarking_userbookmark` (
   `UserBookmarkID` int(11) NOT NULL AUTO_INCREMENT,
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `bookmarking_userbookmark` (
   PRIMARY KEY (`UserBookmarkID`),
   KEY `LastModified` (`Tenant`,`LastModified`),
   KEY `BookmarkID` (`BookmarkID`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- bookmarking_userbookmarktag
 CREATE TABLE IF NOT EXISTS `bookmarking_userbookmarktag` (
   `UserBookmarkID` int(11) NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `bookmarking_userbookmarktag` (
   `Tenant` int(11) NOT NULL,
   PRIMARY KEY (`UserBookmarkID`,`TagID`),
   KEY `Tenant` (`Tenant`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- events_comment
 CREATE TABLE IF NOT EXISTS `events_comment` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `events_comment` (
   `Tenant` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `Tenant` (`Tenant`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- events_feed
 CREATE TABLE IF NOT EXISTS `events_feed` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `events_feed` (
   PRIMARY KEY (`Id`),
   KEY `LastModified` (`Tenant`,`LastModified`),
   KEY `Date` (`Date`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- events_poll
 CREATE TABLE IF NOT EXISTS `events_poll` (
   `Id` int(11) NOT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `events_poll` (
   `Tenant` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `Tenant` (`Tenant`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- events_pollanswer
 CREATE TABLE IF NOT EXISTS `events_pollanswer` (
   `Variant` int(11) NOT NULL,
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `events_pollanswer` (
   `Tenant` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Variant`,`User`),
   KEY `Tenant` (`Tenant`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- events_pollvariant
 CREATE TABLE IF NOT EXISTS `events_pollvariant` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `events_pollvariant` (
   `Tenant` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `Poll` (`Tenant`,`Poll`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- events_reader
 CREATE TABLE IF NOT EXISTS `events_reader` (
   `Feed` int(11) NOT NULL,
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `events_reader` (
   `Tenant` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Feed`,`Reader`),
   KEY `Tenant` (`Tenant`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_answer
 CREATE TABLE IF NOT EXISTS `forum_answer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -181,13 +181,13 @@ CREATE TABLE IF NOT EXISTS `forum_answer` (
   `TenantID` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `TenantID` (`TenantID`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_answer_variant
 CREATE TABLE IF NOT EXISTS `forum_answer_variant` (
   `answer_id` int(11) NOT NULL,
   `variant_id` int(11) NOT NULL,
   PRIMARY KEY (`answer_id`,`variant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_attachment
 CREATE TABLE IF NOT EXISTS `forum_attachment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `forum_attachment` (
   `TenantID` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `post_id` (`TenantID`,`post_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_category
 CREATE TABLE IF NOT EXISTS `forum_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `forum_category` (
   `tenantid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `TenantID` (`tenantid`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_lastvisit
 CREATE TABLE IF NOT EXISTS `forum_lastvisit` (
   `tenantid` int(11) NOT NULL,
@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `forum_lastvisit` (
   `thread_id` int(11) NOT NULL,
   `last_visit` datetime NOT NULL,
   PRIMARY KEY (`tenantid`,`user_id`,`thread_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_post
 CREATE TABLE IF NOT EXISTS `forum_post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -243,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `forum_post` (
   KEY `LastModified` (`TenantID`,`LastModified`),
   KEY `topic_id` (`TenantID`,`topic_id`),
   KEY `create_date` (`create_date`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_question
 CREATE TABLE IF NOT EXISTS `forum_question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -254,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `forum_question` (
   `TenantID` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `topic_id` (`TenantID`,`topic_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_tag
 CREATE TABLE IF NOT EXISTS `forum_tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -263,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `forum_tag` (
   `TenantID` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `TenantID` (`TenantID`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_thread
 CREATE TABLE IF NOT EXISTS `forum_thread` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -281,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `forum_thread` (
   `recent_poster_id` char(38) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tenantid` (`TenantID`,`category_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_topic
 CREATE TABLE IF NOT EXISTS `forum_topic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -302,13 +302,13 @@ CREATE TABLE IF NOT EXISTS `forum_topic` (
   PRIMARY KEY (`id`),
   KEY `LastModified` (`TenantID`,`LastModified`),
   KEY `thread_id` (`thread_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_topic_tag
 CREATE TABLE IF NOT EXISTS `forum_topic_tag` (
   `topic_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL,
   PRIMARY KEY (`topic_id`,`tag_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_topicwatch
 CREATE TABLE IF NOT EXISTS `forum_topicwatch` (
   `TenantID` int(11) NOT NULL,
@@ -316,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `forum_topicwatch` (
   `TopicID` int(11) NOT NULL,
   `ThreadID` int(11) NOT NULL,
   PRIMARY KEY (`TenantID`,`UserID`,`TopicID`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- forum_variant
 CREATE TABLE IF NOT EXISTS `forum_variant` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -324,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `forum_variant` (
   `question_id` int(11) NOT NULL,
   `sort_order` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- photo_album
 CREATE TABLE IF NOT EXISTS `photo_album` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
@@ -339,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `photo_album` (
   `Tenant` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `Photo_Album_Index1` (`Tenant`,`Event`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- photo_comment
 CREATE TABLE IF NOT EXISTS `photo_comment` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
@@ -352,7 +352,7 @@ CREATE TABLE IF NOT EXISTS `photo_comment` (
   `Tenant` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `Photo_Comment_Index1` (`Tenant`,`Image`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- photo_event
 CREATE TABLE IF NOT EXISTS `photo_event` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
@@ -363,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `photo_event` (
   `Tenant` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `Tenant` (`Tenant`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- photo_image
 CREATE TABLE IF NOT EXISTS `photo_image` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
@@ -382,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `photo_image` (
   `Tenant` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `Photo_Image_Index1` (`Tenant`,`Album`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- photo_imageview
 CREATE TABLE IF NOT EXISTS `photo_imageview` (
   `Tenant` int(11) NOT NULL,
@@ -390,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `photo_imageview` (
   `User` varchar(38) NOT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Tenant`,`Image`,`User`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- wiki_categories
 CREATE TABLE IF NOT EXISTS `wiki_categories` (
   `Tenant` int(11) NOT NULL,
@@ -398,7 +398,7 @@ CREATE TABLE IF NOT EXISTS `wiki_categories` (
   `PageName` varchar(255) NOT NULL,
   PRIMARY KEY (`Tenant`,`CategoryName`,`PageName`),
   KEY `PageName` (`Tenant`,`PageName`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- wiki_comments
 CREATE TABLE IF NOT EXISTS `wiki_comments` (
   `Tenant` int(11) NOT NULL,
@@ -411,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `wiki_comments` (
   `Inactive` int(11) NOT NULL,
   PRIMARY KEY (`Tenant`,`Id`),
   KEY `PageName` (`Tenant`,`PageName`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- wiki_files
 CREATE TABLE IF NOT EXISTS `wiki_files` (
   `Tenant` int(11) NOT NULL,
@@ -423,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `wiki_files` (
   `FileLocation` text NOT NULL,
   `FileSize` int(11) NOT NULL,
   PRIMARY KEY (`Tenant`,`FileName`,`Version`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- wiki_pages
 CREATE TABLE IF NOT EXISTS `wiki_pages` (
   `tenant` int(11) NOT NULL,
@@ -433,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `wiki_pages` (
   `modified_on` datetime NOT NULL,
   PRIMARY KEY (`tenant`,`pagename`),
   KEY `modified_on` (`tenant`,`modified_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- wiki_pages_history
 CREATE TABLE IF NOT EXISTS `wiki_pages_history` (
   `tenant` int(11) NOT NULL,
@@ -443,5 +443,5 @@ CREATE TABLE IF NOT EXISTS `wiki_pages_history` (
   `create_on` datetime NOT NULL,
   `body` mediumtext,
   PRIMARY KEY (`tenant`,`pagename`,`version`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

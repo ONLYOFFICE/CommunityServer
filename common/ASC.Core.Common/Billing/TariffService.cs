@@ -273,7 +273,7 @@ namespace ASC.Core.Billing
 
         public void SaveButton(int tariffId, string partnerId, string buttonUrl)
         {
-            var q = new SqlInsert("tenants_buttons")
+            var q = new SqlInsert("tenants_buttons", true)
                 .InColumnValue("tariff_id", tariffId)
                 .InColumnValue("partner_id", partnerId)
                 .InColumnValue("button_url", buttonUrl);

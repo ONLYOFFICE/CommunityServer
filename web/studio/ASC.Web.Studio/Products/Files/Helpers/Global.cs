@@ -310,7 +310,8 @@ namespace ASC.Web.Files.Classes
                             var partner = CoreContext.PaymentManager.GetApprovedPartner();
                             if (partner != null)
                             {
-                                storeTemp = StorageFactory.GetStorage(partner.Id, "startdocuments");
+                                path = FileConstant.StoragePartnerDocuments + "/" + partner.Id + "/";
+                                storeTemp = StorageFactory.GetStorage(string.Empty, FileConstant.StoragePartnerDocuments);
                                 if (!storeTemp.IsDirectory(path)
                                     || storeTemp.ListFilesRelative("", path, "*", false).Length == 0)
                                 {

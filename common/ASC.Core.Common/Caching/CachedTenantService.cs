@@ -71,7 +71,7 @@ namespace ASC.Core.Caching
 
             CacheExpiration = TimeSpan.FromHours(2);
             DbExpiration = TimeSpan.FromSeconds(5);
-            SettingsExpiration = TimeSpan.FromMinutes(10);
+            SettingsExpiration = TimeSpan.FromMinutes(2);
         }
 
 
@@ -163,14 +163,14 @@ namespace ASC.Core.Caching
         {
             var cacheKey = string.Format("settings/{0}/{1}", tenant, key);
             var data = cache.Get(cacheKey) as byte[] ?? service.GetTenantSettings(tenant, key);
-            cache.Insert(cacheKey, data ?? new byte[0], SettingsExpiration);
+            cache.Insert(cacheKey, data ?? new byte[0], DateTime.UtcNow + SettingsExpiration);
             return data == null ? null : data.Length == 0 ? null : data;
         }
 
         public void SetTenantSettings(int tenant, string key, byte[] data)
         {
             service.SetTenantSettings(tenant, key, data);
-            cache.Insert(string.Format("settings/{0}/{1}", tenant, key), data ?? new byte[0], SettingsExpiration);
+            cache.Insert(string.Format("settings/{0}/{1}", tenant, key), data ?? new byte[0], DateTime.UtcNow + SettingsExpiration);
         }
 
 

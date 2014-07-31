@@ -1118,7 +1118,7 @@ namespace ASC.Data.Storage.S3
                                                          domain,
                                                          path);
 
-            result = result.Replace("//", "/");
+            result = result.Replace("//", "/").TrimStart('/');
             if (_lowerCasing)
             {
                 result = result.ToLowerInvariant();

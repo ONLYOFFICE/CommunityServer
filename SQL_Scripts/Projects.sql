@@ -11,14 +11,14 @@ CREATE TABLE IF NOT EXISTS `projects_comments` (
   PRIMARY KEY (`tenant_id`,`id`),
   KEY `target_uniq_id` (`tenant_id`,`target_uniq_id`),
   KEY `create_on` (`create_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_following_project_participant
 CREATE TABLE IF NOT EXISTS `projects_following_project_participant` (
   `project_id` int(11) NOT NULL,
   `participant_id` char(38) NOT NULL,
   PRIMARY KEY (`participant_id`,`project_id`),
   KEY `project_id` (`project_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_messages
 CREATE TABLE IF NOT EXISTS `projects_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `projects_messages` (
   KEY `tenant_id` (`tenant_id`),
   KEY `project_id` (`project_id`),
   KEY `create_on` (`create_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_milestones
 CREATE TABLE IF NOT EXISTS `projects_milestones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `projects_milestones` (
   KEY `tenant_id` (`tenant_id`),
   KEY `project_id` (`project_id`),
   KEY `create_on` (`create_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_project_participant
 CREATE TABLE IF NOT EXISTS `projects_project_participant` (
   `project_id` int(11) NOT NULL,
@@ -70,14 +70,14 @@ CREATE TABLE IF NOT EXISTS `projects_project_participant` (
   KEY `participant_id` (`participant_id`),
   KEY `tenant` (`tenant`),
   KEY `created` (`created`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_project_tag
 CREATE TABLE IF NOT EXISTS `projects_project_tag` (
   `tag_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
   PRIMARY KEY (`project_id`,`tag_id`),
   KEY `tag_id` (`tag_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_projects
 CREATE TABLE IF NOT EXISTS `projects_projects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `projects_projects` (
   KEY `responsible_id` (`responsible_id`),
   KEY `tenant_id` (`tenant_id`),
   KEY `create_on` (`create_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_report_template
 CREATE TABLE IF NOT EXISTS `projects_report_template` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `projects_report_template` (
   `auto` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_review_entity_info
 CREATE TABLE IF NOT EXISTS `projects_review_entity_info` (
   `user_id` varchar(40) NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `projects_review_entity_info` (
   `tenant_id` int(11) NOT NULL,
   PRIMARY KEY (`tenant_id`,`user_id`,`entity_uniqID`),
   KEY `entity_uniqID` (`tenant_id`,`entity_uniqID`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_subtasks
 CREATE TABLE IF NOT EXISTS `projects_subtasks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `projects_subtasks` (
   PRIMARY KEY (`id`),
   KEY `responsible_id` (`responsible_id`),
   KEY `task_id` (`tenant_id`,`task_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_tags
 CREATE TABLE IF NOT EXISTS `projects_tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `projects_tags` (
   `last_modified_by` char(38) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_tasks
 CREATE TABLE IF NOT EXISTS `projects_tasks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `projects_tasks` (
   `last_modified_by` char(38) DEFAULT NULL,
   `last_modified_on` datetime DEFAULT NULL,
   `start_date` datetime DEFAULT NULL,
-  `progress` int(10) NOT NULL DEFAULT '0',
+  `progress` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`),
   KEY `responsible_id` (`responsible_id`),
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `projects_tasks` (
   KEY `milestone_id` (`milestone_id`),
   KEY `deadline` (`deadline`),
   KEY `create_on` (`create_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_tasks_links
 CREATE TABLE IF NOT EXISTS `projects_tasks_links` (
   `tenant_id` int(10) NOT NULL DEFAULT '0',
@@ -184,14 +184,14 @@ CREATE TABLE IF NOT EXISTS `projects_tasks_links` (
   `parent_id` int(10) NOT NULL DEFAULT '0',
   `link_type` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`tenant_id`,`task_id`,`parent_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_tasks_order
 CREATE TABLE IF NOT EXISTS `projects_tasks_order` (
   `tenant_id` int(10) NOT NULL,
   `project_id` int(10) NOT NULL,
   `task_order` text,
   PRIMARY KEY (`tenant_id`,`project_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_tasks_recurrence
 CREATE TABLE IF NOT EXISTS `projects_tasks_recurrence` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -202,14 +202,14 @@ CREATE TABLE IF NOT EXISTS `projects_tasks_recurrence` (
   `tenant_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `task_id` (`tenant_id`,`task_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_tasks_responsible
 CREATE TABLE IF NOT EXISTS `projects_tasks_responsible` (
   `tenant_id` int(11) NOT NULL,
   `task_id` int(11) NOT NULL,
   `responsible_id` char(38) NOT NULL,
   PRIMARY KEY (`tenant_id`,`task_id`,`responsible_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_templates
 CREATE TABLE IF NOT EXISTS `projects_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `projects_templates` (
   `tenant_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- projects_time_tracking
 CREATE TABLE IF NOT EXISTS `projects_time_tracking` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -241,5 +241,5 @@ CREATE TABLE IF NOT EXISTS `projects_time_tracking` (
   KEY `person_id` (`person_id`),
   KEY `project_id` (`project_id`),
   KEY `relative_task_id` (`tenant_id`,`relative_task_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

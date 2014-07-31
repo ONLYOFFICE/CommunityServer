@@ -56,7 +56,7 @@
             <span class="entity-menu"></span>
             {{if chooseRep}}
             <span class="chooseResponsible">
-                <span class="dottedLink" guid="${chooseRep}.id">${chooseRep.name}</span>
+                <span class="dottedLink" guid="${chooseRep.id}">${chooseRep.name}</span>
             </span>
             {{/if}}
         </div>

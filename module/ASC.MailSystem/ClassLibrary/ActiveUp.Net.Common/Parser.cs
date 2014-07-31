@@ -986,13 +986,15 @@ namespace ActiveUp.Net.Mail
                 DispatchParts(ref message);
 
                 // Check message for text limit
-                const int message_limit = 204800; // 200kb
+                const int message_limit = 500000; // 500kb
 
                 if (!string.IsNullOrEmpty(message.BodyHtml.Text))
                 {
                     if (message.BodyHtml.Text.Length > message_limit || IsHtmlTooComplex(message.BodyHtml.Text))
                     {
-                        message.AddAttachmentFromString("original_message.html", message.BodyHtml.Text);
+                        var charset = (!string.IsNullOrEmpty(message.BodyHtml.Charset) ? message.BodyHtml.Charset : "iso-8859-1");
+
+                        message.AddAttachmentFromString("original_message.html", message.BodyHtml.Text, Encoding.GetEncoding(charset));
 
                         // To long message's html body.
                         message.BodyHtml.Text =
@@ -1002,7 +1004,9 @@ namespace ActiveUp.Net.Mail
                 }
                 else if (message.BodyText.Text.Length > message_limit)
                 {
-                    message.AddAttachmentFromString("original_message.txt", message.BodyText.Text);
+                    var charset = (!string.IsNullOrEmpty(message.BodyHtml.Charset) ? message.BodyHtml.Charset : "iso-8859-1");
+
+                    message.AddAttachmentFromString("original_message.txt", message.BodyText.Text, Encoding.GetEncoding(charset));
                     
                     // To long message's text body.
                     var text_view = message.BodyText.Text.Substring(0, message_limit);

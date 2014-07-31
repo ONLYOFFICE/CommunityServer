@@ -15,6 +15,10 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using System;
+using System.IO;
+using System.Text.RegularExpressions;
+
 namespace ActiveUp.Net.Mail
 {
     /// <summary>
@@ -39,6 +43,7 @@ namespace ActiveUp.Net.Mail
         public new void Add(MimePart part)
         {
             part.ContentDisposition.Disposition = "inline";
+            CheckAndFixName(part);
             this.List.Add(part);
         }
         /// <summary>
@@ -91,6 +96,47 @@ namespace ActiveUp.Net.Mail
             part.ContentDisposition.Disposition = "inline";
             this.List.Add(part);
             return part.ContentId;
+        }
+
+        public void CheckAndFixName(MimePart part)
+        {
+            string new_name = "attachment";
+
+            if (string.IsNullOrEmpty(part.ContentDisposition.FileName))
+            {
+                part.ContentDisposition.FileName = "attachment";
+            }
+            else if (part.Filename.Length > 255)
+            {
+                var long_name = string.IsNullOrEmpty(part.Filename) ? part.Filename : "attachment";
+
+                try
+                {
+                    var name = Path.GetFileName(long_name);
+
+                    if (!string.IsNullOrEmpty(name) && new_name.Length < 250)
+                        new_name = name;
+                }
+                catch (Exception)
+                {
+                }
+            }
+            else
+            {
+                return;
+            }
+
+            var extension_by_type = !string.IsNullOrEmpty(part.ContentType.MimeType) ? 
+                MimeTypesHelper.GetImageExtensionByMimeqType(part.ContentType.MimeType) :
+                "ext";
+
+            new_name = Path.ChangeExtension(new_name,
+                                            string.IsNullOrEmpty(extension_by_type) ? "ext" : extension_by_type);
+
+            part.ContentDisposition.FileName = new_name;
+            part.ContentName = new_name;
+            part.Filename = new_name;
+
         }
     }
 }

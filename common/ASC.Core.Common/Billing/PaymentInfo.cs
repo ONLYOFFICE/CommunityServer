@@ -60,5 +60,11 @@ namespace ASC.Core.Billing
         public int QuotaId { get; set; }
 
         public string ProductId { get; set; }
+
+        public string TenantID { get; set; }
+
+        public string Country { get; set; }
+
+        public Decimal DiscountSum { get; set; }
     }
 }

@@ -742,7 +742,7 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
-        
+        /// Zip files and folders
         /// </summary>
         /// <short>Finish file operations</short>
         /// <param name="folderIds">Folder ID list</param>

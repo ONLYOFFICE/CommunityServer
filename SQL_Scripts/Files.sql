@@ -5,13 +5,13 @@ CREATE TABLE IF NOT EXISTS `files_bunch_objects` (
   `left_node` varchar(255) NOT NULL,
   PRIMARY KEY (`tenant_id`,`right_node`),
   KEY `left_node` (`left_node`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- files_converts
 CREATE TABLE IF NOT EXISTS `files_converts` (
   `input` varchar(50) NOT NULL,
   `output` varchar(50) NOT NULL,
   PRIMARY KEY (`input`,`output`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- files_file
 CREATE TABLE IF NOT EXISTS `files_file` (
   `id` int(11) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `files_file` (
   KEY `folder_id` (`folder_id`),
   KEY `id` (`id`),
   KEY `modified_on` (`modified_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- files_folder
 CREATE TABLE IF NOT EXISTS `files_folder` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `files_folder` (
   PRIMARY KEY (`id`),
   KEY `parent_id` (`tenant_id`,`parent_id`),
   KEY `modified_on` (`modified_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- files_folder_tree
 CREATE TABLE IF NOT EXISTS `files_folder_tree` (
   `folder_id` int(11) NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `files_folder_tree` (
   `level` int(11) NOT NULL,
   PRIMARY KEY (`parent_id`,`folder_id`),
   KEY `folder_id` (`folder_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- files_security
 CREATE TABLE IF NOT EXISTS `files_security` (
   `tenant_id` int(10) NOT NULL,
@@ -70,8 +70,9 @@ CREATE TABLE IF NOT EXISTS `files_security` (
   `owner` char(38) NOT NULL,
   `security` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`tenant_id`,`entry_id`,`entry_type`,`subject`)
-);
+  PRIMARY KEY (`tenant_id`,`entry_id`,`entry_type`,`subject`),
+  KEY `owner` (`owner`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- files_tag
 CREATE TABLE IF NOT EXISTS `files_tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -81,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `files_tag` (
   `tenant_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`tenant_id`,`owner`,`name`,`flag`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- files_tag_link
 CREATE TABLE IF NOT EXISTS `files_tag_link` (
   `tenant_id` int(10) NOT NULL,
@@ -94,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `files_tag_link` (
   PRIMARY KEY (`tenant_id`,`tag_id`,`entry_id`,`entry_type`),
   KEY `entry_id` (`tenant_id`,`entry_id`,`entry_type`),
   KEY `create_on` (`create_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- files_thirdparty_account
 CREATE TABLE IF NOT EXISTS `files_thirdparty_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -109,14 +110,7 @@ CREATE TABLE IF NOT EXISTS `files_thirdparty_account` (
   `url` text,
   `tenant_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-);
--- files_thirdparty_app
-CREATE TABLE IF NOT EXISTS `files_thirdparty_app` (
-  `user_id` varchar(38) NOT NULL,
-  `token` text,
-  `tenant_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- files_thirdparty_id_mapping
 CREATE TABLE IF NOT EXISTS `files_thirdparty_id_mapping` (
   `hash_id` char(32) NOT NULL,
@@ -124,5 +118,5 @@ CREATE TABLE IF NOT EXISTS `files_thirdparty_id_mapping` (
   `tenant_id` int(11) NOT NULL,
   PRIMARY KEY (`hash_id`),
   KEY `index_1` (`tenant_id`,`hash_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

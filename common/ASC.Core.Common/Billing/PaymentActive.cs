@@ -39,6 +39,12 @@ namespace ASC.Core.Billing
             set;
         }
 
+        public string ProductName
+        {
+            get;
+            set;
+        }
+
         public DateTime StartDate
         {
             get;
@@ -46,6 +52,30 @@ namespace ASC.Core.Billing
         }
 
         public DateTime EndDate
+        {
+            get;
+            set;
+        }
+
+        public DateTime PaymentDate
+        {
+            get;
+            set;
+        }
+
+        public string CustomerId
+        {
+            get;
+            set;
+        }
+
+        public string PaymentRef
+        {
+            get;
+            set;
+        }
+
+        public bool SAAS
         {
             get;
             set;

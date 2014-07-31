@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `account_links` (
   `linked` datetime NOT NULL,
   PRIMARY KEY (`id`,`uid`),
   KEY `uid` (`uid`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- webstudio_fckuploads
 CREATE TABLE IF NOT EXISTS `webstudio_fckuploads` (
   `TenantID` int(11) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `webstudio_fckuploads` (
   `FolderID` varchar(100) NOT NULL,
   `ItemID` varchar(100) NOT NULL,
   PRIMARY KEY (`TenantID`,`StoreDomain`,`FolderID`,`ItemID`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- webstudio_settings
 CREATE TABLE IF NOT EXISTS `webstudio_settings` (
   `TenantID` int(11) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `webstudio_settings` (
   `UserID` varchar(64) NOT NULL,
   `Data` mediumtext NOT NULL,
   PRIMARY KEY (`TenantID`,`ID`,`UserID`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- webstudio_uservisit
 CREATE TABLE IF NOT EXISTS `webstudio_uservisit` (
   `tenantid` int(11) NOT NULL,
@@ -35,5 +35,5 @@ CREATE TABLE IF NOT EXISTS `webstudio_uservisit` (
   `lastvisittime` datetime DEFAULT NULL,
   PRIMARY KEY (`tenantid`,`visitdate`,`productid`,`userid`),
   KEY `visitdate` (`visitdate`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -189,7 +189,7 @@ namespace ASC.Api.Employee
         ///<short>
         ///User search
         ///</short>
-        
+        ///<param name="query" remarks="from body">Search text</param>
         ///<returns>User list</returns>
         [Read("search")]
         public IEnumerable<EmployeeWraperFull> GetPeopleSearch(string query)

@@ -88,20 +88,36 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
                                 _log.ErrorFormat("Wrong Issuer URL: {0}", Settings.Issuer);
                                 return string.Format(Resource.SsoSettingsWrongURL, Settings.Issuer);
                             }
+                            else
+                            {
+                                Settings.Issuer = Settings.Issuer.Trim();
+                            }
                             if (!(string.IsNullOrWhiteSpace(Settings.SsoEndPoint) || CheckUri(Settings.SsoEndPoint)))
                             {
                                 _log.ErrorFormat("Wrong SsoEndPoint URL: {0}", Settings.SsoEndPoint);
                                 return string.Format(Resource.SsoSettingsWrongURL, Settings.SsoEndPoint);
+                            }
+                            else
+                            {
+                                Settings.SsoEndPoint = Settings.SsoEndPoint.Trim();
                             }
                             if (!string.IsNullOrWhiteSpace(Settings.SloEndPoint) && !CheckUri(Settings.SloEndPoint))
                             {
                                 _log.ErrorFormat("Wrong SloEndPoint URL: {0}", Settings.SloEndPoint);
                                 return string.Format(Resource.SsoSettingsWrongURL, Settings.SloEndPoint);
                             }
+                            else
+                            {
+                                Settings.SloEndPoint = Settings.SloEndPoint.Trim();
+                            }
                             if (string.IsNullOrWhiteSpace(Settings.PublicKey))
                             {
                                 _log.ErrorFormat("Wrong PublicKey: {0}", Settings.PublicKey);
                                 return Resource.SsoSettingsWrongPublicKey;
+                            }
+                            else
+                            {
+                                Settings.PublicKey = Settings.PublicKey.Trim();
                             }
                             if (Settings.TokenType != TokenTypes.SAML && Settings.TokenType != TokenTypes.JWT)
                             {

@@ -83,7 +83,7 @@ namespace ASC.Web.Studio.UserControls.Management
             if (sc != null && GetServiceStatus(sc) == ServiceStatus.Stopped)
             {
                 sc.Start();
-                sc.WaitForStatus(ServiceControllerStatus.StartPending, TimeSpan.FromSeconds(1));
+                sc.WaitForStatus(ServiceControllerStatus.StartPending, TimeSpan.FromSeconds(10));
             }
             return ToAjaxResponse(serviceName, sc);
         }
@@ -96,7 +96,7 @@ namespace ASC.Web.Studio.UserControls.Management
             if (sc != null && GetServiceStatus(sc) == ServiceStatus.Running)
             {
                 sc.Stop();
-                sc.WaitForStatus(ServiceControllerStatus.StopPending, TimeSpan.FromSeconds(1));
+                sc.WaitForStatus(ServiceControllerStatus.StopPending, TimeSpan.FromSeconds(10));
             }
             return ToAjaxResponse(serviceName, sc);
         }
@@ -123,7 +123,7 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 return ServiceController.GetServices(Environment.MachineName).FirstOrDefault(sc => sc.ServiceName == serviceName);
             }
-            catch (Exception error)
+            catch (Exception)
             {
                 return null;
             }

@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `calendar_calendar_item` (
   `item_id` char(38) NOT NULL,
   `is_group` smallint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`calendar_id`,`item_id`,`is_group`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- calendar_calendar_user
 CREATE TABLE IF NOT EXISTS `calendar_calendar_user` (
   `calendar_id` int(10) NOT NULL DEFAULT '0',
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `calendar_calendar_user` (
   `time_zone` varchar(255) DEFAULT 'UTC',
   PRIMARY KEY (`calendar_id`,`ext_calendar_id`,`user_id`),
   KEY `user_id` (`user_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- calendar_calendars
 CREATE TABLE IF NOT EXISTS `calendar_calendars` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -35,14 +35,14 @@ CREATE TABLE IF NOT EXISTS `calendar_calendars` (
   `ical_url` mediumtext,
   PRIMARY KEY (`id`),
   KEY `owner_id` (`tenant`,`owner_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- calendar_event_item
 CREATE TABLE IF NOT EXISTS `calendar_event_item` (
   `event_id` int(10) NOT NULL,
   `item_id` char(38) NOT NULL,
   `is_group` smallint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`event_id`,`item_id`,`is_group`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- calendar_event_user
 CREATE TABLE IF NOT EXISTS `calendar_event_user` (
   `event_id` int(10) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `calendar_event_user` (
   `alert_type` smallint(6) NOT NULL DEFAULT '0',
   `is_unsubscribe` smallint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`event_id`,`user_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- calendar_events
 CREATE TABLE IF NOT EXISTS `calendar_events` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `calendar_events` (
   `rrule` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `calendar_id` (`tenant`,`calendar_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- calendar_notifications
 CREATE TABLE IF NOT EXISTS `calendar_notifications` (
   `user_id` char(38) NOT NULL,
@@ -81,5 +81,5 @@ CREATE TABLE IF NOT EXISTS `calendar_notifications` (
   PRIMARY KEY (`user_id`,`event_id`),
   KEY `event_id` (`event_id`),
   KEY `notify_date` (`notify_date`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

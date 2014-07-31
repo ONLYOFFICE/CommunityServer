@@ -155,6 +155,8 @@
 }(window.jQuery, window));
 
 jq(document).ready(function () {
+    var transpots = ["webSockets", "longPolling", "foreverFrame", "serverSentEvents"],
+        RECONNECT_TIMEOUT = 1500;
     jq.connection.hub.qs = {
         token: ASC.Resources.Master.Hub.Token
     };
@@ -166,6 +168,13 @@ jq(document).ready(function () {
     jq.connection.hub.url = ASC.Resources.Master.Hub.Url;
     jq.connection.hub.logging = true;
     jq.connection.hub.start({
-        transport: ["webSockets", "longPolling", "foreverFrame", "serverSentEvents"]
+        transport: transpots
+    });
+    jq.connection.hub.disconnected(function () {
+        setTimeout(function () {
+            jq.connection.hub.start({
+                transport: transpots
+            });
+        }, RECONNECT_TIMEOUT);
     });
 });

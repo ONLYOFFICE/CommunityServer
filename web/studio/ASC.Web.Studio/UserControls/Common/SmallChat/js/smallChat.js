@@ -1561,12 +1561,19 @@ var SmallChat = (function () {
         sessionStorageManager.setItem("dialogsNumber", +sessionStorageManager.getItem("dialogsNumber") - 1);
         sessionStorageManager.removeItem("MiniCB" + userName);
 
+
         if (!sessionStorageManager.getItem("dialogsNumber")) {
-            var $allWindows = jq(".small_chat_minimize_all_windows");
-            if (!$allWindows.length) {
-                $allWindows = jq(".small_chat_restore_all_windows");
+            var $this = jq(".small_chat_restore_all_windows");
+            if ($this && $this.hasClass("small_chat_restore_all_windows")) {
+                $this.removeClass("small_chat_restore_all_windows");
+                $this.addClass("small_chat_minimize_all_windows");
+                $this.text(ASC.Resources.Master.ChatResource.MinimizeAllWindows);
+                $this.closest("#smallChatOptionsPopupID").css("display", "none");
+                sessionStorageManager.removeItem("minimizeWindows");
+            } else {
+                $this = jq(".small_chat_minimize_all_windows");
             }
-            $allWindows.addClass("disable");
+            $this.addClass("disable");
             jq(".small_chat_close_all_windows").addClass("disable");
             jq("body")
                 .off("click", ".small_chat_minimize_all_windows")

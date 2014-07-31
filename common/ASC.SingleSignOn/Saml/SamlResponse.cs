@@ -80,6 +80,24 @@ namespace ASC.SingleSignOn.Saml
             manager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
             XmlNodeList nodeList = xmlDoc.SelectNodes("//ds:Signature", manager);
             SignedXml signedXml = new SignedXml(xmlDoc);
+
+            XmlNode nodePublicKey = xmlDoc.SelectSingleNode("//ds:X509Certificate", manager);
+            if (nodePublicKey != null)
+            {
+                var key = _ssoSettings.PublicKey.Replace("-----BEGIN CERTIFICATE-----", string.Empty).
+                    Replace("-----END CERTIFICATE-----", string.Empty).Replace("\n", string.Empty).Replace(" ", string.Empty);
+                if (nodePublicKey.InnerText != key)
+                {
+                    _log.ErrorFormat("Certificate public keys do not match. nodePublicKey.InnerText={0}, _ssoSettings.PublicKey={1}",
+                        nodePublicKey.InnerText, key);
+                    return false;
+                }
+            }
+            if (nodeList == null)
+            {
+                _log.Error("Certificate signature not found.");
+                return false;
+            }
             foreach (XmlNode node in nodeList)
             {
                 signedXml.LoadXml((XmlElement)node);

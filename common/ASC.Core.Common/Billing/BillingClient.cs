@@ -59,7 +59,7 @@ namespace ASC.Core.Billing
         public PaymentLast GetLastPayment(string portalId)
         {
             var result = Request("GetLatestActiveResourceEx", portalId);
-            var xelement = ToXElement("<root>" + result + "</root>", true);
+            var xelement = ToXElement("<root>" + result + "</root>");
             var dedicated = xelement.Element("dedicated-resource");
             var payment = xelement.Element("payment");
 
@@ -98,7 +98,7 @@ namespace ASC.Core.Billing
             {
                 result = Request("GetListOfPaymentsByTimeSpan", portalId, Tuple.Create("StartDate", from.ToString("yyyy-MM-dd HH:mm:ss")), Tuple.Create("EndDate", to.ToString("yyyy-MM-dd HH:mm:ss")));
             }
-            var xelement = ToXElement(result, true);
+            var xelement = ToXElement(result);
             foreach (var x in xelement.Elements("payment"))
             {
                 yield return ToPaymentInfo(x);
@@ -115,14 +115,14 @@ namespace ASC.Core.Billing
                 .Concat(new[] { Tuple.Create("PaymentSystemId", "1") })
                 .ToArray();
 
-            var paymentUrls = ToXElement(Request("GetBatchPaymentSystemUrl", portalId, parameters), false)
+            var paymentUrls = ToXElement(Request("GetBatchPaymentSystemUrl", portalId, parameters))
                 .Elements()
                 .ToDictionary(e => e.Attribute("id").Value, e => ToUrl(e.Attribute("value").Value));
 
             var upgradeUrls = new Dictionary<string, string>();
             try
             {
-                upgradeUrls = ToXElement(Request("GetBatchPaymentSystemUpgradeUrl", portalId, parameters), false)
+                upgradeUrls = ToXElement(Request("GetBatchPaymentSystemUpgradeUrl", portalId, parameters))
                     .Elements()
                     .ToDictionary(e => e.Attribute("id").Value, e => ToUrl(e.Attribute("value").Value));
             }
@@ -170,12 +170,30 @@ namespace ASC.Core.Billing
         public Invoice GetInvoice(string paymentId)
         {
             var result = Request("GetInvoice", null, Tuple.Create("PaymentId", paymentId));
-            var xelement = ToXElement(result, true);
+            var xelement = ToXElement(result);
             return new Invoice
             {
                 Sale = GetValueString(xelement.Element("sale")),
                 Refund = GetValueString(xelement.Element("refund")),
             };
+        }
+
+        public IEnumerable<PaymentLast> GetLastPaymentByEmail(string email)
+        {
+            var result = Request("GetActiveResourceInDetailsByEmail", null, Tuple.Create("Email", email));
+            var xelement = ToXElement("<root>" + result + "</root>");
+            return xelement
+                .Elements()
+                .Select(e => new PaymentLast
+                {
+                    CustomerId = GetValueString(e.Element("customer-id")),
+                    PaymentRef = GetValueString(e.Element("payment-ref")),
+                    ProductName = GetValueString(e.Element("product-name")),
+                    StartDate = GetValueDateTime(e.Element("start-date")),
+                    EndDate = GetValueDateTime(e.Element("end-date")),
+                    PaymentDate = GetValueDateTime(e.Element("payment-date")),
+                    SAAS = GetValueDecimal(e.Element("resource-type")) < 4m,
+                });
         }
 
         public PaymentOffice GetPaymentOffice(string portalId)
@@ -186,7 +204,7 @@ namespace ASC.Core.Billing
                 try
                 {
                     var result = Request("GetLatestActiveResourceInDetails", portalId);
-                    var xelement = ToXElement(result, true);
+                    var xelement = ToXElement(result);
                     var skey = xelement.Element("skey");
                     var resources = xelement.Element("resource-options");
                     return new PaymentOffice
@@ -265,12 +283,8 @@ namespace ASC.Core.Billing
             }
         }
 
-        private XElement ToXElement(string xml, bool htmlDecode)
+        private XElement ToXElement(string xml)
         {
-            if (htmlDecode && xml.Contains("&"))
-            {
-                xml = HttpUtility.HtmlDecode(xml);
-            }
             return XElement.Parse(xml);
         }
 
@@ -291,6 +305,9 @@ namespace ASC.Core.Billing
                 Method = GetValueString(x.Element("payment-method")),
                 CartId = GetValueString(x.Element("cart-id")),
                 ProductId = GetValueString(x.Element("product-ref")),
+                TenantID = GetValueString(x.Element("customer-id")),
+                Country = GetValueString(x.Element("country")),
+                DiscountSum = GetValueDecimal(x.Element("discount-sum"))
             };
         }
 
@@ -310,7 +327,7 @@ namespace ASC.Core.Billing
 
         private string GetValueString(XElement xelement)
         {
-            return xelement != null ? xelement.Value : default(string);
+            return xelement != null ? HttpUtility.HtmlDecode(xelement.Value) : default(string);
         }
 
         private DateTime GetValueDateTime(XElement xelement)

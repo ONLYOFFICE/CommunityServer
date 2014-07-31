@@ -1530,7 +1530,12 @@ Disposition: manual-action/MDN-sent-manually; displayed", "domain", this.To[0].E
 
         public void AddAttachmentFromString(string filename, string body)
         {
-            var decoded_bytes = Encoding.GetEncoding("iso-8859-1").GetBytes(body);
+            AddAttachmentFromString(filename, body, Encoding.GetEncoding("iso-8859-1"));
+        }
+
+        public void AddAttachmentFromString(string filename, string body, Encoding encoding)
+        {
+            var decoded_bytes = encoding.GetBytes(body);
 
             var text_attach = new MimePart(decoded_bytes, filename);
 

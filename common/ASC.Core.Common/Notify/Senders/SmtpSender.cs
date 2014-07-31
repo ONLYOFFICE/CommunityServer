@@ -59,6 +59,7 @@ namespace ASC.Core.Notify.Senders
         private int port;
         private bool ssl;
         private ICredentialsByHost credentials;
+        private bool useCoreSettings;
 
 
         public SmtpSender()
@@ -71,7 +72,7 @@ namespace ASC.Core.Notify.Senders
         {
             if (properties.ContainsKey("useCoreSettings") && bool.Parse(properties["useCoreSettings"]))
             {
-                InitUseCoreSettings();
+                useCoreSettings = true;
             }
             else
             {
@@ -99,7 +100,8 @@ namespace ASC.Core.Notify.Senders
 
         public virtual NoticeSendResult Send(NotifyMessage m)
         {
-            var smtpClient = new SmtpClient(host, port) { Credentials = credentials, EnableSsl = ssl, };
+            CoreContext.TenantManager.SetCurrentTenant(m.Tenant);
+            var smtpClient = GetSmtpClient();
             var result = NoticeSendResult.TryOnceAgain;
             try
             {
@@ -136,8 +138,8 @@ namespace ASC.Core.Notify.Senders
                     result = NoticeSendResult.TryOnceAgain;
                 }
                 else if (e.StatusCode == SmtpStatusCode.MailboxNameNotAllowed ||
-                    e.StatusCode == SmtpStatusCode.UserNotLocalWillForward ||
-                    e.StatusCode == SmtpStatusCode.UserNotLocalTryAlternatePath)
+                         e.StatusCode == SmtpStatusCode.UserNotLocalWillForward ||
+                         e.StatusCode == SmtpStatusCode.UserNotLocalTryAlternatePath)
                 {
                     result = NoticeSendResult.MessageIncorrect;
                 }
@@ -149,6 +151,10 @@ namespace ASC.Core.Notify.Senders
             catch (SmtpException)
             {
                 result = NoticeSendResult.SendingImpossible;
+            }
+            finally
+            {
+                smtpClient.Dispose();
             }
             return result;
         }
@@ -189,6 +195,24 @@ namespace ASC.Core.Notify.Senders
         protected string GetHtmlView(string body)
         {
             return string.Format(htmlFormat, body);
+        }
+
+        private SmtpClient GetSmtpClient()
+        {
+            if (useCoreSettings)
+            {
+                InitUseCoreSettings();
+            }
+            Log.DebugFormat("SmtpSender - host={0}; port={1}; enableSsl={2}", host, port, ssl);
+            var smtpClient = new SmtpClient(host, port);
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.EnableSsl = ssl;
+            if (credentials != null)
+            {
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = credentials;
+            }
+            return smtpClient;
         }
     }
 }

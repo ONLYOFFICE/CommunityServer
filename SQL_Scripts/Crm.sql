@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `crm_case` (
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`),
   KEY `create_on` (`create_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_contact
 CREATE TABLE IF NOT EXISTS `crm_contact` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `crm_contact` (
   KEY `display_name` (`tenant_id`,`display_name`),
   KEY `create_on` (`create_on`),
   KEY `last_modifed_on` (`last_modifed_on`,`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_contact_info
 CREATE TABLE IF NOT EXISTS `crm_contact_info` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `crm_contact_info` (
   PRIMARY KEY (`id`),
   KEY `IX_Contact` (`tenant_id`,`contact_id`),
   KEY `last_modifed_on` (`last_modifed_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_currency_info
 CREATE TABLE IF NOT EXISTS `crm_currency_info` (
   `resource_key` varchar(255) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `crm_currency_info` (
   `is_convertable` tinyint(4) NOT NULL,
   `is_basic` tinyint(4) NOT NULL,
   PRIMARY KEY (`abbreviation`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_currency_rate
 CREATE TABLE IF NOT EXISTS `crm_currency_rate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `crm_currency_rate` (
   `last_modifed_on` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_deal
 CREATE TABLE IF NOT EXISTS `crm_deal` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `crm_deal` (
   KEY `contact_id` (`tenant_id`,`contact_id`),
   KEY `create_on` (`create_on`),
   KEY `deal_milestone_id` (`deal_milestone_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_deal_milestone
 CREATE TABLE IF NOT EXISTS `crm_deal_milestone` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `crm_deal_milestone` (
   `tenant_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_entity_contact
 CREATE TABLE IF NOT EXISTS `crm_entity_contact` (
   `entity_id` int(11) NOT NULL,
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `crm_entity_contact` (
   `contact_id` int(11) NOT NULL,
   PRIMARY KEY (`entity_id`,`entity_type`,`contact_id`),
   KEY `IX_Contact` (`contact_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_entity_tag
 CREATE TABLE IF NOT EXISTS `crm_entity_tag` (
   `tag_id` int(11) NOT NULL,
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `crm_entity_tag` (
   `entity_type` int(10) NOT NULL,
   PRIMARY KEY (`entity_id`,`entity_type`,`tag_id`),
   KEY `tag_id` (`tag_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_field_description
 CREATE TABLE IF NOT EXISTS `crm_field_description` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `crm_field_description` (
   `entity_type` int(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `entity_type` (`tenant_id`,`entity_type`,`sort_order`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_field_value
 CREATE TABLE IF NOT EXISTS `crm_field_value` (
   `value` text,
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `crm_field_value` (
   PRIMARY KEY (`tenant_id`,`entity_id`,`entity_type`,`field_id`),
   KEY `field_id` (`field_id`),
   KEY `last_modifed_on` (`last_modifed_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_invoice
 CREATE TABLE IF NOT EXISTS `crm_invoice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `crm_invoice` (
   `tenant_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_invoice_item
 CREATE TABLE IF NOT EXISTS `crm_invoice_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `crm_invoice_item` (
   `tenant_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_invoice_line
 CREATE TABLE IF NOT EXISTS `crm_invoice_line` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -221,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `crm_invoice_line` (
   `tenant_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_invoice_tax
 CREATE TABLE IF NOT EXISTS `crm_invoice_tax` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `crm_invoice_tax` (
   `tenant_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_list_item
 CREATE TABLE IF NOT EXISTS `crm_list_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `crm_list_item` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `list_type` (`tenant_id`,`list_type`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_organisation_logo
 CREATE TABLE IF NOT EXISTS `crm_organisation_logo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `crm_organisation_logo` (
   `tenant_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_projects
 CREATE TABLE IF NOT EXISTS `crm_projects` (
   `project_id` int(10) NOT NULL,
@@ -267,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `crm_projects` (
   PRIMARY KEY (`tenant_id`,`contact_id`,`project_id`),
   KEY `project_id` (`tenant_id`,`project_id`),
   KEY `contact_id` (`tenant_id`,`contact_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_relationship_event
 CREATE TABLE IF NOT EXISTS `crm_relationship_event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -287,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `crm_relationship_event` (
   KEY `IX_Contact` (`contact_id`),
   KEY `IX_Entity` (`entity_id`,`entity_type`),
   KEY `last_modifed_on` (`last_modifed_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_tag
 CREATE TABLE IF NOT EXISTS `crm_tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -296,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `crm_tag` (
   `entity_type` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `tenant_id` (`tenant_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_task
 CREATE TABLE IF NOT EXISTS `crm_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -323,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `crm_task` (
   KEY `create_on` (`create_on`),
   KEY `deadline` (`deadline`),
   KEY `last_modifed_on` (`last_modifed_on`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_task_template
 CREATE TABLE IF NOT EXISTS `crm_task_template` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -343,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `crm_task_template` (
   `container_id` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `template_id` (`tenant_id`,`container_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_task_template_container
 CREATE TABLE IF NOT EXISTS `crm_task_template_container` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -356,12 +356,12 @@ CREATE TABLE IF NOT EXISTS `crm_task_template_container` (
   `last_modifed_by` char(38) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `entity_type` (`tenant_id`,`entity_type`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- crm_task_template_task
 CREATE TABLE IF NOT EXISTS `crm_task_template_task` (
   `task_id` int(10) NOT NULL,
   `task_template_id` int(10) NOT NULL,
   `tenant_id` int(10) NOT NULL,
   PRIMARY KEY (`tenant_id`,`task_id`,`task_template_id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

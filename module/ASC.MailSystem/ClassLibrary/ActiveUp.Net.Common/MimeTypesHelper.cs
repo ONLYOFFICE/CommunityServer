@@ -279,6 +279,53 @@ namespace ActiveUp.Net.Mail
             }
 
         }
+
+        /// <summary>
+        /// Returns the know MIME type string based on the extension.
+        /// </summary>
+        /// <param name="mime_type">A string that define the MIME type.</param>
+        /// <returns>The extension of the known image.</returns>
+        public static string GetImageExtensionByMimeqType(string mime_type)
+        {
+            switch (mime_type)
+            {
+                case "image/bmp":
+                    return "bmp";
+                case "image/gif":
+                    return "gif";
+                case "image/ief":
+                    return "ief";
+                case "image/jpeg":
+                    return "jpg";
+                case "image/pict":
+                    return "pict";
+                case "image/png":
+                    return "png";
+                case "image/tiff":
+                    return "tiff";
+                case "image/x-cmu-raster":
+                    return "ras";
+                case "image/x-portable-anymap":
+                    return "pnm";
+                case "image/x-portable-bitmap":
+                    return "pbm";
+                case "image/x-portable-graymap":
+                    return "pgm";
+                case "image/x-portable-pixmap":
+                    return "ppm";
+                case "image/x-rgb":
+                    return "rgb";
+                case "image/x-xbitmap":
+                    return "xbm";
+                case "image/x-xpixmap":
+                    return "xpm";
+                case "image/x-xwindowdump":
+                    return "xwd";
+                default:
+                    return "";
+            }
+
+        }
     }
     #endregion
 }

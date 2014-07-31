@@ -143,13 +143,17 @@ namespace ASC.Web.Studio
 
                         if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Ok)
                         {
-                            UserInfo user = null;
-                            if (!SecurityContext.IsAuthenticated)
-                            {
-                                user = _email.Contains("@")
+                            var user = _email.Contains("@")
                                            ? CoreContext.UserManager.GetUserByEmail(_email)
                                            : CoreContext.UserManager.GetUsers(new Guid(_email));
 
+                            if (SecurityContext.IsAuthenticated && SecurityContext.CurrentAccount.ID != user.ID)
+                            {
+                                Auth.ProcessLogout();
+                            }
+
+                            if (!SecurityContext.IsAuthenticated)
+                            {
                                 if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable)
                                 {
                                     Response.Redirect(SmsConfirmUrl(user), true);

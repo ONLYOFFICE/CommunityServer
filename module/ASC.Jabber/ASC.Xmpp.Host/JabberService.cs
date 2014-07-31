@@ -465,10 +465,13 @@ namespace ASC.Xmpp.Host
                 throw new Exception(string.Format("Tenant with id = {0} not found.", tenant));
             }
             string domain = t.TenantDomain;
-            int place = domain.LastIndexOf(toServerInJid);
-            if (place >= 0)
+            if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(toServerInJid))
             {
-                domain = domain.Remove(place, toServerInJid.Length).Insert(place, fromServerInJid);
+                int place = domain.LastIndexOf(toServerInJid);
+                if (place >= 0)
+                {
+                    domain = domain.Remove(place, toServerInJid.Length).Insert(place, fromServerInJid);
+                }
             }
             return new Jid(userName, domain, resource);
         }

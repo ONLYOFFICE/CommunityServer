@@ -77,15 +77,21 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var config = ToSmtpSettingsConfig(settings);
 
-            var smtpClient = new SmtpClient(config.Host, config.Port) {EnableSsl = config.EnableSSL};
-            if (config.IsRequireAuthentication)
+            using (var smtpClient = new SmtpClient(config.Host, config.Port))
             {
-                smtpClient.Credentials = new NetworkCredential(config.CredentialsUserName, config.CredentialsUserPassword);
-            }
+                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpClient.EnableSsl = config.EnableSSL;
+                if (config.IsRequireAuthentication)
+                {
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.Credentials = new NetworkCredential(config.CredentialsUserName, config.CredentialsUserPassword);
+                }
 
-            var fromAddress = new MailAddress(config.SenderAddress, config.SenderDisplayName);
-            var toAddress = new MailAddress("DCC6B687CD2C40A3845D95615A6DC013@test.test"); // fake address
-            smtpClient.Send(new MailMessage(fromAddress, toAddress));
+                var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+                var toAddress = new MailAddress(currentUser.Email);
+                var fromAddress = new MailAddress(config.SenderAddress, config.SenderDisplayName);
+                smtpClient.Send(new MailMessage(fromAddress, toAddress));
+            }
         }
 
         [AjaxMethod]
