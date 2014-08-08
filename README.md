@@ -1,8 +1,10 @@
 Overview
 ========================
-Free open source office suite and business productivity tools in one solution: online document editors, file and project management, CRM.
+Free open source alternative to Microsoft Office™: online document editors, file and project management, CRM
 
-* Online Document Editors
+* Online Document Editor
+* Online Spreadsheet Editor
+* Online Presentation Editor
 * Collaborative editing and commenting
 * CRM
 * Web-to-lead form
