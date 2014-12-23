@@ -29,7 +29,7 @@
                 <input class="textEdit" type="text" id="studio_yourEmail" style="width: 100%; margin-right: 20px;" />
             </div>
             <div class="middle-button-container">
-                <a class="button gray" href="javascript:void(0);" onclick="AuthCommunications.SendAdminMessage()">
+                <a class="button gray" href="javascript:void(0);" onclick="AuthCommunications.SendAdminMessage(this)">
                     <%= Resources.Resource.AdminMessageButton %></a>
             </div>
         </div>

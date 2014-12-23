@@ -10,15 +10,15 @@
           <xsl:if test="access = '2'">
             access-read
           </xsl:if>
-          <xsl:if test="total_sub_folder = 0 and not(provider_id)">
+          <xsl:if test="total_sub_folder = 0 and (not(provider_key) or provider_key = '')">
             jstree-empty
           </xsl:if>
-          <xsl:if test="provider_key">
+          <xsl:if test="provider_key != ''">
             third-party-entry
           </xsl:if>
         </xsl:attribute>
         <xsl:attribute name="data-id"><xsl:value-of select="id" /></xsl:attribute>
-        <xsl:if test="folder_url">
+        <xsl:if test="folder_url != ''">
           <xsl:attribute name="data-href">
             <xsl:value-of select="folder_url" />
           </xsl:attribute>
@@ -32,7 +32,7 @@
           <span>
             <xsl:attribute name="class">
               jstree-icon
-              <xsl:if test="provider_key">
+              <xsl:if test="provider_key != ''">
                 <xsl:value-of select="provider_key" />
               </xsl:if>
             </xsl:attribute>

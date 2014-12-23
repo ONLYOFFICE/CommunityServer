@@ -1,20 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UploadHttps.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.UploadHttps" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 <%@ Import Namespace="Resources" %>
-<style>
-    #statusContainer {
-        margin: 10px 0;
-    }
-</style>
 <div class="clearFix">
   <div class="settings-block">
     <div class="header-base clearFix">
         <div class="title">
             <%= Resource.UploadHttpsSettingsTitle %>
         </div>
-    </div>
-    <div>
-         <%= Resource.UploadHttpsSettingsDesciption %>
     </div>
     <div>
         <div class="clearFix">
@@ -26,12 +18,20 @@
         </div>
         <div id="statusContainer" class="display-none"></div>
         <div class="middle-button-container">
-            <a id="certUploader" class="blue button" ><%= Resource.UploadButton %></a>
+            <a id="certUploader" class="link dotline plus" ><%= Resource.UploadButton %></a>
+            <div id="certFile">
+                <span class="name"></span>
+                <span class="menu-item-icon trash delete-btn"></span>
+            </div>
+
+        </div>
+        <div class="middle-button-container">
+            <a id="save" class="button blue middle disable" ><%= Resource.SaveButton %></a>
         </div>
     </div>
   </div>
   <div class="settings-help-block">
-      <%= Resource.HelpAnswerUploadHttpsSettings %>
+      <p><%= String.Format(Resource.UploadHttpsHelp, "<b>", "</b>") %></p>
  </div>  
 </div>
 

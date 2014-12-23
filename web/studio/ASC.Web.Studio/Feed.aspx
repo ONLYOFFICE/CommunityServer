@@ -5,6 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="PageContent" ContentPlaceHolderID="PageContent" runat="server">
+    <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
     <asp:PlaceHolder ID="controlsHolder" runat="server">
         <div id="feed-filter"></div>
     </asp:PlaceHolder>

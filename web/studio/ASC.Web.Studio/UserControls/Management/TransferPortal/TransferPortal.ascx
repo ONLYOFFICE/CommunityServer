@@ -1,13 +1,18 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TransferPortal.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TransferPortal" %>
 <%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Core.Users" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <% if (IsVisibleMigration)
-   { %>
-<div id="migrationPortal" class="clearFix <%= EnableMigration ? "" : "disable" %>">
+   { 
+       var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+       var enableMigrationFree = SetupInfo.IsSecretEmail(currentUser.Email) || currentUser.IsOwner() && !TenantExtra.GetTenantQuota().Free;
+       %>
+<div id="migrationPortal" class="clearFix <%= EnableMigration && enableMigrationFree ? "" : "disable" %>">
     <div class="settings-block transfer-portal">
         <div class="header-base">
             <%= Resource.TransferPortalTitle %>
@@ -18,7 +23,9 @@
         <select id="transfer_region" data-value="<%= CurrentRegion %>" class="comboBox">
             <% foreach (var item in TransferRegions)
                {%>
-                <option <%= item.IsCurrentRegion ? "selected=\"selected\"" : "" %> value="<%= item.Name %>" data-url=".<%= item.BaseDomain %>"><%= item.FullName %></option>            
+                <option <%= item.IsCurrentRegion ? "selected=\"selected\"" : "" %> value="<%= item.Name %>" data-url=".<%= item.BaseDomain %>">
+                    <%= (item.FullName != String.Empty) ? item.FullName : item.Name %>
+                </option>            
             <% } %>
         </select>
 
@@ -48,24 +55,18 @@
                 <%= Resource.TransferPortalButton %></a>
         </div>
         <div class="edition-block">
-            <div id="transfer_progress" class="display-none progress">
-                <div class="asc-progress-wrapper">
-                    <div class="asc-progress-value"></div>
-                </div>
-                <div class="text-medium-describe migrating">
-                    <%= Resource.MigratingPortal %>
-                    <span id="transfer_percent"></span>
-                </div>
-            </div>            
             <div id="transfer_error" class="errorText display-none"></div>
             <div id="transfer_ready" class="display-none"></div>
         </div>
     </div>
     <div class="settings-help-block">
-        <% if (EnableMigration)
+        <% if (EnableMigration && enableMigrationFree)
            { %>
         <p><%= String.Format(Resource.HelpAnswerTransferPortal, "<br />", "<b>", "</b>") %></p>
-        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+             { %>
+        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#CustomizingPortal_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+         <% } %>
         <% }
            else
            { %>

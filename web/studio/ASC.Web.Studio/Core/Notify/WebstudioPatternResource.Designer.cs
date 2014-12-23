@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 //------------------------------------------------------------------------------
@@ -459,6 +459,25 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h1.Message from the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; VoIP Blocked.
+        /// </summary>
+        internal static string pattern_admin_voip_blocked {
+            get {
+                return ResourceManager.GetString("pattern_admin_voip_blocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h1.Message from the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; Portal
+        ///Balance VoIP: $Body.
+        /// </summary>
+        internal static string pattern_admin_voip_warning {
+            get {
+                return ResourceManager.GetString("pattern_admin_voip_warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1. Invite your teammates to the cloud office!
         ///
         ///Dear $UserName,
@@ -527,16 +546,84 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to $HeaderStart Welcome to ONLYOFFICE Personal $HeaderEnd
+        ///
+        ///You have just created your personal office in the cloud.
+        ///
+        ///It&apos;s a desktopless workspace available in your browser, where you can store documents, work with them anywhere providing access to your friends or colleagues.
+        ///
+        ///$FrameStart ONLYOFFICE is compatible with Microsoft Office™ document formats. We promise to relieve you from formatting fidelity headache. $FrameEnd
+        ///
+        ///$StrongStart Here are the basic features for a quick start: $StrongEnd
+        ///
+        ///$Marke [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string pattern_after_registration_personal1 {
+            get {
+                return ResourceManager.GetString("pattern_after_registration_personal1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $HeaderStart A few tips for freelance work $HeaderEnd
+        ///
+        ///ONLYOFFICE provides a good number of features for freelance community whether you are a contractor or hiring somebody for a project. Let&apos;s see what might be of the most interest for you:
+        ///
+        ///$MarkerStart Read Only/Full Access files sharing $MarkerEnd
+        ///
+        /// $MarkerStart Realtime collaborative editing and commenting $MarkerEnd
+        ///
+        /// $MarkerStart Version &amp; revision control $MarkerEnd
+        ///
+        ///There is no need to download files and send them via email. Simply share  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string pattern_after_registration_personal14 {
+            get {
+                return ResourceManager.GetString("pattern_after_registration_personal14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $HeaderStart Need more features? Give a try to ONLYOFFICE for teams $HeaderEnd
+        ///
+        ///In case you need to collaborate with a team or manage a project, we offer you to try the business edition of ONLYOFFICE. In addition to the online editors and document management features, you&apos;ll be able to:
+        ///
+        ///$MarkerStart control tasks and use Gantt chart in the Project Management module; $MarkerEnd
+        ///
+        ///$MarkerStart  track sales, relations with customers and create invoices in CRM; $MarkerEnd
+        ///
+        ///$MarkerStart manage all your e [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string pattern_after_registration_personal21 {
+            get {
+                return ResourceManager.GetString("pattern_after_registration_personal21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $HeaderStart Connect your favorite cloud storage to ONLYOFFICE $HeaderEnd
+        ///
+        ///It has been a week since you created your cloud office, so we believe it&apos;s time to unveil some beneficial features you might have missed.
+        ///
+        ///$FrameStart Connect Dropbox, Google Drive, Box or OneDrive cloud storage to ONLYOFFICE and create a single workspace for all your documents. You&apos;ll be able to edit external files by means of ONLYOFFICE without any additional downloads. See details how to do it &quot;here&quot;:&quot;http://helpcenter.onlyoff [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string pattern_after_registration_personal7 {
+            get {
+                return ResourceManager.GetString("pattern_after_registration_personal7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1.&quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; Portal Backup Created
         ///
         ///Dear $OwnerName,
         ///
-        ///A backup file containing data from your &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal has been created. It is available for download under the following link:
-        ///&quot;$BackupUrl&quot;:&quot;$BackupUrl&quot;
+        ///A backup file containing data from your &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal has been created.
         ///
-        ///*Note*: this link is valid for $BackupHours hours only. Please complete the operation within that period.
+        ///To learn more on the backup/restore procedure please refer to our &quot;How to Create and Restore the TeamLab Portal Backup&quot;:&quot;http://www.teamlab.com/content/CreateandRestoreBackup.pdf&quot; PDF user guide.
         ///
-        ///To learn more on the backup/restore procedure please refer to our &quot;How to Create and Restore the TeamLab Portal B [rest of string was truncated]&quot;;.
+        ///
+        ///If you have any questions or need assistance please feel free to contact us at &quot;support@teamlab.com&quot;:&quot;m [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string pattern_backup_created {
             get {
@@ -565,6 +652,26 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ///You have requested to change your email address used to enter the TeamLab portal.
+        ///
+        ///Please follow the link below to change your email address:
+        ///&quot;$InviteLink&quot;:&quot;$InviteLink&quot;
+        ///
+        ///*Note*: this link is valid for 7 days only. Please complete your email change process within that period.
+        ///
+        ///If you do not want to change your email or received this email by mistake, please ignore it or contact your portal administrator to find out the details.
+        ///
+        ///$SignatureStart  Sincerely,
+        ///ONLYOFFICE team $SignatureEnd.
+        /// </summary>
+        internal static string pattern_change_email_personal {
+            get {
+                return ResourceManager.GetString("pattern_change_email_personal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1.Password Change Request for the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; Portal
         ///
         ///There has been a request to change your password used to enter the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.
@@ -579,6 +686,22 @@ namespace ASC.Web.Studio.Core.Notify {
         internal static string pattern_change_password {
             get {
                 return ResourceManager.GetString("pattern_change_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There has been a request to change your password used to enter the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.
+        ///
+        ///Please follow the link below to change your password:
+        ///&quot;$InviteLink&quot;:&quot;$InviteLink&quot;
+        ///
+        ///*Note*: this link is valid for 7 days only. Please complete the password change process within that period.
+        ///
+        ///If you do not want to change your password or received this email by mistake, please ignore it or contact your &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal administrator to find out t [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string pattern_change_password_personal {
+            get {
+                return ResourceManager.GetString("pattern_change_password_personal", resourceCulture);
             }
         }
         
@@ -626,6 +749,22 @@ namespace ASC.Web.Studio.Core.Notify {
         internal static string pattern_confirm_owner_change {
             get {
                 return ResourceManager.GetString("pattern_confirm_owner_change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello,
+        ///
+        ///you&apos;ve just registered an account at the ONLYOFFICE solution for personal use. Click &quot;here&quot;:&quot;$InviteLink&quot; to confirm the registration and create a password.
+        ///
+        ///If you can&apos;t open the link, please copy the following &quot;$InviteLink&quot;:&quot;$InviteLink&quot; and paste it into your browser address bar.
+        ///
+        ///$SignatureStart  Sincerely,
+        ///ONLYOFFICE team $SignatureEnd.
+        /// </summary>
+        internal static string pattern_confirmation_personal {
+            get {
+                return ResourceManager.GetString("pattern_confirmation_personal", resourceCulture);
             }
         }
         
@@ -920,6 +1059,36 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string pattern_restore_completed {
+            get {
+                return ResourceManager.GetString("pattern_restore_completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h1.Portal Restoration Started
+        ///
+        ///The portal restoration is started. It might take some time depending on your data amount.
+        ///
+        ///*Note*: the portal will not be available during the restoration process. 
+        ///
+        ///If you have any questions or need assistance please feel free to contact us at &quot;support@teamlab.com&quot;:&quot;mailto:support@teamlab.com&quot;
+        ///
+        ///Best regards,
+        ///TeamLab Support Team
+        ///&quot;www.teamlab.com&quot;:&quot;http://teamlab.com/&quot;
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__Vir [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string pattern_restore_started {
+            get {
+                return ResourceManager.GetString("pattern_restore_started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1.&quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; Portal Profile Change Notification
         ///
         ///&quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has changed his/her profile details at the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.
@@ -956,6 +1125,15 @@ namespace ASC.Web.Studio.Core.Notify {
         internal static string pattern_send_whats_new {
             get {
                 return ResourceManager.GetString("pattern_send_whats_new", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMTP test mail body.
+        /// </summary>
+        internal static string pattern_smtp_test {
+            get {
+                return ResourceManager.GetString("pattern_smtp_test", resourceCulture);
             }
         }
         
@@ -1131,6 +1309,24 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VoIP blocked.
+        /// </summary>
+        internal static string subject_admin_voip_blocked {
+            get {
+                return ResourceManager.GetString("subject_admin_voip_blocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification to administrators about VoIP balance.
+        /// </summary>
+        internal static string subject_admin_voip_warning {
+            get {
+                return ResourceManager.GetString("subject_admin_voip_warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invite your teammates to the cloud office!.
         /// </summary>
         internal static string subject_after_creation1 {
@@ -1167,6 +1363,42 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Welcome to ONLYOFFICE Personal.
+        /// </summary>
+        internal static string subject_after_registration_personal1 {
+            get {
+                return ResourceManager.GetString("subject_after_registration_personal1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A few tips for freelance work.
+        /// </summary>
+        internal static string subject_after_registration_personal14 {
+            get {
+                return ResourceManager.GetString("subject_after_registration_personal14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Need more features? Give a try to ONLYOFFICE for teams.
+        /// </summary>
+        internal static string subject_after_registration_personal21 {
+            get {
+                return ResourceManager.GetString("subject_after_registration_personal21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect your favorite cloud storage to ONLYOFFICE.
+        /// </summary>
+        internal static string subject_after_registration_personal7 {
+            get {
+                return ResourceManager.GetString("subject_after_registration_personal7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TeamLab. ${__VirtualRootPath} Portal Backup Created.
         /// </summary>
         internal static string subject_backup_created {
@@ -1185,11 +1417,29 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Personal. Email change request.
+        /// </summary>
+        internal static string subject_change_email_personal {
+            get {
+                return ResourceManager.GetString("subject_change_email_personal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TeamLab Password Assistance.
         /// </summary>
         internal static string subject_change_password {
             get {
                 return ResourceManager.GetString("subject_change_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Personal Password Assistance.
+        /// </summary>
+        internal static string subject_change_password_personal {
+            get {
+                return ResourceManager.GetString("subject_change_password_personal", resourceCulture);
             }
         }
         
@@ -1217,6 +1467,15 @@ namespace ASC.Web.Studio.Core.Notify {
         internal static string subject_confirm_owner_change {
             get {
                 return ResourceManager.GetString("subject_confirm_owner_change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Personal. Please activate your email address.
+        /// </summary>
+        internal static string subject_confirmation_personal {
+            get {
+                return ResourceManager.GetString("subject_confirmation_personal", resourceCulture);
             }
         }
         
@@ -1347,6 +1606,24 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE. Restore completed..
+        /// </summary>
+        internal static string subject_restore_completed {
+            get {
+                return ResourceManager.GetString("subject_restore_completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE. Restore completed..
+        /// </summary>
+        internal static string subject_restore_started {
+            get {
+                return ResourceManager.GetString("subject_restore_started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ${__VirtualRootPath} Portal Profile Change Notification.
         /// </summary>
         internal static string subject_self_profile_updated {
@@ -1361,6 +1638,15 @@ namespace ASC.Web.Studio.Core.Notify {
         internal static string subject_send_whats_new {
             get {
                 return ResourceManager.GetString("subject_send_whats_new", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMTP test mail subject.
+        /// </summary>
+        internal static string subject_smtp_test {
+            get {
+                return ResourceManager.GetString("subject_smtp_test", resourceCulture);
             }
         }
         

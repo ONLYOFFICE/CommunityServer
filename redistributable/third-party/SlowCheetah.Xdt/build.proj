@@ -1,0 +1,159 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="CreateNugetPackage">
+
+  <!-- 
+  You can use this scrip to:
+    1. Create the SlowCheetah.Xdt NuGet package
+    2. Build out the samples so that you can view them
+    
+    #1: msbuild.exe build.proj
+    #2: msbuild.exe build.proj /t:BuildSamples
+  -->
+  
+
+  <PropertyGroup>
+    <SourceRoot Condition=" '$(SourceRoot)'=='' ">$(MSBuildProjectDirectory)\</SourceRoot>
+    <OutputRootNoTrailingSlash Condition=" '$(OutputRoot)'=='' ">$(SourceRoot)OutputRoot</OutputRootNoTrailingSlash>
+    <OutputRoot Condition=" '$(OutputRoot)'=='' ">$(OutputRootNoTrailingSlash)\</OutputRoot>
+    <PackageRoot Condition=" '$(PackageRoot)'=='' ">$(OutputRoot)Nugetpkg\</PackageRoot>
+    <NugetExe Condition=" '$(NugetExe)'=='' ">$(SourceRoot)SlowCheetah.Xdt\.nuget\NuGet.exe</NugetExe>
+    <NugetLocalRepo Condition=" '$(NugetLocalRepo)'=='' ">C:\Temp\Nuget\LocalRepo\</NugetLocalRepo>
+    <PackageDirectory Condition=" '$(PackageDirectory)'=='' ">_Package</PackageDirectory>
+    <CopyOutputToDevFolder Condition=" '$(CopyOutputToDevFolder)'=='' ">true</CopyOutputToDevFolder>
+    <DevFolder Condition=" '$(DevFolder)'=='' ">c:\temp\msbuild\</DevFolder>
+    <RestorePackages Condition=" '$(RestorePackages)'=='' ">true</RestorePackages>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)'=='' ">Release</Configuration>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <!-- This item should never have more than 1 value -->
+    <_NugetSpecFile Include="$(SourceRoot)SlowCheetah.Xdt.nuspec" />
+    <!--<ToolsItems Include="" />-->
+    <!--<ContentItems Include="$(PublishPs1)">
+      <DestDir>$(PackageDirectory)\</DestDir>
+    </ContentItems>
+    <ContentItems Include="$(SourceRoot)Nuget\Sedodream.Package.targets">
+      <DestDir>$(PackageDirectory)\</DestDir>
+    </ContentItems>
+    <ContentItems Include="$(SourceRoot)Sedodream.Publish.proj">
+      <DestDir>$(PackageDirectory)\</DestDir>
+    </ContentItems>
+    <ContentItems Include="$(SourceRoot)Lib\SlowCheetah.Tasks.dll">
+      <DestDir>$(PackageDirectory)\</DestDir>
+    </ContentItems>-->
+    <!--<LibItems Include="$(OutputRoot)Microsoft.Web.XmlTransform.dll" />-->
+    <LibItems Include="$(OutputRoot)SlowCheetah.Xdt.dll" />
+
+    <ToolsItems Include="$(OutputRoot)SlowCheetah.Xdt.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SlowCheetahProj Include="$(SourceRoot)SlowCheetah.Xdt\SlowCheetah.Xdt.csproj"/>
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <CreateNugetPackageDependsOn>
+      CleanAndInitalize;
+      BuildProjects;
+      PrepareAndPopulateNugetFolder;
+      CoreCreateNugetPackage;
+    </CreateNugetPackageDependsOn>
+    <BuildProjectsDependsOn>
+      $(BuildProjectsDependsOn);
+      CleanAndInitalize;
+      CoreBuildProjects;
+      CopyOutputToDevFolder;
+    </BuildProjectsDependsOn>
+  </PropertyGroup>
+  <Target Name="BuildProjects" DependsOnTargets="$(BuildProjectsDependsOn)"/>
+  <Target Name="CoreBuildProjects">
+    <MSBuild Projects="@(SlowCheetahProj)"
+             Properties="Configuration=$(Configuration);OutputPath=$(OutputRoot);RestorePackages=$(RestorePackages);RequireRestoreConsent=false"/>
+    <MSBuild Projects="@(SlowCheetahProj)"
+             Properties="Configuration=BuildExe;OutputPath=$(OutputRoot);RestorePackages=$(RestorePackages);RequireRestoreConsent=false"/>
+  </Target>
+  <Target Name="CreateNugetPackage" DependsOnTargets="$(CreateNugetPackageDependsOn)" />
+
+  <Target Name="CoreCreateNugetPackage">
+    <!-- nuget pack "C:\...\SlowCheetah.Xdt.nuspec" -NoPackageAnalysis -OutputDirectory "C:\...\Output\" -->
+    <PropertyGroup>
+      <_NugetSpecFile>%(_NugetSpecOutputFile.FullPath)</_NugetSpecFile>
+      <_Cmd>"$(NugetExe)" pack "$(_NugetSpecFile)" -NoPackageAnalysis -OutputDirectory "$(OutputRootNoTrailingSlash)" </_Cmd>
+    </PropertyGroup>
+
+    <Message Text="_Cmd: $(_Cmd)" Importance="low" />
+    <Exec Command="$(_Cmd)"/>
+
+    <ItemGroup>
+      <_CreatedPackage Include="$(OutputRoot)*.nupkg"/>
+    </ItemGroup>
+
+    <Copy SourceFiles="@(_CreatedPackage)"
+          DestinationFiles="@(_CreatedPackage->'$(NugetLocalRepo)%(Filename)%(Extension)')"
+          Condition="Exists('$(NugetLocalRepo)')"/><!---->
+  </Target>
+  
+  <Target Name="PrepareAndPopulateNugetFolder">
+    <Copy SourceFiles="@(_NugetSpecFile)"
+          DestinationFiles="@(_NugetSpecFile->'$(PackageRoot)%(Filename)%(Extension)')">
+      <Output ItemName="_NugetSpecOutputFile" TaskParameter="DestinationFiles"/>
+    </Copy>
+
+    <Copy SourceFiles="@(ToolsItems)"
+          DestinationFiles="@(ToolsItems->'$(PackageRoot)tools\%(Filename)%(Extension)')"/>
+
+    <Copy SourceFiles="@(ContentItems)"
+          DestinationFiles="@(ContentItems->'$(PackageRoot)content\%(DestDir)%(Filename)%(Extension)')"/>
+    
+    <Copy SourceFiles="@(LibItems)"
+          DestinationFiles="@(LibItems->'$(PackageRoot)lib\%(DestDir)%(Filename)%(Extension)')"/>
+    
+  </Target>
+
+  <Target Name="CopyOutputToDevFolder" Condition=" '$(CopyOutputToDevFolder)'=='true' " DependsOnTargets="CoreBuildProjects">
+    <ItemGroup>
+      <_FilesToCopy Remove="@(_FilesToCopy)"/>
+      <_FilesToCopy Include="$(OutputRoot)*.dll"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(_FilesToCopy)"
+          DestinationFiles="@(_FilesToCopy->'$(DevFolder)%(Filename)%(Extension)')"
+          Condition="Exists('$(DevFolder)')"/>
+  </Target>
+  
+  <Target Name="CleanAndInitalize">
+    <MakeDir Directories="$(OutputRoot)"/>
+    <MakeDir Directories="$(PackageRoot)"/>
+    
+    <ItemGroup>
+      <_FilesToDelete Remove="@(_FilesToDelete)"/>
+      <_FilesToDelete Include="$(OutputRoot)**\*"/>
+    </ItemGroup>
+    <Delete Files="@(_FilesToDelete)"/>
+
+    <ItemGroup>
+      <_FilesToDelete Remove="@(_FilesToDelete)"/>
+      <_FilesToDelete Include="$(PackageRoot)**\*"/>
+    </ItemGroup>
+    <Delete Files="@(_FilesToDelete)"/>
+  </Target>
+
+  <UsingTask TaskName="SlowCheetah.Xdt.TransformXml" AssemblyFile="$(DevFolder)SlowCheetah.Xdt.dll" />
+  <Target Name="BuildSamples" DependsOnTargets="CopyOutputToDevFolder">
+    <PropertyGroup>
+      <_SourceFile>$(SourceRoot)SlowCheetah.Xdt\Samples\sample.config</_SourceFile>
+    </PropertyGroup>
+    <ItemGroup>
+      <_Transforms Remove="@(_Transforms)"/>
+      <_Transforms Include="$(SourceRoot)SlowCheetah.Xdt\Samples\transform.*.config"/>
+    </ItemGroup>
+
+    <MakeDir Directories="$(DevFolder)TransformResults"/>
+
+    <SlowCheetah.Xdt.TransformXml Source="$(_SourceFile)"
+                                  Transform="%(_Transforms.FullPath)"
+                                  Destination="$(DevFolder)TransformResults\%(Filename)%(Extension)"/>
+  </Target>
+  
+</Project>

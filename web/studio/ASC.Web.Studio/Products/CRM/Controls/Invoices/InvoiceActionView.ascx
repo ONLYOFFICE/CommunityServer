@@ -69,7 +69,6 @@
                         <span class="sort-down-black"></span>
                     </span>
                     <div id="linkOpportunityDialog" class="studio-action-panel">
-                        <div class="corner-top left"></div>
                         <ul class="dropdown-content mobile-overflow"></ul>
                     </div>
                 </div>
@@ -244,7 +243,7 @@
                 </tr>
                 <tr>
                     <td class="select-cell" colspan="2">
-                        <select id="invoiceContactCountry" class="contact_country comboBox" runat="server"></select>
+                        <select id="invoiceContactCountry" class="contact_country comboBox"></select>
                     </td>
                 </tr>
             </tbody>

@@ -1,49 +1,50 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.UI;
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Core.Users;
 using ASC.Web.Core;
+using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WebZones;
+using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.HelpCenter;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using Resources;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
-using ASC.Core.Billing;
+using System.Linq;
+using System.Text;
+using System.Web.UI;
 
 namespace ASC.Web.Studio.UserControls.Common
 {
@@ -58,16 +59,13 @@ namespace ASC.Web.Studio.UserControls.Common
         protected bool DisplayModuleList;
         protected bool UserInfoVisible;
 
-        protected List<VideoGuideItem> VideoGuideItems { get; set; }
-        protected string AllVideoLink = CommonLinkUtility.GetHelpLink(true) + "video.aspx";
-
         public bool? DisableUserInfo;
 
         public bool DisableProductNavigation { get; set; }
         public bool DisableSearch { get; set; }
         public bool DisableSettings { get; set; }
         public bool DisableTariff { get; set; }
-        public bool DisableVideo { get; set; }
+        public bool DisableLoginPersonal { get; set; }
 
         public string TopLogo =
             CoreContext.Configuration.Personal
@@ -111,7 +109,19 @@ namespace ASC.Web.Studio.UserControls.Common
             }
         }
 
-        protected bool? IsAutorizePartner { get; set; }
+        protected bool DisplayEditorsSwitch
+        {
+            get
+            {
+                return
+                     (CoreContext.Configuration.Personal || IsAdministrator)
+                    && SetupInfo.IsVisibleSettings<OnlineEditorsSettings>()
+                    && GetCurrentWebItem != null
+                    && GetCurrentWebItem.ID == WebItemManager.DocumentsProductID;
+            }
+        }
+
+        protected bool? IsAuthorizedPartner { get; set; }
         protected Partner Partner { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -119,7 +129,6 @@ namespace ASC.Web.Studio.UserControls.Common
             debugInfoPopUpContainer.Options.IsPopup = true;
 
             aboutCompanyPopupContainer.Options.IsPopup = true;
-            RenderVideoHandlers();
 
             if (!DisableSearch)
             {
@@ -127,12 +136,16 @@ namespace ASC.Web.Studio.UserControls.Common
                 DisableSearch = DisableSearch || !SearchProducts.Any() || CoreContext.Configuration.Personal;
             }
 
-            UserInfoVisible =
-                (!DisableUserInfo.HasValue || !DisableUserInfo.Value)
-                && SecurityContext.IsAuthenticated;
 
             if (SecurityContext.IsAuthenticated)
+            {
                 CurrentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+                if (CurrentUser.IsOutsider())
+                    DisableUserInfo = true;
+
+                UserInfoVisible = !DisableUserInfo.HasValue || !DisableUserInfo.Value;
+            }
 
             if (!SecurityContext.IsAuthenticated || !TenantExtra.EnableTarrifSettings || CoreContext.Configuration.Personal || CurrentUser.IsVisitor())
             {
@@ -140,11 +153,6 @@ namespace ASC.Web.Studio.UserControls.Common
             }
 
             _customNavItems = WebItemManager.Instance.GetItems(WebZoneType.CustomProductList, ItemAvailableState.Normal);
-
-            if (CurrentUser.IsVisitor())
-            {
-                _customNavItems.RemoveAll(item => item.ID == WebItemManager.MailProductID); // remove mail for guest
-            }
 
             if (DisableProductNavigation && SecurityContext.IsAuthenticated)
                 _productListHolder.Visible = false;
@@ -181,14 +189,20 @@ namespace ASC.Web.Studio.UserControls.Common
             }
             if (CoreContext.Configuration.PartnerHosted)
             {
-                IsAutorizePartner = false;
+                IsAuthorizedPartner = false;
                 var partner = CoreContext.PaymentManager.GetApprovedPartner();
                 if (partner != null)
                 {
-                    IsAutorizePartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
+                    IsAuthorizedPartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
                     Partner = partner;
                 }
             }
+
+            if (VoipNavigation.VoipEnabled)
+                _voipPhonePlaceholder.Controls.Add(LoadControl(VoipPhoneControl.Location));
+
+            if (DisplayEditorsSwitch)
+                EditorSwitchHolder.Controls.Add(LoadControl(OnlineEditorsBanner.OnlineEditorsBanner.Location));
         }
 
         #region currentProduct
@@ -206,7 +220,7 @@ namespace ASC.Web.Studio.UserControls.Common
                             ? CommonLinkUtility.GetProductID()
                             : new Guid(Request["productID"]);
 
-                    _currentProduct = (IProduct)WebItemManager.Instance[currentProductID];
+                    _currentProduct = WebItemManager.Instance[currentProductID] as IProduct;
                 }
                 return _currentProduct;
             }
@@ -297,6 +311,8 @@ namespace ASC.Web.Studio.UserControls.Common
                 var render = WebItemManager.Instance[item.ID] as IRenderCustomNavigation;
                 if (render == null) continue;
 
+                if (WebItemManager.Instance[item.ID].IsDisabled()) continue;
+
                 rendered = render.RenderCustomNavigation(Page);
                 if (!string.IsNullOrEmpty(rendered))
                 {
@@ -310,28 +326,18 @@ namespace ASC.Web.Studio.UserControls.Common
                 sb.Append(rendered);
             }
 
+            rendered = VoipNavigation.RenderCustomNavigation(Page);
+            if (!string.IsNullOrEmpty(rendered))
+            {
+                sb.Append(rendered);
+            }
+
             return sb.ToString();
         }
 
         protected string GetAbsoluteCompanyTopLogoPath()
         {
             return string.IsNullOrEmpty(SetupInfo.MainLogoURL) ? TopLogo : SetupInfo.MainLogoURL;
-        }
-
-        protected void RenderVideoHandlers()
-        {
-            if (string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink(false)))
-            {
-                DisableVideo = true;
-                return;
-            }
-
-            VideoGuideItems = HelpCenterHelper.GetVideoGuides();
-
-            if (VideoGuideItems.Count > 0)
-            {
-                AjaxPro.Utility.RegisterTypeForAjax(typeof(UserVideoSettings));
-            }
         }
 
         protected void RenderSearchProducts()

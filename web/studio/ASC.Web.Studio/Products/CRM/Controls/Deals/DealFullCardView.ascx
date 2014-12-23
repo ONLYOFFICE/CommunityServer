@@ -128,7 +128,6 @@
 </div>
 
 <div id="dealMilestoneDropDown" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
         <% foreach (var dm in AllDealMilestones) { %>
             <li>

@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -180,6 +180,8 @@ namespace ASC.Web.Community.Blogs
 
         private void FillSelectedPage(List<Post> posts, BlogsEngine engine)
         {
+            var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
             if (posts == null || posts.Count == 0)
             {
                 var emptyScreenControl = new EmptyScreenControl
@@ -189,7 +191,7 @@ namespace ASC.Web.Community.Blogs
                         Describe = BlogsResource.EmptyScreenBlogText
                     };
 
-                if (CommunitySecurity.CheckPermissions(new PersonalBlogSecObject(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID)), ASC.Blogs.Core.Constants.Action_AddPost)
+                if (CommunitySecurity.CheckPermissions(new PersonalBlogSecObject(currentUser), ASC.Blogs.Core.Constants.Action_AddPost)
                     && string.IsNullOrEmpty(UserID) && string.IsNullOrEmpty(Search))
                 {
                     emptyScreenControl.ButtonHTML = String.Format("<a class='link underline blue plus' href='addblog.aspx'>{0}</a>", BlogsResource.EmptyScreenBlogLink);
@@ -205,13 +207,11 @@ namespace ASC.Web.Community.Blogs
 
             if (!String.IsNullOrEmpty(UserID))
             {
-
                 var post = post_with_comments[0].Item1;
-                var user = CoreContext.UserManager.GetUsers(post.UserID);
-
                 var st = new StringBuilder();
+
                 st.Append("<div class=\"BlogsHeaderBlock header-with-menu\" style=\"margin-bottom:16px;\">");
-                st.Append("<span class=\"header\">" + CoreContext.UserManager.GetUsers(user.ID).DisplayUserName() + "</span>");
+                st.Append("<span class=\"header\">" + CoreContext.UserManager.GetUsers(post.UserID).DisplayUserName() + "</span>");
                 st.Append("</div>");
 
                 placeContent.Controls.Add(new Literal {Text = st.ToString()});
@@ -221,7 +221,6 @@ namespace ASC.Web.Community.Blogs
             {
                 var post = post_with_comments[i].Item1;
                 var commentCount = post_with_comments[i].Item2;
-
                 var sb = new StringBuilder();
                 var user = CoreContext.UserManager.GetUsers(post.UserID);
 
@@ -229,7 +228,7 @@ namespace ASC.Web.Community.Blogs
                 sb.Append("<div class=\"header-list\">");
 
                 sb.Append("<div class=\"avatar-list\">");
-                sb.Append("<a href=\"viewblog.aspx?blogid=" + post.ID.ToString() + "\">" + ImageHTMLHelper.GetHTMLUserAvatar(post.UserID) + "</a>");
+                sb.Append("<a href=\"viewblog.aspx?blogid=" + post.ID.ToString() + "\">" + ImageHTMLHelper.GetHTMLUserAvatar(user.ID) + "</a>");
                 sb.Append("</div><div class=\"describe-list\">");
                 sb.Append("<div class=\"title-list\">");
                 sb.Append("<a href=\"viewblog.aspx?blogid=" + post.ID.ToString() + "\">" + HttpUtility.HtmlEncode(post.Title) + "</a>");
@@ -237,8 +236,9 @@ namespace ASC.Web.Community.Blogs
 
                 sb.Append("<div class=\"info-list\">");
                 sb.Append("<span class=\"caption-list\">" + BlogsResource.PostedTitle + ":</span>");
-                sb.Append(CoreContext.UserManager.GetUsers(user.ID).RenderCustomProfileLink(CommunityProduct.ID, "name-list", "link"));
+                sb.Append(user.RenderCustomProfileLink("name-list", "link"));
                 sb.Append("</div>");
+
                 if (String.IsNullOrEmpty(UserID))
                 {
                     sb.Append("<div class=\"info-list\">");
@@ -256,7 +256,10 @@ namespace ASC.Web.Community.Blogs
                 sb.Append("<div id=\"postIndividualLink\" class=\"display-none\">viewblog.aspx?blogid=" + post.ID.ToString() + "</div>");               
                 sb.Append("<div class=\"comment-list\">");
                 sb.Append("<a href=\"viewblog.aspx?blogid=" + post.ID + "#comments\">" + BlogsResource.CommentsTitle + ": " + commentCount.ToString() + "</a>");
-                sb.Append("<a href=\"viewblog.aspx?blogid=" + post.ID + "#addcomment\">" + BlogsResource.CommentsAddButtonTitle + "</a>");
+                if (!currentUser.IsOutsider())
+                {
+                    sb.Append("<a href=\"viewblog.aspx?blogid=" + post.ID + "#addcomment\">" + BlogsResource.CommentsAddButtonTitle + "</a>");
+                }
                 sb.Append("</div></div></div>");
 
                 placeContent.Controls.Add(new Literal {Text = sb.ToString()});

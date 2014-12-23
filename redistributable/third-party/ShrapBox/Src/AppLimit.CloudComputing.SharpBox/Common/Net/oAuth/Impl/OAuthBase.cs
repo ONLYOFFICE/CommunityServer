@@ -88,7 +88,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
 
         protected Random random = new Random();
 
-	    private static readonly Char[] OAuthIgnoreChars = new[] {'_', '-', '.', '~'}; 
+        private static readonly Char[] OAuthIgnoreChars = new[] { '_', '-', '.', '~' }; 
 
         /// <summary>
         /// Helper function to compute a hash value
@@ -236,7 +236,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
 			normalizedUrl = null;
 			normalizedRequestParameters = null;
 
-            List<QueryParameter> parameters = GetQueryParameters(url.Query);
+            List<QueryParameter> parameters = GetQueryParameters(url.Query.Replace("!", "%21"));
             parameters.Add(new QueryParameter(OAuthVersionKey, OAuthVersion));
             parameters.Add(new QueryParameter(OAuthNonceKey, nonce));
             parameters.Add(new QueryParameter(OAuthTimestampKey, timeStamp));
@@ -255,7 +255,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth.Impl
             {
                 normalizedUrl += ":" + url.Port;
             }
-            normalizedUrl += url.AbsolutePath.Replace("'", "%27"); // Bug 19408. Symbol "'" was encoded differently in signature and url so we get anauthorized error 
+            normalizedUrl += url.AbsolutePath.Replace("'", "%27").Replace("!", "%21"); 
             normalizedRequestParameters = NormalizeRequestParameters(parameters);
             
             StringBuilder signatureBase = new StringBuilder();			

@@ -16,6 +16,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
 using System;
+using System.Text;
 using ActiveUp.Net.Mail;
 
 namespace ActiveUp.Net.Mail
@@ -1348,7 +1349,37 @@ namespace ActiveUp.Net.Mail
         public Message UidMessageObjectPeek(int uid)
         {
             var msg = UidMessageStringPeek(uid);
-            return Parser.ParseMessage(ref msg);
+
+            Message message;
+
+            try
+            {
+                message = Parser.ParseMessage(ref msg);
+            }
+            catch (Exception ex)
+            {
+                if (ex is ParsingException || ex is IndexOutOfRangeException)
+                {
+                    var header_string = UidHeaderString(uid);
+
+                    Header header;
+
+                    if (!Parser.TryParseDefectiveHeader(header_string, out header))
+                        throw;
+
+                    message = new Message(header);
+
+                    message.AddAttachmentFromString("original_message.eml", msg);
+
+                    message.OriginalData = Encoding.GetEncoding("iso-8859-1").GetBytes(msg);
+
+                    message.HasParseError = true;
+                }
+                else
+                    throw;
+            }
+
+            return message;
         }
 
         private delegate Message DelegateUidMessageObjectPeek(int uid);

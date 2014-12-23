@@ -22,8 +22,9 @@
                 <% if (Project.Private){%><span class="private"></span><% } %>
             <% } %>
             <span id="essenceTitle" class="text-overflow truncated-text" title="<%= HttpUtility.HtmlEncode(Page.EssenceTitle) %>"><%= HttpUtility.HtmlEncode(Page.EssenceTitle)%></span>
-            <span class="header-status" data-text="(<%=TaskResource.Closed.ToLower() %>)"><%= !string.IsNullOrEmpty(Page.EssenceStatus) ? string.Format("({0})", Page.EssenceStatus) : ""%></span>
-             <% if (!InConcreteProjectModule)
+            <span class="header-status" data-text="(<%=Page.EssenceStatus.ToLower() %>)"><%= !string.IsNullOrEmpty(Page.EssenceStatus) ? string.Format("({0})", Page.EssenceStatus.ToLower()) : ""%></span>
+            <% if (!IsOutsider) { %>
+            <% if (!InConcreteProjectModule)
                 { %>
                  <%if(!IsInTeam)
                      if(!IsSubcribed){%>
@@ -32,11 +33,12 @@
                     <a id="followProject"  class="follow-status subscribed" data-followed="followed" data-text="<%= ProjectsCommonResource.Follow %>" title="<%= ProjectsCommonResource.Unfollow %>"></a>
                   <% } %>
             <% }else 
-            if(CurrentPage == "messages"){%>            
+            if(CurrentPage == "messages"){%>
                 <a id="changeSubscribeButton" subscribed="<%= IsSubcribed ? "1": "0" %>" class="follow-status <%= IsSubcribed ? "subscribed" : "unsubscribed"%>" title="<%= IsSubcribed ? ProjectsCommonResource.UnSubscribeOnNewComment : ProjectsCommonResource.SubscribeOnNewComment%>"></a>            
                <% } else 
-            if(CurrentPage == "tasks"){%>              
+            if(CurrentPage == "tasks"){%>
                 <a id="followTaskActionTop" class="follow-status <%= IsSubcribed ? "subscribed" : "unsubscribed"%>" textvalue="<%= IsSubcribed ? TaskResource.FollowTask :TaskResource.UnfollowTask%>" onclick="ASC.Projects.TaskDescroptionPage.subscribeTask();" title="<%=IsSubcribed ? TaskResource.UnfollowTask : TaskResource.FollowTask%>"></a>           
+            <% } %>
             <% } %>
             <span class="menu-small <% if (!InConcreteProjectModule && IsInTeam){ %> vertical-align-middle<%} %> <%if (Page.Participant.IsVisitor && Request["id"] != null){  %> visibility-hidden<% } %>"></span>    
         </div>
@@ -48,7 +50,6 @@
     <div id="projectTabs" class="display-none"></div>
 </div>
     <div id="projectActions" class="studio-action-panel">
-        <div class="corner-top left"></div>
         <ul class="dropdown-content">
             <% if (CanEditProject && !Page.Participant.IsVisitor){%>
                 <li><a class="dropdown-item" href="projects.aspx?prjID=<%= Project.ID %>&action=edit"><%= ProjectsCommonResource.Edit %></a></li>

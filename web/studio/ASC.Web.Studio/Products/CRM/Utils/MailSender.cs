@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 #region Import
@@ -63,12 +63,30 @@ namespace ASC.Web.CRM.Classes
 
     class SendBatchEmailsOperation : IProgressItem, IDisposable
     {
-        #region Constructor
+        private readonly bool _storeInHistory;
+        private readonly ILog _log;
+        private readonly SMTPServerSetting _smtpSetting;
+        private readonly DaoFactory _daoFactory;
+        private readonly Guid _currUser;
+        private readonly int _tenantID;
+        private readonly List<int> _contactID;
+        private readonly String _subject;
+        private readonly String _bodyTempate;
+        private readonly List<int> _fileID;
+        private int historyCategory;
+        private double _exactPercentageValue = 0;
+
+
+        public object Id { get; set; }
+        public object Status { get; set; }
+        public object Error { get; set; }
+        public double Percentage { get; set; }
+        public bool IsCompleted { get; set; }
+
 
         private SendBatchEmailsOperation()
             : this(new List<int>(), new List<int>(), String.Empty, String.Empty, false)
         {
-
         }
 
         public SendBatchEmailsOperation(
@@ -76,13 +94,10 @@ namespace ASC.Web.CRM.Classes
               List<int> contactID,
               String subject,
               String bodyTempate,
-              bool storeInHistory
-
-            )
+              bool storeInHistory)
         {
             Id = TenantProvider.CurrentTenantID;
             Percentage = 0;
-            _exactPercentageValue = 0;
             _fileID = fileID;
             _contactID = contactID;
             _subject = subject;
@@ -91,8 +106,8 @@ namespace ASC.Web.CRM.Classes
             _log = LogManager.GetLogger("ASC.CRM.MailSender");
             _tenantID = TenantProvider.CurrentTenantID;
             _daoFactory = Global.DaoFactory;
-            _SMTPSetting = Global.TenantSettings.SMTPServerSetting;
-            _currentUserID = ASC.Core.SecurityContext.CurrentAccount.ID;
+            _smtpSetting = Global.TenantSettings.SMTPServerSetting;
+            _currUser = ASC.Core.SecurityContext.CurrentAccount.ID;
             _storeInHistory = storeInHistory;
 
             Status = new
@@ -103,288 +118,212 @@ namespace ASC.Web.CRM.Classes
             };
         }
 
-        #endregion
 
-        #region Members
-
-        private readonly bool _storeInHistory;
-
-        private readonly ILog _log;
-
-        private readonly SMTPServerSetting _SMTPSetting;
-
-        private readonly DaoFactory _daoFactory;
-
-        private readonly Guid _currentUserID;
-
-        private readonly int _tenantID;
-
-        private int historyCategory;
-
-        private readonly List<int> _contactID;
-
-        private readonly String _subject;
-
-        private readonly String _bodyTempate;
-
-        private readonly List<int> _fileID;
-
-        private double _exactPercentageValue { get; set; }
-
-        #endregion
-
-        #region Property
-
-        public object Id { get; set; }
-
-        public object Status { get; set; }
-
-        public object Error { get; set; }
-
-        public double Percentage { get; set; }
-
-        public bool IsCompleted { get; set; }
-
-        #endregion
-
-        #region IProgressItem Members
-
-        public static bool isValidMail(string e_mail)
+        public static bool IsValidMail(string e_mail)
         {
-            string expr =
-              @"^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$";
-
-            Match isMatch =
-              Regex.Match(e_mail, expr, RegexOptions.IgnoreCase);
-
-            return isMatch.Success;
+            var expr = @"^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$";
+            return Regex.Match(e_mail, expr, RegexOptions.IgnoreCase).Success;
         }
 
         private void AddToHistory(int contactID, String content)
         {
-
             if (contactID == 0 || String.IsNullOrEmpty(content)) return;
 
-            var historyEvent = new RelationshipEvent();
-
-            historyEvent.ContactID = contactID;
-            historyEvent.Content = content;
-            historyEvent.CreateBy = _currentUserID;
-            historyEvent.CreateOn = TenantUtil.DateTimeNow();
-
+            var historyEvent = new RelationshipEvent()
+            {
+                ContactID = contactID,
+                Content = content,
+                CreateBy = _currUser,
+                CreateOn = TenantUtil.DateTimeNow(),
+            };
             if (historyCategory == 0)
             {
                 var listItemDao = _daoFactory.GetListItemDao();
 
                 // HACK
-                var listItem = listItemDao.GetItems(ListType.HistoryCategory).Find(
-                     item => item.AdditionalParams == "event_category_email.png");
-
+                var listItem = listItemDao.GetItems(ListType.HistoryCategory).Find(item => item.AdditionalParams == "event_category_email.png");
                 if (listItem == null)
-                    listItemDao.CreateItem(ListType.HistoryCategory, new ListItem
-                                                                         {
-                                                                             AdditionalParams = "event_category_email.png",
-                                                                             Title = CRMCommonResource.HistoryCategory_Note
-                                                                         });
-                //
-
+                {
+                    listItemDao.CreateItem(
+                        ListType.HistoryCategory,
+                        new ListItem { AdditionalParams = "event_category_email.png", Title = CRMCommonResource.HistoryCategory_Note });
+                }
                 historyCategory = listItem.ID;
             }
 
             historyEvent.CategoryID = historyCategory;
-
             var relationshipEventDao = _daoFactory.GetRelationshipEventDao();
-
             historyEvent = relationshipEventDao.CreateItem(historyEvent);
 
             if (historyEvent.ID > 0 && _fileID != null && _fileID.Count > 0)
+            {
                 relationshipEventDao.AttachFiles(historyEvent.ID, _fileID.ToArray());
+            }
         }
 
         public void RunJob()
         {
-            var smtpClient = GetSmtpClient();
-
-            ASC.Core.CoreContext.TenantManager.SetCurrentTenant(_tenantID);
-            SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(_currentUserID));
-
-            var contactCount = _contactID.Count;
-
-            if (contactCount == 0)
+            using (var smtpClient = GetSmtpClient())
             {
-                Complete();
+                CoreContext.TenantManager.SetCurrentTenant(_tenantID);
+                SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(_currUser));
 
-                return;
-            }
+                var contactCount = _contactID.Count;
 
-            var from = new MailAddress(_SMTPSetting.SenderEmailAddress, _SMTPSetting.SenderDisplayName, Encoding.UTF8);
-
-            var filePaths = new List<String>();
-
-            using (var fileDao = FilesIntegration.GetFileDao())
-                foreach (var fileID in _fileID)
+                if (contactCount == 0)
                 {
+                    Complete();
+                    return;
+                }
 
-                    var fileObj = fileDao.GetFile(fileID);
-
-                    if (fileObj == null) continue;
-
-                    using (var fileStream = fileDao.GetFileStream(fileObj))
+                var from = new MailAddress(_smtpSetting.SenderEmailAddress, _smtpSetting.SenderDisplayName, Encoding.UTF8);
+                var filePaths = new List<String>();
+                using (var fileDao = FilesIntegration.GetFileDao())
+                {
+                    foreach (var fileID in _fileID)
                     {
-                        var directoryPath = String.Concat(Path.GetTempPath(), "/teamlab/", _tenantID,
-                                                          "/crm/files/mailsender/");
-
-                        if (!Directory.Exists(directoryPath))
-                            Directory.CreateDirectory(directoryPath);
-
-                        var filePath = String.Concat(directoryPath, fileObj.Title);
-
-
-                        using (var newFileStream = File.Create(filePath))
-                            fileStream.StreamCopyTo(newFileStream);
-
-                        filePaths.Add(filePath);
+                        var fileObj = fileDao.GetFile(fileID);
+                        if (fileObj == null) continue;
+                        using (var fileStream = fileDao.GetFileStream(fileObj))
+                        {
+                            var directoryPath = Path.Combine(Path.GetTempPath(), "teamlab", _tenantID.ToString(), "crm/files/mailsender/");
+                            if (!Directory.Exists(directoryPath))
+                            {
+                                Directory.CreateDirectory(directoryPath);
+                            }
+                            var filePath = Path.Combine(directoryPath, fileObj.Title);
+                            using (var newFileStream = File.Create(filePath))
+                            {
+                                fileStream.StreamCopyTo(newFileStream);
+                            }
+                            filePaths.Add(filePath);
+                        }
                     }
                 }
 
+                var templateManager = new MailTemplateManager(_daoFactory);
+                var deliveryCount = 0;
 
-            var templateManager = new MailTemplateManager(_daoFactory);
-
-            var deliveryCount = 0;
-
-            try
-            {
-                Error = String.Empty;
-
-                foreach (var contactID in _contactID)
+                try
                 {
-                    if (IsCompleted) break; // User selected cancel
-
-
-                    var contactInfoDao = _daoFactory.GetContactInfoDao();
-                    var startDate = DateTime.Now;
-
-                    var contactEmails = contactInfoDao.GetList(contactID, ContactInfoType.Email, null, true);
-
-                    if (contactEmails.Count == 0)
+                    if (smtpClient.EnableSsl && WorkContext.IsMono)
                     {
-                        continue;
+                        ServicePointManager.ServerCertificateValidationCallback = (s, c, h, e) => { return true; };
                     }
-
-                    var recipientEmail = contactEmails[0].Data;
-
-                    if (!isValidMail(recipientEmail))
+                    
+                    Error = String.Empty;
+                    foreach (var contactID in _contactID)
                     {
+                        if (IsCompleted) break; // User selected cancel
 
-                        Error += String.Format(CRMCommonResource.MailSender_InvalidEmail,
-                                                         recipientEmail) + "<br/>";
+                        var contactInfoDao = _daoFactory.GetContactInfoDao();
+                        var startDate = DateTime.Now;
 
-
-                        continue;
-                    }
-
-                    var to = new MailAddress(recipientEmail);
-
-                    using (var message = new MailMessage(from, to))
-                    {
-                        try
+                        var contactEmails = contactInfoDao.GetList(contactID, ContactInfoType.Email, null, true);
+                        if (contactEmails.Count == 0)
                         {
-                            message.Subject = _subject;
-                            message.Body = templateManager.Apply(_bodyTempate, contactID);
-                            message.SubjectEncoding = Encoding.UTF8;
-                            message.BodyEncoding = Encoding.UTF8;
-                            message.IsBodyHtml = true;
-
-                            foreach (var filePath in filePaths)
-                                message.Attachments.Add(new Attachment(filePath));
-
-                            _log.Debug(GetLoggerRow(message));
-
-                            smtpClient.Send(message);
-
-                            if (_storeInHistory)
-                                AddToHistory(contactID, String.Format(CRMCommonResource.MailHistoryEventTemplate, message.Subject));
-
-
-                            var endDate = DateTime.Now;
-
-                            var waitInterval = endDate.Subtract(startDate);
-
-                            deliveryCount++;
-
-                            var estimatedTime = TimeSpan.FromTicks(waitInterval.Ticks * (_contactID.Count - deliveryCount));
-
-                            Status = new
-                            {
-                                RecipientCount = _contactID.Count,
-                                EstimatedTime = new TimeSpan(
-                                    estimatedTime.Days,
-                                    estimatedTime.Hours,
-                                    estimatedTime.Minutes,
-                                    estimatedTime.Seconds).ToString(),
-                                DeliveryCount = deliveryCount
-                            };
-
-
+                            continue;
                         }
-                        catch (SmtpFailedRecipientsException ex)
+
+                        var recipientEmail = contactEmails[0].Data;
+
+                        if (!IsValidMail(recipientEmail))
                         {
+                            Error += String.Format(CRMCommonResource.MailSender_InvalidEmail, recipientEmail) + "<br/>";
+                            continue;
+                        }
 
-                            for (int i = 0; i < ex.InnerExceptions.Length; i++)
+                        var to = new MailAddress(recipientEmail);
+                        using (var message = new MailMessage(from, to))
+                        {
+                            try
                             {
-                                SmtpStatusCode status = ex.InnerExceptions[i].StatusCode;
+                                message.Subject = _subject;
+                                message.Body = templateManager.Apply(_bodyTempate, contactID);
+                                message.SubjectEncoding = Encoding.UTF8;
+                                message.BodyEncoding = Encoding.UTF8;
+                                message.IsBodyHtml = true;
 
-                                if (status == SmtpStatusCode.MailboxBusy ||
-                                    status == SmtpStatusCode.MailboxUnavailable)
+                                foreach (var filePath in filePaths)
                                 {
-                                    Error = String.Format(CRMCommonResource.MailSender_MailboxBusyException, 5);
-
-                                    _log.Error(Error);
-
-                                    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5));
-
-                                    smtpClient.Send(message);
-
-                                    deliveryCount++;
-
+                                    message.Attachments.Add(new Attachment(filePath));
                                 }
-                                else
+                                _log.Debug(GetLoggerRow(message));
+
+                                smtpClient.Send(message);
+
+                                if (_storeInHistory)
                                 {
-                                    Error += String.Format(CRMCommonResource.MailSender_FailedDeliverException,
-                                                           ex.InnerExceptions[i].FailedRecipient) + "<br/>";
+                                    AddToHistory(contactID, String.Format(CRMCommonResource.MailHistoryEventTemplate, message.Subject));
+                                }
 
-                                    _log.Error(Error);
+                                var endDate = DateTime.Now;
+                                var waitInterval = endDate.Subtract(startDate);
+                                deliveryCount++;
 
+                                var estimatedTime = TimeSpan.FromTicks(waitInterval.Ticks * (_contactID.Count - deliveryCount));
+
+                                Status = new
+                                {
+                                    RecipientCount = _contactID.Count,
+                                    EstimatedTime = estimatedTime.ToString(),
+                                    DeliveryCount = deliveryCount
+                                };
+                            }
+                            catch (SmtpFailedRecipientsException ex)
+                            {
+                                for (var i = 0; i < ex.InnerExceptions.Length; i++)
+                                {
+                                    var status = ex.InnerExceptions[i].StatusCode;
+
+                                    if (status == SmtpStatusCode.MailboxBusy || status == SmtpStatusCode.MailboxUnavailable)
+                                    {
+                                        Error = String.Format(CRMCommonResource.MailSender_MailboxBusyException, 5);
+                                        _log.Error(Error, ex);
+                                        Thread.Sleep(TimeSpan.FromSeconds(5));
+                                        smtpClient.Send(message);
+                                        deliveryCount++;
+                                    }
+                                    else
+                                    {
+                                        Error += String.Format(CRMCommonResource.MailSender_FailedDeliverException, ex.InnerExceptions[i].FailedRecipient) + "<br/>";
+                                        _log.Error(Error, ex);
+
+                                    }
                                 }
                             }
+
+                            _exactPercentageValue += 100.0 / contactCount;
+                            Percentage = Math.Round(_exactPercentageValue);
+                            if (Percentage > 100)
+                            {
+                                Percentage = 100;
+                            }
                         }
-
-                        _exactPercentageValue += 100.0 / contactCount;
-                        Percentage = Math.Round(_exactPercentageValue);
-
-                        if (Percentage > 100)
-                            Percentage = 100;
+                    }
+                }
+                finally
+                {
+                    if (smtpClient.EnableSsl && WorkContext.IsMono)
+                    {
+                        ServicePointManager.ServerCertificateValidationCallback = null;
+                    }
+                    foreach (var filePath in filePaths)
+                    {
+                        if (File.Exists(filePath))
+                        {
+                            File.Delete(filePath);
+                        }
                     }
                 }
 
-
-            }
-            finally
-            {
-                foreach (var filePath in filePaths)
+                Status = new
                 {
-                    if (File.Exists(filePath))
-                        File.Delete(filePath);
-                }
+                    RecipientCount = _contactID.Count,
+                    EstimatedTime = TimeSpan.Zero.ToString(),
+                    DeliveryCount = deliveryCount
+                };
             }
-
-            Status = new
-            {
-                RecipientCount = _contactID.Count,
-                EstimatedTime = new TimeSpan(0, 0, 0).ToString(),
-                DeliveryCount = deliveryCount
-            };
-
             Complete();
         }
 
@@ -422,59 +361,48 @@ namespace ASC.Web.CRM.Classes
             return cloneObj;
         }
 
-        #endregion
-
         private void DeleteFiles()
         {
             if (_fileID == null || _fileID.Count == 0) return;
 
             foreach (var fileID in _fileID)
+            {
                 using (var fileDao = FilesIntegration.GetFileDao())
                 {
                     var fileObj = fileDao.GetFile(fileID);
-
                     if (fileObj == null) continue;
-
 
                     fileDao.DeleteFileStream(fileObj.ID);
                     fileDao.DeleteFile(fileObj.ID);
                 }
+            }
         }
 
         private SmtpClient GetSmtpClient()
         {
-            var smtpClient = new SmtpClient(_SMTPSetting.Host, _SMTPSetting.Port);
-
-            if (_SMTPSetting.RequiredHostAuthentication)
+            var smtp = new SmtpClient(_smtpSetting.Host, _smtpSetting.Port);
+            if (_smtpSetting.RequiredHostAuthentication)
             {
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential(_SMTPSetting.HostLogin, _SMTPSetting.HostPassword);
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(_smtpSetting.HostLogin, _smtpSetting.HostPassword);
             }
-
-            smtpClient.EnableSsl = _SMTPSetting.EnableSSL;
-
-            return smtpClient;
+            smtp.EnableSsl = _smtpSetting.EnableSSL;
+            return smtp;
         }
 
         private void Complete()
         {
             IsCompleted = true;
             Percentage = 100;
-
             _log.Debug("Completed");
         }
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-
-            if (!(obj is SendBatchEmailsOperation)) return false;
+            if (obj == null || !(obj is SendBatchEmailsOperation)) return false;
 
             var curOperation = (SendBatchEmailsOperation)obj;
-
-            if ((curOperation.Id == Id) && (curOperation._tenantID == _tenantID)) return true;
-
-            return false;
+            return (curOperation.Id == Id) && (curOperation._tenantID == _tenantID);
         }
 
         public override int GetHashCode()
@@ -482,71 +410,60 @@ namespace ASC.Web.CRM.Classes
             return Id.GetHashCode() ^ _tenantID.GetHashCode();
         }
 
-        #region IDisposable Members
-
         public void Dispose()
         {
             DeleteFiles();
         }
-
-        #endregion
     }
 
     public class MailSender
     {
         private static readonly Object _syncObj = new Object();
-
         private static readonly ProgressQueue _mailQueue = new ProgressQueue(2, TimeSpan.FromSeconds(60), true);
 
         public static int GetQuotas()
         {
-
             int quotas;
-
             if (!int.TryParse(WebConfigurationManager.AppSettings["crm.mailsender.quotas"], out quotas))
+            {
                 quotas = 50;
-
+            }
             return quotas;
         }
 
-        public static IProgressItem Start(List<int> fileID, List<int> contactID, String subject,
-                                          String bodyTemplate, bool storeInHistory)
+        public static IProgressItem Start(List<int> fileID, List<int> contactID, String subject, String bodyTemplate, bool storeInHistory)
         {
             lock (_syncObj)
             {
-
                 var operation = _mailQueue.GetStatus(TenantProvider.CurrentTenantID);
-
                 if (operation == null)
                 {
-
                     if (fileID == null)
+                    {
                         fileID = new List<int>();
-
-                    if (contactID == null || contactID.Count == 0) return null;
-                    if (String.IsNullOrEmpty(subject) || String.IsNullOrEmpty(bodyTemplate)) return null;
+                    }
+                    if (contactID == null || contactID.Count == 0 ||
+                        String.IsNullOrEmpty(subject) || String.IsNullOrEmpty(bodyTemplate))
+                    {
+                        return null;
+                    }
 
                     if (contactID.Count > GetQuotas())
+                    {
                         contactID = contactID.Take(GetQuotas()).ToList();
+                    }
 
-                    operation = new SendBatchEmailsOperation(
-                          fileID,
-                          contactID,
-                          subject,
-                          bodyTemplate,
-                          storeInHistory
-                        );
-
+                    operation = new SendBatchEmailsOperation(fileID, contactID, subject, bodyTemplate, storeInHistory);
                     _mailQueue.Add(operation);
                 }
 
                 if (!_mailQueue.IsStarted)
+                {
                     _mailQueue.Start(x => x.RunJob());
-
+                }
                 return operation;
             }
         }
-
 
         public static void StartSendTestMail(String recipientEmail, String mailSubj, String mailBody)
         {
@@ -561,12 +478,12 @@ namespace ASC.Web.CRM.Classes
             }
             smtpClient.EnableSsl = smtpSetting.EnableSSL;
 
-            ASC.Core.CoreContext.TenantManager.SetCurrentTenant(TenantProvider.CurrentTenantID);
+            CoreContext.TenantManager.SetCurrentTenant(TenantProvider.CurrentTenantID);
 
             var from = new MailAddress(smtpSetting.SenderEmailAddress, smtpSetting.SenderDisplayName, Encoding.UTF8);
 
 
-            if (!SendBatchEmailsOperation.isValidMail(recipientEmail))
+            if (!SendBatchEmailsOperation.IsValidMail(recipientEmail))
             {
                 throw new Exception(String.Format(CRMCommonResource.MailSender_InvalidEmail, recipientEmail));
             }
@@ -589,19 +506,32 @@ namespace ASC.Web.CRM.Classes
                 {
                     try
                     {
+                        if (smtpClient.EnableSsl && WorkContext.IsMono)
+                        {
+                            ServicePointManager.ServerCertificateValidationCallback = (s, c, h, e) => { return true; };
+                        }
                         smtpClient.Send(message);
-                        message.Dispose();
                     }
                     catch (Exception ex)
                     {
-                        log.Error(ex.Message);
+                        log.Error(ex);
+                    }
+                    finally
+                    {
+                        if (smtpClient.EnableSsl && WorkContext.IsMono)
+                        {
+                            ServicePointManager.ServerCertificateValidationCallback = null;
+                        }
+                        message.Dispose();
+                        smtpClient.Dispose();
                     }
                 });
             }
             catch (Exception ex)
             {
+                log.Error(ex);
                 message.Dispose();
-                log.Error(ex.Message);
+                smtpClient.Dispose();
             }
         }
 

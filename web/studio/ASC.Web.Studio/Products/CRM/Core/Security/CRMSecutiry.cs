@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -168,30 +168,29 @@ namespace ASC.CRM.Core
             if (subjectID.Count == 0)
             {
                 CoreContext.AuthorizationManager.RemoveAllAces(entity);
-
                 return;
             }
 
-            var currentObjectAces = CoreContext.AuthorizationManager.GetAcesWithInherits(Guid.Empty, _actionRead.ID, entity, GetCRMSecurityProvider());
+            var aces = CoreContext.AuthorizationManager.GetAcesWithInherits(Guid.Empty, _actionRead.ID, entity, GetCRMSecurityProvider());
+            foreach (var r in aces)
+            {
+                if (!subjectID.Contains(r.SubjectId) && (r.SubjectId != Constants.GroupEveryone.ID || r.Reaction != AceType.Allow))
+                {
+                    CoreContext.AuthorizationManager.RemoveAce(r);
+                }
+            }
 
-            currentObjectAces.Where(azRecord => !subjectID.Contains(azRecord.SubjectId))
-                             .ToList().ForEach(azRecord =>
-                                 {
-                                     if ((azRecord.SubjectId == Constants.GroupEveryone.ID) && azRecord.Reaction == AceType.Allow)
-                                         return;
+            var oldSubjects = aces.Select(r => r.SubjectId).ToList();
 
-                                     CoreContext.AuthorizationManager.RemoveAce(azRecord);
-                                 });
+            foreach (var s in subjectID)
+            {
+                if (!oldSubjects.Contains(s))
+                {
+                    CoreContext.AuthorizationManager.AddAce(new AzRecord(s, _actionRead.ID, AceType.Allow, entity));
+                }
+            }
 
-
-            var oldSubjectIDList = currentObjectAces.Select(azRecord => azRecord.SubjectId).ToList();
-
-            subjectID.FindAll(item => !oldSubjectIDList.Contains(item))
-                     .ForEach(item => CoreContext.AuthorizationManager.AddAce(new AzRecord(item, _actionRead.ID, AceType.Allow,
-                                                                                           entity)));
-
-            CoreContext.AuthorizationManager.AddAce(new AzRecord(Constants.GroupEveryone.ID, _actionRead.ID, AceType.Deny,
-                                                                 entity));
+            CoreContext.AuthorizationManager.AddAce(new AzRecord(Constants.GroupEveryone.ID, _actionRead.ID, AceType.Deny, entity));
         }
 
         #endregion
@@ -264,7 +263,7 @@ namespace ASC.CRM.Core
         public static bool CanAccessTo(RelationshipEvent relationshipEvent)
         {
             if (IsAdmin)
-                    return true;
+                return true;
 
             if (relationshipEvent.ContactID > 0)
             {
@@ -293,6 +292,24 @@ namespace ASC.CRM.Core
             return contact.ShareType == ShareType.Read || contact.ShareType == ShareType.ReadWrite || IsAdmin || GetAccessSubjectTo(contact).ContainsKey(SecurityContext.CurrentAccount.ID);
         }
 
+        public static bool CanAccessTo(int contactID, EntityType entityType, ShareType? shareType, int companyID)
+        {
+            if (shareType.HasValue && (shareType.Value == ShareType.Read || shareType.Value == ShareType.ReadWrite) || IsAdmin)
+            {
+                return true;
+            }
+            if (entityType == EntityType.Company){
+                var fakeContact = new Company() { ID = contactID };
+                return GetAccessSubjectTo(fakeContact).ContainsKey(SecurityContext.CurrentAccount.ID);
+            }
+            else if (entityType == EntityType.Person)
+            {
+                var fakeContact = new Person() { ID = contactID, CompanyID = companyID };
+                return GetAccessSubjectTo(fakeContact).ContainsKey(SecurityContext.CurrentAccount.ID);
+            }
+            return false;
+        }
+
         public static bool CanAccessTo(Task task)
         {
             if (IsAdmin || task.ResponsibleID == SecurityContext.CurrentAccount.ID ||
@@ -304,9 +321,9 @@ namespace ASC.CRM.Core
 
                 if (contactObj != null) return CanAccessTo(contactObj);
 
-               // task.ContactID = 0;
+                // task.ContactID = 0;
 
-              //  Global.DaoFactory.GetTaskDao().SaveOrUpdateTask(task);
+                //  Global.DaoFactory.GetTaskDao().SaveOrUpdateTask(task);
 
             }
 
@@ -316,10 +333,10 @@ namespace ASC.CRM.Core
 
                 if (caseObj != null) return CanAccessTo(caseObj);
 
-             //   task.EntityType = EntityType.Any;
-             //   task.EntityID = 0;
+                //   task.EntityType = EntityType.Any;
+                //   task.EntityID = 0;
 
-             //   Global.DaoFactory.GetTaskDao().SaveOrUpdateTask(task);
+                //   Global.DaoFactory.GetTaskDao().SaveOrUpdateTask(task);
 
             }
 
@@ -329,10 +346,10 @@ namespace ASC.CRM.Core
 
                 if (dealObj != null) return CanAccessTo(dealObj);
 
-             //   task.EntityType = EntityType.Any;
-              //  task.EntityID = 0;
+                //   task.EntityType = EntityType.Any;
+                //  task.EntityID = 0;
 
-              //  Global.DaoFactory.GetTaskDao().SaveOrUpdateTask(task);
+                //  Global.DaoFactory.GetTaskDao().SaveOrUpdateTask(task);
             }
 
             return false;
@@ -381,10 +398,10 @@ namespace ASC.CRM.Core
 
         public static bool CanEdit(Deal deal)
         {
-            return (IsAdmin || deal.ResponsibleID == SecurityContext.CurrentAccount.ID || deal.CreateBy == SecurityContext.CurrentAccount.ID || 
+            return (IsAdmin || deal.ResponsibleID == SecurityContext.CurrentAccount.ID || deal.CreateBy == SecurityContext.CurrentAccount.ID ||
                 !CRMSecurity.IsPrivate(deal) || GetAccessSubjectTo(deal).ContainsKey(SecurityContext.CurrentAccount.ID));
         }
-        
+
         public static bool CanEdit(RelationshipEvent relationshipEvent)
         {
             return CanAccessTo(relationshipEvent);
@@ -394,7 +411,7 @@ namespace ASC.CRM.Core
         {
             return contact.ShareType == ShareType.ReadWrite || IsAdmin || GetAccessSubjectTo(contact).ContainsKey(SecurityContext.CurrentAccount.ID);
         }
-        
+
         public static bool CanEdit(Task task)
         {
             return (IsAdmin || task.ResponsibleID == SecurityContext.CurrentAccount.ID || task.CreateBy == SecurityContext.CurrentAccount.ID);
@@ -402,7 +419,7 @@ namespace ASC.CRM.Core
 
         public static bool CanEdit(Cases cases)
         {
-            return (IsAdmin || cases.CreateBy == SecurityContext.CurrentAccount.ID || 
+            return (IsAdmin || cases.CreateBy == SecurityContext.CurrentAccount.ID ||
                 !CRMSecurity.IsPrivate(cases) || GetAccessSubjectTo(cases).ContainsKey(SecurityContext.CurrentAccount.ID));
         }
 
@@ -527,7 +544,7 @@ namespace ASC.CRM.Core
         {
             return IsPrivate((ISecurityObjectId)task);
         }
-        
+
         public static bool IsPrivate(Cases cases)
         {
             return IsPrivate((ISecurityObjectId)cases);
@@ -576,7 +593,7 @@ namespace ASC.CRM.Core
         {
             return GetAccessSubjectTo((ISecurityObjectId)task);
         }
-        
+
         public static Dictionary<Guid, string> GetAccessSubjectTo(Cases cases)
         {
             return GetAccessSubjectTo((ISecurityObjectId)cases);
@@ -620,7 +637,7 @@ namespace ASC.CRM.Core
         {
             return GetAccessSubjectGuidsTo((ISecurityObjectId)task);
         }
-        
+
         public static List<Guid> GetAccessSubjectGuidsTo(Cases cases)
         {
             return GetAccessSubjectGuidsTo((ISecurityObjectId)cases);
@@ -649,7 +666,7 @@ namespace ASC.CRM.Core
         {
             //   if (!CanAccessTo((File)file)) CreateSecurityException();
         }
-        
+
         public static void DemandAccessTo(Deal deal)
         {
             if (!CanAccessTo(deal)) throw CreateSecurityException();
@@ -669,7 +686,7 @@ namespace ASC.CRM.Core
         {
             if (!CanAccessTo(task)) throw CreateSecurityException();
         }
-        
+
         public static void DemandAccessTo(Cases cases)
         {
             if (!CanAccessTo(cases)) throw CreateSecurityException();
@@ -791,6 +808,9 @@ namespace ASC.CRM.Core
             if (relationshipEvent.EntityID > 0 && relationshipEvent.EntityType != EntityType.Opportunity && relationshipEvent.EntityType != EntityType.Case)
                 throw new ArgumentException();
 
+            if (relationshipEvent.Content.Length > Global.MaxHistoryEventCharacters)
+                throw new ArgumentException("Data too long for column 'content'");
+
             if (!CanAccessTo(relationshipEvent)) throw CreateSecurityException();
         }
 
@@ -808,7 +828,8 @@ namespace ASC.CRM.Core
             {
                 var contact = Global.DaoFactory.GetContactDao().GetByID(deal.ContactID);
                 if (contact == null) throw new ArgumentException();
-                CRMSecurity.DemandAccessTo(contact);
+
+                if (!CanAccessTo(contact)) throw new SecurityException("Access denied to contact");
             }
 
             if (string.IsNullOrEmpty(deal.BidCurrency))
@@ -824,16 +845,15 @@ namespace ASC.CRM.Core
             }
         }
 
-        public static void DemandCreateOrUpdate(InvoiceLine line)
+        public static void DemandCreateOrUpdate(InvoiceLine line, Invoice targetInvoice)
         {
             if (line.InvoiceID <= 0 || line.InvoiceItemID <= 0 ||
                 line.Quantity < 0 || line.Price < 0 || line.Discount < 0 || line.Discount > 100 ||
                 line.InvoiceTax1ID < 0 || line.InvoiceTax2ID < 0)
                 throw new ArgumentException();
 
-            var invoice = Global.DaoFactory.GetInvoiceDao().GetByID(line.InvoiceID);
-            if (invoice == null) throw new ArgumentException();
-            if (!CRMSecurity.CanEdit(invoice)) throw CRMSecurity.CreateSecurityException();
+            if (targetInvoice == null || targetInvoice.ID != line.InvoiceID) throw new ArgumentException();
+            if (!CRMSecurity.CanEdit(targetInvoice)) throw CRMSecurity.CreateSecurityException();
 
             if (!Global.DaoFactory.GetInvoiceItemDao().IsExist(line.InvoiceItemID))
                 throw new ArgumentException();
@@ -858,20 +878,20 @@ namespace ASC.CRM.Core
 
             var contact = Global.DaoFactory.GetContactDao().GetByID(invoice.ContactID);
             if (contact == null) throw new ArgumentException();
-            DemandAccessTo(contact);
+            if (!CanAccessTo(contact)) throw new SecurityException("Access denied to contact");
 
             if (invoice.ConsigneeID != 0 && invoice.ConsigneeID != invoice.ContactID)
             {
                 var consignee = Global.DaoFactory.GetContactDao().GetByID(invoice.ConsigneeID);
                 if (consignee == null) throw new ArgumentException();
-                DemandAccessTo(consignee);
+                if (!CanAccessTo(consignee)) throw new SecurityException("Access denied to consignee contact");
             }
 
             if (invoice.EntityID != 0)
             {
                 var deal = Global.DaoFactory.GetDealDao().GetByID(invoice.EntityID);
                 if (deal == null) throw new ArgumentException();
-                DemandAccessTo(deal);
+                if (!CanAccessTo(deal)) throw new SecurityException("Access denied to opportunity");
 
                 var dealMembers = Global.DaoFactory.GetDealDao().GetMembers(invoice.EntityID);
                 if (!dealMembers.Contains(invoice.ContactID))
@@ -922,7 +942,7 @@ namespace ASC.CRM.Core
                                    .FindAll(CanAccessTo)
                                    .Select(x => x.ID);
 
-                result = result.Where(x => x.ContactID == 0 || contactIDs.Contains(x.ContactID) || x.ResponsibleID==SecurityContext.CurrentAccount.ID);
+                result = result.Where(x => x.ContactID == 0 || contactIDs.Contains(x.ContactID) || x.ResponsibleID == SecurityContext.CurrentAccount.ID);
 
                 if (!result.Any()) return Enumerable.Empty<Task>();
             }

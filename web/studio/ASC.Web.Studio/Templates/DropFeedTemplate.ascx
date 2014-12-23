@@ -4,15 +4,15 @@
 <script id="dropFeedTmpl" type="text/x-jquery-tmpl">
     <div class="item">
         <div class="avatar">
-            {{if byGuest}}
-            <img src="${author.AvatarUrl}" title="${author.DisplayName}"/>
+            {{if isGuest}}
+            <img src="${author.avatarBig}" title="${author.displayName}"/>
             {{else}}
-            <a href="${author.ProfileUrl}" title="${author.DisplayName}" target="_blank"><img src="${author.AvatarUrl}"/></a>
+            <a href="${author.profileUrl}" title="${author.displayName}" target="_blank"><img src="${author.avatarBig}"/></a>
             {{/if}}
         </div>
         <div class="content-box">
             <div class="description">
-                <span class="menu-item-icon ${itemClass}" />
+                <span class="menu-item-icon ${itemClass}" ></span>
                 <span class="product">${productText}.</span>
                 {{if location}}
                 <span class="location">${location}.</span>

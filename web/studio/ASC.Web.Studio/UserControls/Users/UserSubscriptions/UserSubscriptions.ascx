@@ -7,7 +7,12 @@
       {{each(i, obj) Objects}} 
 		    <div id="studio_subscribeItem_${ItemId}_${SubItemId}_${TypeId}_${obj.Id}" class="clearFix">
 		      <span class="sub-button">
-		        <a class="on_off_button on" data-value="${obj.Id}" onclick="javascript:CommonSubscriptionManager.UnsubscribeObject('${ItemId}','${SubItemId}','${TypeId}',this);"></a>
+                {{if obj.IsSubscribed}}
+                    <a class="on_off_button on" data-value="${obj.Id}" onclick="javascript:CommonSubscriptionManager.SubscribeObject('${ItemId}','${SubItemId}','${TypeId}',this);"></a>
+                {{else}}
+                    <a class="on_off_button off" data-value="${obj.Id}" onclick="javascript:CommonSubscriptionManager.SubscribeObject('${ItemId}','${SubItemId}','${TypeId}',this);"></a>
+                {{/if}} 
+		        
 		      </span>
 		      <span>
             {{if obj.Url  == ''}}
@@ -50,7 +55,7 @@
                     {{else}}                      
                      <span class="sub-button">
                         {{if type.IsSubscribed}}
-                          <a class="on_off_button on" href="javascript:CommonSubscriptionManager.UnsubscribeType('${item.Id}','${item.Id}','${type.Id}');" title="<%=Resources.Resource.UnsubscribeButton%>"></a>                                            
+                          <a class="on_off_button on" href="javascript:CommonSubscriptionManager.SubscribeType('${item.Id}','${item.Id}','${type.Id}');" title="<%=Resources.Resource.UnsubscribeButton%>"></a>                                            
                         {{else}}
                           <a class="on_off_button off" href="javascript:CommonSubscriptionManager.SubscribeType('${item.Id}','${item.Id}','${type.Id}');" title="<%=Resources.Resource.SubscribeButton%>"></a>
                         {{/if}}                                            
@@ -94,7 +99,7 @@
                       {{else}}                         
                          <span class="sub-button">
                             {{if type.IsSubscribed}}
-                              <a class="on_off_button on" href="javascript:CommonSubscriptionManager.UnsubscribeType('${item.Id}','${group.Id}','${type.Id}');" title="<%=Resources.Resource.UnsubscribeButton%>"></a>                                            
+                              <a class="on_off_button on" href="javascript:CommonSubscriptionManager.SubscribeType('${item.Id}','${group.Id}','${type.Id}');" title="<%=Resources.Resource.UnsubscribeButton%>"></a>                                            
                             {{else}}
                               <a class="on_off_button off" href="javascript:CommonSubscriptionManager.SubscribeType('${item.Id}','${group.Id}','${type.Id}');" title="<%=Resources.Resource.SubscribeButton%>"></a>
                             {{/if}}

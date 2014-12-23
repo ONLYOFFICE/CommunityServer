@@ -1,4 +1,4 @@
-﻿<%@ OutputCache  Duration="120" VaryByParam="none" %>
+﻿<%@ OutputCache  Duration="120" VaryByParam="none" VaryByCustom="cacheKey"%>
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Core.Client.Bundling.ResourceBundleControl" %>
 
 <script type="text/javascript" src="<%=ResolveUrl("~/js/third-party/jquery/jquery.core.js") %>"></script>

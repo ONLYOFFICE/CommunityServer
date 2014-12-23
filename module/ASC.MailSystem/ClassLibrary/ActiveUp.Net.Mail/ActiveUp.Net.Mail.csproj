@@ -25,7 +25,7 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -41,15 +41,14 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TrunkDir>..\..\..\..\</TrunkDir>
-    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <OutputPath>..\..\..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -63,7 +62,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -72,38 +70,31 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Trial|AnyCPU' ">
-    <OutputPath>bin\Trial\</OutputPath>
     <DefineConstants>TRACE;TRIAL</DefineConstants>
     <DocumentationFile>../Obfuscation/Trial/ActiveUp.Net.Mail.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
-    <OutputPath>bin\Retail\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <DocumentationFile>../Obfuscation/Retail/ActiveUp.Net.Mail.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MailSystem Dev|AnyCPU' ">
-    <OutputPath>bin\MailSystem Dev\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <DocumentationFile>../Obfuscation/Retail/ActiveUp.Net.Mail.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|Compact' ">
-    <OutputPath>bin\Retail\</OutputPath>
     <DefineConstants>TRACE;RETAIL</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -116,13 +107,10 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Trial|Compact' ">
     <DefineConstants>TRIAL</DefineConstants>
-    <OutputPath>bin\Trial\</OutputPath>
-    <DocumentationFile>bin\Trial\ASC.ActiveUp.Net.Mail.xml</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Compact'">
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Compact'">
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -137,42 +125,6 @@
     <Compile Include="RblStatus.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ASC.ActiveUp.Net.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\redistributable\asc\ASC.ActiveUp.Net.Common.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.ActiveUp.Net.Dns, Version=5.0.3454.364, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\redistributable\asc\ASC.ActiveUp.Net.Dns.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.ActiveUp.Net.Imap4, Version=5.0.3454.364, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\redistributable\asc\ASC.ActiveUp.Net.Imap4.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.ActiveUp.Net.Nntp, Version=5.0.3454.364, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\redistributable\asc\ASC.ActiveUp.Net.Nntp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.ActiveUp.Net.OpenPGP, Version=5.0.3454.364, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\redistributable\asc\ASC.ActiveUp.Net.OpenPGP.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.ActiveUp.Net.Pop3, Version=5.0.3454.364, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\redistributable\asc\ASC.ActiveUp.Net.Pop3.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.ActiveUp.Net.Smtp, Version=5.0.3454.364, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\redistributable\asc\ASC.ActiveUp.Net.Smtp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -198,6 +150,36 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ActiveUp.Net.Common\ActiveUp.Net.Common.csproj">
+      <Project>{c8d2498b-ce0e-4e0a-ab1c-29599deb1c38}</Project>
+      <Name>ActiveUp.Net.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActiveUp.Net.Dns\ActiveUp.Net.Dns.csproj">
+      <Project>{3fd92c0f-3209-4bdb-ac24-fb57d405e9a7}</Project>
+      <Name>ActiveUp.Net.Dns</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActiveUp.Net.Imap4\ActiveUp.Net.Imap4.csproj">
+      <Project>{ebf85ded-be97-4610-b4ef-9aca73033aa5}</Project>
+      <Name>ActiveUp.Net.Imap4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActiveUp.Net.Nntp\ActiveUp.Net.Nntp.csproj">
+      <Project>{0f654fca-9fc5-4f65-9a8f-c891439c197e}</Project>
+      <Name>ActiveUp.Net.Nntp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActiveUp.Net.OpenPGP\ActiveUp.Net.OpenPGP.csproj">
+      <Project>{f146c399-bcee-4fb3-a5c2-5f5e3e577927}</Project>
+      <Name>ActiveUp.Net.OpenPGP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActiveUp.Net.Pop3\ActiveUp.Net.Pop3.csproj">
+      <Project>{382b91cf-56a7-4538-8e96-f6ea01a60f86}</Project>
+      <Name>ActiveUp.Net.Pop3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ActiveUp.Net.Smtp\ActiveUp.Net.Smtp.csproj">
+      <Project>{d5eba7a8-a259-415a-a4aa-543a7bc025c5}</Project>
+      <Name>ActiveUp.Net.Smtp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
@@ -205,9 +187,4 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Target Name="AfterBuild">
-    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile->'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
-    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath->'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
-  </Target>
 </Project>

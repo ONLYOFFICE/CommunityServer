@@ -1,38 +1,34 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 var CommentsManagerObj = new function() {
     this.obj = null;
-    this.iFCKEditor = null;
+    this.editorInstance = null;
 
     this.javaScriptAddCommentFunctionName = "";
     this.javaScriptLoadBBcodeCommentFunctionName = "";
@@ -46,7 +42,7 @@ var CommentsManagerObj = new function() {
     this.FckDomainName = "";
     this.currentCommentID = "";
 
-    this.FckUploadHandlerPath = "";
+    this.CkUploadHandlerPath = "";
 
     this.isSimple = false;
     this.inactiveMessage = "";
@@ -60,17 +56,38 @@ var CommentsManagerObj = new function() {
     this._jsObjName = "";
     this.PID = "";
 
-    this.isDisableCtrlEnter = false;
     this.EnableAttachmets = false;
 
     this.HandlerTypeName = "";
 
-    this.InitEditor = function(FCKBasePath, FCKToolbar, FCKHeight, FCKWidth, FCKEditorAreaCss) {
-        __FCKeditorNS = null;
-        FCKeditorAPI = null;
+    this.InitEditor = function() {
+        ckeditorConnector.onReady(function () {
+            CommentsManagerObj.editorInstance =
+                jq("#commentEditor")
+                    .ckeditor(
+                        {
+                            toolbar: "Comment",
+                            extraPlugins: "teamlabquote",
+                            filebrowserUploadUrl: CommentsManagerObj.CkUploadHandlerPath,
+                            height: "200"
+                        })
+                    .editor;
 
-        CKEDITOR.replace('commentEditor', { toolbar: 'Comment', extraPlugins: 'teamlabquote', filebrowserUploadUrl: CommentsManagerObj.FckUploadHandlerPath, height: "200" });
-        this.oFCKeditor = CKEDITOR.instances.commentEditor;
+            CommentsManagerObj.editorInstance.keystrokeHandler.keystrokes[window.CKEDITOR.CTRL + 13] = "ctrlEnter";
+            CommentsManagerObj.editorInstance.addCommand("ctrlEnter", {
+                exec: function (editor, data) {
+                    CommentsManagerObj.AddComment_Click();
+                }
+            });
+            
+            CommentsManagerObj.editorInstance.on("change",  function() {
+                if (this.getData() == "") {
+                    jq("#btnPreview").addClass("disable");
+                } else {
+                    jq("#btnPreview").removeClass("disable");
+                }
+            });
+        });
     };
 
     this.Redraw = function() {
@@ -99,16 +116,20 @@ var CommentsManagerObj = new function() {
         this.ShowCommentBox("", obj);
     };
 
-    this.AddNewComment = function() {
-        this.obj = null;
-        this.SetParentComment("");
-        this.SetAction("add", null);
-        this.ShowCommentBox("", null);
+    this.AddNewComment = function () {
+        if (CommentsManagerObj.editorInstance) {
+            this.obj = null;
+            this.SetParentComment("");
+            this.SetAction("add", null);
+            this.ShowCommentBox("", null);
 
-        jq("#comment_attachments").html("");
-        this.CurrentAttachID = 0;
-        this.currentCommentID = "";
-        jq('#hdnCommentID').val('');
+            jq("#comment_attachments").html("");
+            this.CurrentAttachID = 0;
+            this.currentCommentID = "";
+            jq('#hdnCommentID').val('');
+        } else {
+            setTimeout("CommentsManagerObj.AddNewComment();", 500);
+        }
     };
 
     this.EditComment = function(obj, id) {
@@ -128,13 +149,12 @@ var CommentsManagerObj = new function() {
 
         if (!this.isSimple) {
             var ContentDiv = document.getElementById('content_' + id);
-            var iFCKEditor = CKEDITOR.instances.commentEditor;
 
             if (ContentDiv != null) {
-                iFCKEditor.setData(ContentDiv.innerHTML);
+                CommentsManagerObj.editorInstance.setData(ContentDiv.innerHTML);
             }
             else {
-                iFCKEditor.setData('');
+                CommentsManagerObj.editorInstance.setData('');
             }
 
             jq('#commentBox').show();
@@ -142,7 +162,7 @@ var CommentsManagerObj = new function() {
             jq(window).scrollTop(jq('#commentBox').position().top, { speed: 500 });
             jq('#previewBox').hide("slow");
 
-            setTimeout(function () { CKEDITOR.instances.commentEditor.focus(); }, 500); 
+            setTimeout(function () { CommentsManagerObj.editorInstance.focus(); }, 500);
         }
         else {
             var ContentDiv = document.getElementById('content_' + id);
@@ -220,7 +240,7 @@ var CommentsManagerObj = new function() {
         switch (action) {
             case "add":
                 if (CommentsManagerObj.OnEditedCommentJS != "" && !CommentsManagerObj.isSimple) {
-                    eval(CommentsManagerObj.OnEditedCommentJS + "('" + CommentsManagerObj.currentCommentID + "', CKEDITOR.instances.commentEditor.getData() , '" + CommentsManagerObj.FckDomainName + "', false, '" + callBack + "')");
+                    eval(CommentsManagerObj.OnEditedCommentJS + "('" + CommentsManagerObj.currentCommentID + "', CommentsManagerObj.editorInstance.getData() , '" + CommentsManagerObj.FckDomainName + "', false, '" + callBack + "')");
                 }
                 return;
 
@@ -231,7 +251,7 @@ var CommentsManagerObj = new function() {
                     if (CommentsManagerObj.isSimple)
                         text = jq('#simpleTextArea').val();
                     else {
-                        text = CKEDITOR.instances.commentEditor.getData();
+                        text = CommentsManagerObj.editorInstance.getData();
                     }
 
                     eval(CommentsManagerObj.OnEditedCommentJS + "('" + CommentsManagerObj.currentCommentID + "', text, '" + CommentsManagerObj.FckDomainName + "', true, '" + callBack + "')");
@@ -310,27 +330,28 @@ var CommentsManagerObj = new function() {
                 }
             }
             else {
-                alert(jq('#EmptyCommentErrorMessage').val());
+                toastr.error(ASC.Resources.Master.Resource.EmptyCommentErrorMessage);
                 return false;
             }
         }
         else {
-            CommentsManagerObj.iFCKEditor = CKEDITOR.instances.commentEditor;
-            var text = CommentsManagerObj.iFCKEditor.getData();
+            var text = CommentsManagerObj.editorInstance.getData();
             if (text.trim().length == 0) {
-                alert(jq('#EmptyCommentErrorMessage').val());
+                toastr.error(ASC.Resources.Master.Resource.EmptyCommentErrorMessage);
                 return false;
             }
 
             if (text != "") {
-                AjaxPro.onLoading = function(b) {
+                AjaxPro.onLoading = function (b) {
                     if (b) {
                         CommentsManagerObj.BlockCommentsBox();
+                    } else {
+                        CommentsManagerObj.UnblockCommentsBox();
                     }
-                }
+                };
 
                 if (jq('#hdnAction').val() == "add") {
-                    var strMethod = this.javaScriptAddCommentFunctionName + "(jq('#hdnParentComment').val(), jq('#hdnObjectID').val(), CKEDITOR.instances.commentEditor.getData(), "
+                    var strMethod = this.javaScriptAddCommentFunctionName + "(jq('#hdnParentComment').val(), jq('#hdnObjectID').val(), CommentsManagerObj.editorInstance.getData(), "
 
                     if (this.PID != "") {
                         strMethod += "CommentsManagerObj.PID, ";
@@ -345,7 +366,7 @@ var CommentsManagerObj = new function() {
                     eval(strMethod);
                 }
                 else if (jq('#hdnAction').val() == "update") {
-                    var strMethod = this.javaScriptUpdateCommentFunctionName + "(jq('#hdnCommentID').val(), CKEDITOR.instances.commentEditor.getData(), "
+                    var strMethod = this.javaScriptUpdateCommentFunctionName + "(jq('#hdnCommentID').val(), CommentsManagerObj.editorInstance.getData(), "
 
                     if (this.PID != "") {
                         strMethod += "CommentsManagerObj.PID, ";
@@ -485,7 +506,8 @@ var CommentsManagerObj = new function() {
         CommentsManagerObj.CallFCKComplete();
     };
 
-    this.Preview_Click = function() {
+    this.Preview_Click = function () {
+        if (jq("#btnPreview").hasClass("disable")) return;
         if (this.isSimple) {
             var html = TextHelper.Text2EncodedHtml(jq('#simpleTextArea').val());
             jq('#previewBoxBody').html(html);
@@ -501,7 +523,7 @@ var CommentsManagerObj = new function() {
                     CommentsManagerObj.UnblockCommentsBox();
                 };
             };
-            eval(this.javaScriptPreviewCommentFunctionName + "(CKEDITOR.instances.commentEditor.getData(), jq('#hdnCommentID').val(), CommentsManagerObj.callBackPreview)");
+            eval(this.javaScriptPreviewCommentFunctionName + "(CommentsManagerObj.editorInstance.getData(), jq('#hdnCommentID').val(), CommentsManagerObj.callBackPreview)");
         }
     };
 
@@ -570,4 +592,217 @@ var CommentsManagerObj = new function() {
     this.RemoveAttach = function(id) {
         jq('#attach_' + id).remove();
     };
-}
+};
+
+var TextHelper = new function () {
+    var trimN = function (str) {
+        if (typeof str !== 'string' || str.length === 0) {
+            return '';
+        }
+        return str.replace(/^\n+|\n+$/g, '');
+    };
+
+    var isBlockNode = function (node) {
+        if (typeof node === 'undefined' || !node || typeof node.nodeName === 'undefined') {
+            return false;
+        }
+        switch (node.nodeName.toLowerCase()) {
+            case 'p':
+            case 'h1':
+            case 'h2':
+            case 'h3':
+            case 'h4':
+            case 'h5':
+            case 'h6':
+            case 'ul':
+            case 'ol':
+            case 'li':
+            case 'tr':
+            case 'div':
+            case 'table':
+                return true;
+            default:
+                return false;
+        }
+    };
+    var isNonblockNode = function (node) {
+        if (typeof node == 'undefined' || !node || typeof node.nodeName == 'undefined') {
+            return false;
+        }
+        return !isBlockNode(node);
+    };
+
+    this.Html2FormattedText = function (node) {
+        var content = '';
+        var childrens = node.childNodes;
+        for (var i = 0, n = childrens.length; i < n; i++) {
+            var child = childrens.item(i);
+            switch (child.nodeType) {
+                case 1:
+                case 5:
+                    switch (child.nodeName.toLowerCase()) {
+                        case 'br':
+                            if (child.getAttribute('type') !== 'moz_') {
+                                content += '\n';
+                            }
+                            break;
+                        case 'a':
+                            var attr = child.getAttribute('href');
+                            if (attr) {
+                                content += attr;
+                            }
+                            break;
+                        case 'img':
+                            attr = child.getAttribute('alt');
+                            if (attr) {
+                                content += attr;
+                            }
+                            break;
+                        case 'p':
+                        case 'h1':
+                        case 'h2':
+                        case 'h3':
+                        case 'h4':
+                        case 'h5':
+                        case 'h6':
+                        case 'ul':
+                        case 'ol':
+                        case 'li':
+                        case 'tr':
+                        case 'div':
+                        case 'table':
+                            var childContent = trimN(arguments.callee(child));
+                            content += (i !== 0 ? '\n' : '') + childContent;
+                            if (childContent) {
+                                content += isNonblockNode(child.nextSibling) ? '\n' : '';
+                            }
+                            break;
+                        default:
+                            content += arguments.callee(child);
+                            break;
+                    }
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    content += child.nodeValue;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return content;
+    };
+
+    var htmlEncode = function (source, display, tabs) {
+        var i, s, ch, peek, line, result,
+            next, endline, push,
+            spaces;
+
+        // Stash the next character and advance the pointer
+        next = function () {
+            peek = source.charAt(i);
+            i += 1;
+        };
+
+        // Start a new "line" of output, to be joined later by <br />
+        endline = function () {
+            line = line.join('');
+            if (display) {
+                // If a line starts or ends with a space, it evaporates in html
+                // unless it's an nbsp.
+                line = line.replace(/(^ )|( $)/g, '&nbsp;');
+            }
+            result.push(line);
+            line = [];
+        };
+
+        // Push a character or its entity onto the current line
+        push = function () {
+            if (ch < ' ' || ch > '~') {
+                line.push('&#' + ch.charCodeAt(0) + ';');
+            } else {
+                line.push(ch);
+            }
+        };
+
+        // Use only integer part of tabs, and default to 4
+        tabs = (tabs >= 0) ? Math.floor(tabs) : 4;
+
+        result = [];
+        line = [];
+
+        i = 0;
+        next();
+        while (i <= source.length) { // less than or equal, because i is always one ahead
+            ch = peek;
+            next();
+
+            // HTML special chars.
+            switch (ch) {
+                case '<':
+                    line.push('&lt;');
+                    break;
+                case '>':
+                    line.push('&gt;');
+                    break;
+                case '&':
+                    line.push('&amp;');
+                    break;
+                case '"':
+                    line.push('&quot;');
+                    break;
+                case "'":
+                    line.push('&#39;');
+                    break;
+                default:
+                    // If the output is intended for display,
+                    // then end lines on newlines, and replace tabs with spaces.
+                    if (display) {
+                        switch (ch) {
+                            case '\r':
+                                // If this \r is the beginning of a \r\n, skip over the \n part.
+                                if (peek === '\n') {
+                                    next();
+                                }
+                                endline();
+                                break;
+                            case '\n':
+                                endline();
+                                break;
+                            case '\t':
+                                // expand tabs
+                                spaces = tabs - (line.length % tabs);
+                                for (s = 0; s < spaces; s += 1) {
+                                    line.push(' ');
+                                }
+                                break;
+                            default:
+                                // All other characters can be dealt with generically.
+                                push();
+                        }
+                    } else {
+                        // If the output is not for display,
+                        // then none of the characters need special treatment.
+                        push();
+                    }
+            }
+        }
+        endline();
+
+        // If you can't beat 'em, join 'em.
+        result = result.join('<br />');
+
+        if (display) {
+            // Break up contiguous blocks of spaces with non-breaking spaces
+            result = result.replace(/ {2}/g, ' &nbsp;');
+        }
+
+        // tada!
+        return result;
+    };
+
+    this.Text2EncodedHtml = function (text) {
+        return htmlEncode(text, true, 4);
+    };
+};

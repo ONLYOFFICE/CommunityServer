@@ -1,31 +1,38 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
+using ASC.Data.Storage;
+using ASC.Web.Core.Client;
+using ASC.Web.Core.Files;
+using ASC.Web.Core.Users;
+using ASC.Web.Studio.Utility;
+using HtmlAgilityPack;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -34,13 +41,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Configuration;
-using ASC.Data.Storage;
-using ASC.Web.Core.Client;
-using ASC.Web.Core.Files;
-using ASC.Web.Core.Users;
-using ASC.Web.Studio.Utility;
-using HtmlAgilityPack;
-using log4net;
 
 namespace ASC.Web.Studio.Core.HelpCenter
 {
@@ -51,30 +51,34 @@ namespace ASC.Web.Studio.Core.HelpCenter
         public static List<VideoGuideItem> GetVideoGuides()
         {
             var data = GetVideoGuidesAll();
-
             var wathced = UserVideoSettings.GetUserVideoGuide();
+
             data.RemoveAll(r => wathced.Contains(r.Id));
-
             if (!UserHelpTourHelper.IsNewUser)
+            {
                 data.RemoveAll(r => r.Status == "default");
-
+            }
             return data;
         }
 
         private static List<VideoGuideItem> GetVideoGuidesAll()
         {
-            var url = CommonLinkUtility.GetHelpLink(true) + "video.aspx";
+            var url = CommonLinkUtility.GetHelpLink(true);
+            if (string.IsNullOrEmpty(url))
+            {
+                return new List<VideoGuideItem>();
+            }
+
+            url += "video.aspx";
 
             VideoGuideData videoGuideData = null;
 
             var storageData = VideoGuideStorage.GetVideoGuide() ?? new Dictionary<string, VideoGuideData>();
-
             if (storageData.ContainsKey(url))
             {
                 videoGuideData = storageData[url];
             }
-
-            if (videoGuideData != null && String.CompareOrdinal(videoGuideData.ResetCacheKey, ClientSettings.ResetCacheKey) != 0)
+            if (videoGuideData != null && string.CompareOrdinal(videoGuideData.ResetCacheKey, ClientSettings.ResetCacheKey) != 0)
             {
                 videoGuideData = null;
             }
@@ -84,19 +88,18 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 var html = SendRequest(url);
                 var data = ParseVideoGuideHtml(html);
 
-                videoGuideData = new VideoGuideData();
+                videoGuideData = new VideoGuideData() { ListItems = new List<VideoGuideItem>() };
                 if (data.Any())
                 {
                     videoGuideData.ListItems = data;
                     videoGuideData.ResetCacheKey = ClientSettings.ResetCacheKey;
 
-                    storageData.Remove(url);
-                    storageData.Add(url, videoGuideData);
+                    storageData[url] = videoGuideData;
                     VideoGuideStorage.UpdateVideoGuide(storageData);
                 }
             }
 
-            return videoGuideData.ListItems ?? new List<VideoGuideItem>();
+            return videoGuideData.ListItems;
         }
 
         private static List<VideoGuideItem> ParseVideoGuideHtml(string html)
@@ -134,7 +137,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
         public static List<HelpCenterItem> GetHelpCenter(string module, string helpLinkBlock)
         {
-            var url = CommonLinkUtility.GetHelpLink(true) + "gettingstarted/" + module;
+            var url = CommonLinkUtility.GetHelpLink() + "gettingstarted/" + module;
 
             HelpCenterData helpCenterData = null;
 
@@ -161,8 +164,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                     helpCenterData.ListItems = data;
                     helpCenterData.ResetCacheKey = ClientSettings.ResetCacheKey;
 
-                    storageData.Remove(url);
-                    storageData.Add(url, helpCenterData);
+                    storageData[url] = helpCenterData;
                     HelpCenterStorage.UpdateHelpCenter(storageData);
                 }
             }
@@ -289,17 +291,16 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
         private static string GetInternalLink(string externalUrl)
         {
-            if ((WebConfigurationManager.AppSettings["web.help-center.internal-uri"] ?? "true") != "true")
+            if ((WebConfigurationManager.AppSettings["web.help-center.internal-uri"] ?? "false") != "true")
                 return externalUrl;
 
             try
             {
                 externalUrl = externalUrl.ToLower().Trim();
-                var imagePath = ClientSettings.StorePath + "/helpcenter/" + externalUrl.GetHashCode().ToString(CultureInfo.InvariantCulture);
+                var imagePath = ClientSettings.StorePath.Trim('/') + "/helpcenter/" + externalUrl.GetHashCode().ToString(CultureInfo.InvariantCulture);
                 imagePath += FileUtility.GetFileExtension(externalUrl);
 
-                const string storageName = "common_static";
-                var storage = StorageFactory.GetStorage("-1", storageName);
+                var storage = ASC.Data.Storage.StorageFactory.GetStorage("-1", "common_static");
 
                 if (storage.IsFile(imagePath))
                     return storage.GetUri(imagePath).ToString();
@@ -312,7 +313,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             }
             catch (Exception e)
             {
-                LogManager.GetLogger("HelpCenter").Error(e.Message);
+                LogManager.GetLogger("ASC.Web.HelpCenter").ErrorFormat("GetInternalLink {0}: {1}", externalUrl, e.Message);
             }
             return externalUrl;
         }

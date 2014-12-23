@@ -42,7 +42,6 @@
     </div>
 
     <div id="files_hintStagesPanel" class="hintDescriptionPanel">
-        <div class="popup-corner"></div>
         <%=CRMDealResource.TooltipStages%>
         <a href="http://www.onlyoffice.com/help/tipstricks/opportunity-stages.aspx" target="_blank"><%=CRMCommonResource.ButtonLearnMore%></a>
     </div>
@@ -56,14 +55,15 @@
     </div>
 
     <div id="addTagDealsDialog" class="studio-action-panel addTagDialog">
-        <div class="corner-top left"></div>
         <ul class="dropdown-content mobile-overflow"></ul>
         <div class="h_line">&nbsp;</div>
-        <div style="margin-bottom:5px;"><%= CRMCommonResource.CreateNewTag%>:</div>
-        <input type="text" maxlength="50" class="textEdit" />
-        <a onclick="ASC.CRM.ListDealView.addNewTag();" class="button blue" id="addThisTag">
-            <%= CRMCommonResource.OK%>
-        </a>
+        <div style="padding: 0 12px;">
+            <div style="margin-bottom: 5px;"><%= CRMCommonResource.CreateNewTag%>:</div>
+            <input type="text" maxlength="50" class="textEdit" />
+            <a onclick="ASC.CRM.ListDealView.addNewTag();" class="button blue" id="addThisTag">
+                <%= CRMCommonResource.OK%>
+            </a>
+        </div>
     </div>
 
     <div id="permissionsDealsPanelInnerHtml" class="display-none">
@@ -75,7 +75,6 @@
     </div>
 
     <div id="dealActionMenu" class="studio-action-panel">
-        <div class="corner-top right"></div>
         <ul class="dropdown-content">
             <li><a class="showProfileLink dropdown-item"><%= CRMDealResource.ShowDealProfile %></a></li>
             <li><a class="setPermissionsLink dropdown-item"><%= CRMCommonResource.SetPermissions %></a></li>
@@ -172,8 +171,7 @@
             <input type="checkbox" id="checkDeal_${id}" style="margin-left:2px;"
                  onclick="ASC.CRM.ListDealView.selectItem(this);"
                  {{if isChecked == true}}checked="checked"{{/if}} />
-            <img id="loaderImg_${id}" style="display:none;" alt=""
-                src="<%=WebImageSupplier.GetAbsoluteWebPath("loader_16.gif")%>" />
+            <div id="loaderImg_${id}" class="loader-middle baseList_loaderImg"></div>
         </td>
         {{/if}}
 
@@ -266,12 +264,9 @@
         <th style="width:30px;"></th>
         <th style="width:22px;"></th>
         <th></th>
-        <th style="width:30px;"></th>
-        <th style="width:22px;"></th>
-        <th></th>
     </tr>
     {{each currencyRates}}
-        {{if $index%3 == 0}}
+        {{if $index%2 == 0}}
         <tr>
         {{/if}}
             <td class="borderBase">
@@ -283,10 +278,10 @@
             <td class="borderBase header-base-small" title="${this.title}">
                 ${this.abbreviation}
             </td>
-            <td class="borderBase rateValue" id="${this.abbreviation}" style="{{if $index%3 == 2}}padding-right:20px;{{else}}padding-right:35px;{{/if}}">
+            <td class="borderBase rateValue" id="${this.abbreviation}" style="{{if $index%2 == 1}}padding-right:20px;{{else}}padding-right:35px;{{/if}}">
                 ${this.rate}
             </td>
-        {{if $index%3 == 2}}
+        {{if $index%2 == 1}}
         </tr>
         {{/if}}
     {{/each}}
@@ -358,8 +353,9 @@
         <div id="exchangeRateContent">
             <select onchange="ASC.CRM.ExchangeRateView.updateSummaryTable(this.value);" style="width: 100%;" class="comboBox">
             </select>
-            <table class="tableBase" cellpadding="5" cellspacing="0" id="ratesTable">
-            </table>
+            <div class="ratesTableContainer">
+                <table class="tableBase" cellpadding="5" cellspacing="0" id="ratesTable"></table>
+            </div>
         </div>
     </div>
 
@@ -370,7 +366,7 @@
         <div style="float: right;">
             <span class="text-medium-describe"><%= CRMCommonResource.InformationProvidedBy%></span> <a class="link blue bold" href="http://themoneyconverter.com/" target="_blank">The Money Converter.com</a>
         </div>
-            <div style="margin-top: 10px;">
+        <div class="middle-button-container">
             <a class="button gray" href="javascript:void(0)" onclick="PopupKeyUpActionProvider.EnableEsc = true; jq.unblockUI();">
                 <%= CRMCommonResource.CloseThisWindow%>
             </a>

@@ -1,34 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
-*/
-
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 /*--popup--*/
@@ -104,10 +99,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 /*----end list templates--------*/
 
 /*---------edit template-------*/
-.projects-templates-container .templTitle 
-{
-	margin-top: 30px;
-}
+
 .projects-templates-container #templateTitle, #projectTitle 
 {
 	padding-left: 10px; 
@@ -234,137 +226,6 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
     }
 }
 
-/*----list milestones-----*/
-.projects-templates-container #listAddedMilestone {
-	clear: left;
-}
-.projects-templates-container .milestone:not(:first-of-type) {
-    margin-top: 20px;
-}
-.projects-templates-container .milestone .mainInfo {
-	height: 20px;
-	padding: 4px 15px;
-	font-size: 14px;
-    font-weight:bold;
-}
-.projects-templates-container .milestone .mainInfo .addTask {
-	margin-left: 15px;
-	color: #333;
-	border-bottom: 1px dotted #333333;
-    padding: 0;
-	font-size: 11px;
-	display: none;
-	text-decoration: none;
-	cursor: pointer;
-}
-.projects-templates-container .milestone .mainInfo .addTask.hide, .milestone .mainInfo:hover .addTask.hide {
-	display: none;
-}
-.projects-templates-container .milestone .mainInfo:hover .addTask {
-	display: inline-block;
-}
-.projects-templates-container .milestone .mainInfo .entity-menu, .task .entity-menu {
-	margin-top: -2px;
-}
-.projects-templates-container .milestone .mainInfo:hover {
-	background-color: #F5F5F5;
-}
-.projects-templates-container .milestone.open .mainInfo{
-	background-color: #F5F5F5;
-}
-.projects-templates-container .milestone.open .mainInfo{
-	background-color: #F5F5F5;
-}
-.projects-templates-container .milestone .mainInfo .daysCount,
-.projects-templates-container .milestone .mainInfo .dueDate {
-	color: #83888D;
-	margin-right: 10px;
-	width: 85px;
-	display: inline-block;
-}
-.projects-templates-container.milestone .mainInfo:hover .daysCount span,
-.projects-templates-container .milestone .mainInfo:hover .dueDate span{
-	border-bottom: 1px dotted #83888D;
-	cursor: pointer;
-}
-
-
-.projects-templates-container .milestone .mainInfo .title {
-	color: #333;
-	display: inline-block;
-}
-.projects-templates-container .milestone .mainInfo:hover .title {
-	border-bottom: 1px dotted #333;
-	cursor: pointer;
-}
-@media all and (max-width: 1200px)
-{
-    .projects-templates-container .milestone .mainInfo .title,
-    .projects-templates-container .task .title
-    {
-        max-width: 400px;
-        white-space: nowrap;
-        overflow: hidden;
-        display: inline-block;
-    }
-}
-/*--list tasks--*/
-.projects-templates-container .milestoneTasksContainer{ display: none;}
-
-.projects-templates-container .task {
-	height: 20px;
-	padding: 6px 15px 6px 35px;
-	font-weight:normal;
-    border-top: 1px solid #D1D1D1;
-    line-height: 20px;
-}
-.projects-templates-container .task:last-child {
-    border-bottom: 1px solid #D1D1D1;
-}
-.projects-templates-container .task.open {
-	background-color: #F5F5F5;
-}
-.projects-templates-container .task:hover {
-	background-color: #F5F5F5;
-}
-.projects-templates-container .task:hover .title {
-	border-bottom: 1px dotted #333;
-}
-.projects-templates-container .addTaskContainer {
-	padding-left: 35px;
-	padding-bottom: 10px;
-    padding-top: 6px;
-	display: none;
-}
-.projects-templates-container .addTaskContainer a,
-.projects-templates-container .addTaskContainer a:hover,
-.projects-templates-container .addTaskContainer a:active,
-.projects-templates-container .addTaskContainer a:visited, 
-.projects-templates-container #addMilestone a,
-.projects-templates-container #addMilestone a:hover,
-.projects-templates-container #addMilestone a:active,
-.projects-templates-container #addMilestone a:visited {
-    color: #333;
-}
-
-.projects-templates-container  #noAssignTaskContainer .addTaskContainer {
-	display: inline-block;
-}
-.projects-templates-container .unlocatedTaskTitle 
-{
-	color: #666;
-	font-size: 14px;
-    font-weight:bold;	
-    padding-left: 15px;
-}
-.projects-templates-container .disable.ActionButton,
-.projects-templates-container .disable.ActionButton:hover {
- 	color: #999;
- 	border-color: #D1D1D1;
-	cursor: default;
-	background-color: #E8E8E8;
-	background-image: none;
-}
 /*---------end edit template-------*/
 
 /*-------create project from template----*/
@@ -373,16 +234,8 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 	height: 70px;
 	resize: none;
 }
-.projects-templates-container .notifyContainer {
-	margin-top: 22px;
-}
-.projects-templates-container #projectManagerContainer .notifyContainer {
-	margin-top: 0;
-    padding-top: 3px;
-}
-.projects-templates-container #projectManagerContainer #projectManagerSelector {
-    float: left;
-    margin-right: 15px;
+.projects-templates-container .notify-container label {
+    padding-left: 5px;
 }
 .projects-templates-container #notifyManagerCheckbox,
 .projects-templates-container  #notifyResponsibles {
@@ -390,9 +243,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
     padding: 0;
 	float: left;
 }
-.projects-templates-container .notifyContainer label {
-    padding-left: 8px;
-}
+
 .projects-templates-container #projectTeamContainer #manageTeamButton {
   border-color:#333;
   color:#333;
@@ -400,12 +251,11 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 }
 .projects-templates-container #projectTeamContainer #Team {
 	overflow: hidden;
-	display: block;
+	display: none;
 }
-.projects-templates-container #projectTeamContainer #Team table{
-	 margin: 0 0 10px 0;
-}
-
+    .projects-templates-container #projectTeamContainer #Team .items-display-list {
+        margin-top: 15px;
+    }
 .projects-templates-container #addMilestoneContainer .textEditCalendar {
 	height: 16px;
 }

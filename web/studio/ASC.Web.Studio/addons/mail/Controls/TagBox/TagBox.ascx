@@ -74,7 +74,6 @@
 </div>
 
 <div id="addTagsPanel" class="actionPanel stick-over">
-    <div class="popup-corner"></div>
     <div id="tagsPanelContent" style="display: block;">
         <div class="actionPanelSection">
             <label for="markallrecipients" class="mark_all_checkbox">

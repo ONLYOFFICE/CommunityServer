@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 window.mailBox = (function($) {
     var is_init = false,
         current_message_id = -1,
@@ -77,6 +73,7 @@ window.mailBox = (function($) {
             ASC.Controls.AnchorController.bind(TMMail.anchors.teamlab,              onTeamLabContactsPage);
             ASC.Controls.AnchorController.bind(TMMail.anchors.crm,                  onCrmContactsPage);
             ASC.Controls.AnchorController.bind(TMMail.anchors.tags,                 onTagsPage);
+            ASC.Controls.AnchorController.bind(TMMail.anchors.administration,       onAdministrationPage);
             ASC.Controls.AnchorController.bind(TMMail.anchors.helpcenter,           onHelpPage);
 
             messagePage.init();
@@ -116,7 +113,8 @@ window.mailBox = (function($) {
             $(window).scroll(stickActionMenuToTheTop);
 
             action_buttons = [
-                { selector: "#messagesActionMenu .openMail", handler: TMMail.moveToConversation },
+                { selector: "#messagesActionMenu .openMail", handler: openConversation },
+                { selector: "#messagesActionMenu .openNewTabMail", handler: openNewTabConversation },
                 { selector: "#messagesActionMenu .replyMail", handler: TMMail.moveToReply },
                 { selector: "#messagesActionMenu .replyAllMail", handler: TMMail.moveToReplyAll },
                 { selector: "#messagesActionMenu .createEmail", handler: createEmailToSender },
@@ -643,6 +641,21 @@ window.mailBox = (function($) {
         icon.toggleClass('icon-unimportant').toggleClass('icon-important');
         changeImportanceTitle(icon, !is_important);
     }
+    
+    function openConversation(id) {
+        if (TMMail.pageIs('drafts'))
+            TMMail.moveToDraftItem(id);
+        else
+            TMMail.moveToConversation(id);
+    }
+
+    function openNewTabConversation(id)
+    {
+        if (TMMail.pageIs('drafts'))
+            TMMail.openDraftItem(id);
+        else
+            TMMail.openConversation(id);
+    }
 
     function moveToFolder(id) {
         switch (current_folder_id) {
@@ -705,6 +718,7 @@ window.mailBox = (function($) {
     function hidePages() {
         tagsPage.hide();
         accountsPage.hide();
+        administrationPage.hide();
         contactsPage.hide();
         blankPages.hide();
         helpPage.hide();
@@ -872,6 +886,7 @@ window.mailBox = (function($) {
     }
 
     function pretreatment(id) {
+
         var row = $('#itemContainer .messages .row[data_id="' + id + '"]');
 
         if (!current_selection.HasId(id)) {
@@ -882,19 +897,32 @@ window.mailBox = (function($) {
         var message_ids = current_selection.GetIds();
 
         if (message_ids.length > 1) {
-            $('#messagesActionMenu .openMail').hide();
-            $('#messagesActionMenu .replyMail').hide();
-            $('#messagesActionMenu .replyAllMail').hide();
-            $('#messagesActionMenu .createEmail').hide();
-            $('#messagesActionMenu .forwardMail').hide();
-            $('#messagesActionMenu .markImportant').hide();
+            $('#messagesActionMenu .openMail').parent().hide();
+            $('#messagesActionMenu .openNewTabMail').parent().hide();
+            $('#messagesActionMenu .replyMail').parent().hide();
+            $('#messagesActionMenu .replyAllMail').parent().hide();
+            $('#messagesActionMenu .createEmail').parent().hide();
+            $('#messagesActionMenu .forwardMail').parent().hide();
+            $('#messagesActionMenu .markImportant').parent().hide();
+            $('#messagesActionMenu .setReadMail').parent().show();
+        } else if (TMMail.pageIs('drafts')) {
+            $('#messagesActionMenu .openMail').parent().show();
+            $('#messagesActionMenu .openNewTabMail').parent().show();
+            $('#messagesActionMenu .replyMail').parent().hide();
+            $('#messagesActionMenu .replyAllMail').parent().hide();
+            $('#messagesActionMenu .createEmail').parent().hide();
+            $('#messagesActionMenu .forwardMail').parent().hide();
+            $('#messagesActionMenu .setReadMail').parent().hide();
+            $('#messagesActionMenu .markImportant').parent().show();
         } else {
-            $('#messagesActionMenu .openMail').show();
-            $('#messagesActionMenu .replyMail').show();
-            $('#messagesActionMenu .replyAllMail').show();
-            $('#messagesActionMenu .createEmail').show();
-            $('#messagesActionMenu .forwardMail').show();
-            $('#messagesActionMenu .markImportant').show();
+            $('#messagesActionMenu .openMail').parent().show();
+            $('#messagesActionMenu .openNewTabMail').parent().show();
+            $('#messagesActionMenu .replyMail').parent().show();
+            $('#messagesActionMenu .replyAllMail').parent().show();
+            $('#messagesActionMenu .createEmail').parent().show();
+            $('#messagesActionMenu .forwardMail').parent().show();
+            $('#messagesActionMenu .setReadMail').parent().show();
+            $('#messagesActionMenu .markImportant').parent().show();
         }
 
         var read_unread = containNewMessage(message_ids);
@@ -1542,7 +1570,7 @@ window.mailBox = (function($) {
         MailFilter.fromAnchor(folder_name, params);
 
         // if no cash exists - get filtered conversations
-        if (0 == cache.length) {
+        if (0 == cache.length || isNeedCacheCorrect(cache)) {
             serviceManager.updateFolders(ASC.Resources.Master.Resource.LoadingProcessing);
             return;
         }
@@ -1720,6 +1748,13 @@ window.mailBox = (function($) {
         settingsPanel.selectItem('accountsSettings');
         hideLoadingMask();
     }
+    
+    function onAdministrationPage() {
+        unmarkAllPanels();
+        TMMail.setPageHeaderTitle(window.MailScriptResource.AdministrationLabel);
+        administrationManager.loadData();
+        settingsPanel.selectItem('adminSettings');
+    }
 
     function onTeamLabContactsPage() {
         TMMail.setPageHeaderTitle(window.MailScriptResource.TeamLabContactsLabel);
@@ -1766,10 +1801,31 @@ window.mailBox = (function($) {
         }
     }
 
+    function isNeedCacheCorrect(cache) {
+        var incorrect_rows = [];
+        if (MailFilter.anchorHasMarkStatus('unread')) {
+            if (MailFilter.getUnread()) {
+                incorrect_rows = cache.find('.row:not(.new)');
+            } else {
+                incorrect_rows = cache.find('.row.new');
+            }
+        }
+
+        if (incorrect_rows.length == 0 && MailFilter.anchorHasMarkStatus('important')) {
+            if (MailFilter.getImportance()) {
+                incorrect_rows = cache.find('.row .importance .icon-unimportant');
+            } else {
+                incorrect_rows = cache.find('.row .importance .icon-important');
+            }
+        }
+
+        return incorrect_rows.length? true: false;
+    }
+
     function hideLoadingMask() {
         if (!page_is_loaded) {
             //remove loading mask element
-            $('#loading-mask').remove();
+            $('.loader-page').remove();
             $('body').css('overflow', 'auto');
             page_is_loaded = true;
         }

@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -68,7 +68,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///   Event list
         /// </returns>
-        [Read("history/filter")]
+        [Read(@"history/filter")]
         public IEnumerable<RelationshipEventWrapper> GetHistory(
             string entityType,
             int entityId,
@@ -96,7 +96,11 @@ namespace ASC.Api.CRM
                         throw new ItemNotFoundException();
                     break;
                 default:
-                    throw new ArgumentException();
+                    if (entityId != 0)
+                    {
+                        throw new ArgumentException();
+                    }
+                    break;
             }
 
             RelationshipEventByType eventByType;
@@ -167,7 +171,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///   Event
         /// </returns>
-        [Delete("history/{id:[0-9]+}")]
+        [Delete(@"history/{id:[0-9]+}")]
         public RelationshipEventWrapper DeleteHistory(int id)
         {
             if (id <= 0) throw new ArgumentException();
@@ -180,7 +184,7 @@ namespace ASC.Api.CRM
 
             var messageAction = GetHistoryDeletedAction(item.EntityType, item.ContactID);
             var entityTitle = wrapper.Contact == null ? wrapper.Entity.EntityTitle : wrapper.Contact.DisplayName;
-            MessageService.Send(_context, messageAction, entityTitle, wrapper.Category.Title);
+            MessageService.Send(Request, messageAction, entityTitle, wrapper.Category.Title);
 
             return wrapper;
         }
@@ -197,7 +201,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///     File info
         /// </returns>
-        [Create("{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files/text")]
+        [Create(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files/text")]
         public FileWrapper CreateTextFile(string entityType, int entityid, string title, string content)
         {
             if (title == null) throw new ArgumentNullException("title");
@@ -250,7 +254,7 @@ namespace ASC.Api.CRM
         /// <returns>
         /// File info
         /// </returns>
-        [Create("{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files/upload")]
+        [Create(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files/upload")]
         public FileWrapper UploadFileInCRM(
             string entityType,
             int entityid,
@@ -299,18 +303,23 @@ namespace ASC.Api.CRM
         ///   Create event
         /// </short>
         /// <category>History</category>
-        /// <param optional="true"  name="contactId">Contact ID</param>
-        /// <param optional="true"  name="entityType" remark="Allowed values: opportunity or case">Related entity type</param>
-        /// <param optional="true"  name="entityId">Related entity ID</param>
-        /// <param name="content">Contents</param>
-        /// <param name="categoryId">Category ID</param>
-        /// <param name="created">Event creation date</param>
+        /// <param optional="true" name="contactId">Contact ID</param>
+        /// <param optional="true" name="entityType" remark="Allowed values: opportunity or case">Related entity type</param>
+        /// <param optional="true" name="entityId">Related entity ID</param>
+        /// <remarks>
+        /// <![CDATA[
+        ///  You should obligatorily set the value for 'contactId' if 'entityId' is not set or the value for parameters 'entityId' and 'entityType' if 'contactId' is not set.
+        /// ]]>
+        /// </remarks>
+        /// <param optional="false" name="content">Contents</param>
+        /// <param optional="false" name="categoryId">Category ID</param>
+        /// <param optional="true" name="created">Event creation date</param>
         /// <param optional="true" name="fileId">List of IDs of the files associated with the event</param>
         /// <param optional="true" name="notifyUserList">User field list</param>
         /// <returns>
         ///   Created event
         /// </returns>
-        [Create("history")]
+        [Create(@"history")]
         public RelationshipEventWrapper AddHistoryTo(
             string entityType,
             int entityId,
@@ -329,6 +338,35 @@ namespace ASC.Api.CRM
                 throw new ArgumentException();
 
             var entityTypeObj = ToEntityType(entityType);
+
+            var entityTitle = "";
+            if (contactId > 0) {
+                var contact = DaoFactory.GetContactDao().GetByID(contactId);
+                if (contact == null || !CRMSecurity.CanAccessTo(contact))
+                    throw new ArgumentException();
+                entityTitle = contact.GetTitle();
+            }
+
+            if (entityTypeObj == EntityType.Case) {
+                var cases = DaoFactory.GetCasesDao().GetByID(entityId);
+                if (cases == null || !CRMSecurity.CanAccessTo(cases))
+                    throw new ArgumentException();
+                if (contactId <= 0)
+                {
+                    entityTitle = cases.Title;
+                }
+            }
+            if (entityTypeObj == EntityType.Opportunity)
+            {
+                var deal = DaoFactory.GetDealDao().GetByID(entityId);
+                if (deal == null || !CRMSecurity.CanAccessTo(deal))
+                    throw new ArgumentException();
+                if (contactId <= 0)
+                {
+                    entityTitle = deal.Title;
+                }
+            }
+
             var relationshipEvent = new RelationshipEvent
                 {
                     CategoryID = categoryId,
@@ -346,14 +384,10 @@ namespace ASC.Api.CRM
             var item = DaoFactory.GetRelationshipEventDao().CreateItem(relationshipEvent);
 
 
-            notifyUserList = notifyUserList.ToList();
+            notifyUserList = notifyUserList != null ? notifyUserList.ToList() : new List<Guid>();
             var needNotify = notifyUserList.Any();
 
             var fileListInfoHashtable = new Hashtable();
-
-            var entityTitle = contactId > 0
-                                  ? DaoFactory.GetContactDao().GetByID(contactId).GetTitle()
-                                  : GetEntityTitle(entityTypeObj, entityId);
 
             if (fileId != null)
             {
@@ -385,7 +419,7 @@ namespace ASC.Api.CRM
                 if (files.Any())
                 {
                     var fileAttachAction = GetFilesAttachAction(entityTypeObj, contactId);
-                    MessageService.Send(_context, fileAttachAction, entityTitle, files.Select(x => x.Title));
+                    MessageService.Send(Request, fileAttachAction, entityTitle, files.Select(x => x.Title));
                 }
             }
 
@@ -397,7 +431,7 @@ namespace ASC.Api.CRM
             var wrapper = ToRelationshipEventWrapper(item);
 
             var historyCreatedAction = GetHistoryCreatedAction(entityTypeObj, contactId);
-            MessageService.Send(_context, historyCreatedAction, entityTitle, category.Title);
+            MessageService.Send(Request, historyCreatedAction, entityTitle, category.Title);
 
             return wrapper;
         }
@@ -413,10 +447,10 @@ namespace ASC.Api.CRM
         /// <param name="fileids">List of IDs of the files</param>
         /// <category>Files</category>
         /// <returns>Entity with the file attached</returns>
-        [Create("{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files")]
+        [Create(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files")]
         public RelationshipEventWrapper AttachFiles(string entityType, int entityid, IEnumerable<int> fileids)
         {
-            if (entityid <= 0) throw new ArgumentException();
+            if (entityid <= 0 || fileids == null) throw new ArgumentException();
 
             var files = FilesDaoFactory.GetFileDao().GetFiles(fileids.Cast<object>().ToArray());
 
@@ -428,15 +462,15 @@ namespace ASC.Api.CRM
                     var relationshipEvent1 = DaoFactory.GetRelationshipEventDao().AttachFiles(entityid, EntityType.Any, 0, fileids.ToArray());
                     var entity = DaoFactory.GetContactDao().GetByID(entityid);
                     var messageAction = entity is Company ? MessageAction.CompanyAttachedFiles : MessageAction.PersonAttachedFiles;
-                    MessageService.Send(_context, messageAction, entityTitle, files.Select(x => x.Title));
+                    MessageService.Send(Request, messageAction, entityTitle, files.Select(x => x.Title));
                     return ToRelationshipEventWrapper(relationshipEvent1);
                 case EntityType.Opportunity:
                     var relationshipEvent2 = DaoFactory.GetRelationshipEventDao().AttachFiles(0, entityTypeObj, entityid, fileids.ToArray());
-                    MessageService.Send(_context, MessageAction.OpportunityAttachedFiles, entityTitle, files.Select(x => x.Title));
+                    MessageService.Send(Request, MessageAction.OpportunityAttachedFiles, entityTitle, files.Select(x => x.Title));
                     return ToRelationshipEventWrapper(relationshipEvent2);
                 case EntityType.Case:
                     var relationshipEvent3 = DaoFactory.GetRelationshipEventDao().AttachFiles(0, entityTypeObj, entityid, fileids.ToArray());
-                    MessageService.Send(_context, MessageAction.CaseAttachedFiles, entityTitle, files.Select(x => x.Title));
+                    MessageService.Send(Request, MessageAction.CaseAttachedFiles, entityTitle, files.Select(x => x.Title));
                     return ToRelationshipEventWrapper(relationshipEvent3);
                 default:
                     throw new ArgumentException();
@@ -451,7 +485,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///   Root folder ID
         /// </returns>
-        [Read("files/root")]
+        [Read(@"files/root")]
         public object GetRootFolderID()
         {
             return DaoFactory.GetFileDao().GetRoot();
@@ -467,7 +501,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///    File list
         /// </returns>
-        [Read("{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files")]
+        [Read(@"{entityType:(contact|opportunity|case)}/{entityid:[0-9]+}/files")]
         public IEnumerable<FileWrapper> GetFiles(string entityType, int entityid)
         {
             if (entityid <= 0) throw new ArgumentException();
@@ -497,7 +531,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///    File Info
         /// </returns>
-        [Delete("files/{fileid:[0-9]+}")]
+        [Delete(@"files/{fileid:[0-9]+}")]
         public FileWrapper DeleteCRMFile(int fileid)
         {
             if (fileid < 0) throw new ArgumentException();
@@ -511,9 +545,16 @@ namespace ASC.Api.CRM
             var events = new List<RelationshipEvent>();
 
             eventIDs.ForEach(id => events.Add(_eventsDao.GetByID(id)));
-            //events for audit log
 
-            MessageService.Send(_context, MessageAction.CrmEntityDetachedFile, file.Title);
+            foreach (var evt in events)
+            {
+                var entityTitle = evt.ContactID > 0
+                                  ? DaoFactory.GetContactDao().GetByID(evt.ContactID).GetTitle()
+                                  : GetEntityTitle(evt.EntityType, evt.EntityID);
+                var messageAction = GetFilesDetachAction(evt.EntityType, evt.ContactID);
+
+                MessageService.Send(Request, messageAction, entityTitle, file.Title);
+            }
 
             return result;
         }
@@ -731,6 +772,28 @@ namespace ASC.Api.CRM
             }
         }
 
+        private MessageAction GetHistoryDeletedAction(EntityType entityType, int contactId)
+        {
+            if (contactId > 0)
+            {
+                var contact = DaoFactory.GetContactDao().GetByID(contactId);
+                return contact is Company ? MessageAction.CompanyDeletedHistoryEvent : MessageAction.PersonDeletedHistoryEvent;
+            }
+
+            switch (entityType)
+            {
+                case EntityType.Opportunity:
+                    return MessageAction.OpportunityDeletedHistoryEvent;
+                case EntityType.Case:
+                    return MessageAction.CaseDeletedHistoryEvent;
+                case EntityType.Any:
+                    var contact = DaoFactory.GetContactDao().GetByID(contactId);
+                    return contact is Company ? MessageAction.CompanyDeletedHistoryEvent : MessageAction.PersonDeletedHistoryEvent;
+                default:
+                    throw new ArgumentException("Invalid entityType: " + entityType);
+            }
+        }
+
         private MessageAction GetFilesAttachAction(EntityType entityType, int contactId)
         {
             if (contactId > 0)
@@ -753,23 +816,23 @@ namespace ASC.Api.CRM
             }
         }
 
-        private MessageAction GetHistoryDeletedAction(EntityType entityType, int contactId)
+        private MessageAction GetFilesDetachAction(EntityType entityType, int contactId)
         {
             if (contactId > 0)
             {
                 var contact = DaoFactory.GetContactDao().GetByID(contactId);
-                return contact is Company ? MessageAction.CompanyDeletedHistoryEvent : MessageAction.PersonDeletedHistoryEvent;
+                return contact is Company ? MessageAction.CompanyDetachedFile : MessageAction.PersonDetachedFile;
             }
 
             switch (entityType)
             {
                 case EntityType.Opportunity:
-                    return MessageAction.OpportunityDeletedHistoryEvent;
+                    return MessageAction.OpportunityDetachedFile;
                 case EntityType.Case:
-                    return MessageAction.CaseDeletedHistoryEvent;
+                    return MessageAction.CaseDetachedFile;
                 case EntityType.Any:
                     var contact = DaoFactory.GetContactDao().GetByID(contactId);
-                    return contact is Company ? MessageAction.CompanyDeletedHistoryEvent : MessageAction.PersonDeletedHistoryEvent;
+                    return contact is Company ? MessageAction.CompanyDetachedFile : MessageAction.PersonAttachedFiles;
                 default:
                     throw new ArgumentException("Invalid entityType: " + entityType);
             }

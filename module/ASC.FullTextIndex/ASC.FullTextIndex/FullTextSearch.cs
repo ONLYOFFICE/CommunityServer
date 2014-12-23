@@ -1,38 +1,38 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-using System;
-using System.Configuration;
-using System.ServiceModel;
 using ASC.Common.Module;
 using ASC.Core;
 using ASC.FullTextIndex.Service.Config;
 using log4net;
+using System;
+using System.Configuration;
+using System.ServiceModel;
 
 namespace ASC.FullTextIndex
 {
@@ -77,8 +77,7 @@ namespace ASC.FullTextIndex
             CRMContactsModule,
             CRMCasesModule,
             CRMEmailsModule,
-            CRMEventsModule//,
-            //CRMInvoicesModule
+            CRMEventsModule,
         };
 
         private static readonly ILog log = LogManager.GetLogger(typeof(FullTextSearch));
@@ -94,43 +93,52 @@ namespace ASC.FullTextIndex
         }
 
 
-        public static bool SupportModule(string module)
+        public static bool SupportModule(params string[] modules)
         {
-            var result = false;
-            if (IsServiceProbablyNotAvailable()) return result;
+            if (modules == null || modules.Length == 0 || IsServiceProbablyNotAvailable()) return false;
 
-            using (var service = new TextIndexServiceClient())
+            try
             {
-                try
+                using (var service = new TextIndexServiceClient())
                 {
-                    result = service.SupportModule(module);
-                }
-                catch (FaultException fe)
-                {
-                    LogError(fe);
-                }
-                catch (CommunicationException ce)
-                {
-                    LogError(ce);
-                    lastErrorTime = DateTime.Now;
-                }
-                catch (TimeoutException te)
-                {
-                    LogError(te);
-                    lastErrorTime = DateTime.Now;
+                    try
+                    {
+                        return service.SupportModule(modules);
+                    }
+                    catch (FaultException fe)
+                    {
+                        LogError(fe);
+                    }
+                    catch (CommunicationException ce)
+                    {
+                        LogError(ce);
+                        lastErrorTime = DateTime.Now;
+                    }
+                    catch (TimeoutException te)
+                    {
+                        LogError(te);
+                        lastErrorTime = DateTime.Now;
+                    }
                 }
             }
-            return result;
+            catch (Exception e)
+            {
+                LogError(e);
+                lastErrorTime = DateTime.Now;
+            }
+
+            return false;
         }
 
         public static TextSearchResult Search(string query, string module)
         {
+            log.DebugFormat("TextSearchResult.Search. query = {0}; module = {1}; TenantId = {2};", query, module, CoreContext.TenantManager.GetCurrentTenant().TenantId);
             return Search(query, module, CoreContext.TenantManager.GetCurrentTenant().TenantId);
         }
 
         public static TextSearchResult Search(string query, string module, int tenantId)
         {
-            var result = new TextSearchResult(module);
+            var result = new TextSearchResult();
 
             if (IsServiceProbablyNotAvailable() || string.IsNullOrEmpty(query))
             {
@@ -146,7 +154,12 @@ namespace ASC.FullTextIndex
             {
                 try
                 {
-                    result = service.Search(tenantId, query, module);
+                    var ids = service.Search(tenantId, query, module);
+                    foreach (var id in ids)
+                    {
+                        result.AddIdentifier(id);
+                    }
+                    return result;
                 }
                 catch (FaultException fe)
                 {
@@ -174,12 +187,12 @@ namespace ASC.FullTextIndex
 
         private class TextIndexServiceClient : BaseWcfClient<ITextIndexService>, ITextIndexService
         {
-            public bool SupportModule(string module)
+            public bool SupportModule(string[] modules)
             {
-                return Channel.SupportModule(module);
+                return Channel.SupportModule(modules);
             }
 
-            public TextSearchResult Search(int tenant, string query, string module)
+            public string[] Search(int tenant, string query, string module)
             {
                 return Channel.Search(tenant, query, module);
             }

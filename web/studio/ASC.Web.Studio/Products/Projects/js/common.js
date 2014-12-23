@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 /*******************************************************************************/
 if (typeof ASC === "undefined")
     ASC = {};
@@ -43,6 +39,7 @@ ASC.Projects.Common = (function () {
     this.allUsersHash = { allUsersCount: 0 };
     this.initApi = false;
     this.initMobileBanner = false;
+    this.ckEditor = null;
 
     var init = function () {
         clearTables();
@@ -52,64 +49,26 @@ ASC.Projects.Common = (function () {
             this.initMobileBanner = true;
         }
         bindApi();
-        initPages();
         initApiData();
+        initPages();
         bindCommonEvents();
 
         MoveTaskQuestionPopup.init();
     };
 
-    var clearTables = function() {
+    var clearTables = function () {
         jq("#tableListProjects tbody, #milestonesList tbody, .taskList, #discussionsList, #timeSpendsList tbody").empty();
         jq("#tableListProjects, #milestonesList, .taskList, #discussionsList, #timeSpendsList, #tableForNavigation").hide();
         jq("#totalTimeText").remove();
         jq("[id$='EmptyScreenForFilter']").hide();
         jq("[id^='emptyList']").hide();
+        jq(".simplePageNavigator").html("");
     };
 
     var bindApi = function () {
-        jq(document).unbind("loadApiData");
-        jq(document).unbind("createAdvansedFilter");
-        jq(document).unbind(ASC.Projects.Common.events.loadProjects);
-        jq(document).unbind(ASC.Projects.Common.events.loadMilestones);
-        jq(document).unbind(ASC.Projects.Common.events.loadTags);
-        jq(document).unbind(ASC.Projects.Common.events.loadTeam);
-        ASC.Projects.Common.loadListProjectsFlag = false;
-        ASC.Projects.Common.loadListTagsFlag = false;
-        ASC.Projects.Common.loadListMilestonesFlag = false;
-        ASC.Projects.Common.loadTeamFlag = false;
-
-        // waiting data from api
-        jq(document).bind("loadApiData", function () {
-            if (ASC.Projects.Common.loadListProjectsFlag && ASC.Projects.Common.loadListTagsFlag && ASC.Projects.Common.loadListMilestonesFlag && ASC.Projects.Common.loadTeamFlag) {
-                jq(document).trigger("createAdvansedFilter");
-            }
-        });
-
-        ASC.Projects.Common.bind(ASC.Projects.Common.events.loadProjects, function () {
-            ASC.Projects.Common.loadListProjectsFlag = true;
-            jq(document).trigger("loadApiData");
-        });
-
-        ASC.Projects.Common.bind(ASC.Projects.Common.events.loadTags, function () {
-            ASC.Projects.Common.loadListTagsFlag = true;
-            jq(document).trigger("loadApiData");
-        });
-
-        ASC.Projects.Common.bind(ASC.Projects.Common.events.loadMilestones, function () {
-            ASC.Projects.Common.loadListMilestonesFlag = true;
-            jq(document).trigger("loadApiData");
-        });
-
-        if (jq.getURLParam('prjID')) {
-            ASC.Projects.Common.bind(ASC.Projects.Common.events.loadTeam, function () {
-                ASC.Projects.Common.loadTeamFlag = true;
-                jq(document).trigger("loadApiData");
-            });
-        } else {
-            ASC.Projects.Common.loadTeamFlag = true;
-            jq(document).trigger("loadApiData");
-        }
+        jq('body').off('click.milestonesInit');
+        jq('body').off('click.projectsInit');
+        jq('body').off('click.tasksInit');
     };
 
     var bindCommonEvents = function () {
@@ -162,7 +121,10 @@ ASC.Projects.Common = (function () {
         if (location.href.indexOf("messages.aspx") > 0) {
             if (action) {
                 ASC.Projects.DiscussionAction.init();
-                CKEDITOR.replace('ckEditor', { toolbar: 'PrjMessage', extraPlugins: 'oembed,teamlabcut', removePlugins: 'div', filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=discussion' });
+                ckeditorConnector.onReady(function () {
+                    ASC.Projects.Common.ckEditor = jq("#ckEditor").ckeditor({ toolbar: 'PrjMessage', extraPlugins: 'oembed,teamlabcut', removePlugins: 'div', filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=discussion' }).editor;
+                    ASC.Projects.Common.ckEditor.on("change", ASC.Projects.DiscussionAction.showHidePreview);
+                });
             }
             if (id && action == null) {
                 ASC.Projects.DiscussionDetails.init();
@@ -240,61 +202,28 @@ ASC.Projects.Common = (function () {
         if (!this.initApi) {
             this.initApi = true;
         } else {
-            jq(document).trigger(ASC.Projects.Common.events.loadProjects);
-            jq(document).trigger(ASC.Projects.Common.events.loadTags);
-            jq(document).trigger(ASC.Projects.Common.events.loadTeam);
-            jq(document).trigger(ASC.Projects.Common.events.loadMilestones);
             return;
         }
 
         if (typeof (ASC.Projects.Master) != 'undefined') {
             if (typeof (ASC.Projects.Master.Projects) != 'undefined' && ASC.Projects.Master.Projects != null) {
                 ASC.Projects.Master.Projects = Teamlab.create('prj-projects', null, ASC.Projects.Master.Projects.response);
-                jq(document).trigger(ASC.Projects.Common.events.loadProjects);
-            } else {
-                Teamlab.getPrjProjects({}, {
-                    filter: ASC.Projects.Common.filterParamsForListProjects,
-                    success: function (param, projects) {
-                        ASC.Projects.Master.Projects = projects;
-                        jq(document).trigger(ASC.Projects.Common.events.loadProjects);
-                    }
-                });
             }
+            
             if (typeof (ASC.Projects.Master.Tags) != 'undefined' && ASC.Projects.Master.Tags != null) {
                 ASC.Projects.Master.Tags = ASC.Projects.Master.Tags.response;
-                jq(document).trigger(ASC.Projects.Common.events.loadTags);
-            } else {
-                Teamlab.getPrjTags({}, {
-                    success: function (params, tags) {
-                        ASC.Projects.Master.Tags = tags;
-                        jq(document).trigger(ASC.Projects.Common.events.loadTags);
-                    }
-                });
+                
             }
+            
             if (typeof (ASC.Projects.Master.Team) != 'undefined' && ASC.Projects.Master.Team != null) {
                 ASC.Projects.Master.TeamWithBlockedUsers = Teamlab.create('prj-projectpersons', null, ASC.Projects.Master.Team.response);
                 ASC.Projects.Master.Team = ASC.Projects.Common.removeBlockedUsersFromTeam(ASC.Projects.Master.TeamWithBlockedUsers);
-                jq(document).trigger(ASC.Projects.Common.events.loadTeam);
-            } else {
-                ASC.Projects.Common.updateProjectTeam();
             }
+            
             if (typeof (ASC.Projects.Master.Milestones) != 'undefined' && ASC.Projects.Master.Milestones != null) {
                 ASC.Projects.Master.Milestones = Teamlab.create('prj-milestones', null, ASC.Projects.Master.Milestones.response);
                 ASC.Projects.Master.Milestones = ASC.Projects.Master.Milestones.sort(milestoneSort);
-                jq(document).trigger(ASC.Projects.Common.events.loadMilestones);
-            } else {
-                var filter = ASC.Projects.Common.filterParamsForListMilestones;
-                if (prjId) {
-                    filter.projectId = prjId;
-                }
-                Teamlab.getPrjMilestones({}, {
-                    filter: filter,
-                    success: function (params, milestones) {
-                        ASC.Projects.Master.Milestones = milestones;
-                        jq(document).trigger(ASC.Projects.Common.events.loadMilestones);
-                    }
-                });
-            }
+            } 
         } else {
             ASC.Projects.Master = {};
         }
@@ -313,52 +242,64 @@ ASC.Projects.Common = (function () {
         jq(".mobileApp-banner_btn.google-play").trackEvent("mobileApp-banner", ga_Actions.actionClick, "google-play");
     };
 
-    var initPageNavigator = function (obj, cookiePaginationKey, small) {
-        obj.cookiePaginationKey = cookiePaginationKey;
-        obj.entryCountOnPage = getPaginationCookie(cookiePaginationKey);
-        obj.currentPage = 0;
+    var initPageNavigator = function (cookiePaginationKey, small) {
+        var pagination = getPaginationCookie(cookiePaginationKey);
+        if (pagination != null) {
+            this.entryCountOnPage = pagination.countOnPage;
+            this.currentPage = pagination.currentPage || 0;
+        } else {
+            this.entryCountOnPage = cookiePaginationKey == "discussionsKeyForPagination" ? 10 : ASC.Projects.Master.EntryCountOnPage;
+            this.currentPage = 0;
+        }
+        
+        this.cookiePaginationKey = cookiePaginationKey;
 
-        jq("#countOfRows").val(obj.entryCountOnPage).tlCombobox();
+        jq("#countOfRows").val(this.entryCountOnPage).tlCombobox();
         if (small) {
             jq("#tableForNavigation .option-item[data-value=25], .option-item[data-value=50], .option-item[data-value=75], .option-item[data-value=100]").remove();
         } else {
             jq("#tableForNavigation .option-item[data-value=10], .option-item[data-value=20], .option-item[data-value=30], .option-item[data-value=40]").remove();
         }
 
-        window.pgNavigator = new ASC.Controls.PageNavigator.init("pgNavigator", "#divForTaskPager", obj.entryCountOnPage, ASC.Projects.Master.VisiblePageCount, 1,
+        window.pgNavigator = new ASC.Controls.PageNavigator.init("pgNavigator", "#divForTaskPager", this.entryCountOnPage, ASC.Projects.Master.VisiblePageCount, this.currentPage + 1,
             ASC.Projects.Resources.ProjectsJSResource.PreviousPage, ASC.Projects.Resources.ProjectsJSResource.NextPage);
         pgNavigator.NavigatorParent = '#divForTaskPager';
+        var self = this;
         pgNavigator.changePageCallback = function (page) {
-            obj.currentPage = page - 1;
             LoadingBanner.displayLoading();
-            obj.getData(obj.currentFilter, true);
+            self.currentPage = page - 1;
+            self.getData(true);
+            setPaginationCookie.apply(self);
         };
     };
 
-    var updatePageNavigator = function (obj, filterCount) {
+    var updatePageNavigator = function (filterCount, nav) {
         jq("#totalCount").text(filterCount);
-        pgNavigator.drawPageNavigator(obj.currentPage + 1, filterCount);
+        pgNavigator.drawPageNavigator(this.currentPage + 1, filterCount);
 
-        setPaginationCookie(obj.entryCountOnPage, obj.cookiePaginationKey);
+        setPaginationCookie.apply(this);
 
-        jq("#tableForNavigation").show();
-        renderSimplePageNavigator();
+        if (filterCount)
+            jq("#tableForNavigation").show();
+        renderSimplePageNavigator(nav);
     };
 
-    var changeCountOfRows = function (obj, newValue) {
+    var changeCountOfRows = function (newValue) {
         if (isNaN(newValue)) {
             return;
         }
         var newCountOfRows = newValue * 1;
-        obj.entryCountOnPage = newCountOfRows;
+        this.entryCountOnPage = newCountOfRows;
+        this.currentPage = 0;
         pgNavigator.EntryCountOnPage = newCountOfRows;
 
         LoadingBanner.displayLoading();
-        obj.getData(obj.currentFilter, false);
+        this.getData(false);
     };
 
-    var renderSimplePageNavigator = function () {
-        jq(".simplePageNavigator").html("");
+    var renderSimplePageNavigator = function (nav) {
+        var navig = nav || jq(".simplePageNavigator");
+        navig.html("");
         var $simplePN = jq("<div></div>");
         var lengthOfLinks = 0;
         if (jq("#tableForNavigation .pagerPrevButtonCSSClass").length != 0) {
@@ -372,30 +313,19 @@ ASC.Projects.Common = (function () {
             }
             jq("#tableForNavigation .pagerNextButtonCSSClass").clone().appendTo($simplePN);
         }
+        
         if ($simplePN.children().length != 0) {
-            $simplePN.appendTo(".simplePageNavigator");
-            jq(".simplePageNavigator").show();
+            $simplePN.appendTo(navig);
+            navig.show();
         }
         else {
-            jq(".simplePageNavigator").hide();
+            navig.hide();
         }
     };
 
 
     var bind = function (eventName, handler) {
         jq(document).bind(eventName, handler);
-    };
-
-    var updateProjectTeam = function () {
-        if (prjId) {
-            Teamlab.getPrjTeam({}, prjId, {
-                success: function (params, team) {
-                    ASC.Projects.Master.TeamWithBlockedUsers = team;
-                    ASC.Projects.Master.Team = ASC.Projects.Common.removeBlockedUsersFromTeam(ASC.Projects.Master.TeamWithBlockedUsers);
-                    jq(document).trigger(ASC.Projects.Common.events.loadTeam);
-                }
-            });
-        }
     };
     
     var removeBlockedUsersFromTeam = function (team) {
@@ -455,30 +385,18 @@ ASC.Projects.Common = (function () {
         });
     };
 
-    var showCommentBox = function () {
-        if (CKEDITOR && !jq.isEmptyObject(CKEDITOR.instances)) {
-            CommentsManagerObj.AddNewComment();
-        } else {
-            setTimeout("ASC.Projects.Common.showCommentBox();", 500);
-        }
-    };
-
-    var setPaginationCookie = function (countOnPage, cookieKey) {
-        if (cookieKey && cookieKey != "") {
+    var setPaginationCookie = function () {
+        if (this.cookiePaginationKey && this.cookiePaginationKey != "") {
             var cookie = {
-                countOnPage: countOnPage
+                countOnPage: this.entryCountOnPage,
+                currentPage: this.currentPage
             };
-            jq.cookies.set(cookieKey, cookie, { path: location.pathname });
+            jq.cookies.set(this.cookiePaginationKey, cookie);
         }
     };
 
     var getPaginationCookie = function (cookieKey) {
-        var count = jq.cookies.get(cookieKey);
-        if (count != null) {
-            return count.countOnPage;
-        } else {
-            return cookieKey == "discussionsKeyForPagination" ? 10 : ASC.Projects.Master.EntryCountOnPage;
-        }
+        return jq.cookies.get(cookieKey);
     };
 
     var userInProjectTeam = function (userId) {
@@ -650,7 +568,7 @@ ASC.Projects.Common = (function () {
         
         hideAdvansedFilter: function () { jq("#ProjectsAdvansedFilter").hide(); },
         
-        init: init,
+        baseInit: init,
         initPageNavigator: initPageNavigator,
         
         linkTypeEnum: linkTypeEnum,
@@ -659,14 +577,15 @@ ASC.Projects.Common = (function () {
         removeBlockedUsersFromTeam: removeBlockedUsersFromTeam,
         
         setDocumentTitle: setDocumentTitle,
-        showAdvansedFilter: function () { jq("#ProjectsAdvansedFilter").show(); },
-        showCommentBox: showCommentBox,
+        showAdvansedFilter: function () {
+            jq("#ProjectsAdvansedFilter").show();
+            jq("#ProjectsAdvansedFilter").advansedFilter("resize");
+        },
         showCommonPopup: showCommonPopup,
         showTimer: showTimer,
         
         
         updatePageNavigator: updatePageNavigator,
-        updateProjectTeam: updateProjectTeam,
         userInProjectTeam: userInProjectTeam,
 
     };
@@ -719,7 +638,7 @@ var MoveTaskQuestionPopup = (function () {
 })();
 
 jq(document).ready(function () {
-    ASC.Projects.Common.init();
+    ASC.Projects.Common.baseInit();
 });
 
 

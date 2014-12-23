@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -227,6 +227,11 @@ namespace ASC.Files.Core.Security
         {
             if (entries == null || !entries.Any()) return Enumerable.Empty<FileEntry>();
 
+            var user = CoreContext.UserManager.GetUsers(userId);
+            var isOutsider = user.IsOutsider();
+
+            if (isOutsider && action != FilesSecurityActions.Read) return Enumerable.Empty<FileEntry>();
+
             entries = entries.Where(f => f != null);
             var result = new List<FileEntry>(entries.Count());
 
@@ -240,7 +245,7 @@ namespace ASC.Files.Core.Security
                      f.RootFolderType == FolderType.SHARE ||
                      f.RootFolderType == FolderType.Projects;
 
-            var isVisitor = CoreContext.UserManager.GetUsers(userId).IsVisitor();
+            var isVisitor = user.IsVisitor();
 
             if (entries.Any(filter))
             {
@@ -249,6 +254,13 @@ namespace ASC.Files.Core.Security
                 foreach (var e in entries.Where(filter))
                 {
                     if (!CoreContext.Authentication.GetAccountByID(userId).IsAuthenticated && userId != FileConstant.ShareLinkId)
+                    {
+                        continue;
+                    }
+
+                    if (isOutsider && (e.RootFolderType == FolderType.USER
+                                       || e.RootFolderType == FolderType.SHARE
+                                       || e.RootFolderType == FolderType.TRASH))
                     {
                         continue;
                     }
@@ -262,6 +274,11 @@ namespace ASC.Files.Core.Security
                     if (action != FilesSecurityActions.Read && e is Folder && ((Folder) e).FolderType == FolderType.SHARE)
                     {
                         // Root Share folder read-only
+                        continue;
+                    }
+
+                    if (isVisitor && e.ProviderEntry)
+                    {
                         continue;
                     }
 
@@ -471,28 +488,28 @@ namespace ASC.Files.Core.Security
                 var fileIds = new Dictionary<object, FileShare>();
                 var folderIds = new Dictionary<object, FileShare>();
 
-                foreach (var record in records)
+                var recordGroup = records.GroupBy(r => new { r.EntryId, r.EntryType }, (key, group) => new
                 {
-                    var firstRecord = records.Where(x => Equals(record.EntryId, x.EntryId) && record.EntryType == x.EntryType)
-                                             .OrderBy(r => r, new SubjectComparer(subjects))
-                                             .ThenByDescending(r => r.Share)
-                                             .First();
+                    firstRecord = group.OrderBy(r => r, new SubjectComparer(subjects))
+                        .ThenByDescending(r => r.Share)
+                        .First()
+                });
 
-                    if (firstRecord.Share == FileShare.Restrict) continue;
-
-                    if (firstRecord.EntryType == FileEntryType.Folder)
+                foreach (var r in recordGroup.Where(r => r.firstRecord.Share != FileShare.Restrict))
+                {
+                    if (r.firstRecord.EntryType == FileEntryType.Folder)
                     {
-                        if (!folderIds.ContainsKey(firstRecord.EntryId))
-                            folderIds.Add(firstRecord.EntryId, firstRecord.Share);
+                        if (!folderIds.ContainsKey(r.firstRecord.EntryId))
+                            folderIds.Add(r.firstRecord.EntryId, r.firstRecord.Share);
                     }
                     else
                     {
-                        if (!fileIds.ContainsKey(firstRecord.EntryId))
-                            fileIds.Add(firstRecord.EntryId, firstRecord.Share);
+                        if (!fileIds.ContainsKey(r.firstRecord.EntryId))
+                            fileIds.Add(r.firstRecord.EntryId, r.firstRecord.Share);
                     }
-
                 }
 
+                //TODO: optimize
                 var files = fileDao.GetFiles(fileIds.Keys.ToArray());
 
                 files.ForEach(x =>
@@ -509,7 +526,7 @@ namespace ASC.Files.Core.Security
                                             x.Access = folderIds[x.ID];
                                     });
 
-                var entries = files.Cast<FileEntry>().Concat(folders.Cast<FileEntry>()).ToList();
+                var entries = files.Concat(folders.Cast<FileEntry>()).ToList();
 
                 var failedEntries = entries.Where(x => !String.IsNullOrEmpty(x.Error));
                 var failedRecords = new List<FileShareRecord>();

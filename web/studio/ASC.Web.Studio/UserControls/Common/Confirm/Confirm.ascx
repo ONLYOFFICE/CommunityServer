@@ -13,15 +13,18 @@
             <div id="studio_confirmMessage"></div>
             <div class="clearFix">
                 <div>
-                    <%=SelectTitle%>:
+                    <%=SelectTitle%>
                 </div>
+                <% if (!string.IsNullOrEmpty(Value))
+                   { %>
                 <div style="margin: 3px 0;">
-                    <input id="studio_confirmInput<%=AdditionalID%>" class="textEdit" type="text" value="<%=Value %>"  style="width: 350px;" maxlength="100" />
+                    <input id="studio_confirmInput<%= AdditionalID %>" class="textEdit" type="text" value="<%= Value %>"  style="width: 350px;" maxlength="100" />
                 </div>
+                <% } %>
             </div>
             <div class="clearFix" style="margin-top: 16px;">
-                    <a class="button blue float-left" href="javascript:void(0);" onclick="StudioConfirm.Select('<%=AdditionalID%>',<%=SelectJSCallback%>);"><%=Resources.Resource.SaveButton%></a> 
-                    <a class="button gray" href="javascript:void(0);" onclick="StudioConfirm.Cancel();" style="float: left;margin-left: 8px;"><%=Resources.Resource.CancelButton%></a>
+                <a id="studio_confirmOk" class="button middle blue float-left" href="javascript:void(0);" onclick="StudioConfirm.Select('<%=AdditionalID%>',<%=SelectJSCallback%>);"><%= !string.IsNullOrEmpty(Value) ? Resources.Resource.SaveButton : Resources.Resource.OKButton%></a> 
+                <a id="studio_confirmCancel" class="button middle gray" href="javascript:void(0);" onclick="StudioConfirm.Cancel();" style="float: left;margin-left: 8px;"><%=Resources.Resource.CancelButton%></a>
             </div>
         </Body>
     </sc:Container>

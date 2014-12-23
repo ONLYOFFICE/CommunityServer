@@ -505,7 +505,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
         nodes[0].setAttribute('dir', 'ltr');
       }
 
-      try { wnd.document.execCommand('undo', false, null); } catch (err) {}
+      //try { wnd.document.execCommand('undo', false, null); } catch (err) {}
       try { wnd.document.execCommand('useCSS', false, true); } catch (err) {}
       try { wnd.document.execCommand('styleWithCSS',false, true); } catch (err) {}
       try { wnd.document.execCommand('enableObjectResizing', false, false); } catch (err) {}

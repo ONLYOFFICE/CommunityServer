@@ -1,31 +1,33 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
+using ASC.Security.Cryptography;
+using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Util;
@@ -52,6 +54,7 @@ namespace ASC.Web.Core.Client.Bundling
         private static readonly string s3publickey;
         private static readonly string s3privatekey;
         private static readonly string s3bucket;
+        private static readonly string s3region;
         private static bool successInitialized = false;
         private static int work = 0;
 
@@ -88,6 +91,7 @@ namespace ASC.Web.Core.Client.Bundling
                         s3publickey = h.HandlerProperties["acesskey"].Value;
                         s3privatekey = h.HandlerProperties["secretaccesskey"].Value;
                         s3bucket = h.HandlerProperties["bucket"].Value;
+                        s3region = h.HandlerProperties["region"].Value;
                         break;
                     }
                 }
@@ -111,7 +115,7 @@ namespace ASC.Web.Core.Client.Bundling
                     if (bundle != null)
                     {
                         queue.Enqueue(new CdnItem { Bundle = bundle, Response = response });
-                        Action upload = () => UploadToCdn();
+                        Action upload = UploadToCdn;
                         upload.BeginInvoke(null, null);
                     }
                 }
@@ -140,12 +144,22 @@ namespace ASC.Web.Core.Client.Bundling
 
                             var cdnpath = GetCdnPath(item.Bundle.Path);
                             var key = new Uri(cdnpath).PathAndQuery.TrimStart('/');
-                            var etag = AmazonS3Util.GenerateChecksumForContent(item.Response.Content, false).ToLowerInvariant();
+                            var contentMD5 = Hasher.Base64Hash(item.Response.Content, HashAlg.MD5);
+                            var compressed = new MemoryStream();
+
+                            if (ClientSettings.GZipEnabled)
+                            {
+                                using (var compression = new GZipStream(compressed, CompressionMode.Compress, true))
+                                {
+                                    new MemoryStream(Encoding.UTF8.GetBytes(item.Response.Content)).CopyTo(compression);
+                                }
+                                contentMD5 = Hasher.Base64Hash(compressed.GetCorrectBuffer(), HashAlg.MD5);
+                            }
 
                             var config = new AmazonS3Config
                             {
-                                ServiceURL = "s3.amazonaws.com",
-                                CommunicationProtocol = Protocol.HTTP
+                                RegionEndpoint = RegionEndpoint.GetBySystemName(s3region),
+                                UseHttp = true
                             };
                             using (var s3 = new AmazonS3Client(s3publickey, s3privatekey, config))
                             {
@@ -153,14 +167,12 @@ namespace ASC.Web.Core.Client.Bundling
                                 try
                                 {
                                     var request = new GetObjectMetadataRequest
-                                    {
+                                        {
                                         BucketName = s3bucket,
-                                        Key = key,
+                                        Key = key
                                     };
-                                    using (var response = s3.GetObjectMetadata(request))
-                                    {
-                                        upload = !string.Equals(etag, response.ETag.Trim('"'), StringComparison.InvariantCultureIgnoreCase);
-                                    }
+                                    var response = s3.GetObjectMetadata(request);
+                                    upload = !string.Equals(contentMD5, response.Metadata["x-amz-meta-etag"], StringComparison.InvariantCultureIgnoreCase);
                                 }
                                 catch (AmazonS3Exception ex)
                                 {
@@ -181,18 +193,13 @@ namespace ASC.Web.Core.Client.Bundling
                                         BucketName = s3bucket,
                                         CannedACL = S3CannedACL.PublicRead,
                                         Key = key,
-                                        ContentType = AmazonS3Util.MimeTypeFromExtension(Path.GetExtension(key).ToLowerInvariant()),
+                                        ContentType = AmazonS3Util.MimeTypeFromExtension(Path.GetExtension(key).ToLowerInvariant())
                                     };
 
                                     if (ClientSettings.GZipEnabled)
                                     {
-                                        var compressed = new MemoryStream();
-                                        using (var compression = new GZipStream(compressed, CompressionMode.Compress, true))
-                                        {
-                                            new MemoryStream(Encoding.UTF8.GetBytes(item.Response.Content)).CopyTo(compression);
-                                        }
                                         request.InputStream = compressed;
-                                        request.AddHeader("Content-Encoding", "gzip");
+                                        request.Headers.ContentEncoding = "gzip";
                                     }
                                     else
                                     {
@@ -200,12 +207,13 @@ namespace ASC.Web.Core.Client.Bundling
                                     }
 
                                     var cache = TimeSpan.FromDays(365);
-                                    request.AddHeader("Cache-Control", string.Format("public, maxage={0}", (int)cache.TotalSeconds));
-                                    request.AddHeader("Expires", DateTime.UtcNow.Add(cache).ToString("R"));
-                                    request.AddHeader("Etag", etag);
-                                    request.AddHeader("Last-Modified", DateTime.UtcNow.ToString("R"));
+                                    request.Headers.CacheControl = string.Format("public, maxage={0}", (int) cache.TotalSeconds);
+                                    request.Headers.Expires = DateTime.UtcNow.Add(cache);
+                                    request.Headers.ContentMD5 = contentMD5;
+                                    request.Headers["x-amz-meta-etag"] = contentMD5;
+                                    //request.AddHeader("Last-Modified", DateTime.UtcNow.ToString("R"));
 
-                                    using (s3.PutObject(request)) { }
+                                    s3.PutObject(request);
                                 }
 
                                 item.Bundle.CdnPath = cdnpath;

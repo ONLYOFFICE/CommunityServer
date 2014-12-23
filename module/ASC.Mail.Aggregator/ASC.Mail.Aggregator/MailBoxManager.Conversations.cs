@@ -1,41 +1,41 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
-using ASC.CRM.Core.Entities;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -47,6 +47,8 @@ using ASC.Mail.Aggregator.Extension;
 using ASC.Mail.Aggregator.Filter;
 using ASC.Core.Tenants;
 using ASC.Core;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace ASC.Mail.Aggregator
 {
@@ -148,6 +150,144 @@ namespace ASC.Mail.Aggregator
                 bool has_more;
                 var messages = GetFilteredChains(db, tenant, user, filter, chain_date, id, false, out has_more);
                 return messages.Any() ? messages.First().Id : 0;
+            }
+        }
+
+        public void SendConversationsToSpamTrainer(int id_tenant, string id_user, List<int> ids, bool is_spam)
+        {
+            var user_culture = Thread.CurrentThread.CurrentCulture;
+            var user_ui_culture = Thread.CurrentThread.CurrentUICulture;
+            ThreadPool.QueueUserWorkItem(delegate
+            {
+                try
+                {
+                    Thread.CurrentThread.CurrentCulture = user_culture;
+                    Thread.CurrentThread.CurrentUICulture = user_ui_culture;
+
+                    CoreContext.TenantManager.SetCurrentTenant(id_tenant);
+
+                    var tl_mails = GetTlMailStreamList(id_tenant, id_user, ids);
+                    SendEmlUrlsToSpamTrainer(id_tenant, id_user, tl_mails, is_spam);
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("SendConversationsToSpamTrainer() failed with exception:\r\n{0}", ex.ToString());
+                }
+            });
+
+        }
+
+        private Dictionary<int, string> GetTlMailStreamList(int id_tenant, string id_user, List<int> ids)
+        {
+            var stream_list = new Dictionary<int, string>();
+
+            using (var db = GetDb())
+            {
+                var tl_mailboxes_ids_query = new SqlQuery(MailboxTable.name)
+                    .Select(MailboxTable.Columns.id)
+                    .Where(MailboxTable.Columns.id_tenant, id_tenant)
+                    .Where(MailboxTable.Columns.id_user, id_user.ToLowerInvariant())
+                    .Where(MailboxTable.Columns.is_teamlab_mailbox, true)
+                    .Where(MailboxTable.Columns.is_removed, false);
+
+                var tl_mailboxes_ids = db.ExecuteList(tl_mailboxes_ids_query)
+                                         .ConvertAll(r => Convert.ToInt32(r[0]));
+
+                if (!tl_mailboxes_ids.Any())
+                    return stream_list;
+
+                stream_list = GetChainedMessagesInfo(db, id_tenant, id_user, ids,
+                                                     new[]
+                                                         {
+                                                             MailTable.Columns.id,
+                                                             MailTable.Columns.folder_restore,
+                                                             MailTable.Columns.id_mailbox,
+                                                             MailTable.Columns.stream
+                                                         })
+                    .ConvertAll(r => new
+                        {
+                            id_mail = Convert.ToInt32(r[0]),
+                            folder_restore = Convert.ToInt32(r[1]),
+                            id_mailbox = Convert.ToInt32(r[2]),
+                            stream = Convert.ToString(r[3])
+                        })
+                    .Where(r => r.folder_restore != MailFolder.Ids.sent)
+                    .Where(r => tl_mailboxes_ids.Contains(r.id_mailbox))
+                    .ToDictionary(r => r.id_mail, r => r.stream);
+            }
+
+            return stream_list;
+        }
+
+        private void SendEmlUrlsToSpamTrainer(int id_tenant, string id_user, Dictionary<int, string> tl_mails,
+                                              bool is_spam)
+        {
+            if (!tl_mails.Any())
+                return;
+
+            using (var db = GetDb())
+            {
+                var server_information_query = new SqlQuery(ServerTable.name)
+                    .InnerJoin(TenantXServerTable.name,
+                               Exp.EqColumns(TenantXServerTable.Columns.id_server, ServerTable.Columns.id))
+                    .Select(ServerTable.Columns.connection_string)
+                    .Where(TenantXServerTable.Columns.id_tenant, id_tenant);
+
+                var server_info = db.ExecuteList(server_information_query)
+                                    .ConvertAll(r =>
+                                        {
+                                            var connection_string = Convert.ToString(r[0]);
+                                            var json = JObject.Parse(connection_string);
+
+                                            if (json["Api"] != null)
+                                            {
+                                                return new
+                                                    {
+                                                        server_ip = json["Api"]["Server"].ToString(),
+                                                        port = Convert.ToInt32(json["Api"]["Port"].ToString()),
+                                                        protocol = json["Api"]["Protocol"].ToString(),
+                                                        version = json["Api"]["Version"].ToString(),
+                                                        token = json["Api"]["Token"].ToString()
+                                                    };
+                                            }
+
+                                            return null;
+                                        }
+                    ).SingleOrDefault(info => info != null);
+
+                if (server_info == null)
+                {
+                    _log.Error(
+                        "SendEmlUrlsToSpamTrainer: Can't sent task to spam trainer. Empty server api info.");
+                    return;
+                }
+
+                var sa_learn_api_client =
+                    new RestClient(string.Format("{0}://{1}:{2}/", server_info.protocol,
+                                                 server_info.server_ip, server_info.port));
+
+                foreach (var tl_spam_mail in tl_mails)
+                {
+                    var eml_url = GetMailEmlUrl(id_tenant, id_user, tl_spam_mail.Value);
+
+                    if (string.IsNullOrEmpty(eml_url))
+                        continue;
+
+                    var sa_learn_request =
+                        new RestRequest(
+                            string.Format("/api/{0}/spam/training.json?auth_token={1}", server_info.version,
+                                          server_info.token), Method.POST);
+
+                    sa_learn_request.AddParameter("url", eml_url);
+                    sa_learn_request.AddParameter("is_spam", is_spam ? 1 : 0);
+
+                    var response = sa_learn_api_client.Execute(sa_learn_request);
+
+                    if (response.StatusCode != HttpStatusCode.Created)
+                        _log.Error(
+                            "MailServer->PostY.Api: Can't sent task to spam trainer. Response code = {0}, Error='{1}'",
+                            response.StatusCode, response.ErrorException);
+                }
             }
         }
 
@@ -283,32 +423,27 @@ namespace ASC.Mail.Aggregator
                     if(!chains_info.Any())
                         throw new Exception("no chain messages belong to current user");
 
-                    var where_chain_builder = new StringBuilder("(");
-                    for (int i = 0; i < chains_info.Count; ++i)
+                    var where = Exp.Empty;
+                    for (var i = 0; i < chains_info.Count; ++i)
                     {
+                        var innerWhere = Exp.Empty;
                         var chain = chains_info[i];
 
-                        if(i > 0)
-                        {
-                            where_chain_builder.Append(" or ");
-                        }
-
-                        where_chain_builder.AppendFormat("({0} = '{1}' and {2} = {3}", MailTable.Columns.chain_id, chain.id,
-                                                                                        MailTable.Columns.id_mailbox, chain.mailbox);
+                        innerWhere = Exp.Eq(MailTable.Columns.chain_id, chain.id) & Exp.Eq(MailTable.Columns.id_mailbox, chain.mailbox);
 
                         if (chain.folder == MailFolder.Ids.inbox || chain.folder == MailFolder.Ids.sent)
                         {
-                            where_chain_builder.AppendFormat(" and ({0} = {1} or {0} = {2}))", MailTable.Columns.folder,
-                                                                MailFolder.Ids.inbox, MailFolder.Ids.sent);
+                            innerWhere &= (Exp.Eq(MailTable.Columns.folder, MailFolder.Ids.inbox) | Exp.Eq(MailTable.Columns.folder, MailFolder.Ids.sent));
                         }
                         else
                         {
-                            where_chain_builder.AppendFormat(" and {0} = {1})", MailTable.Columns.folder, chain.folder);
+                            innerWhere &= Exp.Eq(MailTable.Columns.folder, chain.folder);
                         }
-                    }
-                    where_chain_builder.Append(")");
 
-                    db.ExecuteNonQuery(update_mail_query.Where(new SqlExp(where_chain_builder.ToString())));
+                        where |= innerWhere;
+                    }
+
+                    db.ExecuteNonQuery(update_mail_query.Where(where));
 
                     foreach (var message in ids)
                     {
@@ -644,56 +779,81 @@ namespace ASC.Mail.Aggregator
             return condition;
         }
 
-        private static List<int> GetSearchFolders(int folder) {
-            var search_folders = new List<int>();
-
-            if (folder == MailFolder.Ids.inbox || folder == MailFolder.Ids.sent)
-                search_folders.AddRange(new[] { MailFolder.Ids.inbox, MailFolder.Ids.sent });
-            else
-                search_folders.Add(folder);
-
-            return search_folders;
-        }
-
-       private static List<object[]> GetChainedMessagesInfo(IDbManager db, int tenant, string user, List<int> ids, string[] fields)
+        private static List<object[]> GetChainedMessagesInfo(IDbManager db, int tenant, string user, List<int> ids,
+                                                             string[] fields)
         {
-            var selected_messages_query = string.Format(
-                "SELECT {0}, {1}, {2} FROM {3} WHERE {4} IN ({5})",
-                MailTable.Columns.folder,
-                MailTable.Columns.chain_id,
-                MailTable.Columns.id_mailbox,
-                MailTable.name,
-                MailTable.Columns.id,
-                string.Join(",", ids.ConvertAll(x => x.ToString(CultureInfo.InvariantCulture)).ToArray()));
+            var selected_chains_query = new SqlQuery(MailTable.name)
+                .Select(MailTable.Columns.chain_id,
+                        MailTable.Columns.id_mailbox,
+                        MailTable.Columns.folder)
+                .Where(Exp.In(MailTable.Columns.id, ids))
+                .Where(MailTable.Columns.id_tenant, tenant)
+                .Where(MailTable.Columns.id_user, user);
+
+            var chains_info = db.ExecuteList(selected_chains_query)
+                                .ConvertAll(r => new
+                                    {
+                                        id_chain = Convert.ToString(r[0]),
+                                        id_mailbox = Convert.ToInt32(r[1]),
+                                        folder = Convert.ToInt32(r[2])
+                                    })
+                                .ToList();
 
             var extended_fields = new List<string>
                 {
-                    MailTable.Columns.folder,
                     MailTable.Columns.chain_id,
-                    MailTable.Columns.id_mailbox
+                    MailTable.Columns.id_mailbox,
+                    MailTable.Columns.folder
                 };
+
             extended_fields.AddRange(fields);
 
-            var not_removed_user_messages_query = string.Format(
-                "SELECT {0} FROM {1} WHERE {2}={3} AND {4}=\"{5}\" AND {6}=0",
-                string.Join(", ", extended_fields.Distinct().ToArray()),
-                MailTable.name,
-                MailTable.Columns.id_tenant, tenant,
-                MailTable.Columns.id_user, user,
-                MailTable.Columns.is_removed);
+            var chain_array = chains_info.Select(r => (object) r.id_chain).Distinct().ToArray();
 
-            var query = string.Format(
-                "SELECT {0} FROM ({1}) AS mm INNER JOIN ({2}) AS sm" +
-                " ON mm.{3}=sm.{3} AND (mm.{4}=sm.{4} OR (mm.{4} IN (1,2) AND sm.{4} IN (1,2))) AND mm.{5}=sm.{5}",
-                "mm." + string.Join(", mm.", fields),
-                not_removed_user_messages_query,
-                selected_messages_query,
-                MailTable.Columns.chain_id,
-                MailTable.Columns.folder,
-                MailTable.Columns.id_mailbox);
+            const int max_query_count = 25;
+            var i = 0;
+            var unsorted_messages = new List<object[]>();
 
-            // Return collection of MAIL_MAIL.id by collection of MAIL_MAIL.chain_id
-            return db.ExecuteList(query);
+            do
+            {
+                var part_chains = chain_array.Skip(i).Take(max_query_count).ToArray();
+
+                if (part_chains.Length == 0)
+                    break;
+
+                var selected_messages_query = new SqlQuery(MailTable.name)
+                    .Select(extended_fields.ToArray())
+                    .Where(Exp.In(MailTable.Columns.chain_id, part_chains))
+                    .Where(MailTable.Columns.id_tenant, tenant)
+                    .Where(MailTable.Columns.id_user, user)
+                    .Where(MailTable.Columns.is_removed, false);
+
+                var selected_messages = db.ExecuteList(selected_messages_query);
+
+                unsorted_messages.AddRange(selected_messages);
+
+                i += max_query_count;
+
+            } while (true);
+
+            var result =
+                unsorted_messages.Where(r =>
+                    {
+                        var cur_id_chain = Convert.ToString(r[0]);
+                        var cur_id_mailbox = Convert.ToInt32(r[1]);
+                        var cur_folder = Convert.ToInt32(r[2]);
+
+                        return chains_info.Exists(c =>
+                                                  c.id_chain == cur_id_chain &&
+                                                  c.id_mailbox == cur_id_mailbox &&
+                                                  (cur_folder == 1 || cur_folder == 2)
+                                                      ? c.folder == 1 || c.folder == 2
+                                                      : c.folder == cur_folder);
+                    })
+                                 .Select(r => r.Skip(3).ToArray())
+                                 .ToList();
+
+            return result;
         }
 
         // Method for updating chain flags, date and length.

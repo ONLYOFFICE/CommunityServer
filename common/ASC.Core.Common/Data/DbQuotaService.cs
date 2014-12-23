@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -80,7 +80,7 @@ namespace ASC.Core.Data
                 });
         }
 
-        
+
         public TenantQuota SaveTenantQuota(TenantQuota quota)
         {
             if (quota == null) throw new ArgumentNullException("quota");
@@ -111,18 +111,21 @@ namespace ASC.Core.Data
         {
             if (row == null) throw new ArgumentNullException("row");
 
-            ExecAction(db =>
+            using (var db = GetDb())
+            using (var tx = db.BeginTransaction())
             {
-                var counter = db.ExecScalar<long>(Query(tenants_quotarow, row.Tenant)
+                var counter = db.ExecuteScalar<long>(Query(tenants_quotarow, row.Tenant)
                     .Select("counter")
                     .Where("path", row.Path));
 
-                db.ExecNonQuery(Insert(tenants_quotarow, row.Tenant)
+                db.ExecuteNonQuery(Insert(tenants_quotarow, row.Tenant)
                     .InColumnValue("path", row.Path)
                     .InColumnValue("counter", exchange ? counter + row.Counter : row.Counter)
                     .InColumnValue("tag", row.Tag)
                     .InColumnValue("last_modified", DateTime.UtcNow));
-            });
+
+                tx.Commit();
+            }
         }
 
         public IEnumerable<TenantQuotaRow> FindTenantQuotaRows(TenantQuotaRowQuery query)
@@ -130,17 +133,24 @@ namespace ASC.Core.Data
             if (query == null) throw new ArgumentNullException("query");
 
             var q = new SqlQuery(tenants_quotarow).Select("tenant", "path", "counter", "tag");
+            var where = Exp.Empty;
+
             if (query.Tenant != Tenant.DEFAULT_TENANT)
             {
-                q.Where("tenant", query.Tenant);
+                where &= Exp.Eq("tenant", query.Tenant);
             }
             if (!string.IsNullOrEmpty(query.Path))
             {
-                q.Where("path", query.Path);
+                where &= Exp.Eq("path", query.Path);
             }
             if (query.LastModified != default(DateTime))
             {
-                q.Where(Exp.Ge("last_modified", query.LastModified));
+                where &= Exp.Ge("last_modified", query.LastModified);
+            }
+
+            if (where != Exp.Empty)
+            {
+                q.Where(where);
             }
 
             return ExecList(q)

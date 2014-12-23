@@ -1,43 +1,42 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 window.ASC.Files.UI = (function () {
     var isInit = false;
+
+    var canSetDocumentTitle = true;
 
     var timeCheckEditing = null;
     var timeTooltip = null;
 
     var currentPage = 0;
     var amountPage = 0;
+    var countTotal = 0;
 
     var lastSelectedEntry = null;
 
@@ -49,6 +48,9 @@ window.ASC.Files.UI = (function () {
         jq(window).resize(function () {
             ASC.Files.UI.fixContentHeaderWidth();
         });
+    };
+
+    var filesSelectedHandler = function () {
     };
 
     var getEntryObject = function (entryType, entryId) {
@@ -148,13 +150,15 @@ window.ASC.Files.UI = (function () {
 
         jq("#switchViewFolder").toggleClass("compact", toCompact === true);
         jq("#filesMainContent").toggleClass("compact", toCompact === true);
-        if (toCompact !== true) {
+        if (ASC.Files.Folders.showMore && toCompact !== true) {
             if (jq(document).height() - jq(window).height() <= jq(window).scrollTop() + 350) {
                 ASC.Files.Folders.showMore();
             }
         }
 
-        ASC.Files.Mouse.updateMainContentArea();
+        if (ASC.Files.Mouse) {
+            ASC.Files.Mouse.updateMainContentArea();
+        }
     };
 
     var isSettingsPanel = function () {
@@ -171,6 +175,9 @@ window.ASC.Files.UI = (function () {
 
     var stickContentHeader = function () {
         var boxTop = jq("#mainContentHeader .down_arrow");
+        if (!boxTop.length) {
+            return;
+        }
         var movingPopupShift = boxTop.offset().top + boxTop.outerHeight();
         var movingPopupObj = jq("#filesSelectorPanel:visible");
 
@@ -313,7 +320,7 @@ window.ASC.Files.UI = (function () {
         return fileType == "file"
             && ASC.Files.Folders.folderContainer != "trash"
             && !fileObj.hasClass("row-rename")
-            && ASC.Files.UI.accessibleItem(fileData, fileObj)
+            && ASC.Files.UI.accessEdit(fileData, fileObj)
             && ASC.Files.Utility.CanWebEdit(title);
     };
 
@@ -376,7 +383,7 @@ window.ASC.Files.UI = (function () {
                         }
 
                         var lockObj = entryObj.find(".file-lock");
-                        if (ASC.Files.UI.accessibleItem(entryData, entryObj)) {
+                        if (ASC.Files.UI.accessEdit(entryData, entryObj)) {
                             if (entryObj.hasClass("file-locked")) {
                                 var lockHint = ASC.Files.FilesJSResources.TitleLockedFile;
                                 if (ASC.Files.UI.lockedForMe(entryObj)) {
@@ -392,12 +399,16 @@ window.ASC.Files.UI = (function () {
 
                     if (ASC.Files.Utility.MustConvert(entryTitle)) {
                         entryObj.find(".pencil:not(.convert-action)").remove();
-                        entryObj.find(".convert-action").show();
+                        if (Teamlab.profile.isVisitor && !ASC.Files.UI.accessEdit()) {
+                            entryObj.find(".convert-action").remove();
+                        } else {
+                            entryObj.find(".convert-action").show();
+                        }
                     } else {
                         if (ASC.Files.UI.editableFile(entryData)) {
                             ASC.Files.UI.lockEditFile(entryObj, ASC.Files.UI.editingFile(entryObj));
                             entryObj.find(".convert-action").remove();
-                            if (ASC.Files.Utility.CanCoAuhtoring(entryTitle)) {
+                            if (ASC.Files.Utility.CanCoAuhtoring(entryTitle) && !entryObj.hasClass("on-edit-alone")) {
                                 entryObj.addClass("can-coauthoring");
                             }
                             entryUrl = ASC.Files.Utility.GetFileWebEditorUrl(entryId);
@@ -408,17 +419,17 @@ window.ASC.Files.UI = (function () {
                         }
                     }
                 } else if (ASC.Files.Folders.folderContainer != "trash") {
-                    entryUrl = "#" + ASC.Files.Common.fixHash(entryId);
+                    entryUrl = ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.fixHash(entryId);
                     rowLink.attr("href", entryUrl);
                 }
 
                 if (ASC.Files.Folders.folderContainer == "trash"
                     || entryData.error) {
-                    rowLink.attr("href", "#" + ASC.Files.Folders.currentFolder.id);
+                    rowLink.attr("href", ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Folders.currentFolder.id);
                 }
 
                 if (!jq("#filesMainContent").hasClass("without-share")
-                    && (ASC.Files.Folders.folderContainer == "forme" && !ASC.Files.UI.accessibleItem(entryData, entryObj)
+                    && (ASC.Files.Folders.folderContainer == "forme" && !ASC.Files.UI.accessEdit(entryData, entryObj)
                         || ASC.Resources.Master.Personal && entryType == "folder")) {
                     entryObj.addClass("without-share");
                 }
@@ -429,17 +440,19 @@ window.ASC.Files.UI = (function () {
             }
         });
 
-        ASC.Files.UI.switchFolderView();
+        if (jq("#switchToNormal").length) {
+            ASC.Files.UI.switchFolderView();
+        }
     };
 
-    var clickRow = function (event) {
+    var clickRow = function (event, target) {
         var e = ASC.Files.Common.fixEvent(event);
 
         if (!(e.button == 0 || (jq.browser.msie && e.button == 1))) {
             return true;
         }
 
-        var target = jq(e.srcElement || e.target);
+        target = target || jq(e.srcElement || e.target);
 
         try {
             if (target.is("a, .menu-small")) {
@@ -454,8 +467,22 @@ window.ASC.Files.UI = (function () {
                 ? target
                 : target.closest(".file-row");
 
+        if (e.shiftKey && ASC.Files.UI.lastSelectedEntry && ASC.Files.UI.lastSelectedEntry.entryObj) {
+            var i1 = jq(".file-row").index(entryObj);
+            var i2 = jq(".file-row").index(ASC.Files.UI.lastSelectedEntry.entryObj);
+
+            var minItem = Math.min(i1, i2);
+            var maxItem = Math.max(i1, i2);
+
+            jq(".file-row:lt(" + maxItem + "):gt(" + minItem + ")").each(function () {
+                ASC.Files.UI.selectRow(jq(this), !jq(this).hasClass("row-selected"));
+            });
+        }
         ASC.Files.UI.selectRow(entryObj, !entryObj.hasClass("row-selected"));
         ASC.Files.UI.updateMainContentHeader();
+
+        ASC.Files.UI.lastSelectedEntry = { entryObj: entryObj };
+
         return true;
     };
 
@@ -466,12 +493,19 @@ window.ASC.Files.UI = (function () {
             if (ASC.Files.Folders.folderContainer == "trash") {
                 jq("#mainEmptyTrash").addClass("unlockAction");
             }
-        } else {
+        } else if (ASC.Files.Actions) {
             ASC.Files.Actions.showActionsViewPanel();
         }
-    };
+
+        if (typeof ASC.Files.UI.filesSelectedHandler == "function") {
+            ASC.Files.UI.filesSelectedHandler();
+        }
+    }; 
 
     var selectRow = function (entryObj, value) {
+        if (!entryObj) {
+            return false;
+        }
         if (!entryObj.hasClass("file-row")) {
             entryObj = entryObj.closest(".file-row");
         }
@@ -486,6 +520,11 @@ window.ASC.Files.UI = (function () {
 
         if (entryObj.hasClass("new-folder") || jq(entryObj).hasClass("row-rename")) {
             value = false;
+        }
+
+        if (value === true && entryObj.find(".checkbox input:visible").is("[type=radio]")) {
+            jq("#filesMainContent .checkbox input:checked").prop("checked", false);
+            jq("#filesMainContent .file-row.row-selected").removeClass("row-selected");
         }
 
         entryObj.find(".checkbox input").prop("checked", value === true);
@@ -538,6 +577,9 @@ window.ASC.Files.UI = (function () {
                 case "image":
                     sel = ASC.Files.Utility.FileIsImage(fileTitle) && !jq(this).hasClass("folder-row");
                     break;
+                case "archive":
+                    sel = ASC.Files.Utility.FileIsArchive(fileTitle) && !jq(this).hasClass("folder-row");
+                    break;
                 default:
                     return false;
             }
@@ -560,7 +602,11 @@ window.ASC.Files.UI = (function () {
         }
     };
 
-    var accessibleItem = function (entryData, entryObj) {
+    var accessEdit = function (entryData, entryObj) {
+        if (Teamlab.profile.isOutsider) {
+            return false;
+        }
+
         entryData = entryData ||
             (entryObj
                 ? ASC.Files.UI.getObjectData(entryObj)
@@ -598,7 +644,7 @@ window.ASC.Files.UI = (function () {
 
         var curAccess = parseInt(entryData ? entryData.access : ASC.Files.Constants.AceStatusEnum.None);
 
-        if (entryType == "folder" && ASC.Files.Folders && entryId == ASC.Files.Folders.currentFolder.id) {
+        if (entryType == "folder" && ASC.Files.Folders && ASC.Files.Folders.currentFolder && entryId == ASC.Files.Folders.currentFolder.id) {
             curAccess = parseInt(ASC.Files.Folders.currentFolder.access);
         }
 
@@ -614,7 +660,11 @@ window.ASC.Files.UI = (function () {
         }
     };
 
-    var accessAdmin = function (entryObj) {
+    var accessDelete = function (entryObj) {
+        if (Teamlab.profile.isOutsider) {
+            return false;
+        }
+
         var entryData = entryObj
             ? ASC.Files.UI.getObjectData(entryObj)
             : ASC.Files.Folders.currentFolder;
@@ -730,9 +780,8 @@ window.ASC.Files.UI = (function () {
 
         jq("#entryTooltip").html(htmlTootlip);
 
-        var toUp = entryObj.is("#filesMainContent .file-row:gt(-4)");
+        var toUp = jq("#filesMainContent .file-row").length > 10 && entryObj.is("#filesMainContent .file-row:gt(-4)");
         jq.dropdownToggle().toggle(entryObj.find(".thumb-" + entryType), "entryTooltip", toUp ? -12 : 0, 0, false, null, null, null, toUp);
-        jq("#entryTooltip .corner-top").toggle(!toUp);
     };
 
     var hideEntryTooltip = function () {
@@ -749,7 +798,7 @@ window.ASC.Files.UI = (function () {
             if (ASC.Files.UI.currentPage < ASC.Files.UI.amountPage) {
                 ASC.Files.Folders.getFolderItems(true, countAppend);
             } else {
-                if (countAppend >= ASC.Files.Constants.COUNT_ON_PAGE) {
+                if (ASC.Files.Folders.folderContainer && countAppend >= ASC.Files.Constants.COUNT_ON_PAGE) {
                     ASC.Files.EmptyScreen.displayEmptyScreen();
                 }
             }
@@ -757,13 +806,13 @@ window.ASC.Files.UI = (function () {
     };
 
     var checkButtonBack = function (buttonSelector, panelSelector) {
-        if (ASC.Files.Tree.pathParts.length > 1) {
+        if (ASC.Files.Tree && ASC.Files.Tree.pathParts.length > 1) {
             var parentFolderId = ASC.Files.Tree.pathParts[ASC.Files.Tree.pathParts.length - 2];
             var parentFolderTitle = ASC.Files.Tree.getFolderTitle(parentFolderId);
 
             jq(buttonSelector)
                 .attr("data-id", parentFolderId)
-                .attr("href", "#" + parentFolderId)
+                .attr("href", ASC.Files.Constants.URL_BASE + "#" + parentFolderId)
                 .attr("title", parentFolderTitle);
 
             jq(panelSelector || buttonSelector).show();
@@ -783,9 +832,12 @@ window.ASC.Files.UI = (function () {
     };
 
     var setDocumentTitle = function (titlePrefix) {
+        if (!ASC.Files.UI.canSetDocumentTitle) {
+            return;
+        }
         titlePrefix = titlePrefix || ASC.Files.Folders.currentFolder.title;
         titlePrefix = titlePrefix ? titlePrefix + " - " : "";
-        var titlePostfix = jq("#contentPanel").attr("data-title") || "TeamLab";
+        var titlePostfix = jq(".files-content-panel").attr("data-title") || "TeamLab";
         document.title = titlePrefix + titlePostfix;
     };
 
@@ -806,7 +858,10 @@ window.ASC.Files.UI = (function () {
         jq("#settingCommon").hide();
         jq("#settingThirdPartyPanel").hide();
         jq("#helpPanel").hide();
-        jq("#contentPanel").toggle(show);
+        jq("#moreFeatures").hide();
+        jq(".files-content-panel").toggle(show);
+
+        jq(".mainPageContent").children(".loader-page").remove();
     };
 
     var displayHelp = function (helpId) {
@@ -835,6 +890,15 @@ window.ASC.Files.UI = (function () {
         jq("#settingCommon").show();
 
         ASC.Files.UI.setDocumentTitle(ASC.Files.FilesJSResources.TitleSettingsCommon);
+    };
+
+    var displayMoreFeaturs = function () {
+        ASC.Files.UI.hideAllContent();
+        LoadingBanner.hideLoading();
+        ASC.Files.CreateMenu.disableMenu();
+        jq("#moreFeatures").show();
+
+        ASC.Files.UI.setDocumentTitle(ASC.Files.FilesJSResources.TitleMoreFeaturs);
     };
 
     var displayTariffDocsEdition = function () {
@@ -909,6 +973,7 @@ window.ASC.Files.UI = (function () {
 
         currentPage: currentPage,
         amountPage: amountPage,
+        countTotal: countTotal,
 
         updateFolderView: updateFolderView,
         switchFolderView: switchFolderView,
@@ -942,10 +1007,11 @@ window.ASC.Files.UI = (function () {
         lockEditFileById: lockEditFileById,
         lockEditFile: lockEditFile,
 
-        accessibleItem: accessibleItem,
-        accessAdmin: accessAdmin,
+        accessEdit: accessEdit,
+        accessDelete: accessDelete,
 
         checkCharacter: checkCharacter,
+        canSetDocumentTitle: canSetDocumentTitle,
         setDocumentTitle: setDocumentTitle,
 
         stickContentHeader: stickContentHeader,
@@ -962,6 +1028,7 @@ window.ASC.Files.UI = (function () {
         hideAllContent: hideAllContent,
         displayHelp: displayHelp,
         displayCommonSetting: displayCommonSetting,
+        displayMoreFeaturs: displayMoreFeaturs,
 
         displayTariffDocsEdition: displayTariffDocsEdition,
         displayTariffFileSizeExceed: displayTariffFileSizeExceed,
@@ -970,6 +1037,8 @@ window.ASC.Files.UI = (function () {
         blockUI: blockUI,
 
         setProgressValue: setProgressValue,
+
+        filesSelectedHandler: filesSelectedHandler,
     };
 })();
 
@@ -988,14 +1057,16 @@ window.ASC.Files.UI = (function () {
         jq("#filesMainContent").on("click", ".file-row", ASC.Files.UI.clickRow);
 
         jq("#filesMainContent").on("click", ".checkbox input", function (event) {
-            ASC.Files.Actions.hideAllActionPanels();
+            if (ASC.Files.Actions) {
+                ASC.Files.Actions.hideAllActionPanels();
+            }
             ASC.Files.UI.selectRow(jq(this), this.checked == true);
             ASC.Files.UI.updateMainContentHeader();
             jq(this).blur();
             ASC.Files.Common.cancelBubble(event);
         });
 
-        jq("#filesListUp").click(function () {
+        jq(".menu-action-on-top").click(function () {
             jq(document).scrollTop(0);
             return false;
         });

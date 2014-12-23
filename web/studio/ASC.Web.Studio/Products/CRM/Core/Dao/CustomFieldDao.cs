@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 #region Import
@@ -187,6 +187,7 @@ namespace ASC.CRM.Core.Dao
                 }
                 if (customFieldType == CustomFieldType.SelectBox)
                 {
+                    _log.Error(ex);
                     throw ex;
                 }
             }
@@ -195,7 +196,7 @@ namespace ASC.CRM.Core.Dao
 
         public int CreateField(EntityType entityType, String label, CustomFieldType customFieldType, String mask)
         {
-            if (!_supportedEntityType.Contains(entityType))
+            if (!_supportedEntityType.Contains(entityType) || String.IsNullOrEmpty(label))
                 throw new ArgumentException();
             var resultMask = GetValidMask(customFieldType, mask);
 
@@ -245,14 +246,10 @@ namespace ASC.CRM.Core.Dao
 
         public bool IsExist(int id)
         {
-            var q = new SqlExp(
-                    string.Format(@"select exists(select 1 from crm_field_description where tenant_id = {0} and id = {1})",
-                                TenantID,
-                                id));
-
             using (var db = GetDb())
             {
-                return db.ExecuteScalar<bool>(q);
+                return db.ExecuteScalar<bool>("select exists(select 1 from crm_field_description where tenant_id = @tid and id = @id)",
+                    new { tid = TenantID, id = id });
             }
         }
 
@@ -272,6 +269,9 @@ namespace ASC.CRM.Core.Dao
 
         public void EditItem(CustomField customField)
         {
+            if (String.IsNullOrEmpty(customField.Label))
+                throw new ArgumentException();
+
             if (HaveRelativeLink(customField.ID))
             {
                 using (var db = GetDb())
@@ -321,6 +321,7 @@ namespace ASC.CRM.Core.Dao
                     }
                     catch (Exception ex)
                     {
+                        _log.Error(ex);
                         throw ex;
                     }
 

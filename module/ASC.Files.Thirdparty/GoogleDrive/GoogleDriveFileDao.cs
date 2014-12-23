@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -33,7 +33,7 @@ using System.Linq;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Files.Core;
 using ASC.Web.Studio.Core;
-using AppLimit.CloudComputing.SharpBox;
+using File = ASC.Files.Core.File;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
 {
@@ -46,101 +46,94 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public void InvalidateCache(object fileId)
         {
-            GoogleDriveProviderInfo.InvalidateStorage();
+            CacheReset();
         }
 
-        public Core.File GetFile(object fileId)
+        public File GetFile(object fileId)
         {
             return GetFile(fileId, 1);
         }
 
-        public Core.File GetFile(object fileId, int fileVersion)
+        public File GetFile(object fileId, int fileVersion)
         {
-            return ToFile(GetFileById(fileId));
+            return ToFile(GetDriveEntry(fileId));
         }
 
-        public Core.File GetFile(object parentId, string title)
+        public File GetFile(object parentId, string title)
         {
-            return ToFile(GetFolderFiles(parentId).FirstOrDefault(x => x.Name.Contains(title)));
+            return ToFile(GetDriveEntries(parentId, false)
+                              .FirstOrDefault(file => file.Title.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
         }
 
-        public List<Core.File> GetFileHistory(object fileId)
+        public List<File> GetFileHistory(object fileId)
         {
-            return new List<Core.File> { GetFile(fileId) };
+            return new List<File> { GetFile(fileId) };
         }
 
-        public List<Core.File> GetFiles(object[] fileIds)
+        public List<File> GetFiles(object[] fileIds)
         {
-            return fileIds.Select(fileId => ToFile(GetFileById(fileId))).ToList();
+            return fileIds.Select(GetDriveEntry).Select(ToFile).ToList();
         }
 
-        public Stream GetFileStream(Core.File file, long offset)
+        public Stream GetFileStream(File file)
         {
-            //NOTE: id here is not converted!
-            var fileToDownload = GetFileById(file.ID);
-            //Check length of the file
-            if (fileToDownload == null)
-                throw new ArgumentNullException("file", Web.Files.Resources.FilesCommonResource.ErrorMassage_FileNotFound);
+            return GetFileStream(file, 0);
+        }
 
-            //if (fileToDownload.Length > SetupInfo.AvailableFileSize)
-            //{
-            //    throw FileSizeComment.FileSizeException;
-            //}
+        public Stream GetFileStream(File file, long offset)
+        {
+            var driveFile = GetDriveEntry(file.ID);
+            if (driveFile == null) throw new ArgumentNullException("file", Web.Files.Resources.FilesCommonResource.ErrorMassage_FileNotFound);
+            if (driveFile is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFile).Error);
 
-            var fileStream = fileToDownload.GetDataTransferAccessor().GetDownloadStream();
+            var fileStream = GoogleDriveProviderInfo.Storage.DownloadStream(driveFile);
 
             if (fileStream.CanSeek)
                 file.ContentLength = fileStream.Length; // hack for google drive
 
-            if (offset > 0)
+            if (fileStream.CanSeek && offset > 0)
                 fileStream.Seek(offset, SeekOrigin.Begin);
 
             return fileStream;
         }
 
-        public Uri GetPreSignedUri(Core.File file, TimeSpan expires)
+        public Uri GetPreSignedUri(File file, TimeSpan expires)
         {
             throw new NotSupportedException();
         }
 
-        public bool IsSupportedPreSignedUri(Core.File file)
+        public bool IsSupportedPreSignedUri(File file)
         {
             return false;
         }
 
-        public Stream GetFileStream(Core.File file)
-        {
-            return GetFileStream(file, 0);
-        }
-
-        public Core.File SaveFile(Core.File file, Stream fileStream)
+        public File SaveFile(File file, Stream fileStream)
         {
             if (fileStream == null) throw new ArgumentNullException("fileStream");
-            ICloudFileSystemEntry entry = null;
+
+            Google.Apis.Drive.v2.Data.File newDriveFile = null;
+
             if (file.ID != null)
             {
-                entry = GoogleDriveProviderInfo.Storage.GetFile(MakePath(file.ID), null);
+                newDriveFile = GoogleDriveProviderInfo.Storage.SaveStream(MakeDriveId(file.ID), fileStream, file.Title);
             }
+
             else if (file.FolderID != null)
             {
-                var folder = GetFolderById(file.FolderID);
-
-                file.Title = GetAvailableTitle(file.Title, folder, IsExist);
-
-                entry = GoogleDriveProviderInfo.Storage.CreateFile(folder, file.Title);
+                newDriveFile = GoogleDriveProviderInfo.Storage.InsertEntry(fileStream, file.Title, MakeDriveId(file.FolderID));
             }
-            if (entry != null)
-            {
-                entry.GetDataTransferAccessor().Transfer(fileStream, nTransferDirection.nUpload);
-                return ToFile(entry);
-            }
-            return null;
+
+            CacheInsert(newDriveFile);
+            var parentDriveId = GetParentDriveId(newDriveFile);
+            if (parentDriveId != null) CacheReset(parentDriveId, false);
+
+            return ToFile(newDriveFile);
         }
 
         public void DeleteFile(object fileId)
         {
-            var file = GetFileById(fileId);
-            var id = MakeId(file);
+            var driveFile = GetDriveEntry(fileId);
+            var id = MakeId(driveFile.Id);
 
             using (var tx = DbManager.BeginTransaction())
             {
@@ -157,69 +150,71 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 tx.Commit();
             }
 
-            if (!(file is ErrorEntry))
-                GoogleDriveProviderInfo.Storage.DeleteFileSystemEntry(file);
+            if (!(driveFile is ErrorDriveEntry))
+                GoogleDriveProviderInfo.Storage.DeleteEntry(driveFile.Id);
+
+            CacheReset(driveFile.Id);
+            var parentDriveId = GetParentDriveId(driveFile);
+            if (parentDriveId != null) CacheReset(parentDriveId, false);
         }
 
         public bool IsExist(string title, object folderId)
         {
-            return GetFolderFiles(folderId).FirstOrDefault(x => x.Name.Contains(title)) != null;
-        }
-
-        public bool IsExist(string title, ICloudDirectoryEntry folder)
-        {
-            try
-            {
-                return GoogleDriveProviderInfo.Storage.GetFileSystemObject(title, folder) != null;
-            }
-            catch (ArgumentException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-            }
-            return false;
+            return GetDriveEntries(folderId, false)
+                .Any(file => file.Title.Equals(title, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public object MoveFile(object fileId, object toFolderId)
         {
-            var oldIdValue = MakeId(GetFileById(fileId));
+            var driveFile = GetDriveEntry(fileId);
+            if (driveFile is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFile).Error);
 
-            GoogleDriveProviderInfo.Storage.MoveFileSystemEntry(MakePath(fileId), MakePath(toFolderId));
+            var toDriveFolder = GetDriveEntry(toFolderId);
+            if (toDriveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)toDriveFolder).Error);
 
-            var newIdValue = MakeId(GetFileById(fileId));
+            var fromFolderDriveId = GetParentDriveId(driveFile);
 
-            UpdatePathInDB(oldIdValue, newIdValue);
+            GoogleDriveProviderInfo.Storage.InsertEntryIntoFolder(driveFile.Id, toDriveFolder.Id);
+            if (fromFolderDriveId != null)
+            {
+                GoogleDriveProviderInfo.Storage.RemoveEntryFromFolder(driveFile.Id, fromFolderDriveId);
+            }
 
-            return newIdValue;
+            CacheReset(driveFile.Id);
+            CacheReset(fromFolderDriveId, false);
+            CacheReset(toDriveFolder.Id, false);
+
+            return MakeId(driveFile.Id);
         }
 
-        public Core.File CopyFile(object fileId, object toFolderId)
+        public File CopyFile(object fileId, object toFolderId)
         {
-            var file = GetFile(fileId);
-            GoogleDriveProviderInfo.Storage.CopyFileSystemEntry(MakePath(fileId), MakePath(toFolderId));
-            return ToFile(GetFolderById(toFolderId).FirstOrDefault(x => x.Name == file.Title));
+            var driveFile = GetDriveEntry(fileId);
+            if (driveFile is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFile).Error);
+
+            var toDriveFolder = GetDriveEntry(toFolderId);
+            if (toDriveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)toDriveFolder).Error);
+
+            var newDriveFile = GoogleDriveProviderInfo.Storage.CopyEntry(toDriveFolder.Id, driveFile.Id);
+
+            CacheInsert(newDriveFile);
+            CacheReset(toDriveFolder.Id, false);
+
+            return ToFile(newDriveFile);
         }
 
         public object FileRename(object fileId, string newTitle)
         {
-            var file = GetFileById(fileId);
+            var driveFile = GetDriveEntry(fileId);
+            driveFile.Title = newTitle;
 
-            var oldFileId = MakeId(file);
-            var newFileId = oldFileId;
+            driveFile = GoogleDriveProviderInfo.Storage.UpdateEntry(driveFile);
 
-            if (GoogleDriveProviderInfo.Storage.RenameFileSystemEntry(file, newTitle))
-            {
-                //File data must be already updated by provider
-                //We can't search google files by title because root can have multiple folders with the same name
-                //var newFile = GoogleDriveProviderInfo.Storage.GetFileSystemObject(newTitle, file.Parent);
-                newFileId = MakeId(file);
-            }
+            CacheInsert(driveFile);
+            var parentDriveId = GetParentDriveId(driveFile);
+            if (parentDriveId != null) CacheReset(parentDriveId, false);
 
-            UpdatePathInDB(oldFileId, newFileId);
-
-            return newFileId;
+            return MakeId(driveFile.Id);
         }
 
         public string UpdateComment(object fileId, int fileVersion, string comment)
@@ -235,32 +230,45 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
         }
 
-        public bool UseTrashForRemove(Core.File file)
+        public bool UseTrashForRemove(File file)
         {
             return false;
         }
 
         #region chunking
 
-        public ChunkedUploadSession CreateUploadSession(Core.File file, long contentLength)
+        private File RestoreIds(File file)
+        {
+            if (file == null) return null;
+
+            if (file.ID != null)
+                file.ID = MakeId(file.ID.ToString());
+
+            if (file.FolderID != null)
+                file.FolderID = MakeId(file.FolderID.ToString());
+
+            return file;
+        }
+
+        public ChunkedUploadSession CreateUploadSession(File file, long contentLength)
         {
             if (SetupInfo.ChunkUploadSize > contentLength)
-                return new ChunkedUploadSession(MakeId(file), contentLength) { UseChunks = false };
+                return new ChunkedUploadSession(RestoreIds(file), contentLength) { UseChunks = false };
 
             var uploadSession = new ChunkedUploadSession(file, contentLength);
 
-            ICloudFileSystemEntry googleDriveFile;
+            Google.Apis.Drive.v2.Data.File driveFile;
             if (file.ID != null)
             {
-                googleDriveFile = GetFileById(file.ID);
+                driveFile = GetDriveEntry(file.ID);
             }
             else
             {
-                var folder = GetFolderById(file.FolderID);
-                googleDriveFile = GoogleDriveProviderInfo.Storage.CreateFile(folder, GetAvailableTitle(file.Title, folder, IsExist));
+                var folder = GetDriveEntry(file.FolderID);
+                driveFile = GoogleDriveProviderInfo.Storage.FileConstructor(file.Title, null, folder.Id);
             }
 
-            var googleDriveSession = googleDriveFile.GetDataTransferAccessor().CreateResumableSession(contentLength);
+            var googleDriveSession = GoogleDriveProviderInfo.Storage.CreateResumableSession(driveFile, contentLength);
             if (googleDriveSession != null)
             {
                 uploadSession.Items["GoogleDriveSession"] = googleDriveSession;
@@ -270,7 +278,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 uploadSession.Items["TempPath"] = Path.GetTempFileName();
             }
 
-            uploadSession.File = MakeId(uploadSession.File);
+            uploadSession.File = RestoreIds(uploadSession.File);
             return uploadSession;
         }
 
@@ -288,8 +296,8 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             if (uploadSession.Items.ContainsKey("GoogleDriveSession"))
             {
-                var googleDriveSession = uploadSession.GetItemOrDefault<IResumableUploadSession>("GoogleDriveSession");
-                googleDriveSession.File.GetDataTransferAccessor().Transfer(googleDriveSession, stream, chunkLength);
+                var googleDriveSession = uploadSession.GetItemOrDefault<ResumableUploadSession>("GoogleDriveSession");
+                GoogleDriveProviderInfo.Storage.Transfer(googleDriveSession, stream, chunkLength);
             }
             else
             {
@@ -308,15 +316,20 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             }
             else
             {
-                uploadSession.File = MakeId(uploadSession.File);
+                uploadSession.File = RestoreIds(uploadSession.File);
             }
         }
 
-        public Core.File FinalizeUploadSession(ChunkedUploadSession uploadSession)
+        public File FinalizeUploadSession(ChunkedUploadSession uploadSession)
         {
             if (uploadSession.Items.ContainsKey("GoogleDriveSession"))
             {
-                var googleDriveSession = uploadSession.GetItemOrDefault<IResumableUploadSession>("GoogleDriveSession");
+                var googleDriveSession = uploadSession.GetItemOrDefault<ResumableUploadSession>("GoogleDriveSession");
+
+                CacheInsert(googleDriveSession.File);
+                var parentDriveId = GetParentDriveId(googleDriveSession.File);
+                if (parentDriveId != null) CacheReset(parentDriveId, false);
+
                 return ToFile(googleDriveSession.File);
             }
 
@@ -330,8 +343,12 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
             if (uploadSession.Items.ContainsKey("GoogleDriveSession"))
             {
-                var googleDriveSession = uploadSession.GetItemOrDefault<IResumableUploadSession>("GoogleDriveSession");
-                googleDriveSession.File.GetDataTransferAccessor().AbortResumableSession(googleDriveSession);
+                var googleDriveSession = uploadSession.GetItemOrDefault<ResumableUploadSession>("GoogleDriveSession");
+
+                if (googleDriveSession.Status != ResumableUploadSessionStatus.Completed)
+                {
+                    googleDriveSession.Status = ResumableUploadSessionStatus.Aborted;
+                }
             }
             else if (uploadSession.Items.ContainsKey("TempPath"))
             {
@@ -339,22 +356,12 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             }
         }
 
-        private Core.File MakeId(Core.File file)
-        {
-            if (file.ID != null)
-                file.ID = PathPrefix + "-" + file.ID;
-
-            if (file.FolderID != null)
-                file.FolderID = PathPrefix + "-" + file.FolderID;
-
-            return file;
-        }
-
         #endregion
+
 
         #region Only in TMFileDao
 
-        public IEnumerable<Core.File> Search(string text, FolderType folderType)
+        public IEnumerable<File> Search(string text, FolderType folderType)
         {
             return null;
         }
@@ -369,7 +376,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             //Do nothing
         }
 
-        public bool IsExistOnStorage(Core.File file)
+        public bool IsExistOnStorage(File file)
         {
             return true;
         }

@@ -14,7 +14,10 @@
                         FileUtility.InternalExtension[FileType.Document],
                         FileUtility.InternalExtension[FileType.Spreadsheet],
                         FileUtility.InternalExtension[FileType.Presentation]) %>
+    <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+             { %>
     <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/documents.aspx" %>" target="_blank"><%= FilesUCResource.ButtonLearnMore %></a>
+    <% } %>
 </div>
 <div id="hintUploadPanel" class="hintDescriptionPanel">
     <div class="popup-corner"></div>

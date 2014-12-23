@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.PostfixAdminDbManager" Collapsed="true">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAgAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.AdminTable" Collapsed="true">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.AliasTable" Collapsed="true">
+    <Position X="19.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.AliasDomainTable" Collapsed="true">
+    <Position X="17.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.ConfigTable" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.DomainTable" Collapsed="true">
+    <Position X="17.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.DomainAdminsTable" Collapsed="true">
+    <Position X="15.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.FetchMailTable" Collapsed="true">
+    <Position X="19.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.LogTable" Collapsed="true">
+    <Position X="22.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.MailboxTable" Collapsed="true">
+    <Position X="19.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.QuotaTable" Collapsed="true">
+    <Position X="21" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.Quota2Table" Collapsed="true">
+    <Position X="19.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.VacationTable" Collapsed="true">
+    <Position X="21" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.DbSchema.VacationNotificationTable" Collapsed="true">
+    <Position X="19.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbSchema\PostfixAdminDbSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixMailAddressDto" Collapsed="true">
+    <Position X="21" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAIAAACAAAAAAAgQEAAAAAgAAIAAAACA=</HashCode>
+      <FileName>DtoObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixWebDomainDto" Collapsed="true">
+    <Position X="17.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAIAAAAAABACAEAAQAAgAAIAAAIAA=</HashCode>
+      <FileName>DtoObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixMailboxDto" Collapsed="true">
+    <Position X="22.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAACAAGACAAEAAAAAgAAIgAAIAA=</HashCode>
+      <FileName>DtoObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixMailgroupDto" Collapsed="true">
+    <Position X="12.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DtoObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.InvalidPostfixConnectionStringException" Collapsed="true">
+    <Position X="21" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixEncryptorException" Collapsed="true">
+    <Position X="19.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixAccount" Collapsed="true">
+    <Position X="3.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PostfixAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixAddress" Collapsed="true">
+    <Position X="6.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PostfixAddress.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixCommonQueries" Collapsed="true">
+    <Position X="15.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>PostfixCommonQueries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixConnectionStringParser" Collapsed="true">
+    <Position X="17.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAIAgAAAAAAAAA=</HashCode>
+      <FileName>PostfixConnectionStringParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixDomain" Collapsed="true">
+    <Position X="6.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PostfixDomain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixFactory" Collapsed="true">
+    <Position X="9.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAACAAAAAQAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PostfixFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixMailbox" Collapsed="true">
+    <Position X="9.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAgAAAAAAA=</HashCode>
+      <FileName>PostfixMailbox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixMailGroup" Collapsed="true">
+    <Position X="3.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAECAAAAAAAAAAEAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>PostfixMailGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixPasswordEncryptor" Collapsed="true">
+    <Position X="14" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PostfixPasswordEncryptor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.SaltMd5" Collapsed="true">
+    <Position X="22.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQoAAgAAIAgAAAAEAAAAAAABAAAACgAAAAAA=</HashCode>
+      <FileName>PostfixPasswordEncryptor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixQuota" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PostfixQuota.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.PostfixServer" Collapsed="true">
+    <Position X="0.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAQAAIABAAAGBABAAAAAAAAgAAAAAAACADEAAAA=</HashCode>
+      <FileName>PostfixServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.PostfixAdministration.ToDtoConverters" Collapsed="true">
+    <Position X="15.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABIAAAAIAAAAAAEAAAAAQAACAAAAAQAAAAAA=</HashCode>
+      <FileName>ToDtoConverters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Unix_MD5Crypt.MD5Crypt" Collapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAACAAAAAAAAAAAEAAAAAACAAABA=</HashCode>
+      <FileName>MD5Crypt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.Extensions.MailboxExtensions" Collapsed="true">
+    <Position X="17.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.MailAddressModel" Collapsed="true">
+    <Position X="6.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.MailboxModel" Collapsed="true">
+    <Position X="9.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.MailGroupModel" Collapsed="true">
+    <Position X="3.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.MailServerFactoryBase" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.ServerModel" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.WebDomainModel" Collapsed="true">
+    <Position X="6.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.MailboxCreationException" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.AddressAddingExcepion" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.AddressConvertationExcepion" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.MailAccountBase" Collapsed="true">
+    <Position X="3.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.ServerInformation" Collapsed="true">
+    <Position X="12.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.MailServerBase" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.CNameXDomainDal" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.Config" Collapsed="true">
+    <Position X="22.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.DalBase" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.DalException" Collapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.MailAddressDto" Collapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.WebDomainDto" Collapsed="true">
+    <Position X="22.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.MailboxDto" Collapsed="true">
+    <Position X="15.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.TenantServerDto" Collapsed="true">
+    <Position X="14" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.MailGroupDto" Collapsed="true">
+    <Position X="22.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.MailboxWithAddressDto" Collapsed="true">
+    <Position X="21" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.CNameXDomainDto" Collapsed="true">
+    <Position X="21" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.MailboxDal" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.MailGroupDal" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.ServerDal" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.ToDtoConverters" Collapsed="true">
+    <Position X="17.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Dal.WebDomainDal" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailAddress" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailbox" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailboxQuota" Collapsed="true">
+    <Position X="12.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailGroup" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailServerFactory" Collapsed="true">
+    <Position X="14" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.ITeamlabObject" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IWebDomain" Collapsed="true">
+    <Position X="15.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="ASC.Mail.Server.PostfixAdministration.HashType" Collapsed="true">
+    <Position X="15.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PostfixPasswordEncryptor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ASC.Mail.Server.Administration.Interfaces.ServerType" Collapsed="true">
+    <Position X="17.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="ASC.Mail.Server.Administration.Interfaces.EncryptionType" Collapsed="true">
+    <Position X="14" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="ASC.Mail.Server.Administration.Interfaces.AuthenticationType" Collapsed="true">
+    <Position X="12.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="ASC.Mail.Server.Dal.ServerType" Collapsed="true">
+    <Position X="19.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

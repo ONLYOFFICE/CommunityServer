@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -48,15 +48,15 @@ namespace ASC.Mail.Net
 
         public static Dictionary<string, string> encoding_aliases;
 
-        
-        
+
+
         /// <summary>
         /// Static constructor that fills the default preferred codepages
         /// </summary>
         static EncodingTools()
         {
 
-            List<int> streamEcodings= new List<int>();
+            List<int> streamEcodings = new List<int>();
             List<int> allEncodings = new List<int>();
             List<int> mimeEcodings = new List<int>();
 
@@ -65,7 +65,7 @@ namespace ASC.Mail.Net
             mimeEcodings.Add(Encoding.ASCII.CodePage);
             allEncodings.Add(Encoding.ASCII.CodePage);
 
-            
+
             // add default 2nd for all encodings
             allEncodings.Add(Encoding.Default.CodePage);
             // default is single byte?
@@ -76,7 +76,7 @@ namespace ASC.Mail.Net
                 mimeEcodings.Add(Encoding.Default.CodePage);
             }
 
-          
+
 
             // prefer JIS over JIS-SHIFT (JIS is detected better than JIS-SHIFT)
             // this one does include cyrilic (strange but true)
@@ -99,12 +99,12 @@ namespace ASC.Mail.Net
 
             // stream is done here
             PreferedEncodingsForStream = streamEcodings.ToArray();
-           
+
 
             // all singlebyte encodings
             foreach (EncodingInfo enc in Encoding.GetEncodings())
             {
-                
+
 
                 if (!enc.GetEncoding().IsSingleByte)
                     continue;
@@ -265,7 +265,7 @@ namespace ASC.Mail.Net
         /// <returns>the suggested encoding</returns>
         public static Encoding GetMostEfficientEncoding(string input, int[] preferedEncodings)
         {
-            Encoding enc = DetectOutgoingEncoding(input,preferedEncodings,true);
+            Encoding enc = DetectOutgoingEncoding(input, preferedEncodings, true);
             // unicode.. hmmm... check for smallest encoding
             if (enc.CodePage == Encoding.Unicode.CodePage)
             {
@@ -357,11 +357,11 @@ namespace ASC.Mail.Net
                     if (preferedEncodings != null)
                         options |= MultiLanguage.MLCPF.MLDETECTF_PREFERRED_ONLY;
 
-                    multilang3.DetectOutboundCodePage(options,  
+                    multilang3.DetectOutboundCodePage(options,
                         input, (uint)input.Length,
-                        pPrefEncs, (uint) (preferedEncodings==null ? 0 : preferedEncodings.Length),
+                        pPrefEncs, (uint)(preferedEncodings == null ? 0 : preferedEncodings.Length),
 
-                        pDetectedEncs, ref detectedCodepages, 
+                        pDetectedEncs, ref detectedCodepages,
                         ref specialChar);
 
                     // get result
@@ -412,7 +412,7 @@ namespace ASC.Mail.Net
 
                 // get unmanaged arrays
                 IntPtr pPrefEncs = Marshal.AllocCoTaskMem(sizeof(uint) * preferedEncodings.Length);
-                IntPtr pDetectedEncs =  preferedEncodings == null ? IntPtr.Zero : Marshal.AllocCoTaskMem(sizeof(uint) * resultCodePages.Length);
+                IntPtr pDetectedEncs = preferedEncodings == null ? IntPtr.Zero : Marshal.AllocCoTaskMem(sizeof(uint) * resultCodePages.Length);
 
                 try
                 {
@@ -431,7 +431,7 @@ namespace ASC.Mail.Net
                     // finally... call to DetectOutboundCodePage
                     multilang3.DetectOutboundCodePage(options,
                         input, (uint)input.Length,
-                        pPrefEncs, (uint) (preferedEncodings==null ? 0 : preferedEncodings.Length),
+                        pPrefEncs, (uint)(preferedEncodings == null ? 0 : preferedEncodings.Length),
                         pDetectedEncs, ref detectedCodepages,
                         ref specialChar);
 
@@ -445,7 +445,7 @@ namespace ASC.Mail.Net
                         // get the encodings for the codepages
                         for (int i = 0; i < detectedCodepages; i++)
                             result.Add(Encoding.GetEncoding(theResult[i]));
-                        
+
                     }
 
                 }
@@ -479,7 +479,7 @@ namespace ASC.Mail.Net
                     return detected[0];
                 return Encoding.Default;
             }
-            catch(COMException)
+            catch (COMException)
             {
                 // return default codepage on error
                 return Encoding.Default;
@@ -494,6 +494,11 @@ namespace ASC.Mail.Net
         /// <returns>an array of Encoding with assumed encodings</returns>
         public static Encoding[] DetectInputCodepages(byte[] input, int maxEncodings)
         {
+            if (Path.DirectorySeparatorChar == '/')
+            {
+                // unix
+                return new Encoding[0];
+            }
 
             if (maxEncodings < 1)
                 throw new ArgumentOutOfRangeException("at least one encoding must be returend", "maxEncodings");
@@ -531,14 +536,14 @@ namespace ASC.Mail.Net
 
                 int scores = detectedEncdings.Length;
                 int srcLen = input.Length;
-               
+
                 // setup options (none)   
                 MultiLanguage.MLDETECTCP options = MultiLanguage.MLDETECTCP.MLDETECTCP_NONE;
 
                 // finally... call to DetectInputCodepage
-                multilang2.DetectInputCodepage(options,0,
+                multilang2.DetectInputCodepage(options, 0,
                     ref input[0], ref srcLen, ref detectedEncdings[0], ref scores);
-                
+
                 // get result
                 if (scores > 0)
                 {
@@ -602,8 +607,8 @@ namespace ASC.Mail.Net
             if (stream == null)
                 throw new ArgumentNullException("stream");
             if (!stream.CanSeek)
-                throw new ArgumentException("the stream must support seek operations","stream");
-            
+                throw new ArgumentException("the stream must support seek operations", "stream");
+
             // assume default encoding at first place
             Encoding detectedEncoding = Encoding.Default;
 
@@ -619,7 +624,7 @@ namespace ASC.Mail.Net
             stream.Seek(0, SeekOrigin.Begin);
 
 
-            return new StreamReader(stream,detectedEncoding);
+            return new StreamReader(stream, detectedEncoding);
 
         }
 
@@ -663,5 +668,5 @@ namespace ASC.Mail.Net
 
     }
 
-  
+
 }

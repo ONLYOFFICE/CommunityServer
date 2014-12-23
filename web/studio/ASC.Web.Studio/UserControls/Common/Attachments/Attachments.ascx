@@ -13,20 +13,19 @@
     <div class="warn" id="wrongSign"><%=UserControlsCommonResource.ErrorMassage_SpecCharacter %></div>
 </div>
 <div id="files_newDocumentPanel" class="studio-action-panel" >
-        <div class="corner-top left"></div>
         <ul class="dropdown-content">
-            <li id="files_create_text" class="dropdown-item">
-                <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Document] %>');">
+            <li id="files_create_text" >
+                <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Document] %>');" class="dropdown-item">
                     <%= UserControlsCommonResource.ButtonCreateText%>
                 </a>
             </li>
-            <li id="files_create_spreadsheet" class="dropdown-item">
-                <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Spreadsheet] %>');">
+            <li id="files_create_spreadsheet">
+                <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Spreadsheet] %>');" class="dropdown-item">
                     <%= UserControlsCommonResource.ButtonCreateSpreadsheet%>
                 </a>
             </li>
-            <li id="files_create_presentation" class="dropdown-item">
-                <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Presentation] %>');">
+            <li id="files_create_presentation">
+                <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Presentation] %>');" class="dropdown-item">
                     <%= UserControlsCommonResource.ButtonCreatePresentation%>
                 </a>
             </li>
@@ -73,23 +72,22 @@
 <%if (EmptyScreenVisible){ %>
 <%-- popup window --%>
 <div id="files_hintCreatePanel" class="hintDescriptionPanel">
-    <div class="popup-corner"></div>
     <%= string.Format(UserControlsCommonResource.TooltipCreate,
                         FileUtility.InternalExtension[FileType.Document],
                         FileUtility.InternalExtension[FileType.Spreadsheet],
                         FileUtility.InternalExtension[FileType.Presentation]) %>
+    <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+           { %>
     <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/documents.aspx" %>" target="_blank"><%=UserControlsCommonResource.ButtonLearnMore%></a>
+    <%} %>
 </div>
 <div id="files_hintUploadPanel" class="hintDescriptionPanel">
-    <div class="popup-corner"></div>
     <%=UserControlsCommonResource.TooltipUpload%>
 </div>
 <div id="files_hintOpenPanel" class="hintDescriptionPanel">
-    <div class="popup-corner"></div>
     <%=string.Format(UserControlsCommonResource.TooltipOpen, ExtsWebPreviewed)%>
 </div>
 <div id="files_hintEditPanel" class="hintDescriptionPanel">
-    <div class="popup-corner"></div>
     <%=string.Format(UserControlsCommonResource.TooltipEdit, ExtsWebEdited)%>
 </div>
 <%} %>

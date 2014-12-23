@@ -5,7 +5,6 @@
 
 <script id="projects_statusChangePanel" type="text/x-jquery-tmpl">
     <div id="${listId}" class="studio-action-panel">
-        <div class="corner-top left"></div>
         <ul id="statusList" class="dropdown-content">
             {{each statuses}}
             <li class="${cssClass} dropdown-item">${text}</li>
@@ -16,7 +15,6 @@
 
 <script id="projects_panelFrame" type="text/x-jquery-tmpl">
     <div id="${panelId}" class="studio-action-panel" objid="">
-        <div class="corner-top ${cornerPosition}"></div>
         <div class="panel-content">
         </div>
     </div>
@@ -95,7 +93,7 @@
 </script>
 
 <script id="projects_timeTrakingGroupActionMenu" type="text/x-jquery-tmpl">
-    <ul id="timeTrakingGroupActionMenu" class="contentMenu contentMenuDisplayAll display-none">
+    <ul id="timeTrakingGroupActionMenu" class="clearFix contentMenu contentMenuDisplayAll display-none">
     <li class="menuAction menuActionSelectAll menuActionSelectLonely">
         <div class="menuActionSelect">
             <input id="selectAllTimers" type="checkbox" title="<%= TimeTrackingResource.GroupMenuSelectAll %>"/>
@@ -120,13 +118,14 @@
                 <%= TimeTrackingResource.GroupMenuDeselectAll%>
             </a>
         </li>
+        <li class="menu-action-simple-pagenav" style="display: list-item;"></li>
         <li class="menu-action-on-top">
             <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
                 <%= TimeTrackingResource.GroupMenuOnTop%>
             </a>
         </li>
+
     </ul>
-    <div class="header-menu-spacer"> </div>
 </script>
 
 <script id="projects_totalTimeText" type="text/x-jquery-tmpl">

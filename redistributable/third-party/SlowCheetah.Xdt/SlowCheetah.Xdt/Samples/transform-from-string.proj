@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Demo">
+
+  <!--
+  This file should be invoked from the output folder not the source folder.
+  -->
+  
+  <PropertyGroup>
+    
+    <XdtTaskPath Condition=" '$(XdtTaskPath)'=='' ">$(MSBuildThisFileDirectory)..\SlowCheetah.Xdt.dll</XdtTaskPath>
+
+    <SourceFile Condition=" '$(SourceFile)'=='' ">$(MSBuildThisFileDirectory)WebApplication1.proj</SourceFile>
+    <SampleTransform Condition=" '$(SampleTransform)'=='' ">
+      <![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform" 
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <ProjectExtensions xdt:Transform="Remove" />
+  
+</Project>    
+    ]]></SampleTransform>
+    <DestFile Condition=" '$(DestFile)'=='' ">$(MSBuildThisFileDirectory)transform-from-string-result.xml</DestFile>
+  </PropertyGroup>
+  
+  <UsingTask TaskName="TransformXml" AssemblyFile="$([System.IO.Path]::GetFullPath($(XdtTaskPath)))"/>
+
+  <Target Name="Demo">
+            
+    <Message Text="Transform parameters
+Source=[$(SourceFile)]
+TransformText=[$(SampleTransform)]
+Destination=[$(DestFile)]
+" Importance="high" />
+    <TransformXml Source="$(SourceFile)"
+                  TransformText="$(SampleTransform)"
+                  Destination="$(DestFile)"/>
+    
+    <Message Text="Transform completed, open the result from: [$(DestFile)]" Importance="high" />
+    
+    <!-- Read the result and print it out -->
+    <!--<Exec Command="start $()" />-->    
+  </Target>
+  
+</Project>

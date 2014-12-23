@@ -157,8 +157,8 @@ namespace MSBuild.Community.Tasks.Xml
 
             if (substitutionsRootNode == null)
             {
-                Log.LogError("Unable to locate '{0}' in {1}.", substitutionsRoot, substitutionsPathUsedByTask);
-                return false;
+                Log.LogMessage("Skip task: unable to locate '{0}' in {1}.", substitutionsRoot, substitutionsPathUsedByTask);
+                return true;
             }
             if (contentRootNode == null)
             {
@@ -217,6 +217,7 @@ namespace MSBuild.Community.Tasks.Xml
                     Log.LogError("Unable to load substitutions file {0}", substitutionsPathUsedByTask);
                     return null;
                 }
+                Log.LogMessage("Load substitution file: {0}", substitutionsPathUsedByTask);
                 substitutionsDocument = new XmlDocument();
                 substitutionsDocument.Load(substitutionsPathUsedByTask);
             }
@@ -236,6 +237,7 @@ namespace MSBuild.Community.Tasks.Xml
                 Log.LogError("Unable to load content file {0}", contentPathUsedByTask);
                 return null;
             }
+            Log.LogMessage("Load content file: {0}", contentPathUsedByTask);
             XmlDocument contentDocument = new XmlDocument();
             contentDocument.Load(contentPathUsedByTask);
             return contentDocument;

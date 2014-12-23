@@ -55,7 +55,7 @@ namespace ActiveUp.Net.Mail
         string _preamble, _epilogue;
         Signatures _signatures = new Signatures();
 
-        bool _isSmimeEncrypted, _hasDomainKeySignature, _hasSmimeSignature, _hasSmimeDetachedSignature;
+        bool _isSmimeEncrypted, _hasDomainKeySignature, _hasSmimeSignature, _hasSmimeDetachedSignature, _hasParseError;
 
         #endregion
 
@@ -456,6 +456,14 @@ namespace ActiveUp.Net.Mail
                 msg += "Body : <br />" + this.BodyText.Text;
                 return msg;
             }
+        }
+
+        /// <summary>
+        /// Indicates whether the message has parsed with errors.
+        /// </summary>
+        public bool HasParseError {
+            get { return _hasParseError; }
+            set { _hasParseError = value; }
         }
 
         #endregion

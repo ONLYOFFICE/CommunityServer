@@ -186,4 +186,7 @@
   <data name="ContactUsTitle" xml:space="preserve">
     <value>Contact Us</value>
   </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>If you have any questions or email us at {0}support@teamlab.com{1}</value>
+  </data>
 </root>

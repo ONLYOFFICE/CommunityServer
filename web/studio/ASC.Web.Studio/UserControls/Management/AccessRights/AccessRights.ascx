@@ -38,16 +38,14 @@
     <div class="possibilitiesAdmin">
         <div><%= Resources.Resource.AccessRightsOwnerCan %>:</div>
         <% foreach (var item in Resources.Resource.AccessRightsOwnerOpportunities.Split('|')) %>
-        <%
-           { %>
+        <% { %>
             <div class="simple-marker-list"><%= item.Trim() %>;</div>
         <% } %>
     </div>
 </div>
 
 <% if (CanOwnerEdit) %>
-<%
-   { %>
+<% { %>
     <div id="ownerSelectorContent" class="clearFix">
         <div class="changeOwnerText">
             <%= Resources.Resource.AccessRightsChangeOwnerText %>
@@ -83,21 +81,15 @@
                     <%= Resources.Resource.AccessRightsFullAccess %>
                     <div class="HelpCenterSwitcher" onclick=" jq(this).helper({ BlockHelperID: 'full_panelQuestion' }); "></div>
                 </th>
-                <% if (AdvancedRightsEnabled)
-                   { %>
-                    <% foreach (var p in ProductsForAccessSettings) %>
-                    <%
-                       { %>
-                        <th class="cbxHeader">
-                            <%= p.Name %>
-                            <% if (p.GetAdminOpportunities().Count > 0) %>
-                            <%
-                               { %>
-                                <div class="HelpCenterSwitcher" onclick=" jq(this).helper({ BlockHelperID: '<%= p.GetSysName() %>_panelQuestion' }); "></div>
-                            <% } %>
-                        </th>
-                    <% } %>
-
+                <% foreach (var p in ProductsForAccessSettings) %>
+                <% { %>
+                    <th class="cbxHeader">
+                        <%= p.Name %>
+                        <% if (p.GetAdminOpportunities().Count > 0) %>
+                        <% { %>
+                            <div class="HelpCenterSwitcher" onclick=" jq(this).helper({ BlockHelperID: '<%= p.GetSysName() %>_panelQuestion' }); "></div>
+                        <% } %>
+                    </th>
                 <% } %>
             </tr>
         </thead>
@@ -110,40 +102,29 @@
     <div>
         <div id="full_panelQuestion" class="popup_helper">
             <% for (var i = 0; i < FullAccessOpportunities.Length; i++) %>
-            <%
-               { %>
+            <% { %>
                 <% if (i == 0) %>
-                <%
-                   { %>
+                <% { %>
                     <div><%= FullAccessOpportunities[i] %>:</div>
-                <% } %>
-                <%
-                   else %>
-                <%
-                   { %>
+                <% }  else  { %>
                     <div class="simple-marker-list"><%= FullAccessOpportunities[i] %>;</div>
                 <% } %>
             <% } %>
         </div>
-        <% if (AdvancedRightsEnabled)
-           { %>
-            <% foreach (var p in Products) %>
-            <%
-               { %>
-                <% if (p.GetAdminOpportunities().Count > 0) %>
-                <%
-                   { %>
-                    <div id="<%= p.GetSysName() %>_panelQuestion" class="popup_helper">
-                        <div><%= String.Format(Resources.Resource.AccessRightsProductAdminsCan, p.Name) %>:</div>
-                        <% foreach (var oprtunity in p.GetAdminOpportunities()) %>
-                        <%
-                           { %>
-                            <div class="simple-marker-list"><%= oprtunity %>;</div>
-                        <% } %>
-                    </div>
-                <% } %>
+        <% foreach (var p in Products) %>
+        <% { %>
+            <% if (p.GetAdminOpportunities().Count > 0) %>
+            <% { %>
+                <div id="<%= p.GetSysName() %>_panelQuestion" class="popup_helper">
+                    <div><%= String.Format(Resources.Resource.AccessRightsProductAdminsCan, p.Name) %>:</div>
+                    <% foreach (var oprtunity in p.GetAdminOpportunities()) %>
+                    <% { %>
+                        <div class="simple-marker-list"><%= oprtunity %>;</div>
+                    <% } %>
+                </div>
             <% } %>
         <% } %>
+
     </div>
 </div>
 
@@ -154,13 +135,4 @@
             <asp:PlaceHolder ID="phProductItem" runat="server"></asp:PlaceHolder>
         </ItemTemplate>
     </asp:Repeater>
-
-<% }
-   else
-   { %>
-    <style type="text/css">
-        .accessRights-content {
-            margin-bottom: 260px;
-        }
-    </style>
 <% } %>

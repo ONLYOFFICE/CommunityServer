@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using ASC.Core;
@@ -117,6 +117,7 @@ namespace ASC.Web.Core.Client.Bundling
 
         public static string GetContent(string uri)
         {
+            var log = LogManager.GetLogger("ASC.Web.Bundle");
             CultureInfo oldCulture = null;
             try
             {
@@ -129,18 +130,37 @@ namespace ASC.Web.Core.Client.Bundling
                         oldCulture = CultureInfo.CurrentCulture;
                         Thread.CurrentThread.CurrentCulture = culture;
                         Thread.CurrentThread.CurrentUICulture = culture;
+                        log.DebugFormat("GetContent uri:{0}, oldCulture:{1}, newCulture:{2}", uri, oldCulture.Name, culture.Name);
                     }
                 }
             }
             catch (Exception err)
             {
-                LogManager.GetLogger("ASC.Web.Bundle").Error(err);
+                log.Error(err);
             }
 
             var content = new StringBuilder();
-            foreach (var script in cache[Path.GetFileNameWithoutExtension(uri)])
+            try
             {
-                content.Append(script.GetData(HttpContext.Current));
+                var fileName = uri.Split('.').FirstOrDefault();
+                fileName = Path.GetFileNameWithoutExtension(fileName ?? uri);
+
+                List<ClientScript> scripts;
+
+                if (!cache.TryGetValue(fileName, out scripts))
+                {
+                    throw new Exception(string.Format("scripts {0} is empty", fileName));
+                }
+
+                foreach (var script in scripts)
+                {
+                    content.Append(script.GetData(HttpContext.Current));
+                }
+
+            }
+            catch (Exception e)
+            {
+                log.Error("GetContent uri: " + uri, e);
             }
 
             if (oldCulture != null)
@@ -156,7 +176,10 @@ namespace ASC.Web.Core.Client.Bundling
         {
             var version = string.Empty;
             var types = new List<Type>();
-            foreach (var s in cache[Path.GetFileNameWithoutExtension(uri)])
+            var fileName = uri.Split('.').FirstOrDefault();
+            fileName = Path.GetFileNameWithoutExtension(fileName != null ? fileName : uri);
+
+            foreach (var s in cache[fileName])
             {
                 version += s.GetCacheHash();
                 types.Add(s.GetType());

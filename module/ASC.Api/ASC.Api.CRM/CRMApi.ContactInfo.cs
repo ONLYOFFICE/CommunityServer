@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -113,7 +113,7 @@ namespace ASC.Api.CRM
 
             var contactInfo = DaoFactory.GetContactInfoDao().GetByID(id);
 
-            if (contactInfo.ContactID != contactid) throw new ArgumentException();
+            if (contactInfo == null || contactInfo.ContactID != contactid) throw new ArgumentException();
 
             return ToContactInfoWrapper(contactInfo);
         }
@@ -139,7 +139,16 @@ namespace ASC.Api.CRM
         {
             if (string.IsNullOrEmpty(data) || contactid <= 0) throw new ArgumentException();
             var contact = DaoFactory.GetContactDao().GetByID(contactid);
-            if (contact == null || !CRMSecurity.CanEdit(contact)) throw new ItemNotFoundException();
+            if (contact == null) throw new ItemNotFoundException();
+
+            if (infoType == ContactInfoType.Twitter)
+            {
+                if (!CRMSecurity.CanAccessTo(contact)) throw new ItemNotFoundException();
+            }
+            else
+            {
+                if (!CRMSecurity.CanEdit(contact)) throw new ItemNotFoundException();
+            }
 
             var categoryType = ContactInfo.GetCategory(infoType);
             if (!Enum.IsDefined(categoryType, category)) throw new ArgumentException();
@@ -154,17 +163,23 @@ namespace ASC.Api.CRM
                     Category = (int)Enum.Parse(categoryType, category)
                 };
 
+            if (contactInfo.InfoType == ContactInfoType.Address)
+            {
+                Address res;
+                if (!Address.TryParse(contactInfo, out res))
+                    throw new ArgumentException();
+            }
+
             var contactInfoID = DaoFactory.GetContactInfoDao().Save(contactInfo);
 
             if (contactInfo.InfoType == ContactInfoType.Email)
             {
                 var userIds = CRMSecurity.GetAccessSubjectTo(contact).Keys.ToList();
                 var emails = new[] {contactInfo.Data};
-                DaoFactory.GetContactInfoDao().UpdateMailAggregator(emails, userIds);
             }
 
             var messageAction = contact is Company ? MessageAction.CompanyUpdatedPrincipalInfo : MessageAction.PersonUpdatedPrincipalInfo;
-            MessageService.Send(_context, messageAction, contact.GetTitle());
+            MessageService.Send(Request, messageAction, contact.GetTitle());
 
             var contactInfoWrapper = ToContactInfoWrapper(contactInfo);
             contactInfoWrapper.ID = contactInfoID;
@@ -172,11 +187,17 @@ namespace ASC.Api.CRM
         }
 
         /// <summary>
-        ///  Creates contact information with the parameters specified in the request for the contact with the selected ID
+        ///  Creates contact information (add new information to the old list) with the parameters specified in the request for the contact with the selected ID
         /// </summary>
         ///<short>Group contact info</short> 
         /// <param name="contactid">Contact ID</param>
         /// <param name="items">Contact information</param>
+        /// <remarks>
+        /// <![CDATA[
+        ///  items has format
+        ///  [{infoType : 1, category : 1, categoryName : 'work', data : "myemail@email.com", isPrimary : true}, {infoType : 0, category : 0, categoryName : 'home', data : "+8999111999111", isPrimary : true}]
+        /// ]]>
+        /// </remarks>
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <returns>
@@ -191,11 +212,17 @@ namespace ASC.Api.CRM
             var contact = DaoFactory.GetContactDao().GetByID(contactid);
             if (contact == null || !CRMSecurity.CanEdit(contact)) throw new ItemNotFoundException();
 
-            var itemsList = items.ToList();
+            var itemsList = items != null ? items.ToList() : new List<ContactInfoWrapper>();
             var contactInfoList = itemsList.Select(FromContactInfoWrapper).ToList();
 
             foreach (var contactInfo in contactInfoList)
             {
+                if (contactInfo.InfoType == ContactInfoType.Address)
+                {
+                    Address res;
+                    if(!Address.TryParse(contactInfo, out res))
+                        throw new ArgumentException();
+                }
                 contactInfo.ContactID = contactid;
             }
 
@@ -255,17 +282,23 @@ namespace ASC.Api.CRM
 
             contactInfo.Data = data;
 
+            if (contactInfo.InfoType == ContactInfoType.Address)
+            {
+                Address res;
+                if (!Address.TryParse(contactInfo, out res))
+                    throw new ArgumentException();
+            }
+
             DaoFactory.GetContactInfoDao().Update(contactInfo);
 
             if (contactInfo.InfoType == ContactInfoType.Email)
             {
                 var userIds = CRMSecurity.GetAccessSubjectTo(contact).Keys.ToList();
                 var emails = new[] {contactInfo.Data};
-                DaoFactory.GetContactInfoDao().UpdateMailAggregator(emails, userIds);
             }
 
             var messageAction = contact is Company ? MessageAction.CompanyUpdatedPrincipalInfo : MessageAction.PersonUpdatedPrincipalInfo;
-            MessageService.Send(_context, messageAction, contact.GetTitle());
+            MessageService.Send(Request, messageAction, contact.GetTitle());
 
             var contactInfoWrapper = ToContactInfoWrapper(contactInfo);
             return contactInfoWrapper;
@@ -273,11 +306,15 @@ namespace ASC.Api.CRM
 
 
         /// <summary>
-        ///  Updates contact information with the parameters specified in the request for the contact with the selected ID
+        ///  Updates contact information (delete old information and add new list) with the parameters specified in the request for the contact with the selected ID
         /// </summary>
         ///<short>Group contact info update</short> 
         ///<param name="contactid">Contact ID</param>
         ///<param name="items">Contact information</param>
+        /// <![CDATA[
+        ///  items has format
+        ///  [{infoType : 1, category : 1, categoryName : 'work', data : "myemail@email.com", isPrimary : true}, {infoType : 0, category : 0, categoryName : 'home', data : "+8999111999111", isPrimary : true}]
+        /// ]]>
         ///<category>Contacts</category>
         ///<exception cref="ArgumentException"></exception>
         /// <returns>
@@ -292,12 +329,17 @@ namespace ASC.Api.CRM
             var contact = DaoFactory.GetContactDao().GetByID(contactid);
             if (contact == null || !CRMSecurity.CanEdit(contact)) throw new ItemNotFoundException();
 
-            items = items ?? new List<ContactInfoWrapper>();
-            var itemsList = items.ToList();
+            var itemsList = items != null ? items.ToList() : new List<ContactInfoWrapper>();
             var contactInfoList = itemsList.Select(FromContactInfoWrapper).ToList();
 
             foreach (var contactInfo in contactInfoList)
             {
+                if (contactInfo.InfoType == ContactInfoType.Address)
+                {
+                    Address res;
+                    if (!Address.TryParse(contactInfo, out res))
+                        throw new ArgumentException();
+                }
                 contactInfo.ContactID = contactid;
             }
 
@@ -333,73 +375,6 @@ namespace ASC.Api.CRM
             return DaoFactory.GetContactInfoDao().GetListData(contactid, infoType);
         }
 
-        /// <summary>
-        ///   Adds the address with the parameters specified in the request to the selected contact
-        /// </summary>
-        /// <param name="contactid">Contact ID</param>
-        /// <param name="address">Address</param>
-        /// <param name="isPrimary">Address type: primary or not</param>
-        /// <param name="category">Category</param>
-        ///<short>Add contact address</short> 
-        ///<category>Contacts</category>
-        /// <returns>
-        ///   Address
-        /// </returns>
-        [Create(@"contact/{contactid:[0-9]+}/data/address/{category}")]
-        public int AddAddress(int contactid, Address address, bool isPrimary, string category)
-        {
-            return CreateContactInfo(contactid, ContactInfoType.Address, JsonConvert.SerializeObject(address), isPrimary, category).ID;
-        }
-
-        /// <summary>
-        ///   Updates the address with the parameters specified in the request for the selected contact
-        /// </summary>
-        ///<param name="id">Contact information record ID</param>
-        /// <param name="contactid">Contact ID</param>
-        /// <param name="address">Address</param>
-        /// <param name="isPrimary">Address type: primary or not</param>
-        /// <param name="category">Category</param>
-        /// <short>Update contact address</short> 
-        /// <category>Contacts</category>
-        /// <returns>
-        ///   Address
-        /// </returns>
-        [Update(@"contact/{contactid:[0-9]+}/data/address/{id:[0-9]+}")]
-        public Address UpdateAddress(int id, int contactid, Address address, bool isPrimary, string category)
-        {
-            UpdateContactInfo(id, contactid, ContactInfoType.Address, JsonConvert.SerializeObject(address), isPrimary, category);
-            return address;
-        }
-
-        /// <summary>
-        ///   Deletes the address for the contact with the ID specified in the request
-        /// </summary>
-        /// <param name="contactid">Contact ID</param>
-        /// <param name="id">Contact information record ID</param>
-        /// <short>Delete contact address</short> 
-        /// <category>Contacts</category>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ItemNotFoundException"></exception>
-        /// <returns>
-        ///   Address
-        /// </returns>
-        [Delete(@"contact/{contactid:[0-9]+}/data/address/{id:[0-9]+}")]
-        public Address DeleteAddress(int contactid, int id)
-        {
-            if (id <= 0 || contactid <= 0) throw new ArgumentException();
-
-            var contact = DaoFactory.GetContactDao().GetByID(contactid);
-            if (contact == null || !CRMSecurity.CanEdit(contact)) throw new ItemNotFoundException();
-
-            var contactInfo = DaoFactory.GetContactInfoDao().GetByID(id);
-            if (contactInfo == null) throw new ItemNotFoundException();
-
-            if (contactInfo.InfoType != ContactInfoType.Address) throw new ArgumentException();
-
-            DeleteContactInfo(contactid, id);
-
-            return new Address(contactInfo);
-        }
 
         /// <summary>
         ///   Deletes the contact information for the contact with the ID specified in the request
@@ -429,7 +404,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetContactInfoDao().Delete(id);
 
             var messageAction = contact is Company ? MessageAction.CompanyUpdatedPrincipalInfo : MessageAction.PersonUpdatedPrincipalInfo;
-            MessageService.Send(_context, messageAction, contact.GetTitle());
+            MessageService.Send(Request, messageAction, contact.GetTitle());
 
             return wrapper;
         }

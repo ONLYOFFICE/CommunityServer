@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -51,22 +51,10 @@ namespace ASC.Core.Data
             return ExecList(q).ConvertAll(ToUser).ToDictionary(u => u.ID);
         }
 
-        public List<UserInfo> GetUsers(EmployeeStatus status, int tenant)
-        {
-            var q = GetUserQuery(tenant, default(DateTime));
-            return ExecList(q).ConvertAll(ToUser).Where(r => r.Status == status).ToList();
-        }
-
         public UserInfo GetUser(int tenant, Guid id)
         {
             var q = GetUserQuery(tenant, default(DateTime)).Where("id", id);
             return ExecList(q).ConvertAll(ToUser).SingleOrDefault();
-        }
-
-        public IEnumerable<UserInfo> GetUsers(int tenant, IEnumerable<Guid> ids)
-        {
-            var q = GetUserQuery(tenant, default(DateTime)).Where(Exp.In("id", ids.ToList()));
-            return ExecList(q).ConvertAll(ToUser);
         }
 
         public UserInfo GetUser(int tenant, string login, string passwordHash)
@@ -95,57 +83,60 @@ namespace ASC.Core.Data
             user.LastModified = DateTime.UtcNow;
             user.Tenant = tenant;
 
-            ExecAction(db =>
+            using (var db = GetDb())
+            using (var tx = db.BeginTransaction())
+            {
+                user.UserName = user.UserName.Trim();
+                var q = Query("core_user", tenant)
+                    .SelectCount()
+                    .Where("username", user.UserName)
+                    .Where(!Exp.Eq("id", user.ID.ToString()))
+                    .Where("removed", false);
+                var count = db.ExecuteScalar<int>(q);
+                if (count != 0)
                 {
-                    user.UserName = user.UserName.Trim();
-                    var q = Query("core_user", tenant)
-                        .SelectCount()
-                        .Where("username", user.UserName)
-                        .Where(!Exp.Eq("id", user.ID.ToString()))
-                        .Where("removed", false);
-                    var count = db.ExecScalar<int>(q);
-                    if (count != 0)
-                    {
-                        throw new ArgumentOutOfRangeException("Duplicate username.");
-                    }
+                    throw new ArgumentOutOfRangeException("Duplicate username.");
+                }
 
-                    user.Email = user.Email.Trim();
-                    q = Query("core_user", tenant)
-                        .SelectCount()
-                        .Where("email", user.Email)
-                        .Where(!Exp.Eq("id", user.ID.ToString()))
-                        .Where("removed", false);
-                    count = db.ExecScalar<int>(q);
-                    if (count != 0)
-                    {
-                        throw new ArgumentOutOfRangeException("Duplicate email.");
-                    }
+                user.Email = user.Email.Trim();
+                q = Query("core_user", tenant)
+                    .SelectCount()
+                    .Where("email", user.Email)
+                    .Where(!Exp.Eq("id", user.ID.ToString()))
+                    .Where("removed", false);
+                count = db.ExecuteScalar<int>(q);
+                if (count != 0)
+                {
+                    throw new ArgumentOutOfRangeException("Duplicate email.");
+                }
 
-                    var i = Insert("core_user", tenant)
-                        .InColumnValue("id", user.ID.ToString())
-                        .InColumnValue("username", user.UserName)
-                        .InColumnValue("firstname", user.FirstName)
-                        .InColumnValue("lastname", user.LastName)
-                        .InColumnValue("sex", user.Sex)
-                        .InColumnValue("bithdate", user.BirthDate)
-                        .InColumnValue("status", user.Status)
-                        .InColumnValue("title", user.Title)
-                        .InColumnValue("workfromdate", user.WorkFromDate)
-                        .InColumnValue("terminateddate", user.TerminatedDate)
-                        .InColumnValue("contacts", user.ContactsToString())
-                        .InColumnValue("email", string.IsNullOrEmpty(user.Email) ? user.Email : user.Email.Trim())
-                        .InColumnValue("location", user.Location)
-                        .InColumnValue("notes", user.Notes)
-                        .InColumnValue("removed", user.Removed)
-                        .InColumnValue("last_modified", user.LastModified)
-                        .InColumnValue("activation_status", user.ActivationStatus)
-                        .InColumnValue("culture", user.CultureName)
-                        .InColumnValue("phone", user.MobilePhone)
-                        .InColumnValue("phone_activation", user.MobilePhoneActivationStatus)
-                        .InColumnValue("sid", user.Sid);
+                var i = Insert("core_user", tenant)
+                    .InColumnValue("id", user.ID.ToString())
+                    .InColumnValue("username", user.UserName)
+                    .InColumnValue("firstname", user.FirstName)
+                    .InColumnValue("lastname", user.LastName)
+                    .InColumnValue("sex", user.Sex)
+                    .InColumnValue("bithdate", user.BirthDate)
+                    .InColumnValue("status", user.Status)
+                    .InColumnValue("title", user.Title)
+                    .InColumnValue("workfromdate", user.WorkFromDate)
+                    .InColumnValue("terminateddate", user.TerminatedDate)
+                    .InColumnValue("contacts", user.ContactsToString())
+                    .InColumnValue("email", string.IsNullOrEmpty(user.Email) ? user.Email : user.Email.Trim())
+                    .InColumnValue("location", user.Location)
+                    .InColumnValue("notes", user.Notes)
+                    .InColumnValue("removed", user.Removed)
+                    .InColumnValue("last_modified", user.LastModified)
+                    .InColumnValue("activation_status", user.ActivationStatus)
+                    .InColumnValue("culture", user.CultureName)
+                    .InColumnValue("phone", user.MobilePhone)
+                    .InColumnValue("phone_activation", user.MobilePhoneActivationStatus)
+                    .InColumnValue("sid", user.Sid);
 
-                    db.ExecNonQuery(i);
-                });
+                db.ExecuteNonQuery(i);
+
+                tx.Commit();
+            }
 
             return user;
         }
@@ -326,14 +317,29 @@ namespace ASC.Core.Data
             return new SqlQuery("core_user u")
                 .Select("u.id", "u.username", "u.firstname", "u.lastname", "u.sex", "u.bithdate", "u.status", "u.title")
                 .Select("u.workfromdate", "u.terminateddate", "u.contacts", "u.email", "u.location", "u.notes", "u.removed")
-                .Select("u.last_modified", "u.tenant", "u.activation_status", "u.culture", "u.phone", "u.phone_activation", "u.sid");
+                .Select("u.last_modified", "u.tenant", "u.activation_status", "u.culture", "u.phone", "u.phone_activation", "u.sid", "u.create_on");
         }
 
         private static SqlQuery GetUserQuery(int tenant, DateTime from)
         {
             var q = GetUserQuery();
-            if (tenant != Tenant.DEFAULT_TENANT) q.Where("tenant", tenant);
-            if (from != default(DateTime)) q.Where(Exp.Ge("last_modified", from));
+            var where = Exp.Empty;
+            if (tenant != Tenant.DEFAULT_TENANT)
+            {
+                where &= Exp.Eq("tenant", tenant);
+            }
+            if (from != default(DateTime))
+            {
+                where &= Exp.Ge("last_modified", from);
+            }
+            if (where != Exp.Empty)
+            {
+                q.Where(where);
+            }
+            else
+            {
+                q.Where(Exp.False);
+            }
             return q;
         }
 
@@ -361,7 +367,8 @@ namespace ASC.Core.Data
                     CultureName = (string)r[18],
                     MobilePhone = (string)r[19],
                     MobilePhoneActivationStatus = (MobilePhoneActivationStatus)Convert.ToInt32(r[20]),
-                    Sid = (string)r[21]
+                    Sid = (string)r[21],
+                    CreateDate = Convert.ToDateTime(r[22])
                 };
             u.ContactsFromString((string)r[10]);
             return u;
@@ -370,8 +377,23 @@ namespace ASC.Core.Data
         private static SqlQuery GetGroupQuery(int tenant, DateTime from)
         {
             var q = new SqlQuery("core_group").Select("id", "name", "parentid", "categoryid", "removed", "last_modified", "tenant", "sid");
-            if (tenant != Tenant.DEFAULT_TENANT) q.Where("tenant", tenant);
-            if (from != default(DateTime)) q.Where(Exp.Ge("last_modified", from));
+            var where = Exp.Empty;
+            if (tenant != Tenant.DEFAULT_TENANT)
+            {
+                where &= Exp.Eq("tenant", tenant);
+            }
+            if (from != default(DateTime))
+            {
+                where &= Exp.Ge("last_modified", from);
+            }
+            if (where != Exp.Empty)
+            {
+                q.Where(where);
+            }
+            else
+            {
+                q.Where(Exp.False);
+            }
             return q;
         }
 
@@ -406,8 +428,23 @@ namespace ASC.Core.Data
         private static SqlQuery GetUserGroupRefQuery(int tenant, DateTime from)
         {
             var q = new SqlQuery("core_usergroup").Select("userid", "groupid", "ref_type", "removed", "last_modified", "tenant");
-            if (tenant != Tenant.DEFAULT_TENANT) q.Where("tenant", tenant);
-            if (from != default(DateTime)) q.Where(Exp.Ge("last_modified", from));
+            var where = Exp.Empty;
+            if (tenant != Tenant.DEFAULT_TENANT)
+            {
+                where &= Exp.Eq("tenant", tenant);
+            }
+            if (from != default(DateTime))
+            {
+                where &= Exp.Ge("last_modified", from);
+            }
+            if (where != Exp.Empty)
+            {
+                q.Where(where);
+            }
+            else
+            {
+                q.Where(Exp.False);
+            }
             return q;
         }
 

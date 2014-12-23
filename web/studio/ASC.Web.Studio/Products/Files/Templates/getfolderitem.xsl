@@ -8,10 +8,10 @@
     <li name="addRow">
       <xsl:attribute name="class">
         file-row folder-row new-folder item-row
-        <xsl:if test="provider_key">
+        <xsl:if test="provider_key != ''">
           third-party-entry
         </xsl:if>
-        <xsl:if test="error">
+        <xsl:if test="error != ''">
           error-entry
         </xsl:if>
         <xsl:if test="shared = 'true'">
@@ -19,11 +19,13 @@
         </xsl:if>
       </xsl:attribute>
       <xsl:attribute name="data-id">folder_<xsl:value-of select="id" /></xsl:attribute>
-      <xsl:if test="spare_data">
-        <xsl:attribute name="spare_data"><xsl:value-of select="spare_data" /></xsl:attribute>
-      </xsl:if>
       <div class="checkbox">
         <input type="checkbox" >
+          <xsl:attribute name="title">
+            <resource name="fres.TitleSelectFile" />
+          </xsl:attribute>
+        </input>
+        <input type="radio" name="fileRowInputCheck" >
           <xsl:attribute name="title">
             <resource name="fres.TitleSelectFile" />
           </xsl:attribute>
@@ -33,7 +35,7 @@
         <xsl:attribute name="title">
           <xsl:value-of select="title" />
         </xsl:attribute>
-        <xsl:if test="provider_key">
+        <xsl:if test="provider_key != ''">
           <div>
             <xsl:attribute name="class">
               provider-key
@@ -53,7 +55,7 @@
             </a>
           </div>
           <xsl:if test="isnew > 0">
-            <div class="is-new">
+            <div class="new-label-menu is-new">
               <xsl:attribute name="title">
                 <resource name="fres.RemoveIsNew" />
               </xsl:attribute>
@@ -63,9 +65,9 @@
         </div>
         <div class="entry-descr">
 
-          <xsl:if test="create_by">
+          <xsl:if test="create_by != ''">
             <xsl:choose>
-              <xsl:when test="error">
+              <xsl:when test="error != ''">
                 <span>
                   <xsl:attribute name="title">
                     <xsl:value-of select="error" />
@@ -81,10 +83,18 @@
                   <xsl:value-of select="create_by" />
                 </span>
                 <span> | </span>
-                <resource name="fres.TitleCreated" />&#160;<span>
+                <span class="title-created">
+                  <resource name="fres.TitleCreated" />
+                </span>
+                <span class="title-removed">
+                  <resource name="fres.TitleRemoved" />
+                </span>&#160;<span class="create-date">
                   <xsl:value-of select="create_on" />
                 </span>
-                <xsl:if test="not(provider_key)">
+                <span class="modified-date" >
+                  <xsl:value-of select="modified_on" />
+                </span>
+                <xsl:if test="not(provider_key) or provider_key = ''">
                   <span> | </span>
                   <resource name="fres.TitleFiles" />&#160;<span class="countFiles">
                     <xsl:value-of select="total_files" />
@@ -152,7 +162,7 @@
       </div>
       <div class="entry-descr-compact">
         <xsl:choose>
-          <xsl:when test="error">
+          <xsl:when test="error != ''">
             <span>
               <xsl:attribute name="title">
                 <xsl:value-of select="error" />
@@ -180,28 +190,33 @@
         <xsl:if test="contains(file_status, 'IsEditing')">
           on-edit
         </xsl:if>
-        <xsl:if test="provider_key">
+        <xsl:if test="contains(file_status, 'IsEditingAlone')">
+          on-edit-alone
+        </xsl:if>
+        <xsl:if test="provider_key != ''">
           third-party-entry
         </xsl:if>
-        <xsl:if test="error">
+        <xsl:if test="error != ''">
           error-entry
         </xsl:if>
         <xsl:if test="shared = 'true'">
           __active
         </xsl:if>
-        <xsl:if test="locked">
+        <xsl:if test="locked = 'true'">
           file-locked
         </xsl:if>
-        <xsl:if test="locked_by">
+        <xsl:if test="locked_by != ''">
           file-locked-by
         </xsl:if>
       </xsl:attribute>
       <xsl:attribute name="data-id">file_<xsl:value-of select="id" /></xsl:attribute>
-      <xsl:if test="spare_data">
-        <xsl:attribute name="spare_data"><xsl:value-of select="spare_data" /></xsl:attribute>
-      </xsl:if>
       <div class="checkbox">
         <input type="checkbox" >
+          <xsl:attribute name="title">
+            <resource name="fres.TitleSelectFile" />
+          </xsl:attribute>
+        </input>
+        <input type="radio" name="fileRowInputCheck" >
           <xsl:attribute name="title">
             <resource name="fres.TitleSelectFile" />
           </xsl:attribute>
@@ -229,7 +244,7 @@
           </a>
           <div class="file-editing pencil"></div>
           <div class="file-lock">
-            <xsl:if test="locked_by">
+            <xsl:if test="locked_by != ''">
               <xsl:attribute name="data-name">
                 <xsl:value-of select="locked_by" />
               </xsl:attribute>
@@ -250,7 +265,7 @@
             </div>
           </xsl:if>
           <xsl:if test="contains(file_status, 'IsNew')">
-            <div class="is-new">
+            <div class="new-label-menu is-new">
               <xsl:attribute name="title">
                 <resource name="fres.RemoveIsNew" />
               </xsl:attribute>
@@ -265,9 +280,9 @@
         </div>
         <div class="entry-descr">
 
-          <xsl:if test="create_by">
+          <xsl:if test="create_by != ''">
             <xsl:choose>
-              <xsl:when test="error">
+              <xsl:when test="error != ''">
                 <span>
                   <xsl:attribute name="title">
                     <xsl:value-of select="error" />
@@ -292,15 +307,11 @@
                       <resource name="fres.TitleUploaded" />
                     </xsl:otherwise>
                   </xsl:choose>
+                </span>
+                <span class="title-removed" >
+                  <resource name="fres.TitleRemoved" />
                 </span>&#160;<span class="modified-date">
-                  <xsl:choose>
-                    <xsl:when test="version > 1">
-                      <xsl:value-of select="modified_on" />
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:value-of select="create_on" />
-                    </xsl:otherwise>
-                  </xsl:choose>
+                  <xsl:value-of select="modified_on" />
                 </span>
                 <span> | </span>
                 <span class="content-length">
@@ -363,7 +374,7 @@
       </div>
       <div class="entry-descr-compact">
         <xsl:choose>
-          <xsl:when test="error">
+          <xsl:when test="error != ''">
             <span>
               <xsl:attribute name="title">
                 <xsl:value-of select="error" />

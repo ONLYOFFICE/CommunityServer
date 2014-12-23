@@ -7,7 +7,7 @@
     <h2>
         Batching requests</h2>
     <p>
-        The standard version of the <a href="./">TeamLab API</a> is designed to make it really
+        The standard version of the ONLYOFFICE™ API is designed to make it really
         easy to get data for an individual object and to browse connections between objects.
         It also includes a limited ability to retrieve data for several objects in a single request.</p>
     <p>
@@ -15,9 +15,9 @@
         single go - or you need to make changes to several objects at once, it is often
         more efficient to batch your queries rather than make multiple individual HTTP requests.</p>
     <p>
-        To enable this, the Teamlab API supports request batching which allows you to pass instructions
+        To enable this, the ONLYOFFICE™ API supports request batching which allows you to pass instructions
         for several operations in a single HTTP request. You can also specify dependencies
-        between related operations (described in the <b>Batch requests containing multiple methods</b> section below). Teamlab will process
+        between related operations (described in the <b>Batch requests containing multiple methods</b> section below). ONLYOFFICE™ will process
         each of your independent operations in parallel and will process your dependent
         operations sequentially. Once all operations have been completed, a consolidated
         response will be passed back to you and the HTTP connection will be closed.</p>
@@ -25,32 +25,30 @@
         Making a simple batched request</h2>
     <p>
         The batch API takes in an array of logical HTTP requests represented as JSON arrays
-        - each request has a <code>method</code> (corresponding to HTTP method GET/PUT/POST/DELETE etc),
-        a <code>relativeUrl</code> (the portion of the URL after <code>&lt;portalname&gt;.teamlab.com</code>), optional headers
-        array (corresponding to HTTP headers) and an optional <code>body</code> (for POST and PUT requests).
+        - each request has a <b>method</b> (corresponding to HTTP method GET/PUT/POST/DELETE etc),
+        a <b>relativeUrl</b> (the portion of the URL after <b>&lt;portalname&gt;.onlyoffice.com</b>), optional headers
+        array (corresponding to HTTP headers) and an optional <b>body</b> (for POST and PUT requests).
         The batch API returns an array of logical HTTP responses represented as JSON arrays
         - each response has a status code, an optional headers array and an optional body
         (which is a JSON encoded string).</p>
     <p>
         To make batched requests, you build a JSON object which describes each individual
-        operation you'd like to perform and <code>POST</code> this to the TeamLab API endpoint
-        at <code>/api/2.0/batch</code>. The following example gets the current
+        operation you'd like to perform and <b>POST</b> this to the ONLYOFFICE™ API endpoint
+        at <b>/api/2.0/batch</b>. The following example gets the current
         user's profile information and the user group in a single request:</p>
-    <pre><code>batch=[
+    <pre>batch=[
 {"method": "GET", "relativeUrl":"/api/2.0/people/@self"}, 
 {"method": "GET", "relativeUrl": "/api/2.0/group/@self"}
-]
-    </code>
-</pre>
+]</pre>
     <p>
-        Once both operations have been completed, TeamLab sends a response which encapsulates
+        Once both operations have been completed, ONLYOFFICE™ sends a response which encapsulates
         the result of all the operations. For each operation, the response includes a status
         code, header information, and the body. These are equivalent to the response you
-        could expect from each operation if performed as raw requests against the TeamLab
+        could expect from each operation if performed as raw requests against the ONLYOFFICE™
         API. The body field contains a string encoded JSON object:</p>
     <p>
         For the above request, the expected response would be of the form:</p>
-    <pre><code>
+    <pre>
 {
     "count":2,
     "startIndex":0,
@@ -71,26 +69,23 @@
             "headers":{...}
                ]
 }
-</code></pre>
-    <p>
-        <a name="multiple_methods"></a>
-    </p>
+</pre>
     <h2>
         Batch requests containing multiple methods</h2>
     <p>
         It is possible to combine operations that would normally use different HTTP methods
-        into a single batch request. While <code>GET</code> and <code>DELETE</code> operations
-        must only have a <code>relativeUrl</code> and a <code>method</code> field, <code>POST</code>
-        and <code>PUT</code> operations may contain an optional <code>body</code> field.
+        into a single batch request. While <b>GET</b> and <b>DELETE</b> operations
+        must only have a <b>relativeUrl</b> and a <b>method</b> field, <b>POST</b>
+        and <b>PUT</b> operations may contain an optional <b>body</b> field.
         This should be formatted as a raw HTTP POST body string, similar to a URL query
         string. The following example gets information on the current contact and updates
         the contact information for the contact with the selected ID in a single operation:</p>
-    <pre><code>batch=[
+    <pre>batch=[
 {"method": "GET", "relativeUrl":"/api/2.0/people/@self"}, 
 {"method": "POST", "relativeUrl": "/api/2.0/people/{userid}/contacts", 
 "body":"contacts[0].Type=skype&amp;contacts[0].Value=skypename&amp;contacts[1].Type=msn&amp;contacts[1].Value=msn_login"}
 ]
-    </code></pre>
+    </pre>
   
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptPlaceholder" runat="server">

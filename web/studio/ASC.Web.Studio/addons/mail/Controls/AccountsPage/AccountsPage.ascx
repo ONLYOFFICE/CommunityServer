@@ -25,7 +25,6 @@
 
 
 <div id="accountActionMenu" class="studio-action-panel">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li><a class="activateAccount dropdown-item"><%=MailResource.ActivateAccountLabel%></a></li>
         <li><a class="deactivateAccount dropdown-item"><%=MailResource.DeactivateAccountLabel%></a></li>

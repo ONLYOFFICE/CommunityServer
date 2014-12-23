@@ -10,7 +10,7 @@
 <div id="thirdPartyAccountContainer">
     <% if (ImportConfiguration.SupportInclusion)%>
     <% { %>
-    <a id="thirdPartyConnectAccount" class="button middle blue">
+    <a class="account-connect button middle blue">
         <%= FilesUCResource.ThirdPartyConnectAccount %>
     </a>
     <% } %>
@@ -76,76 +76,46 @@
             <%=FilesUCResource.ThirdPartyConnectingAccount%>
         </header>
         <body>
-            <div>
-                <%=FilesUCResource.ThirdPartyConnectAccountsDescription%>
+            <%=FilesUCResource.ThirdPartyConnectAccountsDescription%>
+            <div class="clearFix">
+                <% if (ImportConfiguration.SupportGoogleDriveInclusion) %>
+                <% { %>
+                <span class="add-account-big add-account-button GoogleDrive" data-provider="GoogleDrive" title="<%= FilesUCResource.ThirdPartyGoogleDrive %>"></span>
+                <% } %>
+                <% if (ImportConfiguration.SupportBoxNetInclusion) %>
+                <% { %>
+                <span class="add-account-big add-account-button BoxNet" data-provider="BoxNet" title="<%= FilesUCResource.ThirdPartyBoxNet %>"></span>
+                <% } %>
+                <% if (ImportConfiguration.SupportDropboxInclusion) %>
+                <% { %>
+                <span class="add-account-big add-account-button DropBox" data-provider="DropBox" title="<%= FilesUCResource.ThirdPartyDropBox %>"></span>
+                <% } %>
+                <% if (ImportConfiguration.SupportSharePointInclusion) %>
+                <% { %>
+                <span class="add-account-big add-account-button SharePoint" data-provider="SharePoint" title="<%= FilesUCResource.ThirdPartySharePoint %>"></span>
+                <% } %>
+                <% if (ImportConfiguration.SupportOneDriveInclusion) %>
+                <% { %>
+                <span class="add-account-big add-account-button SkyDrive" data-provider="SkyDrive" title="<%= FilesUCResource.ThirdPartySkyDrive %>"></span>
+                <% } %>
+                <% if (ImportConfiguration.SupportSharePointInclusion) %>
+                <% { %>
+                <span class="add-account-big add-account-button SharePoint SkyDrive" data-provider="SharePoint" title="<%= FilesUCResource.ThirdPartySharePointDescr %>"></span>
+                <% } %>
+                <% if (ImportConfiguration.SupportYandexInclusion) %>
+                <% { %>
+                <span class="add-account-big add-account-button Yandex" data-provider="Yandex" title="<%= FilesUCResource.ThirdPartyYandex %>"></span>
+                <% } %>
+                <% if (ImportConfiguration.SupportWebDavInclusion) %>
+                <% { %>
+                <span class="add-account-big add-account-button WebDav" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyWebDav %>"><%= FilesUCResource.ButtonAddWebDav %></span>
+                <% } %>
             </div>
-            <table cellpadding="0" cellspacing="0" width="100%">
-                <tbody>
-                    <tr>
-                        <% if (ImportConfiguration.SupportBoxNetInclusion) %>
-                        <% { %>
-                        <td align="center">
-                            <div class="account-popup-icon BoxNetBig"></div>
-                            <a class="button middle blue add-account-button BoxNet" data-provider="BoxNet">
-                                <%= FilesUCResource.ThirdPartyBoxNet %>
-                            </a>
-                        </td>
-                        <% } %>
-                        <% if (ImportConfiguration.SupportDropboxInclusion) %>
-                        <% { %>
-                        <td align="center">
-                            <div class="account-popup-icon DropBoxBig"></div>
-                            <a class="button middle blue add-account-button DropBox" data-provider="DropBox">
-                                <%= FilesUCResource.ThirdPartyDropBox %>
-                            </a>
-                        </td>
-                        <% } %>
-                        <% if (ImportConfiguration.SupportGoogleInclusion) %>
-                        <% { %>
-                        <td align="center">
-                            <div class="account-popup-icon GoogleBig"></div>
-                            <a class="button middle blue add-account-button Google" data-provider="Google">
-                                <%= FilesUCResource.ThirdPartyGoogleDrive %>
-                            </a>
-                        </td>
-                        <% } %>
-                        <% if (ImportConfiguration.SupportGoogleDriveInclusion) %>
-                        <% { %>
-                        <td align="center">
-                            <div class="account-popup-icon GoogleBig"></div>
-                            <a class="button middle blue add-account-button GoogleDrive" data-provider="GoogleDrive">
-                                <%= FilesUCResource.ThirdPartyGoogleDrive %>
-                            </a>
-                        </td>
-                        <% } %>
-                        <% if (ImportConfiguration.SupportSkyDriveInclusion) %>
-                        <% { %>
-                        <td align="center">
-                            <div class="account-popup-icon SkyDriveBig"></div>
-                            <a class="button middle blue add-account-button SkyDrive" data-provider="SkyDrive">
-                                <%= FilesUCResource.ThirdPartySkyDrive %>
-                            </a>
-                        </td>
-                        <% } %>
-                        <% if (ImportConfiguration.SupportSharePointInclusion) %>
-                        <% { %>
-                        <td align="center">
-                            <div class="account-popup-icon SharePointBig"></div>
-                            <a class="button middle blue add-account-button SharePoint" data-provider="SharePoint">
-                                <%= FilesUCResource.ThirdPartySharePoint %>
-                            </a>
-                        </td>
-                        <% } %>
-                    </tr>
-                </tbody>
-            </table>
         </body>
     </sc:Container>
 </div>
 
 <div id="thirdPartyActionPanel" class="studio-action-panel">
-    <div class="corner-top right">
-    </div>
     <ul class="dropdown-content">
         <li id="accountEditLinkContainer">
             <a class="dropdown-item">

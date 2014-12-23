@@ -1,34 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
-*/
-
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 if (typeof jq == "undefined")
@@ -52,13 +47,25 @@ jQuery.fn.yellowFade = function () {
         function () {
             jq(this).css({backgroundColor: ""});
         }));
-    };
+};
+
+jQuery.fn.colorFade = function(color, tiemout, cb) {
+    return (this.css({ backgroundColor: color, borderColor: color }).animate(
+        { backgroundColor: "#ffffff" },
+        tiemout,
+        function() {
+            jq(this).css({ backgroundColor: "", borderColor: "" });
+            if (cb) {
+                cb();
+            }
+        }));
+};
 
 // google analitics track
 var trackingGoogleAnalitics = function (ctg, act, lbl) {
     try {
-        if (window._gat) {
-            window._gaq.push(['_trackEvent', ctg, act, lbl]);
+        if (window.ga) {
+            window.ga('send', 'event', ctg, act, lbl);
         }
     } catch (err) {
     }
@@ -299,25 +306,26 @@ StudioBlockUIManager = {
             jq.blockUI({
                 message: jq(obj),
                 css: {
-                    left: '50%',
-                    top: '50%',
-                    opacity: '1',
-                    border: 'none',
-                    padding: '0px',
-                    width: width > 0 ? width + 'px' : 'auto',
-                    height: height > 0 ? height + 'px' : 'auto',
-                    cursor: 'default',
-                    textAlign: 'left',
+                    backgroundColor: "transparent",
+                    border: "none",
+                    cursor: "default",
+                    height: height > 0 ? height + "px" : "auto",
+                    left: "50%",
+                    marginLeft: left + "px",
+                    marginTop: top + "px",
+                    opacity: "1",
+                    overflow: "visible",
+                    padding: "0px",
                     position: position,
-                    'margin-left': left + 'px',
-                    'margin-top': top + 'px',
-                    'background-color': 'Transparent'
+                    textAlign: "left",
+                    top: "50%",
+                    width: width > 0 ? width + "px" : "auto",
                 },
 
                 overlayCSS: {
-                    backgroundColor: '#aaaaaa',
-                    cursor: 'default',
-                    opacity: '0.3'
+                    backgroundColor: "#aaa",
+                    cursor: "default",
+                    opacity: "0.3"
                 },
 
                 focusInput: true,
@@ -662,10 +670,8 @@ var EventTracker = new function () {
     this.Track = function (event) {
 
         try {
-            var pageTracker = _gat._getTracker("UA-12442749-4");
-
-            if (pageTracker != null) {
-                pageTracker._trackPageview(event);
+            if (window.ga) {
+                window.ga('send', 'pageview', event);
             }
         } catch (err) {
         }
@@ -710,36 +716,6 @@ function SortData(a, b) {
  * EmailOperationManager
  */
 var EmailOperationManager = new function () {
-
-    this.SendEmailActivationInstructionsOnChange = function (newEmail, newEmailConfirm, queryString) {
-        jq("[id$='studio_confirmMessage']").hide();
-        jq("[id$='studio_confirmMessage'] div").hide();
-        jq("#emailInputContainer").addClass("display-none"); //hide email on send
-        EmailOperationService.SendEmailActivationInstructionsOnChange(newEmail, newEmailConfirm, queryString, this._SendEmailActivationInstructionsOnChangeResponse);
-    };
-
-    this._SendEmailActivationInstructionsOnChangeResponse = function (response) {
-        jq("[id$='studio_confirmMessage']").show();
-
-        if (response.error != null) {
-            jq("#studio_confirmMessage_errortext").text(response.error.Message).show();
-            return;
-        }
-        if (response.value.status == "success") {
-            jq("#studio_confirmMessage_successtext").html(response.value.message).show();
-            jq("#emailInputContainer").addClass("display-none");
-            jq("#currentEmailText").hide();
-        }
-        if (response.value.status == "error") {
-            jq("#studio_confirmMessage_errortext").text(response.value.message).show();
-            jq("#emailInputContainer").removeClass("display-none");
-        }
-        if (response.value.status == "fatalerror") {
-            jq("#studio_confirmMessage_errortext").text(response.value.message).show();
-            jq("#emailInputContainer").addClass("display-none");
-        }
-    };
-
     this.SendEmailActivationInstructions = function (userEmail, userID) {
         AjaxPro.onLoading = function (b) {
             if (b) {
@@ -784,6 +760,7 @@ var EmailOperationManager = new function () {
         if (adminMode == true) {
             jq("#emailInputContainer").removeClass("display-none");
             jq("#emailMessageContainer").addClass("display-none");
+            jq("#btEmailOperationSend").addClass("disable");
         } else {
             jq("#emailInputContainer").addClass("display-none");
             jq("#emailMessageContainer").removeClass("display-none");
@@ -806,14 +783,26 @@ var EmailOperationManager = new function () {
         jq("#emailActivationDialogText").addClass("display-none");
 
         jq("#emailOperation_email").val(userEmail);
-
+        
         this.OpenPopupDialog();
-
+        
         jq("#btEmailOperationSend").unbind("click");
 
         jq("#btEmailOperationSend").click(function () {
+            if (jq(this).hasClass("disable")) return false;
             var newEmail = jq("#emailOperation_email").val();
             EmailOperationManager.SendEmailChangeInstructions(newEmail, userID);
+            return false;
+        });
+        
+        jq("#emailOperation_email").unbind("onkeyup");
+        
+        jq("#emailOperation_email").keyup(function () {
+            if (jq(this).val() != userEmail) {
+                jq("#btEmailOperationSend").removeClass("disable");
+            } else {
+                jq("#btEmailOperationSend").addClass("disable");
+            }
             return false;
         });
     };
@@ -847,7 +836,9 @@ var EmailOperationManager = new function () {
         jq("#emailActivationDialogText").show();
 
         jq("#emailOperation_email").val(userEmail);
-
+        jq("#btEmailOperationSend").removeClass("disable");
+        jq("#emailOperation_email").unbind("onkeyup");
+        
         this.OpenPopupDialog();
 
         jq("#btEmailOperationSend").unbind("click");
@@ -889,7 +880,9 @@ var EmailOperationManager = new function () {
         jq("#resendInviteDialogText").show();
 
         jq("#emailOperation_email").val(userEmail);
-
+        jq("#btEmailOperationSend").removeClass("disable");
+        jq("#emailOperation_email").unbind("onkeyup");
+        
         this.OpenPopupDialog();
 
         jq("#btEmailOperationSend").unbind("click");
@@ -940,7 +933,18 @@ LoadingBanner = function () {
         strLoading = "Loading...",
         strDescription = "Please wait...",
         successId = "successBanner",
-        strSuccess = "Successfully completed";
+        strSuccess = "Successfully completed",
+        timer = null;
+    
+    var hideMesInfoBtn = function () {
+        clearTimeout(timer);
+        var $infoContainer = jq("#mesInfoBtn");
+        if ($infoContainer.length) {
+            $infoContainer.parent().css({ "margin-top": "32px" });
+            $infoContainer.remove();
+        }
+    };
+
     return {
         animateDelay: animateDelay,
         displayDelay: displayDelay,
@@ -997,6 +1001,8 @@ LoadingBanner = function () {
             setTimeout(function () { jq(id).remove(); }, 3000);
         },
         showLoaderBtn: function(block) {
+            hideMesInfoBtn();
+
             var loaderHtml = "<div class=\"loader-container\">{0}</div>".format(LoadingBanner.strLoading),
                 btnContainer = jq(block).find("[class*=\"button-container\"]");
             jq(btnContainer).siblings(".error-popup, .success-popup").each(function() {jq(this).hide();});
@@ -1012,11 +1018,19 @@ LoadingBanner = function () {
         },
 
         showMesInfoBtn: function (block, text, type) {
-            var btnContainer = jq(block).find("[class*=\"button-container\"]"),
-                loaderHtml = "<div class=\"" + type + "-container\"><span>{0}</span></div>".format(text);
-            jq(btnContainer).append(loaderHtml);
-            setTimeout(function () { jq(btnContainer).find("." + type + "-container").remove(); }, 3500);
-    },
+            hideMesInfoBtn();
+            
+            var $btnContainer = jq(block).find("[class*=\"button-container\"]");
+            $btnContainer.append("<div id=\"mesInfoBtn\" class=\"{0}-container\"><span>{1}</span></div>".format(type, text));
+
+            var $tmpl = jq("#mesInfoBtn");
+            if ($tmpl.outerHeight() > parseInt($btnContainer.css("marginTop"))) {
+                $btnContainer.css({"margin-top": $tmpl.outerHeight() + 8 + "px"});
+                $tmpl.css({"top": -$tmpl.outerHeight() - 4 + "px"});
+            }
+
+            timer = setTimeout(hideMesInfoBtn, 3500);
+        }
     };
 }();
 
@@ -1118,22 +1132,17 @@ var LeftMenuManager = new function () {
                 switcherSelector: ".without-separator",
                 dropdownID: "createNewButton",
                 noActiveSwitcherSelector: ".with-separator .white-combobox",
-                addTop: 1,
+                addTop: 4,
                 addLeft: 0
             });
-
-            $dropDownObj.show();
-            var cornerLeft = $dropDownObj.children(".corner-top").position().left;
-            $dropDownObj.hide();
-            var addLeft = -cornerLeft + 7;
 
             jq.dropdownToggle({
                 switcherSelector: ".with-separator .white-combobox",
                 dropdownID: "createNewButton",
                 noActiveSwitcherSelector: ".without-separator",
                 position: "absolute",
-                addTop: 2,
-                addLeft: addLeft
+                addTop: 3,
+                addLeft: 0
             });
 
             jq(".menu-main-button .main-button-text").click(function (event) {
@@ -1148,7 +1157,7 @@ var LeftMenuManager = new function () {
             switcherSelector: "#menuOtherActionsButton",
             dropdownID: "otherActions",
             position: "absolute",
-            addTop: 1,
+            addTop: 4,
             addLeft: 0
         });
     };
@@ -1314,8 +1323,135 @@ var FileSizeManager = new function () {
     };
 };
 
+var htmlUtility = new function () {
+    return {
+        getFull: function (text) {
+            var doc = jq(document.createElement("div"));
+            doc.html(text);
+
+            doc.find("script").remove();
+
+            var blockedAttrs = [
+                "onload",
+                "onunload",
+                "onclick",
+                "ondblclick",
+                "onmousedown",
+                "onmouseup",
+                "onmouseover",
+                "onmousemove",
+                "onmouseout",
+                "onfocus",
+                "onblur",
+                "onkeypress",
+                "onkeydown",
+                "onkeyup",
+                "onsubmit",
+                "onreset",
+                "onselect",
+                "onchange"];
+            doc.find("[" + blockedAttrs.join("],[") + "]").removeAttr(blockedAttrs.join(" "));
+
+            return doc.html();
+        }
+    };
+};
+
 /**
  * Encoder
  */
 Encoder = { EncodeType: "entity", isEmpty: function(val) { if (val) { return ((val === null) || val.length == 0 || /^\s+$/.test(val)); } else { return true; } }, HTML2Numerical: function(s) { var arr1 = new Array('&nbsp;', '&iexcl;', '&cent;', '&pound;', '&curren;', '&yen;', '&brvbar;', '&sect;', '&uml;', '&copy;', '&ordf;', '&laquo;', '&not;', '&shy;', '&reg;', '&macr;', '&deg;', '&plusmn;', '&sup2;', '&sup3;', '&acute;', '&micro;', '&para;', '&middot;', '&cedil;', '&sup1;', '&ordm;', '&raquo;', '&frac14;', '&frac12;', '&frac34;', '&iquest;', '&agrave;', '&aacute;', '&acirc;', '&atilde;', '&Auml;', '&aring;', '&aelig;', '&ccedil;', '&egrave;', '&eacute;', '&ecirc;', '&euml;', '&igrave;', '&iacute;', '&icirc;', '&iuml;', '&eth;', '&ntilde;', '&ograve;', '&oacute;', '&ocirc;', '&otilde;', '&Ouml;', '&times;', '&oslash;', '&ugrave;', '&uacute;', '&ucirc;', '&Uuml;', '&yacute;', '&thorn;', '&szlig;', '&agrave;', '&aacute;', '&acirc;', '&atilde;', '&auml;', '&aring;', '&aelig;', '&ccedil;', '&egrave;', '&eacute;', '&ecirc;', '&euml;', '&igrave;', '&iacute;', '&icirc;', '&iuml;', '&eth;', '&ntilde;', '&ograve;', '&oacute;', '&ocirc;', '&otilde;', '&ouml;', '&divide;', '&Oslash;', '&ugrave;', '&uacute;', '&ucirc;', '&uuml;', '&yacute;', '&thorn;', '&yuml;', '&quot;', '&amp;', '&lt;', '&gt;', '&oelig;', '&oelig;', '&scaron;', '&scaron;', '&yuml;', '&circ;', '&tilde;', '&ensp;', '&emsp;', '&thinsp;', '&zwnj;', '&zwj;', '&lrm;', '&rlm;', '&ndash;', '&mdash;', '&lsquo;', '&rsquo;', '&sbquo;', '&ldquo;', '&rdquo;', '&bdquo;', '&dagger;', '&dagger;', '&permil;', '&lsaquo;', '&rsaquo;', '&euro;', '&fnof;', '&alpha;', '&beta;', '&gamma;', '&delta;', '&epsilon;', '&zeta;', '&eta;', '&theta;', '&iota;', '&kappa;', '&lambda;', '&mu;', '&nu;', '&xi;', '&omicron;', '&pi;', '&rho;', '&sigma;', '&tau;', '&upsilon;', '&phi;', '&chi;', '&psi;', '&omega;', '&alpha;', '&beta;', '&gamma;', '&delta;', '&epsilon;', '&zeta;', '&eta;', '&theta;', '&iota;', '&kappa;', '&lambda;', '&mu;', '&nu;', '&xi;', '&omicron;', '&pi;', '&rho;', '&sigmaf;', '&sigma;', '&tau;', '&upsilon;', '&phi;', '&chi;', '&psi;', '&omega;', '&thetasym;', '&upsih;', '&piv;', '&bull;', '&hellip;', '&prime;', '&prime;', '&oline;', '&frasl;', '&weierp;', '&image;', '&real;', '&trade;', '&alefsym;', '&larr;', '&uarr;', '&rarr;', '&darr;', '&harr;', '&crarr;', '&larr;', '&uarr;', '&rarr;', '&darr;', '&harr;', '&forall;', '&part;', '&exist;', '&empty;', '&nabla;', '&isin;', '&notin;', '&ni;', '&prod;', '&sum;', '&minus;', '&lowast;', '&radic;', '&prop;', '&infin;', '&ang;', '&and;', '&or;', '&cap;', '&cup;', '&int;', '&there4;', '&sim;', '&cong;', '&asymp;', '&ne;', '&equiv;', '&le;', '&ge;', '&sub;', '&sup;', '&nsub;', '&sube;', '&supe;', '&oplus;', '&otimes;', '&perp;', '&sdot;', '&lceil;', '&rceil;', '&lfloor;', '&rfloor;', '&lang;', '&rang;', '&loz;', '&spades;', '&clubs;', '&hearts;', '&diams;'); var arr2 = new Array('&#160;', '&#161;', '&#162;', '&#163;', '&#164;', '&#165;', '&#166;', '&#167;', '&#168;', '&#169;', '&#170;', '&#171;', '&#172;', '&#173;', '&#174;', '&#175;', '&#176;', '&#177;', '&#178;', '&#179;', '&#180;', '&#181;', '&#182;', '&#183;', '&#184;', '&#185;', '&#186;', '&#187;', '&#188;', '&#189;', '&#190;', '&#191;', '&#192;', '&#193;', '&#194;', '&#195;', '&#196;', '&#197;', '&#198;', '&#199;', '&#200;', '&#201;', '&#202;', '&#203;', '&#204;', '&#205;', '&#206;', '&#207;', '&#208;', '&#209;', '&#210;', '&#211;', '&#212;', '&#213;', '&#214;', '&#215;', '&#216;', '&#217;', '&#218;', '&#219;', '&#220;', '&#221;', '&#222;', '&#223;', '&#224;', '&#225;', '&#226;', '&#227;', '&#228;', '&#229;', '&#230;', '&#231;', '&#232;', '&#233;', '&#234;', '&#235;', '&#236;', '&#237;', '&#238;', '&#239;', '&#240;', '&#241;', '&#242;', '&#243;', '&#244;', '&#245;', '&#246;', '&#247;', '&#248;', '&#249;', '&#250;', '&#251;', '&#252;', '&#253;', '&#254;', '&#255;', '&#34;', '&#38;', '&#60;', '&#62;', '&#338;', '&#339;', '&#352;', '&#353;', '&#376;', '&#710;', '&#732;', '&#8194;', '&#8195;', '&#8201;', '&#8204;', '&#8205;', '&#8206;', '&#8207;', '&#8211;', '&#8212;', '&#8216;', '&#8217;', '&#8218;', '&#8220;', '&#8221;', '&#8222;', '&#8224;', '&#8225;', '&#8240;', '&#8249;', '&#8250;', '&#8364;', '&#402;', '&#913;', '&#914;', '&#915;', '&#916;', '&#917;', '&#918;', '&#919;', '&#920;', '&#921;', '&#922;', '&#923;', '&#924;', '&#925;', '&#926;', '&#927;', '&#928;', '&#929;', '&#931;', '&#932;', '&#933;', '&#934;', '&#935;', '&#936;', '&#937;', '&#945;', '&#946;', '&#947;', '&#948;', '&#949;', '&#950;', '&#951;', '&#952;', '&#953;', '&#954;', '&#955;', '&#956;', '&#957;', '&#958;', '&#959;', '&#960;', '&#961;', '&#962;', '&#963;', '&#964;', '&#965;', '&#966;', '&#967;', '&#968;', '&#969;', '&#977;', '&#978;', '&#982;', '&#8226;', '&#8230;', '&#8242;', '&#8243;', '&#8254;', '&#8260;', '&#8472;', '&#8465;', '&#8476;', '&#8482;', '&#8501;', '&#8592;', '&#8593;', '&#8594;', '&#8595;', '&#8596;', '&#8629;', '&#8656;', '&#8657;', '&#8658;', '&#8659;', '&#8660;', '&#8704;', '&#8706;', '&#8707;', '&#8709;', '&#8711;', '&#8712;', '&#8713;', '&#8715;', '&#8719;', '&#8721;', '&#8722;', '&#8727;', '&#8730;', '&#8733;', '&#8734;', '&#8736;', '&#8743;', '&#8744;', '&#8745;', '&#8746;', '&#8747;', '&#8756;', '&#8764;', '&#8773;', '&#8776;', '&#8800;', '&#8801;', '&#8804;', '&#8805;', '&#8834;', '&#8835;', '&#8836;', '&#8838;', '&#8839;', '&#8853;', '&#8855;', '&#8869;', '&#8901;', '&#8968;', '&#8969;', '&#8970;', '&#8971;', '&#9001;', '&#9002;', '&#9674;', '&#9824;', '&#9827;', '&#9829;', '&#9830;'); return this.swapArrayVals(s, arr1, arr2); }, NumericalToHTML: function(s) { var arr1 = new Array('&#160;', '&#161;', '&#162;', '&#163;', '&#164;', '&#165;', '&#166;', '&#167;', '&#168;', '&#169;', '&#170;', '&#171;', '&#172;', '&#173;', '&#174;', '&#175;', '&#176;', '&#177;', '&#178;', '&#179;', '&#180;', '&#181;', '&#182;', '&#183;', '&#184;', '&#185;', '&#186;', '&#187;', '&#188;', '&#189;', '&#190;', '&#191;', '&#192;', '&#193;', '&#194;', '&#195;', '&#196;', '&#197;', '&#198;', '&#199;', '&#200;', '&#201;', '&#202;', '&#203;', '&#204;', '&#205;', '&#206;', '&#207;', '&#208;', '&#209;', '&#210;', '&#211;', '&#212;', '&#213;', '&#214;', '&#215;', '&#216;', '&#217;', '&#218;', '&#219;', '&#220;', '&#221;', '&#222;', '&#223;', '&#224;', '&#225;', '&#226;', '&#227;', '&#228;', '&#229;', '&#230;', '&#231;', '&#232;', '&#233;', '&#234;', '&#235;', '&#236;', '&#237;', '&#238;', '&#239;', '&#240;', '&#241;', '&#242;', '&#243;', '&#244;', '&#245;', '&#246;', '&#247;', '&#248;', '&#249;', '&#250;', '&#251;', '&#252;', '&#253;', '&#254;', '&#255;', '&#34;', '&#38;', '&#60;', '&#62;', '&#338;', '&#339;', '&#352;', '&#353;', '&#376;', '&#710;', '&#732;', '&#8194;', '&#8195;', '&#8201;', '&#8204;', '&#8205;', '&#8206;', '&#8207;', '&#8211;', '&#8212;', '&#8216;', '&#8217;', '&#8218;', '&#8220;', '&#8221;', '&#8222;', '&#8224;', '&#8225;', '&#8240;', '&#8249;', '&#8250;', '&#8364;', '&#402;', '&#913;', '&#914;', '&#915;', '&#916;', '&#917;', '&#918;', '&#919;', '&#920;', '&#921;', '&#922;', '&#923;', '&#924;', '&#925;', '&#926;', '&#927;', '&#928;', '&#929;', '&#931;', '&#932;', '&#933;', '&#934;', '&#935;', '&#936;', '&#937;', '&#945;', '&#946;', '&#947;', '&#948;', '&#949;', '&#950;', '&#951;', '&#952;', '&#953;', '&#954;', '&#955;', '&#956;', '&#957;', '&#958;', '&#959;', '&#960;', '&#961;', '&#962;', '&#963;', '&#964;', '&#965;', '&#966;', '&#967;', '&#968;', '&#969;', '&#977;', '&#978;', '&#982;', '&#8226;', '&#8230;', '&#8242;', '&#8243;', '&#8254;', '&#8260;', '&#8472;', '&#8465;', '&#8476;', '&#8482;', '&#8501;', '&#8592;', '&#8593;', '&#8594;', '&#8595;', '&#8596;', '&#8629;', '&#8656;', '&#8657;', '&#8658;', '&#8659;', '&#8660;', '&#8704;', '&#8706;', '&#8707;', '&#8709;', '&#8711;', '&#8712;', '&#8713;', '&#8715;', '&#8719;', '&#8721;', '&#8722;', '&#8727;', '&#8730;', '&#8733;', '&#8734;', '&#8736;', '&#8743;', '&#8744;', '&#8745;', '&#8746;', '&#8747;', '&#8756;', '&#8764;', '&#8773;', '&#8776;', '&#8800;', '&#8801;', '&#8804;', '&#8805;', '&#8834;', '&#8835;', '&#8836;', '&#8838;', '&#8839;', '&#8853;', '&#8855;', '&#8869;', '&#8901;', '&#8968;', '&#8969;', '&#8970;', '&#8971;', '&#9001;', '&#9002;', '&#9674;', '&#9824;', '&#9827;', '&#9829;', '&#9830;'); var arr2 = new Array('&nbsp;', '&iexcl;', '&cent;', '&pound;', '&curren;', '&yen;', '&brvbar;', '&sect;', '&uml;', '&copy;', '&ordf;', '&laquo;', '&not;', '&shy;', '&reg;', '&macr;', '&deg;', '&plusmn;', '&sup2;', '&sup3;', '&acute;', '&micro;', '&para;', '&middot;', '&cedil;', '&sup1;', '&ordm;', '&raquo;', '&frac14;', '&frac12;', '&frac34;', '&iquest;', '&agrave;', '&aacute;', '&acirc;', '&atilde;', '&Auml;', '&aring;', '&aelig;', '&ccedil;', '&egrave;', '&eacute;', '&ecirc;', '&euml;', '&igrave;', '&iacute;', '&icirc;', '&iuml;', '&eth;', '&ntilde;', '&ograve;', '&oacute;', '&ocirc;', '&otilde;', '&Ouml;', '&times;', '&oslash;', '&ugrave;', '&uacute;', '&ucirc;', '&Uuml;', '&yacute;', '&thorn;', '&szlig;', '&agrave;', '&aacute;', '&acirc;', '&atilde;', '&auml;', '&aring;', '&aelig;', '&ccedil;', '&egrave;', '&eacute;', '&ecirc;', '&euml;', '&igrave;', '&iacute;', '&icirc;', '&iuml;', '&eth;', '&ntilde;', '&ograve;', '&oacute;', '&ocirc;', '&otilde;', '&ouml;', '&divide;', '&Oslash;', '&ugrave;', '&uacute;', '&ucirc;', '&uuml;', '&yacute;', '&thorn;', '&yuml;', '&quot;', '&amp;', '&lt;', '&gt;', '&oelig;', '&oelig;', '&scaron;', '&scaron;', '&yuml;', '&circ;', '&tilde;', '&ensp;', '&emsp;', '&thinsp;', '&zwnj;', '&zwj;', '&lrm;', '&rlm;', '&ndash;', '&mdash;', '&lsquo;', '&rsquo;', '&sbquo;', '&ldquo;', '&rdquo;', '&bdquo;', '&dagger;', '&dagger;', '&permil;', '&lsaquo;', '&rsaquo;', '&euro;', '&fnof;', '&alpha;', '&beta;', '&gamma;', '&delta;', '&epsilon;', '&zeta;', '&eta;', '&theta;', '&iota;', '&kappa;', '&lambda;', '&mu;', '&nu;', '&xi;', '&omicron;', '&pi;', '&rho;', '&sigma;', '&tau;', '&upsilon;', '&phi;', '&chi;', '&psi;', '&omega;', '&alpha;', '&beta;', '&gamma;', '&delta;', '&epsilon;', '&zeta;', '&eta;', '&theta;', '&iota;', '&kappa;', '&lambda;', '&mu;', '&nu;', '&xi;', '&omicron;', '&pi;', '&rho;', '&sigmaf;', '&sigma;', '&tau;', '&upsilon;', '&phi;', '&chi;', '&psi;', '&omega;', '&thetasym;', '&upsih;', '&piv;', '&bull;', '&hellip;', '&prime;', '&prime;', '&oline;', '&frasl;', '&weierp;', '&image;', '&real;', '&trade;', '&alefsym;', '&larr;', '&uarr;', '&rarr;', '&darr;', '&harr;', '&crarr;', '&larr;', '&uarr;', '&rarr;', '&darr;', '&harr;', '&forall;', '&part;', '&exist;', '&empty;', '&nabla;', '&isin;', '&notin;', '&ni;', '&prod;', '&sum;', '&minus;', '&lowast;', '&radic;', '&prop;', '&infin;', '&ang;', '&and;', '&or;', '&cap;', '&cup;', '&int;', '&there4;', '&sim;', '&cong;', '&asymp;', '&ne;', '&equiv;', '&le;', '&ge;', '&sub;', '&sup;', '&nsub;', '&sube;', '&supe;', '&oplus;', '&otimes;', '&perp;', '&sdot;', '&lceil;', '&rceil;', '&lfloor;', '&rfloor;', '&lang;', '&rang;', '&loz;', '&spades;', '&clubs;', '&hearts;', '&diams;'); return this.swapArrayVals(s, arr1, arr2); }, numEncode: function(s) { if (this.isEmpty(s)) return ""; var e = ""; for (var i = 0; i < s.length; i++) { var c = s.charAt(i); if (c < " " || c > "~") { c = "&#" + c.charCodeAt() + ";"; } e += c; } return e; }, htmlDecode: function(s) { var c, m, d = s; if (this.isEmpty(d)) return ""; d = this.HTML2Numerical(d); arr = d.match(/&#[0-9]{1,5};/g); if (arr != null) { for (var x = 0; x < arr.length; x++) { m = arr[x]; c = m.substring(2, m.length - 1); if (c >= -32768 && c <= 65535) { d = d.replace(m, String.fromCharCode(c)); } else { d = d.replace(m, ""); } } } return d; }, htmlEncode: function(s, dbl) { if (this.isEmpty(s)) return ""; dbl = dbl | false; if (dbl) { if (this.EncodeType == "numerical") { s = s.replace(/&/g, "&#38;"); } else { s = s.replace(/&/g, "&amp;"); } } s = this.XSSEncode(s, false); if (this.EncodeType == "numerical" || !dbl) { s = this.HTML2Numerical(s); } s = this.numEncode(s); if (!dbl) { s = s.replace(/&#/g, "##AMPHASH##"); if (this.EncodeType == "numerical") { s = s.replace(/&/g, "&#38;"); } else { s = s.replace(/&/g, "&amp;"); } s = s.replace(/##AMPHASH##/g, "&#"); } s = s.replace(/&#\d*([^\d;]|$)/g, "$1"); if (!dbl) { s = this.correctEncoding(s); } if (this.EncodeType == "entity") { s = this.NumericalToHTML(s); } return s; }, XSSEncode: function(s, en) { if (!this.isEmpty(s)) { en = en || true; if (en) { s = s.replace(/\'/g, "&#39;"); s = s.replace(/\"/g, "&quot;"); s = s.replace(/</g, "&lt;"); s = s.replace(/>/g, "&gt;"); } else { s = s.replace(/\'/g, "&#39;"); s = s.replace(/\"/g, "&#34;"); s = s.replace(/</g, "&#60;"); s = s.replace(/>/g, "&#62;"); } return s; } else { return ""; } }, hasEncoded: function(s) { if (/&#[0-9]{1,5};/g.test(s)) { return true; } else if (/&[A-Z]{2,6};/gi.test(s)) { return true; } else { return false; } }, stripUnicode: function(s) { return s.replace(/[^\x20-\x7E]/g, ""); }, correctEncoding: function(s) { return s.replace(/(&amp;)(amp;)+/, "$1"); }, swapArrayVals: function(s, arr1, arr2) { if (this.isEmpty(s)) return ""; var re; if (arr1 && arr2) { if (arr1.length == arr2.length) { for (var x = 0, i = arr1.length; x < i; x++) { re = new RegExp(arr1[x], 'g'); s = s.replace(re, arr2[x]); } } } return s; }, inArray: function(item, arr) { for (var i = 0, x = arr.length; i < x; i++) { if (arr[i] === item) { return i; } } return -1; } }
 less = {}; less.env = 'development';
+
+/**
+ * UserManager
+ */
+window.UserManager = new function() {
+    function getUser(userId) {
+        var users = ASC.Resources.Master.ApiResponses_Profiles.response;
+
+        if (!users) {
+            return null;
+        }
+
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].id == userId) {
+                return users[i];
+            }
+        }
+
+        return null;
+    }
+    
+    function getUsers(ids) {
+        if (!ids || !ids.length) {
+            return [];
+        }
+
+        var users = ASC.Resources.Master.ApiResponses_Profiles.response;
+        if (!users) {
+            return [];
+        }
+
+        var result = [];
+        for (var i = 0; i < users.length; i++) {
+            if (~ids.indexOf(users[i].id)) {
+                result.push(users[i]);
+            }
+        }
+
+        return result;
+    }
+
+    return {
+        getUser: getUser,
+        getUsers: getUsers
+    };
+};
+
+/*
+ * doPostback
+ */
+window.submitForm = function (eventTarget, eventArgument) {
+    var form = document.forms["aspnetForm"] || document.forms[0];
+
+    if (!form) return;
+
+    if (!form.__EVENTTARGET) {
+        var target = document.createElement("input");
+        target.setAttribute("id", "__EVENTTARGET");
+        target.setAttribute("type", "hidden");
+        target.setAttribute("value", "");
+        target.setAttribute("name", "__EVENTTARGET");
+        form.appendChild(target);
+    }
+
+    if (eventTarget) {
+        form.__EVENTTARGET.value = eventTarget;
+    }
+
+    if (!form.__EVENTARGUMENT) {
+        var argument = document.createElement("input");
+        argument.setAttribute("id", "__EVENTARGUMENT");
+        argument.setAttribute("type", "hidden");
+        argument.setAttribute("value", "");
+        argument.setAttribute("name", "__EVENTARGUMENT");
+        form.appendChild(argument);
+    }
+
+    if (eventArgument) {
+        form.__EVENTARGUMENT.value = eventArgument;
+    }
+
+    form.submit();
+};
+
+window.TipsManager = new function() {
+    function neverShowTips() {
+        Teamlab.updateTipsSettings({ show: false });
+    }
+
+    return {
+        neverShowTips: neverShowTips
+    };
+};

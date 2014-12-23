@@ -72,7 +72,6 @@
 
 <script id="projects_subtaskActionPanelTmpl" type="text/x-jquery-tmpl">
     <div id="subtaskActionPanel" class="studio-action-panel">
-	    <div class="corner-top right"></div>        
         <ul class="dropdown-content">
             <li id="sta_edit" class="dropdown-item"><span><%= TaskResource.Edit%></span></li>
             <li id="sta_accept" class="dropdown-item"><span><%= TaskResource.AcceptSubtask%></span></li>

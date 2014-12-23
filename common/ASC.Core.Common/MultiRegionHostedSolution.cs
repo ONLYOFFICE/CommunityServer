@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -87,10 +87,10 @@ namespace ASC.Core
             return result;
         }
 
-        public string RegisterTenant(string region, TenantRegistrationInfo ri, out Tenant tenant)
+        public void RegisterTenant(string region, TenantRegistrationInfo ri, out Tenant tenant)
         {
             ri.HostedRegion = region;
-            return GetRegionService(region).RegisterTenant(ri, out tenant);
+            GetRegionService(region).RegisterTenant(ri, out tenant);
         }
 
         public Tenant GetTenant(string domain)
@@ -141,6 +141,11 @@ namespace ASC.Core
         public void SetTariff(string region, int tenant, Tariff tariff)
         {
             GetRegionService(region).SetTariff(tenant, tariff);
+        }
+
+        public void SaveButton(string region, int tariffId, string partnerId, string buttonUrl)
+        {
+            GetRegionService(region).SaveButton(tariffId, partnerId, buttonUrl);
         }
 
         public TenantQuota GetTenantQuota(string region, int tenant)
@@ -201,18 +206,18 @@ namespace ASC.Core
                     {
                         initialized = true;
 
-                        var find = false;
-                        foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)
+
+                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["core.multi-hosted.config-only"] ?? "false"))
                         {
-                            if (cs.Name.StartsWith(dbid + "."))
+                            foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)
                             {
-                                var name = cs.Name.Substring(dbid.Length + 1);
-                                regions[name] = new HostedSolution(cs, name);
-                                find = true;
+                                if (cs.Name.StartsWith(dbid + "."))
+                                {
+                                    var name = cs.Name.Substring(dbid.Length + 1);
+                                    regions[name] = new HostedSolution(cs, name);
+                                }
                             }
-                        }
-                        if (find)
-                        {
+
                             regions[dbid] = new HostedSolution(ConfigurationManager.ConnectionStrings[dbid]);
                             if (!regions.ContainsKey(string.Empty))
                             {
@@ -221,27 +226,49 @@ namespace ASC.Core
                         }
                         else
                         {
-                            try
+
+                            var find = false;
+                            foreach (ConnectionStringSettings cs in ConfigurationManager.ConnectionStrings)
                             {
-                                using (var db = new DbManager(dbid))
+                                if (cs.Name.StartsWith(dbid + "."))
                                 {
-                                    var q = new SqlQuery("regions")
-                                        .Select("region")
-                                        .Select("connection_string")
-                                        .Select("provider");
-                                    db.ExecuteList(q)
-                                        .ForEach(r =>
-                                        {
-                                            var cs = new ConnectionStringSettings((string)r[0], (string)r[1], (string)r[2]);
-                                            if (!DbRegistry.IsDatabaseRegistered(cs.Name))
-                                            {
-                                                DbRegistry.RegisterDatabase(cs.Name, cs);
-                                            }
-                                            regions[cs.Name] = new HostedSolution(cs, cs.Name);
-                                        });
+                                    var name = cs.Name.Substring(dbid.Length + 1);
+                                    regions[name] = new HostedSolution(cs, name);
+                                    find = true;
                                 }
                             }
-                            catch (DbException) { }
+                            if (find)
+                            {
+                                regions[dbid] = new HostedSolution(ConfigurationManager.ConnectionStrings[dbid]);
+                                if (!regions.ContainsKey(string.Empty))
+                                {
+                                    regions[string.Empty] = new HostedSolution(ConfigurationManager.ConnectionStrings[dbid]);
+                                }
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    using (var db = new DbManager(dbid))
+                                    {
+                                        var q = new SqlQuery("regions")
+                                            .Select("region")
+                                            .Select("connection_string")
+                                            .Select("provider");
+                                        db.ExecuteList(q)
+                                            .ForEach(r =>
+                                            {
+                                                var cs = new ConnectionStringSettings((string)r[0], (string)r[1], (string)r[2]);
+                                                if (!DbRegistry.IsDatabaseRegistered(cs.Name))
+                                                {
+                                                    DbRegistry.RegisterDatabase(cs.Name, cs);
+                                                }
+                                                regions[cs.Name] = new HostedSolution(cs, cs.Name);
+                                            });
+                                    }
+                                }
+                                catch (DbException) { }
+                            }
                         }
                     }
                 }

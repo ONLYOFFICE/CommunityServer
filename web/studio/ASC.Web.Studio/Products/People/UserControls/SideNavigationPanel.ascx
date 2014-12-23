@@ -1,6 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.People" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SideNavigationPanel.ascx.cs" Inherits="ASC.Web.People.UserControls.SideNavigationPanel" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
 <!-- is first button -->
 <button style="display:none">&nbsp;</button>
@@ -19,7 +20,6 @@
   </ul>
 <% } %>
   <div id="createNewButton" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
       <li>
         <% if (EnableAddUsers) { %>
@@ -34,8 +34,8 @@
   </div>
 
   <div id="otherActions" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
+      <li><a class="dropdown-item invite-link"><%= PeopleResource.InviteLink %></a></li>
       <li><a class="dropdown-item add-profiles"><%= PeopleResource.LblImportAccounts %></a></li>
       <% if (HasPendingProfiles)
          { %>
@@ -59,13 +59,13 @@
           </a>
         </div>
     <%}%>
-    <asp:Repeater ID="GroupRepeater" runat="server" ItemType="ASC.Web.People.Classes.MyGroup">
+    <asp:Repeater ID="GroupRepeater" runat="server">
       <HeaderTemplate>
         <ul id="groupList" class="menu-sub-list">
       </HeaderTemplate>
       <ItemTemplate>
-        <li class="menu-sub-item" data-id="<%#Item.Id%>">
-          <a class="menu-item-label outer-text text-overflow" title="<%#Item.Title%>"><%#Item.Title%></a>
+        <li class="menu-sub-item" data-id="<%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Id%>">
+          <a class="menu-item-label outer-text text-overflow" title="<%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Title%>"><%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Title%></a>
         </li>
       </ItemTemplate>
       <FooterTemplate>
@@ -99,20 +99,24 @@
          <li id="menuSettings" class="menu-item sub-list add-block">
                     <div class="category-wrapper">
                         <span class="expander"></span>
-                        <a class="menu-item-label outer-text text-overflow" href="<%= VirtualPathUtility.ToAbsolute("~/management.aspx") + "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights%>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights)%>">
                             <span class="menu-item-icon settings"></span>
                             <span class="menu-item-label inner-text gray-text"><%= PeopleResource.Settings %></span>
                         </a>
                     </div>
                     <ul class="menu-sub-list">
                           <li id="menuAccessRights" class="menu-sub-item filter">
-                                <a class="menu-item-label outer-text text-overflow" href="<%= VirtualPathUtility.ToAbsolute("~/management.aspx") + "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights +"#people" %>"><%= PeopleResource.AccessRightsSettings %></a>
+                                <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) +"#people" %>">
+                                    <%= PeopleResource.AccessRightsSettings %>
+                                </a>
                           </li>
                     </ul>
                 </li>
          <% } %>
          <asp:PlaceHolder ID="HelpHolder" runat="server"></asp:PlaceHolder>
          <asp:PlaceHolder ID="SupportHolder" runat="server"></asp:PlaceHolder>
+         <asp:PlaceHolder ID="UserForumHolder" runat="server"></asp:PlaceHolder>
+         <asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>
 
   </ul>
     <% if (CurrentUserAdmin)

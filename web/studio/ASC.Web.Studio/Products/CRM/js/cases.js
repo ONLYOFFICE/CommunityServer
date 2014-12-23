@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 if (typeof ASC === "undefined") {
     ASC = {};
 }
@@ -46,7 +42,7 @@ ASC.CRM.ListCasesView = (function() {
 
     function _onGetException(params, errors) {
         console.log('cases.js ', errors);
-        LoadingBanner.hideLoading();
+        ASC.CRM.ListCasesView.isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
     };
 
     var _setCookie = function(page, countOnPage) {
@@ -107,7 +103,11 @@ ASC.CRM.ListCasesView = (function() {
     var _renderContent = function(startIndex) {
         ASC.CRM.ListCasesView.casesList = new Array();
 
-        LoadingBanner.displayLoading();
+        if (!ASC.CRM.ListCasesView.isFirstLoad) {
+            LoadingBanner.displayLoading();
+            jq("#caseFilterContainer, #caseList").show();
+            jq('#casesAdvansedFilter').advansedFilter("resize");
+        }
         jq("#mainSelectAllCases").prop("checked", false);
 
         _getCases(startIndex);
@@ -268,7 +268,7 @@ ASC.CRM.ListCasesView = (function() {
 
         if (ASC.CRM.ListCasesView.noCases) {
             _renderNoCasesEmptyScreen();
-            LoadingBanner.hideLoading();
+            ASC.CRM.ListCasesView.isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
             return false;
         }
 
@@ -277,7 +277,7 @@ ASC.CRM.ListCasesView = (function() {
 
             jq("#caseFilterContainer").show();
             _resizeFilter();
-            LoadingBanner.hideLoading();
+            ASC.CRM.ListCasesView.isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
             return false;
         }
 
@@ -329,7 +329,16 @@ ASC.CRM.ListCasesView = (function() {
 
         window.scrollTo(0, 0);
         ScrolledGroupMenu.fixContentHeaderWidth(jq('#casesHeaderMenu'));
-        LoadingBanner.hideLoading();
+        ASC.CRM.ListCasesView.isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
+    };
+
+    var hideFirstLoader = function () {
+        ASC.CRM.ListContactView.isFirstLoad = false;
+        jq(".containerBodyBlock").children(".loader-page").hide();
+        if (!jq("#casesEmptyScreen").is(":visible") && !jq("#emptyContentForCasesFilter").is(":visible")) {
+            jq("#caseFilterContainer, #caseList").show();
+            jq('#casesAdvansedFilter').advansedFilter("resize");
+        }
     };
 
     var callback_add_tag = function(params, tag) {
@@ -516,7 +525,7 @@ ASC.CRM.ListCasesView = (function() {
         jq.dropdownToggle({
             dropdownID: "caseActionMenu",
             switcherSelector: "#caseTable .entity-menu",
-            addTop: -2,
+            addTop: 0,
             addLeft: 10,
             rightPos: true,
             beforeShowFunction: function (switcherObj, dropdownItem) {
@@ -549,22 +558,19 @@ ASC.CRM.ListCasesView = (function() {
             jq("#caseTable .entity-menu.active").removeClass("active");
 
             var $dropdownItem = jq("#caseActionMenu");
-            $dropdownItem.show();
-            var left = $dropdownItem.children(".corner-top").position().left;
-            $dropdownItem.hide();
             if (target.is(".entity-menu")) {
                 if ($dropdownItem.is(":hidden")) {
                     target.addClass('active');
                 }
                 $dropdownItem.css({
                     "top": target.offset().top + target.outerHeight() - 2,
-                    "left": target.offset().left - left + 7,
+                    "left": target.offset().left + 7,
                     "right": "auto"
                 });
             } else {
                 $dropdownItem.css({
                     "top": e.pageY + 3,
-                    "left": e.pageX - left - 5,
+                    "left": e.pageX - 5,
                     "right": "auto"
                 });
             }
@@ -863,7 +869,9 @@ ASC.CRM.ListCasesView = (function() {
         casesList       : [],
         selectedItems   : [],
 
-        isFilterVisible : false,
+        isFilterVisible: false,
+
+        isFirstLoad: true,
 
         entryCountOnPage   : 0,
         defaultCurrentPageNumber : 0,
@@ -940,6 +948,9 @@ ASC.CRM.ListCasesView = (function() {
             ASC.CRM.ListCasesView.initConfirmationPanelForDelete();
 
             _initConfirmationPannels();
+
+            ASC.CRM.ListCasesView.isFirstLoad = true;
+            jq(".containerBodyBlock").children(".loader-page").show();
 
             _initFilter();
             /*tracking events*/
@@ -1292,7 +1303,24 @@ ASC.CRM.CasesActionView = (function() {
     };
 
     return {
-        init: function () {
+        init: function (errorCookieKey) {
+
+            var saveCasesError = jq.cookies.get(errorCookieKey);
+            if (saveCasesError != null && saveCasesError != "") {
+                jq.cookies.del(errorCookieKey);
+                jq.tmpl("blockUIPanelTemplate", {
+                    id: "saveCasesError",
+                    headerTest: ASC.CRM.Resources.CRMCommonResource.Alert,
+                    questionText: "",
+                    innerHtmlText: ['<div>', saveCasesError, '</div>'].join(''),
+                    CancelBtn: ASC.CRM.Resources.CRMCommonResource.Close,
+                    progressText: ""
+                }).insertAfter("#crm_caseMakerDialog");
+
+                PopupKeyUpActionProvider.EnableEsc = false;
+                StudioBlockUIManager.blockUI("#saveCasesError", 500, 400, 0);
+            }
+
             initFields();
 
             jq("#menuCreateNewTask").bind("click", function () { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
@@ -1341,12 +1369,18 @@ ASC.CRM.CasesActionView = (function() {
             _bindLeaveThePageEvent();
         },
 
-        submitForm: function() {
+        submitForm: function () {
+            if (jq("[id*=saveCaseButton]:first").hasClass("postInProcess")) {
+                return false;
+            }
+            jq("[id*=saveCaseButton]:first").addClass("postInProcess");
+
             try {
                 var title = jq("#caseTitle").val().trim();
                 if (title == "") {
                     AddRequiredErrorText(jq("#caseTitle"), ASC.CRM.Resources.CRMJSResource.ErrorEmptyCaseTitle);
                     ShowRequiredError(jq("#caseTitle"));
+                    jq("[id*=saveCaseButton]:first").removeClass("postInProcess");
                     return false;
                 }
 
@@ -1382,6 +1416,7 @@ ASC.CRM.CasesActionView = (function() {
                 return true;
             } catch (e) {
                 console.log(e);
+                jq("[id*=saveCaseButton]:first").removeClass("postInProcess");
                 return false;
             }
         },
@@ -1502,6 +1537,12 @@ ASC.CRM.CasesDetailsView = (function() {
                 onclick: "ASC.CRM.CasesDetailsView.activateCurrentTab('files');"
             }]
         });
+
+        ASC.Controls.AnchorController.bind('onupdate', function () {
+            if (ASC.Controls.AnchorController.getAnchor() == "profile") {
+                ASC.CRM.HistoryView.resizeFilter();
+            }
+        });
     };
 
     var initAttachments = function () {
@@ -1530,7 +1571,7 @@ ASC.CRM.CasesDetailsView = (function() {
         window.Attachments.bind("deleteFile", function(ev, fileId) {
             var $fileLinkInHistoryView = jq("#fileContent_" + fileId);
             if ($fileLinkInHistoryView.length != 0) {
-                var messageID = $fileLinkInHistoryView.parents("div[id^=eventAttach_]").attr("id").split("_")[1];
+                var messageID = $fileLinkInHistoryView.parents("[id^=eventAttach_]").attr("id").split("_")[1];
                 ASC.CRM.HistoryView.deleteFile(fileId, messageID);
             } else {
                 Teamlab.removeCrmEntityFiles({ fileId: fileId }, fileId, {
@@ -1548,7 +1589,7 @@ ASC.CRM.CasesDetailsView = (function() {
             jq.dropdownToggle({
                 dropdownID: "caseDetailsMenuPanel",
                 switcherSelector: ".mainContainerClass .containerHeaderBlock .menu-small",
-                addTop: -2,
+                addTop: 0,
                 addLeft: -10,
                 showFunction: function(switcherObj, dropdownItem) {
                     if (dropdownItem.is(":hidden")) {

@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <WebGreaseLibPath>..\..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
@@ -19,7 +20,6 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\</TrunkDir>
-    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
     <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -27,12 +27,12 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
+    <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -41,217 +41,131 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxMin, Version=4.0.202.1, Culture=neutral, PublicKeyToken=24297a69a7eae424, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\AjaxMin.dll</HintPath>
+    <Reference Include="AjaxMin">
+      <HintPath>..\..\..\packages\AjaxMin.5.11.5295.12309\lib\net40\AjaxMin.dll</HintPath>
     </Reference>
-    <Reference Include="AjaxPro.2, Version=7.7.31.1, Culture=neutral, PublicKeyToken=eabb1b8f6347d5af, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+    <Reference Include="AjaxPro.2">
+      <HintPath>..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.ActiveDirectory">
-      <HintPath>..\..\..\redistributable\asc\ASC.ActiveDirectory.dll</HintPath>
+    <Reference Include="AWSSDK">
+      <HintPath>..\..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
+    <Reference Include="dotless.Core">
+      <HintPath>..\..\..\packages\dotless.1.3.1.0\lib\dotless.Core.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.AuditTrail, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.AuditTrail.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.FederatedLogin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.FederatedLogin.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Feed, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Feed.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.FullTextIndex, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.FullTextIndex.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.MessagingSystem">
-      <HintPath>..\..\..\redistributable\asc\ASC.MessagingSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.MessagingSystem.DbSender">
-      <HintPath>..\..\..\redistributable\asc\ASC.MessagingSystem.DbSender.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Notify.Textile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Notify.Textile.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.SingleSignOn">
-      <HintPath>..\..\..\redistributable\asc\ASC.SingleSignOn.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Thrdparty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Thrdparty.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK, Version=1.1.1.0, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Amazon\AWSSDK.dll</HintPath>
-    </Reference>
-    <Reference Include="CsvHelper">
-      <HintPath>..\..\..\redistributable\third-party\CsvHelper.2.3.0\CsvHelper.dll</HintPath>
-    </Reference>
-    <Reference Include="dotless.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Web\dotless\dotless.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth, Version=4.1.0.12182, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.ApplicationBlock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\DotNetOpenAuth.ApplicationBlock.dll</HintPath>
-    </Reference>
-    <Reference Include="EPPlus">
-      <HintPath>..\..\..\redistributable\third-party\EPPlus.3.1.3.3\EPPlus.dll</HintPath>
-    </Reference>
-    <Reference Include="Facebook, Version=5.0.26.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\FacebookSDK\Facebook.dll</HintPath>
+    <Reference Include="Facebook">
+      <HintPath>..\..\..\packages\Facebook.5.0.26.0\lib\net40-client\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="FileConverterUtils2">
       <HintPath>..\..\..\redistributable\third-party\asc\FileConverterUtils2.dll</HintPath>
     </Reference>
-    <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.29869, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Web\FredCK.FCKeditorV2.dll</HintPath>
+    <Reference Include="FredCK.FCKeditorV2">
+      <HintPath>..\..\..\packages\FredCK.FCKeditorV2.2.6.3.19702\lib\net20\FredCK.FCKeditorV2.dll</HintPath>
     </Reference>
-    <Reference Include="Hammock.ClientProfile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\TweetSharp\3.5\Hammock.ClientProfile.dll</HintPath>
+    <Reference Include="Hammock">
+      <HintPath>..\..\..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\Hammock.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.3.9.1, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\HtmlAgilityPack\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlSanitizationLibrary, Version=4.0.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\AntiXss\HtmlSanitizationLibrary.dll</HintPath>
+    <Reference Include="HtmlSanitizationLibrary">
+      <HintPath>..\..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\DotNotZip\Ionic.Zip.dll</HintPath>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="Jurassic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Web\Jurassic.dll</HintPath>
+    <Reference Include="Jurassic">
+      <HintPath>..\..\..\packages\Jurassic.2.1.1.0\lib\net40\Jurassic.dll</HintPath>
     </Reference>
-    <Reference Include="LinkedIn, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\LinkedIn\LinkedIn.dll</HintPath>
+    <Reference Include="JWT">
+      <HintPath>..\..\..\packages\JWT.1.2\lib\3.5\JWT.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+    <Reference Include="LinkedIn">
+      <HintPath>..\..\..\packages\LinkedIn.1.0.0.1\lib\net45\LinkedIn.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Lucene.Net, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Lucene.Net\Lucene.Net.dll</HintPath>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\..\..\packages\Lucene.Net.2.9.4.1\lib\net40\Lucene.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\Microsoft.Contracts.dll</HintPath>
+    <Reference Include="Microsoft.Contracts">
+      <HintPath>..\..\..\packages\Code.Contract.1.0.0\lib\net35\Microsoft.Contracts.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception">
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Interception.dll</HintPath>
+      <HintPath>..\..\..\packages\Unity.Interception.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+      <HintPath>..\..\..\packages\Unity.Interception.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client">
       <HintPath>..\..\..\redistributable\third-party\Microsoft\SharePoint\Microsoft.SharePoint.Client.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.Runtime">
       <HintPath>..\..\..\redistributable\third-party\Microsoft\SharePoint\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+      <HintPath>..\..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Administration">
+      <HintPath>..\..\..\packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Web.Administration, Version=7.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\Microsoft.Web.Administration.dll</HintPath>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.2.2.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\db\mysql\MySql.Data.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="NVelocity">
+      <HintPath>..\..\..\packages\NVelocity.1.0.3\lib\NVelocity.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NVelocity, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\NVelocity\NVelocity.dll</HintPath>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel.Tokens.Jwt">
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\WIFExtensions\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <HintPath>..\..\..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -267,64 +181,62 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Extensions.Design" />
-    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http.Tracing">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Tracing.4.0.30506\lib\net40\System.Web.Http.Tracing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\System.Web.Optimization.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Textile, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Textile\Textile.dll</HintPath>
+    <Reference Include="Textile">
+      <HintPath>..\..\..\packages\Textile.1.3.0.0\lib\net35\Textile.dll</HintPath>
     </Reference>
-    <Reference Include="TMResourceData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\TMResourceData.dll</HintPath>
+    <Reference Include="TweetSharp">
+      <HintPath>..\..\..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\TweetSharp.dll</HintPath>
     </Reference>
-    <Reference Include="TweetSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\TweetSharp\3.5\TweetSharp.dll</HintPath>
+    <Reference Include="Twilio.Api">
+      <HintPath>..\..\..\packages\Twilio.3.6.11\lib\3.5\Twilio.Api.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\WebGrease.dll</HintPath>
+    <Reference Include="Twilio.Client.Capability">
+      <HintPath>..\..\..\packages\Twilio.Client.3.4.4\lib\3.5\Twilio.Client.Capability.dll</HintPath>
     </Reference>
-    <Reference Include="Yahoo.Yui.Compressor, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UAParser, Version=1.0.2.0, Culture=neutral, PublicKeyToken=f7377bf021646069, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\YUICompressor\Yahoo.Yui.Compressor.dll</HintPath>
+      <HintPath>..\..\..\packages\UAParser.1.0.2.0\lib\net40\UAParser.dll</HintPath>
     </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Yahoo.Yui.Compressor">
+      <HintPath>..\..\..\packages\YUICompressor.NET.2.2.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Activation" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.aspx.cs">
@@ -334,7 +246,9 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\WebApi.Startup.cs" />
     <Compile Include="Controls\Common\InlineScript.cs" />
+    <Compile Include="Controls\Common\VoipNavigation.cs" />
     <Compile Include="Controls\FileUploader\FileToUpload.cs" />
     <Compile Include="Controls\FileUploader\FileUploaderFlashParams.cs" />
     <Compile Include="Controls\FileUploader\HttpModule\EntityBodyChunkReader.cs" />
@@ -362,6 +276,9 @@
     <Compile Include="Controls\Users\AdvancedUserSelector.cs" />
     <Compile Include="Core\Backup\BackupAjaxHandler.cs" />
     <Compile Include="Core\Backup\BackupFileUploadHandler.cs" />
+    <Compile Include="Core\IPRestrictionsSettings.cs" />
+    <Compile Include="Core\Import\SsoImporter.cs" Condition=" Exists('Core\Import\SsoImporter.cs') And $(Edition) != 'COMMUNITY' " />
+    <Compile Include="Core\Import\SsoImporter2.cs" Condition=" !Exists('Core\Import\SsoImporter.cs') Or $(Edition) == 'COMMUNITY' " />
     <Compile Include="Core\Notify\WebstudioPatternResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -372,10 +289,20 @@
     <Compile Include="Core\HelpCenter\HelpCenterStorage.cs" />
     <Compile Include="Core\HelpCenter\UserVideoSettings.cs" />
     <Compile Include="Core\HelpCenter\VideoGuideStorage.cs" />
-    <Compile Include="Core\Import\ActiveDirectoryUserImporter.cs" Condition=" Exists('Core\Import\ActiveDirectoryUserImporter.cs') And '$(DeployTo)' != 'INSTALL.STANDALONE' " />
-    <Compile Include="Core\Import\ActiveDirectoryUserImporter2.cs" Condition=" !Exists('Core\Import\ActiveDirectoryUserImporter.cs') Or '$(DeployTo)' == 'INSTALL.STANDALONE' " />
-    <Compile Include="HttpHandlers\JwtHandler.cs" />
-    <Compile Include="HttpHandlers\SamlHandler.cs" />
+    <Compile Include="Core\Import\ActiveDirectoryUserImporter.cs" Condition=" Exists('Core\Import\ActiveDirectoryUserImporter.cs') And $(Edition) != 'COMMUNITY' " />
+    <Compile Include="Core\Import\ActiveDirectoryUserImporter2.cs" Condition=" !Exists('Core\Import\ActiveDirectoryUserImporter.cs') Or $(Edition) == 'COMMUNITY' " />
+    <Compile Include="Core\TipsSettings.cs" />
+    <Compile Include="Core\WarmUp.cs" />
+    <Compile Include="HttpHandlers\JwtHandler.cs" Condition="Exists('HttpHandlers\JwtHandler.cs')" />
+    <Compile Include="HttpHandlers\SamlHandler.cs" Condition="Exists('HttpHandlers\SamlHandler.cs')" />
+    <Compile Include="Core\Voip\VoipPaymentSettings.cs" />
+    <Compile Include="PreparationPortal.aspx.cs">
+      <DependentUpon>PreparationPortal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PreparationPortal.aspx.designer.cs">
+      <DependentUpon>PreparationPortal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PublicResources\AuditResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -418,10 +345,9 @@
     <Compile Include="Controls\Common\PageNavigator.cs" />
     <Compile Include="Controls\Common\ResultsView.cs" />
     <Compile Include="Core\FileSizeComment.cs" />
-    <Compile Include="Core\Sms\SmsSender.cs" Condition=" Exists('Core\Sms\SmsSender.cs') And '$(DeployTo)' != 'INSTALL.STANDALONE' " />
-    <Compile Include="Core\Sms\SmsKeyStorage.cs" Condition=" Exists('Core\Sms\SmsKeyStorage.cs') And '$(DeployTo)' != 'INSTALL.STANDALONE' " />
-    <Compile Include="Core\Sms\SmsManager.cs" Condition=" Exists('Core\Sms\SmsManager.cs') And '$(DeployTo)' != 'INSTALL.STANDALONE' " />
-    <Compile Include="Core\Sms\SmsManager2.cs" Condition=" !Exists('Core\Sms\SmsManager.cs') Or '$(DeployTo)' == 'INSTALL.STANDALONE' " />
+    <Compile Include="Core\Sms\SmsSender.cs" />
+    <Compile Include="Core\Sms\SmsKeyStorage.cs" />
+    <Compile Include="Core\Sms\SmsManager.cs" />
     <Compile Include="Core\Sms\StudioSmsNotificationSettings.cs" />
     <Compile Include="Core\CountriesResources.cs" />
     <Compile Include="Core\StudioAdminMessageSettings.cs" />
@@ -436,14 +362,28 @@
     <Compile Include="Core\Search\SearchResult.cs" />
     <Compile Include="Core\SecutiryConstants.cs" />
     <Compile Include="Core\StudioPasswordSettings.cs" />
-    <Compile Include="Core\StudioNotifyBarSettings.cs" />
+    <Compile Include="Core\PromotionsSettings.cs" />
     <Compile Include="Core\Users\CustomNamingPeople.cs" />
     <Compile Include="Core\Users\NamingPeopleResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NamingPeopleResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Core\WebStudioCommonModule.cs" />
+    <Compile Include="StartUp.aspx.cs">
+      <DependentUpon>StartUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StartUp.aspx.designer.cs">
+      <DependentUpon>StartUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="StartUpSaaS.aspx.cs">
+      <DependentUpon>StartUpSaaS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StartUpSaaS.aspx.designer.cs">
+      <DependentUpon>StartUpSaaS.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Terms.aspx.cs">
       <DependentUpon>Terms.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -465,15 +405,36 @@
     <Compile Include="UserControls\Common\Authorize\Authorize.ascx.designer.cs">
       <DependentUpon>Authorize.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Common\ChooseTimePeriod\ChooseTimePeriod.ascx.cs">
+      <DependentUpon>ChooseTimePeriod.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\ChooseTimePeriod\ChooseTimePeriod.ascx.designer.cs">
+      <DependentUpon>ChooseTimePeriod.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Common\Comments\CommentInfo.cs" />
     <Compile Include="UserControls\Common\Comments\Comments.cs" />
     <Compile Include="UserControls\Common\Comments\CommentsHelper.cs" />
+    <Compile Include="UserControls\Common\OnlineEditorsBanner\OnlineEditorsBanner.ascx.cs">
+      <DependentUpon>OnlineEditorsBanner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\OnlineEditorsBanner\OnlineEditorsBanner.ascx.designer.cs">
+      <DependentUpon>OnlineEditorsBanner.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Common\HelpTour\HelpTour.ascx.cs">
       <DependentUpon>HelpTour.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\Common\HelpTour\HelpTour.ascx.designer.cs">
       <DependentUpon>HelpTour.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\LoaderPage\LoaderPage.ascx.cs">
+      <DependentUpon>LoaderPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\LoaderPage\LoaderPage.ascx.designer.cs">
+      <DependentUpon>LoaderPage.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Common\PersonalFooter\PersonalFooter.ascx.cs">
       <DependentUpon>PersonalFooter.ascx</DependentUpon>
@@ -484,6 +445,13 @@
     </Compile>
     <Compile Include="UserControls\Common\PollForm\PollForm.cs" />
     <Compile Include="UserControls\Common\PollForm\PollFormMaster.cs" />
+    <Compile Include="UserControls\Common\PreparationPortal\PreparationPortal.ascx.cs">
+      <DependentUpon>PreparationPortal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\PreparationPortal\PreparationPortal.ascx.designer.cs">
+      <DependentUpon>PreparationPortal.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Common\SmallChat\SmallChat.ascx.cs">
       <DependentUpon>SmallChat.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -493,6 +461,27 @@
     </Compile>
     <Compile Include="UserControls\Common\TabsNavigator\TabsNavigator.cs" />
     <Compile Include="UserControls\Common\TabsNavigator\TabsNavigatorItem.cs" />
+    <Compile Include="UserControls\Common\TopStudioPanel\VoipPhoneControl.ascx.cs">
+      <DependentUpon>VoipPhoneControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\TopStudioPanel\VoipPhoneControl.ascx.designer.cs">
+      <DependentUpon>VoipPhoneControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\UserForum\UserForum.ascx.cs">
+      <DependentUpon>UserForum.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\UserForum\UserForum.ascx.designer.cs">
+      <DependentUpon>UserForum.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Common\VideoGuides\VideoGuides.ascx.cs">
+      <DependentUpon>VideoGuides.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Common\VideoGuides\VideoGuides.ascx.designer.cs">
+      <DependentUpon>VideoGuides.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Common\ViewSwitcher\ViewSwitcher.cs" />
     <Compile Include="UserControls\Common\ViewSwitcher\ViewSwitcherBaseItem.cs" />
     <Compile Include="UserControls\Common\ViewSwitcher\ViewSwitcherLinkItem.cs" />
@@ -504,11 +493,11 @@
     <Compile Include="StartScriptsStyles.aspx.designer.cs">
       <DependentUpon>StartScriptsStyles.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Management\AuditTrail\AuditTrail.ascx.cs">
+    <Compile Include="UserControls\Management\AuditTrail\AuditTrail.ascx.cs" Condition="Exists('UserControls\Management\AuditTrail\AuditTrail.ascx.cs')">
       <DependentUpon>AuditTrail.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\Management\AuditTrail\AuditTrail.ascx.designer.cs">
+    <Compile Include="UserControls\Management\AuditTrail\AuditTrail.ascx.designer.cs" Condition="Exists('UserControls\Management\AuditTrail\AuditTrail.ascx.designer.cs')">
       <DependentUpon>AuditTrail.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\AuthorizationKeys\AuthorizationKeys.ascx.cs">
@@ -533,6 +522,34 @@
     <Compile Include="UserControls\Management\ColorThemes\ColorThemes.ascx.designer.cs">
       <DependentUpon>ColorThemes.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Management\OnlineEditorsSettings\OnlineEditors.ascx.cs">
+      <DependentUpon>OnlineEditors.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\OnlineEditorsSettings\OnlineEditors.ascx.designer.cs">
+      <DependentUpon>OnlineEditors.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\PortalAccessSettings\PortalAccessSettings.ascx.cs">
+      <DependentUpon>PortalAccessSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\PortalAccessSettings\PortalAccessSettings.ascx.designer.cs">
+      <DependentUpon>PortalAccessSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\DeactivatePortal\DeactivatePortal.ascx.cs">
+      <DependentUpon>DeactivatePortal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\DeactivatePortal\DeactivatePortal.ascx.designer.cs">
+      <DependentUpon>DeactivatePortal.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\IpSecurity\IpSecurity.ascx.cs">
+      <DependentUpon>IpSecurity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\IpSecurity\IpSecurity.ascx.designer.cs">
+      <DependentUpon>IpSecurity.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Management\LdapSettings\LdapSettings.ascx.cs" Condition="Exists('UserControls\Management\LdapSettings\LdapSettings.ascx.cs')">
       <DependentUpon>LdapSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -540,11 +557,11 @@
     <Compile Include="UserControls\Management\LdapSettings\LdapSettings.ascx.designer.cs" Condition="Exists('UserControls\Management\LdapSettings\LdapSettings.ascx.designer.cs')">
       <DependentUpon>LdapSettings.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Management\LoginHistory\LoginHistory.ascx.cs">
+    <Compile Include="UserControls\Management\LoginHistory\LoginHistory.ascx.cs" Condition="Exists('UserControls\Management\LoginHistory\LoginHistory.ascx.cs')">
       <DependentUpon>LoginHistory.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\Management\LoginHistory\LoginHistory.ascx.designer.cs">
+    <Compile Include="UserControls\Management\LoginHistory\LoginHistory.ascx.designer.cs" Condition="Exists('UserControls\Management\LoginHistory\LoginHistory.ascx.designer.cs')">
       <DependentUpon>LoginHistory.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\Monitoring\LogHelper.ascx.cs">
@@ -575,12 +592,19 @@
     <Compile Include="UserControls\Management\PromoCode\PromoCode.ascx.designer.cs">
       <DependentUpon>PromoCode.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx.cs">
+    <Compile Include="UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx.cs" Condition="Exists('UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx.cs')">
       <DependentUpon>SingleSignOnSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx.designer.cs">
+    <Compile Include="UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx.designer.cs" Condition="Exists('UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx.designer.cs')">
       <DependentUpon>SingleSignOnSettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Management\Restore\Restore.ascx.cs">
+      <DependentUpon>Restore.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\Restore\Restore.ascx.designer.cs">
+      <DependentUpon>Restore.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\SmsControls\SmsBuy.ascx.cs">
       <DependentUpon>SmsBuy.ascx</DependentUpon>
@@ -596,6 +620,13 @@
     <Compile Include="UserControls\Management\SmtpSettings\SmtpSettings.ascx.designer.cs">
       <DependentUpon>SmtpSettings.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\VoipBuy.ascx.cs">
+      <DependentUpon>VoipBuy.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Management\TariffSettings\VoipBuy.ascx.designer.cs">
+      <DependentUpon>VoipBuy.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Management\TariffSettings\TariffUsage.ascx.cs">
       <DependentUpon>TariffUsage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -609,6 +640,13 @@
     </Compile>
     <Compile Include="UserControls\Management\UploadHttps\UploadHttps.ascx.designer.cs">
       <DependentUpon>UploadHttps.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Users\TipsSettings\TipsSettings.ascx.cs">
+      <DependentUpon>TipsSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Users\TipsSettings\TipsSettings.ascx.designer.cs">
+      <DependentUpon>TipsSettings.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Users\UserProfile\LoadPhotoControl.ascx.cs">
       <DependentUpon>LoadPhotoControl.ascx</DependentUpon>
@@ -718,11 +756,11 @@
     <Compile Include="UserControls\Management\AdminSettings\ConfirmPortalOwner.ascx.designer.cs">
       <DependentUpon>ConfirmPortalOwner.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Management\ConfirmActivation.ascx.cs">
+    <Compile Include="UserControls\Management\ConfirmActivation\ConfirmActivation.ascx.cs">
       <DependentUpon>ConfirmActivation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\Management\ConfirmActivation.ascx.designer.cs">
+    <Compile Include="UserControls\Management\ConfirmActivation\ConfirmActivation.ascx.designer.cs">
       <DependentUpon>ConfirmActivation.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\ConfirmInviteActivation\ConfirmInviteActivation.ascx.cs">
@@ -950,6 +988,10 @@
       <DependentUpon>Management.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Management2.aspx.cs" Condition=" Exists('Management2.aspx.cs') And $(Edition) == 'COMMUNITY' ">
+      <DependentUpon>Management.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Management.aspx.designer.cs">
       <DependentUpon>Management.aspx</DependentUpon>
     </Compile>
@@ -1034,13 +1076,28 @@
     <Compile Include="Wizard.aspx.designer.cs">
       <DependentUpon>Wizard.aspx</DependentUpon>
     </Compile>
+    <Content Include="PreparationPortal.aspx" />
+    <Content Include="js\third-party\modernizr.js" />
+    <Content Include="StartUp.aspx" />
+    <Content Include="Startup.htm" />
+    <Content Include="StartUpSaaS.aspx" />
+    <Content Include="Templates\DropMailTemplate.ascx" />
+    <Content Include="UserControls\Common\AuthorizeDocs\css\images\image_background.png" />
+    <Content Include="UserControls\Common\OnlineEditorsBanner\css\imgs\banner.png" />
+    <Content Include="UserControls\Common\OnlineEditorsBanner\css\imgs\bullet.png" />
+    <Content Include="UserControls\Common\OnlineEditorsBanner\OnlineEditorsBanner.ascx" />
+    <Content Include="UserControls\Common\OnlineEditorsBanner\js\onlineeditorsbanner.js" />
+    <Content Include="UserControls\Common\LoaderPage\css\loaderpage.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\asc\core\asc.mail.utility.js" />
+    <Content Include="js\asc\core\voip.phone.js" />
+    <Content Include="js\asc\core\voip.countries.js" />
     <Content Include="js\asc\plugins\jquery-contactadvansedselector.js" />
     <Content Include="js\asc\plugins\jquery-groupadvansedselector.js" />
     <Content Include="js\asc\plugins\jquery-milestoneadvansedselector.js" />
     <Content Include="js\asc\plugins\jquery-projectadvansedselector.js" />
+    <Content Include="js\third-party\async.js" />
     <Content Include="js\third-party\jquery\jquery.caret.1.02.min.js" />
     <Content Include="js\third-party\jquery\jquery.hubs.js" />
     <Content Include="js\third-party\jquery\jquery.linkify.js" />
@@ -1049,6 +1106,7 @@
     <Content Include="js\third-party\jquery\noty\bottomRight.js" />
     <Content Include="js\third-party\jquery\noty\default.js" />
     <Content Include="js\third-party\jquery\noty\jquery.noty.js" />
+    <Content Include="js\third-party\voip\voximplant.min.js" />
     <Content Include="Masters\BaseTemplate.master" />
     <Content Include="Masters\ClientLocalizationScript.ascx" />
     <Content Include="Masters\BodyScripts.ascx" />
@@ -1084,6 +1142,91 @@
     <Content Include="skins\default\advuserselector.css" />
     <Content Include="skins\default\codestyle.css" />
     <Content Include="skins\default\groupselector.css" />
+    <Content Include="skins\default\ImagesCSS\actions_icon.png" />
+    <Content Include="skins\default\ImagesCSS\arrow-bg-ffffff.png" />
+    <Content Include="skins\default\ImagesCSS\arrow-right-blue.png" />
+    <Content Include="skins\default\ImagesCSS\arrow-right.png" />
+    <Content Include="skins\default\ImagesCSS\asp_28.png" />
+    <Content Include="skins\default\ImagesCSS\avatar.jpg" />
+    <Content Include="skins\default\ImagesCSS\back-progress.png" />
+    <Content Include="skins\default\ImagesCSS\bnt-onoff.png" />
+    <Content Include="skins\default\ImagesCSS\btn-edit.png" />
+    <Content Include="skins\default\ImagesCSS\btn_64.png" />
+    <Content Include="skins\default\ImagesCSS\btn_icons.png" />
+    <Content Include="skins\default\ImagesCSS\btn_row_icons.png" />
+    <Content Include="skins\default\ImagesCSS\btn_separator.png" />
+    <Content Include="skins\default\ImagesCSS\but-importbc.png" />
+    <Content Include="skins\default\ImagesCSS\calendar.png" />
+    <Content Include="skins\default\ImagesCSS\clear_16.png" />
+    <Content Include="skins\default\ImagesCSS\close_8.png" />
+    <Content Include="skins\default\ImagesCSS\complete.png" />
+    <Content Include="skins\default\ImagesCSS\contentMenu\back_sprite.png" />
+    <Content Include="skins\default\ImagesCSS\contentMenu\combobox_gray.png" />
+    <Content Include="skins\default\ImagesCSS\contentMenu\down_arrow_sprite.png" />
+    <Content Include="skins\default\ImagesCSS\convert_pencil.png" />
+    <Content Include="skins\default\ImagesCSS\cpp_28.png" />
+    <Content Include="skins\default\ImagesCSS\csv_16.png" />
+    <Content Include="skins\default\ImagesCSS\cs_28.png" />
+    <Content Include="skins\default\ImagesCSS\c_28.png" />
+    <Content Include="skins\default\ImagesCSS\dropdown-menu-icons.png" />
+    <Content Include="skins\default\ImagesCSS\dropdown-menu-icons_retina.png" />
+    <Content Include="skins\default\ImagesCSS\edit_pencil.png" />
+    <Content Include="skins\default\ImagesCSS\exclamation.png" />
+    <Content Include="skins\default\ImagesCSS\expl_16.png" />
+    <Content Include="skins\default\ImagesCSS\flags_all.png" />
+    <Content Include="skins\default\ImagesCSS\follow.png" />
+    <Content Include="skins\default\ImagesCSS\gantt-icons.png" />
+    <Content Include="skins\default\ImagesCSS\gantt_12.png" />
+    <Content Include="skins\default\ImagesCSS\html_28.png" />
+    <Content Include="skins\default\ImagesCSS\icon-admin-big.png" />
+    <Content Include="skins\default\ImagesCSS\icon-admin.png" />
+    <Content Include="skins\default\ImagesCSS\icon-collaborator.png" />
+    <Content Include="skins\default\ImagesCSS\icon-guest-big.png" />
+    <Content Include="skins\default\ImagesCSS\icon-owner-big.png" />
+    <Content Include="skins\default\ImagesCSS\icon-owner.png" />
+    <Content Include="skins\default\ImagesCSS\icons_titles.png" />
+    <Content Include="skins\default\ImagesCSS\ip_abonent.png" />
+    <Content Include="skins\default\ImagesCSS\ip_abonent_add.png" />
+    <Content Include="skins\default\ImagesCSS\ip_browser.png" />
+    <Content Include="skins\default\ImagesCSS\ip_missed_call_icon.png" />
+    <Content Include="skins\default\ImagesCSS\ip_phone.png" />
+    <Content Include="skins\default\ImagesCSS\ip_tastatura.png" />
+    <Content Include="skins\default\ImagesCSS\iv_close.png" />
+    <Content Include="skins\default\ImagesCSS\js_28.png" />
+    <Content Include="skins\default\ImagesCSS\list_marker_12.png" />
+    <Content Include="skins\default\ImagesCSS\loading-camomile.gif" />
+    <Content Include="skins\default\ImagesCSS\lock.png" />
+    <Content Include="skins\default\ImagesCSS\mainmenu_upload.png" />
+    <Content Include="skins\default\ImagesCSS\markers.gif" />
+    <Content Include="skins\default\ImagesCSS\move.gif" />
+    <Content Include="skins\default\ImagesCSS\name_action.png" />
+    <Content Include="skins\default\ImagesCSS\on_top.png" />
+    <Content Include="skins\default\ImagesCSS\pagenavigator_bg_prev_next_btn.png" />
+    <Content Include="skins\default\ImagesCSS\plus_12.png" />
+    <Content Include="skins\default\ImagesCSS\popup_close_bg1.png" />
+    <Content Include="skins\default\ImagesCSS\printer.gif" />
+    <Content Include="skins\default\ImagesCSS\question.png" />
+    <Content Include="skins\default\ImagesCSS\question_small.png" />
+    <Content Include="skins\default\ImagesCSS\recall-btn.png" />
+    <Content Include="skins\default\ImagesCSS\refresh.png" />
+    <Content Include="skins\default\ImagesCSS\remove_16.png" />
+    <Content Include="skins\default\ImagesCSS\screen_con.png" />
+    <Content Include="skins\default\ImagesCSS\search_16.png" />
+    <Content Include="skins\default\ImagesCSS\security.png" />
+    <Content Include="skins\default\ImagesCSS\settings.png" />
+    <Content Include="skins\default\ImagesCSS\sql_28.png" />
+    <Content Include="skins\default\ImagesCSS\success12.png" />
+    <Content Include="skins\default\ImagesCSS\top-studio-menu.png" />
+    <Content Include="skins\default\ImagesCSS\top-studio-menu_retina.png" />
+    <Content Include="skins\default\ImagesCSS\trash.png" />
+    <Content Include="skins\default\ImagesCSS\unfollow.png" />
+    <Content Include="skins\default\ImagesCSS\up.png" />
+    <Content Include="skins\default\ImagesCSS\upload.png" />
+    <Content Include="skins\default\ImagesCSS\user_icon_header.png" />
+    <Content Include="skins\default\ImagesCSS\vb_28.png" />
+    <Content Include="skins\default\ImagesCSS\video_icon.png" />
+    <Content Include="skins\default\ImagesCSS\xml_28.png" />
+    <Content Include="skins\default\ImagesCSS\zoom_white.png" />
     <Content Include="skins\default\Images\empty_screen_filter.png" />
     <Content Include="skins\default\jquery-advansedselector.css" />
     <Content Include="skins\default\magnific-popup.css" />
@@ -1123,21 +1266,27 @@
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\bg01_top-right.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\bg_comp.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\btn_64.png" />
-    <Content Include="UserControls\Common\AuthorizeDocs\css\images\flags.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\services_48.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\authorizedocs.less" />
     <Content Include="UserControls\Common\AuthorizeDocs\js\authorizedocs.js" />
-    <Content Include="UserControls\Common\AuthorizeDocs\js\bootstrap-carousel.js" />
     <Content Include="UserControls\Common\Authorize\Authorize.ascx" />
     <Content Include="UserControls\Common\Authorize\js\authorize.js" />
+    <Content Include="UserControls\Common\ChooseTimePeriod\ChooseTimePeriod.ascx" />
+    <Content Include="UserControls\Common\ChooseTimePeriod\js\choosetimeperiod.js" />
+    <Content Include="UserControls\Common\ckeditor\ckeditor-connector.js" />
+    <Content Include="UserControls\Common\ckeditor\config.js" />
     <Content Include="UserControls\Common\Comments\js\comments.js" />
     <Content Include="UserControls\Common\Comments\js\onReady.js" />
     <Content Include="UserControls\Common\HelpTour\HelpTour.ascx" />
     <Content Include="UserControls\Common\HelpTour\js\helptour.js" />
+    <Content Include="UserControls\Common\LoaderPage\LoaderPage.ascx" />
     <Content Include="UserControls\Common\PersonalFooter\js\personalfooter.js" />
     <Content Include="UserControls\Common\PersonalFooter\PersonalFooter.ascx" />
     <Content Include="UserControls\Common\PollForm\css\style.css" />
     <Content Include="UserControls\Common\PollForm\js\pollform.js" />
+    <Content Include="UserControls\Common\PreparationPortal\css\preparationportal.css" />
+    <Content Include="UserControls\Common\PreparationPortal\js\preparationportal.js" />
+    <Content Include="UserControls\Common\PreparationPortal\PreparationPortal.ascx" />
     <Content Include="UserControls\Common\SmallChat\css\images\icon_ch-size.png" />
     <Content Include="UserControls\Common\SmallChat\css\images\loader16.gif" />
     <Content Include="UserControls\Common\SmallChat\css\images\loader_48.gif" />
@@ -1149,7 +1298,12 @@
     <Content Include="UserControls\Common\SmallChat\css\sounds\chat.wav" />
     <Content Include="UserControls\Common\SmallChat\js\smallChat.js" />
     <Content Include="UserControls\Common\SmallChat\SmallChat.ascx" />
+    <Content Include="UserControls\Common\StartUp\js\startup.js" />
     <Content Include="UserControls\Common\TabsNavigator\js\tabsnavigator.js" />
+    <Content Include="UserControls\Common\TopStudioPanel\VoipPhoneControl.ascx" />
+    <Content Include="UserControls\Common\UserForum\UserForum.ascx" />
+    <Content Include="UserControls\Common\VideoGuides\js\videoguides.js" />
+    <Content Include="UserControls\Common\VideoGuides\VideoGuides.ascx" />
     <Content Include="UserControls\Common\ViewSwitcher\css\viewswitcher.css" />
     <Content Include="UserControls\Common\ViewSwitcher\js\viewswitcher.js" />
     <Content Include="UserControls\FirstTime\css\images\clouds.png" />
@@ -1160,20 +1314,47 @@
     <Content Include="UserControls\FirstTime\css\images\warning_16.png" />
     <Content Include="StartScriptsStyles.aspx" />
     <Content Include="UserControls\Management\AuditTrail\AuditTrail.ascx" />
+    <Content Include="UserControls\Management\AuditTrail\css\audittrail.css">
+      <DependentUpon>audittrail.less</DependentUpon>
+    </Content>
+    <Content Include="UserControls\Management\AuditTrail\css\audittrail.min.css">
+      <DependentUpon>audittrail.less</DependentUpon>
+    </Content>
     <Content Include="UserControls\Management\AuditTrail\img\audit_trail_empty_screen.jpg" />
     <Content Include="UserControls\Management\AuditTrail\js\audittrail.js" />
     <Content Include="UserControls\Management\AuthorizationKeys\AuthorizationKeys.ascx" />
     <Content Include="UserControls\Management\AuthorizationKeys\css\authorizationkeys.css" />
     <Content Include="UserControls\Management\AuthorizationKeys\js\authorizationkeys.js" />
     <Content Include="UserControls\Management\Backup\Backup.ascx" />
-    <Content Include="UserControls\Management\Backup\css\backup.css" />
+    <Content Include="UserControls\Management\Backup\css\backup.less" />
     <Content Include="UserControls\Management\Backup\js\backup.js" />
     <Content Include="UserControls\Management\ColorThemes\ColorThemes.ascx" />
     <Content Include="UserControls\Management\ColorThemes\css\colorthemes.css" />
     <Content Include="UserControls\Management\ColorThemes\js\colorthemes.js" />
+    <Content Include="UserControls\Management\ConfirmActivation\js\confirmactivation.js" />
+    <Content Include="UserControls\Management\IpSecurity\css\ipsecurity.css">
+      <DependentUpon>ipsecurity.less</DependentUpon>
+    </Content>
+    <Content Include="UserControls\Management\IpSecurity\css\ipsecurity.min.css">
+      <DependentUpon>ipsecurity.less</DependentUpon>
+    </Content>
+    <Content Include="UserControls\Management\OnlineEditorsSettings\js\onlineeditors.js" />
+    <Content Include="UserControls\Management\OnlineEditorsSettings\OnlineEditors.ascx" />
+    <Content Include="UserControls\Management\PortalAccessSettings\PortalAccessSettings.ascx" />
+    <Content Include="UserControls\Management\PortalAccessSettings\js\portalAccess.js" />
+    <Content Include="UserControls\Management\DeactivatePortal\DeactivatePortal.ascx" />
+    <Content Include="UserControls\Management\DeactivatePortal\js\deactivateportal.js" />
+    <Content Include="UserControls\Management\IpSecurity\IpSecurity.ascx" />
+    <Content Include="UserControls\Management\IpSecurity\js\ipsecurity.js" />
     <Content Include="UserControls\Management\LdapSettings\css\Default\ldapsettings.css" />
     <Content Include="UserControls\Management\LdapSettings\js\ldapsettings.js" />
     <Content Include="UserControls\Management\LdapSettings\LdapSettings.ascx" />
+    <Content Include="UserControls\Management\LoginHistory\css\loginhistory.css">
+      <DependentUpon>loginhistory.less</DependentUpon>
+    </Content>
+    <Content Include="UserControls\Management\LoginHistory\css\loginhistory.min.css">
+      <DependentUpon>loginhistory.less</DependentUpon>
+    </Content>
     <Content Include="UserControls\Management\LoginHistory\img\login_history_empty_screen.jpg" />
     <Content Include="UserControls\Management\LoginHistory\js\loginhistory.js" />
     <Content Include="UserControls\Management\LoginHistory\LoginHistory.ascx" />
@@ -1190,15 +1371,22 @@
     <Content Include="UserControls\Management\SingleSignOnSettings\css\singlesignonsettings.css" />
     <Content Include="UserControls\Management\SingleSignOnSettings\js\singlesignonsettings.js" />
     <Content Include="UserControls\Management\SingleSignOnSettings\SingleSignOnSettings.ascx" />
+    <Content Include="UserControls\Management\Restore\js\restore.js" />
+    <Content Include="UserControls\Management\Restore\Restore.ascx" />
     <Content Include="UserControls\Management\SmtpSettings\css\smtpsettings.css" />
     <Content Include="UserControls\Management\SmtpSettings\js\smtpsettings.js" />
     <Content Include="UserControls\Management\SmtpSettings\SmtpSettings.ascx" />
+    <Content Include="UserControls\Management\TariffSettings\js\voipbuy.js" />
+    <Content Include="UserControls\Management\TariffSettings\VoipBuy.ascx" />
     <Content Include="UserControls\Management\TariffSettings\css\img\add_users_info.png" />
     <Content Include="UserControls\Management\TariffSettings\css\img\icon_exclamation.png" />
     <Content Include="UserControls\Management\TariffSettings\css\img\icon_online_editors.png" />
     <Content Include="UserControls\Management\TariffSettings\css\img\icon_storage.png" />
+    <Content Include="UserControls\Management\UploadHttps\css\uploadhttps.less" />
     <Content Include="UserControls\Management\UploadHttps\UploadHttps.ascx" />
     <Content Include="UserControls\Management\UploadHttps\js\uploadhttps.js" />
+    <Content Include="UserControls\Users\TipsSettings\js\tipsSettings.js" />
+    <Content Include="UserControls\Users\TipsSettings\TipsSettings.ascx" />
     <Content Include="UserControls\Users\UserProfile\css\images\acc_facebook.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\acc_facebook_small.png" />
     <Content Include="UserControls\Users\UserProfile\css\images\acc_google.png" />
@@ -1280,6 +1468,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AuditResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="PublicResources\ChatResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1353,7 +1542,7 @@
     <Content Include="UserControls\Common\SharingSettings\js\sharingsettings.js" />
     <Content Include="UserControls\Common\SharingSettings\SharingSettings.ascx" />
     <Content Include="UserControls\Management\AdminSettings\ConfirmPortalOwner.ascx" />
-    <Content Include="UserControls\Management\ConfirmActivation.ascx" />
+    <Content Include="UserControls\Management\ConfirmActivation\ConfirmActivation.ascx" />
     <Content Include="UserControls\Management\GreetingSettings\GreetingSettingsContent.ascx" />
     <Content Include="UserControls\Management\GreetingSettings\js\greetingsettings.js" />
     <Content Include="UserControls\Management\MailDomainSettings\js\maildomainsettings.js" />
@@ -1368,7 +1557,9 @@
     <Content Include="UserControls\Management\TimeAndLanguage\TimeAndLanguage.ascx" />
     <Content Include="UserControls\Users\UserSubscriptions\js\subscription_manager.js" />
     <Content Include="UserControls\Users\UserSubscriptions\UserSubscriptions.ascx" />
-    <Content Include="Web.consumers.config" />
+    <Content Include="Web.consumers.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="health.ashx" />
     <Content Include="UserControls\Management\GreetingSettings\GreetingSettings.ascx" />
     <Content Include="UserControls\Management\GreetingSettings\js\greetingsettingscontent.js" />
@@ -1409,17 +1600,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="skins\default\common_style.css" />
-    <Content Include="skins\default\ImagesCSS\add_group.png" />
     <Content Include="skins\default\ImagesCSS\alert_16.png" />
     <Content Include="skins\default\ImagesCSS\blank.gif" />
-    <Content Include="skins\default\ImagesCSS\cross-blue.png" />
-    <Content Include="skins\default\ImagesCSS\cross-grey.png" />
-    <Content Include="skins\default\ImagesCSS\header_bg.png" />
     <Content Include="skins\default\ImagesCSS\info_16.gif" />
     <Content Include="skins\default\ImagesCSS\move.png" />
     <Content Include="skins\default\ImagesCSS\move2.png" />
     <Content Include="skins\default\ImagesCSS\popup_close_bg.png" />
-    <Content Include="skins\default\ImagesCSS\popup_header_bg.png" />
     <Content Include="skins\default\ImagesCSS\profile.gif" />
     <Content Include="skins\default\ImagesCSS\quoteBord-b.gif" />
     <Content Include="skins\default\ImagesCSS\quoteBord-l.gif" />
@@ -1427,26 +1613,18 @@
     <Content Include="skins\default\ImagesCSS\quoteBord-t.gif" />
     <Content Include="skins\default\ImagesCSS\search.png" />
     <Content Include="skins\default\ImagesCSS\calendar.gif" />
-    <Content Include="skins\default\ImagesCSS\add_user.png" />
-    <Content Include="skins\default\ImagesCSS\delete.png" />
-    <Content Include="skins\default\ImagesCSS\edit_small_blue.PNG" />
     <Content Include="skins\default\ImagesCSS\button-cut.png" />
-    <Content Include="skins\default\ImagesCSS\combobox_black.png" />
     <Content Include="skins\default\ImagesCSS\combobox_white.png" />
     <Content Include="skins\default\ImagesCSS\cut-scissors.png" />
     <Content Include="skins\default\ImagesCSS\entity_action_icon.png" />
     <Content Include="skins\default\ImagesCSS\icons_nav_panel.png" />
-    <Content Include="skins\default\ImagesCSS\menu_small.png" />
-    <Content Include="skins\default\ImagesCSS\teamlab_7.0_pop-up.png" />
+    <Content Include="skins\default\ImagesCSS\welcometo_logo.png" />
     <Content Include="skins\default\ImagesCSS\triangle_grey_tree_sprite.png" />
-    <Content Include="skins\default\ImagesCSS\blue_pluses.png" />
-    <Content Include="skins\default\ImagesCSS\help_icon.png" />
     <Content Include="skins\default\ImagesCSS\sort_down_black.png" />
     <Content Include="skins\default\ImagesCSS\sort_down_gray.png" />
     <Content Include="skins\default\ImagesCSS\toast_icon01.png" />
     <Content Include="skins\default\ImagesCSS\toast_icon02.png" />
     <Content Include="skins\default\ImagesCSS\toast_icon03.png" />
-    <Content Include="skins\default\ImagesCSS\loader_small.gif" />
     <Content Include="skins\default\ImagesCSS\flags.gif" />
     <Content Include="skins\default\ImagesCSS\plus_16.png" />
     <Content Include="skins\default\ImagesCSS\trash_16.png" />
@@ -1563,8 +1741,18 @@
     <Content Include="UserControls\Common\SmallChat\css\sounds\chat.ogg" />
     <Content Include="UserControls\Management\Monitoring\css\monitoring.less" />
     <Content Include="skins\default\dashboard.less" />
-    <Content Include="UserControls\Common\AuthorizeDocs\js\quotes.json" />
     <Content Include="skins\personal.less" />
+    <Content Include="UserControls\Management\IpSecurity\css\ipsecurity.less" />
+    <Content Include="UserControls\Common\ChooseTimePeriod\css\choosetimeperiod.less" />
+    <Content Include="UserControls\Management\Restore\css\restore.less" />
+    <Content Include="skins\default\voip.phone.less" />
+    <Content Include="UserControls\Management\ConfirmActivation\css\confirmactivation.less" />
+    <Content Include="UserControls\Common\AuthorizeDocs\js\reviews.json" />
+    <Content Include="UserControls\Management\PortalAccessSettings\css\portalAccess.less" />
+    <Content Include="skins\default\tl-combobox.less" />
+    <Content Include="UserControls\Common\OnlineEditorsBanner\css\onlineeditorsbanner.less" />
+    <Content Include="UserControls\Common\StartUp\css\startup.less" />
+    <Content Include="UserControls\Users\TipsSettings\css\tipsSettings.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="403.htm" />
@@ -1628,7 +1816,6 @@
     <Content Include="js\asc\core\asc.topstudiopanel.js" />
     <Content Include="js\asc\core\basetemplate.master.init.js" />
     <Content Include="js\asc\core\common.js" />
-    <Content Include="js\asc\core\decoder.js" />
     <Content Include="js\asc\core\groupselector.js" />
     <Content Include="js\asc\plugins\jquery-advansedfilter.js" />
     <Content Include="js\asc\plugins\jquery-customcombobox.js" />
@@ -1951,34 +2138,79 @@
     <Folder Include="UserControls\Management\DefaultPageSettings\css\" />
     <Folder Include="UserControls\Users\AddContent\js\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\common\ASC.ActiveDirectory\ASC.ActiveDirectory.csproj">
+      <Project>{e588e818-f163-470c-802c-3a6e45b36080}</Project>
+      <Name>ASC.ActiveDirectory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
+      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
+      <Name>ASC.Data.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.IPSecurity\ASC.IPSecurity.csproj">
+      <Project>{2ff2177f-2d1a-4396-84eb-51f14fd99385}</Project>
+      <Name>ASC.IPSecurity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Notify.Textile\ASC.Notify.Textile.csproj">
+      <Project>{659c514b-dd2c-41e3-a40e-4701216b1ea2}</Project>
+      <Name>ASC.Notify.Textile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.SingleSignOn\ASC.SingleSignOn.csproj">
+      <Project>{ef3ae6b9-4503-42a3-88bc-c622e178a59e}</Project>
+      <Name>ASC.SingleSignOn</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\TMResourceManager\Data\TMResourceData.csproj">
+      <Project>{826533d1-ae21-4d14-87ba-67eb9d81d03e}</Project>
+      <Name>TMResourceData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\module\ASC.Feed\ASC.Feed.csproj">
+      <Project>{b0431ec9-21d8-4d96-b333-6dd430031c82}</Project>
+      <Name>ASC.Feed</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
+      <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
+      <Name>ASC.FullTextIndex</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
+      <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
+      <Name>ASC.MessagingSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
+      <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
+      <Name>ASC.FederatedLogin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
+      <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
+      <Name>ASC.Thrdparty</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\module\ASC.Thrdparty\DotNetOpenAuth.ApplicationBlock\DotNetOpenAuth.ApplicationBlock.csproj">
+      <Project>{aa78d112-d889-414b-a7d4-467b34c7b663}</Project>
+      <Name>DotNetOpenAuth.ApplicationBlock</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\module\ASC.VoipService\ASC.VoipService.csproj">
+      <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>
+      <Name>ASC.VoipService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Name>ASC.Web.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
   <Target Name="AfterBuild">
-  </Target>
-  -->
-  <Target Name="AfterBuild">
-    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile-&gt;'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
-    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath-&gt;'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
-    <!-- Copy api files -->
-    <CreateItem Include="$(RedDir)ASC.Api.*.dll;$(RedDir)ASC.Specific.dll;$(RedDir)ASC.Feed.dll;$(RedDir)ASC.Feed.Aggregator.dll;$(RedDir)ASC.Mail.Aggregator.Common.dll;$(RedDir)ASC.Mail.Aggregator.Dal.dll;$(RedDir)ASC.Mail.Aggregator.dll;$(RedDir)ASC.Mail.Aggregator.Contacts.dll;$(RedDir)ASC.Mail.Aggregator.EmailIn.dll;$(RedDir)ASC.ActiveUp.Net.Common.dll;$(RedDir)ASC.ActiveUp.Net.Dns.dll;$(RedDir)ASC.ActiveUp.Net.Imap4.dll;$(RedDir)ASC.ActiveUp.Net.Mail.dll;$(RedDir)ASC.ActiveUp.Net.Pop3.dll;$(RedDir)ASC.ActiveUp.Net.Smtp.dll">
-      <Output ItemName="ApiFiles" TaskParameter="Include" />
-    </CreateItem>
-    <Copy SourceFiles="@(ApiFiles)" DestinationFolder="$(TargetDir)" Condition="Exists('$(RedDir)%(Filename)%(Extension)')" />
     <!-- Copy Mail third-party -->
-    <Copy SourceFiles="$(TrunkDir)redistributable\third-party\CharsetDetector\Ude.dll" DestinationFolder="$(TargetDir)" ContinueOnError="true" />
-    <Copy SourceFiles="$(TrunkDir)redistributable\third-party\Nlog 2.1\net35\NLog.dll" DestinationFolder="$(TargetDir)" ContinueOnError="true" />
-    <!-- Copy SQLite -->
-    <Copy SourceFiles="$(TrunkDir)redistributable\third-party\db\sqlite\System.Data.SQLite.DLL" DestinationFolder="$(OutDir)" ContinueOnError="true" />
-    <Copy SourceFiles="$(TrunkDir)redistributable\third-party\db\sqlite\x64\SQLite.Interop.dll" DestinationFolder="$(OutDir)x64" ContinueOnError="true" />
-    <Copy SourceFiles="$(TrunkDir)redistributable\third-party\db\sqlite\x86\SQLite.Interop.dll" DestinationFolder="$(OutDir)x86" ContinueOnError="true" />
+    <Copy SourceFiles="$(TrunkDir)packages\UDE.CSharp.1.0.0\lib\Ude.dll" DestinationFolder="$(TargetDir)" ContinueOnError="true" />
+    <Copy SourceFiles="$(TrunkDir)packages\NLog.2.1.0\lib\net45\NLog.dll" DestinationFolder="$(TargetDir)" ContinueOnError="true" />
   </Target>
-  <Target Name="BeforeBuild">
-    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
-  </Target>
+  <Target Name="Clean" Condition=" false " DependsOnTargets="$(CleanDependsOn)" />
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

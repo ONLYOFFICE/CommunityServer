@@ -66,9 +66,10 @@
     <% } %>
 
     <div class="middle-button-container">
-        <a class="button blue middle disable" onclick="ASC.CRM.HistoryView.addEvent()">
+        <a class="button blue middle disable" onclick="ASC.CRM.HistoryView.addEvent(this)">
             <%= CRMCommonResource.AddThisNote %>
         </a>
+        <span class="describe-text display-none lond-data-text" style="padding-left: 24px;"></span>
     </div>
 
     <br />
@@ -79,7 +80,7 @@
         <br />
 
         <div id="eventsList">
-            <table id="eventsTable" class="tableBase" cellpadding="10" cellspacing="0">
+            <table id="eventsTable" cellpadding="10" cellspacing="0">
                 <tbody>
                 </tbody>
             </table>

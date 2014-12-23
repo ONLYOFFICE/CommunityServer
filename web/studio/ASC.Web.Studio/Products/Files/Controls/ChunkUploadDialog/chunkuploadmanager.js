@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 window.ASC.Files.ChunkUploads = (function () {
 
     //properties
@@ -142,7 +138,7 @@ window.ASC.Files.ChunkUploads = (function () {
         if (ASC.Files.Common.isCorrectId(uploadFolderId)) {
             folderId = uploadFolderId;
         } else {
-            rightChecked = ASC.Files.UI.accessibleItem();
+            rightChecked = ASC.Files.UI.accessEdit();
         }
 
         uploadFolderId = null;
@@ -197,8 +193,6 @@ window.ASC.Files.ChunkUploads = (function () {
             if (file.fid != ASC.Files.Folders.currentFolder.id) {
                 correctFolderCount(file.fid);
             } else if (!ASC.Files.UI.isSettingsPanel()) {
-                var message = ASC.Files.FilesJSResources.InfoUploadedSuccess.format(successfullyUploadedFiles);
-                ASC.Files.UI.displayInfoPanel(message);
                 getFileFromServer(file.data.id, file.data.version, showData);
             }
 
@@ -223,6 +217,10 @@ window.ASC.Files.ChunkUploads = (function () {
     };
 
     var onUploadComplete = function () {
+        if (successfullyUploadedFiles) {
+            var message = ASC.Files.FilesJSResources.InfoUploadedSuccess.format(successfullyUploadedFiles);
+            ASC.Files.UI.displayInfoPanel(message);
+        }
         initTenantQuota();
         changeHeaderText(ASC.Files.FilesJSResources.UploadComplete);
         jq("#abortUploadigBtn").hide();
@@ -375,10 +373,12 @@ window.ASC.Files.ChunkUploads = (function () {
             Message: response.message
         };
 
-        if (typeof(response.data) == "string") {
-            result.Data = jq.parseJSON(response.data);
-        } else if (typeof(response.data) == "object") {
-            result.Data = response.data;
+        result.Data = response.data;
+        if (typeof(response.data) == "string" && response.data.length) {
+            try {
+                result.Data = jq.parseJSON(response.data);
+            } catch (e) {
+            }
         }
 
         return result;
@@ -388,6 +388,7 @@ window.ASC.Files.ChunkUploads = (function () {
         var posExt = ASC.Files.Utility.GetFileExtension(file.name);
 
         if (ASC.Files.Constants.UPLOAD_FILTER && jq.inArray(posExt, ASC.Files.Utility.Resource.ExtsUploadable) == -1) {
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.ErrorMassage_NotSupportedFormat, true);
             return false;
         }
 
@@ -606,7 +607,7 @@ window.ASC.Files.ChunkUploads = (function () {
     var showDragHighlight = function (e) {
         if (firstHighlight.fisrt) {
             ASC.Files.Mouse.highlightFolderTo("may-drop-to", true);
-            firstHighlight.can = ASC.Files.UI.accessibleItem();
+            firstHighlight.can = ASC.Files.UI.accessEdit();
             jq("#mainContent").toggleClass("selected", firstHighlight.can);
             firstHighlight.fisrt = false;
         }
@@ -877,12 +878,7 @@ window.ASC.Files.ChunkUploads = (function () {
             isStringXml: true
         };
 
-        var fileObj = ASC.Files.UI.getEntryObject("file", fileId);
-        if (fileObj.length != 0) {
-            ASC.Files.EventHandler.onReplaceVersion(stringXmlFile, params);
-        } else {
-            ASC.Files.EventHandler.onGetFile(stringXmlFile, params);
-        }
+        ASC.Files.EventHandler.onGetFile(stringXmlFile, params);
     };
 
     var showFileData = function (fileId) {

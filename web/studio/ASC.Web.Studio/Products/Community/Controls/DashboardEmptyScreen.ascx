@@ -17,29 +17,6 @@
     </div>
     <div class="content clearFix">
     
-    <%if (ASC.Core.SecurityContext.CheckPermissions(ASC.Core.Users.Constants.Action_AddRemoveUser))
-      { %>
-       <div class="module-block">
-            <div class="img users"></div>
-           <div class="title"><%=CommunityResource.UsersModuleTitle%></div>
-           <ul>
-               <li><%=CommunityResource.UsersModuleFirstLine%></li>
-               <li><%=CommunityResource.UsersModuleSecondLine%></li>
-           </ul>
-           <a id="addUsersDashboard" href="javascript:void(0)" class="link underline"><%=CommunityResource.UsersModuleLink%></a>
-       </div>
-       
-       <%}
-      else
-      {%>
-      <style type="text/css">
-          .dashboard-center-box.community .content .module-block {
-              width: 265px;
-              margin-left: 44px;
-          }
-          .dashboard-center-box.community .module-block.wiki ul { margin-bottom: 15px;}
-      </style>
-      <%} %>
        <div class="module-block">
            <div class="img blogs"></div>
            <div class="title"><%=CommunityResource.BlogsModuleTitle%></div>
@@ -47,9 +24,20 @@
                <li><%=CommunityResource.BlogsModuleFirstLine%></li>
                <li><%=CommunityResource.BlogsModuleSecondLine%></li>
            </ul>
-           <a href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/addblog.aspx")%>"  class="link underline"><%=CommunityResource.BlogsModuleLink1%></a>
-           
+           <a href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/addblog.aspx")%>" class="link underline"><%=CommunityResource.BlogsModuleLink1%></a>
        </div>
+        
+        
+       <div class="module-block">
+            <div class="img events"></div>
+           <div class="title"><%=CommunityResource.EventsModuleTitle%></div>
+           <ul>
+               <li><%=CommunityResource.EventsModuleFirstLine%></li>
+               <li><%=CommunityResource.EventsModuleSecondLine%></li>
+           </ul>
+           <a href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/news/editnews.aspx")%>" class="link underline"><%=CommunityResource.EventsModuleLink%></a>
+       </div>
+       
        <div class="module-block wiki">
            <div class="img bookmarks"></div>
            <div class="title"><%=CommunityResource.WikiModuleTitle%></div>
@@ -66,7 +54,10 @@
                <li><%=CommunityResource.HelpModuleFirstLine%></li>
                <li><%=CommunityResource.HelpModuleSecondLine%></li>
            </ul>
+           <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+             { %>
            <a href="<%= CommonLinkUtility.GetHelpLink(true) %>" target="_blank" class="link underline"><%=CommunityResource.HelpModuleLink%></a>
+           <% } %>
        </div>
     </div>
     

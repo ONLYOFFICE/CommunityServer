@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 /**
@@ -46,10 +46,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 (function($, undefined) {
 
 // such structure of code is used only for code folding in NetBeans IDE
-var defaults = function defaultsModule() {return {		
-		
-		// personal version
-		personal: false,
+var defaults = function defaultsModule() {return {
 		
 		// display
 		defaultView: "month",
@@ -446,6 +443,7 @@ var fcMenus = function fcMenusModule() {
 			direction: "right,down",
 			arrow: "up",
 			arrowPosition: "50%",
+			showArrow: false,
 			cssClassName: "asc-popupmenu",
 			items: [
 				(year - 3).toString(), (year - 2).toString(), (year - 1).toString(),
@@ -472,6 +470,7 @@ var fcMenus = function fcMenusModule() {
 			direction: "right,down",
 			arrow: "up",
 			arrowPosition: "50%",
+			showArrow: false,
 			cssClassName: "asc-popupmenu",
 			items: calendar.options.monthNames,
 			itemClick: function(event, data) {
@@ -648,6 +647,10 @@ var fcUtil = function fcUtilModule() {
 
 			return [Math.floor(r * 255), Math.floor(g * 255), Math.floor(b * 255)];
 	};
+
+    _this.randomHex = function () {
+        return "#" + Math.random().toString(16).slice(2, 8);
+    };
 
 	_this.parseCssColor = function(c) {
 		var reColor =
@@ -904,7 +907,8 @@ var fcColorPicker = function fcCPModule() {
 	function _init(colors) {
 		//if (!_cp || _cp.length < 1) {
 			_cp = $("<div id='fc_color_picker'/>").colorPicker({
-				arrowPosition:  "50%",
+			    arrowPosition:  "50%",
+			    showArrow: false,
 				anchorToBorder: true,
 				showModal:      true,
 				colors: {1: colors},
@@ -958,6 +962,7 @@ var fcDatepicker = function fcDPModule() {
 						direction: "right,down",
 						arrow: "up",
 						arrowPosition: "50%",
+						showArrow: false,
 						showModal: true});
 			_dp = _frame.find(".asc-datepicker").datepicker({
 					firstDay: calendar.options.firstDay});
@@ -1889,7 +1894,10 @@ function Calendar(element, options, eventSources) {
 
 
 	function windowResize() {
-		if (!ignoreWindowResize) {
+	    if (!ignoreWindowResize) {
+	        
+	        eventEditor.closePopupEvent();    
+
 			if (currentView.start) { // view has already been rendered
 				var uid = ++resizeUID;
 				setTimeout(function() { // add a delay
@@ -2321,7 +2329,7 @@ function Header(calendar, options) {
 				anchor: "right,bottom",
 				direction: "left,down",
 				arrow: "up",
-				//showArrow: false,
+				showArrow: false,
 				closeTimeout: -1,
 				cssClassName: "asc-popupmenu asc-popup-wide",
 				items: [
@@ -2446,6 +2454,7 @@ function Header(calendar, options) {
 			anchor: "left,bottom",
 			direction: "right,down",
 			arrow: "up",
+			showArrow: false,
 			closeTimeout: -1,
 			cssClassName: "asc-popupmenu",
 			items: [
@@ -2772,7 +2781,10 @@ function CategoryDialog(calendar) {
 		});
 	
 		_dialog.find(".buttons .save-btn").click(function() {
-			_close.call(_this, true);
+		    if (jq(this).hasClass("disable"))
+		        return;
+		    
+		    _close.call(_this, true);
 		});
 		_dialog.find(".buttons .cancel-btn, .header .close-btn").click(function() {
 			_close.call(_this, false);
@@ -2913,17 +2925,6 @@ function CategoryDialog(calendar) {
 				calendar.refetchEvents();
 				}
 			});
-		//
-		
-		// personal version
-		_setPersonalMode.call(_this);
-	}
-	
-	function _setPersonalMode() {
-		var shared_list = _dialog.find(".shared-list");
-		if (calendar.options.personal == true) {
-			shared_list.addClass("hidden");
-		}
 	}
 	
 	function _openIcalStream(anchor) {
@@ -3093,8 +3094,8 @@ function CategoryDialog(calendar) {
 	this.addNew = function(anchor) {
 		var opt = calendar.options;
 		var categories = opt.categories;
-		var newColor = fcUtil.parseCssColor(opt.eventTextColor);
-		var newBg = fcUtil.parseCssColor(opt.eventBackgroundColor);
+		var newColor = fcUtil.parseCssColor(fcUtil.randomHex());
+		var newBg = fcUtil.parseCssColor(fcUtil.randomHex());
 		var newBor = fcUtil.changeColorLightness(newBg.r, newBg.g, newBg.b, opt.eventBg2BorderRatio);
 
 		_elem = undefined;
@@ -3128,8 +3129,8 @@ function CategoryDialog(calendar) {
 	this.addiCalCalendar = function(anchor) {
 		var opt = calendar.options;
 		var categories = opt.categories;
-		var newColor = fcUtil.parseCssColor(opt.eventTextColor);
-		var newBg = fcUtil.parseCssColor(opt.eventBackgroundColor);
+		var newColor = fcUtil.parseCssColor(fcUtil.randomHex());
+		var newBg = fcUtil.parseCssColor(fcUtil.randomHex());
 		var newBor = fcUtil.changeColorLightness(newBg.r, newBg.g, newBg.b, opt.eventBg2BorderRatio);
 
 		_elem = undefined;
@@ -3222,7 +3223,10 @@ function SubscriptionDialog(calendar) {
 		});
 				
 		_dialog.find(".buttons .save-btn").click(function() {
-			_close.call(_this, true);
+		    if (jq(this).hasClass("disable"))
+		        return;
+		    
+		    _close.call(_this, true);
 		});
 		_dialog.find(".buttons .cancel-btn, .header .close-btn").click(function() {
 			_close.call(_this, false);
@@ -3375,19 +3379,6 @@ function SubscriptionDialog(calendar) {
 				calendar.refetchEvents();
 				}
 			});
-		//
-		
-		// personal version
-		_setPersonalMode.call(_this);
-	}
-	
-	function _setPersonalMode() {
-		var owner = _dialog.find(".owner");
-		var shared_list = _dialog.find(".shared-list");
-		if (calendar.options.personal == true) {
-			owner.addClass("hidden");
-			shared_list.addClass("hidden");
-		}
 	}
 	
 	function _openIcalStream(anchor) {
@@ -4056,6 +4047,9 @@ function CategoriesList(calendar) {
 
 	function _renderSubscriptions(list) {
 		var sources = calendar.getEventSources();
+        if (!list.find(".subscr").length) {
+            return;
+        }
 		var jsp = list.find(".subscr").data("jsp");
 		var subscr = jsp.getContentPane();
 		subscr.empty();
@@ -4088,12 +4082,13 @@ function CategoriesList(calendar) {
 						<!--'<span class="add-label" title="' + htmlEscape(calendar.options.categories.addNewCategoryLabel) + '"/>' + -->
 					'</div>' +
 					'<div class="categories"/>' +
+                    (calendar.options.isPersonal ? "" :
 					'<div class="content-h">' +
 						'<span class="main-label">' + htmlEscape(calendar.options.categories.subscriptionsTitle) + '</span>' +
 						'<span class="manage-label" title="' + htmlEscape(calendar.options.categories.subscriptionsManageLabel) + '"/>' +
 					'</div>' +
 					'<div class="subscr"/>' +
-				'</div>');
+				'</div>'));
 			//list.find(".add-label").click(function() {_addNewCategory.call(_this);});
 			list.find(".manage-label").click(function() {_manageSubscriptions.call(_this);});
 			list.find(".categories, .subscr").jScrollPane().css("padding", "");
@@ -4158,7 +4153,7 @@ function CategoriesList(calendar) {
 
 		var categJSP = categ.data("jsp");
 		categJSP.reinitialise();
-		subscr.data("jsp").reinitialise();
+		if (subscr.length) subscr.data("jsp").reinitialise();
 
 		if (scrollToEnd) {
 			categJSP.scrollToBottom();
@@ -4217,6 +4212,7 @@ function CategoriesList(calendar) {
 				direction: directionUp ? "right,up" : "left,down",
 				arrow: directionUp ? "down" : "up",
 				arrowPosition: "50%",
+				showArrow: false,
 				cssClassName: "asc-popupmenu",
 				items: calendar.options.monthNames,
 				itemClick: function (event, data) {
@@ -4232,6 +4228,7 @@ function CategoriesList(calendar) {
 				direction: directionUp ? "right,up" : "left,down",
 				arrow: directionUp ? "down" : "up",
 				arrowPosition: "50%",
+				showArrow: false,
 				cssClassName: "asc-popupmenu",
 				items: [
 					(y - 2).toString(),
@@ -4647,6 +4644,7 @@ function TodoList(calendar) {
 			anchor: "right,bottom",
 			direction: "left,down",
 			arrow: "up",
+			showArrow: false,
 			cssClassName: "asc-popupmenu",
 			items: [
 				{
@@ -4727,7 +4725,8 @@ function TodoList(calendar) {
 									anchor: "left,top",
 									direction: "left,down",
 									arrow: "right",
-									arrowPosition: "50%"});
+									arrowPosition: "50%",
+									showArrow: false});
 					_editor.find("#fc_todo_ok").button().click(function() {
 						_doDDX.call(_this, true);
 						_closeEditor.call(_this);
@@ -4932,7 +4931,8 @@ function EventEditor(calendar, uiBlocker) {
 					direction: "right,down",
 					offset: "-2px,0",
 					arrow: "left",
-					arrowPosition: "50%"
+					arrowPosition: "50%",
+					showArrow: false
 				});
 		
 		_dialog.find(".buttons .edit-btn").click(function() {
@@ -4947,7 +4947,10 @@ function EventEditor(calendar, uiBlocker) {
 			}
 		});
 		_dialog.find(".buttons .save-btn").click(function() {
-			var hasSettings = !_settings.hasClass("hidden");
+		    if (jq(this).hasClass("disable"))
+		        return;
+		    
+		    var hasSettings = !_settings.hasClass("hidden");
 			if (hasSettings) {
 				if (!_validateDateFieldsSettings.call(_this)) {
 					return;
@@ -5130,7 +5133,10 @@ function EventEditor(calendar, uiBlocker) {
 		_settings = _dialog.find(".repeat-settings");
 		
 		_settings.find(".buttons .save-btn").click(function() {
-			_closeSettings.call(_this, true);
+		    if (jq(this).hasClass("disable"))
+		        return;
+		    
+		    _closeSettings.call(_this, true);
 		});
 		_settings.find(".buttons .cancel-btn, .buttons .close-btn, .header .close-btn").click(function() {
 			_closeSettings.call(_this, false);
@@ -5161,6 +5167,7 @@ function EventEditor(calendar, uiBlocker) {
 				anchor: "left,bottom",
 				direction: "right,down",
 				arrow: "up",
+				showArrow: false,
 				closeTimeout: -1,
 				cssClassName: "asc-popupmenu",
 				items: [
@@ -5232,6 +5239,7 @@ function EventEditor(calendar, uiBlocker) {
 				anchor: "left,bottom",
 				direction: "right,down",
 				arrow: "up",
+				showArrow: false,
 				closeTimeout: -1,
 				cssClassName: "asc-popupmenu",
 				items: [
@@ -5365,7 +5373,10 @@ function EventEditor(calendar, uiBlocker) {
 		//
 		
 		_delSettings.find(".buttons .save-btn").click(function() {
-			var delType = deleteMode.single;
+		    if (jq(this).hasClass("disable"))
+		        return;
+		    
+		    var delType = deleteMode.single;
 			if (_delSettings.find(".delete-following").is(":checked")) {
 				delType = deleteMode.allFollowing;
 			}
@@ -5549,6 +5560,7 @@ function EventEditor(calendar, uiBlocker) {
 				anchor: "left,bottom",
 				direction: "right,down",
 				arrow: "up",
+				showArrow: false,
 				closeTimeout: -1,
 				cssClassName: "asc-popupmenu",
 				items: [
@@ -5643,6 +5655,7 @@ function EventEditor(calendar, uiBlocker) {
 				anchor: "left,bottom",
 				direction: "right,down",
 				arrow: "up",
+				showArrow: false,
 				closeTimeout: -1,
 				cssClassName: "asc-popupmenu",
 				
@@ -5744,13 +5757,17 @@ function EventEditor(calendar, uiBlocker) {
 			list += _eventObj.permissions.users[i].name;
 		}
 
-		_dialog.find(".viewer .shared-list .users-list").html(htmlEscape(list));
+	    if (calendar.options.isPersonal) {
+	        _dialog.find(".shared-list").remove();
+	    } else {
+	        _dialog.find(".viewer .shared-list .users-list").html(htmlEscape(list));
 
-		if (list.length > 0) {
-			_dialog.find(".viewer .shared-list").addClass("has-users");
-		} else {
-			_dialog.find(".viewer .shared-list").removeClass("has-users");
-		}
+	        if (list.length > 0) {
+	            _dialog.find(".viewer .shared-list").addClass("has-users");
+	        } else {
+	            _dialog.find(".viewer .shared-list").removeClass("has-users");
+	        }
+	    }
 
 		_permissionsList.render(_eventObj.permissions, kEventPermissions, _eventObj.objectId);
 	}
@@ -5826,9 +5843,6 @@ function EventEditor(calendar, uiBlocker) {
 
 		_doDDX.call(_this);
 		
-		// personal version
-		_setPersonalMode.call(_this);
-		
 		_anchor = elem;
 		_modes[mode].call(_this, elem, eventObj);
 		
@@ -5840,25 +5854,6 @@ function EventEditor(calendar, uiBlocker) {
 			uiBlocker.show();
 		} else {
 			uiBlocker.hide();
-		}
-	}
-	
-	function _setPersonalMode() {
-		var dlg = {
-			viewer: {
-				owner:				_dialog.find(".viewer .owner"),
-				shared_list:		_dialog.find(".viewer .shared-list")
-			},
-			editor: {
-				shared_list:		_dialog.find(".editor .shared-list")
-			}
-		};
-		
-		// personal version
-		if (calendar.options.personal == true) {
-			dlg.viewer.owner.addClass("hidden");
-			dlg.viewer.shared_list.addClass("hidden");
-			dlg.editor.shared_list.addClass("hidden");
 		}
 	}
 	
@@ -6140,8 +6135,16 @@ function EventEditor(calendar, uiBlocker) {
 	}
 
 	function _closeDialog() {
-		_dialog.popupFrame("close");
+	    _dialog.popupFrame("close");
 		uiBlocker.hide();
+	}
+    
+	function _disableDialogBtns(disable) {
+	    if (disable){
+	        _dialog.find(".buttons .save-btn").addClass("disable");
+	    } else {
+	        _dialog.find(".buttons .save-btn").removeClass("disable");
+	    }
 	}
 	
 	function _closeDialogDelSettings() {
@@ -6711,13 +6714,15 @@ function EventEditor(calendar, uiBlocker) {
 		}
 
 		if (_eventObj.source) {
-			// update event
-			calendar.trigger("editEvent", _this,
+		    _disableDialogBtns(true);
+		    // update event
+		    calendar.trigger("editEvent", _this,
 					$.extend(
 							{action: kEventChangeAction, sourceId: _eventObj.source.objectId},
 							_eventObj),
 					function(response) {
-						if (!response.result) {return;}
+					    _disableDialogBtns(false);
+					    if (!response.result) {return;}
 						_closeDialog.call(_this);
 						if (response.event.length < 1) {return;}
 						//
@@ -6729,12 +6734,14 @@ function EventEditor(calendar, uiBlocker) {
 						calendar.addEvents(response.event);
 					});
 		} else {
-			var id = _eventObj._id;
+		    _disableDialogBtns(true);
+		    var id = _eventObj._id;
 			// create new event
 			calendar.trigger("editEvent", _this,
 					$.extend({action: kEventAddAction}, _eventObj),
 					function(response) {
-						if (!response.result) {return;}
+					    _disableDialogBtns(false);
+					    if (!response.result) {return;}
 						_closeDialog.call(_this);
 						calendar.removeEvents(id);
 						if (response.event.length < 1) {return;}
@@ -6783,7 +6790,12 @@ function EventEditor(calendar, uiBlocker) {
 	this.isVisible = function() {
 		return _dialog.popupFrame("isVisible");
 	};
-
+    
+	this.closePopupEvent = function() {
+	    if (this.isVisible() && !_dialogMode) {
+	        _close.call(_this, false);
+	    }
+	};
 }
 
 
@@ -7366,7 +7378,7 @@ function parseISO8601(s, ignoreTimezone) { // ignoreTimezone defaults to false
 	if (!m) {
 		return null;
 	}
-	var date = new Date(m[1], 0, 1);
+	var date = new Date(m[1], 0, 1, 1); // TODO hack for Russia TZ Daylight Time. remove for chrome 29 ???
 	if (ignoreTimezone || !m[14]) {
 		var check = new Date(m[1], 0, 1, 9, 0);
 		if (m[3]) {

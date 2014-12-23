@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -143,7 +143,7 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
-        public List<Task> GetByFilter(TaskFilter filter, bool isAdmin)
+        public List<Task> GetByFilter(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
             var query = CreateQuery()
                 .LeftOuterJoin(MilestonesTable + " m", Exp.EqColumns("m.id", "t.milestone_id") & Exp.EqColumns("t.tenant_id", "m.tenant_id"))
@@ -156,6 +156,12 @@ namespace ASC.Projects.Data.DAO
             }
 
             //query.OrderBy("(case t.status when 2 then 1 else 0 end)", true);
+
+            if (filter.TaskStatuses.Count == 1 && filter.TaskStatuses.Contains(TaskStatus.Closed))
+            {
+                filter.SortBy = "status_changed";
+                filter.SortOrder = false;
+            }
 
             if (!string.IsNullOrEmpty(filter.SortBy))
             {
@@ -170,21 +176,21 @@ namespace ASC.Projects.Data.DAO
                 }
             }
 
-            query = CreateQueryFilter(query, filter, isAdmin);
+            query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
 
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(query).ConvertAll(ToTaskMilestone);
             }
         }
-        
-        public TaskFilterCountOperationResult GetByFilterCount(TaskFilter filter, bool isAdmin)
+
+        public TaskFilterCountOperationResult GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
             var query = new SqlQuery(TasksTable + " t").Select("t.id", "t.status")
                 .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
                 .Where("t.tenant_id", Tenant);
 
-            query = CreateQueryFilterCount(query, filter, isAdmin);
+            query = CreateQueryFilterCount(query, filter, isAdmin, checkAccess);
 
             var queryCount = new SqlQuery()
                 .SelectCount("t1.id").Select("t1.status")
@@ -292,7 +298,7 @@ namespace ASC.Projects.Data.DAO
             {
                 using (var tr = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
-                    task.Responsibles.RemoveWhere(r => r.Equals(Guid.Empty));
+                    task.Responsibles.RemoveAll(r => r.Equals(Guid.Empty));
 
                     if (task.Deadline.Kind != DateTimeKind.Local && task.Deadline != DateTime.MinValue)
                         task.Deadline = TenantUtil.DateTimeFromUtc(task.Deadline);
@@ -323,11 +329,14 @@ namespace ASC.Projects.Data.DAO
 
                     db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where("task_id", task.ID));
 
-                    foreach (var responsible in task.Responsibles)
+                    if (task.Responsibles.Any())
                     {
-                        insert = Insert(TasksResponsibleTable)
-                            .InColumnValue("task_ID", task.ID)
-                            .InColumnValue("responsible_id", responsible);
+                        insert = new SqlInsert(TasksResponsibleTable).InColumns("tenant_id", "task_ID", "responsible_id");
+
+                        foreach (var responsible in task.Responsibles.Distinct())
+                        {
+                            insert.Values(Tenant, task.ID, responsible);
+                        }
 
                         db.ExecuteNonQuery(insert);
                     }
@@ -347,6 +356,7 @@ namespace ASC.Projects.Data.DAO
                     db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Task>(id)));
                     db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where("task_id", id));
                     db.ExecuteNonQuery(Delete(TasksTable).Where("id", id));
+                    db.ExecuteNonQuery(Delete(SubtasksTable).Where("task_id", id));
 
                     tx.Commit();
                 }
@@ -486,7 +496,7 @@ namespace ASC.Projects.Data.DAO
                 .GroupBy("t.id");
         }
 
-        private SqlQuery CreateQueryFilterBase(SqlQuery query, TaskFilter filter, bool isAdmin)
+        private SqlQuery CreateQueryFilterBase(SqlQuery query, TaskFilter filter)
         {
             if (filter.ProjectIds.Count != 0)
             {
@@ -551,9 +561,9 @@ namespace ASC.Projects.Data.DAO
             return query;
         }
 
-        private SqlQuery CreateQueryFilterCount(SqlQuery query, TaskFilter filter, bool isAdmin)
+        private SqlQuery CreateQueryFilterCount(SqlQuery query, TaskFilter filter, bool isAdmin, bool checkAccess)
         {
-            query = CreateQueryFilterBase(query, filter, isAdmin);
+            query = CreateQueryFilterBase(query, filter);
 
             if (filter.Milestone.HasValue)
             {
@@ -613,30 +623,14 @@ namespace ASC.Projects.Data.DAO
                             | Exp.Exists(existsMilestone));
             }
 
-            if (!isAdmin)
-            {
-                if (!filter.MyProjects && !filter.MyMilestones)
-                {
-                    query.LeftOuterJoin(ParticipantTable + " ppp", Exp.Eq("ppp.participant_id", CurrentUserID) & Exp.EqColumns("ppp.project_id", "t.project_id") & Exp.EqColumns("ppp.tenant", "t.tenant_id"));
-                }
-                var isInTeam = Exp.Sql("ppp.security IS NOT NULL") & Exp.Eq("ppp.removed", false);
-                var canReadTasks = !Exp.Eq("security & " + (int)ProjectTeamSecurity.Tasks, (int)ProjectTeamSecurity.Tasks);
-                var canReadMilestones = Exp.Eq("t.milestone_id", 0) | !Exp.Eq("security & " + (int)ProjectTeamSecurity.Milestone, (int)ProjectTeamSecurity.Milestone);
-                var responsible = Exp.Exists(new SqlQuery("projects_tasks_responsible ptr")
-                        .Select("ptr.responsible_id")
-                        .Where(Exp.EqColumns("t.id", "ptr.task_id") & 
-                        Exp.EqColumns("ptr.tenant_id", "t.tenant_id") & 
-                        Exp.Eq("ptr.responsible_id", CurrentUserID)));
-
-                query.Where(Exp.Eq("p.private", false) | isInTeam & (responsible | canReadTasks & canReadMilestones));
-            }
+            CheckSecurity(query, filter, isAdmin, checkAccess);
 
             return query;
         }
 
-        private SqlQuery CreateQueryFilter(SqlQuery query, TaskFilter filter, bool isAdmin)
+        private SqlQuery CreateQueryFilter(SqlQuery query, TaskFilter filter, bool isAdmin, bool checkAccess)
         {
-            query = CreateQueryFilterBase(query, filter, isAdmin);
+            query = CreateQueryFilterBase(query, filter);
 
             if (filter.ParticipantId.HasValue && filter.ParticipantId == Guid.Empty)
             {
@@ -668,20 +662,7 @@ namespace ASC.Projects.Data.DAO
                 query.Where(Exp.Le(GetSortFilter("deadline", true), TenantUtil.DateTimeFromUtc(filter.ToDate)));
             }
 
-            if (!isAdmin)
-            {
-                if (!filter.MyProjects && !filter.MyMilestones)
-                {
-                    query.LeftOuterJoin(ParticipantTable + " ppp", Exp.Eq("ppp.participant_id", CurrentUserID) & Exp.EqColumns("ppp.project_id", "t.project_id") & Exp.EqColumns("ppp.tenant", "t.tenant_id"));
-                }
-                var isInTeam = Exp.Sql("ppp.security IS NOT NULL") & Exp.Eq("ppp.removed", false);
-                var canReadTasks = !Exp.Eq("security & " + (int)ProjectTeamSecurity.Tasks, (int)ProjectTeamSecurity.Tasks);
-                var canReadMilestones = Exp.Eq("t.milestone_id", 0) | !Exp.Eq("security & " + (int)ProjectTeamSecurity.Milestone, (int)ProjectTeamSecurity.Milestone);
-                var exists = new SqlQuery("projects_tasks_responsible ptr1").Select("ptr1.responsible_id").Where(Exp.EqColumns("t.id", "ptr1.task_id") & Exp.EqColumns("ptr1.tenant_id", "t.tenant_id") & Exp.Eq("ptr1.responsible_id", CurrentUserID));
-                var responsible = Exp.Exists(exists);
-
-                query.Where(Exp.Eq("p.private", false) | isInTeam & (responsible | canReadTasks & canReadMilestones));
-            }
+            CheckSecurity(query, filter, isAdmin, checkAccess);
 
             return query;
         }
@@ -706,7 +687,7 @@ namespace ASC.Projects.Data.DAO
                 Deadline = r[11 + offset] != null ? DateTime.SpecifyKind(Convert.ToDateTime(r[11 + offset]), DateTimeKind.Local) : default(DateTime),
                 StartDate = !Convert.ToDateTime(r[12 + offset]).Equals(DateTime.MinValue) ? DateTime.SpecifyKind(Convert.ToDateTime(r[12 + offset]), DateTimeKind.Local) : default(DateTime),
                 Progress = Convert.ToInt32(r[13 + offset]),
-                Responsibles = !string.IsNullOrEmpty((string)r[14 + offset]) ? new HashSet<Guid>(((string)r[14 + offset]).Split(',').Select(ToGuid)) : new HashSet<Guid>(),
+                Responsibles = !string.IsNullOrEmpty((string)r[14 + offset]) ? new List<Guid>(((string)r[14 + offset]).Split(',').Select(ToGuid)) : new List<Guid>(),
                 SubTasks = new List<Subtask>()
             };
 
@@ -755,6 +736,29 @@ namespace ASC.Projects.Data.DAO
             return string.Format("COALESCE(COALESCE(NULLIF(t.deadline,'{0}'),m.deadline), '{1}')",
                                  DateTime.MinValue.ToString("yyyy-MM-dd HH:mm:ss"), sortDate);
 
+        }
+
+        private void CheckSecurity(SqlQuery query, TaskFilter filter, bool isAdmin, bool checkAccess)
+        {
+            if (checkAccess)
+            {
+                query.Where(Exp.Eq("p.private", false));
+                return;
+            }
+
+            if (isAdmin) return;
+
+            if (!filter.MyProjects && !filter.MyMilestones)
+            {
+                query.LeftOuterJoin(ParticipantTable + " ppp", Exp.Eq("ppp.participant_id", CurrentUserID) & Exp.EqColumns("ppp.project_id", "t.project_id") & Exp.EqColumns("ppp.tenant", "t.tenant_id"));
+            }
+            var isInTeam = !Exp.Eq("ppp.security", null) & Exp.Eq("ppp.removed", false);
+            var canReadTasks = !Exp.Eq("security & " + (int)ProjectTeamSecurity.Tasks, (int)ProjectTeamSecurity.Tasks);
+            var canReadMilestones = Exp.Eq("t.milestone_id", 0) | !Exp.Eq("security & " + (int)ProjectTeamSecurity.Milestone, (int)ProjectTeamSecurity.Milestone);
+            var exists = new SqlQuery("projects_tasks_responsible ptr1").Select("ptr1.responsible_id").Where(Exp.EqColumns("t.id", "ptr1.task_id") & Exp.EqColumns("ptr1.tenant_id", "t.tenant_id") & Exp.Eq("ptr1.responsible_id", CurrentUserID));
+            var responsible = Exp.Exists(exists);
+
+            query.Where(Exp.Eq("p.private", false) | isInTeam & (responsible | canReadTasks & canReadMilestones));
         }
 
         #endregion

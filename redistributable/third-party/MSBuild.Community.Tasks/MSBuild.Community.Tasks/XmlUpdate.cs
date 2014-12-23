@@ -152,11 +152,11 @@ namespace MSBuild.Community.Tasks
             try
             {
                 Log.LogMessage(Properties.Resources.XmlUpdateDocument, _xmlFileName);
-                
+
                 XmlDocument document = new XmlDocument();
                 document.Load(_xmlFileName);
-                
-                XPathNavigator navigator = document.CreateNavigator();                
+
+                XPathNavigator navigator = document.CreateNavigator();
                 XmlNamespaceManager manager = new XmlNamespaceManager(navigator.NameTable);
 
                 if (!string.IsNullOrEmpty(_prefix) && !string.IsNullOrEmpty(_namespace))
@@ -166,6 +166,12 @@ namespace MSBuild.Community.Tasks
 
                 XmlNodeList nodes = document.SelectNodes(_xpath, manager);
                 Log.LogMessage(Properties.Resources.XmlUpdateNodes, nodes.Count);
+
+                var xml = new List<string>();
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    xml.Add(nodes[i].OuterXml);
+                }
 
                 for (int i = 0; i < nodes.Count; i++)
                 {
@@ -179,7 +185,7 @@ namespace MSBuild.Community.Tasks
                 {
                     writer.Formatting = Formatting.Indented;
                     document.Save(writer);
-                    writer.Close();                    
+                    writer.Close();
                 }
             }
             catch (Exception ex)

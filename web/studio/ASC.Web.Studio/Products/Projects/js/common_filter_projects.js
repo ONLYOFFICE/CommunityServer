@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 ASC.Projects.ProjectsAdvansedFilter = (function() {
     var anchorMoving = false,
     firstload = true,
@@ -77,6 +73,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
         status: "status",
         open: "open",
         closed: "closed",
+        archived: "archived",
         paused: "paused",
 
         payment_status: "payment_status",
@@ -109,18 +106,19 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
         sortOrder: "sortOrder"
     };
     
+    var self;
     var isinit = false;
     var obj;
     var onMovedHash = function () {
-        if (!ASC.Projects.ProjectsAdvansedFilter.hashFilterChanged) {
-            if (!ASC.Projects.ProjectsAdvansedFilter.firstload)
+        if (!self.hashFilterChanged) {
+            if (!self.firstload)
                 setFilterByUrl();
         } 
-        ASC.Projects.ProjectsAdvansedFilter.hashFilterChanged = false;
+        self.hashFilterChanged = false;
     };
 
-    var initialisation = function(bsPath, objct) {
-        basePath = bsPath;
+    var initialisation = function(objct) {
+        basePath = objct.basePath;
         var res = /sortBy=(.+)\&sortOrder=(.+)/ig.exec(basePath);
         if (res && res.length == 3) {
             baseSortBy = res[1];
@@ -130,14 +128,15 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
             isinit = true;
         }
         
-        ASC.Projects.ProjectsAdvansedFilter.obj = objct;
+        self.obj = objct;
         
     };
     var init = function (objct) {
+        self = this;
         ASC.Projects.Common.clearAdvansedFilter();
-        initialisation(objct.basePath, objct);
+        initialisation(objct);
         
-        ASC.Projects.ProjectsAdvansedFilter.filter = jq('#ProjectsAdvansedFilter').advansedFilter(
+        self.filter = jq('#ProjectsAdvansedFilter').advansedFilter(
            {
                store: true,
                anykey: true,
@@ -147,8 +146,9 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
                filters: objct.filters,
                sorters: objct.sorters
            }
-       ).bind('setfilter', ASC.Projects.ProjectsAdvansedFilter.onSetFilter)
-        .bind('resetfilter', ASC.Projects.ProjectsAdvansedFilter.onResetFilter);
+       ).bind('setfilter', self.onSetFilter)
+        .bind('resetfilter', self.onResetFilter);
+        return self.filter;
     };
 
     var getUrlParam = function(name, str) {
@@ -188,9 +188,6 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
     };
 
     var setFilterByUrl = function() {
-        if (ASC.Projects.ProjectsAdvansedFilter.firstload) {
-            ASC.Projects.ProjectsAdvansedFilter.firstload = false;
-        }
 
         var hash = ASC.Controls.AnchorController.getAnchor();
         if (hash == "") {
@@ -362,6 +359,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
             filters.push({ type: "combobox", id: "open", reset: true });
             filters.push({ type: "combobox", id: "paused", reset: true });
             filters.push({ type: "combobox", id: "closed", reset: true });
+            filters.push({ type: "combobox", id: "archived", reset: true });
         }
 
         // Payment status
@@ -453,7 +451,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
             data.projectId = projectId;
         }
         
-        ASC.Projects.ProjectsAdvansedFilter.baseFilter = filters.length == 1 && filters[0].id == "sorter";
+        self.baseFilter = filters.length == 1 && filters[0].id == "sorter";
         
         for (var filterInd = 0; filterInd < filters.length; filterInd++) {
             switch (filters[filterInd].id) {
@@ -546,6 +544,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
                     break;
                 case "open":
                 case "paused":
+                case "archived":
                 case "closed":
                 case "status":
                     data.status = filters[filterInd].params.value;
@@ -656,39 +655,39 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
         });
     };
 
-    var onSetFilter = function(evt, $container) {
-        ASC.Projects.ProjectsAdvansedFilter.obj.currentPage = 0;
-        var path = ASC.Projects.ProjectsAdvansedFilter.makeData($container, 'anchor');
+    var onSetFilter = function (evt, $container) {
+        var path = self.makeData($container, 'anchor');
         var hash = ASC.Controls.AnchorController.getAnchor();
-        if (ASC.Projects.ProjectsAdvansedFilter.firstload && hash.length) {
-            if (!ASC.Projects.ProjectsAdvansedFilter.coincidesWithFilter(path)) {
-                ASC.Projects.ProjectsAdvansedFilter.firstload = false;
-                ASC.Projects.ProjectsAdvansedFilter.hashFilterChanged = true;
-                ASC.Projects.ProjectsAdvansedFilter.setFilterByUrl();
+        if (self.firstload && hash.length) {
+            if (!self.coincidesWithFilter(path)) {
+                self.firstload = false;
+                self.hashFilterChanged = true;
+                self.setFilterByUrl();
                 return;
             }
         }
-        if (ASC.Projects.ProjectsAdvansedFilter.firstload) {
-            ASC.Projects.ProjectsAdvansedFilter.firstload = false;
+        if (self.firstload) {
+            self.firstload = false;
+        } else {
+            self.obj.currentPage = 0;
         }
-        var filter = ASC.Projects.ProjectsAdvansedFilter.makeData($container, 'data');
-        ASC.Projects.ProjectsAdvansedFilter.obj.currentFilter = filter;
-        LoadingBanner.displayLoading();
-        ASC.Projects.ProjectsAdvansedFilter.obj.getData(filter);
+
+        self.obj.currentFilter = self.makeData($container, 'data');
+     //   LoadingBanner.displayLoading();
+        self.obj.getData();
         if (path !== hash) {
-            ASC.Projects.ProjectsAdvansedFilter.hashFilterChanged = true;
+            self.hashFilterChanged = true;
             location.hash = path;
         }
     };
 
-    var onResetFilter = function(evt, $container) {
-        ASC.Projects.ProjectsAdvansedFilter.obj.currentPage = 0;
-        var path = ASC.Projects.ProjectsAdvansedFilter.makeData($container, 'anchor');
-        ASC.Projects.ProjectsAdvansedFilter.hashFilterChanged = true;
+    var onResetFilter = function (evt, $container) {
+        self.obj.currentPage = 0;
+        var path = self.makeData($container, 'anchor');
+        self.hashFilterChanged = true;
         ASC.Controls.AnchorController.move(path);
-        var filter = ASC.Projects.ProjectsAdvansedFilter.makeData($container, 'data');
-        ASC.Projects.ProjectsAdvansedFilter.obj.currentFilter = filter;
-        ASC.Projects.ProjectsAdvansedFilter.obj.getData(filter);
+        self.obj.currentFilter = self.makeData($container, 'data');;
+        self.obj.getData();
         LoadingBanner.displayLoading();
     };
 
@@ -699,7 +698,6 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
         hashFilterChanged: hashFilterChanged,
         massNameFilters: massNameFilters,
         anchorMoving: anchorMoving,
-        initialisation: initialisation,
         firstload: firstload,
         coincidesWithFilter: coincidesWithFilter,
         init: init,

@@ -549,6 +549,9 @@
   <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
     <value>open</value>
   </data>
+  <data name="GanttNotAvailableTaskLink" xml:space="preserve">
+    <value>Нет задач доступных для создания связи</value>
+  </data>
   <data name="StatusClosedMilestone" xml:space="preserve">
     <value>Closed</value>
   </data>
@@ -570,7 +573,7 @@
   <data name="GanttLeftPanelAddDate" xml:space="preserve">
     <value>add</value>
   </data>
-  <data name="GanttNotAvailableTaskLink" xml:space="preserve">
-    <value>Нет задач доступных для создания связи</value>
+  <data name="TemplateSaved" xml:space="preserve">
+    <value>Template saved</value>
   </data>
 </root>

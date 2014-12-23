@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
+using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Dal.DbSchema;
 
 namespace ASC.Mail.Aggregator
@@ -379,8 +380,8 @@ namespace ASC.Mail.Aggregator
 
                 var upsert_query =
                     string.Format("INSERT INTO {0} ({1}, {2}, {3}, {4}, {5})" +
-                                  "VALUES({6}, '{7}', {8}, {9}, {10})" +
-                                  "ON DUPLICATE KEY UPDATE {4} = {9}, {5} = {10}",
+                                  "VALUES(@tid, @user, @folder, @count1, @count2)" +
+                                  "ON DUPLICATE KEY UPDATE {4} = @count1, {5} = @count2",
                                   MAIL_FOLDER,
                                   FolderFields.id_tenant,
                                   FolderFields.id_user,
@@ -390,14 +391,9 @@ namespace ASC.Mail.Aggregator
                                       : FolderFields.unread_messages_count,
                                   is_conversation
                                       ? FolderFields.total_conversations_count
-                                      : FolderFields.total_messages_count,
-                                  tenant,
-                                  user,
-                                  folder.id,
-                                  folder.unread,
-                                  folder.total_count);
+                                      : FolderFields.total_messages_count);
 
-                db.ExecuteNonQuery(upsert_query);
+                db.ExecuteNonQuery(upsert_query, new { tid = tenant, user = user, folder = folder.id, count1 = folder.unread, count2 = folder.total_count });
             }
 
             return folders;

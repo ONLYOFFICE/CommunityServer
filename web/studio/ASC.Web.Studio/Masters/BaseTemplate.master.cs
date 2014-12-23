@@ -1,33 +1,32 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -35,10 +34,11 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
 using ASC.Core;
-using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Utility;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common;
@@ -59,6 +59,7 @@ namespace ASC.Web.Studio.Masters
         /// </summary>
         /// 
         protected string TariffNotify;
+
         protected string TariffNotifyText;
         public bool DisableTariffNotify { get; set; }
 
@@ -77,33 +78,41 @@ namespace ASC.Web.Studio.Masters
         private static Regex _browserNotSupported;
 
         protected bool DisablePartnerPanel { get; set; }
-        private bool? IsAutorizePartner { get; set; }
+        private bool? IsAuthorizedPartner { get; set; }
         protected Partner Partner { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
             TopStudioPanel = (TopStudioPanel)LoadControl(TopStudioPanel.Location);
+            MetaKeywords.Content = Resources.Resource.MetaKeywords;
+            MetaDescription.Content = Resources.Resource.MetaDescription;
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             InitScripts();
+            EnabledWebChat = Convert.ToBoolean(ConfigurationManager.AppSettings["web.chat"] ?? "false") &&
+                             WebItemManager.Instance.GetItems(WebZoneType.CustomProductList, ItemAvailableState.Normal).
+                                            Any(id => id.ID == WebItemManager.TalkProductID) &&
+                             !(Request.Browser != null && Request.Browser.Browser == "IE" &&
+                               (Request.Browser.MajorVersion == 8 || Request.Browser.MajorVersion == 9 || Request.Browser.MajorVersion == 10));
 
-            if (!DisabledSidePanel)
+            IsMobile = MobileDetector.IsMobile;
+
+            if (!DisabledSidePanel && EnabledWebChat && !IsMobile)
             {
-                EnabledWebChat = Convert.ToBoolean(ConfigurationManager.AppSettings["web.chat"] ?? "false") &&
-                    WebItemManager.Instance.GetItems(WebZoneType.CustomProductList, ItemAvailableState.Normal).
-                    Any(id => id.ID == WebItemManager.TalkProductID);
-                if (EnabledWebChat)
-                {
-                    IsMobile = MobileDetector.IsMobile;
-                    if (!IsMobile)
-                    {
-                        SmallChatHolder.Controls.Add(LoadControl(UserControls.Common.SmallChat.SmallChat.Location));
-                    }
-                }
+                SmallChatHolder.Controls.Add(LoadControl(UserControls.Common.SmallChat.SmallChat.Location));
             }
+
+            if ((!DisabledSidePanel || !DisabledTopStudioPanel) && (EnabledWebChat || VoipNavigation.VoipEnabled))
+            {
+                AddBodyScripts(ResolveUrl("~/js/third-party/jquery/jquery.signalr.js"));
+                AddBodyScripts(ResolveUrl("~/js/third-party/jquery/jquery.hubs.js"));
+            }
+
+            AddBodyScripts(ResolveUrl("~/js/third-party/async.js"));
+            AddBodyScripts(ResolveUrl("~/js/third-party/modernizr.js"));
 
             if (!DisabledTopStudioPanel)
             {
@@ -129,12 +138,13 @@ namespace ASC.Web.Studio.Masters
                 BannerHolder.Controls.Add(LoadControl(Banner.Location));
             }
 
+            DisabledHelpTour = true;
             if (!DisabledHelpTour)
             {
                 HeaderContent.Controls.Add(LoadControl(UserControls.Common.HelpTour.HelpTour.Location));
             }
 
-            if (!SecurityContext.IsAuthenticated || !TenantExtra.EnableTarrifSettings || CoreContext.Configuration.Personal 
+            if (!SecurityContext.IsAuthenticated || !TenantExtra.EnableTarrifSettings || CoreContext.Configuration.Personal
                 || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
             {
                 DisableTariffNotify = true;
@@ -143,12 +153,13 @@ namespace ASC.Web.Studio.Masters
             {
                 TariffNotify = TenantExtra.GetTariffNotify();
                 TariffNotifyText = TenantExtra.GetTariffNotifyText();
-                if (string.IsNullOrEmpty(TariffNotify) || 
-                    ( TenantExtra.GetCurrentTariff().State == TariffState.Trial && TenantExtra.GetCurrentTariff().DueDate.Subtract(DateTime.Today.Date).Days > 5))
+                if (string.IsNullOrEmpty(TariffNotify) ||
+                    (TenantExtra.GetCurrentTariff().State == TariffState.Trial && TenantExtra.GetCurrentTariff().DueDate.Subtract(DateTime.Today.Date).Days > 5))
                     DisableTariffNotify = true;
             }
 
-            if (!DisableTariffNotify) {
+            if (!DisableTariffNotify)
+            {
                 var stringBuilder = new StringBuilder();
                 stringBuilder.Append("if (jq('div.mainPageLayout table.mainPageTable').hasClass('with-mainPageTableSidePanel'))jq('#infoBoxTariffNotify').removeClass('display-none');");
                 Page.RegisterInlineScript(stringBuilder.ToString());
@@ -156,16 +167,15 @@ namespace ASC.Web.Studio.Masters
 
             if (CoreContext.Configuration.PartnerHosted)
             {
-                IsAutorizePartner = false;
+                IsAuthorizedPartner = false;
                 var partner = CoreContext.PaymentManager.GetApprovedPartner();
                 if (partner != null)
                 {
-                    IsAutorizePartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
+                    IsAuthorizedPartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
                     Partner = partner;
                 }
-                
             }
-            DisablePartnerPanel = !(IsAutorizePartner.HasValue && !IsAutorizePartner.Value);
+            DisablePartnerPanel = !(IsAuthorizedPartner.HasValue && !IsAuthorizedPartner.Value);
 
             if (!DisablePartnerPanel)
             {
@@ -218,6 +228,9 @@ namespace ASC.Web.Studio.Masters
             AddClientScript(typeof(MasterResources.MasterFileUtilityResources));
             AddClientScript(typeof(MasterResources.MasterCustomResources));
 
+            InitProductSettingsInlineScript();
+            InitStudioSettingsInlineScript();
+
             if (ClientLocalizationScript != null)
             {
                 AddClientLocalizationScript(typeof(MasterResources.MasterLocalizationResources));
@@ -232,6 +245,30 @@ namespace ASC.Web.Studio.Masters
                     ClientLocalizationScript.Scripts.Add(clientScriptReference.GetLink(true));
                 }
             }
+        }
+
+        private void InitStudioSettingsInlineScript()
+        {
+            var showPromotions = SettingsManager.Instance.LoadSettings<PromotionsSettings>(TenantProvider.CurrentTenantID).Show;
+            var showTips = SettingsManager.Instance.LoadSettingsFor<TipsSettings>(SecurityContext.CurrentAccount.ID).Show;
+
+            var script = new StringBuilder();
+            script.Append("window.StudioSettings=window.StudioSettings||{};");
+            script.AppendFormat("window.StudioSettings.ShowPromotions={0};", showPromotions.ToString().ToLowerInvariant());
+            script.AppendFormat("window.StudioSettings.ShowTips={0};", showTips.ToString().ToLowerInvariant());
+
+            Page.RegisterInlineScript(script.ToString(), true, false);
+        }
+
+        private void InitProductSettingsInlineScript()
+        {
+            var isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetProductID(), SecurityContext.CurrentAccount.ID);
+
+            var script = new StringBuilder();
+            script.Append("window.ProductSettings=window.ProductSettings||{};");
+            script.AppendFormat("window.ProductSettings.IsProductAdmin={0};", isAdmin.ToString().ToLowerInvariant());
+
+            Page.RegisterInlineScript(script.ToString(), true, false);
         }
 
         #region Style
@@ -256,7 +293,6 @@ namespace ASC.Web.Studio.Masters
                 if (HeadStyles == null) return;
 
                 HeadStyles.Controls.Add(control);
-
             }
         }
 
@@ -270,7 +306,6 @@ namespace ASC.Web.Studio.Masters
             }
             else
             {
-
                 if (HeadStyles == null) return;
 
                 HeadStyles.Styles.Add(src);

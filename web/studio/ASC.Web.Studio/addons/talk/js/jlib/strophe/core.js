@@ -2133,8 +2133,8 @@ Strophe.Connection.prototype = {
                               this._requests[i].id +
                               " timed out (secondary), restarting");
             }
+			req.abort = true;
             req.xhr.abort();
-            req.abort = true;
             // setting to null fails on IE6, so set to empty function
             req.xhr.onreadystatechange = function () {};
             this._requests[i] = new Strophe.Request(req.xmlData,
@@ -2148,9 +2148,9 @@ Strophe.Connection.prototype = {
             Strophe.debug("request id " + req.id +
                           "." + req.sends + " posting");
 
-            req.date = new Date();
             try {
                 req.xhr.open("POST", this.service, true);
+				req.xhr.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
             } catch (e2) {
                 Strophe.error("XHR open failed.");
                 if (!this.connected) {
@@ -2164,6 +2164,7 @@ Strophe.Connection.prototype = {
             // Fires the XHR request -- may be invoked immediately
             // or on a gradually expanding retry window for reconnects
             var sendFunc = function () {
+			    req.date = new Date();
                 req.xhr.send(req.data);
             };
 
@@ -3166,8 +3167,8 @@ Strophe.Connection.prototype = {
         var req;
         while (this._requests.length > 0) {
             req = this._requests.pop();
+			req.abort = true;
             req.xhr.abort();
-            req.abort = true;
             // jslint complains, but this is fine. setting to empty func
             // is necessary for IE6
             req.xhr.onreadystatechange = function () {};

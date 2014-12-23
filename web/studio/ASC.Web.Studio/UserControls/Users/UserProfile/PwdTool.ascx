@@ -18,7 +18,7 @@
                 <input type="hidden" id="studio_pwdReminderInfoID" value="<%=_pwdRemainderContainer.ClientID%>_InfoPanel" />
                 <div id="pswdRecoveryDialogText" class="display-none">
                     <%= Resource.MessageSendPasswordRecoveryInstructionsOnEmail %>
-                    <input type="email" id="studio_emailPwdReminder" class="textEdit" style="margin-top: 3px; width: 99%;" />
+                    <input type="email" id="studio_emailPwdReminder" class="textEdit" />
                 </div>
                 <div id="pswdChangeDialogText" class="display-none">
                     <%= String.Format(Resource.MessageSendPasswordChangeInstructionsOnEmail, "<a target=\"_blank\" name=\"userEmail\"></a>")%>

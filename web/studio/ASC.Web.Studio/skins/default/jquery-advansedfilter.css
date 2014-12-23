@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 /*
@@ -413,33 +413,30 @@ div.advansed-filter.disable-sorter-block div.advansed-filter-sort-container{disp
 
 div.advansed-filter div.advansed-item-list{width:1px; height:1px; position:absolute; left:0; bottom:-2px; z-index:1;}
 div.advansed-filter div.advansed-sorter-list{left:auto; right:-19px;}
-div.advansed-filter div.advansed-item-list ul.item-list{display:none; list-style:none; background:#FFF; border:1px solid #D1D1D1; min-width:120px; margin:0; padding:5px 15px 10px; position:absolute; left:0; top:0; cursor:default; z-index:100;}
+div.advansed-filter div.advansed-item-list ul.item-list{display:none; list-style:none; background:#FFF; border:1px solid #D1D1D1; min-width:120px; margin:0; padding:4px; position:absolute; left:0; top:0; cursor:default; z-index:100;}
 div.advansed-filter div.advansed-item-list ul.item-list.sorter-list{ min-width: 0; }
 div.advansed-filter div.advansed-item-list ul.item-list.sorter-list li.item-item{ min-width: 0; }
 div.advansed-filter div.advansed-item-list ul.item-list.show-item-list{display:block !important;}
 div.advansed-filter div.advansed-sorter-list ul.item-list{left:auto; right:8px;}
-div.advansed-filter div.advansed-item-list ul.item-list li.item-list-top{background:url(./images/advfilter-icons.png) -4px -162px no-repeat; width:7px; height:5px; line-height:5px; position:absolute; left:8px; top:-5px;}
-div.advansed-filter div.advansed-sorter-list ul.item-list li.item-list-top{left:auto; right:30px;}
 div.advansed-filter div.advansed-sorter-list ul.item-list li.item-list-separator{display:none;}
-div.advansed-filter div.advansed-item-list ul.item-list li.item-group{height:24px; line-height:24px; margin:4px 5px 0; padding:0; white-space:nowrap;}
-div.advansed-filter div.advansed-item-list ul.item-list li.item-group span.title{font-weight:bold; color:#898989; text-transform:uppercase;}
+div.advansed-filter div.advansed-item-list ul.item-list li.item-group{height:24px; line-height:24px; margin-top:4px; padding:0; white-space:nowrap;}
+div.advansed-filter div.advansed-item-list ul.item-list li.item-group span.title{color:#898989; text-transform:uppercase; padding: 0 12px;}
 div.advansed-filter div.advansed-item-list ul.item-list li.item-group.none-title{display:none;}
 div.advansed-filter div.advansed-item-list ul.item-list li.item-group.hidden-item{display:none;}
 div.advansed-filter div.advansed-item-list ul.item-list li.item-group.filter-group{height:auto;}
 div.advansed-filter div.advansed-item-list ul.item-list li.item-group ul.filter-items{list-style:none; margin:0; padding:0;}
-div.advansed-filter div.advansed-item-list ul.item-list li.item-item{background:url(./images/blank.gif); min-width:80px; height:24px; line-height:24px; margin:0 10px; padding:0; position:relative; white-space:nowrap; cursor:pointer;}
-div.advansed-filter div.advansed-item-list ul.item-list li.item-item:hover{text-decoration:underline;}
-div.advansed-filter div.advansed-item-list ul.item-list li.item-item.disabled-item{color:#666; cursor:default;}
+div.advansed-filter div.advansed-item-list ul.item-list li.item-item{background:url(./images/blank.gif); min-width:80px; height:24px; line-height:24px; padding:0 12px; position:relative; white-space:nowrap; cursor:pointer;}
+div.advansed-filter div.advansed-item-list ul.item-list li.item-item:hover{background-color: #e9e9e9; border-radius: 2px;-moz-border-radius: 2px;-webkit-border-radius: 2px;}
+div.advansed-filter div.advansed-item-list ul.item-list li.item-item.disabled-item{color: #b2b2b2; cursor:default;}
 div.advansed-filter div.advansed-item-list ul.item-list li.item-item.disabled-item:hover{text-decoration:none;}
 div.advansed-filter div.advansed-item-list ul.item-list li.item-item.hidden-item{display:none;}
-div.advansed-filter div.advansed-item-list ul.item-list li.item-item.selected{font-weight:bold;}
+div.advansed-filter div.advansed-item-list ul.item-list li.item-item.selected{color:#116d9d;}
 div.advansed-filter div.advansed-item-list ul.item-list li.item-item span.inner-text{}
 div.advansed-filter div.advansed-item-list ul.item-list li.item-item span.inner-state{display:none;}
 
-div.advansed-filter div.advansed-item-list ul.item-list.multi-column{padding-left:0; padding-right:0;}
 div.advansed-filter div.advansed-item-list ul.item-list.multi-column li.item-group-col{width:auto; float:left;}
 div.advansed-filter div.advansed-item-list ul.item-list.multi-column ul.group-items{list-style:none; margin:0; padding:0;}
-div.advansed-filter div.advansed-item-list ul.item-list.multi-column li.item-group{width:auto; margin-left:20px; margin-right:0;}
+div.advansed-filter div.advansed-item-list ul.item-list.multi-column li.item-group{width:auto; }
 div.advansed-filter div.advansed-item-list ul.item-list.multi-column li.item-group span.title{display:block; width:100%; overflow:hidden;}
 div.advansed-filter div.advansed-item-list ul.item-list.multi-column li.item-item{}
 div.advansed-filter div.advansed-item-list ul.item-list.multi-column li.item-item span.inner-text{display:block; width:100%; overflow:hidden;}
@@ -465,11 +462,8 @@ div.advansed-filter div.advansed-item-list ul.item-list.multi-column li.item-lis
 
 div.advansed-filter div.advansed-filter-control{display:block; width:100%; height:1px; line-height:1px; position:absolute; left:0; bottom:-2px; z-index:1;}
 div.advansed-filter div.advansed-filter-control div.advansed-filter-control-container{display:none; background:#FFF; border:1px solid #D1D1D1; line-height:16px; margin:0 0 0 -55px; position:absolute; left:100%; top:0; z-index:0; text-align:left; cursor:default;}
-div.advansed-filter div.advansed-filter-control div.advansed-filter-control-container div.control-top{background:url(./images/advfilter-icons.png) -4px -162px no-repeat; width:7px; height:5px; line-height:5px; position:absolute; left:30px; top:-5px; z-index:1;}
 div.advansed-filter div.advansed-filter-control div.advansed-filter-control-container.reset-position{margin-left:-58px !important;}
-div.advansed-filter div.advansed-filter-control div.advansed-filter-control-container.reset-position div.control-top{left:30px !important;}
 div.advansed-filter div.advansed-filter-control div.advansed-filter-control-container.reverse-position{left:auto !important; right:0 !important;}
-div.advansed-filter div.advansed-filter-control div.advansed-filter-control-container.reverse-position div.control-top{left:auto !important; right:20px !important;}
 
 div.advansed-filter div.advansed-filter-userselector div.advansed-filter-userselector-container div#userSelector{padding:10px; position:relative; left:0; top:0; z-index:0;}
 div.advansed-filter div.advansed-filter-userselector div.advansed-filter-userselector-container div#userSelector .addUserLink{display:none;}
@@ -521,7 +515,6 @@ div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-fi
 div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-filters div.advansed-filter-control{bottom:-5px;}
 div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-filters div.advansed-filter-control-container{margin-left:-41px;}
 div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-filters div.advansed-filter-control-container.reset-position{margin-left:-41px !important;}
-div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-filters div.advansed-filter-control-container.reset-position div.control-top{left:30px !important;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.title{display:block; height:20px; line-height:20px; padding:0 4px 0 4px; float:left; position:relative; z-index:0;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.selector-wrapper{display:block; width:auto; max-width:183px; min-height:100%; float:left;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item.filter-item-daterange span.selector-wrapper{max-width:none;}
@@ -535,12 +528,10 @@ div.advansed-filter-container div.advansed-filter-filters div.filter-item span.d
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-dateselector-date{display:inline-block; height:14px; line-height:14px; position:relative; top:1px; z-index:1;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-dateselector-date span.btn-show-datepicker-container{display:inline-block; background:url(./images/combobox-bg-button.gif) right 1px no-repeat; height:13px; padding:0 12px 0 0; position:relative; z-index:1; white-space:nowrap; color:#1A6DB3; cursor:pointer;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-dateselector-date span.btn-show-datepicker-container span.btn-show-datepicker-title{display:inline-block; border-bottom:1px dotted #1A6DB3; height:13px;}
-div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container{display:none; background:#FFF; border:1px solid #D1D1D1; line-height:normal; margin:7px 0 0 -40px; padding:5px; position:absolute; top:100%; left:100%;}
-div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container span.control-top{display:block; background:url(./images/advfilter-icons.png) -4px -162px no-repeat; width:7px; height:5px; line-height:5px; position:absolute; left:30px; top:-5px; z-index:1;}
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container{display:none; background:#FFF; border:1px solid #D1D1D1; line-height:normal; margin:7px 0 0 0; padding:5px; position:absolute; top:100%; left:0;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container span.datepicker-container{display:block; position:relative; z-index:0;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container span.datepicker-container input.datepicker-input{display:none;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container.reverse-position{margin:4px -29px 0 0; left:auto; right:0;}
-div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container.reverse-position span.control-top{left:auto; right:30px;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.label{display:inline-block; padding:0 2px 0 0; position:relative; top:1px;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector,
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector{display:none; height:14px; line-height:14px; margin:0 0 0 4px; padding:0; position:relative; top:1px; z-index:0; color:#333333;}
@@ -569,7 +560,6 @@ div.advansed-filter-container div.advansed-filter-filters div.filter-item span.g
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector{margin-top:2px;}
 
 div.advansed-filter-container div.advansed-filter-filters div.hidden-filters-container{display:none; background:#FFF; border:1px solid #D1D1D1; margin:2px 0 0; padding:10px 10px 15px 10px; position:absolute; left:-2px; top:100%;}
-div.advansed-filter-container div.advansed-filter-filters div.hidden-filters-container div.control-top{background:url(./images/advfilter-icons.png) -4px -162px no-repeat; width:7px; height:5px; line-height:5px; position:absolute; left:8px; top:-5px; z-index:1;}
 div.advansed-filter-container div.advansed-filter-filters div.hidden-filters-container div.filter-item{width:305px !important; float:none; margin:1px 0 0; top:auto;}
 div.advansed-filter-container div.advansed-filter-filters div.hidden-filters-container div.filter-item:first-child{margin-top:0;}
 div.advansed-filter-container div.advansed-filter-filters div.hidden-filters-container div.filter-item span.selector-wrapper{display:block; float:left; /* width:200px; height:28px; overflow:hidden; */}
@@ -586,7 +576,7 @@ div.advansed-filter-container div.advansed-filter-filters div.filter-item.filter
 div.advansed-filter-container div.advansed-filter-filters div.filter-item.filter-item-group.default-value span.group-selector span.default-value,
 div.advansed-filter-container div.advansed-filter-filters div.filter-item.filter-item-person.default-value span.person-selector span.default-value{display:inline-block;}
 
-div.advansed-filter div.advansed-item-list ul.item-list li.item-item.sorter-item{margin: 0 5px;}
+div.advansed-filter div.advansed-item-list ul.item-list li.item-item.sorter-item{}
 
 div.advansed-filter-container .datepick{border:0;}
 div.advansed-filter-container .datepicker-container .ui-widget-content{border:0;}
@@ -634,12 +624,11 @@ div.advansed-filter-container span.custom-combobox{display:inline-block; width:a
 div.advansed-filter-container span.custom-combobox span.combobox-title{display:block; background:url(./images/combobox-bg-button.gif) right 2px no-repeat; max-width:150px; height:15px; position:relative; overflow:hidden; white-space:nowrap; z-index:1; cursor:pointer; color:#1A6DB3;}
 div.advansed-filter-container span.custom-combobox span.combobox-title .inner-text{display:block; border-bottom:1px dotted #1A6DB3; max-width:138px; height:13px; margin:1px 12px 0 0; overflow:hidden;}
 div.advansed-filter-container span.custom-combobox span.combobox-wrapper{display:block; width:100%; max-width:150px; height:1px; line-height:1px; position:absolute; left:0; bottom:-9px; z-index:2;}
-div.advansed-filter-container span.custom-combobox div.combobox-container{display:none; background:#FFF url(./images/blank.gif); border:1px solid #D1D1D1; max-width: 220px; margin:0 0 0 -40px; padding:10px; position:absolute; left:100%; top:0;}
-div.advansed-filter-container span.custom-combobox div.combobox-container div.container-top{display:block; background:url(./images/advfilter-icons.png) -4px -162px no-repeat; width:7px; height:5px; line-height:5px; position:absolute; left:30px; top:-5px; z-index:1;}
+div.advansed-filter-container span.custom-combobox div.combobox-container{display:none;  border:1px solid #D1D1D1; max-width: 220px; margin:0; padding:4px; position:absolute; left:0; top:0; background-color: #fff;}
 div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options{font-size: 12px; list-style:none; max-height:200px; line-height:26px; margin:0; padding:0; position:relative; z-index:0; overflow-x:hidden; overflow-y:auto;}
-div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options li.option-item{background:#FFF url(./images/blank.gif); margin:0; padding:0 6px; position:relative; overflow:hidden; white-space:nowrap; cursor:pointer;}
+div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options li.option-item{background-color:#FFF; margin:0; padding:0 12px; position:relative; overflow:hidden; white-space:nowrap; cursor:pointer;}
 div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options li.option-item input{display:none;}
-div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options li.option-item:hover{text-decoration: underline;}
+div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options li.option-item:hover{background-color: #e9e9e9; border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px;}
 div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options li.option-item.default-value{display:none;}
 div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options li.option-item.selected-item{}
 div.advansed-filter-container span.custom-combobox div.combobox-container ul.combobox-options li.option-item,
@@ -671,7 +660,12 @@ div.advansed-filter div.advansed-filter-control div.advansed-filter-control-cont
 div.advansed-filter-container div.advansed-filter-filters div.hidden-filters-container,
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container
 {
-  box-shadow:0 1px 8px rgba(0, 0, 0, 0.5);
+  box-shadow:0 2px 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow:0 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
 }
 
 input::-ms-clear {

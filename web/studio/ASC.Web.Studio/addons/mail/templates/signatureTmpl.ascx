@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" %>
+<%@ Assembly Name="ASC.Web.Mail" %>
 <%@ Import Namespace="ASC.Web.Mail.Resources" %>
 
 <script id="composeSignatureTmpl" type="text/x-jquery-tmpl">

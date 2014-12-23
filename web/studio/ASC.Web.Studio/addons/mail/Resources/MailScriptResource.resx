@@ -141,9 +141,6 @@
   <data name="AllLabel" xml:space="preserve">
     <value>All</value>
   </data>
-  <data name="AttachemntsUnauthorizedError" xml:space="preserve">
-    <value>You are not authorized. Authorize first.</value>
-  </data>
   <data name="AttachmentsBadInputParamsError" xml:space="preserve">
     <value>Some input params are invalid.</value>
   </data>
@@ -302,6 +299,12 @@
   </data>
   <data name="ErrorEmptyField" xml:space="preserve">
     <value>empty field</value>
+  </data>
+  <data name="ErrorNoUserSelectedField" xml:space="preserve">
+    <value>no user selected</value>
+  </data>
+  <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
+    <value>no mailbox selected</value>
   </data>
   <data name="ErrorEmptyFromField" xml:space="preserve">
     <value>empty From field</value>
@@ -690,6 +693,12 @@
   <data name="ErrorParseMessageHelp" xml:space="preserve">
     <value>Our apologies for the inconveniences but the mail message failed to load to Teamlab Mail. Use the copy of the original message added as an attachment to open it using any available mail client software or {0}contact our support team.{1}</value>
   </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="TeamlabAccountNotificationText" xml:space="preserve">
+    <value>This is TeamLab account. You can't edit or delete this account.</value>
+  </data>
   <data name="ManageSignatureLabel" xml:space="preserve">
     <value>Manage signature</value>
   </data>
@@ -770,5 +779,14 @@
   </data>
   <data name="ManageAccountsLabel" xml:space="preserve">
     <value>Manage accounts</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Alias)</value>
+  </data>
+  <data name="GroupLabel" xml:space="preserve">
+    <value>(Group)</value>
+  </data>
+  <data name="ServerMailboxNotificationText" xml:space="preserve">
+    <value>Server mailbox, edited in administration panel only</value>
   </data>
 </root>

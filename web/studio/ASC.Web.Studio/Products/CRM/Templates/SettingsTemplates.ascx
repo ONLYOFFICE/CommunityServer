@@ -29,7 +29,7 @@
                     </td>
                     <td class="borderBase" style="width:30px;">
                         <div id="fieldMenu_${id}" fieldid="${id}" class="entity-menu" data-relativeitemscount="${relativeItemsCount}" title="<%= CRMCommonResource.Actions %>"></div>
-                        <div class="ajax_loader" style="display: none;" title="" alt="">&nbsp;</div>
+                        <div class="ajax_loader loader-middle" title="">&nbsp;</div>
                     </td>
                 </tr>
             </tbody>
@@ -49,7 +49,7 @@
                     <td class="borderBase count_link_contacts" style="width:100px;"></td>
                     <td class="borderBase" style="width:30px;">
                         <div id="fieldMenu_${id}" fieldid="${id}" class="entity-menu" data-relativeitemscount="${relativeItemsCount}" title="<%= CRMCommonResource.Actions %>"></div>
-                        <div class="ajax_loader" style="display: none;" title="" alt="">&nbsp;</div>
+                        <div class="ajax_loader loader-middle" title="">&nbsp;</div>
                     </td>
                 </tr>
              </tbody>
@@ -74,7 +74,7 @@
                     </td>
                     <td class="borderBase" style="width:30px;">
                         <div id="fieldMenu_${id}" fieldid="${id}" class="entity-menu" data-relativeitemscount="${relativeItemsCount}" title="<%= CRMCommonResource.Actions %>"></div>
-                        <div class="ajax_loader" style="display: none;" title="" alt="">&nbsp;</div>
+                        <div class="ajax_loader loader-middle" title="">&nbsp;</div>
                     </td>
                 </tr>
             </tbody>
@@ -210,7 +210,7 @@
                     <td class="borderBase" style="width:30px;">
                     {{if relativeItemsCount == 0 }}
                         <div id="deal_milestone_menu_${id}" dealmilestoneid="${id}" class="entity-menu" title="<%= CRMCommonResource.Actions %>"></div>
-                        <div class="ajax_loader" alt="" title="" style="display: none;">&nbsp;</div>
+                        <div class="ajax_loader loader-middle" title="">&nbsp;</div>
                     {{/if}}
                     </td>
                 </tr>
@@ -230,7 +230,6 @@
                 <%= CRMSettingResource.ChangeColor %>
             </span>
             <div id="popup_colorsPanel" class="studio-action-panel colorsPanelSettings">
-                <div class="corner-top left"></div>
                 <span class="style1" colorstyle="1"></span><span class="style2" colorstyle="2"></span><span class="style3" colorstyle="3"></span><span class="style4" colorstyle="4"></span><span class="style5" colorstyle="5"></span><span class="style6" colorstyle="6"></span><span class="style7" colorstyle="7"></span><span class="style8" colorstyle="8"></span>
                 <span class="style9" colorstyle="9"></span><span class="style10" colorstyle="10"></span><span class="style11" colorstyle="11"></span><span class="style12" colorstyle="12"></span><span class="style13" colorstyle="13"></span><span class="style14" colorstyle="14"></span><span class="style15" colorstyle="15"></span><span class="style16" colorstyle="16"></span>
             </div>
@@ -296,7 +295,7 @@
                             <label alt="${imageAlt}" img_name="${imageName}" title="${imageTitle}"
                                 class="currentIcon {{if ASC.CRM.ListItemView.CurrentType == 2}}task_category{{else}}event_category{{/if}} ${cssClass}"
                                 onclick="ASC.CRM.ListItemView.showIconsPanel(this);"></label>
-                            <div class="ajax_change_icon" alt="" title="" style="display: none;">&nbsp;</div>
+                            <div class="ajax_change_icon loader-big" alt="" title="">&nbsp;</div>
                         </td>
                     {{else ASC.CRM.ListItemView.CurrentType === 1}}
                         <td class="borderBase" style="width:25px;">
@@ -328,7 +327,7 @@
                     <td class="borderBase" style="width:30px;">
                     {{if relativeItemsCount == 0 }}
                         <div id="list_item_menu_${id}" listitemid="${id}" class="entity-menu" title="<%= CRMCommonResource.Actions %>"></div>
-                        <div class="ajax_loader" alt="" title="" style="display: none;">&nbsp;</div>
+                        <div class="ajax_loader loader-middle" title="">&nbsp;</div>
                     {{/if}}
                    </td>
                 </tr>
@@ -354,7 +353,6 @@
 
             {{if currentType == 2}}
             <div id="popup_iconsPanel_2" class="iconsPanelSettings studio-action-panel" style="width: 148px;height: 112px;">
-                <div class="corner-top left"></div>
                 <label class="task_category task_category_call" alt="<%= CRMTaskResource.TaskCategory_Call %>" title="<%= CRMTaskResource.TaskCategory_Call %>" img_name="task_category_call.png"></label>
                 <label class="task_category task_category_deal" alt="<%= CRMTaskResource.TaskCategory_Deal %>" title="<%= CRMTaskResource.TaskCategory_Deal %>" img_name="task_category_deal.png"></label>
                 <label class="task_category task_category_demo" alt="<%= CRMTaskResource.TaskCategory_Demo %>" title="<%= CRMTaskResource.TaskCategory_Demo %>" img_name="task_category_demo.png"></label>
@@ -370,7 +368,6 @@
             </div>
             {{else}}
             <div id="popup_iconsPanel_3" class="iconsPanelSettings studio-action-panel" style="width: 74px; height: 74px;">
-                <div class="corner-top left"></div>
                 <label class="event_category event_category_note" alt="<%= CRMCommonResource.HistoryCategory_Note %>" title="<%= CRMCommonResource.HistoryCategory_Note %>" img_name="event_category_note.png"></label>
                 <label class="event_category event_category_email" alt="<%= CRMCommonResource.HistoryCategory_Email %>" title="<%= CRMCommonResource.HistoryCategory_Email %>" img_name="event_category_email.png"></label>
                 <label class="event_category event_category_call" alt="<%= CRMCommonResource.HistoryCategory_Call %>" title="<%= CRMCommonResource.HistoryCategory_Call %>" img_name="event_category_call.png"></label>
@@ -384,7 +381,6 @@
                 <%= CRMSettingResource.ChangeColor %>
             </span>
             <div id="popup_colorsPanel" class="studio-action-panel colorsPanelSettings">
-                <div class="corner-top left"></div>
                 <span class="style1" colorstyle="1"></span><span class="style2" colorstyle="2"></span><span class="style3" colorstyle="3"></span><span class="style4" colorstyle="4"></span><span class="style5" colorstyle="5"></span><span class="style6" colorstyle="6"></span><span class="style7" colorstyle="7"></span><span class="style8" colorstyle="8"></span>
                 <span class="style9" colorstyle="9"></span><span class="style10" colorstyle="10"></span><span class="style11" colorstyle="11"></span><span class="style12" colorstyle="12"></span><span class="style13" colorstyle="13"></span><span class="style14" colorstyle="14"></span><span class="style15" colorstyle="15"></span><span class="style16" colorstyle="16"></span>
             </div>
@@ -436,7 +432,7 @@
                     {{if relativeItemsCount == 0 }}
                         <a class="crm-deleteLink" title="<%= CRMSettingResource.DeleteTag %>" alt="<%= CRMSettingResource.DeleteTag %>"
                             onclick='ASC.CRM.TagSettingsView.deleteTag(this);'></a>
-                        <div class="ajax_loader" style="display: none;" title="" alt="">&nbsp;</div>
+                        <div class="ajax_loader loader-middle" title="">&nbsp;</div>
                     {{/if}}
                     </td>
                 </tr>
@@ -550,6 +546,12 @@
         #sampleFormPanel input[type=checkbox] {
              margin-left: 0;
         }
+         #sampleFormPanel .requiredField:after {
+            color: #c00;
+            content: " *";
+            font-size: 12px;
+            vertical-align: text-top;
+        }
     </style>
 
     <dl id="sampleFormPanel">
@@ -559,6 +561,8 @@
            <dt>
                {{if type == 3}}
                <label for="cb_${name}">${title}:</label>
+               {{else type == -1 && (isCompany == true && title == ASC.CRM.Resources.CRMContactResource.CompanyName || isCompany == false && (title == ASC.CRM.Resources.CRMContactResource.FirstName || title == ASC.CRM.Resources.CRMContactResource.LastName))}}
+               <div class="requiredField">${title}:</div>
                {{else}}
                ${title}:
                {{/if}}
@@ -613,20 +617,22 @@
                                         break;
                                 }
                             }
-
                             if (isCompany == 'false') {
                                 if (firstName == ''){
-                                    alert('<%= CRMContactResource.ErrorEmptyContactFirstName %>');
+                                    if(typeof (toastr) === 'object' && typeof (toastr.error) === 'function') toastr.error('<%= CRMContactResource.ErrorEmptyContactFirstName %>');
+                                    else alert('<%= CRMContactResource.ErrorEmptyContactFirstName %>');
                                     isValid = false;
                                 }
                                 else if (lastName == ''){
-                                    alert('<%= CRMContactResource.ErrorEmptyContactLastName %>');
+                                    if(typeof (toastr) === 'object' && typeof (toastr.error) === 'function') toastr.error('<%= CRMContactResource.ErrorEmptyContactLastName %>');
+                                    else alert('<%= CRMContactResource.ErrorEmptyContactLastName %>');
                                     isValid = false;
                                 }
                             }
                             else if (isCompany == 'true') {
                                 if(companyName == '') {
-                                    alert('<%= CRMContactResource.ErrorEmptyCompanyName %>');
+                                    if(typeof (toastr) === 'object' && typeof (toastr.error) === 'function') toastr.error('<%= CRMContactResource.ErrorEmptyCompanyName %>');
+                                    else alert('<%= CRMContactResource.ErrorEmptyCompanyName %>');
                                     isValid = false;
                                 }
                             } else {
@@ -812,7 +818,7 @@
         <div class="headerPanelSmall header-base-small">
             <%= CRMInvoiceResource.InvoiceTaxRate %>:
         </div>
-        <input type="text" class="textEdit taxRate" maxlength="3"/> %
+        <input type="text" class="textEdit taxRate" maxlength="4"/> %
     </div>
     <div>
         <div class="header-base-small">

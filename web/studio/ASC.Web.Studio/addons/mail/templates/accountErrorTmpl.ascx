@@ -69,7 +69,9 @@
     <table>
         <tbody>
             <tr>
-                <td  class="errorImg"></td>
+                <td style="vertical-align: top;">
+                    <div class="errorImg"></div>
+                </td>
                 <td>
                     <div class="errorDescription">
                         {{if typeof(errorBodyHeader)!=='undefined'}}

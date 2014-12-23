@@ -72,6 +72,8 @@
     <Compile Include="ByteDescriptions.cs" />
     <Compile Include="Computer\Computer.cs" />
     <Compile Include="Beep\Beep.cs" />
+    <Compile Include="RemoveDuplicatesAssemblies.cs" />
+    <Compile Include="CopyDirectory.cs" />
     <Compile Include="DeleteTree.cs" />
     <Compile Include="FtpUpload\FtpUpload.cs" />
     <Compile Include="FtpUpload\IFtpWebRequest.cs" />
@@ -257,6 +259,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <None Include="Test.proj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

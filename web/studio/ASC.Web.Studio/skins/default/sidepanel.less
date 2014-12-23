@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 /*******************************************************************************
@@ -41,9 +41,9 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 }
 .menu-list {
     .resetListStyle();
-    display: inline-block;    
-    width: 100%;    
- 
+    display: inline-block;
+    width: 100%;
+
     .menu-item {
         clear: both;
         display: block;
@@ -64,26 +64,51 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 
         .menu-item-label {
             font-size: 14px;
-            outline: none;            
+            outline: none;
 
-            &.outer-text{
+            &.outer-text {
                 color: @textColor;
                 position: relative;
                 text-decoration: none;
                 display: inline-block;
                 float: left;
-                margin-right: 12px;
                 white-space: nowrap;
+
                 &:hover {
                     text-decoration: underline;
                 }
             }
+
+            &.beta {
+                padding-right: 45px;
+                &:after {
+                    .bg-is-new-without-hover();
+                    content: "beta";
+                    color: @defaultButtonTextColor;
+                    .textButtonsStyle(@defaultButtonTextColor);
+                    .borderRadius();
+                    .noneSelect();
+                    display: block;
+                    right: 1px;
+                    margin-top: -8px;
+                    position: absolute;
+                    top: 50%;
+                    font-size: 10px;
+                    padding: 1px 5px;
+                }
+            }
+        }
+
+        &.video-guides .new-label-menu {
+            display: none;
+            line-height: 18px;
         }
 
         &.none-sub-list {
-         padding-left: 16px;
+            padding-left: 16px;
+
             .category-wrapper {
-                padding:0;
+                padding: 0;
             }
         }
 
@@ -98,45 +123,51 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                 float: left;
                 cursor: pointer;
             }
-            
+
             .menu-sub-list {
                 .resetListStyle();
                 display: none;
                 width: 100%;
 
-                .menu-sub-item  {
+                .menu-sub-item {
                     clear: both;
                     display: block;
                     overflow: hidden;
-                    padding: 4px 0 4px 50px;
+                    padding: 4px 0 4px 45px;
                 }
 
                 .menu-item-label {
                     font-size: 12px;
+
                     &.outer-text {
                         height: auto;
                         line-height: normal;
                         white-space: normal;
-                        max-width:195px;
+                        max-width: 195px;
                         overflow: hidden;
                         text-overflow: ellipsis;
                     }
                 }
+
                 & > .menu-sub-item.menu-item {
                     padding: 0;
+
                     & > .sub-list {
                         overflow: hidden;
                         padding: 4px 0;
-                    }                    
+                    }
+
                     .expander {
                         background-position: 0 3px;
                         margin-left: 37px;
                     }
+
                     .menu-sub-list {
                         display: none;
                         margin-left: 50px;
                         max-width: 210px;
                         overflow: hidden;
+
                         .menu-sub-item {
                             overflow: hidden;
                             padding-left: 8px;
@@ -150,14 +181,18 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                                 text-decoration: none;
                                 text-overflow: ellipsis;
 
-                                &:hover {  text-decoration: underline;}
+                                &:hover {
+                                    text-decoration: underline;
+                                }
                             }
                         }
                     }
+
                     &.open {
                         .expander {
-                        background-position: 0 -9px;
+                            background-position: 0 -9px;
                         }
+
                         .menu-sub-list {
                             display: block;
                         }
@@ -166,9 +201,10 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             }
 
             &.open {
-                .expander{
+                .expander {
                     background-position: 0 -8px;
-                } 
+                }
+
                 .menu-sub-list {
                     display: block;
                     padding: 1px 0 0 0;
@@ -180,9 +216,11 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             .menu-item-label.outer-text {
                 border-bottom: 1px dotted transparent;
             }
-            &.active .menu-item-label.outer-text:hover{
+
+            &.active .menu-item-label.outer-text:hover {
                 border-color: @textColor;
             }
+
             & > .menu-item-label.outer-text:hover {
                 border-color: @textColor;
                 text-decoration: none;
@@ -193,14 +231,16 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             &:first-child {
                 margin-top: 24px;
             }
+
             .category-wrapper .menu-item-label {
                 color: @menu-addblock-color;
             }
 
-            &.currentCategory .category-wrapper .menu-item-label{
+            &.currentCategory .category-wrapper .menu-item-label {
                 color: @color-active-item;
             }
         }
+
         &:not(.add-block) + li.add-block {
             margin-top: 24px;
         }
@@ -212,6 +252,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             color: @color-active-item;
             font-weight: @style-active-item;
         }
+
         &.active .category-wrapper,
         &.none-sub-list.active,
         .menu-sub-list .menu-sub-item.active,
@@ -271,12 +312,21 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
     &.support {background-position: 0 -936px;}
     &.thirdpartyauthorization {background-position: 0 -961px;}
     &.monitoring{ background-position: 0 -1014px; }
+    &.security{ background-position: 0 -1042px;} 
     &.loginhistory { background-position: 0 -1100px; }
     &.audittrail { background-position: 0 -1072px; }
     &.integration { background-position: 0 -1128px; }
     &.chart{ background-position: 0 -1154px;} 
+    &.video-guides{ background-position: 0 -1209px;} 
+    &.tariff{ background-position: 0 -1244px;}
+    &.morefeatures{ background-position: 0 -1270px;}
+    &.userforum{ background-position: 0 -1296px;}
 }
 
+
+#studio_videoPopupPanel {
+    padding: 0 15px 10px;
+}
 /*******************************************************************************
    Top buttons of actions
 *******************************************************************************/

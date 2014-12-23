@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 if (typeof ASC === "undefined") {
     ASC = {};
 }
@@ -186,9 +182,22 @@ ASC.CRM.ListTaskView = new function() {
     };
 
     var _renderContent = function (startIndex) {
-        LoadingBanner.displayLoading();
+        if (!ASC.CRM.ListTaskView.isFirstLoad) {
+            LoadingBanner.displayLoading();
+            jq("#taskFilterContainer, #taskList").show();
+            jq('#tasksAdvansedFilter').advansedFilter("resize");
+        }
 
         _getTasks(startIndex);
+    };
+
+    var hideFirstLoader = function () {
+        ASC.CRM.ListContactView.isFirstLoad = false;
+        jq(".containerBodyBlock").children(".loader-page").hide();
+        if (!jq("#tasksEmptyScreen").is(":visible") && !jq("#emptyContentForTasksFilter").is(":visible")) {
+            jq("#taskFilterContainer, #taskList").show();
+            jq('#tasksAdvansedFilter').advansedFilter("resize");
+        }
     };
 
     var _getTasksForEntity = function (startIndex) {
@@ -292,8 +301,8 @@ ASC.CRM.ListTaskView = new function() {
             jq.dropdownToggle({
                 dropdownID: 'taskStatusListContainer',
                 switcherSelector: '#taskTable .changeStatusCombobox.canEdit',
-                addTop: 1,
-                addLeft: 8,
+                addTop: 4,
+                addLeft: 0,
                 showFunction: function(switcherObj, dropdownItem) {
                     jq('#taskTable .changeStatusCombobox.selected').removeClass('selected');
 
@@ -568,7 +577,7 @@ ASC.CRM.ListTaskView = new function() {
 
                 if (ASC.CRM.ListTaskView.noTasks) {
                     _renderNoTasksEmptyScreen();
-                    LoadingBanner.hideLoading();
+                    ASC.CRM.ListTaskView.isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
                     return false;
                 }
 
@@ -578,7 +587,7 @@ ASC.CRM.ListTaskView = new function() {
                     jq("#taskFilterContainer").show();
                     ASC.CRM.ListTaskView.resizeFilter();
 
-                    LoadingBanner.hideLoading();
+                    ASC.CRM.ListTaskView.isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
                     return false;
                 }
 
@@ -611,8 +620,8 @@ ASC.CRM.ListTaskView = new function() {
 
                 _renderTaskPageNavigator(startIndex);
 
-                 window.scrollTo(0, 0);
-                LoadingBanner.hideLoading();
+                window.scrollTo(0, 0);
+                ASC.CRM.ListTaskView.isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
             },
 
             get_tasks_for_entity: function (params, tasks) {
@@ -739,7 +748,7 @@ ASC.CRM.ListTaskView = new function() {
             ASC.CRM.ListTaskView.Total = 0;
             ASC.CRM.ListTaskView.advansedFilter = null;
 
-            var exportErrorText = jq.cookies.get(exportErrorCookieKey)
+            var exportErrorText = jq.cookies.get(exportErrorCookieKey);
             if (exportErrorText != null && exportErrorText != "") {
                 jq.cookies.del(exportErrorCookieKey);
                 jq.tmpl("blockUIPanelTemplate", {
@@ -799,6 +808,9 @@ ASC.CRM.ListTaskView = new function() {
             _initChangeFilterByClickOnResponsible();
             _initPageNavigatorControl(false, ASC.CRM.ListTaskView.CountOfRows, ASC.CRM.ListTaskView.defaultCurrentPageNumber);
 
+            ASC.CRM.ListTaskView.isFirstLoad = true;
+            jq(".containerBodyBlock").children(".loader-page").show();
+
             ASC.CRM.Common.registerChangeHoverStateByParent("label.task_category", "#taskTable .with-entity-menu");
 
             jq("#" + ASC.CRM.myTaskContactFilter.headerContainerId).contactadvancedSelector(
@@ -808,7 +820,8 @@ ASC.CRM.ListTaskView = new function() {
                 noresults: ASC.CRM.Resources.CRMCommonResource.NoMatches,
                 noitems: ASC.CRM.Resources.CRMCommonResource.NoMatches,
                 inPopup: true,
-                onechosen: true
+                onechosen: true,
+                isTempLoad: true
             });
 
             jq(window).bind("afterResetSelectedContact", function (event, obj, objName) {
@@ -836,6 +849,8 @@ ASC.CRM.ListTaskView = new function() {
                 jq("#tasksAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, "search_text", "enter");
             });
         },
+
+        isFirstLoad: true,
 
         initTab: function(ContactID, EntityType, EntityID) {
             ASC.CRM.ListTaskView.ContactID = ContactID;
@@ -1024,7 +1039,7 @@ ASC.CRM.ListTaskView = new function() {
                 jq.dropdownToggle({
                     dropdownID: "taskActionMenu",
                     switcherSelector: "#taskTable .entity-menu",
-                    addTop: -2,
+                    addTop: 0,
                     addLeft: 10,
                     rightPos: true,
                     showFunction: function(switcherObj, dropdownItem) {
@@ -1206,7 +1221,7 @@ ASC.CRM.TaskActionView = new function() {
     };
 
     var _initHoursAndMinutesSelects = function(){
-        var html = "<option value='-1' id='optDeadlineHours_-1' selected='selected'>--</option>";
+        var html = "<option value='-1' id='optDeadlineHours_-1'>--</option>";
         for (var i = 0; i < 24; i++)
         {
             html += ["<option value='",
@@ -1218,9 +1233,9 @@ ASC.CRM.TaskActionView = new function() {
                     "</option>"]
                     .join('');
         }
-        jq("#taskDeadlineHours").html(html);
+        jq("#taskDeadlineHours").html(html).val("-1");
             
-        html = "<option value='-1' id='optDeadlineMinutes_-1' selected='selected'>--</option>";
+        html = "<option value='-1' id='optDeadlineMinutes_-1'>--</option>";
         for (var i = 0; i < 60; i++)
         {
             html += ["<option value='",
@@ -1232,7 +1247,7 @@ ASC.CRM.TaskActionView = new function() {
                     "</option>"]
                     .join('');
         }
-        jq("#taskDeadlineMinutes").html(html);
+        jq("#taskDeadlineMinutes").html(html).val("-1");
     };
 
     var _readDataTask = function (taskID, entityType, entityID, contactid) {
@@ -1396,7 +1411,8 @@ ASC.CRM.TaskActionView = new function() {
                         today = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate(), 0, 0, 0, 0),
                         daysCount = Math.floor((selectedDate.getTime() - today.getTime()) / (24 * 60 * 60 * 1000));
                     _changeSelectionDeadlineButtons(daysCount);
-                    setTimeout(function() {
+                    setTimeout(function () {
+                        jq("#taskDeadline").datepicker("hide");
                         jq('<input type="text" />').insertAfter("#taskDeadline").focus().remove();
                     }, 100);
                 }
@@ -1438,6 +1454,8 @@ ASC.CRM.TaskActionView = new function() {
 
             jq("#addTaskPanel input[id$=tbxTitle]").focus();
             jq("#taskActionPopupOK").unbind("click").bind("click", function () {
+                if (jq(this).hasClass("disable"))
+                    return;
 
                 if (window.taskContactSelector.SelectedContacts.length > 1) {
                     ASC.CRM.TaskActionView.saveTaskGroup(entityType, entityID, window.taskContactSelector.SelectedContacts, index, params);
@@ -1620,12 +1638,13 @@ ASC.CRM.TaskActionView = new function() {
 
                     jq("#taskDeadline").datepicker('setDate', task.deadLine);
 
+
                     if (task.deadLine.getHours() == 0 && task.deadLine.getMinutes() == 0) {
-                        jq("#optDeadlineHours_-1").attr('selected', true);
-                        jq("#optDeadlineMinutes_-1").attr('selected', true);
+                        jq("#taskDeadlineHours").val("-1");
+                        jq("#taskDeadlineMinutes").val('-1');
                     } else {
-                        jq("#optDeadlineHours_" + task.deadLine.getHours()).attr('selected', true);
-                        jq("#optDeadlineMinutes_" + task.deadLine.getMinutes()).attr('selected', true);
+                        jq("#taskDeadlineHours").val(task.deadLine.getHours());
+                        jq("#taskDeadlineMinutes").val(task.deadLine.getMinutes());
                     }
 
                     var obj = window.taskCategorySelector.getRowByContactID(task.category.id);

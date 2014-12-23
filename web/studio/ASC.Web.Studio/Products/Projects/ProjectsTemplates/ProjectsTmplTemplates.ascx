@@ -7,12 +7,8 @@
     <div class="milestone" id="m_${number}">
         <div class="mainInfo menuButtonContainer with-entity-menu">
             <span class="daysCount" value="${duration}"><span>${duration}</span></span>
-            <span class="title">${title}</span>
-            {{if tasks.length == 0}}
-                <a class="addTask"> + <%=ProjectTemplatesResource.Task %></a>
-            {{else}}
-                <a class="addTask hide"> + <%=ProjectTemplatesResource.Task %></a>
-            {{/if}}
+            <div class="titleContainerEdit"><span class="title">${title}</span></div>
+            <a class="addTask"> + <%=ProjectTemplatesResource.Task %></a>
             <span class="entity-menu"></span>
         </div>
         {{if displayTasks}}
@@ -23,7 +19,7 @@
             <div class="listTasks" milestone="m_${number}">
                 {{each(i, task) tasks}}
                     <div id="${number}_${i+1}" class="task menuButtonContainer with-entity-menu">
-                        <span class="title">${task.title}</span>
+                         <div class="titleContainer"><span class="title">${task.title}</span></div>
                         <span class="entity-menu"></span>
                     </div>
                 {{/each}}
@@ -34,7 +30,7 @@
 
 <script id="projects_templatesEditTaskTmpl" type="text/x-jquery-tmpl">
     <div class="task menuButtonContainer with-entity-menu" id="t_${number}">
-          <span class="title">${title}</span>
+          <div class="titleContainer"><span class="title">${title}</span></div>
           <span class="entity-menu"></span>
     </div>
 </script> 
@@ -47,12 +43,8 @@
     <div class="milestone" id="m_${number}">
         <div class="mainInfo menuButtonContainer with-entity-menu">
             <span class="dueDate"><span>${date}</span></span>
-            <span class="title">${title}</span>
-            {{if tasks.length == 0}}
-                <a class="addTask"> + <%=ProjectTemplatesResource.Task %></a>
-            {{else}}
-                <a class="addTask hide"> + <%=ProjectTemplatesResource.Task %></a>
-            {{/if}}
+            <div class="titleContainer"><span class="title">${title}</span></div>
+            <a class="addTask"> + <%=ProjectTemplatesResource.Task %></a>
             <span class="entity-menu"></span>
             {{if chooseRep}}
             <span class="chooseResponsible">
@@ -68,7 +60,7 @@
             <div class="listTasks" milestone="m_${number}">
                 {{each(i, task) tasks}}
                     <div id="${number}_${i+1}" class="task menuButtonContainer with-entity-menu">
-                        <span class="title">${task.title}</span>
+                        <div class="titleContainer"><span class="title">${task.title}</span></div>
                         <span class="entity-menu"></span>
                         {{if chooseRep}}
                         <span class="chooseResponsible nobody">
@@ -83,7 +75,7 @@
 
 <script id="projects_templatesCreateTaskTmpl" type="text/x-jquery-tmpl">
     <div class="task menuButtonContainer with-entity-menu" id="t_${number}">
-          <span class="title">${title}</span>
+          <div class="titleContainer"><span class="title">${title}</span></div>
           <span class="entity-menu"></span>
             {{if chooseRep}}
                     <span class="chooseResponsible">

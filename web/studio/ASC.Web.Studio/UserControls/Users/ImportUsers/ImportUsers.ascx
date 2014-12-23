@@ -80,7 +80,6 @@
             <div class="innerBox float-right">
             </div>
             <div class="fileSelector studio-action-panel" onclick="ImportUsersManager.ChangeVisionFileSelector();">
-				<div class="corner-top right"> </div>
                 <ul class="dropdown-content">
                     <li id="import_flatUploader"><a href="javascript:void(0);" class="dropdown-item"><%= Resource.ImportContactsFromFileCSV %></a></li>
                     <li id="import_msUploader"><a href="javascript:void(0);" class="dropdown-item"><%= Resource.ImportContactsFromFileMS %></a></li>
@@ -167,8 +166,12 @@
                 <div class="popup_helper" id="answerForHelpInviteGuests">
                     <p>
                         <%=string.Format(Resource.NoteForInviteCollaborator, "<b>","</b>")%>
+                         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+                            { %>}
                         <a href="<%= CommonLinkUtility.GetHelpLink(true) %>" target="_blank">
-                            <%=Resource.LearnMore%></a></p>
+                            <%= Resource.LearnMore %></a>
+                        <% } %>
+                    </p>
                 </div>
             </div>
 
@@ -195,17 +198,20 @@
                     <%=PeopleLimit > 0 ? String.Format(Resource.ImportUserLimitHeader, PeopleLimit) : Resource.ImportUserOverlimitHeader%>
                 </div>
                 <br/>
-                <br/>
-                <div id="importUserLimitReason">
-                    <%=PeopleLimit > 0 ? Resource.ImportUserLimitReason : Resource.ImportUserOverlimitReason%>
+                <div>
+                    <%=FreeTariff ?
+                        string.Format(Resource.ImportUserOpenPortalLimitReason,
+                            "<br/><a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
+                            "</a>") :
+                        Resource.ImportUserLimitReason%>
                 </div>
-                <br/>
-                <br/>
-                <%=Resource.ImportUserLimitDecision%>
             </div>
             <div class="middle-button-container">
-                    <a id="import-limit-btn" class="blue button" onclick="ImportUsersManager.ConfirmationLimit();">
-                        <%=Resource.ImportUserLimitOkButtons%>
+                <a class="blue button medium" href="<%= TenantExtra.GetTariffPageLink() %>">
+                    <%= UserControlsCommonResource.UpgradeButton %></a>
+                <span class="splitter-buttons"></span>
+                    <a id="import-limit-btn" class="gray button" onclick="ImportUsersManager.ConfirmationLimit();">
+                        <%= Resource.AddUsersCaption %>
                     </a>
                     <span class="splitter-buttons"></span>
                     <a id="import-limit-cancel-btn" class="button gray" onclick="ImportUsersManager.HideImportUserLimitPanel();">

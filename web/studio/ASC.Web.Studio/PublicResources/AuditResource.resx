@@ -132,6 +132,9 @@
   <data name="AuditTrailNav" xml:space="preserve">
     <value>Audit Trail</value>
   </data>
+  <data name="AuditTrailOnlineUsers" xml:space="preserve">
+    <value>Пользователи в сети</value>
+  </data>
   <data name="AuthorizationNav" xml:space="preserve">
     <value>Авторизация</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="LoginHistoryNav" xml:space="preserve">
     <value>Log-in History</value>
+  </data>
+  <data name="LoginHistoryTitle" xml:space="preserve">
+    <value>Login History</value>
   </data>
   <data name="TotalAuditItems" xml:space="preserve">
     <value>Total</value>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<configuration xmlns:xct="http://schemas.microsoft.com/XML-Document-Transform">
+  <appSettings>
+    <add key="RemoveNewLine" xct:Transform="Remove" xct:Locator="Match(key)"/>
+    <add key="RemoveExtraSpace1" xct:Transform="Remove" xct:Locator="Match(key)"/>
+    <add key="InsertNewLine1" value="This tag was added" xct:Transform="InsertBefore(add[@key='InsertTarget1'])"/>
+    <add key="InsertNewLine2" value="This tag was added" xct:Transform="InsertAfter(add[@key='InsertTarget1'])"/>
+    <add key="LookAheadInserted" value="This tag was added" xct:Transform="InsertBefore(add[@key='LookAheadTarget'])" />
+  </appSettings>
+
+  <appSettings xct:Transform="Insert">
+    <!-- This appSettings section should be added to the end 
+         of the document, and all child elements including the
+         comment should be indented according to local formatting
+         in the source document -->
+    
+    <add key="NewChild1" value="This is the first new child element"/><add key="NewChild2" value="This is the second new child element"/>
+  </appSettings>
+
+  <location>
+    <appSettings xct:Locator="Condition(1)">
+      <add key="NewChild3" value="New node in empty tag" xct:Transform="Insert"/>
+    </appSettings>
+
+    <appSettings xct:Locator="Condition(2)">
+      <add key="NewChild4" value="New node between start and end tags" xct:Transform="Insert"/>
+    </appSettings>
+
+    <appSettings xct:Locator="Condition(3)">
+      <add key="NewChild5" value="New node between start and end tags" xct:Transform="Insert"/>
+    </appSettings>
+  </location>
+
+  <location path="somepath" xct:Locator="XPath(/configuration/backward/tag/indenting/structure)" xct:Transform="Insert">
+    <appSettings>
+      <add key="SomePathSetting" value="Just a test of deep nesting"/>
+    </appSettings>
+  </location>
+</configuration>

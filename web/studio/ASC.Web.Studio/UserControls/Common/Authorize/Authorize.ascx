@@ -1,6 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Authorize.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.Authorize" %>
-<%@ Import Namespace="ASC.ActiveDirectory" %>
-<%@ Import Namespace="ASC.SingleSignOn.Common" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Settings" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Users.UserProfile" %>
@@ -12,9 +10,8 @@
 <div id="authForm" class="auth-form">
     <%--login by email email--%>
     <div id="_AuthByEmail" class="login" runat="server">
-        <input maxlength="64" class="pwdLoginTextbox" 
-            <% if (SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) &&
-                   SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(TenantProvider.CurrentTenantID).EnableLdapAuthentication)
+        <input maxlength="255" class="pwdLoginTextbox" 
+            <% if (EnableLdap)
                { %>
                   type="text"
             <% }
@@ -38,6 +35,12 @@
             <span class="link gray underline float-right" onclick="PasswordTool.ShowPwdReminderDialog()">
                 <%= Resource.ForgotPassword %>
             </span>
+            <div>
+                <input type="checkbox" id="remember" name="remember" checked />
+                <label for="remember">
+                    <%= Resource.Remember%>
+                </label>
+            </div>
         </div>
         <div class="auth-form_submenu_login clearFix">
             <asp:PlaceHolder ID="pwdReminderHolder" runat="server" />
@@ -53,13 +56,11 @@
                 </div>
             </div>
             <% } %>
-            <% if (SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) &&
-                   SettingsManager.Instance.LoadSettings<SsoSettings>(TenantProvider.CurrentTenantID).EnableSso)
-               { %>
-        <a id="ssoButton" class="link gray underline singleSignOn"
-            <% if (SettingsManager.Instance.LoadSettings<SsoSettings>(TenantProvider.CurrentTenantID).TokenType == TokenTypes.SAML) { %> 
-            href="samllogin.ashx?auth=true"<% } else { %> href="jwtlogin.ashx?auth=true" <%} %>>Single sign-on</a>
-        <% } %>
         </div>
+         <% if (EnableSso)
+        { %>
+            <a id="ssoButton" class="link gray underline singleSignOn" 
+                <% if (IsSaml) { %> href="samllogin.ashx?auth=true"<% } else { %> href="jwtlogin.ashx?auth=true" <%} %>>Single sign-on</a>
+        <% } %>
     </div>
 </div>

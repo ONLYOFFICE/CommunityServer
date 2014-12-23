@@ -20,18 +20,20 @@
 
 
     <div id="discussionActions" class="studio-action-panel">
-        <div class="corner-top left"></div>
         <ul class="dropdown-content">
             <% if (CanEdit){%>
+            <li>
+                <a id="changeStatus" class="dropdown-item" updateStatus="<%= Discussion.Status == MessageStatus.Open ? (int)MessageStatus.Archived : (int)MessageStatus.Open %>">
+                    <%= Discussion.Status == MessageStatus.Open ? MessageResource.ArchiveDiscussion : MessageResource.OpenDiscussion %>
+                </a>
+            </li>
             <li><a href="<%= string.Format("messages.aspx?prjID={0}&id={1}&action=edit", Project.ID, Discussion.ID) %>" class="dropdown-item"><%= MessageResource.EditMessage %></a></li>
             <li><a id="deleteDiscussionButton" discussionid="<%= Discussion.ID %>" class="dropdown-item"><%= MessageResource.DeleteMessage %></a></li>
                 <% if(RequestContext.CanCreateTask(true) && Project.Status == ProjectStatus.Open)
                    {%>
                 <li><a id="createTaskOnDiscussion" class="dropdown-item"><%= MessageResource.CreateTaskOnDiscussion %></a></li>
-                <% } %>          
+                <% } %>
             <% } %>
-            <li id="changeSubscribeButton">
-            </li>
 
         </ul>
     </div>
@@ -58,63 +60,34 @@
             </a>
         </div>
         <div>
-            <%=  HtmlUtility.GetFull(Discussion.Content, ProductEntryPoint.ID) %>
+            <%=  HtmlUtility.GetFull(Discussion.Content) %>
         </div>
     </div>
 </div>
 
 <div id="discussionTabs">
     <div class="tabs-section" container="discussionParticipantsContainer">
-        <span class="header-base"><%= GetTabTitle(discussionParticipantRepeater.Items.Count, MessageResource.DiscussionParticipants) %></span>
+        <span class="header-base"><%= MessageResource.DiscussionParticipants %></span>
         <span id="switcherDiscussionParticipants" class="toggle-button" data-switcher="1" 
                 data-showtext="<%= ProjectsCommonResource.Show %>" data-hidetext="<%= ProjectsCommonResource.Hide %>">
                 <%= ProjectsCommonResource.Show %>
-        </span>        
+        </span>
     </div>
     <div id="discussionParticipantsContainer" class="participantsContainer" style="display: none" data-private = "<%=Project.Private %>">
         <% if (CanEdit){%>
-        <span class="manage-participants-button addUserLink">
-            <span class="dottedLink"><%=ProjectsCommonResource.AddParticipants%></span> 
-        </span>
+        <div id="manageParticipantsSelector" class="link dotline plus"><%=ProjectsCommonResource.AddParticipants%></div>
+
         <% } %>
-        <table id="discussionParticipantsTable">
-            <asp:Repeater ID="discussionParticipantRepeater" ItemType="ParticipiantWrapper" runat="server">
-                <ItemTemplate>
-                     <tr class="discussionParticipant <%# Item.CanRead ? "" : "gray" %>" guid="<%# Item.ID %>">
-                        <td class="name">
-                            <span class="userLink"><%# Item.FullUserName %></span>
-                        </td>
-                        <td class="department">
-                            <span><%# Item.Department %></span>
-                        </td>
-                         <td class="title">
-                             <span><%# Item.Title %></span>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            </asp:Repeater>
-            
+        <ul id="discussionParticipantsTable" class="items-display-list">
             <% var currentParticipiant = new ParticipiantWrapper(Page.Participant.ID.ToString(), Discussion);%>
-            <tr class="discussionParticipant hidden <%= currentParticipiant.CanRead ? "" : "gray" %>" id="currentLink" guid="<%= currentParticipiant.ID %>">
-                <td class="name">
-                    <span class="userLink"><%= currentParticipiant.FullUserName %></span>
-                 </td>
-                 <td class="department">
-                    <span><%= currentParticipiant.Department %></span>
-                 </td>
-                 <td class="title">
-                    <span><%= currentParticipiant.Title %></span>
-                 </td>
-            </tr>
-        </table>
+            <li class="items-display-list_i hidden <%= currentParticipiant.CanRead ? "" : "gray" %>" id="currentLink" guid="<%= currentParticipiant.ID %>">
+                <span class="item-name"><%= currentParticipiant.FullUserName %></span>
+            </li>
+        </ul>
         <div style="clear: both;"></div>
-        <% if (CanEdit) {%>
-            <asp:PlaceHolder ID="discussionParticipantsSelectorHolder" runat="server"></asp:PlaceHolder>
-        <% } %>
     </div>
         
-<% if(CanReadFiles)
-    if ((CanEditFiles && !MobileDetector.IsMobile) || (FilesCount > 0)) { %>
+<% if (FilesAvailable) { %>
     <div class="tabs-section" count="<%= FilesCount %>" container="discussionFilesContainer">
         <span class="header-base"> <%= GetTabTitle(FilesCount, ProjectsCommonResource.DocsModuleTitle) %>
         </span>
@@ -127,7 +100,8 @@
         <asp:PlaceHolder runat="server" ID="discussionFilesPlaceHolder" />
     </div>
 <% } %>
-    
+<% if (CommentsAvailable)
+   { %>
 <div class="tabs-section" container="discussionCommentsContainer">
     <span class="header-base"><%= GetTabTitle(int.Parse(discussionComments.CommentsCountTitle), MessageResource.Comments) %></span>
     <span id="switcherCommentsButton" class="toggle-button" data-switcher="0" 
@@ -140,7 +114,8 @@
         <scl:CommentsList ID="discussionComments" runat="server" BehaviorID="discussionComments">
         </scl:CommentsList>
     </div>
-</div>      
+</div>  
+<% } %>   
 </div>
 <input id="hiddenProductId" type="hidden" value="<%= ProductEntryPoint.ID.ToString() %>" />
 <div id="questionWindow" style="display: none">
@@ -165,3 +140,4 @@
 <div class="popup_helper" id="hintSubscribersPrivateProject">
       <p><%=ProjectsCommonResource.hintSubscribersPrivateProject %></p>
 </div> 
+<input type="hidden" id="discussionStatus" value="<%= Discussion.Status %>"/>

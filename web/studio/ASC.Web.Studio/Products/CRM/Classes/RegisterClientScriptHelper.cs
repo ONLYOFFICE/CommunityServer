@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 #region Import
@@ -39,14 +39,13 @@ using System.Web;
 using System.Web.UI;
 using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.Core.Users;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Thrdparty.Configuration;
-using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM.Configuration;
 using ASC.Web.CRM.Resources;
+using ASC.Web.CRM.SocialMedia;
 using ASC.Web.Studio.Core;
 using Newtonsoft.Json;
 
@@ -58,12 +57,16 @@ namespace ASC.Web.CRM.Classes
     {
         private static bool IsFacebookSearchEnabled
         {
-            get { return !string.IsNullOrEmpty(KeyStorage.Get("facebookAppID")) && !string.IsNullOrEmpty(KeyStorage.Get("facebookAppSecret")); }
+            get { return !string.IsNullOrEmpty(KeyStorage.Get(SocialMediaConstants.ConfigKeyFacebookDefaultAccessToken)); }
         }
 
         private static bool IsLinkedInSearchEnabled
         {
-            get { return !string.IsNullOrEmpty(KeyStorage.Get("linkedInKey")) && !string.IsNullOrEmpty(KeyStorage.Get("linkedInSecret")); }
+            get { return !string.IsNullOrEmpty(KeyStorage.Get("linkedInKey"))
+                && !string.IsNullOrEmpty(KeyStorage.Get("linkedInSecret"))
+                && !string.IsNullOrEmpty(KeyStorage.Get("linkedInAccessToken_Default"))
+                && !string.IsNullOrEmpty(KeyStorage.Get("linkedInAccessTokenSecret_Default"));
+            }
         }
 
         private static bool IsTwitterSearchEnabled
@@ -244,7 +247,9 @@ namespace ASC.Web.CRM.Classes
                                 var facebokSearchEnabled = {7};
                                 var linkedinSearchEnabled = {8};
                                 var twitterSearchEnabled = {9};
-                                var contactActionCurrencies = {10};",
+                                var contactActionCurrencies = {10};
+                                var countryListExt = {11};
+                                var currentCultureName = '{12}'; ",
                               json,
                               JsonConvert.SerializeObject(networks),
                               JsonConvert.SerializeObject(tags.ToList().ConvertAll(t => t.HtmlEncode())),
@@ -260,7 +265,9 @@ namespace ASC.Web.CRM.Classes
                               IsFacebookSearchEnabled.ToString().ToLower(),
                               IsLinkedInSearchEnabled.ToString().ToLower(),
                               IsTwitterSearchEnabled.ToString().ToLower(),
-                              JsonConvert.SerializeObject(CurrencyProvider.GetAll())
+                              JsonConvert.SerializeObject(CurrencyProvider.GetAll()),
+                              JsonConvert.SerializeObject(Global.GetCountryListExt()),
+                              new RegionInfo(CultureInfo.CurrentCulture.Name).EnglishName
                               );
 
             page.RegisterInlineScript(script, onReady: false);
@@ -593,13 +600,17 @@ namespace ASC.Web.CRM.Classes
                                         var invoiceSettings = '{2}';
                                         var invoicePresetContact = '{3}';
                                         var currencyRates = '{4}';
-                                        var invoiceJsonData = '{5}'; ",
-                                       Global.EncodeTo64(invoiceItemsJson),
-                                       Global.EncodeTo64(invoiceTaxesJson),
-                                       Global.EncodeTo64(invoiceSettingsJson),
-                                       Global.EncodeTo64(presetContactsJson),
-                                       Global.EncodeTo64(currencyRatesJson),
-                                       targetInvoice != null ? Global.EncodeTo64(targetInvoice.JsonData) : ""
+                                        var invoiceJsonData = '{5}';
+                                        var countryListExt = {6};
+                                        var currentCultureName = '{7}'; ",
+                                        Global.EncodeTo64(invoiceItemsJson),
+                                        Global.EncodeTo64(invoiceTaxesJson),
+                                        Global.EncodeTo64(invoiceSettingsJson),
+                                        Global.EncodeTo64(presetContactsJson),
+                                        Global.EncodeTo64(currencyRatesJson),
+                                        targetInvoice != null ? Global.EncodeTo64(targetInvoice.JsonData) : "",
+                                        JsonConvert.SerializeObject(Global.GetCountryListExt()),
+                                        new RegionInfo(CultureInfo.CurrentCulture.Name).EnglishName
                 );
 
             page.RegisterInlineScript(script, onReady: false);

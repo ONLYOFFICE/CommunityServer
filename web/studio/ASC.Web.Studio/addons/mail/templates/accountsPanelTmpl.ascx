@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" %>
+<%@ Assembly Name="ASC.Web.Mail" %>
 
 <script id="accountsPanelTmpl" type="text/x-jquery-tmpl">
   <li class="menu-item none-sub-list">

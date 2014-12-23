@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 //------------------------------------------------------------------------------
@@ -125,6 +125,33 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The backup copy has been successfully created..
+        /// </summary>
+        internal static string BackupMakeCopySuccess {
+            get {
+                return ResourceManager.GetString("BackupMakeCopySuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Busy.
+        /// </summary>
+        internal static string BusyStatus {
+            get {
+                return ResourceManager.GetString("BusyStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string BuyNumberSuccessMsg {
+            get {
+                return ResourceManager.GetString("BuyNumberSuccessMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All the data you entered will be lost. Are you sure you want to continue?.
         /// </summary>
         internal static string CancelConfirmMessage {
@@ -139,6 +166,15 @@ namespace ASC.Web.Studio.PublicResources {
         internal static string ChangesApplied {
             get {
                 return ResourceManager.GetString("ChangesApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string ChangesSuccessfullyAppliedMsg {
+            get {
+                return ResourceManager.GetString("ChangesSuccessfullyAppliedMsg", resourceCulture);
             }
         }
         
@@ -175,6 +211,15 @@ namespace ASC.Web.Studio.PublicResources {
         internal static string CloseButton {
             get {
                 return ResourceManager.GetString("CloseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string CommonJSErrorMsg {
+            get {
+                return ResourceManager.GetString("CommonJSErrorMsg", resourceCulture);
             }
         }
         
@@ -274,6 +319,24 @@ namespace ASC.Web.Studio.PublicResources {
         internal static string Empty {
             get {
                 return ResourceManager.GetString("Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment cannot be empty.
+        /// </summary>
+        internal static string EmptyCommentErrorMessage {
+            get {
+                return ResourceManager.GetString("EmptyCommentErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the email.
+        /// </summary>
+        internal static string ErrorEmptyEmail {
+            get {
+                return ResourceManager.GetString("ErrorEmptyEmail", resourceCulture);
             }
         }
         
@@ -395,6 +458,15 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        
+        /// </summary>
+        internal static string GreetingRingtones {
+            get {
+                return ResourceManager.GetString("GreetingRingtones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group {0} was created successfully..
         /// </summary>
         internal static string GroupSelectorAddSuccess {
@@ -449,11 +521,11 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The selected users will be added as guests. You will be able to change their roles later in the &apos;People&apos; module..
+        
         /// </summary>
-        internal static string ImportUserOverlimitReason {
+        internal static string IncorrectIPAddressFormatError {
             get {
-                return ResourceManager.GetString("ImportUserOverlimitReason", resourceCulture);
+                return ResourceManager.GetString("IncorrectIPAddressFormatError", resourceCulture);
             }
         }
         
@@ -463,6 +535,42 @@ namespace ASC.Web.Studio.PublicResources {
         internal static string InviteButton {
             get {
                 return ResourceManager.GetString("InviteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings have been successfully updated.
+        /// </summary>
+        internal static string IPRestrictionsSettingsSuccessfullyUpdated {
+            get {
+                return ResourceManager.GetString("IPRestrictionsSettingsSuccessfullyUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string IPRestrictionSuccessfullyAdded {
+            get {
+                return ResourceManager.GetString("IPRestrictionSuccessfullyAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string IPRestrictionSuccessfullyDeleted {
+            get {
+                return ResourceManager.GetString("IPRestrictionSuccessfullyDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string IPRestrictionSuccessfullyUpdated {
+            get {
+                return ResourceManager.GetString("IPRestrictionSuccessfullyUpdated", resourceCulture);
             }
         }
         
@@ -647,11 +755,29 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Offline.
+        /// </summary>
+        internal static string OfflineStatus {
+            get {
+                return ResourceManager.GetString("OfflineStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Online.
         /// </summary>
         internal static string Online {
             get {
                 return ResourceManager.GetString("Online", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online.
+        /// </summary>
+        internal static string OnlineStatus {
+            get {
+                return ResourceManager.GetString("OnlineStatus", resourceCulture);
             }
         }
         
@@ -730,9 +856,45 @@ namespace ASC.Web.Studio.PublicResources {
         /// <summary>
         
         /// </summary>
+        internal static string QueueRingtones {
+            get {
+                return ResourceManager.GetString("QueueRingtones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string SameIPRestrictionError {
+            get {
+                return ResourceManager.GetString("SameIPRestrictionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
         internal static string SavedTitle {
             get {
                 return ResourceManager.GetString("SavedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select file.
+        /// </summary>
+        internal static string SelectFile {
+            get {
+                return ResourceManager.GetString("SelectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select folder.
+        /// </summary>
+        internal static string SelectFolder {
+            get {
+                return ResourceManager.GetString("SelectFolder", resourceCulture);
             }
         }
         
@@ -953,6 +1115,42 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File extension error.
+        /// </summary>
+        internal static string UploadHttpsFileTypeError {
+            get {
+                return ResourceManager.GetString("UploadHttpsFileTypeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string UploadVoipRingtoneFileErrorMsg {
+            get {
+                return ResourceManager.GetString("UploadVoipRingtoneFileErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string UploadVoipRingtoneFileFormatErrorMsg {
+            get {
+                return ResourceManager.GetString("UploadVoipRingtoneFileFormatErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string UploadVoipRingtoneFileSizeErrorMsg {
+            get {
+                return ResourceManager.GetString("UploadVoipRingtoneFileSizeErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User {0} was created successfully.
         /// </summary>
         internal static string UserSelectorAddSuccess {
@@ -1012,6 +1210,24 @@ namespace ASC.Web.Studio.PublicResources {
         internal static string UserSelectorNoResults {
             get {
                 return ResourceManager.GetString("UserSelectorNoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string VoicemailRingtones {
+            get {
+                return ResourceManager.GetString("VoicemailRingtones", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        
+        /// </summary>
+        internal static string WaitingRingtones {
+            get {
+                return ResourceManager.GetString("WaitingRingtones", resourceCulture);
             }
         }
         

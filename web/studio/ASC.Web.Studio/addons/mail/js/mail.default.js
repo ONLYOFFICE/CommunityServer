@@ -1,40 +1,37 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 window.TMMail = (function($) {
     var 
     isInit = false,
     lastItems = 29,
     plusItems = 29,
+    required_field_error_css = "requiredFieldError",
     options = {
         MessagesPageSize: 25,
         ContactsPageSize: 25,
@@ -51,6 +48,8 @@ window.TMMail = (function($) {
     },
     reEmail = /(([\w-\s]+)|([\w-]+(?:\.[\w-]+)*)|([\w-\s]+)([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-zA-Z]{2,7}(?:\.[a-zA-Z]{2})?))|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?)/,
     reEmailStrict = /^([\w-\.\+]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,7}|[0-9]{1,3})(\]?)$/,
+    reMailServerEmailStrict = /^([a-zA-Z0-9]+)([-\.\_][a-zA-Z0-9]+)*@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,7}|[0-9]{1,3})(\]?)$/,
+    reDomainStrict = /(?=^.{5,254}$)(^(?:(?!\d+\.)[a-zA-Z0-9_\-]{1,63}\.?)+\.(?:[a-zA-Z]{2,})$)/,
     optionCookieName = 'tmmail',
     headerSeparator = ' - ',
     optionSeparator = '&',
@@ -104,6 +103,7 @@ window.TMMail = (function($) {
 
         accounts: /^accounts\/?$/,
         tags: /^tags\/?$/,
+        administration: /^administration\/?$/,
 
         teamlab: /^tlcontact\/?(.+)*/,
         crm: /^crmcontact\/?(.+)*/,
@@ -308,7 +308,7 @@ window.TMMail = (function($) {
             anchorRegExp.crm.test(anchor) || anchorRegExp.sysfolders.test(anchor) || anchorRegExp.writemessage.test(anchor) ||
             anchorRegExp.tags.test(anchor) || anchorRegExp.conversation.test(anchor) || anchorRegExp.helpcenter.test(anchor) ||
             anchorRegExp.next_message.test(anchor) || anchorRegExp.prev_message.test(anchor) || anchorRegExp.next_conversation.test(anchor) ||
-            anchorRegExp.prev_conversation.test(anchor));
+            anchorRegExp.prev_conversation.test(anchor) || anchorRegExp.administration.test(anchor));
     };
 
     var pageIs = function(pageType) {
@@ -385,6 +385,11 @@ window.TMMail = (function($) {
                 break;
             case 'tags':
                 if (anchorRegExp.tags.test(anchor)) {
+                    return true;
+                }
+                break;
+            case 'administration':
+                if (anchorRegExp.administration.test(anchor)) {
                     return true;
                 }
                 break;
@@ -507,9 +512,17 @@ window.TMMail = (function($) {
         ASC.Controls.AnchorController.move(systemFolders.inbox.name);
     };
 
-    var openMessage = function(id) {
+    var openMessage = function (id) {
         window.open('#message/' + id, '_blank');
     };
+    
+    var openConversation = function (id) {
+        window.open('#conversation/' + id, '_blank');
+    };
+    
+    function openDraftItem(id) {
+        window.open('#draftitem/' + id, '_blank');
+    }
 
     function moveToConversation (id, safe) {
         var anchor = '#conversation/' + id;
@@ -521,6 +534,14 @@ window.TMMail = (function($) {
 
     function moveToMessage (id, safe) {
         var anchor = '#message/' + id;
+        if (safe)
+            ASC.Controls.AnchorController.safemove(anchor);
+        else
+            ASC.Controls.AnchorController.move(anchor);
+    };
+    
+    function moveToDraftItem(id, safe) {
+        var anchor = '#draftitem/' + id;
         if (safe)
             ASC.Controls.AnchorController.safemove(anchor);
         else
@@ -719,9 +740,36 @@ window.TMMail = (function($) {
         }
     }
 
+    function disableButton(button, disable) {
+        button.toggleClass("disable", disable);
+        if (disable)
+            button.attr("disabled", "disabled");
+        else
+            button.removeAttr("disabled");
+    }
+
+    function disableInput(input, disable) {
+        if (disable)
+            input.attr('disabled', 'true');
+        else
+            input.removeAttr('disabled');
+    }
+
+    function setRequiredHint(container_id, text) {
+        var hint = $("#" + container_id + ".requiredField span.requiredErrorText");
+        hint.text(text);
+        hint.attr('title', text);
+    }
+
+    function setRequiredError(container_id, need_show) {
+        $("#" + container_id + ".requiredField").toggleClass(required_field_error_css, need_show);
+    }
+
     return {
         reEmail: reEmail,
         reEmailStrict: reEmailStrict,
+        reMailServerEmailStrict: reMailServerEmailStrict,
+        reDomainStrict: reDomainStrict,
         sysfolders: systemFolders,
         action_types: action_types,
         anchors: anchorRegExp,
@@ -762,8 +810,11 @@ window.TMMail = (function($) {
         moveToReplyAll: moveToReplyAll,
         moveToForward: moveToForward,
         openMessage: openMessage,
+        openConversation: openConversation,
+        openDraftItem: openDraftItem,
         moveToConversation: moveToConversation,
         moveToMessage: moveToMessage,
+        moveToDraftItem: moveToDraftItem,
         moveToInbox: moveToInbox,
 
         parseEmailFromFullAddress: parseEmailFromFullAddress,
@@ -787,6 +838,10 @@ window.TMMail = (function($) {
         htmlEncode: htmlEncode,
         htmlDecode: htmlDecode,
 
-        checkAnchor: checkAnchor
+        checkAnchor: checkAnchor,
+        disableButton: disableButton,
+        disableInput: disableInput,
+        setRequiredHint: setRequiredHint,
+        setRequiredError: setRequiredError
     };
 })(jQuery);

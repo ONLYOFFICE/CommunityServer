@@ -32,7 +32,6 @@
 
 
 <div id="caseDetailsMenuPanel" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
         <li>
             <a class="dropdown-item" href="<%= String.Format("cases.aspx?id={0}&action=manage", TargetCase.ID) %>"

@@ -142,9 +142,13 @@
                     </div>
                     <div style="margin-top:23px;" id="makePublicPanel"></div>
                 </div>
-            <% } else if (EntityType != ASC.CRM.Core.EntityType.Task) { %>
-            <div style="margin-top:24px;"></div>
             <% } %>
+            <% if (EntityType != ASC.CRM.Core.EntityType.Task) { %>
+                <div style="margin: 24px 0 10px 0; font-weight: bold"><%=CRMCommonResource.Tags%>:</div>
+                <div id="importFromCSVTags"></div>
+            <% } %>
+
+
 
             <div class="middle-button-container">
                 <a class="button blue middle disable" href="javascript:void(0)" onclick="ASC.CRM.ImportEntities.startUploadCSVFile()">

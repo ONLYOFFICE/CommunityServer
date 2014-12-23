@@ -24,6 +24,12 @@
                 <span class="splitter-buttons"></span>
                 <a class="gray button medium" onclick="PopupKeyUpActionProvider.CloseDialog(); return false;">
                     <%= Resource.CancelButton %></a>
+                <% if (IsFreeTariff) { %>
+                <span class="splitter-buttons"></span>
+                <a class="link underline" href="http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals" target="_blank">
+                    <%= UserControlsCommonResource.ReadAboutNonProfitUsage %>
+                </a>
+                <% } %>
             </div>
         </Body>
     </sc:Container>

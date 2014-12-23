@@ -128,6 +128,18 @@ $activity.Key
     <subject />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_backup_created|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
+  
+  <!-- restore_started -->
+  <pattern id="restore_started" sender="email.sender">
+    <subject resource="|subject_restore_started|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_restore_started|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  
+  <!-- restore_completed -->
+  <pattern id="restore_completed" sender="email.sender">
+    <subject resource="|subject_restore_completed|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_restore_completed|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
 
   <!-- portal_deactivate -->
   <pattern id="portal_deactivate" sender="email.sender">
@@ -295,5 +307,41 @@ $activity.Key
   <pattern id="after_creation4">
     <subject resource="|subject_after_creation4|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation4|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- after registaration personal -->
+  <pattern id="after_registration_personal1">
+    <subject resource="|subject_after_registration_personal1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_registration_personal1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="after_registration_personal7">
+    <subject resource="|subject_after_registration_personal7|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_registration_personal7|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="after_registration_personal14">
+    <subject resource="|subject_after_registration_personal14|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_registration_personal14|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="after_registration_personal21">
+    <subject resource="|subject_after_registration_personal21|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_registration_personal21|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+ <!-- activation personal -->
+  <pattern id="confirmation_personal">
+    <subject resource="|subject_confirmation_personal|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_confirmation_personal|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- change_password personal -->
+  <pattern id="change_password_personal">
+    <subject resource="|subject_change_password_personal|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_password_personal|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- change_email personal-->
+  <pattern id="change_email_personal">
+    <subject resource="|subject_change_email_personal|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_email_personal|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
 </patterns>

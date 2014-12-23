@@ -289,10 +289,7 @@ h2.$activity.Key
 
 Dear $OwnerName,
 
-A backup file containing data from your "${__VirtualRootPath}":"${__VirtualRootPath}" portal has been created. It is available for download under the following link:
-"$BackupUrl":"$BackupUrl"
-
-*Note*: this link is valid for $BackupHours hours only. Please complete the operation within that period.
+A backup file containing data from your "${__VirtualRootPath}":"${__VirtualRootPath}" portal has been created.
 
 To learn more on the backup/restore procedure please refer to our "How to Create and Restore the TeamLab Portal Backup":"http://www.teamlab.com/content/CreateandRestoreBackup.pdf" PDF user guide.
 
@@ -893,5 +890,189 @@ $GreenButton</value>
   </data>
   <data name="TechnicalSupport" xml:space="preserve">
     <value>Technical support</value>
+  </data>
+  <data name="pattern_restore_completed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>ONLYOFFICE. Restore completed.</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>SMTP test mail body</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>SMTP test mail subject</value>
+  </data>
+  <data name="pattern_after_registration_personal1" xml:space="preserve">
+    <value>$HeaderStart Welcome to ONLYOFFICE Personal $HeaderEnd
+
+You have just created your personal office in the cloud.
+
+It's a desktopless workspace available in your browser, where you can store documents, work with them anywhere providing access to your friends or colleagues.
+
+$FrameStart ONLYOFFICE is compatible with Microsoft Office™ document formats. We promise to relieve you from formatting fidelity headache. $FrameEnd
+
+$StrongStart Here are the basic features for a quick start: $StrongEnd
+
+$MarkerStart Upload files from your computer or create new. $MarkerEnd
+
+$MarkerStart Edit *.docx*, *.xlsx* and *.pptx* documents online. $MarkerEnd
+
+$MarkerStart Download files in any popular format. $MarkerEnd
+
+$SignatureStart Have a good start!
+
+Sincerely,
+ONLYOFFICE team $SignatureEnd</value>
+  </data>
+  <data name="pattern_after_registration_personal14" xml:space="preserve">
+    <value>$HeaderStart A few tips for freelance work $HeaderEnd
+
+ONLYOFFICE provides a good number of features for freelance community whether you are a contractor or hiring somebody for a project. Let's see what might be of the most interest for you:
+
+$MarkerStart Read Only/Full Access files sharing $MarkerEnd
+
+ $MarkerStart Realtime collaborative editing and commenting $MarkerEnd
+
+ $MarkerStart Version &amp; revision control $MarkerEnd
+
+There is no need to download files and send them via email. Simply share them from your cloud office and collaborate wherever you are.
+
+$StrongStart  Need more collaborative functionality? $StrongEnd
+
+ONLYOFFICE business edition is free up to 4 users and provides you with even more opportunities for freelance or distant work. For instance, you can create and submit invoices to your clients. Would like to learn more? Proceed to our "CRM overview":"http://www.onlyoffice.com/crm.aspx".
+
+$SignatureStart Sincerely,
+ONLYOFFICE team $SignatureEnd</value>
+  </data>
+  <data name="pattern_after_registration_personal21" xml:space="preserve">
+    <value>$HeaderStart Need more features? Give a try to ONLYOFFICE for teams $HeaderEnd
+
+In case you need to collaborate with a team or manage a project, we offer you to try the business edition of ONLYOFFICE. In addition to the online editors and document management features, you'll be able to:
+
+$MarkerStart control tasks and use Gantt chart in the Project Management module; $MarkerEnd
+
+$MarkerStart  track sales, relations with customers and create invoices in CRM; $MarkerEnd
+
+$MarkerStart manage all your email accounts in one Email aggregator $MarkerEnd
+
+and do many other operations that aim at creating a single collaborative work space and your teammates. See details "here":"http://www.onlyoffice.com/highlights.aspx".
+
+For a start you can create a free account for 4 members. It doesn't have any functional restrictions.
+
+$SignatureStart Sincerely,
+ONLYOFFICE team $SignatureEnd</value>
+  </data>
+  <data name="pattern_after_registration_personal7" xml:space="preserve">
+    <value>$HeaderStart Connect your favorite cloud storage to ONLYOFFICE $HeaderEnd
+
+It has been a week since you created your cloud office, so we believe it's time to unveil some beneficial features you might have missed.
+
+$FrameStart Connect Dropbox, Google Drive, Box or OneDrive cloud storage to ONLYOFFICE and create a single workspace for all your documents. You'll be able to edit external files by means of ONLYOFFICE without any additional downloads. See details how to do it "here":"http://helpcenter.onlyoffice.com/tipstricks/add-resource.aspx". $FrameEnd
+
+$StrongStart  Need more document management options? $StrongEnd
+
+Our "business edition":"http://www.onlyoffice.com/" is free up to 4 teammates and provides extended document management opportunities together with a business toolset:
+
+$MarkerStart Project documentation tracking. $MarkerEnd
+
+$MarkerStart Close integration with CRM and Email. $MarkerEnd
+
+$MarkerStart Individual and group sharing. $MarkerEnd
+
+Interested? Learn more about "ONLYOFFICE for business":"http://www.onlyoffice.com/document-management.aspx".
+
+$SignatureStart Sincerely,
+ONLYOFFICE team $SignatureEnd</value>
+  </data>
+  <data name="subject_after_registration_personal1" xml:space="preserve">
+    <value>Welcome to ONLYOFFICE Personal</value>
+  </data>
+  <data name="subject_after_registration_personal14" xml:space="preserve">
+    <value>A few tips for freelance work</value>
+  </data>
+  <data name="subject_after_registration_personal21" xml:space="preserve">
+    <value>Need more features? Give a try to ONLYOFFICE for teams</value>
+  </data>
+  <data name="subject_after_registration_personal7" xml:space="preserve">
+    <value>Connect your favorite cloud storage to ONLYOFFICE</value>
+  </data>
+  <data name="pattern_confirmation_personal" xml:space="preserve">
+    <value>Hello,
+
+you've just registered an account at the ONLYOFFICE solution for personal use. Click "here":"$InviteLink" to confirm the registration and create a password.
+
+If you can't open the link, please copy the following "$InviteLink":"$InviteLink" and paste it into your browser address bar.
+
+$SignatureStart  Sincerely,
+ONLYOFFICE team $SignatureEnd</value>
+  </data>
+  <data name="subject_confirmation_personal" xml:space="preserve">
+    <value>ONLYOFFICE Personal. Please activate your email address</value>
+  </data>
+  <data name="pattern_change_password_personal" xml:space="preserve">
+    <value>There has been a request to change your password used to enter the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.
+
+Please follow the link below to change your password:
+"$InviteLink":"$InviteLink"
+
+*Note*: this link is valid for 7 days only. Please complete the password change process within that period.
+
+If you do not want to change your password or received this email by mistake, please ignore it or contact your "${__VirtualRootPath}":"${__VirtualRootPath}" portal administrator to find out the details.
+
+$SignatureStart  Sincerely,
+ONLYOFFICE team $SignatureEnd
+</value>
+  </data>
+  <data name="subject_change_password_personal" xml:space="preserve">
+    <value>ONLYOFFICE Personal Password Assistance</value>
+  </data>
+  <data name="pattern_change_email_personal" xml:space="preserve">
+    <value>
+You have requested to change your email address used to enter the TeamLab portal.
+
+Please follow the link below to change your email address:
+"$InviteLink":"$InviteLink"
+
+*Note*: this link is valid for 7 days only. Please complete your email change process within that period.
+
+If you do not want to change your email or received this email by mistake, please ignore it or contact your portal administrator to find out the details.
+
+$SignatureStart  Sincerely,
+ONLYOFFICE team $SignatureEnd</value>
+  </data>
+  <data name="subject_change_email_personal" xml:space="preserve">
+    <value>ONLYOFFICE Personal. Email change request</value>
+  </data>
+  <data name="pattern_admin_voip_blocked" xml:space="preserve">
+    <value>h1.Message from the "${__VirtualRootPath}":"${__VirtualRootPath}" VoIP Blocked</value>
+  </data>
+  <data name="pattern_admin_voip_warning" xml:space="preserve">
+    <value>h1.Message from the "${__VirtualRootPath}":"${__VirtualRootPath}" Portal
+Balance VoIP: $Body</value>
+  </data>
+  <data name="subject_admin_voip_blocked" xml:space="preserve">
+    <value>VoIP blocked</value>
+  </data>
+  <data name="subject_admin_voip_warning" xml:space="preserve">
+    <value>Notification to administrators about VoIP balance</value>
+  </data>
+  <data name="pattern_restore_started" xml:space="preserve">
+    <value>h1.Portal Restoration Started
+
+The portal restoration is started. It might take some time depending on your data amount.
+
+*Note*: the portal will not be available during the restoration process. 
+
+If you have any questions or need assistance please feel free to contact us at "support@teamlab.com":"mailto:support@teamlab.com"
+
+Best regards,
+TeamLab Support Team
+"www.teamlab.com":"http://teamlab.com/"
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>ONLYOFFICE. Restore completed.</value>
   </data>
 </root>

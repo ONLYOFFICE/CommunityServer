@@ -1,42 +1,37 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 window.accountsModal = (function($) {
     var 
         is_init = false,
         account_id = '',
         wnd_question = undefined,
-        stored_settings = undefined,
-        required_field_error_css = "requiredFieldError";
+        stored_settings = undefined;
 
     var ids = {
         'email': 'email',
@@ -228,7 +223,7 @@ window.accountsModal = (function($) {
         var password = getVal(is_smtp ? ids.smtp_password : ids.password, true);
         var password_view_link = $('.containerBodyBlock #' + container_id + ' .headerPanelSmall a.password-view');
         if (password.length > 0)
-            setRequiredError(container_id, false);
+            TMMail.setRequiredError(container_id, false);
         password_view_link.toggleClass('off', password.length == 0);
     }
     
@@ -426,7 +421,7 @@ window.accountsModal = (function($) {
 
             var email_correct = isEmailCorrect(email);
 
-            setRequiredError("mail_EMailContainer", !email_correct);
+            TMMail.setRequiredError("mail_EMailContainer", !email_correct);
 
             if (getVal(ids.server_type, true) == 'imap') {
                 params.action = "get_imap_server_full";
@@ -455,8 +450,8 @@ window.accountsModal = (function($) {
             } else {
                 disable(ids.smtp_account);
                 disable(ids.smtp_password);
-                setRequiredError("mail_SMTPLoginContainer", false);
-                setRequiredError("mail_SMTPPasswordContainer", false);
+                TMMail.setRequiredError("mail_SMTPLoginContainer", false);
+                TMMail.setRequiredError("mail_SMTPPasswordContainer", false);
 
                 $("#mail_SMTPLoginContainer").removeClass('requiredField');
                 $("#mail_SMTPPasswordContainer").removeClass('requiredField');
@@ -506,17 +501,6 @@ window.accountsModal = (function($) {
         return updateMailbox(true);
     }
 
-    function setRequiredHint(container_id, text) {
-        $("#" + container_id + ".requiredField span").text(text);
-    }
-
-    function setRequiredError(container_id, need_show) {
-        if (need_show)
-            $("#" + container_id + ".requiredField").addClass(required_field_error_css);
-        else
-            $("#" + container_id + ".requiredField").removeClass(required_field_error_css);
-    }
-
     function createMailBoxSimple() {
         var email = getVal(ids.email),
             password = getVal(ids.password, true);
@@ -525,24 +509,24 @@ window.accountsModal = (function($) {
         var password_correct = false;
 
         if (email.length === 0) {
-            setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorEmptyField);
+            TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorEmptyField);
         }
         else if (!TMMail.reEmailStrict.test(email)) {
-            setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorIncorrectEmail);
+            TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorIncorrectEmail);
         }
         else if (accountsPage.isContain(email.toLowerCase())) {
-            setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorAccountAlreadyExists);
+            TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorAccountAlreadyExists);
         }
         else
             email_correct = true;
 
-        setRequiredError("mail_EMailContainer", !email_correct);
+        TMMail.setRequiredError("mail_EMailContainer", !email_correct);
 
         if (password.length !== 0) {
             password_correct = true;
         }
 
-        setRequiredError("mail_PasswordContainer", !password_correct);
+        TMMail.setRequiredError("mail_PasswordContainer", !password_correct);
 
         if (email_correct && password_correct) {
 
@@ -610,26 +594,26 @@ window.accountsModal = (function($) {
             $("#mail_EMailContainer.requiredField span").text(window.MailScriptResource.ErrorEmptyField);
         }
         else if (!TMMail.reEmailStrict.test(email)) {
-            setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorIncorrectEmail);
+            TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorIncorrectEmail);
         }
         else if (new_flag && accountsPage.isContain(email.toLowerCase())) {
-            setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorAccountAlreadyExists);
+            TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorAccountAlreadyExists);
         }
         else
             email_incorrect = false;
 
-        setRequiredError("mail_EMailContainer", email_incorrect);
-        setRequiredError("mail_POPServerContainer", server_incorrect = server.length === 0);
-        setRequiredError("mail_POPPortContainer", port_incorrect = port.length === 0);
-        setRequiredError("mail_POPLoginContainer", account_incorrect = account.length === 0);
-        setRequiredError("mail_POPPasswordContainer", password_incorrect = (password.length === 0 && new_flag));
+        TMMail.setRequiredError("mail_EMailContainer", email_incorrect);
+        TMMail.setRequiredError("mail_POPServerContainer", server_incorrect = server.length === 0);
+        TMMail.setRequiredError("mail_POPPortContainer", port_incorrect = port.length === 0);
+        TMMail.setRequiredError("mail_POPLoginContainer", account_incorrect = account.length === 0);
+        TMMail.setRequiredError("mail_POPPasswordContainer", password_incorrect = (password.length === 0 && new_flag));
 
-        setRequiredError("mail_SMTPServerContainer", smtp_server_incorrect = smtp_server.length === 0);
-        setRequiredError("mail_SMTPPortContainer", smtp_port_incorrect = smtp_port.length === 0);
+        TMMail.setRequiredError("mail_SMTPServerContainer", smtp_server_incorrect = smtp_server.length === 0);
+        TMMail.setRequiredError("mail_SMTPPortContainer", smtp_port_incorrect = smtp_port.length === 0);
 
         if (smtp_auth) {
-            setRequiredError("mail_SMTPLoginContainer", smtp_account_incorrect = smtp_account.length === 0);
-            setRequiredError("mail_SMTPPasswordContainer", smtp_password_incorrect = (smtp_password.length === 0 && new_flag));
+            TMMail.setRequiredError("mail_SMTPLoginContainer", smtp_account_incorrect = smtp_account.length === 0);
+            TMMail.setRequiredError("mail_SMTPPasswordContainer", smtp_password_incorrect = (smtp_password.length === 0 && new_flag));
         }
 
         if (!email_incorrect &&
@@ -743,7 +727,7 @@ window.accountsModal = (function($) {
             errorBodyFooter: footer
         }));
         
-        body.find('td.errorImg').toggleClass('errorImg', false).toggleClass('successImg', true);
+        body.find('.errorImg').toggleClass('errorImg', false).toggleClass('successImg', true);
 
         popup.addBig(window.MailScriptResource.DoneLabel, body);
     }
@@ -900,10 +884,10 @@ window.accountsModal = (function($) {
          var is_email_correct = false;
 
             if (email.length === 0) {
-                setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorEmptyField);
+                TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorEmptyField);
             }
             else if (!TMMail.reEmailStrict.test(email)) {
-                setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorIncorrectEmail);
+                TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorIncorrectEmail);
             }
             else
                 is_email_correct = true;
@@ -949,7 +933,7 @@ window.accountsModal = (function($) {
         if (html == "" && is_active)
             is_active = false;
 
-        serviceManager.updateMailboxSignature(account.id, html, is_active, {id: account.id, html: html, is_active: is_active},
+        serviceManager.updateMailboxSignature(account.mailbox_id, html, is_active, { id: account.mailbox_id, html: html, is_active: is_active },
             { error: onErrorUpdateMailboxSignature }, ASC.Resources.Master.Resource.LoadingProcessing);
     }
 

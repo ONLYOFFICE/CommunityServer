@@ -17,7 +17,6 @@
 </div>
 
 <div id="hintPanel" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <div class="feed-params-hint">
         <span class="feed-hint-responsible"><%= FeedResource.Responsible %>:</span>
         <span class="feed-hint-contact"><%= FeedResource.Contact %>:</span>

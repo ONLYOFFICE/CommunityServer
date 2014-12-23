@@ -56,8 +56,7 @@
                         {{if canEdit || canLinkContact}}
                             <img src="<%=WebImageSupplier.GetAbsoluteWebPath("unlink_16.png")%>"
                                title="<%= ProjectsCommonResource.UnlinkProjects %>" class="trash_delete" />
-                            <img src="<%=WebImageSupplier.GetAbsoluteWebPath("loader_16.gif")%>"
-                               title="" class="display-none trash_progress" />
+                            <div class="trash_progress loader-middle" title=""></div>
                         {{/if}}
                     </td>
                 {{/if}}

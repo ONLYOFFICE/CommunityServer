@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<configuration xmlns:xct="http://schemas.microsoft.com/XML-Document-Transform">
+  <connectionStrings>
+    <!-- BadTypeName -->
+    <add xct:Transform="Foo"/>
+    <add xct:Transform="Match"/>
+
+    <!-- NoValidConstructor -->
+    <add xct:Transform="NoValidConstructor"/>
+
+    <!-- BadArgumentValue -->
+    <add foo="foo" xct:Transform="SetAttributes:foo"/>
+    <add foo="foo" xct:Transform="SetAttributes(foo"/>
+    <add foo="foo" xct:Transform="#SetAttributes#"/>
+
+    <!-- InsertMissingArgument -->
+    <add xct:Transform="InsertBefore"/>
+    <!-- InsertTooManyArguments -->
+    <add xct:Transform="InsertBefore(foo, bar)"/>
+    <!-- InsertBadXPath -->
+    <add xct:Transform="InsertBefore(/configuration/snazzy)"/>
+    <!-- InsertBadXPathResult -->
+    <add xct:Transform="InsertBefore(/configuration/connectionStrings/add/@name)"/>
+
+    <!-- TransformDoesNotExpectArguments -->
+    <add xct:Transform="Replace(foo)"/>
+
+    <!-- TransformArgumentFoundNoAttributes -->
+    <add foo="foo" xct:Transform="SetAttributes(foo,bar,*)"/>
+    <add xct:Transform="RemoveAttributes(snap)"/>
+
+    <!-- Caught exception from a Transform -->
+    <add xct:Transform="ThrowException(This task throws an exception)"/>
+
+    <!-- TransformNoMatchingTargetNodes -->
+    <figs xct:Transform="Replace"/>
+    <figs>
+      <add xct:Transform="Insert"/>
+    </figs>
+  </connectionStrings>
+
+  <!-- UnknownXdtTag -->
+  <xct:Foo path="..\..\JoesTransforms\obj\Debug\JoesTransforms.dll" namespace="JoesTransforms"></xct:Foo>
+
+</configuration>

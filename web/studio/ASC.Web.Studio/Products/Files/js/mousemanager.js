@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 window.ASC.Files.Mouse = (function () {
     var isInit = false;
 
@@ -87,7 +83,7 @@ window.ASC.Files.Mouse = (function () {
             ".mainPageLayout:not(.studio-top-panel),\
              .mainPageTableSidePanel,\
              .mainPageContent,\
-             #contentPanel,\
+             .files-content-panel,\
              #mainContent,\
              .file-row:not(.row-rename):not(.row-selected),\
              .file-row:not(.row-rename):not(.row-selected) *")) {
@@ -278,9 +274,9 @@ window.ASC.Files.Mouse = (function () {
                 var folderToObj = entryData ? entryData.entryObject : ASC.Files.UI.getEntryObject("folder", folderToId);
 
                 if (folderToId != ASC.Files.Folders.currentFolder.id
-                    && ASC.Files.UI.accessibleItem(entryData, folderToObj)
+                    && ASC.Files.UI.accessEdit(entryData, folderToObj)
                     && (folderToId != ASC.Files.Constants.FOLDER_ID_TRASH
-                        || ASC.Files.UI.accessibleItem())) {
+                        || ASC.Files.UI.accessEdit())) {
                     jq(this).addClass(cssClass);
                 }
             }
@@ -400,7 +396,7 @@ window.ASC.Files.Mouse = (function () {
         }
         jq("#filesMovingTooltip").css({ "left": e.pageX + "px", "top": e.pageY + "px" });
 
-        if (!ASC.Files.UI.accessibleItem() || e.ctrlKey) {
+        if (!ASC.Files.UI.accessEdit() || e.ctrlKey) {
             jq("body").addClass("file-mouse-copy");
         } else {
             jq("body").removeClass("file-mouse-copy");
@@ -458,7 +454,7 @@ window.ASC.Files.Mouse = (function () {
             if (folderToId == ASC.Files.Constants.FOLDER_ID_TRASH) {
                 ASC.Files.Folders.deleteItem();
             } else {
-                ASC.Files.Folders.isCopyTo = !ASC.Files.UI.accessibleItem() || e && e.ctrlKey === true;
+                ASC.Files.Folders.isCopyTo = !ASC.Files.UI.accessEdit() || e && e.ctrlKey === true;
 
                 var folderToTitle = ASC.Files.UI.getEntryTitle("folder", folderToId);
 

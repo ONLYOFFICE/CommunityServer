@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -45,6 +45,13 @@ namespace ASC.Api.CRM
 {
     public partial class CRMApi
     {
+        /// <summary>
+        ///  Returns the detailed information about the invoice with the ID specified in the request
+        /// </summary>
+        /// <param name="invoiceid">Invoice ID</param>
+        /// <short>Get invoice by ID</short> 
+        /// <category>Invoices</category>
+        /// <returns>Invoice</returns>
         [Read(@"invoice/{invoiceid:[0-9]+}")]
         public InvoiceWrapper GetInvoiceByID(int invoiceid)
         {
@@ -60,6 +67,12 @@ namespace ASC.Api.CRM
             return ToInvoiceWrapper(invoice);
         }
 
+        /// <summary>
+        ///  Returns the detailed information about the invoice sample
+        /// </summary>
+        /// <short>Get invoice sample</short> 
+        /// <category>Invoices</category>
+        /// <returns>Invoice</returns>
         [Read(@"invoice/sample")]
         public InvoiceWrapper GetInvoiceSample()
         {
@@ -67,9 +80,24 @@ namespace ASC.Api.CRM
             sample.Number = DaoFactory.GetInvoiceDao().GetNewInvoicesNumber();
             sample.Terms = DaoFactory.GetInvoiceDao().GetSettings().Terms ?? string.Empty;
 
+            sample.IssueDate = (ApiDateTime)DateTime.UtcNow;
+            sample.DueDate = (ApiDateTime)DateTime.UtcNow.AddDays(30);
+            sample.CreateOn = (ApiDateTime)DateTime.UtcNow;
+
+            sample.Currency = new CurrencyInfoWrapper(Global.TenantSettings.DefaultCurrency);
+
+            sample.InvoiceLines.First().Quantity = 1;
+
             return sample;
         }
 
+        /// <summary>
+        ///  Returns the json data of the invoice with the ID specified in the request
+        /// </summary>
+        /// <param name="invoiceid">Invoice ID</param>
+        /// <short>Get invoice json data</short> 
+        /// <category>Invoices</category>
+        /// <returns>Json Data</returns>
         [Read(@"invoice/jsondata/{invoiceid:[0-9]+}")]
         public string GetInvoiceJsonData(int invoiceid)
         {
@@ -83,6 +111,20 @@ namespace ASC.Api.CRM
             return invoice.JsonData;
         }
 
+        /// <summary>
+        ///   Returns the list of invoices matching the creteria specified in the request
+        /// </summary>
+        /// <param name="status">Invoice status</param>
+        /// <param name="issueDateFrom">Invoice issue date from</param>
+        /// <param name="issueDateTo">Invoice issue date to</param>
+        /// <param name="dueDateFrom">Invoice due date from</param>
+        /// <param name="dueDateTo">Invoice due date to</param>
+        /// <param name="entityType">Invoice entity type</param>
+        /// <param name="entityid">Invoice entity ID</param>
+        /// <param name="currency" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">Invoice currency</param>
+        /// <short>Get invoice list</short> 
+        /// <category>Invoices</category>
+        /// <returns>Invoice list</returns>
         [Read(@"invoice/filter")]
         public IEnumerable<InvoiceBaseWrapper> GetInvoices(
             InvoiceStatus? status,
@@ -179,7 +221,15 @@ namespace ASC.Api.CRM
             return result.ToSmartList();
         }
 
-        [Read("{entityType:(contact|person|company|opportunity)}/invoicelist/{entityid:[0-9]+}")]
+        /// <summary>
+        ///  Returns the list of all invoices associated with the entity with the ID and type specified in the request
+        /// </summary>
+        /// <param name="entityType">Invoice entity type</param>
+        /// <param name="entityid">Invoice entity ID</param>
+        /// <short>Get entity invoices</short> 
+        /// <category>Invoices</category>
+        /// <returns>Invoice list</returns>
+        [Read(@"{entityType:(contact|person|company|opportunity)}/invoicelist/{entityid:[0-9]+}")]
         public IEnumerable<InvoiceBaseWrapper> GetEntityInvoices(String entityType, int entityid)
         {
             if (String.IsNullOrEmpty(entityType) || entityid <= 0) throw new ArgumentException();
@@ -187,6 +237,14 @@ namespace ASC.Api.CRM
             return ToListInvoiceBaseWrappers(DaoFactory.GetInvoiceDao().GetEntityInvoices(ToEntityType(entityType), entityid));
         }
 
+        /// <summary>
+        ///   Updates the status of invoices with the IDs specified in the request
+        /// </summary>
+        /// <param name="invoiceids">Invoice ID list</param>
+        /// <param name="status">Status</param>
+        /// <short>Update invoice group status</short> 
+        /// <category>Invoices</category>
+        /// <returns>KeyValuePair of Invoices and InvoiceItems</returns>
         [Update(@"invoice/status/{status:[\w\d-]+}")]
         public KeyValuePair<IEnumerable<InvoiceBaseWrapper>,IEnumerable<InvoiceItemWrapper>>  UpdateInvoiceBatchStatus(
             int[] invoiceids,
@@ -207,7 +265,7 @@ namespace ASC.Api.CRM
 
             if (realUpdatedInvoices.Any())
             {
-                MessageService.Send(_context, MessageAction.InvoicesUpdatedStatus, realUpdatedInvoices.Select(x => x.Number), status.ToLocalizedString());
+                MessageService.Send(Request, MessageAction.InvoicesUpdatedStatus, realUpdatedInvoices.Select(x => x.Number), status.ToLocalizedString());
             }
 
             var invoiceItemsUpdated = new List<InvoiceItem>();
@@ -289,6 +347,13 @@ namespace ASC.Api.CRM
             return new KeyValuePair<IEnumerable<InvoiceBaseWrapper>,IEnumerable<InvoiceItemWrapper>>(listInvoiceBaseWrappers,invoiceItemsUpdated.ConvertAll(i => ToInvoiceItemWrapper(i)));
         }
 
+        /// <summary>
+        ///   Delete the invoice with the ID specified in the request
+        /// </summary>
+        /// <param name="invoiceid">Invoice ID</param>
+        /// <short>Delete invoice</short> 
+        /// <category>Invoices</category>
+        /// <returns>Invoice</returns>
         [Delete(@"invoice/{invoiceid:[0-9]+}")]
         public InvoiceBaseWrapper DeleteInvoice(int invoiceid)
         {
@@ -297,21 +362,81 @@ namespace ASC.Api.CRM
             var invoice = DaoFactory.GetInvoiceDao().DeleteInvoice(invoiceid);
             if (invoice == null) throw new ItemNotFoundException();
 
-            MessageService.Send(_context, MessageAction.InvoiceDeleted, invoice.Number);
+            MessageService.Send(Request, MessageAction.InvoiceDeleted, invoice.Number);
             return ToInvoiceBaseWrapper(invoice);
         }
 
+        /// <summary>
+        ///   Deletes the group of invoices with the IDs specified in the request
+        /// </summary>
+        /// <param name="invoiceids">Invoice ID list</param>
+        /// <short>Delete invoice group</short> 
+        /// <category>Invoices</category>
+        /// <returns>Invoice list</returns>
         [Delete(@"invoice")]
         public IEnumerable<InvoiceBaseWrapper> DeleteBatchInvoices(IEnumerable<int> invoiceids)
         {
             if (invoiceids == null || !invoiceids.Any()) throw new ArgumentException();
 
             var invoices = DaoFactory.GetInvoiceDao().DeleteBatchInvoices(invoiceids.ToArray());
-            MessageService.Send(_context, MessageAction.InvoicesDeleted, invoices.Select(x => x.Number));
+            MessageService.Send(Request, MessageAction.InvoicesDeleted, invoices.Select(x => x.Number));
 
             return ToListInvoiceBaseWrappers(invoices);
         }
 
+        /// <summary>
+        ///  Creates the invoice with the parameters (contactId, consigneeId, etc.) specified in the request
+        /// </summary>
+        /// <param optional="false" name="number">Invoice number</param>
+        /// <param optional="false" name="issueDate">Invoice issue date</param>
+        /// <param optional="true" name="templateType">Invoice template type</param>
+        /// <param optional="false" name="contactId">Invoice contact ID</param>
+        /// <param optional="true" name="consigneeId">Invoice consignee ID</param>
+        /// <param optional="true" name="entityId">Invoice entity ID</param>
+        /// <param optional="true" name="billingAddressID">Invoice billing address ID</param>
+        /// <param optional="true" name="deliveryAddressID">Invoice delivery address ID</param>
+        /// <param optional="true" name="dueDate">Invoice due date</param>
+        /// <param optional="false" name="language">Invoice language</param>
+        /// <param optional="false" name="currency" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">Invoice currency</param>
+        /// <param optional="false" name="exchangeRate">Invoice exchange rate</param>
+        /// <param optional="true" name="purchaseOrderNumber">Invoice purchase order number</param>
+        /// <param optional="false" name="terms">Invoice terms</param>
+        /// <param optional="true" name="description">Invoice description</param>
+        /// <param optional="false" name="invoiceLines">Invoice lines list</param>
+        /// <short>Create invoice</short> 
+        /// <category>Invoices</category>
+        /// <returns>Invoice</returns>
+        /// <example>
+        /// <![CDATA[
+        /// 
+        /// Data transfer in application/json format:
+        /// 
+        /// data: {
+        ///    number: "invoice000001",
+        ///    issueDate: "2015-06-01T00:00:00",
+        ///    contactId: 10,
+        ///    dueDate: "2025-06-01T00:00:00",
+        ///    language: "es-ES",
+        ///    currency: "rub",
+        ///    exchangeRate: 54.32,
+        ///    terms: "Terms for this invoice",
+        ///    invoiceLines:
+        ///    [{
+        ///          invoiceItemID: 1,
+        ///          invoiceTax1ID: 1,
+        ///          invoiceTax2ID: 2,
+        ///          description: "description for invoice line 1",
+        ///          quantity: 100,
+        ///          price: 7.7,
+        ///          discount: 25
+        ///    }]  
+        /// }
+        /// 
+        /// where invoiceItemID, invoiceTax1ID, invoiceTax2ID - ids of the real existing invoice item and invoice taxes,
+        /// contactId - id of the existing contact
+        /// 
+        /// ]]>
+        /// </example>
         [Create(@"invoice")]
         public InvoiceWrapper CreateInvoice(
             string number,
@@ -329,11 +454,11 @@ namespace ASC.Api.CRM
             string purchaseOrderNumber,
             string terms,
             string description,
-            IEnumerable<InvoiceLineWrapper> invoiceLines
+            IEnumerable<InvoiceLine> invoiceLines
             )
         {
-            var invoiceLinesList = invoiceLines.ToList();
-            if (invoiceLines == null || !invoiceLinesList.Any() || !isLinesForInvoiceCorrect(invoiceLinesList)) throw new ArgumentException();
+            var invoiceLinesList = invoiceLines != null ? invoiceLines.ToList() : new List<InvoiceLine>();
+            if (!invoiceLinesList.Any() || !IsLinesForInvoiceCorrect(invoiceLinesList)) throw new ArgumentException();
 
             var invoice = new Invoice
                 {
@@ -375,16 +500,12 @@ namespace ASC.Api.CRM
 
             CreateInvoiceLines(invoiceLinesList, invoice);
 
-                //RemoveUnusedLines(invoice.ID, invoiceLines);
-
             DaoFactory.GetInvoiceDao().UpdateInvoiceJsonData(invoice, billingAddressID, deliveryAddressID);
-
-
             return ToInvoiceWrapper(invoice);
         }
 
 
-        private bool isLinesForInvoiceCorrect(List<InvoiceLineWrapper> invoiceLines)
+        private bool IsLinesForInvoiceCorrect(List<InvoiceLine> invoiceLines)
         {
             foreach (var line in invoiceLines)
             {
@@ -405,7 +526,7 @@ namespace ASC.Api.CRM
             return true;
         }
 
-        private List<InvoiceLine> CreateInvoiceLines(List<InvoiceLineWrapper> invoiceLines, Invoice invoice)
+        private List<InvoiceLine> CreateInvoiceLines(List<InvoiceLine> invoiceLines, Invoice invoice)
         {
             var result = new List<InvoiceLine>();
             for (var i = 0; i < invoiceLines.Count; i++)
@@ -430,16 +551,69 @@ namespace ASC.Api.CRM
             return result;
         }
 
-
-        [Update("invoice/{invoiceid:[0-9]+}")]
+        /// <summary>
+        ///   Updates the selected invoice with the parameters (contactId, consigneeId, etc.) specified in the request
+        /// </summary>
+        /// <param optional="false" name="id">Invoice ID</param>
+        /// <param optional="false" name="issueDate">Invoice issue date</param>
+        /// <param optional="true" name="templateType">Invoice template type</param>
+        /// <param optional="false" name="contactId">Invoice contact ID</param>
+        /// <param optional="true" name="consigneeId">Invoice consignee ID</param>
+        /// <param optional="true" name="entityId">Invoice entity ID</param>
+        /// <param optional="true" name="billingAddressID">Invoice billing address ID</param>
+        /// <param optional="true" name="deliveryAddressID">Invoice delivery address ID</param>
+        /// <param optional="true" name="dueDate">Invoice due date</param>
+        /// <param optional="false" name="language">Invoice language</param>
+        /// <param optional="false" name="currency" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">Invoice currency</param>
+        /// <param optional="false" name="exchangeRate">Invoice exchange rate</param>
+        /// <param optional="true" name="purchaseOrderNumber">Invoice purchase order number</param>
+        /// <param optional="false" name="terms">Invoice terms</param>
+        /// <param optional="true" name="description">Invoice description</param>
+        /// <param optional="false" name="invoiceLines">Invoice lines list</param>
+        /// <short>Update invoice</short> 
+        /// <category>Invoices</category>
+        /// <returns>Invoice</returns>
+        /// <example>
+        /// <![CDATA[
+        /// 
+        /// Data transfer in application/json format:
+        /// 
+        /// data: {
+        ///    id: 5,
+        ///    issueDate: "2015-06-01T00:00:00",
+        ///    contactId: 10,
+        ///    dueDate: "2025-06-01T00:00:00",
+        ///    language: "es-ES",
+        ///    currency: "rub",
+        ///    exchangeRate: 54.32,
+        ///    terms: "Terms for this invoice",
+        ///    invoiceLines:
+        ///    [{
+        ///          invoiceItemID: 1,
+        ///          invoiceTax1ID: 1,
+        ///          invoiceTax2ID: 2,
+        ///          description: "description for invoice line 1",
+        ///          quantity: 100,
+        ///          price: 7.7,
+        ///          discount: 25
+        ///    }]
+        /// }
+        /// 
+        /// where invoiceItemID, invoiceTax1ID, invoiceTax2ID - ids of the real existing invoice item and invoice taxes,
+        /// contactId - id of the existing contact
+        /// 
+        /// ]]>
+        /// </example>
+        [Update(@"invoice/{invoiceid:[0-9]+}")]
         public InvoiceWrapper UpdateInvoice(
             int id,
-            string number,
             ApiDateTime issueDate,
             int templateType,
             int contactId,
             int consigneeId,
             int entityId,
+            int billingAddressID,
+            int deliveryAddressID,
             ApiDateTime dueDate,
             string language,
             string currency,
@@ -447,12 +621,15 @@ namespace ASC.Api.CRM
             string purchaseOrderNumber,
             string terms,
             string description,
-            IEnumerable<InvoiceLineWrapper> invoiceLines)
+            IEnumerable<InvoiceLine> invoiceLines)
         {
-            var invoice = DaoFactory.GetInvoiceDao().GetByID(id);
-            if (invoice == null) throw new ItemNotFoundException();
 
-            invoice.Number = number;
+            var invoiceLinesList = invoiceLines != null ? invoiceLines.ToList() : new List<InvoiceLine>();
+            if (!invoiceLinesList.Any() || !IsLinesForInvoiceCorrect(invoiceLinesList)) throw new ArgumentException();
+
+            var invoice = DaoFactory.GetInvoiceDao().GetByID(id);
+            if (invoice == null || !CRMSecurity.CanEdit(invoice)) throw new ItemNotFoundException();
+
             invoice.IssueDate = issueDate;
             invoice.TemplateType = (InvoiceTemplateType)templateType;
             invoice.ContactID = contactId;
@@ -466,14 +643,47 @@ namespace ASC.Api.CRM
             invoice.PurchaseOrderNumber = purchaseOrderNumber;
             invoice.Terms = terms;
             invoice.Description = description;
+            invoice.JsonData = null;
 
             CRMSecurity.DemandCreateOrUpdate(invoice);
 
+            if (billingAddressID > 0)
+            {
+                var address = DaoFactory.GetContactInfoDao().GetByID(billingAddressID);
+                if (address == null || address.InfoType != ContactInfoType.Address || address.Category != (int)AddressCategory.Billing || address.ContactID != contactId)
+                    throw new ArgumentException();
+            }
+
+            if (deliveryAddressID > 0)
+            {
+                var address = DaoFactory.GetContactInfoDao().GetByID(deliveryAddressID);
+                if (address == null || address.InfoType != ContactInfoType.Address || address.Category != (int)AddressCategory.Postal || address.ContactID != consigneeId)
+                    throw new ArgumentException();
+            }
+
             DaoFactory.GetInvoiceDao().SaveOrUpdateInvoice(invoice);
+
+
+            DaoFactory.GetInvoiceLineDao().DeleteInvoiceLines(invoice.ID);
+            CreateInvoiceLines(invoiceLinesList, invoice);
+
+            DaoFactory.GetInvoiceDao().UpdateInvoiceJsonData(invoice, billingAddressID, deliveryAddressID);
+
+            if (Global.CanDownloadInvoices)
+            {
+                new InvoiceFileUpdateHelper().UpdateInvoiceFileIDInThread(invoice.ID);
+            }
 
             return ToInvoiceWrapper(invoice);
         }
 
+        /// <summary>
+        ///  Returns the pdf file associated with the invoice with the ID specified in the request
+        /// </summary>
+        /// <param name="invoiceid">Invoice ID</param>
+        /// <short>Get invoice pdf file</short> 
+        /// <category>Invoices</category>
+        /// <returns>File</returns>
         [Read(@"invoice/{invoiceid:[0-9]+}/pdf")]
         public FileWrapper GetInvoicePdfExistOrCreate(int invoiceid)
         {
@@ -489,6 +699,16 @@ namespace ASC.Api.CRM
             return new FileWrapper(Global.GetInvoicePdfExistingOrCreate(invoice));
         }
 
+        /// <summary>
+        ///  Returns information about the generation of the pdf file of the invoice
+        /// </summary>
+        /// <param name="invoiceId">Invoice ID</param>
+        /// <param name="converterUrl">Converter Url</param>
+        /// <param name="storageUrl">Storage Url</param>
+        /// <param name="revisionId">Revision ID</param>
+        /// <short>Check invoice pdf file</short> 
+        /// <category>Invoices</category>
+        /// <returns>ConverterData</returns>
         [Create(@"invoice/converter/data")]
         public ConverterData GetInvoiceConverterData(int invoiceId, string converterUrl, string storageUrl, string revisionId)
         {
@@ -526,8 +746,8 @@ namespace ASC.Api.CRM
                 if (convertedFile != null)
                 {
                     invoice.FileID = Int32.Parse(convertedFile.ID.ToString());
-                    Global.DaoFactory.GetInvoiceDao().UpdateInvoiceFileID(invoice.ID, invoice.FileID);
-                    Global.DaoFactory.GetRelationshipEventDao().AttachFiles(invoice.ContactID, invoice.EntityType, invoice.EntityID, new[] { invoice.FileID });
+                    DaoFactory.GetInvoiceDao().UpdateInvoiceFileID(invoice.ID, invoice.FileID);
+                    DaoFactory.GetRelationshipEventDao().AttachFiles(invoice.ContactID, invoice.EntityType, invoice.EntityID, new[] { invoice.FileID });
 
                     converterData.FileId = invoice.FileID;
                     return converterData;
@@ -539,7 +759,13 @@ namespace ASC.Api.CRM
             }
         }
 
-
+        /// <summary>
+        ///  Returns the existence of the invoice with the Number specified in the request
+        /// </summary>
+        /// <param name="number">Invoice number</param>
+        /// <short>Check invoice existence by number</short> 
+        /// <category>Invoices</category>
+        /// <returns>IsExist</returns>
         [Read(@"invoice/bynumber/exist")]
         public Boolean GetInvoiceByNumberExistence(string number)
         {
@@ -547,6 +773,13 @@ namespace ASC.Api.CRM
             return DaoFactory.GetInvoiceDao().IsExist(number);
         }
 
+        /// <summary>
+        ///  Returns the detailed information about the invoice with the Number specified in the request
+        /// </summary>
+        /// <param name="number">Invoice number</param>
+        /// <short>Get invoice by number</short> 
+        /// <category>Invoices</category>
+        /// <returns>Invoice</returns>
         [Read(@"invoice/bynumber")]
         public InvoiceWrapper GetInvoiceByNumber(string number)
         {
@@ -561,7 +794,14 @@ namespace ASC.Api.CRM
             return new InvoiceWrapper(invoice);
         }
 
-
+        /// <summary>
+        ///   Returns the list of invoice items matching the creteria specified in the request
+        /// </summary>
+        /// <param name="status">Status</param>
+        /// <param optional="true" name="inventoryStock">InventoryStock</param>
+        /// <short>Get invoice item list</short> 
+        /// <category>Invoices</category>
+        /// <returns>InvoiceItem list</returns>
         [Read(@"invoiceitem/filter")]
         public IEnumerable<InvoiceItemWrapper> GetInvoiceItems(int status, bool? inventoryStock)
         {
@@ -633,6 +873,21 @@ namespace ASC.Api.CRM
             return result.ToSmartList();
         }
 
+        /// <summary>
+        ///  Creates the invoice line with the parameters (invoiceId, invoiceItemId, etc.) specified in the request
+        /// </summary>
+        /// <param optional="false" name="invoiceId">Invoice ID</param>
+        /// <param optional="false" name="invoiceItemId">Invoice item ID</param>
+        /// <param optional="true" name="invoiceTax1Id">First invoice tax ID</param>
+        /// <param optional="true" name="invoiceTax2Id">Second invoice tax ID</param>
+        /// <param optional="true" name="sortOrder">Sort Order</param>
+        /// <param optional="true" name="description">Description</param>
+        /// <param optional="true" name="quantity">Quantity</param>
+        /// <param optional="true" name="price">Price</param>
+        /// <param optional="true" name="discount">Discount</param>
+        /// <short>Create invoice line</short> 
+        /// <category>Invoices</category>
+        /// <returns>InvoiceLine</returns>
         [Create(@"invoiceline")]
         public InvoiceLineWrapper CreateInvoiceLine(
             int invoiceId,
@@ -659,13 +914,38 @@ namespace ASC.Api.CRM
                     Discount = discount
                 };
 
-            CRMSecurity.DemandCreateOrUpdate(invoiceLine);
+            if (invoiceId <= 0)
+                throw new ArgumentException();
+            var invoice = Global.DaoFactory.GetInvoiceDao().GetByID(invoiceId);
+            CRMSecurity.DemandCreateOrUpdate(invoiceLine, invoice);
 
             invoiceLine.ID = DaoFactory.GetInvoiceLineDao().SaveOrUpdateInvoiceLine(invoiceLine);
+
+            DaoFactory.GetInvoiceDao().UpdateInvoiceJsonDataAfterLinesUpdated(invoice);
+            if (Global.CanDownloadInvoices)
+            {
+                new InvoiceFileUpdateHelper().UpdateInvoiceFileIDInThread(invoice.ID);
+            }
 
             return ToInvoiceLineWrapper(invoiceLine);
         }
 
+        /// <summary>
+        ///   Updates the selected invoice line with the parameters (invoiceId, invoiceItemId, etc.) specified in the request
+        /// </summary>
+        /// <param optional="false" name="id">Line ID</param>
+        /// <param optional="false" name="invoiceId">Invoice ID</param>
+        /// <param optional="false" name="invoiceItemId">Invoice item ID</param>
+        /// <param optional="true" name="invoiceTax1Id">First invoice tax ID</param>
+        /// <param optional="true" name="invoiceTax2Id">Second invoice tax ID</param>
+        /// <param optional="true" name="sortOrder">Sort Order</param>
+        /// <param optional="true" name="description">Description</param>
+        /// <param optional="true" name="quantity">Quantity</param>
+        /// <param optional="true" name="price">Price</param>
+        /// <param optional="true" name="discount">Discount</param>
+        /// <short>Update invoice line</short>
+        /// <category>Invoices</category>
+        /// <returns>InvoiceLine</returns>
         [Update(@"invoiceline/{invoicelineid:[0-9]+}")]
         public InvoiceLineWrapper UpdateInvoiceLine(
             int id,
@@ -680,8 +960,12 @@ namespace ASC.Api.CRM
             int discount
             )
         {
+            if (invoiceId <= 0)
+                throw new ArgumentException();
+
             var invoiceLine = DaoFactory.GetInvoiceLineDao().GetByID(id);
             if (invoiceLine == null || invoiceLine.InvoiceID != invoiceId) throw new ItemNotFoundException();
+
 
             invoiceLine.InvoiceID = invoiceId;
             invoiceLine.InvoiceItemID = invoiceItemId;
@@ -693,13 +977,27 @@ namespace ASC.Api.CRM
             invoiceLine.Price = price;
             invoiceLine.Discount = discount;
 
-            CRMSecurity.DemandCreateOrUpdate(invoiceLine);
+            var invoice = Global.DaoFactory.GetInvoiceDao().GetByID(invoiceId);
+            CRMSecurity.DemandCreateOrUpdate(invoiceLine, invoice);
 
             DaoFactory.GetInvoiceLineDao().SaveOrUpdateInvoiceLine(invoiceLine);
+
+            DaoFactory.GetInvoiceDao().UpdateInvoiceJsonDataAfterLinesUpdated(invoice);
+            if (Global.CanDownloadInvoices)
+            {
+                new InvoiceFileUpdateHelper().UpdateInvoiceFileIDInThread(invoice.ID);
+            }
 
             return ToInvoiceLineWrapper(invoiceLine);
         }
 
+        /// <summary>
+        ///    Deletes the invoice line with the ID specified in the request
+        /// </summary>
+        /// <param optional="false" name="id">Line ID</param>
+        /// <short>Delete invoice line</short> 
+        /// <category>Invoices</category>
+        /// <returns>Line ID</returns>
         [Delete(@"invoiceline/{invoicelineid:[0-9]+}")]
         public int DeleteInvoiceLine(int id)
         {
@@ -712,6 +1010,13 @@ namespace ASC.Api.CRM
             if (!CRMSecurity.CanEdit(invoice)) throw CRMSecurity.CreateSecurityException();
 
             DaoFactory.GetInvoiceLineDao().DeleteInvoiceLine(id);
+
+            DaoFactory.GetInvoiceDao().UpdateInvoiceJsonDataAfterLinesUpdated(invoice);
+            if (Global.CanDownloadInvoices)
+            {
+                new InvoiceFileUpdateHelper().UpdateInvoiceFileIDInThread(invoice.ID);
+            }
+
             return id;
         }
 
@@ -739,7 +1044,21 @@ namespace ASC.Api.CRM
             return result;
         }
 
-
+        /// <summary>
+        ///  Creates the invoice item with the parameters (title, description, price, etc.) specified in the request
+        /// </summary>
+        /// <param optional="false" name="title">Item title</param>
+        /// <param optional="true" name="description">Item description</param>
+        /// <param optional="false" name="price">Item price</param>
+        /// <param optional="true" name="sku">Item stock keeping unit</param>
+        /// <param optional="true" name="quantity">Item quantity</param>
+        /// <param optional="true" name="stockQuantity">Item stock quantity</param>
+        /// <param optional="true" name="trackInventory">Track inventory</param>
+        /// <param optional="true" name="invoiceTax1id">Item first invoice tax ID</param>
+        /// <param optional="true" name="invoiceTax2id">Item second invoice tax ID</param>
+        /// <short>Create invoice item</short> 
+        /// <category>Invoices</category>
+        /// <returns>InvoiceItem</returns>
         [Create(@"invoiceitem")]
         public InvoiceItemWrapper CreateInvoiceItem(
             string title,
@@ -772,12 +1091,27 @@ namespace ASC.Api.CRM
                 };
 
             invoiceItem = DaoFactory.GetInvoiceItemDao().SaveOrUpdateInvoiceItem(invoiceItem);
-            MessageService.Send(_context, MessageAction.InvoiceItemCreated, invoiceItem.Title);
+            MessageService.Send(Request, MessageAction.InvoiceItemCreated, invoiceItem.Title);
 
             return ToInvoiceItemWrapper(invoiceItem);
         }
 
-
+        /// <summary>
+        ///   Updates the selected invoice item with the parameters (title, description, price, etc.) specified in the request
+        /// </summary>
+        /// <param optional="false" name="id">Item ID</param>
+        /// <param optional="false" name="title">Item title</param>
+        /// <param optional="true" name="description">Item description</param>
+        /// <param optional="false" name="price">Item price</param>
+        /// <param optional="true" name="sku">Item stock keeping unit</param>
+        /// <param optional="true" name="quantity">Item quantity</param>
+        /// <param optional="true" name="stockQuantity">Item stock quantity</param>
+        /// <param optional="true" name="trackInventory">Track inventory</param>
+        /// <param optional="true" name="invoiceTax1id">Item first invoice tax ID</param>
+        /// <param optional="true" name="invoiceTax2id">Item second invoice tax ID</param>
+        /// <short>Update invoice item</short>
+        /// <category>Invoices</category>
+        /// <returns>InvoiceItem</returns>
         [Update(@"invoiceitem/{id:[0-9]+}")]
         public InvoiceItemWrapper UpdateInvoiceItem(int id,
                                                     string title,
@@ -813,11 +1147,18 @@ namespace ASC.Api.CRM
                 };
 
             invoiceItem = DaoFactory.GetInvoiceItemDao().SaveOrUpdateInvoiceItem(invoiceItem);
-            MessageService.Send(_context, MessageAction.InvoiceItemUpdated, invoiceItem.Title);
+            MessageService.Send(Request, MessageAction.InvoiceItemUpdated, invoiceItem.Title);
 
             return ToInvoiceItemWrapper(invoiceItem);
         }
 
+        /// <summary>
+        ///    Deletes the invoice item with the ID specified in the request
+        /// </summary>
+        /// <param name="id">Item ID</param>
+        /// <short>Delete invoice item</short> 
+        /// <category>Invoices</category>
+        /// <returns>InvoiceItem</returns>
         [Delete(@"invoiceitem/{id:[0-9]+}")]
         public InvoiceItemWrapper DeleteInvoiceItem(int id)
         {
@@ -830,10 +1171,17 @@ namespace ASC.Api.CRM
             var invoiceItem = DaoFactory.GetInvoiceItemDao().DeleteInvoiceItem(id);
             if (invoiceItem == null) throw new ItemNotFoundException();
 
-            MessageService.Send(_context, MessageAction.InvoiceItemDeleted, invoiceItem.Title);
+            MessageService.Send(Request, MessageAction.InvoiceItemDeleted, invoiceItem.Title);
             return ToInvoiceItemWrapper(invoiceItem);
         }
 
+        /// <summary>
+        ///   Deletes the group of invoice items with the IDs specified in the request
+        /// </summary>
+        /// <param name="ids">Item ID list</param>
+        /// <short>Delete Invoice item group</short> 
+        /// <category>Invoices</category>
+        /// <returns>InvoiceItem list</returns>
         [Delete(@"invoiceitem")]
         public IEnumerable<InvoiceItemWrapper> DeleteBatchItems(IEnumerable<int> ids)
         {
@@ -845,19 +1193,32 @@ namespace ASC.Api.CRM
             ids = ids.Distinct();
 
             var items = DaoFactory.GetInvoiceItemDao().DeleteBatchInvoiceItems(ids.ToArray());
-            MessageService.Send(_context, MessageAction.InvoiceItemsDeleted, items.Select(x => x.Title));
+            MessageService.Send(Request, MessageAction.InvoiceItemsDeleted, items.Select(x => x.Title));
 
             return items.ConvertAll(ToInvoiceItemWrapper);
         }
 
-
+        /// <summary>
+        ///   Returns the list of invoice taxes
+        /// </summary>
+        /// <short>Get invoice taxes list</short> 
+        /// <category>Invoices</category>
+        /// <returns>InvoiceTax list</returns>
         [Read(@"invoice/tax")]
         public IEnumerable<InvoiceTaxWrapper> GetInvoiceTaxes()
         {
             return DaoFactory.GetInvoiceTaxDao().GetAll().ConvertAll(ToInvoiceTaxWrapper);
         }
 
-
+        /// <summary>
+        ///  Creates the invoice tax with the parameters (name, description, rate) specified in the request
+        /// </summary>
+        /// <param name="name">Tax name</param>
+        /// <param name="description">Tax description</param>
+        /// <param name="rate">Tax rate</param>
+        /// <short>Create invoice tax</short> 
+        /// <category>Invoices</category>
+        /// <returns>InvoiceTax</returns>
         [Create(@"invoice/tax")]
         public InvoiceTaxWrapper CreateInvoiceTax(
             string name,
@@ -879,11 +1240,21 @@ namespace ASC.Api.CRM
                 };
 
             invoiceTax = DaoFactory.GetInvoiceTaxDao().SaveOrUpdateInvoiceTax(invoiceTax);
-            MessageService.Send(_context, MessageAction.InvoiceTaxCreated, invoiceTax.Name);
+            MessageService.Send(Request, MessageAction.InvoiceTaxCreated, invoiceTax.Name);
 
             return ToInvoiceTaxWrapper(invoiceTax);
         }
 
+        /// <summary>
+        ///   Updates the selected invoice tax with the parameters (name, description, rate) specified in the request
+        /// </summary>
+        /// <param name="id">Tax ID</param>
+        /// <param name="name">Tax name</param>
+        /// <param name="description">Tax description</param>
+        /// <param name="rate">Tax rate</param>
+        /// <short>Update invoice tax</short>
+        /// <category>Invoices</category>
+        /// <returns>InvoiceTax</returns>
         [Update(@"invoice/tax/{id:[0-9]+}")]
         public InvoiceTaxWrapper UpdateInvoiceTax(
             int id,
@@ -908,12 +1279,18 @@ namespace ASC.Api.CRM
                 };
 
             invoiceTax = DaoFactory.GetInvoiceTaxDao().SaveOrUpdateInvoiceTax(invoiceTax);
-            MessageService.Send(_context, MessageAction.InvoiceTaxUpdated, invoiceTax.Name);
+            MessageService.Send(Request, MessageAction.InvoiceTaxUpdated, invoiceTax.Name);
 
             return ToInvoiceTaxWrapper(invoiceTax);
         }
 
-
+        /// <summary>
+        ///   Delete the invoice tax with the ID specified in the request
+        /// </summary>
+        /// <param name="id">Tax ID</param>
+        /// <short>Delete invoice tax</short> 
+        /// <category>Invoices</category>
+        /// <returns>InvoiceTax</returns>
         [Delete(@"invoice/tax/{id:[0-9]+}")]
         public InvoiceTaxWrapper DeleteInvoiceTax(int id)
         {
@@ -926,17 +1303,31 @@ namespace ASC.Api.CRM
             var invoiceTax = DaoFactory.GetInvoiceTaxDao().DeleteInvoiceTax(id);
             if (invoiceTax == null) throw new ItemNotFoundException();
 
-            MessageService.Send(_context, MessageAction.InvoiceTaxDeleted, invoiceTax.Name);
+            MessageService.Send(Request, MessageAction.InvoiceTaxDeleted, invoiceTax.Name);
             return ToInvoiceTaxWrapper(invoiceTax);
         }
 
-
+        /// <summary>
+        ///  Get default invoice settings
+        /// </summary>
+        /// <short>Get default invoice settings</short>
+        /// <category>Invoices</category>
+        /// <returns>InvoiceSetting</returns>
         [Read(@"invoice/settings")]
         public InvoiceSetting GetSettings()
         {
             return DaoFactory.GetInvoiceDao().GetSettings();
         }
 
+        /// <summary>
+        ///  Save default invoice number
+        /// </summary>
+        /// <param name="autogenerated">Is autogenerated</param>
+        /// <param name="prefix">Prefix</param>
+        /// <param name="number">Number</param>
+        /// <short>Save default invoice number</short>
+        /// <category>Invoices</category>
+        /// <returns>InvoiceSetting</returns>
         [Update(@"invoice/settings/name")]
         public InvoiceSetting SaveNumberSettings(bool autogenerated, string prefix, string number)
         {
@@ -955,11 +1346,18 @@ namespace ASC.Api.CRM
             invoiceSetting.Number = number;
 
             var settings = DaoFactory.GetInvoiceDao().SaveInvoiceSettings(invoiceSetting);
-            MessageService.Send(_context, MessageAction.InvoiceNumberFormatUpdated);
+            MessageService.Send(Request, MessageAction.InvoiceNumberFormatUpdated);
 
             return settings;
         }
 
+        /// <summary>
+        ///  Save default invoice terms
+        /// </summary>
+        /// <param name="terms">Terms</param>
+        /// <short>Save default invoice terms</short>
+        /// <category>Invoices</category>
+        /// <returns>InvoiceSetting</returns>
         [Update(@"invoice/settings/terms")]
         public InvoiceSetting SaveTermsSettings(string terms)
         {
@@ -969,7 +1367,10 @@ namespace ASC.Api.CRM
 
             invoiceSetting.Terms = terms;
 
-            return DaoFactory.GetInvoiceDao().SaveInvoiceSettings(invoiceSetting);
+            var result = DaoFactory.GetInvoiceDao().SaveInvoiceSettings(invoiceSetting);
+            MessageService.Send(Request, MessageAction.InvoiceDefaultTermsUpdated);
+
+            return result;
         }
 
 

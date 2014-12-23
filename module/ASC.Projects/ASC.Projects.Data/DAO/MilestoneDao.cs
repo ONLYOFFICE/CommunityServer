@@ -1,40 +1,42 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
+
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 
@@ -105,7 +107,7 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
-        public List<Milestone> GetByFilter(TaskFilter filter, bool isAdmin)
+        public List<Milestone> GetByFilter(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
             var query = CreateQuery();
 
@@ -130,7 +132,7 @@ namespace ASC.Projects.Data.DAO
                 }
             }
 
-            query = CreateQueryFilter(query, filter, isAdmin);
+            query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
 
             using (var db = new DbManager(DatabaseId))
             {
@@ -138,7 +140,7 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
-        public int GetByFilterCount(TaskFilter filter, bool isAdmin)
+        public int GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
             var query = new SqlQuery(MilestonesTable + " t")
                 .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
@@ -146,7 +148,7 @@ namespace ASC.Projects.Data.DAO
                 .GroupBy("t.id")
                 .Where("t.tenant_id", Tenant);
 
-            query = CreateQueryFilter(query, filter, isAdmin);
+            query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
 
             var queryCount = new SqlQuery().SelectCount().From(query, "t1");
 
@@ -337,7 +339,7 @@ namespace ASC.Projects.Data.DAO
                 .Where("t.tenant_id", Tenant);
         }
 
-        private SqlQuery CreateQueryFilter(SqlQuery query, TaskFilter filter, bool isAdmin)
+        private SqlQuery CreateQueryFilter(SqlQuery query, TaskFilter filter, bool isAdmin, bool checkAccess)
         {
             if (filter.MilestoneStatuses.Count != 0)
             {
@@ -395,19 +397,7 @@ namespace ASC.Projects.Data.DAO
                 query.Where(Exp.Like("t.title", filter.SearchText, SqlLike.AnyWhere));
             }
 
-            if (!isAdmin)
-            {
-                if (!filter.MyProjects && !filter.MyMilestones)
-                {
-                    query.LeftOuterJoin(ParticipantTable + " ppp", Exp.Eq("ppp.participant_id", CurrentUserID) & Exp.EqColumns("ppp.project_id", "t.project_id") & Exp.EqColumns("ppp.tenant", "t.tenant_id"));
-                }
-
-                var isInTeam = Exp.Sql("ppp.security IS NOT NULL") & Exp.Eq("ppp.removed", false);
-                var canReadMilestones = !Exp.Eq("security & " + (int)ProjectTeamSecurity.Milestone, (int)ProjectTeamSecurity.Milestone);
-                var responsible = Exp.Eq("t.responsible_id", CurrentUserID);
-
-                query.Where(Exp.Eq("p.private", false) | isInTeam & (responsible | canReadMilestones));
-            }
+            CheckSecurity(query, filter, isAdmin, checkAccess);
 
             return query;
         }
@@ -435,13 +425,34 @@ namespace ASC.Projects.Data.DAO
                        };
         }
         
-
         internal List<Milestone> GetMilestones(Exp where)
         {
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(ToMilestone);
             }
+        }
+
+        private void CheckSecurity(SqlQuery query, TaskFilter filter, bool isAdmin, bool checkAccess)
+        {
+            if (checkAccess)
+            {
+                query.Where(Exp.Eq("p.private", false));
+                return;
+            }
+
+            if (isAdmin) return;
+
+            if (!filter.MyProjects && !filter.MyMilestones)
+            {
+                query.LeftOuterJoin(ParticipantTable + " ppp", Exp.Eq("ppp.participant_id", CurrentUserID) & Exp.EqColumns("ppp.project_id", "t.project_id") & Exp.EqColumns("ppp.tenant", "t.tenant_id"));
+            }
+
+            var isInTeam = !Exp.Eq("ppp.security", null) & Exp.Eq("ppp.removed", false);
+            var canReadMilestones = !Exp.Eq("security & " + (int)ProjectTeamSecurity.Milestone, (int)ProjectTeamSecurity.Milestone);
+            var responsible = Exp.Eq("t.responsible_id", CurrentUserID);
+
+            query.Where(Exp.Eq("p.private", false) | isInTeam & (responsible | canReadMilestones));
         }
     }
 }

@@ -12,3 +12,8 @@
 <link type="text/css" href="<%=PathProvider.GetFileStaticRelativePath("socialmedia.less") %>" rel="stylesheet" />
 
 <link type="text/css" href="<%=PathProvider.GetFileStaticRelativePath("settings.less") %>" rel="stylesheet" />
+
+<link type="text/css" href="<%=PathProvider.GetFileStaticRelativePath("voip.common.less") %>" rel="stylesheet" />
+<link type="text/css" href="<%=PathProvider.GetFileStaticRelativePath("voip.quick.less") %>" rel="stylesheet" />
+<link type="text/css" href="<%=PathProvider.GetFileStaticRelativePath("voip.numbers.less") %>" rel="stylesheet" />
+<link type="text/css" href="<%=PathProvider.GetFileStaticRelativePath("voip.calls.less") %>" rel="stylesheet" />

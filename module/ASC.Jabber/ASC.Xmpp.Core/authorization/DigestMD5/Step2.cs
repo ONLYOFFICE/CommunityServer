@@ -1,39 +1,30 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
-
-// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Ascensio System Limited" file="Step2.cs">
-// //   
-// // </copyright>
-// // <summary>
-// //   (c) Copyright Ascensio System Limited 2008-2012
-// // </summary>
-// // --------------------------------------------------------------------------------------------------------------------
 
 #region using
 
@@ -91,37 +82,6 @@ namespace ASC.Xmpp.Core.authorization.DigestMD5
         /// </summary>
         public Step2()
         {
-        }
-
-        /// <summary>
-        ///   builds a step2 message reply to the given step1 message
-        /// </summary>
-        /// <param name="step1"> </param>
-        /// <param name="username"> </param>
-        /// <param name="password"> </param>
-        /// <param name="server"> </param>
-        public Step2(Step1 step1, string username, string password, string server)
-        {
-            Nonce = step1.Nonce;
-
-            // fixed for SASL n amessage servers (jabberd 1.x)
-            if (SupportsAuth(step1.Qop))
-            {
-                Qop = "auth";
-            }
-
-            Realm = step1.Realm;
-            Charset = step1.Charset;
-            Algorithm = step1.Algorithm;
-
-            Username = username;
-            Password = password;
-            Server = server;
-
-            GenerateCnonce();
-            GenerateNc();
-            GenerateDigestUri();
-            GenerateResponse();
         }
 
         /// <summary>
@@ -225,116 +185,12 @@ namespace ASC.Xmpp.Core.authorization.DigestMD5
 
         /// <summary>
         /// </summary>
-        /// <param name="text"> </param>
-        /// <param name="hex"> </param>
-        /// <returns> </returns>
-        public string ComputeMd5(string text, bool hex)
-        {
-            return ComputeMd5(text, hex, null);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="text"> </param>
-        /// <param name="hex"> </param>
-        /// <returns> </returns>
-        public string ComputeMd5(string text, bool hex, Encoding encoding)
-        {
-            encoding = encoding ?? Encoding.Default;
-
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] hash = md5.ComputeHash(encoding.GetBytes(text));
-
-            if (hex)
-            {
-                return Hash.HexToString(hash);
-            }
-
-            return Encoding.Default.GetString(hash);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="username"> </param>
-        /// <param name="password"> </param>
-        /// <param name="method"> </param>
-        /// <returns> </returns>
-        /// <exception cref="ArgumentException"></exception>
-        public string CalculateResponse(string username, string password, string method)
-        {
-            /*
-                MD5
-                    A1 = username-value ":" realm-value ":" passwd
-            
-                MD5-sess
-                    A1 = md5(username-value ":" realm-value ":" passwd) ":" nonce-value ":" cnonce-value
-                                         
-                qop not peresent or auth
-                    A2 = Method ":" digest-uri-value
-             
-                qop auth-int
-                    A2 = Method ":" digest-uri-value ":" md5h(entity-body)
-              
-                qop present
-                    response = md5h(md5h(A1) ":" nonce-value ":" nc-value ":" cnonce-value ":" qop-value ":" md5h(A2))
-                          
-                qop not present
-                    response = md5h(md5h(A1) ":" nonce-value ":" md5h(A2))
-                        
-            */
-            string a1 = string.Empty;
-            string a2 = string.Empty;
-
-            // Create A1
-            if (string.IsNullOrEmpty(Algorithm) || Algorithm.ToLower() == "md5-sess")
-            {
-                a1 = ComputeMd5(username + ":" + Realm + ":" + password, false, Encoding) + ":" + Nonce + ":" + Cnonce;
-            }
-            else if (Algorithm.ToLower() == "md5")
-            {
-                a1 = username + ":" + Realm + ":" + password;
-            }
-            else
-            {
-                throw new ArgumentException("Invalid Algorithm value '" + Algorithm + "' !");
-            }
-
-            // Create A2            
-            if (Qop == string.Empty || Qop.ToLower() == "auth")
-            {
-                a2 = method + ":" + DigestUri;
-            }
-            else
-            {
-                throw new ArgumentException("Invalid qop value '" + Qop + "' !");
-            }
-
-            // Calculate response value.
-            // qop present
-            if (!string.IsNullOrEmpty(Qop))
-            {
-                return
-                    ComputeMd5(
-                        ComputeMd5(a1, true) + ":" + Nonce + ":" + Nc + ":" + Cnonce + ":" + Qop + ":" +
-                        ComputeMd5(a2, true),
-                        true);
-            }
-                
-                // qop not present
-            else
-            {
-                return ComputeMd5(ComputeMd5(a1, true) + ":" + Nonce + ":" + ComputeMd5(a2, true), true);
-            }
-        }
-
-        /// <summary>
-        /// </summary>
         /// <param name="username"> </param>
         /// <param name="pwddata"> </param>
         /// <returns> </returns>
         public bool Authorize(string username, string pwddata)
         {
-            if (Response == CalculateResponse(username, pwddata, "AUTHENTICATE"))
+            if (Response == GenerateResponse(username, pwddata, "AUTHENTICATE"))
             {
                 return true;
             }
@@ -352,7 +208,7 @@ namespace ASC.Xmpp.Core.authorization.DigestMD5
 
         /// <summary>
         /// </summary>
-        public void GenerateResponse()
+        public string GenerateResponse(string username, string password, string method)
         {
             byte[] H1;
             byte[] H2;
@@ -366,11 +222,11 @@ namespace ASC.Xmpp.Core.authorization.DigestMD5
             string p2;
 
             var sb = new StringBuilder();
-            sb.Append(Username);
+            sb.Append(username);
             sb.Append(":");
             sb.Append(Realm);
             sb.Append(":");
-            sb.Append(Password);
+            sb.Append(password);
 
 #if !CF
             H1 = new MD5CryptoServiceProvider().ComputeHash(Encoding.GetBytes(sb.ToString()));
@@ -415,7 +271,8 @@ namespace ASC.Xmpp.Core.authorization.DigestMD5
 			H1 =util.Hash.MD5Hash(bH1A1);
 #endif
             sb.Remove(0, sb.Length);
-            sb.Append("AUTHENTICATE:");
+            sb.Append(method);
+            sb.Append(":");
             sb.Append(m_DigestUri);
             if (Qop.CompareTo("auth") != 0)
             {
@@ -458,7 +315,7 @@ namespace ASC.Xmpp.Core.authorization.DigestMD5
     // H3 = Encoding.Default.GetBytes(util.Hash.MD5Hash(A3));
 			H3 =util.Hash.MD5Hash(Encoding.ASCII.GetBytes(A3));
 #endif
-            m_Response = Hash.HexToString(H3).ToLower();
+            return Hash.HexToString(H3).ToLower();
         }
 
         #endregion

@@ -226,20 +226,44 @@ namespace ActiveUp.Net.Mail
                                 }
                                 catch
                                 {
-                                    int index = message.LastIndexOf("=");
+                                    //TODO: Need refactoring
+                                    var index = message.LastIndexOf("=", System.StringComparison.Ordinal);
 
-                                    while (index != -1)
+                                    if (index != -1)
                                     {
-                                        // remove the extra character
 
-                                        message = message.Remove(index);
-                                        try
+                                        while (index != -1)
                                         {
-                                            return encoder.GetString(Convert.FromBase64String(message));
+                                            // remove the extra character
+
+                                            message = message.Remove(index);
+                                            try
+                                            {
+                                                return encoder.GetString(Convert.FromBase64String(message));
+                                            }
+                                            catch
+                                            {
+                                                index = message.LastIndexOf("=", System.StringComparison.Ordinal);
+                                            }
                                         }
-                                        catch
+                                    }
+                                    else
+                                    {
+                                        index = 0;
+
+                                        while (index < 2)
                                         {
-                                            index = message.LastIndexOf("=");
+                                            // add the extra character. max = 2
+
+                                            message = message + '=';
+                                            try
+                                            {
+                                                return encoder.GetString(Convert.FromBase64String(message));
+                                            }
+                                            catch
+                                            {
+                                                index++;
+                                            }
                                         }
                                     }
 
@@ -331,7 +355,7 @@ namespace ActiveUp.Net.Mail
                             var last_message = matches[i - 1].Groups["message"];
                             var cur_message = matches[i].Groups["message"];
 
-                            if (!last_message.Value.StartsWith("%"))
+                            if (!last_message.Value.StartsWith(string.Format("%{0}%", decoded_bytes.Count == 0 ? 0 : decoded_bytes.Count - 1)))
                             {
                                 var tmp_array = String2DecodedArray(last_message.Value, last_encoding);
 

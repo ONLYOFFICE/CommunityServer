@@ -12,9 +12,7 @@
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Assembly Name="ASC.Common" %>
 <%@ Assembly Name="ASC.Core.Common" %>
-<%@ Register Src="../SocialMedia/ContactsSearchView.ascx" TagPrefix="ctrl" TagName="ContactsSearchView" %>
 
-<ctrl:ContactsSearchView runat="server" ID="_ctrlCompaniesSearchView"></ctrl:ContactsSearchView>
 
 <div id="crm_contactMakerDialog">
     <input type="hidden" name="typeAddedContact" id="typeAddedContact" value="<%= TypeAddedContact %>" />
@@ -236,18 +234,16 @@
                                     </tr>
                                     <tr>
                                         <td class="select-cell" colspan="2">
-                                            <select id="contactCountry" class="contact_country comboBox" runat="server">
+                                            <select id="contactCountry" name="contactCountry" class="contact_country comboBox">
                                             </select>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <div class="actions_for_item">
-                                <a class="crm-deleteLink" alt="<%=CRMCommonResource.Delete%>" title="<%=CRMCommonResource.Delete%>"></a>
-                                <a class="is_primary not_primary_field"
-                                    title="<%=CRMJSResource.CheckAsPrimary%>" alt="<%=CRMJSResource.CheckAsPrimary%>"></a>
-                                <a class="crm-addNewLink"
-                                    title="<%=CRMContactResource.AddNewAddress%>" alt="<%=CRMContactResource.AddNewAddress%>"></a>
+                                <a class="crm-deleteLink" title="<%=CRMCommonResource.Delete%>"></a>
+                                <a class="is_primary not_primary_field" title="<%=CRMJSResource.CheckAsPrimary%>"></a>
+                                <a class="crm-addNewLink" title="<%=CRMContactResource.AddNewAddress%>"></a>
                             </div>
                         </div>
                     </dd>
@@ -397,7 +393,6 @@
 
 
 <div id="phoneCategoriesPanel" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
     <% foreach (PhoneCategory item in Enum.GetValues(typeof(PhoneCategory))) %>
     <% { %>
@@ -407,7 +402,6 @@
 </div>
 
 <div id="baseCategoriesPanel" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
     <% foreach (ContactInfoBaseCategory item in Enum.GetValues(typeof(ContactInfoBaseCategory))) %>
     <% { %>
@@ -417,7 +411,6 @@
 </div>
 
 <div id="socialProfileCategoriesPanel" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
     <% foreach (var item in ContactInfoTypes) %>
     <% { %>
@@ -431,7 +424,6 @@
 </div>
 
 <div id="divSMProfilesWindow" class="borderBase">
-    <div class="popup-corner-left"></div>
     <div class="header-base-medium divHeader">
         <span></span>
         <label class="cancel_cross" title="<%= CRMCommonResource.CloseWindow%>" onclick="jq('#divSMProfilesWindow').hide();"></label>
@@ -440,12 +432,10 @@
         <table id="sm_tbl_UserList">
         </table>
         <div class="divWait">
-            <span class="loader-text-block"><%= CRMSocialMediaResource.PleaseWait%></span>
+            <span class="loader-text-block"><%= CRMSocialMediaResource.PleaseWait%></span>            
         </div>
         <div class="divNoProfiles">
             <%= UrlParameters.Type == "people" ? CRMSocialMediaResource.NoAccountsHasBeenFound : CRMSocialMediaResource.NoCompaniesHasBeenFound%>
         </div>
     </div>
 </div>
-
-<input type="hidden" id="_ctrlLinkedInAccountsInfo" />

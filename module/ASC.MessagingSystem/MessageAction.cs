@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 namespace ASC.MessagingSystem
@@ -39,7 +39,8 @@ namespace ASC.MessagingSystem
         LoginSuccessViaSms = 1007,
         LoginSuccessViaApi = 1010,
         LoginSuccessViaApiSms = 1012,
-        LoginSuccessViaSSO = 1015, //last
+        LoginSuccessViaSSO = 1015,
+        LoginFailViaSSO = 1018, //last
         LoginFailInvalidCombination = 1002,
         LoginFailSocialAccountNotFound = 1003,
         LoginFailDisabledProfile = 1004,
@@ -49,6 +50,9 @@ namespace ASC.MessagingSystem
         LoginFailViaApiSms = 1014,
         LoginFailIpSecurity = 1009,
         Logout = 1006,
+
+        SessionStarted = 1016,
+        SessionCompleted = 1017,
 
         #endregion
 
@@ -146,11 +150,12 @@ namespace ASC.MessagingSystem
         CompanyLinkedProject = 3013,
         CompanyUnlinkedProject = 3014,
         CompanyAttachedFiles = 3015,
+        CompanyDetachedFile = 3159,
         CompaniesMerged = 3016,
         CompanyDeleted = 3017,
 
         PersonCreated = 3018,
-        PersonCreatedWithWebForm = 3158, //last
+        PersonCreatedWithWebForm = 3158,
         PersonsCreated = 3019,
         PersonUpdated = 3020,
         PersonUpdatedPrincipalInfo = 3021,
@@ -165,6 +170,7 @@ namespace ASC.MessagingSystem
         PersonLinkedProject = 3030,
         PersonUnlinkedProject = 3031,
         PersonAttachedFiles = 3032,
+        PersonDetachedFile = 3160,
         PersonsMerged = 3033,
         PersonDeleted = 3034,
 
@@ -189,6 +195,7 @@ namespace ASC.MessagingSystem
         OpportunityLinkedPerson = 3051,
         OpportunityUnlinkedPerson = 3052,
         OpportunityAttachedFiles = 3053,
+        OpportunityDetachedFile = 3161,
         OpportunityOpenedAccess = 3054,
         OpportunityRestrictedAccess = 3055,
         OpportunityDeleted = 3056,
@@ -213,6 +220,7 @@ namespace ASC.MessagingSystem
         CaseLinkedPerson = 3073,
         CaseUnlinkedPerson = 3074,
         CaseAttachedFiles = 3075,
+        CaseDetachedFile = 3162,
         CaseOpenedAccess = 3076,
         CaseRestrictedAccess = 3077,
         CaseDeleted = 3078,
@@ -243,6 +251,9 @@ namespace ASC.MessagingSystem
         InvoiceTaxCreated = 3098,
         InvoiceTaxUpdated = 3099,
         InvoiceTaxDeleted = 3100,
+
+        CurrencyRateUpdated = 3163,
+        InvoiceDefaultTermsUpdated = 3164, //last
 
         OrganizationProfileUpdatedCompanyName = 3101,
         OrganizationProfileUpdatedInvoiceLogo = 3102,
@@ -309,8 +320,6 @@ namespace ASC.MessagingSystem
         OpportunitiesExportedToCsv = 3154,
         CasesExportedToCsv = 3155,
 
-        CrmEntityDetachedFile = 3156,
-
         #endregion
 
         #region People
@@ -324,6 +333,7 @@ namespace ASC.MessagingSystem
         GuestActivated = 4005,
 
         UserUpdated = 4006,
+        UserUpdatedMobileNumber = 4029, //last
         UserUpdatedLanguage = 4007,
         UserAddedAvatar = 4008,
         UserDeletedAvatar = 4009,
@@ -336,7 +346,7 @@ namespace ASC.MessagingSystem
         UserSentEmailChangeInstructions = 4014,
         UserSentPasswordChangeInstructions = 4015,
         UserSentDeleteInstructions = 4016,
-        
+
         UserUpdatedPassword = 4017,
         UserDeleted = 4018,
 
@@ -352,7 +362,7 @@ namespace ASC.MessagingSystem
         GroupCreated = 4026,
         GroupUpdated = 4027,
         GroupDeleted = 4028,
-        
+
         #endregion
 
         #region Documents
@@ -416,14 +426,14 @@ namespace ASC.MessagingSystem
         DefaultStartPageSettingsUpdated = 6007,
 
         ProductsListUpdated = 6008,
-        
+
         AdministratorAdded = 6009,
         AdministratorOpenedFullAccess = 6010,
         AdministratorDeleted = 6011,
-        
+
         UsersOpenedProductAccess = 6012,
         GroupsOpenedProductAccess = 6013,
-        
+
         ProductAccessOpened = 6014,
         ProductAccessRestricted = 6015, // not used
 
@@ -448,6 +458,14 @@ namespace ASC.MessagingSystem
 
         SSOEnabled = 6029,
         SSODisabled = 6030,
+
+        PortalAccessSettingsUpdated = 6031,
+
+        #endregion
+
+        #region others
+
+        ContactAdminMailSent = 7000,
 
         #endregion
     }

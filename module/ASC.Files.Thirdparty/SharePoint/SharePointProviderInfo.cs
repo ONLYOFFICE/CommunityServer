@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -31,14 +31,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security;
 using System.Web.Caching;
 using ASC.Collections;
-using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Files.Core;
 using Microsoft.SharePoint.Client;
 using File = Microsoft.SharePoint.Client.File;
 using Folder = Microsoft.SharePoint.Client.Folder;
+using SecurityContext = ASC.Core.SecurityContext;
 
 
 namespace ASC.Files.Thirdparty.SharePoint
@@ -51,7 +52,7 @@ namespace ASC.Files.Thirdparty.SharePoint
         private static readonly CachedDictionary<Folder> FolderCache =
     new CachedDictionary<Folder>("shpoint-folders", Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(20), x => true);
 
-        private readonly ClientContext clientContext;
+        private ClientContext clientContext;
 
         public int ID { get; set; }
         public string ProviderKey { get; private set; }
@@ -61,7 +62,7 @@ namespace ASC.Files.Thirdparty.SharePoint
         public string CustomerTitle { get; private set; }
         public object RootFolderId { get; private set; }
 
-        public const string SpRootFolderId = "/Shared Documents";
+        public string SpRootFolderId = "/Shared Documents";
 
         public SharePointProviderInfo(int id, string providerKey, string customerTitle, AuthData authData, Guid owner,
                                       FolderType rootFolderType, DateTime createOn)
@@ -79,11 +80,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             CreateOn = createOn;
             RootFolderId = MakeId();
 
-            clientContext = new ClientContext(authData.Url)
-                {
-                    AuthenticationMode = ClientAuthenticationMode.Default,
-                    Credentials = new NetworkCredential(authData.Login, authData.Password)
-                };
+            InitClientContext(authData);
         }
 
 
@@ -95,8 +92,9 @@ namespace ASC.Files.Thirdparty.SharePoint
                 clientContext.ExecuteQuery();
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                log4net.LogManager.GetLogger("ASC").Error("CheckAccess", e);
                 return false;
             }
         }
@@ -111,6 +109,33 @@ namespace ASC.Files.Thirdparty.SharePoint
         internal void UpdateTitle(string newtitle)
         {
             CustomerTitle = newtitle;
+        }
+
+        private void InitClientContext(AuthData authData)
+        {
+            var authUrl = authData.Url;
+            ICredentials credentials = new NetworkCredential(authData.Login, authData.Password);
+
+            if (authData.Login.EndsWith("onmicrosoft.com"))
+            {
+                var personalPath = string.Concat("/personal/", authData.Login.Replace("@", "_").Replace(".", "_").ToLower());
+                SpRootFolderId = string.Concat(personalPath, "/Documents");
+
+                var ss = new SecureString();
+                foreach (var p in authData.Password)
+                {
+                    ss.AppendChar(p);
+                }
+                authUrl = string.Concat(authData.Url.TrimEnd('/'), personalPath);
+                credentials = new SharePointOnlineCredentials(authData.Login, ss);
+
+            }
+
+            clientContext = new ClientContext(authUrl)
+            {
+                AuthenticationMode = ClientAuthenticationMode.Default,
+                Credentials = credentials
+            };
         }
 
         #region Files

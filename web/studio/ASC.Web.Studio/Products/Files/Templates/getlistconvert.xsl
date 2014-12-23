@@ -7,10 +7,10 @@
   <xsl:template match="entryData">
 
     <xsl:for-each select="fileTypeBlock">
-      <xsl:if test="count(files/file)>0">
+      <xsl:if test="count(files / file) > 0">
         <div class="borderBase cnvrt-file-block cnvrt-file-block-closed cnvrt-file-block-active">
           <div class="cnvrt-file-block-head">
-            <xsl:if test="count(blockFormats/format)>0">
+            <xsl:if test="count(blockFormats / format) > 0">
               <div class="cnvrt-format-title-content">
                 <select>
                   <xsl:for-each select="blockFormats/format">
@@ -39,7 +39,7 @@
             <div class="cnvrt-title-content">
               <xsl:value-of select="blockTitle"/>
             </div>
-            <xsl:if test="count(blockFormats/format)>0">
+            <xsl:if test="count(blockFormats / format) > 0">
               <div class="cnvrt-tooltip-content">
                 <resource name="fres.ConvertTo"/>
               </div>
@@ -50,7 +50,7 @@
               <div class="cnvrt-file-row cnvrt-file-row-active">
                 <div class="cnvrt-format-title-content">
                   <xsl:choose>
-                    <xsl:when test="count(fileConvertFormats/format)=1">
+                    <xsl:when test="count(fileConvertFormats / format) = 1">
                       <span>
                         <xsl:value-of select="fileConvertFormats/format/name"/>
                       </span>
@@ -97,7 +97,7 @@
                   </xsl:attribute>
                   <xsl:value-of select="fileTitle"/>
                 </div>
-                <xsl:if test="count(fileConvertFormats/format)>1">
+                <xsl:if test="count(fileConvertFormats / format) > 1">
                   <div class="cnvrt-tooltip-content">
                     <resource name="fres.ConvertTo"/>
                   </div>

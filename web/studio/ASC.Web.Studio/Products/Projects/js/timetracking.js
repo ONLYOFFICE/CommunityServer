@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 ASC.Projects.TimeSpendActionPage = (function() {
     var basePath = 'sortBy=date&sortOrder=descending',
         isTask = false,
@@ -56,8 +52,17 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
     var listActionButtons = [];
     var counterSelectedItems;
+    var isFirstLoad = true;
 
     var showCheckboxFlag = false;
+
+    var hideFirstLoader = function () {
+        isFirstLoad = false;
+        jq(".mainPageContent").children(".loader-page").hide();
+        jq("#filterContainer, #CommonListContainer").show();
+        ScrolledGroupMenu.resizeContentHeaderWidth("#timeTrakingGroupActionMenu");
+        jq('#ProjectsAdvansedFilter').advansedFilter("resize");
+    };
 
     // object for list statuses
     var statusListObject = { listId: "statusListContainer" };
@@ -163,7 +168,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
         // Responsible
 
         if (currentProjectId) {
-            if (ASC.Projects.Common.userInProjectTeam(Teamlab.profile.id)) {
+            if (self.userInProjectTeam(Teamlab.profile.id)) {
                 ttfilters.push({
                     type: "combobox",
                     id: "me_tasks_responsible",
@@ -295,19 +300,19 @@ ASC.Projects.TimeSpendActionPage = (function() {
             groupby: "period"
         });
         
-        ASC.Projects.TimeSpendActionPage.basePath = 'sortBy=date&sortOrder=descending';
-        ASC.Projects.TimeSpendActionPage.filters = ttfilters;
-        ASC.Projects.TimeSpendActionPage.colCount = 2;
-        if (currentProjectId) ASC.Projects.TimeSpendActionPage.colCount = 3;
+        self.basePath = 'sortBy=date&sortOrder=descending';
+        self.filters = ttfilters;
+        self.colCount = 2;
+        if (currentProjectId) self.colCount = 3;
 
-        ASC.Projects.TimeSpendActionPage.sorters =
+        self.sorters =
         [
             { id: "date", title: ASC.Projects.Resources.ProjectsFilterResource.ByDate, sortOrder: "descending", def: true },
             { id: "hours", title: ASC.Projects.Resources.ProjectsFilterResource.ByHours, sortOrder: "ascending" },
             { id: "note", title: ASC.Projects.Resources.ProjectsFilterResource.ByNote, sortOrder: "ascending" }
         ];
 
-        ASC.Projects.ProjectsAdvansedFilter.init(ASC.Projects.TimeSpendActionPage);
+        ASC.Projects.ProjectsAdvansedFilter.init(self);
         
         //filter
         ASC.Projects.ProjectsAdvansedFilter.filter.one("adv-ready", function () {
@@ -334,14 +339,14 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
     var initPanelsAndPopups = function () {
         if (!describePanel) {
-            commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "timeTrackingDescrPanel", cornerPosition: "left" })); // description panel
+            commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "timeTrackingDescrPanel" })); // description panel
             describePanel = jq("#timeTrackingDescrPanel");
         }
         //status list
         jq("#" + statusListObject.listId).remove();
         commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
         //action panel
-        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "timeActionPanel", cornerPosition: "right" }));
+        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "timeActionPanel" }));
         timeActionPanel = jq("#timeActionPanel");
         timeActionPanel.find(".panel-content").empty().append(jq.tmpl("projects_actionMenuContent", actionMenuItems));
         // group action panel
@@ -357,13 +362,17 @@ ASC.Projects.TimeSpendActionPage = (function() {
             totalTimeContainer.append(jq.tmpl("projects_totalTimeText", {}));
         }
     };
-
+    
+    var self;
     var init = function () {
         if (isInit === false) {
             isInit = true;
         }
+        self = this;
+        isFirstLoad = true;
+        jq(".mainPageContent").children(".loader-page").show();
 
-        ASC.Projects.Common.setDocumentTitle(ASC.Projects.Resources.CommonResource.TimeTracking);
+        self.setDocumentTitle(ASC.Projects.Resources.CommonResource.TimeTracking);
 
         currentProjectId = jq.getURLParam("prjID");
         currentUserId = Teamlab.profile.id;
@@ -390,6 +399,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             isTask = true;
             Teamlab.getPrjTime({}, taskid, {
                 success: function (data, times) {
+                    hideFirstLoader();
                     if (times.length) {
                         jq.each(times, function(i, time) {
                             times[i].showCheckbox = showCheckboxFlag;
@@ -404,15 +414,20 @@ ASC.Projects.TimeSpendActionPage = (function() {
             totalTimeText = textSpan.data("tasktext");
         } else {
             isTask = false;
-            ASC.Projects.Common.initPageNavigator(this, "timeKeyForPagination");
+            self.initPageNavigator("timeKeyForPagination");
+
+            if (!isFirstLoad) {
+                LoadingBanner.displayLoading();
+                jq("#CommonListContainer").show();
+            } else {
+                jq("#filterContainer, #CommonListContainer").hide();
+            }
 
             // waiting data from api
-            jq(document).bind("createAdvansedFilter", function () {
-                createAdvansedFilter();
-            });
+            createAdvansedFilter();
             
             jq("#countOfRows").change(function (evt) {
-                ASC.Projects.Common.changeCountOfRows(ASC.Projects.TimeSpendActionPage, this.value);
+                self.changeCountOfRows(this.value);
             });
             
             timerList.addClass("forProject");
@@ -461,23 +476,42 @@ ASC.Projects.TimeSpendActionPage = (function() {
             hideDescrPanel();
         });
 
-        timerList.on('click', ".entity-menu", function() {
+        function showEntityMenu() {
+            var self = jq(this);
+            if (!self.is(".entity-menu")) self = self.find(".entity-menu");
+            
             jq('#timeSpendsList .entity-menu').removeClass('show');
-            if (jq('.studio-action-panel:visible').length) jq(this).removeClass('show');
-            else jq(this).addClass('show');
-            showActionsPanel('timeActionPanel', this);
+            jq('#timeSpendsList .menuopen').removeClass("menuopen");
+            if (jq('.studio-action-panel:visible').length) {
+                self.removeClass('show');
+            } else {
+                self.addClass('show');
+            }
+            
+            self.parents("tr").addClass("menuopen");
+        }
+
+        timerList.on('click', ".entity-menu", function() {
+            showEntityMenu.call(this);
+            showActionsPanel.call(this, 'timeActionPanel');
+            return false;
+        });
+        
+        timerList.on('contextmenu', ".timeSpendRecord", function (event) {
+            showEntityMenu.call(this);
+            showActionsPanel.call(this, 'timeActionPanel', { x: event.pageX | (event.clientX + event.scrollLeft), y: event.pageY | (event.clientY + event.scrollTop) });
             return false;
         });
 
         jq('#emptyListTimers .addFirstElement').click(function () {
             if (isTask) {
                 var taskId = jq.getURLParam("ID");
-                ASC.Projects.Common.showTimer('timer.aspx?prjID=' + currentProjectId + '&ID=' + taskId);
+                self.showTimer('timer.aspx?prjID=' + currentProjectId + '&ID=' + taskId);
             } else {
                 if (currentProjectId != null) {
-                    ASC.Projects.Common.showTimer('timer.aspx?prjID=' + currentProjectId);
+                    self.showTimer('timer.aspx?prjID=' + currentProjectId);
                 } else {
-                    ASC.Projects.Common.showTimer('timer.aspx');
+                    self.showTimer('timer.aspx');
                 }
             }
         });
@@ -544,7 +578,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             changePaymentStatus(status, timeId);
         });
 
-        jq('body').click(function(event) {
+        jq('body').on("click.timeTracking", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
             if (jq(elt).is(".studio-action-panel") || jq(elt).is('.entity-menu')) {
@@ -552,6 +586,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             }
 
             if (isHide) {
+                jq('#timeSpendsList .menuopen').removeClass("menuopen");
                 jq('.studio-action-panel').hide();
                 jq('.entity-menu').removeClass('show');
                 if (selectedStatusCombobox)
@@ -573,7 +608,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
             if (jq(this).is(":checked")) {
                 checkboxes.each(function (id, item) { item.checked = true; });
-                rows.addClass("checked-row")
+                rows.addClass("checked-row");
                 unlockActionButtons();
             } else {
                 checkboxes.each(function (id, item) { item.checked = false; });
@@ -611,7 +646,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             var options = {
                 menuSelector: "#timeTrakingGroupActionMenu",
                 menuAnchorSelector: "#selectAllTimers",
-                menuSpacerSelector: "#mainContent .header-menu-spacer",
+                menuSpacerSelector: "#CommonListContainer .header-menu-spacer",
                 userFuncInTop: function() { groupeMenu.find(".menu-action-on-top").hide(); },
                 userFuncNotInTop: function() { groupeMenu.find(".menu-action-on-top").show(); }
             };
@@ -691,7 +726,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
     };
 
     var showQuestionWindow = function () {
-        ASC.Projects.Common.showCommonPopup("projects_ttakingRemoveWarning", 400, 300, 0);
+        self.showCommonPopup("projects_ttakingRemoveWarning", 400, 300, 0);
         PopupKeyUpActionProvider.EnterAction = "jq('#deleteTimersButton').click();";
     };
 
@@ -734,8 +769,8 @@ ASC.Projects.TimeSpendActionPage = (function() {
         var statusListContainer = jq("#statusListContainer");
         selectedStatusCombobox.addClass('selected');
 
-        var top = selectedStatusCombobox.offset().top + 25;
-        var left = selectedStatusCombobox.offset().left + 9;
+        var top = selectedStatusCombobox.offset().top + 29;
+        var left = selectedStatusCombobox.offset().left;
         statusListContainer.css({ left: left, top: top });
 
         if (status == 'overdue' || status == 'active') {
@@ -785,7 +820,8 @@ ASC.Projects.TimeSpendActionPage = (function() {
         describePanel.css({ left: x, top: y });
         describePanel.show();
 
-        jq('body').click(function(event) {
+        jq('body').off("click.timeShowTimeDescribePanel");
+        jq('body').on("click.timeShowTimeDescribePanel", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
             if (jq(elt).is('[id="#timeTrackingDescrPanel"]')) {
@@ -801,6 +837,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
                 });
 
             if (isHide) {
+                jq('#timeSpendsList .menuopen').removeClass("menuopen");
                 jq('.studio-action-panel').hide();
             }
         });
@@ -834,26 +871,20 @@ ASC.Projects.TimeSpendActionPage = (function() {
                     }
                 }
                 else {
-                    if (ASC.Projects.TimeSpendActionPage.currentPage > 0) {
-                        ASC.Projects.TimeSpendActionPage.currentPage--;
-                        ASC.Projects.TimeSpendActionPage.getData(ASC.Projects.TimeSpendActionPage.currentFilter, false);
+                    if (self.currentPage > 0) {
+                        self.currentPage--;
+                        self.getData(false);
                     }
                 }
             }
         }
     };
 
-    var getData = function (filter) {
-        
-        filter.Count = ASC.Projects.TimeSpendActionPage.entryCountOnPage;
-        filter.StartIndex = ASC.Projects.TimeSpendActionPage.entryCountOnPage * ASC.Projects.TimeSpendActionPage.currentPage;
+    var getData = function () {
+        self.currentFilter.Count = self.entryCountOnPage;
+        self.currentFilter.StartIndex = self.entryCountOnPage * self.currentPage;
 
-        if (filter.StartIndex > filterTimesCount) {
-            filter.StartIndex = 0;
-            ASC.Projects.TimeSpendActionPage.currentPage = 1;
-        }
-
-        Teamlab.getPrjTime({}, null, { filter: filter, success: onGetTimes });
+        Teamlab.getPrjTime({}, null, { filter: self.currentFilter, success: onGetTimes });
         
     };
 
@@ -871,7 +902,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
     };
 
     var onGetTimes = function (params, data) {
-        ASC.Projects.Common.clearTables();
+        self.clearTables();
 
         if (Object.keys(params.__filter).length > 4) {
             totalTimeContainer = commonListContainer.prepend("<div class='total-time-forFilter' id='totalTimeText'></div>").find("#totalTimeText");
@@ -901,9 +932,9 @@ ASC.Projects.TimeSpendActionPage = (function() {
         timerList.show();
 
         filterTimesCount = params.__total != undefined ? params.__total : 0;
-        ASC.Projects.Common.updatePageNavigator(ASC.Projects.TimeSpendActionPage, filterTimesCount);
-        LoadingBanner.hideLoading();
+        self.updatePageNavigator(filterTimesCount, jq(".menu-action-simple-pagenav"));
         showEmptyScreen(count);
+        isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
     };
 
     var onGetTotalTime = function(params, time) {
@@ -934,7 +965,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
     };
 
     var onUpdateTime = function (params, time) {
-        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TimeUpdated);
+        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TimeUpdated);
         time.showCheckbox = showCheckboxFlag;
         jq('#timeSpendsList .timeSpendRecord[timeid=' + time.id + ']').replaceWith(jq.tmpl("projects_timeTrackingTmpl", time));
         if (!params.oldTime || !currentProjectId) return;
@@ -963,50 +994,62 @@ ASC.Projects.TimeSpendActionPage = (function() {
         ASC.Projects.projectNavPanel.changeCommonProjectTime({ hours: -parseInt(timeText[0], 10), minutes: -parseInt(timeText[1], 10) });
 
         LoadingBanner.hideLoading();
-        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TimeRemoved);
+        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TimeRemoved);
     };
     
     var onUpdatePrjTimeError = function(params, data) {
         jq("div.entity-menu[timeid=" + params.timeid + "]").hide();
     };
     
-    var showActionsPanel = function(panelId, obj) {
+    var showActionsPanel = function (panelId, coord) {
+        var self = jq(this);
         var objid = '',
             objidAttr = '',
-            y = 0;
-        if (typeof jq(obj).attr('timeid') != 'undefined') {
-            timeActionPanel.find('.dropdown-item').attr('timeid', jq(obj).attr('timeid')).attr('prjid', jq(obj).attr('prjid')).attr('userid', jq(obj).attr('userid'));
+            x = 0,
+            y = 0,
+            panel = jq('#' + panelId);
+        if (typeof self.attr('timeid') != 'undefined') {
+            timeActionPanel.find('.dropdown-item').attr('timeid', self.attr('timeid')).attr('prjid', self.attr('prjid')).attr('userid', self.attr('userid'));
         }
-        if (panelId == 'timeActionPanel') objid = jq(obj).attr('timeid');
+        if (panelId == 'timeActionPanel') objid = self.attr('timeid');
         if (objid.length) objidAttr = '[objid=' + objid + ']';
         if (jq('#' + panelId + ':visible' + objidAttr).length) {
             jq("body").unbind("click");
             jq('.studio-action-panel').hide();
+            jq('#timeSpendsList .menuopen').removeClass("menuopen");
         } else {
+            if (coord) {
+                x = coord.x - panel.outerWidth();
+                y = coord.y;
+            } else {
+                x = self.offset().left - 110;
+                y = self.offset().top + 20;
+            }
+
+
             jq('.studio-action-panel').hide();
-            jq('#' + panelId).show();
+            panel.show();
+            panel.attr('objid', objid);
+            panel.css({ left: x, top: y });
 
-            x = jq(obj).offset().left - 131;
-            jq('#' + panelId).attr('objid', objid);
-            y = jq(obj).offset().top + 18;
-            jq('#' + panelId).css({ left: x, top: y });
-
-            jq('body').click(function(event) {
+            jq('body').off("click.timeShowActionsPanel");
+            jq('body').on("click.timeShowActionsPanel", function (event) {
                 var elt = (event.target) ? event.target : event.srcElement;
                 var isHide = true;
-                if (jq(elt).is('[id="' + panelId + '"]') || (elt.id == obj.id && obj.id.length) || jq(elt).is('.entity-menu')) {
+                if (jq(elt).is('[id="' + panelId + '"]') || (elt.id == this.id && this.id.length) || jq(elt).is('.entity-menu')) {
                     isHide = false;
                 }
 
                 if (isHide)
                     jq(elt).parents().each(function() {
-                        if (jq(this).is('[id="' + panelId + '"]')) {
+                        if (self.is('[id="' + panelId + '"]')) {
                             isHide = false;
                             return false;
                         }
                     });
 
                 if (isHide) {
+                    jq('#timeSpendsList .menuopen').removeClass("menuopen");
                     jq('.studio-action-panel').hide();
                     jq('.entity-menu').removeClass('show');
                 }
@@ -1025,9 +1068,9 @@ ASC.Projects.TimeSpendActionPage = (function() {
         jq("#groupActionContainer").hide();
     };
 
-    return {
+    return jq.extend({
         init: init,
         getData: getData,
         unbindListEvents: unbindListEvents
-    };
+    }, ASC.Projects.Common);
 })(jQuery);

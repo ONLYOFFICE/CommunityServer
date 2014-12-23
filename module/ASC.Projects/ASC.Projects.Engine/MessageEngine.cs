@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -35,6 +35,8 @@ using ASC.Files.Core;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Studio.Utility;
 using IDaoFactory = ASC.Projects.Core.DataInterfaces.IDaoFactory;
 
 namespace ASC.Projects.Engine
@@ -108,77 +110,9 @@ namespace ASC.Projects.Engine
             
         }
 
-        public List<Message> GetRecentMessages(int maxResult)
-        {
-            int offset = 0;
-            var recentMessages = new List<Message>();
-            var messages = messageDao.GetRecentMessages(offset, maxResult)
-                .Where(CanRead)
-                .ToList();
-
-            recentMessages.AddRange(messages);
-
-            if (recentMessages.Count < maxResult)
-            {
-                do
-                {
-                    offset = offset + maxResult;
-                    messages = messageDao.GetRecentMessages(offset, maxResult);
-
-                    if (messages.Count == 0) return recentMessages;
-                    messages = messages
-                        .Where(CanRead)
-                        .ToList();
-
-                    recentMessages.AddRange(messages);
-                }
-                while (recentMessages.Count < maxResult);
-            }
-
-            var commentsCount = commentDao.GetCommentsCount(recentMessages.Select(r => (ProjectEntity)r).ToList());
-
-            recentMessages = recentMessages.Select((message, index) =>
-            {
-                message.CommentsCount = commentsCount[index];
-                return message;
-            }).ToList();
-
-            return recentMessages.Count == maxResult ? recentMessages : recentMessages.GetRange(0, maxResult);
-        }
-
-        public List<Message> GetRecentMessages(int maxResult, params int[] projectID)
-        {
-            int offset = 0;
-            var recentMessages = new List<Message>();
-            var messages = messageDao.GetRecentMessages(offset, maxResult, projectID)
-                .Where(CanRead)
-                .ToList();
-
-            recentMessages.AddRange(messages);
-
-            if (recentMessages.Count < maxResult)
-            {
-                do
-                {
-                    offset = offset + maxResult;
-                    messages = messageDao.GetRecentMessages(offset, maxResult, projectID);
-
-                    if (messages.Count == 0) return recentMessages;
-                    messages = messages
-                        .Where(CanRead)
-                        .ToList();
-
-                    recentMessages.AddRange(messages);
-                }
-                while (recentMessages.Count < maxResult);
-            }
-
-            return recentMessages.Count == maxResult ? recentMessages : recentMessages.GetRange(0, maxResult);
-        }
-
         public List<Message> GetByFilter(TaskFilter filter)
         {
-            var messages = messageDao.GetByFilter(filter, ProjectSecurity.CurrentUserAdministrator);
+            var messages = messageDao.GetByFilter(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
 
             var commentsCount = commentDao.GetCommentsCount(messages.Select(r => (ProjectEntity)r).ToList());
 
@@ -191,7 +125,7 @@ namespace ASC.Projects.Engine
 
         public int GetByFilterCount(TaskFilter filter)
         {
-            return messageDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator);
+            return messageDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
         public bool IsExists(int id)
@@ -243,6 +177,17 @@ namespace ASC.Projects.Engine
                 participant = GetSubscribers(message).Select(r=> new Guid(r.ID));
 
             NotifyParticipiant(message, isNew, participant, GetFiles(message), notify);
+
+            return message;
+        }
+
+        public Message ChangeStatus(Message message)
+        {
+            message.LastModifiedBy = SecurityContext.CurrentAccount.ID;
+            message.LastModifiedOn = TenantUtil.DateTimeNow();
+
+            ProjectSecurity.DemandEdit(message);
+            messageDao.Save(message);
 
             return message;
         }

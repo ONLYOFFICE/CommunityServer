@@ -19,7 +19,6 @@
 </div>
 
 <div id="eventsActionsMenuPanel" class="studio-action-panel">
-    <div class="corner-top left"></div>
 <ul class="dropdown-content">
     <asp:Literal runat="server" ID="EditorButtons"></asp:Literal>
 

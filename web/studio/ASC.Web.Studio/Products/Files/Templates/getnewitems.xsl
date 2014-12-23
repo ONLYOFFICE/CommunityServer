@@ -12,7 +12,7 @@
         <li>
           <xsl:attribute name="class">
             file-row folder-row
-            <xsl:if test="error">
+            <xsl:if test="error != ''">
               error-entry
             </xsl:if>
           </xsl:attribute>
@@ -23,7 +23,7 @@
             <xsl:attribute name="title">
               <xsl:value-of select="title" />
             </xsl:attribute>
-            <xsl:if test="provider_key">
+            <xsl:if test="provider_key != ''">
               <div>
                 <xsl:attribute name="class">
                   provider-key
@@ -78,7 +78,7 @@
         <li>
           <xsl:attribute name="class">
             file-row
-            <xsl:if test="error">
+            <xsl:if test="error != ''">
               error-entry
             </xsl:if>
           </xsl:attribute>

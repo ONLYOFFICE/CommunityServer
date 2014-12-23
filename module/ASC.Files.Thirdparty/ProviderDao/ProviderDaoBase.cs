@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -162,7 +162,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             throw new InvalidOperationException("No DAO can't be instanced without ID");
         }
 
-        protected Files.Core.File PerformCrossDaoFileCopy(object fromFileId, object toFolderId, bool deleteSourceFile)
+        protected File PerformCrossDaoFileCopy(object fromFileId, object toFolderId, bool deleteSourceFile)
         {
             var fromSelector = GetSelector(fromFileId);
             var toSelector = GetSelector(toFolderId);
@@ -226,25 +226,27 @@ namespace ASC.Files.Thirdparty.ProviderDao
             var toFolderDao = toSelector.GetFolderDao(toRootFolderId);
             //Ohh
             var fromFolder = fromFolderDao.GetFolder(fromSelector.ConvertId(fromFolderId));
-            var toFolder =
-                toFolderDao.GetFolder(fromFolder.Title, toSelector.ConvertId(toRootFolderId))
-                ?? toFolderDao.SaveFolder(
-                    new Folder
-                        {
-                            Title = fromFolder.Title,
-                            ParentFolderID = toSelector.ConvertId(toRootFolderId)
-                        });
+
+            var toFolder = toFolderDao.GetFolder(fromFolder.Title, toSelector.ConvertId(toRootFolderId));
+            var toFolderId = toFolder != null
+                                 ? toFolder.ID
+                                 : toFolderDao.SaveFolder(
+                                     new Folder
+                                         {
+                                             Title = fromFolder.Title,
+                                             ParentFolderID = toSelector.ConvertId(toRootFolderId)
+                                         });
 
             var foldersToCopy = fromFolderDao.GetFolders(fromSelector.ConvertId(fromFolderId));
             var filesToCopy = fromFolderDao.GetFiles(fromSelector.ConvertId(fromFolderId), false);
             //Copy files first
             foreach (var file in filesToCopy)
             {
-                PerformCrossDaoFileCopy(file, toFolder.ID, deleteSourceFolder);
+                PerformCrossDaoFileCopy(file, toFolderId, deleteSourceFolder);
             }
             foreach (var folder in foldersToCopy)
             {
-                PerformCrossDaoFolderCopy(folder.ID, toFolder.ID, deleteSourceFolder);
+                PerformCrossDaoFolderCopy(folder.ID, toFolderId, deleteSourceFolder);
             }
 
             if (deleteSourceFolder)
@@ -258,7 +260,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 if (fromFileShareRecords.Any())
                     fromFileShareRecords.ToList().ForEach(x =>
                                                               {
-                                                                  x.EntryId = toFolder.ID;
+                                                                  x.EntryId = toFolderId;
                                                                   toFileSecurityDao.SetShare(x);
                                                               });
 
@@ -269,7 +271,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
                 if (fromFileNewTags.Any())
                 {
-                    fromFileNewTags.ToList().ForEach(x => x.EntryId = toFolder.ID);
+                    fromFileNewTags.ToList().ForEach(x => x.EntryId = toFolderId);
 
                     toFileTagDao.SaveTags(fromFileNewTags.ToArray());
                 }
@@ -277,7 +279,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 fromFolderDao.DeleteFolder(fromSelector.ConvertId(fromFolderId));
             }
 
-            return toFolder;
+            return toFolderDao.GetFolder(toFolderId);
         }
     }
 }

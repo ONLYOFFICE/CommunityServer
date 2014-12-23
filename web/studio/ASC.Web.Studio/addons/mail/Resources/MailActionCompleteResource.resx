@@ -112,11 +112,26 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAddressSuccess" xml:space="preserve">
+    <value>Address "{0}" was added successfully.</value>
+  </data>
+  <data name="AddAliasSuccess" xml:space="preserve">
+    <value>Alias "{0}" was added successfully.</value>
+  </data>
+  <data name="AddDomainSuccess" xml:space="preserve">
+    <value>Domain "{0}" was added successfully.</value>
+  </data>
+  <data name="AddMailboxSuccess" xml:space="preserve">
+    <value>Mailbox "{0}" was added successfully.</value>
+  </data>
+  <data name="AddMailGroupSuccess" xml:space="preserve">
+    <value>Mailgroup "{0}" was added successfully.</value>
+  </data>
   <data name="clearFolder" xml:space="preserve">
     <value>The %folder% has been cleaned.</value>
   </data>
@@ -155,6 +170,21 @@
   </data>
   <data name="moveOneMessageTo" xml:space="preserve">
     <value>The message has been moved to the %folder%.</value>
+  </data>
+  <data name="RemoveAddressSuccess" xml:space="preserve">
+    <value>Address "{0}" was removed successfully.</value>
+  </data>
+  <data name="RemoveAliasSuccess" xml:space="preserve">
+    <value>Alias "{0}" was removed successfully.</value>
+  </data>
+  <data name="RemoveDomainSuccess" xml:space="preserve">
+    <value>Domain "{0}" was removed successfully.</value>
+  </data>
+  <data name="RemoveMailboxSuccess" xml:space="preserve">
+    <value>Mailbox "{0}" was removed successfully.</value>
+  </data>
+  <data name="RemoveMailGroupSuccess" xml:space="preserve">
+    <value>Mailgroup "{0}" was removed successfully.</value>
   </data>
   <data name="restoreFilteredConversations" xml:space="preserve">
     <value>All selected conversations have been restored.</value>

@@ -845,7 +845,7 @@
   </data>
   <data name="ConfirmationAddTagToPersonGroup" xml:space="preserve">
     <value>This person belongs to a company.
-Do you want to add this tag also to the company company and to all it's persons?</value>
+Do you want to add this tag also to the company and to all it's persons?</value>
   </data>
   <data name="ConfirmationAddTagToCompanyGroup" xml:space="preserve">
     <value>This company has linked persons.
@@ -907,5 +907,34 @@ Do you want to add this tag also to all persons linked with this company?</value
   </data>
   <data name="WriteEmailByMailProductDscr" xml:space="preserve">
     <value>Starting with this message its conversation thread will be displayed in the contact history.</value>
+  </data>
+  <data name="CancelDeleteContactTagFromGroupForCompany" xml:space="preserve">
+    <value>Delete only from company</value>
+  </data>
+  <data name="CancelDeleteContactTagFromGroupForPerson" xml:space="preserve">
+    <value>Delete only from person</value>
+  </data>
+  <data name="ConfirmationDeleteTagFromCompanyGroup" xml:space="preserve">
+    <value>This company has linked persons.
+Do you want to delete this tag also from all persons linked with this company?</value>
+  </data>
+  <data name="ConfirmationDeleteTagFromPersonGroup" xml:space="preserve">
+    <value>This person belongs to a company.
+Do you want to delete this tag also from the company and from all it's persons?</value>
+  </data>
+  <data name="DeleteTagFromContactGroupHelpForAdmin" xml:space="preserve">
+    <value>Изменить данное действие по умолчанию можно {0}тут{1}</value>
+  </data>
+  <data name="DeleteTagFromContactGroupHelpForUser" xml:space="preserve">
+    <value>В дальнейшем сбросить этот параметр сможет только администратор CRM</value>
+  </data>
+  <data name="OKDeleteContactTagFromGroup" xml:space="preserve">
+    <value>Delete from linked contact</value>
+  </data>
+  <data name="HistoryVoipIncomingNote" xml:space="preserve">
+    <value>Incoming call. Duration: {0}</value>
+  </data>
+  <data name="HistoryVoipOutcomingNote" xml:space="preserve">
+    <value>Outcoming call. Duration: {0}</value>
   </data>
 </root>

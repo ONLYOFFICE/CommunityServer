@@ -4,6 +4,10 @@
 
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 
+<asp:Content runat="server" ContentPlaceHolderID="HeaderContent">
+    <asp:ContentPlaceHolder ID="BTHeaderContent" runat="server"></asp:ContentPlaceHolder>
+</asp:Content>
+
 <asp:Content runat="server" ContentPlaceHolderID="SidePanel">
     <asp:ContentPlaceHolder ID="BTSidePanel" runat="server"></asp:ContentPlaceHolder>
 </asp:Content>

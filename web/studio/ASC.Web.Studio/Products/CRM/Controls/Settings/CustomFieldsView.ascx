@@ -18,7 +18,6 @@
 </ul>
 
 <div id="customFieldActionMenu" class="studio-action-panel" fieldid="">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li><a class="dropdown-item editField" onclick="ASC.CRM.SettingsPage.showEditFieldPanel();"><%= CRMSettingResource.EditCustomField %></a></li>
         <li><a class="dropdown-item deleteField" onclick="ASC.CRM.SettingsPage.deleteField();"><%= CRMSettingResource.DeleteCustomField %></a></li>

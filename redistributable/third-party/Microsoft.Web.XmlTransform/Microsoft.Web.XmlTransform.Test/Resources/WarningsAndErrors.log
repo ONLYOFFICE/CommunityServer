@@ -1,0 +1,51 @@
+﻿transform.config (43, 4) warning: Unknown tag 'xct:Foo'
+transform.config (5, 10) error: Could not resolve 'Foo' as a type of Transform
+transform.config (6, 10) error: 'Microsoft.Web.XmlTransform.Match' is not a type of Transform
+transform.config (9, 10) error: Could not resolve 'NoValidConstructor' as a type of Transform
+transform.config (12, 20) error: Transform and Locator attributes must contain only a type name, or a type name followed by a list of attributes in parentheses.
+transform.config (13, 20) error: Transform and Locator attributes must contain only a type name, or a type name followed by a list of attributes in parentheses.
+transform.config (14, 20) error: Transform and Locator attributes must contain only a type name, or a type name followed by a list of attributes in parentheses.
+Executing InsertBefore (transform line 17, 10)
+  on /configuration/connectionStrings/add
+  Applying to 'connectionStrings' element (source line 3, 4)
+transform.config (17, 10) error: InsertBefore requires an XPath argument
+Error during InsertBefore
+Executing InsertBefore (transform line 19, 10)
+  on /configuration/connectionStrings/add
+  Applying to 'connectionStrings' element (source line 3, 4)
+transform.config (19, 10) error: Too many arguments to InsertBefore
+Error during InsertBefore
+Executing InsertBefore (transform line 21, 10)
+  on /configuration/connectionStrings/add
+  Applying to 'connectionStrings' element (source line 3, 4)
+transform.config (21, 10) error: No element in the source document matches '/configuration/snazzy'
+Error during InsertBefore
+Executing InsertBefore (transform line 23, 10)
+  on /configuration/connectionStrings/add
+  Applying to 'connectionStrings' element (source line 3, 4)
+transform.config (23, 10) error: '/configuration/connectionStrings/add/@name' does not evaluate to an element
+Error during InsertBefore
+Executing Replace (transform line 26, 10)
+  on /configuration/connectionStrings/add
+  Applying to 'add' element (source line 4, 6)
+transform.config (26, 10) warning: Replace does not expect arguments; ignoring
+  Replaced 'add' element
+Done executing Replace
+Executing SetAttributes (transform line 29, 20)
+  on /configuration/connectionStrings/add
+  Applying to 'add' element (source line 26, 6)
+transform.config (29, 20) warning: Argument 'bar' did not match any attributes
+  Set 'foo' attribute
+  Set 1 attributes
+Done executing SetAttributes
+Executing RemoveAttributes (transform line 30, 10)
+  on /configuration/connectionStrings/add
+  Applying to 'add' element (source line 26, 6)
+transform.config (30, 10) warning: Argument 'snap' did not match any attributes
+source.config (26, 6) warning: No attributes found to remove
+Done executing RemoveAttributes
+transform.config (33, 10) error: Could not resolve 'ThrowException' as a type of Transform
+transform.config (36, 6) warning: No element in the source document matches '/configuration/connectionStrings/figs'
+Not executing Replace (transform line 36, 11)
+transform.config (38, 8) error: No element in the source document matches '/configuration/connectionStrings/figs/add'
+Not executing Insert (transform line 38, 12)

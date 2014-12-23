@@ -5,6 +5,8 @@
 <%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Projects/Masters/BasicTemplate.Master"
     CodeBehind="projectTeam.aspx.cs" Inherits="ASC.Web.Projects.ProjectTeam" %>
 <%@ MasterType TypeName="ASC.Web.Projects.Masters.BasicTemplate" %>
+<%@ Import Namespace="ASC.Core.Users" %>
+<%@ Import Namespace="ASC.Projects.Engine" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
@@ -27,19 +29,28 @@
         <div style="margin-left: 380px;padding: 0 20px;">
             <div><%= ProjectResource.ClosedProjectTeamManagerPermission %>:</div>
             <div class="simple-marker-list"><%= ProjectResource.ClosedProjectTeamManagerPermissionArticleA %></div>
+            
+            <% if (!ProjectSecurity.IsPrivateDisabled) { %>
             <div class="simple-marker-list"><%= String.Format(ProjectResource.ClosedProjectTeamManagerPermissionArticleB, "<span id='PrivateProjectHelp' class='baseLinkAction'>", "</span>") %></div>
             <div class="simple-marker-list"><%= String.Format(ProjectResource.ClosedProjectTeamManagerPermissionArticleC, "<span id='RestrictAccessHelp' class='baseLinkAction'>", "</span>", "<br/>") %></div>
-            
             <div class="popup_helper" id="AnswerForPrivateProjectTeam">
                 <p><%= String.Format(ProjectsCommonResource.HelpAnswerPrivateProjectTeam, "<br />", "<b>", "</b>") %>
-                <a target="_blank" href="<%= CommonLinkUtility.GetHelpLink() + "gettingstarted/projects.aspx#ManagingYourTeam_block" %>"> <%= ProjectsCommonResource.LearnMoreLink %></a></p>
+                     <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+                       { %>
+                <a target="_blank" href="<%= CommonLinkUtility.GetHelpLink() + "gettingstarted/projects.aspx#ManagingYourTeam_block" %>"> <%= ProjectsCommonResource.LearnMoreLink %></a>
+                    <% } %>
+                </p>
             </div> 
-            
             <div class="popup_helper" id="AnswerForRestrictAccessTeam">
                 <p><%= String.Format(ProjectsCommonResource.HelpAnswerRestrictAccessTeam, "<br />", "<b>", "</b>") %>
+                    <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+                       { %>
                 <a target="_blank" href="<%= CommonLinkUtility.GetHelpLink() + "gettingstarted/projects.aspx#ManagingYourTeam_block" %>"> <%= ProjectsCommonResource.LearnMoreLink %></a></p>
+                <% } %>
             </div>     
-            
+            <% } else { %>
+            <div class="simple-marker-list"><%= ProjectResource.ClosedProjectTeamManagerPermissionArticleForOpen %></div>
+            <% } %>
         </div>
     </div>
     
@@ -61,18 +72,19 @@
     
 
     <div id="userActionPanel" class="studio-action-panel" data-userid="" data-username="" data-email="" data-user="">
-	    <div class="corner-top right"></div>        
         <ul class="dropdown-content">
             <% if (CanCreateTask()){ %>
-            <li id="addNewTask" title="<%= TaskResource.AddNewTask %>" class="dropdown-item"><a><%= TaskResource.AddNewTask %></a></li>
+            <li id="addNewTask" title="<%= TaskResource.AddNewTask %>" class="dropdown-item"><%= TaskResource.AddNewTask %></li>
             <% } %>
             <% if (!Participant.IsVisitor){ %>
             <li id="reportOpenTasks" title="<%= ReportResource.ReportOpenTasks %>" class="dropdown-item"><%= ReportResource.ReportOpenTasks %></li>
             <li id="reportClosedTasks" title="<%= ReportResource.ReportClosedTasks %>" class="dropdown-item"><%= ReportResource.ReportClosedTasks %></li>
             <% } %> 
             <li id="viewOpenTasks" title="<%= ProjectsJSResource.ViewAllOpenTasks %>" class="dropdown-item"><%= ProjectsJSResource.ViewAllOpenTasks %></li>
+            <% if (!Participant.UserInfo.IsOutsider()){ %>
             <li id="sendEmail" title="<%= ProjectResource.ClosedProjectTeamWriteMail %>" class="dropdown-item"><%= ProjectResource.ClosedProjectTeamWriteMail %></li>
             <li id="writeJabber" title="<%= ProjectResource.ClosedProjectTeamWriteInMessenger %>" class="dropdown-item"><%= ProjectResource.ClosedProjectTeamWriteInMessenger %></li>
+            <% } %>
             <% if (CanEditTeam)
                { %>
             <li id="removeFromTeam" title="<%= ProjectsCommonResource.RemoveMemberFromTeam %>" class="dropdown-item"><%= ProjectsCommonResource.RemoveMemberFromTeam %></li>
@@ -99,10 +111,13 @@
                             <% } %>
                         </div>
                         <div class="user-info-container">                           
-                            <a class="user-name" href="<%=UserProfileLink%>&user=${userName}" title="${displayName}">
+                            <a class="user-name {{if !title}} without-title{{/if}}" href="<%=UserProfileLink%>&user=${userName}" title="${displayName}">
                                 ${displayName}
-                            </a>                                                       
-                            <span title="${title}">${title}</span>
+                            </a>
+                             {{if title}} 
+                                <span title="${title}">${title}</span>
+                             {{/if}}                                                       
+                            
                         </div>
             </td>
            <% if (Project.Private && CanEditTeam)%>

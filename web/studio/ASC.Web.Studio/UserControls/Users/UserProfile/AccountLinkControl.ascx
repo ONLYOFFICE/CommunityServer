@@ -2,7 +2,7 @@
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
 
 <% if (SettingsView) { %>
-    <div id="accountLinks" class="tabs-content">
+    <div class="account-links tabs-content">
         <ul class="clearFix">
         <% foreach (var acc in Infos) { %>
             <li class="<%=acc.Provider%><%=acc.Linked ? " connected" : ""%><%=SettingsView ? "" : " float-left"%>">
@@ -24,9 +24,9 @@
 
 <% } else if(InviteView) {%>
 
-    <div id="social" class="invite">
+<div id="social" class="invite">
     <center>
-        <div id="accountLinks">
+        <div class="account-links">
             <div class="info">
                 <div style="width:100%;text-align:right;"><%= Resources.Resource.LoginWithAccount%></div>
             </div>
@@ -44,10 +44,10 @@
 </div>
 
 <% } else { %>
-    <div id="accountLinks">
+    <div class="account-links">
         <ul class="clearFix">
             <% foreach (var acc in Infos) { %>
-                <li><a href="<%=acc.Url %>" class="<%= !MobileDetector.IsMobile ? "popup" : "" %> <%=acc.Provider%> <%=acc.Linked?"linked":""%>" id="<%=acc.Provider%>"></a>
+                <li><a href="<%=acc.Url %>" class="<%= !MobileDetector.IsMobile ? "popup " : "" %> <%=acc.Provider%> <%=acc.Linked?" linked":""%>" id="<%=acc.Provider%>"></a>
                 </li>
             <% } %>
         </ul>

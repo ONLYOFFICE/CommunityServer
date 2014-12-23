@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -56,6 +56,7 @@ namespace ASC.Mail.Aggregator
         };
 
         #region public methods
+
         public bool LockMailbox(int mailbox_id, Int64 utc_ticks_time)
         {
             return LockMailbox(mailbox_id, utc_ticks_time, false, null);
@@ -144,8 +145,7 @@ namespace ASC.Mail.Aggregator
             return result;
         }
 
-
-        public MailBox GetMailboxForProcessing(TimeSpan activity_interval, List<string> work_on_this_users = null)
+        public MailBox GetMailboxForProcessing(TasksConfig tasks_config)
         {
             bool inactive_flag;
 
@@ -156,9 +156,9 @@ namespace ASC.Mail.Aggregator
 
             MailBox mail;
 
-            if (inactive_flag || null == (mail = GetActiveMailboxForProcessing(activity_interval, work_on_this_users)))
+            if (inactive_flag || null == (mail = GetActiveMailboxForProcessing(tasks_config)))
             {
-                mail = GetInactiveMailboxForProcessing(activity_interval, work_on_this_users);
+                mail = GetInactiveMailboxForProcessing(tasks_config);
                 if (mail != null)
                 {
                     mail.Active = false;
@@ -168,7 +168,6 @@ namespace ASC.Mail.Aggregator
 
             return mail;
         }
-
 
         public void SetNextLoginDelayedForTenant(int id_tenant, TimeSpan delay)
         {
@@ -199,6 +198,12 @@ namespace ASC.Mail.Aggregator
             }
         }
 
+        public void DisableMailboxesForUser(int id_tenant, string id_user)
+        {
+            DisableMailboxes(id_tenant, id_user);
+            CreateDisableAllMailboxesAlert(id_tenant, new[] { id_user });
+        }
+
         public void DisableMailboxesForTenant(int id_tenant)
         {
             var user_ids = GetUsersFromNotPaidTenant(id_tenant);
@@ -206,7 +211,7 @@ namespace ASC.Mail.Aggregator
             CreateDisableAllMailboxesAlert(id_tenant, user_ids);
         }
 
-        public void DisableMailboxes(int id_tenant)
+        public void DisableMailboxes(int id_tenant, string id_user = "")
         {
             using (var db = GetDb())
             {
@@ -216,6 +221,9 @@ namespace ASC.Mail.Aggregator
                     .Where(MailboxTable.Columns.enabled, true)
                     .Set(MailboxTable.Columns.is_processed, false)
                     .Set(MailboxTable.Columns.enabled, false);
+
+                if (!string.IsNullOrEmpty(id_user))
+                    update_account_query.Where(MailboxTable.Columns.id_user, id_user);
 
                 db.ExecuteNonQuery(update_account_query);
             }
@@ -249,7 +257,6 @@ namespace ASC.Mail.Aggregator
                     .Set(MailboxTable.Columns.time_checked, utc_ticks_now); //Its needed for more uniform distribution in GetMailBoxForProccessing().
         }
 
-
         public void MailboxProcessingCompleted(MailBox account)
         {
             using (var db = GetDb())
@@ -272,13 +279,10 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-
-        // TODO: Implement new error proccessing
         public void MailboxProcessingError(MailBox account, Exception exception)
         {
             SetNextLoginDelayedFor(account, TimeSpan.FromSeconds(account.ServerLoginDelay));
         }
-
 
         public void SetMailboxQuotaError(MailBox account, bool state)
         {
@@ -291,7 +295,6 @@ namespace ASC.Mail.Aggregator
                             .Set(MailboxTable.Columns.quota_error, state));
             }
         }
-
 
         public void SetEmailLoginDelayExpires(string email, DateTime expires)
         {
@@ -395,19 +398,19 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        private MailBox GetActiveMailboxForProcessing(TimeSpan activity_interval, List<string> work_on_this_users = null)
+        private MailBox GetActiveMailboxForProcessing(TasksConfig tasks_config)
         {
-            var mail = GetMailboxForProcessing(activity_interval, "(cast({0} as decimal) - " + MailboxTable.Columns.user_time_checked.Prefix(mail_mailbox_alias) + " ) < {1}", work_on_this_users);
+            var mail = GetMailboxForProcessing(tasks_config, "(cast({0} as decimal) - " + MailboxTable.Columns.user_time_checked.Prefix(mail_mailbox_alias) + " ) < {1}");
             return mail;
         }
 
-        private MailBox GetInactiveMailboxForProcessing(TimeSpan activity_interval, List<string> work_on_this_users = null)
+        private MailBox GetInactiveMailboxForProcessing(TasksConfig tasks_config)
         {
-            var mail = GetMailboxForProcessing(activity_interval, "(cast({0} as decimal) - " + MailboxTable.Columns.user_time_checked.Prefix(mail_mailbox_alias) + " ) > {1}", work_on_this_users);
+            var mail = GetMailboxForProcessing(tasks_config, "(cast({0} as decimal) - " + MailboxTable.Columns.user_time_checked.Prefix(mail_mailbox_alias) + " ) > {1}");
             return mail;
         }
 
-        private MailBox GetMailboxForProcessing(TimeSpan activity_interval, string where_usertime_sql_format, List<string> work_on_this_users = null)
+        private MailBox GetMailboxForProcessing(TasksConfig tasks_config, string where_usertime_sql_format)
         {
             using (var db = GetDb())
             {
@@ -422,14 +425,15 @@ namespace ASC.Mail.Aggregator
 
                         var query = GetSelectMailBoxFieldsQuery()
                             .Where(MailboxTable.Columns.is_processed.Prefix(mail_mailbox_alias), false)
-                            .Where(string.Format(where_usertime_sql_format, utc_ticks, activity_interval.Ticks))
+                            .Where(string.Format(where_usertime_sql_format, utc_ticks, tasks_config.ActiveInterval.Ticks))
                             .Where(Exp.Le(MailboxTable.Columns.login_delay_expires.Prefix(mail_mailbox_alias), utc_ticks))
                             .Where(Exp.And(Exp.Eq(MailboxTable.Columns.is_removed.Prefix(mail_mailbox_alias), false), Exp.Eq(MailboxTable.Columns.enabled.Prefix(mail_mailbox_alias), true)))
+                            .Where(MailboxTable.Columns.is_teamlab_mailbox, tasks_config.OnlyTeamlabTasks)
                             .OrderBy(MailboxTable.Columns.time_checked.Prefix(mail_mailbox_alias), true)
                             .SetMaxResults(1);
 
-                        if (work_on_this_users != null && work_on_this_users.Any())
-                            query.Where(Exp.In(MailboxTable.Columns.id_user, work_on_this_users));
+                        if (tasks_config.WorkOnUsersOnly != null && tasks_config.WorkOnUsersOnly.Any())
+                            query.Where(Exp.In(MailboxTable.Columns.id_user, tasks_config.WorkOnUsersOnly));
 
                         var list_results = db.ExecuteList(query);
 
@@ -458,6 +462,7 @@ namespace ASC.Mail.Aggregator
 
             return null;
         }
+
         #endregion
     }
 }

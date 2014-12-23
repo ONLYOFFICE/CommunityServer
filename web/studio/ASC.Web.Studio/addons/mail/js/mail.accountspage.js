@@ -1,48 +1,44 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 window.accountsPage = (function($) {
     var 
         isInit = false,
-        _page,
+        $page,
         buttons = [];
 
     var init = function() {
         if (isInit === false) {
             isInit = true;
 
-            _page = $('#id_accounts_page');
+            $page = $('#id_accounts_page');
 
-            _page.find('#createNewAccount').click(function() {
+            $page.find('#createNewAccount').click(function() {
                 accountsModal.addBox();
                 return false;
             });
@@ -61,51 +57,52 @@ window.accountsPage = (function($) {
 
     var show = function() {
         if (_checkEmpty())
-            _page.hide();
+            $page.hide();
         else
-            _page.show();
+            $page.show();
     };
 
     var hide = function() {
-        _page.hide();
+        $page.hide();
     };
 
     function clear() {
-        var accounts_rows = _page.find('.accounts_list');
+        var accounts_rows = $page.find('.accounts_list');
         $('#accountActionMenu').hide();
         if (accounts_rows)
             accounts_rows.remove();
     }
 
-    var addAccount = function(accountName, enabled, oauth) {
+    var addAccount = function(accountName, enabled, oauth, is_teamlab) {
         accountName = accountName.toLowerCase();
         if (!isContain(accountName)) {
             
-            var html = $.tmpl('accountItemTmpl',
+            var html = $.tmpl('mailboxItemTmpl',
             {
-                address: accountName,
+                email: accountName,
                 enabled: enabled,
-                oAuthConnection: oauth
+                oAuthConnection: oauth,
+                isTeamlabMailbox: is_teamlab
             });
 
             var $html = $(html);
             $html.actionMenu('accountActionMenu', buttons, _pretreatment);
-            $('#id_accounts_page .containerBodyBlock .accounts_list').append($html);
+            $('#common_mailboxes').append($html);
             
         }
         if (TMMail.pageIs('accounts') && !_checkEmpty()) {
-            _page.show();
+            $page.show();
         }
     };
 
     var deleteAccount = function(id) {
-        _page.find('tr[data_id="' + id + '"]').remove();
+        $page.find('tr[data_id="' + id + '"]').remove();
         if (_checkEmpty() && TMMail.pageIs('accounts'))
-            _page.hide();
+            $page.hide();
     };
 
     var activateAccount = function(accountName, activate) {
-        var account_div = _page.find('tr[data_id="' + accountName + '"]');
+        var account_div = $page.find('tr[data_id="' + accountName + '"]');
 
         if (activate) {
             account_div.removeClass('disabled');
@@ -117,13 +114,30 @@ window.accountsPage = (function($) {
     };
 
     var _pretreatment = function(id) {
-        if (_page.find('tr[data_id="' + id + '"]').hasClass('disabled')) {
+        if ($page.find('tr[data_id="' + id + '"]').hasClass('disabled')) {
             $("#accountActionMenu .activateAccount").show();
             $("#accountActionMenu .deactivateAccount").hide();
         }
         else {
             $("#accountActionMenu .activateAccount").hide();
             $("#accountActionMenu .deactivateAccount").show();
+        }
+
+        var account = accountsManager.getAccountByAddress(id);
+        if (account.is_teamlab) {
+            $("#accountActionMenu .deactivateAccount").addClass('disable');
+            $("#accountActionMenu .editAccount").addClass('disable');
+            $("#accountActionMenu .deleteAccount").addClass('disable');
+            $("#accountActionMenu .deactivateAccount").attr('title', MailScriptResource.ServerMailboxNotificationText);
+            $("#accountActionMenu .editAccount").attr('title', MailScriptResource.ServerMailboxNotificationText);
+            $("#accountActionMenu .deleteAccount").attr('title', MailScriptResource.ServerMailboxNotificationText);
+        } else {
+            $("#accountActionMenu .deactivateAccount").removeClass('disable');
+            $("#accountActionMenu .editAccount").removeClass('disable');
+            $("#accountActionMenu .deleteAccount").removeClass('disable');
+            $("#accountActionMenu .deactivateAccount").removeAttr('title');
+            $("#accountActionMenu .editAccount").removeAttr('title');
+            $("#accountActionMenu .deleteAccount").removeAttr('title');
         }
     };
 
@@ -139,20 +153,20 @@ window.accountsPage = (function($) {
         var account = window.accountsManager.getAccountByAddress(email);
         ASC.Files.FileSelector.onSubmit = function (folderId) {
             serviceManager.setEMailInFolder(
-                account.id, folderId,
-                { id: account.id, emailInFolder: folderId, resetFolder: false },
+                account.mailbox_id, folderId,
+                { id: account.mailbox_id, emailInFolder: folderId, resetFolder: false },
                 { error: onErrorSetEMailInFolder },
                 ASC.Resources.Master.Resource.LoadingProcessing);
         };
 
         $('#filesFolderUnlinkButton').unbind('click').bind('click', { account: account }, _unselectAttachmentsFolder);
 
-        ASC.Files.FileSelector.resetFolder();
+        ASC.Files.FileSelector.fileSelectorTree.resetFolder();
         if (account.emailInFolder == null) {
-            ASC.Files.FileSelector.openDialog();
+            ASC.Files.FileSelector.openDialog(null, true);
             $('#filesFolderUnlinkButton').toggleClass('disable', true);
         } else {
-            ASC.Files.FileSelector.openDialog(account.emailInFolder);
+            ASC.Files.FileSelector.openDialog(account.emailInFolder, true);
             $('#filesFolderUnlinkButton').toggleClass('disable', false);
         }
     };
@@ -163,8 +177,8 @@ window.accountsPage = (function($) {
 
         var account = event.data.account;
         serviceManager.setEMailInFolder(
-                account.id, null,
-                { id: account.id, emailInFolder: null, resetFolder: true },
+                account.mailbox_id, null,
+                { id: account.mailbox_id, emailInFolder: null, resetFolder: true },
                 { error: onErrorResetEMailInFolder },
                 ASC.Resources.Master.Resource.LoadingProcessing);
     };
@@ -186,13 +200,13 @@ window.accountsPage = (function($) {
     };
 
     var isContain = function(accountName) {
-        var account = _page.find('tr[data_id="' + accountName + '"]');
+        var account = $page.find('tr[data_id="' + accountName + '"]');
         return (account.length > 0);
     };
 
     var _checkEmpty = function() {
-        if (_page.find('.accounts_list tr').length) {
-            _page.find('.accounts_list').show();
+        if ($page.find('.accounts_list tr').length) {
+            $page.find('.accounts_list').show();
             blankPages.hide();
             return false;
         }
@@ -203,16 +217,52 @@ window.accountsPage = (function($) {
     };
 
     function loadAccounts(accounts) {
+        var common_mailboxes = [],
+            server_mailboxes = [],
+            aliases = [],
+            groups = [],
+            index, length;
+
         clear();
+
+        for (index = 0, length = accounts.length; index < length; index++) {
+            if (accounts[index].isGroup) groups.push(accounts[index]);
+            else if (accounts[index].isAlias) aliases.push(accounts[index]);
+            else if (accounts[index].isTeamlabMailbox) server_mailboxes.push(accounts[index]);
+            else common_mailboxes.push(accounts[index]);
+        }
+
+        server_mailboxes.forEach(function (mailbox) {
+            mailbox.aliases = [];
+            for (index = 0, length = aliases.length; index < length; index++) {
+                if (aliases[index].mailboxId == mailbox.mailboxId) mailbox.aliases.push(aliases[index]);
+            }
+        });
+
         var html = $.tmpl('accountsTmpl',
             {
-                accounts: accounts
+                common_mailboxes: common_mailboxes, 
+                server_mailboxes: server_mailboxes, 
+                groups: groups
             });
 
         var $html = $(html);
         $('#id_accounts_page .containerBodyBlock .content-header').after($html);
         $('#id_accounts_page').actionMenu('accountActionMenu', buttons, _pretreatment);
+
+        server_mailboxes.forEach(function (mailbox) {
+            if (mailbox.aliases.length > 1) {
+                var items = [];
+                for (index = 1, length = mailbox.aliases.length; index < length; index++) {
+                    items.push({ 'text': mailbox.aliases[index].email, 'disabled': true });
+                }
+                $('#id_accounts_page').find('.row[data_id="' +
+                    mailbox.email + '"] .more-aliases').actionPanel({ 'buttons': items});
+            }
+ 
+        });
     }
+
 
     return {
         init: init,

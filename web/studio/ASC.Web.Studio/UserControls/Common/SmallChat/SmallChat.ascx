@@ -15,7 +15,6 @@
         <div class="small_chat_status_menu" title="<%= ChatResource.StatusOnline %>">
             <div class="small_chat_text_status unselect_text image_online"><%= ChatResource.StatusOnline %></div>
             <div class="studio-action-panel" id="smallChatPopupID">
-                <div class="corner-top right"></div>
                 <ul class="dropdown-content">
                     <li class="dropdown-item user_status online disable" title="<%= ChatResource.StatusOnline %>">
                         <div class="small_chat_image_state image_online"></div><%= ChatResource.StatusOnline %></li>
@@ -46,7 +45,7 @@
 <% { %>
     <div class="studio-action-panel" id="smallChatOptionsPopupID">
         <ul class="dropdown-content">
-            <li class="dropdown-item small_chat_en_dis_sounds">
+            <li class="dropdown-item small_chat_en_dis_sounds" data-path="<%= SoundPath %>">
                 <div class="small_chat_checkbox small_chat_checkbox_enabled"></div>
                 <%= ChatResource.HintSounds %>
             </li>
@@ -65,7 +64,6 @@
                 <%= ChatResource.CloseAllWindows %>
             </li>
         </ul>
-        <div class="corner-bottom left"></div>
     </div>
 <% } %>
 <script id="contactListTmpl" type="text/x-jquery-tmpl">
@@ -125,10 +123,10 @@
                 <span class="characteristic"><%= Resource.Name%>:</span>
                 <a class="small_chat_user link" href="/products/people/profile.aspx?user=${UserName}" title="${ShowUserName}">${ShowUserName}</a>
             </div>
-            {{if Title != ""}}
+            {{if Title != "" && Title != undefined}}
             <div class="small_chat_character">
                 <span class="characteristic"><%= CustomNamingPeople.Substitute<Resource>("UserPost").HtmlEncode()%>:</span>
-                <span class="small_chat_post">${Title}</span>
+                <span class="small_chat_post" title="${Title}">${Title}</span>
             </div>
             {{/if}}
             <div class="small_chat_character">
@@ -139,12 +137,14 @@
                 <span class="characteristic"><%= Resource.Email%>:</span>
                 <a class="small_chat_mail mail link" target="_blank" href="/addons/mail/#composeto/email=${Email}" title="${Email}">${Email}</a>
             </div>
+            {{if Departments != undefined}}
             <div class="small_chat_character">
-                <span class="characteristic"><%= CustomNamingPeople.Substitute<Resource>("Department").HtmlEncode()%>:</span> 
+                <span class="characteristic"><%= CustomNamingPeople.Substitute<Resource>("Department").HtmlEncode()%>:</span>
                 {{each(ID, DepartmentName) Departments}}
                 <a class="small_chat_deps link" href="/products/people/#group=${ID}">${Encoder.htmlEncode(DepartmentName)}</a>
                 {{/each}}
             </div>
+            {{/if}}
         </div>
     </div>
 </script>
@@ -206,7 +206,6 @@
                 <div style="clear:left"/>
             </li>
         </ul>
-        <div class="corner-bottom left"/>
     </div>
 </script>
 
@@ -226,7 +225,6 @@
         <ul class="dropdown-content webkit-scrollbar">
             {{tmpl($data) '#messageDialogItemTmpl'}}
         </ul>
-        <div class="corner-bottom left"/>
     </div>
 </script>
 

@@ -1,0 +1,322 @@
+/*
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+*/
+
+@import "base.less";
+
+#voip-quick-view {
+    display: none;
+}
+
+#buy-phone-popup {
+    display: none;
+}
+
+#existing-numbers-empty-box {
+    display: none;
+    margin-top: 10px;
+}
+
+#existing-numbers-list {
+    display: none;
+    width: 700px;
+    margin-top: 25px;
+
+    .number {
+        &:hover .number-box {
+            background-color: #f2f2f2;
+        }
+
+        &#existing-numbers-header {
+            line-height: 32px;
+            color: #808080;
+            font-weight: normal;
+            font-size: 12px;
+
+            &:hover .number-box {
+                background-color: transparent;
+            }
+
+            .number-box .title {
+                width: 410px;
+                font-weight: normal;
+                font-size: 12px;
+            }
+        }
+
+        .cell {
+            height: 32px;
+            float: left;
+
+            .on_off_button {
+                margin-top: 8px;
+            }
+        }
+
+        .number-box {
+            border-bottom: 1px solid #d1d1d1;
+
+            &.selected, &.operator-selected {
+                background-color: #f2f2f2;
+            }
+
+            &.selected .actions {
+                background-position: center bottom;
+            }
+
+            .switcher {
+                width: 30px;
+                cursor: pointer;
+
+                .expander-icon {
+                    margin-top: 12px;
+                    margin-left: 8px;
+                }
+            }
+
+            .title {
+                width: 380px;
+                line-height: 32px;
+                font-size: 14px;
+                font-weight: bold;
+
+                .support-level {
+                    margin-left: 10px;
+                    color: #808080;
+                    font-size: 12px;
+                    font-weight: normal;
+                }
+            }
+
+            .outgoing-calls {
+                width: 130px;
+            }
+
+            .voicemail {
+                width: 130px;
+            }
+
+            .recording-calls {
+                width: 130px;
+            }
+
+            .actions {
+                margin-top: 6px;
+                width: 30px;
+                height: 20px;
+
+                .studio-action-panel {
+                    .dropdown-item a {
+                        padding: 0;
+                    }
+                }
+            }
+        }
+
+        .operators-box {
+            display: none;
+            border-bottom: 1px solid #d1d1d1;
+            padding-left: 30px;
+
+            .add-operators-box {
+                height: 32px;
+                border-bottom: 1px solid #d1d1d1;
+
+                .add-operators-btn {
+                    margin-top: 6px; 
+                }
+            }
+
+            .operator {
+                height: 32px;
+                border-bottom: 1px solid #d1d1d1;
+
+                &.selected {
+                    background-color: #f2f2f2;
+
+                    .actions {
+                        background-position: center bottom;
+                    }
+                }
+
+                &:hover {
+                    background-color: #f2f2f2;
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .title {
+                    width: 380px;
+                    line-height: 32px;
+
+                    img {
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 7px;
+                        vertical-align: middle;
+                    }
+                }
+
+                .outgoing-calls {
+                    width: 130px;
+                }
+
+                .voicemail {
+                    width: 130px;
+                }
+
+                .recording-calls {
+                    width: 130px;
+                }
+
+                .actions {
+                    margin-top: 6px;
+                    width: 30px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+}
+
+#number-type-selector {
+    margin-bottom: 15px;
+    width: 250px;
+}
+
+#country-selector-box {
+    border: 1px solid #c7c7c7;
+    height: 21px;
+    line-height: 21px;
+    position: relative;
+    width: 475px;
+    float: left;
+
+    #country-selector, #country-code, #country-input, #country-input-clear-btn {
+        float: left;
+    }
+
+    #country-selector {
+        margin: 5px;
+        margin-bottom: 0;
+        cursor: pointer;
+    }
+
+    #country-code {
+        margin-right: 5px;
+        margin-left: 15px;
+    }
+
+    #country-input {
+        border: none;
+        margin: 0;
+        padding: 0;
+        height: 21px;
+        line-height: 17px;
+        width: 300px;
+        font-size: 12px;
+    }
+
+    #country-input-clear-btn {
+        display: none;
+        margin-top: 2px;
+        margin-right: 3px;
+        float: right;
+    }
+
+    .studio-action-panel {
+        top: 21px;
+        left: -7px;
+
+        .dropdown-item {
+            width: 200px;
+            max-width: 200px;
+
+            .voip-flag {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+#country-selector-search-btn {
+    float: right;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+#available-numbers-box {
+    margin: 10px 0 40px;
+    border-top: 1px solid #dadada;
+    height: 250px;
+    
+    overflow-y: auto;
+    
+    .number {
+        line-height: 32px;
+        border-bottom: 1px solid #dadada;
+
+        input[type=radio], .number-value {
+            display: inline-block;
+        }
+
+        input[type=radio] {
+            margin: -3px 5px 0 0;
+            vertical-align: middle;
+        }
+
+        .number-value {
+            font-weight: bold;
+        }
+    }
+
+    #available-numbers-loader {
+        display: none;
+        background: url("../images/loader_24.gif") no-repeat scroll left center transparent;
+        font-size: 14px;
+        margin: 50px 0 0 50px;
+        padding: 10px 0 10px 40px;
+    }
+
+    #available-numbers-empty-msg, #available-numbers-empty-search-msg {
+        display: none;
+        font-size: 14px;
+        margin: 50px 0 0 50px;
+    }
+}
+
+#buy-phone-btn {
+    margin-right: 10px;
+}
+
+#buy-phone-loader {
+    display: none;
+    margin-left: 10px;
+    vertical-align: middle;
+}

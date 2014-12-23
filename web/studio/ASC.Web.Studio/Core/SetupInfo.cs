@@ -1,41 +1,42 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
+using ASC.Web.Core.Mobile;
+using ASC.Web.Core.Utility;
+using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Core.Utility;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.Core
 {
@@ -71,6 +72,11 @@ namespace ASC.Web.Studio.Core
                     .OrderBy(l => l.Name)
                     .ToList();
             }
+        }
+
+        public static double ExchangeRateRuble
+        {
+            get { return GetAppSettings("exchange-rate.ruble", 40.0); }
         }
 
         public static long MaxImageUploadSize
@@ -148,6 +154,16 @@ namespace ASC.Web.Studio.Core
             get { return GetAppSettings("web.promo-url", string.Empty); }
         }
 
+        public static string TipsAddress
+        {
+            get { return GetAppSettings("web.promo-tips-url", string.Empty); }
+        }
+
+        public static string UserForum
+        {
+            get { return GetAppSettings("web.user-forum", string.Empty); }
+        }
+
         public static string GetImportServiceUrl()
         {
             var url = GetAppSettings("web.import-contacts-url", string.Empty);
@@ -179,6 +195,17 @@ namespace ASC.Web.Studio.Core
             get { return GetAppSettings("email.validinterval", TimeSpan.FromDays(7)); }
         }
 
+        public static bool IsSecretEmail(string email)
+        {
+            var s = (ConfigurationManager.AppSettings["web.autotest.secret-email"] ?? "").Trim();
+
+            //the point is not needed in gmail.com
+            email = Regex.Replace(email ?? "", "\\.*(?=\\S*(@gmail.com$))", "");
+
+            return !string.IsNullOrEmpty(s) &&
+                   s.Split(new[] {',', ';', ' '}, StringSplitOptions.RemoveEmptyEntries).Contains(email, StringComparer.CurrentCultureIgnoreCase);
+        }
+
         public static bool IsVisibleSettings<TSettings>()
         {
             return IsVisibleSettings(typeof(TSettings).Name);
@@ -191,11 +218,6 @@ namespace ASC.Web.Studio.Core
 
             var hideSettings = s.Split(new[] { ',', ';', ' ' });
             return !hideSettings.Contains(settings, StringComparer.CurrentCultureIgnoreCase);
-        }
-
-        public static bool IsPersonal
-        {
-            get { return String.Equals(GetAppSettings("web.personal", "false"), "true"); }
         }
 
         private static string GetAppSettings(string key, string defaultValue)

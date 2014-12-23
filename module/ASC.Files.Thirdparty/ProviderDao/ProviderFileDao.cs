@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -46,7 +46,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             selector.GetFileDao(fileId).InvalidateCache(selector.ConvertId(fileId));
         }
 
-        public Files.Core.File GetFile(object fileId)
+        public Core.File GetFile(object fileId)
         {
             var selector = GetSelector(fileId);
             var result = selector.GetFileDao(fileId).GetFile(selector.ConvertId(fileId));
@@ -57,7 +57,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result;
         }
 
-        public Files.Core.File GetFile(object fileId, int fileVersion)
+        public Core.File GetFile(object fileId, int fileVersion)
         {
             var selector = GetSelector(fileId);
             var result = selector.GetFileDao(fileId).GetFile(selector.ConvertId(fileId), fileVersion);
@@ -68,7 +68,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result;
         }
 
-        public Files.Core.File GetFile(object parentId, string title)
+        public Core.File GetFile(object parentId, string title)
         {
             var selector = GetSelector(parentId);
             var result = selector.GetFileDao(parentId).GetFile(selector.ConvertId(parentId), title);
@@ -79,15 +79,15 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result;
         }
 
-        public List<Files.Core.File> GetFileHistory(object fileId)
+        public List<Core.File> GetFileHistory(object fileId)
         {
             var selector = GetSelector(fileId);
             return selector.GetFileDao(fileId).GetFileHistory(selector.ConvertId(fileId));
         }
 
-        public List<Files.Core.File> GetFiles(object[] fileIds)
+        public List<Core.File> GetFiles(object[] fileIds)
         {
-            var result = Enumerable.Empty<Files.Core.File>();
+            var result = Enumerable.Empty<Core.File>();
 
             foreach (var selector in GetSelectors())
             {
@@ -96,15 +96,15 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
                 if (!mathedIds.Any()) continue;
 
-                result = result.Concat(mathedIds.GroupBy(x => selectorLocal.GetIdCode(x))
+                result = result.Concat(mathedIds.GroupBy(selectorLocal.GetIdCode)
                                                 .SelectMany(y => selectorLocal.GetFileDao(y.FirstOrDefault())
-                                                                              .GetFiles(y.Select(x => selectorLocal.ConvertId(x)).ToArray())));
+                                                                              .GetFiles(y.Select(selectorLocal.ConvertId).ToArray())));
             }
 
             return result.ToList();
         }
 
-        public Stream GetFileStream(Files.Core.File file)
+        public Stream GetFileStream(Core.File file)
         {
             return GetFileStream(file, 0);
         }
@@ -115,7 +115,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
         /// <param name="file"></param>
         /// <param name="offset"></param>
         /// <returns>Stream</returns>
-        public Stream GetFileStream(Files.Core.File file, long offset)
+        public Stream GetFileStream(Core.File file, long offset)
         {
             if (file == null) throw new ArgumentNullException("file");
             var fileId = file.ID;
@@ -127,7 +127,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return stream;
         }
 
-        public bool IsSupportedPreSignedUri(Files.Core.File file)
+        public bool IsSupportedPreSignedUri(Core.File file)
         {
             if (file == null) throw new ArgumentNullException("file");
             var fileId = file.ID;
@@ -139,7 +139,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return isSupported;
         }
 
-        public Uri GetPreSignedUri(Files.Core.File file, TimeSpan expires)
+        public Uri GetPreSignedUri(Core.File file, TimeSpan expires)
         {
             if (file == null) throw new ArgumentNullException("file");
             var fileId = file.ID;
@@ -151,7 +151,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return streamUri;
         }
 
-        public Files.Core.File SaveFile(Files.Core.File file, Stream fileStream)
+        public Core.File SaveFile(Core.File file, Stream fileStream)
         {
             if (file == null) throw new ArgumentNullException("file");
 
@@ -159,7 +159,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             var folderId = file.FolderID;
 
             IDaoSelector selector;
-            Files.Core.File fileSaved = null;
+            Core.File fileSaved = null;
             //Convert
             if (fileId != null)
             {
@@ -207,7 +207,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return selector.GetFileDao(fileId).MoveFile(selector.ConvertId(fileId), selector.ConvertId(toFolderId));
         }
 
-        public Files.Core.File CopyFile(object fileId, object toFolderId)
+        public Core.File CopyFile(object fileId, object toFolderId)
         {
             var selector = GetSelector(fileId);
             if (IsCrossDao(fileId, toFolderId))
@@ -242,7 +242,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             selector.GetFileDao(fileId).ContinueVersion(selector.ConvertId(fileId), fileVersion);
         }
 
-        public bool UseTrashForRemove(Files.Core.File file)
+        public bool UseTrashForRemove(Core.File file)
         {
             var selector = GetSelector(file.ID);
             return selector.GetFileDao(file.ID).UseTrashForRemove(file);
@@ -250,7 +250,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         #region chunking
 
-        public ChunkedUploadSession CreateUploadSession(Files.Core.File file, long contentLength)
+        public ChunkedUploadSession CreateUploadSession(Core.File file, long contentLength)
         {
             return GetFileDao(file).CreateUploadSession(ConvertId(file), contentLength);
         }
@@ -269,7 +269,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             dao.AbortUploadSession(uploadSession);
         }
 
-        private IFileDao GetFileDao(Files.Core.File file)
+        private IFileDao GetFileDao(Core.File file)
         {
             if (file.ID != null)
                 return GetSelector(file.ID).GetFileDao(file.ID);
@@ -285,7 +285,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return id != null ? GetSelector(id).ConvertId(id) : null;
         }
 
-        private Files.Core.File ConvertId(Files.Core.File file)
+        private Core.File ConvertId(Core.File file)
         {
             file.ID = ConvertId(file.ID);
             file.FolderID = ConvertId(file.FolderID);
@@ -296,7 +296,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         #region Only in TMFileDao
 
-        public IEnumerable<Files.Core.File> Search(string text, FolderType folderType)
+        public IEnumerable<Core.File> Search(string text, FolderType folderType)
         {
             return TryGetFileDao().Search(text, folderType);
         }
@@ -313,7 +313,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             selector.GetFileDao(fileId).DeleteFolder(selector.ConvertId(fileId));
         }
 
-        public bool IsExistOnStorage(Files.Core.File file)
+        public bool IsExistOnStorage(Core.File file)
         {
             var fileId = file.ID;
             var selector = GetSelector(fileId);

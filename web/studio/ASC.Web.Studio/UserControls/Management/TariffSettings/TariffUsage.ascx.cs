@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -39,7 +39,9 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
+using ASC.Web.Studio.Core.Voip;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
@@ -62,7 +64,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             public ISettings GetDefault()
             {
-                return new TariffSettings { HideBuyRecommendation = false };
+                return new TariffSettings {HideBuyRecommendation = false};
             }
 
             public Guid ID
@@ -77,7 +79,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             public static void SaveHideBuyRecommendation(bool hide)
             {
-                var tariffSettings = new TariffSettings { HideBuyRecommendation = hide };
+                var tariffSettings = new TariffSettings {HideBuyRecommendation = hide};
                 SettingsManager.Instance.SaveSettingsFor(tariffSettings, SecurityContext.CurrentAccount.ID);
             }
         }
@@ -95,6 +97,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected int UsersCount;
         protected long UsedSize;
         protected bool SmsEnable;
+        protected bool VoipEnable;
 
         protected Tariff CurrentTariff;
         protected TenantQuota CurrentQuota;
@@ -117,6 +120,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 if (_quotaForDisplay != null) return _quotaForDisplay;
                 TenantQuota quota = null;
                 if (CurrentQuota.Trial
+                    || CurrentQuota.Free
                     || CoreContext.Configuration.Standalone && CurrentTariff.QuotaId.Equals(Tenant.DEFAULT_TENANT))
                 {
                     quota = _quotaList.FirstOrDefault(q => q.Id == TenantExtra.GetRightQuotaId());
@@ -180,9 +184,24 @@ namespace ASC.Web.Studio.UserControls.Management
                 SmsBuyHolder.Controls.Add(smsBuy);
             }
 
+            if (VoipPaymentSettings.IsVisibleSettings
+                && CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID)
+                && Partner == null)
+            {
+                VoipEnable = true;
+                var voipBuy = (VoipBuy)LoadControl(VoipBuy.Location);
+                VoipBuyHolder.Controls.Add(voipBuy);
+            }
+
             if (Partner == null)
             {
                 RegisterScript();
+            }
+
+            if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+            {
+                var cur = SetupInfo.ExchangeRateRuble;
+                SetStar(string.Format(Resource.TariffsCurrencyRu, cur));
             }
         }
 
@@ -213,6 +232,11 @@ namespace ASC.Web.Studio.UserControls.Management
                                      "<span>",
                                      "</span>",
                                      "<br />", string.Empty, string.Empty);
+            }
+
+            if (CurrentQuota.Free)
+            {
+                return "<b>" + Resource.TariffFree + "</b><br />" + Resource.TariffChooseLabel;
             }
 
             if (CurrentTariff.State == TariffState.Paid)
@@ -249,18 +273,23 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             return _quotaList.FirstOrDefault(r =>
                                              r.ActiveUsers == quota.ActiveUsers
-                                             && !r.Year);
+                                             && (!r.Year || quota.Free));
         }
 
         protected string GetTypeLink(TenantQuota quota)
         {
             return quota.ActiveUsers >= UsersCount
                    && quota.MaxTotalSize >= UsedSize
-                       ? (CurrentQuota.Trial
-                          || CoreContext.Configuration.Standalone && CurrentTariff.QuotaId.Equals(Tenant.DEFAULT_TENANT)
-                          || Equals(quota.Id, CurrentQuota.Id))
-                             ? "pay"
-                             : "change"
+                       ? !quota.Free
+                             ? (CurrentQuota.Trial
+                                || CurrentQuota.Free
+                                || CoreContext.Configuration.Standalone && CurrentTariff.QuotaId.Equals(Tenant.DEFAULT_TENANT)
+                                || Equals(quota.Id, CurrentQuota.Id))
+                                   ? "pay"
+                                   : "change"
+                             : CurrentTariff.State == TariffState.NotPaid
+                                   ? "free"
+                                   : "stopfree"
                        : "limit";
         }
 
@@ -286,12 +315,12 @@ namespace ASC.Web.Studio.UserControls.Management
                 else if (Partner.PaymentMethod == PartnerPaymentMethod.External)
                 {
                     uri = (Partner.PaymentUrl ?? "")
-                                       .ToLower()
-                                       .Replace("{partnerid}", Partner.Id)
-                                       .Replace("{tariffid}", quota.ActiveUsers + (quota.Year ? "year" : "month"))
-                                       .Replace("{portal}", CoreContext.TenantManager.GetCurrentTenant().TenantAlias)
-                                       .Replace("{currency}", Region.ISOCurrencySymbol)
-                                       .Replace("{price}", ((int)quota.Price).ToString());
+                        .ToLower()
+                        .Replace("{partnerid}", Partner.Id)
+                        .Replace("{tariffid}", quota.ActiveUsers + (quota.Year ? "year" : "month"))
+                        .Replace("{portal}", CoreContext.TenantManager.GetCurrentTenant().TenantAlias)
+                        .Replace("{currency}", Region.ISOCurrencySymbol)
+                        .Replace("{price}", ((int)quota.Price).ToString());
                 }
             }
             return uri;
@@ -360,14 +389,14 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected bool MonthIsDisable()
         {
-            return CurrentQuota.Year && CurrentTariff.State == TariffState.Paid;
+            return !CurrentQuota.Free && CurrentQuota.Year && CurrentTariff.State == TariffState.Paid;
         }
 
         protected string GetChatBannerPath()
         {
             var lng = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower();
             var cult = string.Empty;
-            var cultArray = new[] { "de", "es", "fr", "it", "lv", "ru" };
+            var cultArray = new[] {"de", "es", "fr", "it", "lv", "ru"};
             if (cultArray.Contains(lng))
             {
                 cult = "_" + lng;
@@ -391,6 +420,18 @@ namespace ASC.Web.Studio.UserControls.Management
         public void SaveHideRecommendation(bool hide)
         {
             TariffSettings.SaveHideBuyRecommendation(hide);
+        }
+
+        [AjaxMethod]
+        public void GetFree()
+        {
+            var quota = TenantExtra.GetTenantQuota();
+            var usersCount = TenantStatisticsProvider.GetUsersCount();
+            var usedSize = TenantStatisticsProvider.GetUsedSize();
+            if (!quota.Free
+                && quota.ActiveUsers >= usersCount
+                && quota.MaxTotalSize >= usedSize)
+                TenantExtra.FreeRequest();
         }
 
         //[AjaxMethod]

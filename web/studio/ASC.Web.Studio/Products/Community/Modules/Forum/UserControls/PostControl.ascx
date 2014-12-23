@@ -34,7 +34,7 @@
         </div>
         <%=RenderEditedData()%>
         <div id="forum_message_<%=Post.ID%>" class="<%=_messageCSSClass%>">
-           <%=HtmlUtility.GetFull(Post.Text, _settings.ProductID)%>
+           <%=HtmlUtility.GetFull(Post.Text)%>
         </div>
         <%=PostControl.AttachmentsList(this.Post, SettingsID)%>
         <div style="padding:5px;"><%=ControlButtons()%></div>

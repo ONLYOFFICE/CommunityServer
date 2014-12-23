@@ -1,33 +1,34 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -190,6 +191,7 @@ namespace ASC.Api.Web.Help.DocumentGenerator
     {
         private static readonly Regex RouteRegex = new Regex(@"\{([^\}]+)\}", RegexOptions.Compiled);
         private readonly List<MsDocEntryPoint> _points = new List<MsDocEntryPoint>();
+        private readonly string[] _responseFormats = (ConfigurationManager.AppSettings["enabled_response_formats"] ?? "").Split('|');
 
         public MsDocDocumentGenerator(string path, IUnityContainer container)
             : this(path, null, container)
@@ -400,7 +402,6 @@ namespace ASC.Api.Web.Help.DocumentGenerator
 
         private IEnumerable<MsDocFunctionResponce> GetSamples(IApiMethodCall apiMethod, IUnityContainer container, MethodInfo sample, bool collection, Type returnType)
         {
-            return Enumerable.Empty<MsDocFunctionResponce>();
             try
             {
                 var responce = container.Resolve<IApiStandartResponce>();
@@ -413,23 +414,21 @@ namespace ASC.Api.Web.Help.DocumentGenerator
                 if (collection)
                 {
                     //wrap in array
-                    sampleResponce = new List<object>() { sampleResponce, sampleResponce, sampleResponce };
+                    sampleResponce = new List<object> { sampleResponce };
                 }
                 responce.Response = sampleResponce;
 
-                var serializers =
-                    container.ResolveAll<IApiSerializer>().Where(x => x.CanSerializeType(apiMethod.MethodCall.ReturnType));
-                return serializers.Select(apiResponder => new MsDocFunctionResponce()
-                                                                     {
-                                                                         Outputs =
-                                                                             CreateResponse(apiResponder, responce, apiContext)
-                                                                     });
+                var serializers = container.ResolveAll<IApiSerializer>().Where(x => x.CanSerializeType(apiMethod.MethodCall.ReturnType));
+                return serializers.Select(apiResponder => new MsDocFunctionResponce
+                    {
+                        Outputs = CreateResponse(apiResponder, responce, apiContext)
+                    });
             }
             catch (Exception err)
             {
                 LogManager.GetLogger("ASC.Api").Error(err);
+                return Enumerable.Empty<MsDocFunctionResponce>();
             }
-            return null;
         }
 
         private Dictionary<string, string> CreateResponse(IApiSerializer apiResponder, IApiStandartResponce responce, ApiContext apiContext)
@@ -437,6 +436,8 @@ namespace ASC.Api.Web.Help.DocumentGenerator
             var examples = new Dictionary<string, string>();
             foreach (var extension in apiResponder.GetSupportedExtensions())
             {
+                if (!_responseFormats.Contains(extension))
+                    continue;
 
                 //Create request context
                 using (var writer = new StringWriter())

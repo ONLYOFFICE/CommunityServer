@@ -6,12 +6,17 @@
 <%@ Import Namespace="Resources" %>
 
 <asp:PlaceHolder runat="server" ID="_confirmHolder">
-    <div class="confirmBlock">
+    <div class="confirmBlock <%= isPersonal ? "confirm-personal" : "" %>">
         <div class="confirm-block-title header-base">
             <% if (_type == ConfirmType.EmpInvite)
-               { %>
+               { if(isPersonal) {%>
+            <h2 class="default-personal-popup_h"><%= Resource.ConfirmPersonalJoin %></h2>
+            <div class="default-personal-popup_line"></div>
+            <div class="default-personal-popup_text"><%= Resource.ConfirmPersonalText %></div>
+            <%} else{ %>
                 <%= Resource.YouDecidedToJoinThisPortal %>
             <% }
+                }
                else
                { %>
                 <%= Resource.InviteTitle %>
@@ -28,17 +33,18 @@
                    { %>
                 <div class="property">
                     <div class="name">
-                        <%= Resource.Email %>:
+                        <%= Resource.Email %>
                     </div>
                     <div class="value">
                         <input type="text" maxlength="64" id="studio_confirm_Email" name="emailInput" class="textEdit" value="<%= GetEmailAddress() %>" />
                     </div>
                 </div>
                 <% } %>
+                
                 <%--FirstName--%>
                 <div class="property">
                     <div class="name">
-                        <%= Resource.FirstName%>:
+                        <%= Resource.FirstName%>
                     </div>
                     <div class="value">
                         <input type="text" maxlength="64" id="studio_confirm_FirstName" value="<%= GetFirstName() %>" name="firstnameInput"
@@ -48,18 +54,19 @@
                 <%--LastName--%>
                 <div class="property">
                     <div class="name">
-                        <%= Resource.LastName%>:
+                        <%= Resource.LastName%>
                     </div>
                     <div class="value">
                         <input type="text" maxlength="64" id="studio_confirm_LastName" value="<%= GetLastName() %>" name="lastnameInput"
                             class="textEdit" />
                     </div>
                 </div>
+
                 <%--Pwd--%>
                 <div class="property">
                     <div class="name">
-                        <%= Resource.InvitePassword %>:
-                        <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'InvitePasswordHelp'});"></span>                       
+                        <%= isPersonal ? Resource.Password : Resource.InvitePassword %>
+                        <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'InvitePasswordHelp'});"></span>
                     </div>
                     <div class="value">
                         <input type="password" maxlength="64" id="studio_confirm_pwd" value="" name="pwdInput" class="textEdit" autocomplete="off"/>
@@ -68,15 +75,7 @@
                         <%= UserManagerWrapper.GetPasswordHelpMessage() %>
                         </div>
                 </div>
-                <%--RePwd--%>
-                <div class="property">
-                    <div class="name">
-                        <%= Resource.RePassword %>:
-                    </div>
-                    <div class="value">
-                        <input type="password" maxlength="64" id="studio_confirm_repwd" value="" name="repwdInput" class="textEdit" autocomplete="off"/>
-                    </div>
-                </div>
+
                 <div class="big-button-container">
                     <% if (!String.IsNullOrEmpty(_errorMessage))
                        { %>
@@ -89,6 +88,7 @@
                 </div>
                  <asp:PlaceHolder runat="server" ID="thrdParty" Visible="false"></asp:PlaceHolder>
             </div>
+            <% if (!isPersonal){ %>
             <div class="leftPart">
                 <div class="borderBase tintMedium portalInfo">
                     <a href="auth.aspx">
@@ -110,6 +110,7 @@
                     <%= String.Format(Resource.InviteDescription, "<b>", "</b>") %>
                 </div>
             </div>
+            <%} %>
         </div>
     </div>
 </asp:PlaceHolder>

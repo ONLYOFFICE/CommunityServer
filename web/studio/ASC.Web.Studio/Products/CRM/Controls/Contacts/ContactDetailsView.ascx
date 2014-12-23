@@ -13,8 +13,6 @@
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 
-<%@ Register Src="../SocialMedia/UserSearchView.ascx" TagPrefix="ctrl" TagName="UserSearchView" %>
-
 
 <!-- -->
 <div id="ContactTabs"></div>
@@ -63,7 +61,6 @@
     <div id="dealList" class="clearFix" style="min-height: 200px;margin-top: 11px;">
     </div>
     <div id="files_hintStagesPanel" class="hintDescriptionPanel">
-        <div class="popup-corner"></div>
         <%=CRMDealResource.TooltipStages%>
         <a href="http://www.onlyoffice.com/help/tipstricks/opportunity-stages.aspx" target="_blank"><%=CRMCommonResource.ButtonLearnMore%></a>
     </div>
@@ -81,13 +78,12 @@
         </tbody>
     </table>
     <div id="invoiceActionMenu" class="studio-action-panel">
-        <div class="corner-top right"></div>
         <ul class="dropdown-content">
             <li><a class="showProfileLink dropdown-item"><%= CRMInvoiceResource.ShowInvoiceProfile %></a></li>
             <% if (Global.CanDownloadInvoices) { %>
             <li><a class="downloadLink dropdown-item"><%= CRMInvoiceResource.Download %></a></li>
             <% } %>
-            <% if (false) { %>
+            <% if (!MobileVer) { %>
             <li><a class="printLink dropdown-item"><%= CRMInvoiceResource.Print %></a></li>
             <% } %>
             <% if (Global.CanDownloadInvoices) { %>
@@ -134,15 +130,12 @@
 </div>
 
 <div id="socialMediaTab" class="display-none">
-    <div runat="server" id="_ctrlErrorDescriptionContainer" class="infoPanel sm_UserActivityView_ErrorDescription" style="display: none;">
-        <div runat="server" id="_ctrlErrorDescription">
-        </div>
-    </div>
+
     <div id="divSocialMediaContent">
+
     </div>
 
     <div id="divSMProfilesWindow" class="borderBase">
-        <div class="popup-corner-left"></div>
         <div class="header-base-medium divHeader">
             <span></span>
             <label class="cancel_cross" title="<%= CRMCommonResource.CloseWindow%>" onclick="jq('#divSMProfilesWindow').hide();"></label>
@@ -162,11 +155,7 @@
     </div>
 </div>
 
-
-<ctrl:UserSearchView runat="server" ID="_userSearchView" />
-
 <div id="contactDetailsMenuPanel" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
         <li>
             <a class="dropdown-item" href="<%= String.Format("default.aspx?id={0}&action=manage{1}",
@@ -188,7 +177,6 @@
 <% if (!MobileVer) %>
 <% { %>
 <div id="dealSelectorContainer" class="studio-action-panel display-none">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content"></ul>
 </div>
 <% } %>
@@ -197,7 +185,6 @@
 <% if (!MobileVer) %>
 <% { %>
 <div id="projectSelectorContainer" class="studio-action-panel display-none">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content"></ul>
 </div>
 <% } %>

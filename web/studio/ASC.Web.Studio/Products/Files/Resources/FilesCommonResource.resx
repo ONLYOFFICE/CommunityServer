@@ -141,6 +141,12 @@
   <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
     <value>The file was corrupted when you save</value>
   </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Author of saving is unknown</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Failed to get file to save</value>
+  </data>
   <data name="ErrorMassage_SecurityException" xml:space="preserve">
     <value>You don't have enough permission to perform the operation</value>
   </data>
@@ -177,9 +183,6 @@
   <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
     <value>You don't have enough permission to rename the folder</value>
   </data>
-  <data name="ErrorMassage_ImportToTrash" xml:space="preserve">
-    <value>You are not allowed to import to Trash</value>
-  </data>
   <data name="ErrorMassage_CreateNewFolderInTrash" xml:space="preserve">
     <value>You are not allowed to create folders in the Trash</value>
   </data>
@@ -191,9 +194,6 @@
   </data>
   <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
     <value>Can't authorize at {0} provider with given credentials.</value>
-  </data>
-  <data name="ErrorMassage_SecurityException_Login" xml:space="preserve">
-    <value>Can't login with given credentials.</value>
   </data>
   <data name="IsNew" xml:space="preserve">
     <value>new</value>
@@ -243,9 +243,6 @@
   <data name="Author" xml:space="preserve">
     <value>Author</value>
   </data>
-  <data name="CreatingDate" xml:space="preserve">
-    <value>Creation date</value>
-  </data>
   <data name="DocumentName" xml:space="preserve">
     <value>Document Name</value>
   </data>
@@ -261,14 +258,8 @@
   <data name="ErrorMassage_PayTariffDocsEdition" xml:space="preserve">
     <value>To use the edit documents pay tariff Docs Edition</value>
   </data>
-  <data name="ImportFromBoxNet" xml:space="preserve">
-    <value>Import from Box.Net</value>
-  </data>
   <data name="ImportFromGoogle" xml:space="preserve">
     <value>Import from Google Docs</value>
-  </data>
-  <data name="ImportFromZoho" xml:space="preserve">
-    <value>Import from Zoho</value>
   </data>
   <data name="Author_Me" xml:space="preserve">
     <value>Me</value>
@@ -308,9 +299,6 @@
   </data>
   <data name="ErrorMassage_Reconverting" xml:space="preserve">
     <value>The file is already in the queue for conversion.</value>
-  </data>
-  <data name="ErrorMassage_ManyImports" xml:space="preserve">
-    <value>Too many imports.</value>
   </data>
   <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
     <value>You don't have enough permission to create</value>
@@ -396,9 +384,6 @@
   <data name="ButtonCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="ButtonClose" xml:space="preserve">
-    <value>Close</value>
-  </data>
   <data name="ProfileRemoved" xml:space="preserve">
     <value>{!User} removed</value>
   </data>
@@ -419,9 +404,6 @@
   </data>
   <data name="ErrorMassage_UnknownrProvider" xml:space="preserve">
     <value>Unknown provider</value>
-  </data>
-  <data name="DemoVersion" xml:space="preserve">
-    <value>Demo Version</value>
   </data>
   <data name="UnknownFirstName" xml:space="preserve">
     <value>FirstName</value>
@@ -452,5 +434,8 @@
   </data>
   <data name="AppDriveSpreadsheetException" xml:space="preserve">
     <value>Google Drive doesn't allow to access the requested spreadsheet as it was created in a new format</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>This document is being edited</value>
   </data>
 </root>

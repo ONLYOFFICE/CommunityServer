@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 ASC.Projects.TaskDescroptionPage = (function() {
     var isInit = false,
         currentTask = {},
@@ -213,27 +209,12 @@ ASC.Projects.TaskDescroptionPage = (function() {
         //-------------Comments-------------//
         jq("#add_comment_btn").wrap("<span class='addcomment-button icon-link plus'></span>");
 
-        jq("#emptyCommentsPanel .emptyScrBttnPnl").on('click', ".baseLinkAction", function () {
-            jq("#emptyCommentsPanel").hide();
-            jq("#commentsListWrapper").show();
-            jq("#add_comment_btn").click();
-
-            return false;
-        });
-
         jq(document).on('click', "#btnCancel , #cancel_comment_btn", function() {
-
-            var count = jq("#commentContainer #mainContainer div[id^='container_']").length;
-            if (count == 0) {
-                jq("#commentsListWrapper").hide();
-                jq("#add_comment_btn").hide();
-                jq("#emptyCommentsPanel").show();
-            }
             commentIsEdit = false;
         });
         jq(document).on('click', "#btnAddComment", function() {
             if (!commentIsEdit) {
-                if (CKEDITOR.instances.commentEditor.getData()) {
+                if (CommentsManagerObj.editorInstance.getData()) {
                     changeCountInTab('add', "commentsTab");
                     jq("#switcherTaskCommentsButton").show();
                 }
@@ -242,18 +223,7 @@ ASC.Projects.TaskDescroptionPage = (function() {
                 commentIsEdit = false;
             }
         });
-        jq("#mainContainer div[id^='container_'] a[id^='remove_']").on('click', function() {
-            changeCountInTab('delete', "commentsTab");
-            var count = jq("#commentContainer #mainContainer div[id^='container_']").length;
-            if (count - 1 == 0) {
-                jq("#commentsListWrapper").hide();
-                jq("#commentContainer #mainContainer").attr('style', '');
-                jq("#commentContainer #mainContainer").empty();
 
-                jq("#emptyCommentsPanel").show();
-                jq("#switcherTaskCommentsButton").hide();
-            }
-        });
         jq(document).on('click', "#mainContainer div[id^='container_'] a[id^='edit_']", function() {
             commentIsEdit = true;
         });
@@ -403,14 +373,11 @@ ASC.Projects.TaskDescroptionPage = (function() {
         var count = jq("#commentContainer #mainContainer div[id^='container_']").length;
         if (count != 0) {
             changeCountInTab(count, "commentsTab");
-            jq("#add_comment_btn").show();
             jq("#switcherTaskCommentsButton").show();
-            jq("#commentsListWrapper").show();
         }
         else {
             jq("#switcherTaskCommentsButton").hide();
             jq("#commentContainer").show();
-            jq("#emptyCommentsPanel").show();
             jq("#noComments").hide();
         }
     };
@@ -759,8 +726,8 @@ ASC.Projects.TaskDescroptionPage = (function() {
         jq('#' + panelId).show();
 
         if (panelId == 'linkedTaskActionPanel') {
-            x = jq(obj).offset().left - (jq("#linkedTaskActionPanel").width() + 6);
-            y = jq(obj).offset().top + 17;
+            x = jq(obj).offset().left - jq("#linkedTaskActionPanel").width() + 20;
+            y = jq(obj).offset().top + 20;
         }
 
         if (typeof y == 'undefined')
@@ -768,7 +735,8 @@ ASC.Projects.TaskDescroptionPage = (function() {
 
         jq('#' + panelId).css({ left: x, top: y });
 
-        jq('body').click(function(event) {
+        jq('body').off("click.tasksShowActionsPanel");
+        jq('body').on("click.tasksShowActionsPanel", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
             if (jq(elt).is('[id="' + panelId + '"]') || (elt.id == obj.id && obj.id.length) || jq(elt).is('.entity-menu')) {
@@ -1034,6 +1002,18 @@ ASC.Projects.TaskDescroptionPage = (function() {
         disableCreateLinkButton();
     };
 
+    var onDeleteComment = function () {
+        changeCountInTab('delete', "commentsTab");
+        var count = jq("#commentContainer #mainContainer div[id^='container_']").length;
+        if (count - 1 == 0) {
+            jq("#commentContainer #mainContainer").attr('style', '');
+            jq("#commentContainer #mainContainer").empty();
+            jq("#commentContainer #mainContainer").hide();
+
+            jq("#switcherTaskCommentsButton").hide();
+        }
+    };
+
     /*-------tabs-----*/
 
     var createVisible = function(block) {
@@ -1061,10 +1041,6 @@ ASC.Projects.TaskDescroptionPage = (function() {
 
     var showEmptyCommentsPanel = function() {
         if (jq("#commentContainer #mainContainer div[id^='container_']").length == 0) {
-            jq("#emptyCommentsPanel").show();
-        }
-        else {
-            jq("#add_comment_btn").show();
         }
     };
 
@@ -1089,11 +1065,6 @@ ASC.Projects.TaskDescroptionPage = (function() {
                 }
                 else {
                     jq("#" + tabAnchorId).find(".count").empty();
-
-                    if (tabAnchorId == "commentsTab") {
-                        jq("#commentsListWrapper").hide();
-                        jq("#emptyCommentsPanel").show();
-                    }
                 }
             }
         }
@@ -1143,6 +1114,7 @@ ASC.Projects.TaskDescroptionPage = (function() {
         init: init,
         onAddTask: onAddTask,
         onUpdateTask: onUpdateTask,
+        onDeleteComment: onDeleteComment,
         showSubtasks: showSubtasks,
         showFiles: showFiles,
         showComments: showComments,

@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -34,7 +34,6 @@ using ASC.FullTextIndex;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Data;
 using ASC.Core;
-using System.Configuration;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Mail.Aggregator.Dal.DbSchema;
@@ -112,11 +111,6 @@ namespace ASC.Mail.Aggregator
                 {
                     CoreContext.TenantManager.SetCurrentTenant(tenant_id);
                     SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(new Guid(user_id)));
-
-                    if (!DbRegistry.IsDatabaseRegistered("crm"))
-                    {
-                        DbRegistry.RegisterDatabase("crm", ConfigurationManager.ConnectionStrings["crm"]);
-                    }
                 }
                 catch (Exception e)
                 {
@@ -262,21 +256,22 @@ namespace ASC.Mail.Aggregator
 
         public List<int> GetCrmContactsId(int tenant_id, string user_id, string email)
         {
-            return GetCrmContactsId(tenant_id, user_id, new string[] {email});
+            var ids = new List<int>();
+            return string.IsNullOrEmpty(email) ? ids : GetCrmContactsId(tenant_id, user_id, new [] {email});
         }
 
         public List<int> GetCrmContactsId(int tenant_id, string user_id, string[] emails)
         {
             var ids = new List<int>();
+
+            if (!emails.Any())
+                return ids;
+
             try
             {
                 #region Set up connection to CRM sequrity
                 CoreContext.TenantManager.SetCurrentTenant(tenant_id);
                 SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(new Guid(user_id)));
-                if (!DbRegistry.IsDatabaseRegistered("crm"))
-                {
-                    DbRegistry.RegisterDatabase("crm", ConfigurationManager.ConnectionStrings["crm"]);
-                }
                 #endregion
 
                 using (var db = new DbManager("crm"))

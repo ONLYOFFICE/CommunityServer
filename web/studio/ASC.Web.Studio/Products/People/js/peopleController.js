@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 ; if (typeof (ASC) === 'undefined')
     ASC = {};
 if (typeof ASC.People === "undefined")
@@ -38,6 +34,7 @@ if (typeof ASC.People === "undefined")
 ASC.People.PeopleController = (function() {
 
     var isInit = false;
+    var isFirstLoad = true;
     var currentAnchor = null;
     var advansedFilter = null;
 
@@ -54,6 +51,19 @@ ASC.People.PeopleController = (function() {
 
     function hideLoader() {
         LoadingBanner.hideLoading();
+    };
+
+    function showFirstLoader() {
+        jq(".mainPageContent").children(".loader-page").css({
+            top: jq(window).height() / 2 + "px"
+        });
+    }
+
+    function hideFirstLoader() {
+        isFirstLoad = false;
+        jq(".mainPageContent").children(".loader-page").remove();
+        jq(".profile-title, #filterContainer, #tableForPeopleNavigation").show();
+        jq('#peopleFilter').advansedFilter("resize");
     };
 
     function performProfiles(profiles) {
@@ -170,18 +180,26 @@ ASC.People.PeopleController = (function() {
         $o.filter("tr.profile").each(function() {
             var $this = jq(this),
                 id = jq(this).attr("data-id"),
-                $buttons = null;
-
-            $buttons = $this.find("td.info:first button.ui-btn");
+                $buttons = $this.find("td.info:first [id^='peopleEmailSwitcher'] .dropdown-item");
             $buttons.bind("click", onButtonClick);
-            $this.find("span.email:first").tlButtonGroup($buttons, {
-                onShow: function() {
-                    jq(this).parents("tr.profile:first").addClass("hover");
-                },
-                onHide: function() {
-                    jq(this).parents("tr.profile:first").removeClass("hover");
-                }
-            });
+
+            var emailToggleMenu = $this.find(".btn.email:first");
+            if (emailToggleMenu.length == 1) {
+                jq.dropdownToggle({
+                    dropdownID: "peopleEmailSwitcher_" + id,
+                    switcherSelector: "#peopleEmail_" + id,
+                    addTop: 4,
+                    addLeft: 17,
+                    rightPos: true,
+                    showFunction: function (switcherObj, dropdownItem) {
+                        jq(this).parents("tr.profile:first").addClass("hover");
+                    },
+                    hideFunction: function () {
+                        jq(this).parents("tr.profile:first").removeClass("hover");
+                    }
+                });
+
+            }
 
 
             var groupsToggleMenu = $this.find("td.group:first .withHoverArrowDown");
@@ -440,7 +458,7 @@ ASC.People.PeopleController = (function() {
             jq.dropdownToggle({
                 dropdownID: "peopleActionMenu",
                 switcherSelector: "#peopleData .entity-menu",
-                addTop: -2,
+                addTop: 0,
                 addLeft: leftForFix,
                 fixWinSize: false,
                 showFunction: function(switcherObj, dropdownItem) {
@@ -474,6 +492,7 @@ ASC.People.PeopleController = (function() {
         }
         isInit = true;
 
+        showFirstLoader();
         initAdvansedFilter();
         initTenantQuota();
         initScrolledGroupMenu();
@@ -589,8 +608,14 @@ ASC.People.PeopleController = (function() {
         
         Teamlab.getProfilesByFilter(params, {
             filter: filter,
-            before: showLoader,
-            after: hideLoader,
+            before: function () {
+                if (!isFirstLoad) {
+                    showLoader();
+                };
+            },
+            after: function () {
+                isFirstLoad ? hideFirstLoader() : hideLoader();
+            },
             success: onGetProfiles
         });
 
@@ -914,7 +939,7 @@ ASC.People.PeopleController = (function() {
         initChangeTypeDialog(type);
         StudioBlockUIManager.blockUI("#changeTypeDialog", 500, 220, 0);
         PopupKeyUpActionProvider.ClearActions();
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#changeTypeDialog .button.blue\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#changeTypeDialogOk\").click();";
     };
 
     var initChangeTypeDialog = function(type) {
@@ -927,23 +952,35 @@ ASC.People.PeopleController = (function() {
         hideError(dialog);
         renderSelectedUserList(users, container);
 
+        jq("#changeTypeDialogTariff").hide();
+        jq("#changeTypeDialogOk").removeClass("gray").addClass("blue");
+        jq("#userTypeInfo .action-info").removeClass("display-none");
+        jq("#changeTypeDialog .selected-users-info").removeClass("display-none");
+
         if (_selectedType == 1) {
             jq("#userTypeInfo").removeClass("display-none");
             jq("#visitorTypeInfo").addClass("display-none");
+            
+            jq("#changeTypeDialogTariff").show();
+            jq("#changeTypeDialogOk").removeClass("blue").addClass("gray");
 
             //GET QUOTA & SET TO INTERFACE
             var quota = _tenantQuota.availableUsersCount;
             jq("#userTypeInfo .tariff-limit").html(jq.format(PeopleManager.UserLimit, "<b>", quota, "</b>"));
             updateUserListByQuota(container, quota);
-        }
-        if (_selectedType == 2) {
+
+            if (quota == 0) {
+                jq("#userTypeInfo .action-info").addClass("display-none");
+                jq("#changeTypeDialog .selected-users-info").addClass("display-none");
+            }
+        }else if (_selectedType == 2) {
             jq("#userTypeInfo").addClass("display-none");
             jq("#visitorTypeInfo").removeClass("display-none");
         }
         if (dialog.find("input[disabled]").length == dialog.find("input").length) {
-            dialog.find(".button.blue").addClass("disable");
+            jq("#changeTypeDialogOk").addClass("disable");
         } else {
-            dialog.find(".button.blue").removeClass("disable");
+            jq("#changeTypeDialogOk").removeClass("disable");
         }
     };
 
@@ -1015,7 +1052,7 @@ ASC.People.PeopleController = (function() {
         initChangeStatusDialog(status);
         StudioBlockUIManager.blockUI("#changeStatusDialog", 500, 220, 0);
         PopupKeyUpActionProvider.ClearActions();
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#changeStatusDialog .button.blue\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\"#changeStatusOkBtn\").click();";
     };
 
     var initChangeStatusDialog = function(status) {
@@ -1028,6 +1065,11 @@ ASC.People.PeopleController = (function() {
         hideError(dialog);
         renderSelectedUserList(users, container);
 
+        jq("#changeStatusTariff").hide();
+        jq("#changeStatusOkBtn").removeClass("gray").addClass("blue");
+        jq("#activeStatusInfo .action-info").removeClass("display-none");
+        jq("#changeStatusDialog .selected-users-info").removeClass("display-none");
+
         if (_selectedStatus == 1) {
             jq("#activeStatusInfo").removeClass("display-none");
             jq("#terminateStatusInfo").addClass("display-none");
@@ -1035,9 +1077,16 @@ ASC.People.PeopleController = (function() {
             //GET QUOTA & SET TO INTERFACE
             var quota = _tenantQuota.availableUsersCount;
             jq("#activeStatusInfo .tariff-limit").html(jq.format(PeopleManager.UserLimit, "<b>", quota, "</b>"));
+
+            jq("#changeStatusTariff").show();
+            jq("#changeStatusOkBtn").removeClass("blue").addClass("gray");
             updateUserListByQuota(container, quota);
-        }
-        if (_selectedStatus == 2) {
+
+            if (quota == 0) {
+                jq("#activeStatusInfo .action-info").addClass("display-none");
+                jq("#changeStatusDialog .selected-users-info").addClass("display-none");
+            }
+        }else if (_selectedStatus == 2) {
             jq("#activeStatusInfo").addClass("display-none");
             jq("#terminateStatusInfo").removeClass("display-none");
         }
@@ -1556,14 +1605,14 @@ ASC.People.PeopleController = (function() {
         jq.dropdownToggle({
             dropdownID: "changeTypePanel",
             switcherSelector: "#peopleHeaderMenu .menuChangeType.unlockAction",
-            addTop: 5,
+            addTop: 4,
             addLeft: 0
         });
 
         jq.dropdownToggle({
             dropdownID: "changeStatusPanel",
             switcherSelector: "#peopleHeaderMenu .menuChangeStatus.unlockAction",
-            addTop: 5,
+            addTop: 4,
             addLeft: 0
         });
 
@@ -1608,12 +1657,12 @@ ASC.People.PeopleController = (function() {
             return false;
         });
 
-        jq("#changeTypeDialog").on("click", "a.button.blue:not(.disable)", function() {
+        jq("#changeTypeDialog").on("click", "#changeTypeDialogOk:not(.disable)", function () {
             changeUserType();
             return false;
         });
 
-        jq("#changeTypeDialog").on("click", "a.button.gray:not(.disable)", function() {
+        jq("#changeTypeDialog").on("click", "#changeTypeDialogCancel:not(.disable)", function () {
             jq.unblockUI();
             return false;
         });
@@ -1624,12 +1673,12 @@ ASC.People.PeopleController = (function() {
             return false;
         });
 
-        jq("#changeStatusDialog").on("click", "a.button.blue:not(.disable)", function() {
+        jq("#changeStatusDialog").on("click", "#changeStatusOkBtn:not(.disable)", function () {
             changeUserStatus();
             return false;
         });
 
-        jq("#changeStatusDialog").on("click", "a.button.gray:not(.disable)", function() {
+        jq("#changeStatusDialog").on("click", "#changeStatusCancelBtn:not(.disable)", function () {
             jq.unblockUI();
             return false;
         });
@@ -1689,7 +1738,6 @@ ASC.People.PeopleController = (function() {
 
                      var $dropdownItem = jq("#peopleActionMenu");
                      $dropdownItem.show();
-                     var left = $dropdownItem.children(".corner-top").position().left;
                      $dropdownItem.hide();
                      if (target.is(".entity-menu")) {
                          if ($dropdownItem.is(":hidden")) {
@@ -1697,13 +1745,13 @@ ASC.People.PeopleController = (function() {
                          }
                          $dropdownItem.css({
                              "top": target.offset().top + target.outerHeight() - 2,
-                             "left": target.offset().left - left + 7,
+                             "left": target.offset().left,
                              "right": "auto"
                          });
                      } else {
                          $dropdownItem.css({
                              "top": e.pageY + 3,
-                             "left": e.pageX - left - 5,
+                             "left": e.pageX,
                              "right": "auto"
                          });
                      }

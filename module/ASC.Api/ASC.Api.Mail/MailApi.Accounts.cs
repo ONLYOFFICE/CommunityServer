@@ -1,40 +1,43 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
+using System.Reflection;
 using ASC.Api.Attributes;
+using ASC.Api.Mail.DataContracts;
+using ASC.Api.Mail.Extensions;
+using ASC.Api.Exceptions;
 using ASC.Mail.Aggregator;
 using ASC.Api.Mail.Resources;
-using ASC.Mail.Aggregator.Authorization;
 using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Aggregator.Common.Authorization;
 using ASC.Mail.Aggregator.Dal;
 using ActiveUp.Net.Mail;
 
@@ -44,39 +47,16 @@ namespace ASC.Api.Mail
     {
 
         /// <summary>
-        ///    Returns the list of all accounts connected to the Mail.
+        ///    Returns lists of all mailboxes, aliases and groups for user.
         /// </summary>
-        /// <returns>Accounts list</returns>
-        /// <short>Get accounts list</short> 
+        /// <returns>Mailboxes, aliases and groups list</returns>
+        /// <short>Get mailboxes, aliases and groups list</short> 
         /// <category>Accounts</category>
         [Read(@"accounts")]
-        public IEnumerable<MailAccount> GetAccounts()
+        public IEnumerable<MailAccountData> GetAccounts()
         {
-            var boxes = MailBoxManager.GetMailBoxes(TenantId, Username);
-
-            boxes
-                .FindAll(b => b.QuotaError)
-                .ForEach(b => MailBoxManager.SetMailboxQuotaError(b, false));
-
-            var signatures = new List<SignatureDto>();
-
-            if (boxes.Any())
-            {
-                var mailboxes_ids = boxes.Select(b => b.MailBoxId).ToList();
-                signatures = MailBoxManager.GetMailboxesSignatures(mailboxes_ids, Username, TenantId);
-            }
-
-            return boxes.ConvertAll(x =>
-                                    new MailAccount(
-                                        x.EMail.ToString(),
-                                        x.Name,
-                                        x.Enabled,
-                                        x.QuotaError,
-                                        x.AuthError,
-                                        x.MailBoxId,
-                                        !string.IsNullOrEmpty(x.RefreshToken),
-                                        signatures.FirstOrDefault(s => s.MailboxId == x.MailBoxId),
-                                        x.EMailInFolder));
+            var accounts = MailBoxManager.GetAccountInfo(TenantId, Username);
+            return accounts.ToAddressData();
         }
 
         /// <summary>
@@ -94,43 +74,11 @@ namespace ASC.Api.Mail
         {
             if (string.IsNullOrEmpty(email)) throw new ArgumentException("Empty email", "email");
 
-            var begin_date = DateTime.Now.Subtract(new TimeSpan(MailBox.DefaultMailLimitedTimeDelta));
-
-            string error_text;
+            string error_text = null;
+            MailBox mbox = null;
             try
             {
-                var mbox = MailBoxManager.SearchMailboxSettings(email, password, Username, TenantId);
-
-                mbox.BeginDate = begin_date; // Apply restrict for download
-
-                MailServerHelper.Test(mbox);
-
-                mbox.InServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
-                        new MailServerSettings
-                        {
-                            AccountName = mbox.Account,
-                            AccountPass = mbox.Password,
-                            AuthenticationType = mbox.AuthenticationTypeIn,
-                            EncryptionType = mbox.IncomingEncryptionType,
-                            Port = mbox.Port,
-                            Url = mbox.Server
-                        },
-                        mbox.Imap ? "imap" : "pop3", AuthorizationServiceType.Unknown);
-
-                mbox.SmtpServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
-                                        new MailServerSettings
-                                        {
-                                            AccountName = mbox.SmtpAccount,
-                                            AccountPass = mbox.SmtpPassword,
-                                            AuthenticationType = mbox.AuthenticationTypeSmtp,
-                                            EncryptionType = mbox.OutcomingEncryptionType,
-                                            Port = mbox.SmtpPort,
-                                            Url = mbox.SmtpServer
-                                        },
-                                        "smtp", AuthorizationServiceType.Unknown);
-
-                MailBoxManager.SaveMailBox(mbox);
-                return mbox;
+                mbox = MailBoxManager.SearchMailboxSettings(email, password, Username, TenantId);
             }
             catch (ImapConnectionException ex_imap)
             {
@@ -144,11 +92,63 @@ namespace ASC.Api.Mail
             {
                 error_text = GetFormattedTextError(ex_smtp, ServerType.Smtp, ex_smtp is SmtpConnectionTimeoutException);
             }
+            catch (ItemNotFoundException ex_provider)
+            {
+                error_text = GetFormattedTextError(ex_provider);
+            }
             catch (Exception ex)
             {
-                error_text = GetFormattedTextError(ex, ServerType.Imap);
+                error_text = GetFormattedTextError(ex);
             }
-            throw new Exception(string.Format("{0}", error_text));
+
+            if (!string.IsNullOrEmpty(error_text))
+                throw new Exception(error_text);
+
+            try
+            {
+                if (mbox == null)
+                    throw new Exception();
+
+                mbox.InServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
+                                                                        new MailServerSettings
+                                                                            {
+                                                                                AccountName = mbox.Account,
+                                                                                AccountPass = mbox.Password,
+                                                                                AuthenticationType =
+                                                                                    mbox.AuthenticationTypeIn,
+                                                                                EncryptionType =
+                                                                                    mbox.IncomingEncryptionType,
+                                                                                Port = mbox.Port,
+                                                                                Url = mbox.Server
+                                                                            },
+                                                                        mbox.Imap ? "imap" : "pop3",
+                                                                        AuthorizationServiceType.Unknown);
+
+                mbox.SmtpServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
+                                                                          new MailServerSettings
+                                                                              {
+                                                                                  AccountName = mbox.SmtpAccount,
+                                                                                  AccountPass = mbox.SmtpPassword,
+                                                                                  AuthenticationType =
+                                                                                      mbox.AuthenticationTypeSmtp,
+                                                                                  EncryptionType =
+                                                                                      mbox.OutcomingEncryptionType,
+                                                                                  Port = mbox.SmtpPort,
+                                                                                  Url = mbox.SmtpServer
+                                                                              },
+                                                                          "smtp", AuthorizationServiceType.Unknown);
+
+                MailBoxManager.SaveMailBox(mbox);
+                return mbox;
+
+            }
+            catch (Exception ex)
+            {
+                //TODO: change AttachmentsUnknownError to common unknown error text
+                error_text = GetFormattedTextError(ex, MailApiResource.AttachmentsUnknownError);
+            }
+
+            throw new Exception(error_text);
         }
 
         /// <summary>
@@ -253,7 +253,7 @@ namespace ASC.Api.Mail
             SaslMechanism auth_type_smtp)
         {
 
-            string error_text;
+            string error_text = null;
             var mbox = new MailBox
                 {
                     Name = name,
@@ -283,32 +283,6 @@ namespace ASC.Api.Mail
             try
             {
                 MailServerHelper.Test(mbox);
-
-                mbox.InServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
-                                        new MailServerSettings
-                                        {
-                                            AccountName = mbox.Account,
-                                            AccountPass = mbox.Password,
-                                            AuthenticationType = mbox.AuthenticationTypeIn,
-                                            EncryptionType = mbox.IncomingEncryptionType,
-                                            Port = mbox.Port,
-                                            Url = mbox.Server
-                                        },
-                                        imap ? "imap" : "pop3", AuthorizationServiceType.Unknown);
-                mbox.SmtpServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
-                                        new MailServerSettings
-                                        {
-                                        AccountName = mbox.SmtpAccount,
-                                        AccountPass = mbox.SmtpPassword,
-                                        AuthenticationType = mbox.AuthenticationTypeSmtp,
-                                        EncryptionType = mbox.OutcomingEncryptionType,
-                                        Port = mbox.SmtpPort,
-                                        Url = mbox.SmtpServer
-                                        },
-                                        "smtp", AuthorizationServiceType.Unknown);
-
-                MailBoxManager.SaveMailBox(mbox);
-                return mbox;
             }
             catch (ImapConnectionException ex_imap)
             {
@@ -324,7 +298,49 @@ namespace ASC.Api.Mail
             }
             catch (Exception ex)
             {
-                error_text = GetFormattedTextError(ex, imap ? ServerType.Imap : ServerType.Pop3);
+                error_text = GetFormattedTextError(ex);
+            }
+
+            if(!string.IsNullOrEmpty(error_text))
+                throw new Exception(error_text);
+
+            try
+            {
+                mbox.InServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
+                                                                        new MailServerSettings
+                                                                            {
+                                                                                AccountName = mbox.Account,
+                                                                                AccountPass = mbox.Password,
+                                                                                AuthenticationType =
+                                                                                    mbox.AuthenticationTypeIn,
+                                                                                EncryptionType =
+                                                                                    mbox.IncomingEncryptionType,
+                                                                                Port = mbox.Port,
+                                                                                Url = mbox.Server
+                                                                            },
+                                                                        imap ? "imap" : "pop3",
+                                                                        AuthorizationServiceType.Unknown);
+                mbox.SmtpServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
+                                                                          new MailServerSettings
+                                                                              {
+                                                                                  AccountName = mbox.SmtpAccount,
+                                                                                  AccountPass = mbox.SmtpPassword,
+                                                                                  AuthenticationType =
+                                                                                      mbox.AuthenticationTypeSmtp,
+                                                                                  EncryptionType =
+                                                                                      mbox.OutcomingEncryptionType,
+                                                                                  Port = mbox.SmtpPort,
+                                                                                  Url = mbox.SmtpServer
+                                                                              },
+                                                                          "smtp", AuthorizationServiceType.Unknown);
+
+                MailBoxManager.SaveMailBox(mbox);
+                return mbox;
+            }
+            catch (Exception ex)
+            {
+                //TODO: change AttachmentsUnknownError to common unknown error text
+                error_text = GetFormattedTextError(ex, MailApiResource.AttachmentsUnknownError);
             }
 
             throw new Exception(error_text);
@@ -379,6 +395,9 @@ namespace ASC.Api.Mail
 
             if (null == mbox)
                 throw new ArgumentException("Mailbox with specified email doesn't exist.");
+
+            if (mbox.IsTeamlab)
+                throw new ArgumentException("Mailbox with specified email can't be updated");
 
             if (string.IsNullOrEmpty(password))
                 password = mbox.Password;
@@ -478,6 +497,9 @@ namespace ASC.Api.Mail
             if (mailbox == null)
                 throw new NullReferenceException(String.Format("Account wasn't founded by email: {0}", email));
 
+            if (mailbox.IsTeamlab)
+                throw new ArgumentException("Mailbox with specified email can't be deleted");
+
             MailBoxManager.RemoveMailBox(mailbox);
             return email;
         }
@@ -502,6 +524,8 @@ namespace ASC.Api.Mail
             var mailbox = MailBoxManager.GetMailBox(TenantId, Username, new MailAddress(email));
             if (mailbox == null)
                 throw new NullReferenceException(String.Format("Account wasn't founded by email: {0}", email));
+            if (mailbox.IsTeamlab)
+                throw new ArgumentException("Mailbox with specified email can't be updated");
 
             if (!MailBoxManager.EnableMaibox(mailbox, state))
                 throw new Exception("EnableMaibox failed.");
@@ -617,6 +641,12 @@ namespace ASC.Api.Mail
                     break;
             }
 
+            return GetFormattedTextError(ex, error_explain, header_text);
+
+        }
+
+        private static string GetFormattedTextError(Exception ex, string error_explain = "", string header_text = "")
+        {
             if (!string.IsNullOrEmpty(header_text))
                 header_text = string.Format("<span class=\"attempt_header\">{0}</span><br/>", header_text);
 
@@ -629,7 +659,7 @@ namespace ASC.Api.Mail
             var error_text = string.Format("{0}{1}",
                           header_text,
                           error_explain);
-            
+
             return error_text;
         }
     }

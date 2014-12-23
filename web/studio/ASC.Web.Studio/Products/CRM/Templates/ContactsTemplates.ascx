@@ -108,7 +108,6 @@
 
 {{if IsCRMAdmin === true}}
 <div id="sendEmailDialog" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
         <li>
             <a class="dropdown-item" onclick="ASC.CRM.ListContactView.showCreateLinkPanel()">
@@ -125,18 +124,18 @@
 {{/if}}
 
 <div id="addTagDialog" class="studio-action-panel addTagDialog">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content mobile-overflow"></ul>
     <div class="h_line">&nbsp;</div>
-    <div style="margin-bottom:5px;"><%= CRMCommonResource.CreateNewTag%>:</div>
-    <input type="text" maxlength="50" class="textEdit" />
-    <a onclick="ASC.CRM.ListContactView.addNewTag();" class="button blue" id="addThisTag">
-        <%= CRMCommonResource.OK%>
-    </a>
+    <div style="padding: 0 12px;">
+        <div style="margin-bottom: 5px;" ><%= CRMCommonResource.CreateNewTag%>:</div>
+        <input type="text" maxlength="50" class="textEdit" />
+        <a onclick="ASC.CRM.ListContactView.addNewTag();" class="button blue" id="addThisTag">
+            <%= CRMCommonResource.OK%>
+        </a>
+    </div>
 </div>
 
 <div id="contactActionMenu" class="studio-action-panel">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li><a class="showProfileLink dropdown-item"><%= CRMContactResource.ShowContactProfile%></a></li>
         <li><a class="addPhoneLink dropdown-item"><%= CRMJSResource.AddNewPhone%></a></li>
@@ -162,7 +161,7 @@
     <tr id="contactItem_${id}" class="with-entity-menu">
         <td class="borderBase" style="padding-left: 6px;">
             <input type="checkbox" id="check_contact_${id}" onclick="ASC.CRM.ListContactView.selectItem(this);" style="margin-left: 2px;" {{if isChecked == true}}checked="checked"{{/if}} />
-            <img id="loaderImg_${id}" style="display:none;" src="<%=WebImageSupplier.GetAbsoluteWebPath("loader_16.gif")%>" alt=""/>
+            <div id="loaderImg_${id}" class="loader-middle baseList_loaderImg"></div>
         </td>
 
 
@@ -235,31 +234,32 @@
 <script id="FacebookProfileTmpl" type="text/x-jquery-tmpl">
     <tr>
         <td class="sm_tbl_UserList_clmnBtRelate">
-            <a class="button gray plus" onclick="ASC.CRM.SocialMedia.AddFacebookProfileToContact('${UserID}'); return false;"><%=CRMCommonResource.Add%></a>
+            <a class="button gray plus" onclick="ASC.CRM.SocialMedia.AddFacebookProfileToContact('${userID}'); return false;"><%=CRMCommonResource.Add%></a>
         </td>
         <td class="sm_tbl_UserList_clmnAvatar">
             <div style="min-height: 40px;">
-                <img src="${SmallImageUrl}" alt="${UserName}" width="40"/>
+                <img src="${smallImageUrl}" alt="${userName}" width="40"/>
             </div>
         </td>
         <td class="sm_tbl_UserList_clmnUserName" style="padding:5px;">
-            <span class="header-base-small sn_userName" style="color: Black !important;">${UserName}</span>
+            <span class="header-base-small sn_userName" style="color: Black !important;">${userName}</span>
         </td>
     </tr>
 </script>
 
+
 <script id="LinkedInProfileTmpl" type="text/x-jquery-tmpl">
     <tr>
         <td class="sm_tbl_UserList_clmnBtRelate">
-            <a class="button gray plus" onclick="ASC.CRM.SocialMedia.AddLinkedInProfileToContact('${UserID}', '${CompanyName}', '${Position}', '${PublicProfileUrl}', '${UserName}'); return false;"><%=CRMCommonResource.Add%></a>
+            <a class="button gray plus" onclick="ASC.CRM.SocialMedia.AddLinkedInProfileToContact('${userID}', '${jQuery.base64.encode(position)}', '${jQuery.base64.encode(publicProfileUrl)}'); return false;"><%=CRMCommonResource.Add%></a>
         </td>
         <td class="sm_tbl_UserList_clmnAvatar">
             <div style="min-height: 40px;">
-                <img src="${ImageUrl}" alt="${UserName}" width="40"/>
+                <img src="${imageUrl}" alt="${userName}" width="40"/>
             </div>
         </td>
         <td class="sm_tbl_UserList_clmnUserName" style="padding:5px;">
-            <span class="header-base-small sn_userName" style="color: Black !important;">${UserName}</span>
+            <span class="header-base-small sn_userName" style="color: Black !important;">${userName}</span>
         </td>
     </tr>
 </script>
@@ -268,19 +268,19 @@
     <tr>
         <td class="sm_tbl_UserList_clmnBtRelate">
             <a class="button gray plus"
-                onclick="ASC.CRM.SocialMedia.AddTwitterProfileToContact('${ScreenName}'); return false;">
+                onclick="ASC.CRM.SocialMedia.AddTwitterProfileToContact('${screenName}'); return false;">
                 <%= CRMCommonResource.Add %>
             </a>
         </td>
         <td class="sm_tbl_UserList_clmnAvatar">
             <div style="min-height: 40px;">
-                <img src="${SmallImageUrl}" alt="${UserName}" width="40"/>
+                <img src="${smallImageUrl}" alt="${userName}" width="40"/>
             </div>
         </td>
         <td class="sm_tbl_UserList_clmnUserName" style="padding:5px;">
-            <span class="header-base-small sn_userName" style="color: Black !important;">${UserName}</span>
+            <span class="header-base-small sn_userName" style="color: Black !important;">${userName}</span>
             <br />
-            ${Description}
+            ${description}
         </td>
     </tr>
 </script>
@@ -289,19 +289,19 @@
     <tr>
         <td class="sm_tbl_UserList_clmnBtRelate">
             <a class="button gray plus"
-                onclick="ASC.CRM.SocialMedia.AddAndSaveTwitterProfileToContact('${ScreenName}', jq.getURLParam('id')); return false;">
+                onclick="ASC.CRM.SocialMedia.AddAndSaveTwitterProfileToContact('${screenName}', jq.getURLParam('id')); return false;">
                 <%= CRMCommonResource.Choose %>
             </a>
         </td>
         <td class="sm_tbl_UserList_clmnAvatar">
             <div style="min-height: 40px;">
-                <img src="${SmallImageUrl}" width="40" alt=""/>
+                <img src="${smallImageUrl}" width="40" alt=""/>
             </div>
         </td>
         <td class="sm_tbl_UserList_clmnUserName" style="padding:5px;">
-            <span class="header-base-small sn_userName" style="color: Black !important;">${UserName}</span>
+            <span class="header-base-small sn_userName" style="color: Black !important;">${userName}</span>
             <br />
-            ${Description}
+            ${description}
         </td>
     </tr>
 </script>
@@ -321,7 +321,7 @@
 
 <script id="crunchbaseContactFullTmpl" type="text/x-jquery-tmpl">
 <div style="height:24px; vertical-align:middle;">
-    {{if namespace == "company"}}
+    {{if namespace == "organization"}}
         <a class="crunhbaseLink" href="${crunchbase_url}" target="_blank">${name}</a><br>
     {{else}}
         <a class="crunhbaseLink" href="${crunchbase_url}" target="_blank">${first_name} ${last_name}</a><br>
@@ -391,7 +391,7 @@
             <td><img height="25" src="${image.available_sizes[0][1]}"></td>
         </tr>
     {{/if}}
-    {{if namespace == "company" && relationships && relationships.length != 0}}
+    {{if namespace == "organization" && relationships && relationships.length != 0}}
         <tr>
             <td class="describe-text"><input type="checkbox" id="chbRelationship" checked="checked"
                 onclick="ASC.CRM.SocialMedia.switchCheckedPersonsInCompany(jq(this).is(':checked'));"/>
@@ -515,4 +515,64 @@
         </div>
         <input type="hidden" name="selectedContactToMergeID" value="0" />
     </li>
+</script>
+
+<script id="twitterMessageListTmpl" type="text/x-jquery-tmpl">
+    <div class="sm_message_line clearFix">
+        <div class="sn_user_icon">
+            <img alt="" src="${userImageUrl}" width="32" />&nbsp;
+        </div>
+        <div class="sn_message_block longWordsBreak">
+            <span class="header-base-small sn_userName">
+                <img style="border-width:0px;" src="<%= WebImageSupplier.GetAbsoluteWebPath("twitter.png", ProductEntryPoint.ID) %>"" class="sn_small_img">
+                ${userName}
+            </span><br />
+            <div class="sn_message_text">
+                {{html htmlUtility.getFull(Encoder.htmlDecode(ASC.CRM.Common.convertText(text, true)))}}
+            </div>
+            <span class="describe-text">${postedOnDisplay}</span>
+        </div>
+    </div>
+</script>
+
+<script id="twitterMessageListPanelTmpl" type="text/x-jquery-tmpl">
+    <div style="display:none;" class="infoPanel sm_messagesList_ErrorDescription" id="smErrorDescriptionContainer">
+        <div id="smErrorDescription"></div>
+    </div>
+    <div class="clearFix"></div>
+</script>
+
+<script id="findInCrunchbasePanelBodyTmpl" type="text/x-jquery-tmpl">
+    <div>
+        <div id="divModalContent" style="max-height: 500px; overflow: auto;">
+            <div id="divContactDescription"></div>
+
+            <div style="display: none;" id="divCrbsContactConfirm">
+                <div class="h_line" style="margin-top: 15px;">&nbsp;</div>
+
+                <a href="javascript:void(0);" class="button blue middle" onclick="ASC.CRM.SocialMedia.ConfirmCrunchbaseContact(); return false;">
+                    <%= CRMSocialMediaResource.Confirm %>
+                </a>
+                <span class="splitter-buttons">&nbsp;</span>
+                <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog(); return false;">
+                    <%= CRMCommonResource.Cancel %>
+                </a>
+
+                <div style="float:right;">
+                    <span class="text-medium-describe"><%=CRMSocialMediaResource.InformationProvidedBy %></span>
+                    <a target="_blank" href="http://crunchbase.com/" class="link blue bold">CrunchBase</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="divWaitForSearching">
+            <span class="loader-text-block"><%= CRMSocialMediaResource.PleaseWaitForSearching %></span>
+        </div>
+
+        <div class="divWaitForAdding">
+            <span class="loader-text-block"><%= CRMSocialMediaResource.PleaseWait %></span>
+        </div>
+
+        <div class="divNoProfiles"><%= CRMSocialMediaResource.NoAccountsHasBeenFound %></div>
+    </div>
 </script>

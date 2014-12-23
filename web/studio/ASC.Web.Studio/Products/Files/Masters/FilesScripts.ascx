@@ -24,14 +24,12 @@
 <script type="text/javascript" language="javascript" src="<%= PathProvider.GetFileStaticRelativePath("mousemanager.js") %>"></script>
 <script type="text/javascript" language="javascript" src="<%= PathProvider.GetFileStaticRelativePath("markernew.js") %>"></script>
 <script type="text/javascript" language="javascript" src="<%= PathProvider.GetFileStaticRelativePath("actionmanager.js") %>"></script>
-<script type="text/javascript" language="javascript" src="<%= PathProvider.GetFileStaticRelativePath("eventhandler.js") %>"></script>
 <script type="text/javascript" language="javascript" src="<%= PathProvider.GetFileStaticRelativePath("anchormanager.js") %>"></script>
 <script type="text/javascript" language="javascript" src="<%= PathProvider.GetFileStaticRelativePath("foldermanager.js") %>"></script>
 
 <%--Controls--%>
 
 <script type="text/javascript" language="javascript" src="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/createmenu/createmenu.js" %>"></script>
-<script type="text/javascript" language="javascript" src="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/emptyfolder/emptyfolder.js" %>"></script>
 <script type="text/javascript" language="javascript" src="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/fileviewer/fileviewer.js" %>"></script>
 <script type="text/javascript" language="javascript" src="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/convertfile/convertfile.js" %>"></script>
 <script type="text/javascript" language="javascript" src="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/chunkuploaddialog/chunkuploadmanager.js" %>"></script>

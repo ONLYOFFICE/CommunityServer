@@ -33,7 +33,7 @@
                     <div class="headerPanelSmall-splitter">
                         <b><%=BlogsResource.ContentTitle %>:</b>
                     </div>
-                    <textarea id="ckEditor" name="mobiletext" style="width:100%; height:400px;" autocomplete="off"><%=_text%></textarea>
+                    <textarea id="ckEditor" name="blog_text" style="width:100%; height:400px;" autocomplete="off"><%=_text%></textarea>
                 </div>
                 <div class="headerPanel-splitter">
                     <div class="headerPanelSmall-splitter">
@@ -54,17 +54,20 @@
                    </td>
                    <td class="teamlab-cut">
                         <div class="title-teamlab-cut"><%= BlogsResource.TeamlabCutTitle %></div>
-                        <div class="text-teamlab-cut"><%= String.Format(BlogsResource.TeamlabCutText, "<span class=\"teamlab-cut-button\"></span>") %></div>
+                        <div class="text-teamlab-cut"><%= BlogsResource.TeamlabCutText %></div>
                     </td>
                     </tr>
                     </table>
 
                 <div class="big-button-container">
-                        <a class="button blue big" href="javascript:void(0);"
-                            onclick="BlogsManager.BlockButtons(); BlogsManager.CheckData();"><%=BlogsResource.PostButton%></a>
+                        <a class="button blue big" onclick="BlogsManager.SubmitData(this)"><%=BlogsResource.PostButton%></a>
                         <span class="splitter-buttons"></span>
-                        <a class="button blue big" href="javascript:void(0);"
-                            onclick="BlogsManager.ShowPreview('<%=txtTitle.ClientID%>'); return false;"><%=BlogsResource.PreviewButton%></a>
+                    <% if (string.IsNullOrEmpty(_text))
+                       { %>
+                        <a id="btnPreview" class="button blue big disable" onclick="BlogsManager.ShowPreview('<%= txtTitle.ClientID %>')"><%= BlogsResource.PreviewButton %></a>
+                    <% } else { %>
+                        <a id="btnPreview" class="button blue big" onclick="BlogsManager.ShowPreview('<%= txtTitle.ClientID %>')"><%= BlogsResource.PreviewButton %></a>
+                    <% } %>
                         <span class="splitter-buttons"></span>
                         <asp:LinkButton ID="lbCancel" OnClientClick="javascript:BlogsManager.OnClickCancel();"
                             CssClass="button gray big cancelFckEditorChangesButtonMarker" runat="server"

@@ -56,7 +56,12 @@
             <input type="checkbox" id="importAsCollaborators" <%if(QuotaEndFlag){ %> checked="checked" disabled="disabled"<%} %> />
             <label for="importAsCollaborators"><%= Resources.Resource.InviteUsersAsCollaborators%></label><div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'answerForHelpInviteGuests',position: 'fixed'});"></div>
             <div class="popup_helper" id="answerForHelpInviteGuests">
-                <p><%=string.Format(Resources.Resource.NoteForInviteCollaborator, "<b>","</b>")%> <a href="<%= CommonLinkUtility.GetHelpLink() %>" target="_blank"><%=Resources.Resource.LearnMore%></a></p>
+                <p><%=string.Format(Resources.Resource.NoteForInviteCollaborator, "<b>","</b>")%> 
+                     <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+                       { %>
+                    <a href="<%= CommonLinkUtility.GetHelpLink() %>" target="_blank"><%=Resources.Resource.LearnMore%></a>
+                    <% } %>
+                </p>
             </div> 
         </div>
         

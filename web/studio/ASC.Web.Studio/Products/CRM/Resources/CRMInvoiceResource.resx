@@ -630,4 +630,7 @@
   <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
     <value>Tax with this name is already registered</value>
   </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>the rate value is incorect</value>
+  </data>
 </root>

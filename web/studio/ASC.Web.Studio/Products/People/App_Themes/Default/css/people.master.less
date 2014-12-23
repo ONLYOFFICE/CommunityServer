@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 @import "../../../../../skins/base.less";
 
 .ui-btn .inner-text {
@@ -37,25 +33,18 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
     background-color: #fff;
 }
 
-.btn-group .menu-list .ui-btn,
-.btn-group .menu-list .ui-btn .inner-text {
-    background-color: #fff;
-}
 
 .toggle-menu .menu-container,
-.btn-group .menu-container,
 .custom-statusbox .statusbox-container {
   .boxShadow();
 }
 
 .toggle-menu .menu-title,
-.btn-group .menu-title,
 .custom-statusbox .statusbox-title {
   .noneSelect();
 }
 
 .toggle-menu .menu-helper,
-.btn-group .menu-helper,
 .custom-statusbox .statusbox-helper {
   display: block;
   width: 100%;
@@ -68,69 +57,6 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
   cursor: default;
 }
 
-.btn-group {
-    display: inline-block;
-    position: relative;
-
-    .menu-container {
-        display: none;
-        line-height: normal;
-        position: absolute;
-        right: 0;
-        text-align: left;
-
-        &:before {
-            display: block;
-            background: url(../imgs/angle00.png) 0 0 no-repeat;
-            width: 7px;
-            height: 5px;
-            position: absolute;
-            right: 8px;
-            top: -5px;
-            z-index: 0;
-            color: #FFF;
-            text-align: center;
-            content: " ";
-        }
-    }
-    .menu-list {
-        list-style: none;
-        display: block;
-        margin: 0 20px 0 15px;
-        padding: 10px 0 15px;
-        position: relative;
-
-        .ui-btn {
-            display: block;
-            border: 0;
-            white-space: nowrap;
-            text-align: left;
-            text-decoration: none;
-            font-size: 12px;
-
-            &:hover {
-                text-decoration: underline;
-            }
-
-            .inner-text {
-                border: 0 !important;
-                display: block;                
-                margin: 0;
-                padding: 0;
-            }
-        }
-    }
-}
-
-.ie10 .btn-group .menu-container:before {
-    right: 14px;
-}
-
-.btn-group > .btn {
-    margin: 0 9px;
-    padding: 0 12px 0 0;
-    position: relative;
-}
 .withHoverArrowDown {
     cursor: pointer;
     padding: 0 12px 0 0;
@@ -141,7 +67,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
     }
 }
 
-.btn-group > .btn:after, .withHoverArrowDown:after {
+.btn.email:after, .withHoverArrowDown:after {
     display: block;
     background: url(../imgs/angle06.png) left bottom  no-repeat;
     height: 4px;
@@ -254,6 +180,7 @@ table.table-list tbody tr:hover .link.dotted {
 }
 #peopleData .email.btn {
     cursor: pointer;
+    display: inline-block;
 }
 #peopleData .profile {
     .ava .status {
@@ -293,29 +220,27 @@ table.table-list tbody tr:hover .link.dotted {
 
 #peopleData .info .btn.email,
 #peopleData .info .email .email {
-    display:block;
+    display:inline-block;
     height: 18px;
     max-width:250px;
     overflow: hidden;
+    padding-right: 13px;
+    position:relative;
     text-overflow:ellipsis;
 }
 #peopleData .info .red-text + .email .email {
       max-width: 200px;
 }
 
-#peopleData .btn-group > .btn {
-  margin-left: 0;
-}
-
 #peopleData .profile.hover{
     background-color: #f2f2f2;
 }
 
-#peopleData .btn-group > .btn:after, .withHoverArrowDown:after {
+#peopleData .email:after, .withHoverArrowDown:after {
     display: none;
 }
-#peopleData .profile.hover .btn-group > .btn:after,
-#peopleData .profile:hover .btn-group > .btn:after,
+#peopleData .profile.hover .email:after,
+#peopleData .profile:hover .email:after,
 #peopleData .profile:hover .withHoverArrowDown:after {
     display: block;
 }
@@ -422,7 +347,7 @@ header menu elements for group operations
 *******************************************************************************/
 
 
-@media all and (max-width: 1300px) {
+/*@media all and (max-width: 1300px) {
     .menuAction.menuRemoveUsers {
         display: none;
     }
@@ -437,17 +362,19 @@ header menu elements for group operations
     .menuAction.menuSendInvite {
         display: none;
     }
-}
+}*/
 
 .menuAction.otherFunctions {
-    display: none;
+    /*display: none;
 
     li {
         display: none;
-    }
+    }*/
 
-    @media all and (max-width: 1300px) {
-        display: block; li.menuRemoveUsers {
+    /*@media all and (max-width: 1300px) {
+        display: block; 
+        
+        li.menuRemoveUsers {
             display: block;
         }
     }
@@ -462,7 +389,7 @@ header menu elements for group operations
         li.menuSendInvite {
             display: block;
         }
-    }
+    }*/
 
     .studio-action-panel {
         cursor: default;
@@ -482,10 +409,6 @@ header menu elements for group operations
             &.unlockAction a {
                 color: #333;
                 cursor: pointer;
-
-                &:hover {
-                    text-decoration: underline;
-                }
             }
         }
     }
@@ -503,7 +426,13 @@ header menu elements for group operations
     overflow-y: auto;
 }
 
-
+.mainPageContent {
+    & > .default-title,
+    #filterContainer,
+    #tableForPeopleNavigation {
+        display: none;
+    }
+}
 /*******************************************************************************
         Banner for the import people
 *******************************************************************************/

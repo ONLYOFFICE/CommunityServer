@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConfirmRemoveFile" xml:space="preserve">
     <value>Are you sure you want to delete the document?</value>
@@ -207,23 +207,8 @@
   <data name="InfoCrateFileIn" xml:space="preserve">
     <value>New file '{0}' is created in '{1}'</value>
   </data>
-  <data name="ImportFromGoogle" xml:space="preserve">
-    <value>Import from Google Docs</value>
-  </data>
-  <data name="ImportFromZoho" xml:space="preserve">
-    <value>Import from Zoho</value>
-  </data>
   <data name="InfoRemoveGroup" xml:space="preserve">
     <value>It was successfully deleted {0} from {1}</value>
-  </data>
-  <data name="EmptyListSelectedForImport" xml:space="preserve">
-    <value>Select at least one document to import</value>
-  </data>
-  <data name="ImportFromBoxNet" xml:space="preserve">
-    <value>Import from Box.Net</value>
-  </data>
-  <data name="ErrorMassage_AuthentificatedFalse" xml:space="preserve">
-    <value>Invalid login or password</value>
   </data>
   <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
     <value>All fields are required to be filled in</value>
@@ -240,20 +225,8 @@
   <data name="ButtonShowMoreLoad" xml:space="preserve">
     <value>Uploading...</value>
   </data>
-  <data name="InfoFinishImport" xml:space="preserve">
-    <value>The import is completed</value>
-  </data>
-  <data name="InfoCancelImport" xml:space="preserve">
-    <value>The import is canceled</value>
-  </data>
-  <data name="InfoImprotNotFinish" xml:space="preserve">
-    <value>Please wait for the previous import to complete</value>
-  </data>
   <data name="InfoCopyLink" xml:space="preserve">
     <value>Link has been copied</value>
-  </data>
-  <data name="EmptyDataToImport" xml:space="preserve">
-    <value>No data to import</value>
   </data>
   <data name="DescriptCreate" xml:space="preserve">
     <value>Creation</value>
@@ -272,9 +245,6 @@
   </data>
   <data name="DescriptCompleteVersion" xml:space="preserve">
     <value>Completing version</value>
-  </data>
-  <data name="DescriptContinueVersion" xml:space="preserve">
-    <value>Continuing version</value>
   </data>
   <data name="DescriptCopy" xml:space="preserve">
     <value>Copy</value>
@@ -332,6 +302,9 @@
   </data>
   <data name="ErrorMassage_EmptyFile" xml:space="preserve">
     <value>Empty file</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Sorry, this file format isn't supported</value>
   </data>
   <data name="ErrorMassage_FileSize" xml:space="preserve">
     <value>The maximum file size is exceeded</value>
@@ -435,12 +408,6 @@
   <data name="FileConverting" xml:space="preserve">
     <value>Converting</value>
   </data>
-  <data name="ButtonCancelImport" xml:space="preserve">
-    <value>Cancel the import</value>
-  </data>
-  <data name="ImportProgress" xml:space="preserve">
-    <value>Import Progress</value>
-  </data>
   <data name="FileConverted" xml:space="preserve">
     <value>Converted</value>
   </data>
@@ -455,6 +422,9 @@
   </data>
   <data name="ButtonFilterImage" xml:space="preserve">
     <value>Images</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Archive</value>
   </data>
   <data name="ButtonFilterPresentation" xml:space="preserve">
     <value>Presentations</value>
@@ -587,5 +557,23 @@
   </data>
   <data name="UnknownErrorText" xml:space="preserve">
     <value>Unknown error...</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Не удалось загрузить для отображения файл {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>More Featurs</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV Directory</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex Directory</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>yandex.com</value>
   </data>
 </root>

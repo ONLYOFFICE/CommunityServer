@@ -1,0 +1,1533 @@
+/*
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+*/
+
+#studio_dropVoipPopupPanel {
+    #voip-phone-view {
+        padding: 5px 10px;
+        width: 270px;
+        color: @textColor;
+    }
+
+    #service-unavailable-box {
+        display: none;
+    }
+
+    #operator-box {
+        display: none;
+
+        #operator-status {
+            float: left;
+            margin-right: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-top: 13px;
+
+            &.online {
+                background: @textColorGreen;
+            }
+
+            &.offline {
+                background: @textColorRed;
+            }
+        }
+
+        #operator-name {
+            float: left;
+            line-height: 35px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #operator-status-switcher {
+            float: right;
+            line-height: 35px;
+            text-align: right;
+
+            &.lock {
+                cursor: default;
+            }
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        #operator-status-switcher-options {
+            .dropdown-item {
+                line-height: 20px;
+            }
+        }
+    }
+
+    #options-box {
+        display: none;
+        margin-top: 6px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid @borderColor;
+
+        #call-type-selector {
+            width: 228px;
+            height: 24px;
+            line-height: 24px;
+            float: left;
+            .borderRadius(3px);
+
+            .browser-type-call {
+                background: url('imagescss/ip_browser.png') no-repeat;
+            }
+
+            .phone-type-call {
+                background: url('imagescss/ip_phone.png') no-repeat;
+            }
+        }
+
+        #toggle-phone-box-btn {
+            float: right;
+            width: 35px;
+            height: 24px;
+            .bg-button-default();
+            .borderRadius(3px);
+            cursor: pointer;
+            position: relative;
+
+            .voip-tastatura {
+                position: absolute;
+                background: url('imagescss/ip_tastatura.png') no-repeat;
+                width: 17px;
+                height: 16px;
+                top: 4px;
+                left: 9px;
+            }
+        }
+    }
+
+    #missed-calls-box {
+        #missed-calls-list {
+            max-height: 270px;
+            overflow: auto;
+
+            &.lock {
+                .missed-call, .missed-call:hover {
+                    background-color: transparent;
+
+                    .missed-call-icon, .missed-call-date {
+                        display: block;
+                    }
+
+                    .recall-btn {
+                        display: none;
+                    }
+
+                    &.selected {
+                        background-color: @activeTable;
+
+                        .missed-call-icon, .missed-call-date {
+                            display: none;
+                        }
+
+                        .recall-btn {
+                            display: block;
+                        }
+                    }
+                }
+            }
+
+            .missed-call {
+                height: 50px;
+                border-bottom: 1px solid @borderColor;
+
+                &:hover {
+                    background-color: @activeTable;
+
+                    .missed-call-icon, .missed-call-date {
+                        display: none;
+                    }
+
+                    .recall-btn {
+                        display: block;
+                    }
+
+                    .missed-call-name {
+                        text-decoration: underline !important;
+                    }
+                }
+
+                .missed-call-avatar, .missed-call-contact {
+                    float: left;
+                }
+
+                .missed-call-icon, .missed-call-date {
+                    float: right;
+                }
+
+                .missed-call-avatar {
+                    position: relative;
+                    margin-right: 10px;
+                    width: 50px;
+                    height: 50px;
+
+                    &:before {
+                        content: ' ';
+                        display: inline-block;
+                        vertical-align: middle;
+                        height: 100%;
+                    }
+
+                    img {
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+
+                    .missed-call-group-count {
+                        position: absolute;
+                        top: 30px;
+                        left: 4px;
+                        border: 2px solid @bg-default;
+                        border-radius: 50%;
+                        width: 14px;
+                        height: 14px;
+                        line-height: 14px;
+                        .bg-header-icon-lable();
+                        font-size: 11px;
+                        color: @defaultButtonTextColor;
+                        text-align: center;
+                    }
+                }
+
+                .missed-call-contact {
+                    padding: 7px 0;
+
+                    .missed-call-name {
+                        display: block;
+                        line-height: 18px;
+                        font-weight: bold;
+                        max-width: 140px;
+                        color: @textColor;
+                        text-decoration: none;
+                        .text-overflow();
+
+                    }
+
+                    .missed-call-number {
+                        line-height: 18px;
+                    }
+
+                    .missed-call-number-single {
+                        line-height: 36px;
+                    }
+                }
+
+                .missed-call-icon {
+                    width: 16px;
+                    height: 16px;
+                    background: url("@{imagesBaseUrl}ip_missed_call_icon.png") no-repeat;
+                    margin-top: 17px;
+                    margin-right: 5px;
+                }
+
+                .missed-call-date {
+                    line-height: 50px;
+                    margin-right: 5px;
+                }
+
+                .recall-btn {
+                    display: none;
+                    float: right;
+                    border-radius: 3px;
+                    margin-top: 13px;
+                    margin-right: 18px;
+                    width: 24px;
+                    height: 24px;
+                    .bg-button-create-new();
+                    cursor: pointer;
+
+                    &.disable {
+                        cursor: default;
+                    }
+
+                    div {
+                        width: 24px;
+                        height: 24px;
+                        background: url("@{imagesBaseUrl}recall-btn.png") 4px 4px no-repeat;
+                    }
+                }
+            }
+        }
+
+        #missed-calls-empty-msg {
+            display: none;
+            text-align: center;
+            color: @textColorGrayDark;
+            padding-top: 12px;
+        }
+    }
+
+    #phone-box {
+        display: none;
+
+        .phone-selector-block {
+            margin-top: 10px;
+        }
+
+        #selected-contact {
+            display: none;
+            .text-overflow();
+            height: 33px;
+            line-height: 33px;
+            padding-left: 30px;
+            padding-right: 10px;
+            background: @hoverTable url('imagescss/ip_abonent.png') 10px 8px no-repeat;
+            margin: 1px 0 16px;
+            color: @textColorGrayDark;
+        }
+
+        #phone-selector-box {
+            margin-bottom: 10px;
+            border: 1px solid @borderColor;
+            height: 22px;
+            line-height: 22px;
+            width: 221px;
+            padding-right: 5px;
+            float: left;
+            position: relative;
+            .borderRadius(3px);
+
+            #country-selector {
+                float: left;
+                margin: 5px;
+                margin-bottom: 0;
+                cursor: pointer;
+            }
+
+            #country-code {
+                display: none;
+                float: left;
+                margin-right: 5px;
+                margin-left: 15px;
+            }
+
+            #phone-input {
+                float: left;
+                border: none;
+                margin: 0;
+                padding: 0;
+                height: 21px;
+                line-height: 17px;
+                width: 150px;
+                font-size: 12px;
+                margin-left: 15px;
+
+                &.alone {
+                    margin-left: 5px;
+                }
+            }
+
+            #phone-clear-btn {
+                display: none;
+                float: right;
+                margin-top: 2px;
+            }
+
+            #contact-phone-switcher-btn {
+                float: right;
+                margin-top: 10px;
+                display: none;
+            }
+
+            #countries-panel {
+                .dropdown-content {
+                    width: 207px;
+                    max-width: 207px;
+
+                    .dropdown-item {
+                        height: 24px;
+                        line-height: 24px;
+                    }
+
+                    .voip-flag {
+                        margin-right: 5px;
+                    }
+                }
+            }
+
+            #contact-phone-switcher-panel {
+                width: 200px;
+                max-width: 200px;
+
+                .dropdown-item {
+                    line-height: 20px;
+
+                    &:hover .data {
+                        text-decoration: underline;
+                    }
+                }
+
+                .data {
+                    float: left;
+                }
+
+                .category {
+                    float: right;
+                    color: @textColorGrayDark;
+                }
+            }
+        }
+
+        #select-contact-btn {
+            float: right;
+            width: 35px;
+            height: 24px;
+            .bg-button-default();
+            .borderRadius(3px);
+            cursor: pointer;
+            position: relative;
+
+            .voip-add-abonent {
+                position: absolute;
+                background: url('imagescss/ip_abonent_add.png') no-repeat;
+                width: 20px;
+                height: 16px;
+                top: 4px;
+                left: 9px;
+            }
+        }
+
+        .panel-row {
+            margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .panel-btn {
+            float: left;
+            width: 80px;
+            height: 42px;
+            margin-right: 12px;
+            line-height: 42px;
+            border: 1px solid @bg-default;
+            .bg-button-default();
+            .borderRadius(3px);
+            font-weight: bold;
+            font-size: 22px;
+            text-align: center;
+            cursor: pointer;
+
+            &:hover {
+                border-color: @bg-button-default-end;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            span {
+                font-size: 12px;
+                line-height: 12px;
+                font-weight: normal;
+                color: @textColorGrayDark;
+                text-transform: uppercase;
+                margin-left: 5px;
+                vertical-align: middle;
+            }
+        }
+
+        #call-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding-left: 0;
+            padding-right: 0;
+            height: 34px;
+            line-height: 34px;
+            font-size: 16px;
+        }
+    }
+
+    #call-box {
+        display: none;
+
+        &:hover {
+            #dude-name {
+                text-decoration: underline !important;
+            }
+        }
+
+        #call-status-box {
+            margin-top: 1px;
+            height: 33px;
+            line-height: 33px;
+            background-color: @hoverTable;
+            color: @textColorGrayDark;
+
+            .call-status {
+                float: left;
+                margin-left: 5px;
+            }
+
+            #call-timer {
+                float: right;
+                margin-right: 5px;
+            }
+        }
+
+        #call-avatar {
+            margin: 12px auto 4px;
+
+            img {
+                display: block;
+                margin: 0 auto;
+                padding: 5px;
+                border: 1px solid @borderColor;
+                cursor: pointer;
+            }
+        }
+
+        #call-dude {
+            margin-bottom: 10px;
+
+            #dude-name {
+                display: block;
+                text-align: center;
+                font-weight: bold;
+                font-size: 16px;
+                text-decoration: none;
+                color: @textColor;
+            }
+
+            #dude-company {
+                text-align: center;
+                font-size: 14px;
+            }
+        }
+
+        #call-number {
+            margin-bottom: 10px;
+
+            #number-value {
+                text-align: center;
+                font-size: 18px;
+            }
+
+            #number-location {
+                text-align: center;
+                font-size: 13px;
+                color: @textColorGrayDark;
+            }
+        }
+
+        #call-btns-box {
+            .button {
+                width: 125px;
+                padding-left: 0;
+                padding-right: 0;
+                height: 16px;
+                line-height: 16px;
+                .bg-button-create-new();
+
+                &.red {
+                    .bg-button-danger();
+                    float: left;
+                }
+
+                &.gray {
+                    .bg-button-default();
+                    color: @textColorGrayDark;
+                    float: right;
+                }
+
+                &.single {
+                    display: block;
+                    float: none;
+                    margin: 0 auto;
+                }
+
+                &.disable {
+                    cursor: default;
+                }
+            }
+
+            #operators-redirect-selector {
+                margin: 10px 0 0;
+                width: 100%;
+            }
+
+            #operators-redirect-empty-msg {
+                display: none;
+                text-align: center;
+                font-size: 13px;
+                color: @textColorGrayDark;
+                margin-top: 5px;
+            }
+        }
+    }
+}
+
+.voip-flag {
+    display: inline-block;
+    background-image: url("imagescss/flags.gif");
+    width: 16px;
+    height: 11px;
+
+    &.AL {
+        background-position: 0 -1034px;
+    }
+
+    &.AU {
+        background-position: 0 -1716px;
+    }
+
+    &.AT {
+        background-position: 0 -1331px;
+    }
+
+    &.AZ {
+        background-position: 0 -1243px;
+    }
+
+    &.DZ {
+        background-position: 0 -528px;
+    }
+
+    &.AS {
+        background-position: 0 -1562px;
+    }
+
+    &.AI {
+        background-position: 0 -1980px;
+    }
+
+    &.AO {
+        background-position: 0 -1947px;
+    }
+
+    &.AD {
+        background-position: 0 -594px;
+    }
+
+    &.AG {
+        background-position: 0 -869px;
+    }
+
+    &.AR {
+        background-position: 0 -2377px;
+    }
+
+    &.AM {
+        background-position: 0 -176px;
+    }
+
+    &.AW {
+        background-position: 0 -792px;
+    }
+
+    &.AF {
+        background-position: 0 -2311px;
+    }
+
+    &.BS {
+        background-position: 0 -363px;
+    }
+
+    &.BD {
+        background-position: 0 -1771px;
+    }
+
+    &.BB {
+        background-position: 0 -1573px;
+    }
+
+    &.BH {
+        background-position: 0 -1496px;
+    }
+
+    &.BY {
+        background-position: 0 -1100px;
+    }
+
+    &.BZ {
+        background-position: 0 -484px;
+    }
+
+    &.BE {
+        background-position: 0 0;
+    }
+
+    &.BJ {
+        background-position: 0 -1298px;
+    }
+
+    &.BM {
+        background-position: 0 -1914px;
+    }
+
+    &.BG {
+        background-position: 0 -2586px;
+    }
+
+    &.BO {
+        background-position: 0 -1650px;
+    }
+
+    &.BQ {
+        background-position: 0 -2719px;
+    }
+
+    &.BA {
+        background-position: 0 -1584px;
+    }
+
+    &.BW {
+        background-position: 0 -2707px;
+    }
+
+    &.BR {
+        background-position: 0 -770px;
+    }
+
+    &.IO {
+        background-position: 0 -55px;
+    }
+
+    &.VG {
+        background-position: 0 -1408px;
+    }
+
+    &.BN {
+        background-position: 0 -1683px;
+    }
+
+    &.BF {
+        background-position: 0 -726px;
+    }
+
+    &.BI {
+        background-position: 0 -1892px;
+    }
+
+    &.BT {
+        background-position: 0 -1848px;
+    }
+
+    &.VU {
+        background-position: 0 -1265px;
+    }
+
+    &.VA {
+        background-position: 0 -2322px;
+    }
+
+    &.GB {
+        background-position: 0 -55px;
+    }
+
+    &.HU {
+        background-position: 0 -682px;
+    }
+
+    &.VE {
+        background-position: 0 -1056px;
+    }
+
+    &.VI {
+        background-position: 0 -1782px;
+    }
+
+    &.VN {
+        background-position: 0 -968px;
+    }
+
+    &.GA {
+        background-position: 0 -880px;
+    }
+
+    &.HT {
+        background-position: 0 -319px;
+    }
+
+    &.GY {
+        background-position: 0 -803px;
+    }
+
+    &.GM {
+        background-position: 0 -627px;
+    }
+
+    &.GH {
+        background-position: 0 -2112px;
+    }
+
+    &.GP {
+        background-position: 0 -407px;
+    }
+
+    &.GT {
+        background-position: 0 -935px;
+    }
+
+    &.GN {
+        background-position: 0 -2575px;
+    }
+
+    &.GW {
+        background-position: 0 -1925px;
+    }
+
+    &.DE {
+        background-position: 0 -2509px;
+    }
+
+    &.GI {
+        background-position: 0 -275px;
+    }
+
+    &.HN {
+        background-position: 0 -2156px;
+    }
+
+    &.HK {
+        background-position: 0 -2696px;
+    }
+
+    &.GD {
+        background-position: 0 -2399px;
+    }
+
+    &.GL {
+        background-position: 0 -1760px;
+    }
+
+    &.GR {
+        background-position: 0 -165px;
+    }
+
+    &.GE {
+        background-position: 0 -858px;
+    }
+
+    &.GU {
+        background-position: 0 -2366px;
+    }
+
+    &.DK {
+        background-position: 0 -1386px;
+    }
+
+    &.CD {
+        background-position: 0 -1518px;
+    }
+
+    &.DJ {
+        background-position: 0 -2101px;
+    }
+
+    &.DM {
+        background-position: 0 -2432px;
+    }
+
+    &.DO {
+        background-position: 0 -1529px;
+    }
+
+    &.EG {
+        background-position: 0 -2201px;
+    }
+
+    &.ZM {
+        background-position: 0 -1595px;
+    }
+
+    &.ZW {
+        background-position: 0 -2046px;
+    }
+
+    &.IL {
+        background-position: 0 -341px;
+    }
+
+    &.IN {
+        background-position: 0 -1694px;
+    }
+
+    &.ID {
+        background-position: 0 -1958px;
+    }
+
+    &.JO {
+        background-position: 0 -1463px;
+    }
+
+    &.IQ {
+        background-position: 0 -649px;
+    }
+
+    &.IR {
+        background-position: 0 -2013px;
+    }
+
+    &.IE {
+        background-position: 0 -1969px;
+    }
+
+    &.IS {
+        background-position: 0 -1991px;
+    }
+
+    &.ES {
+        background-position: 0 -1155px;
+    }
+
+    &.IT {
+        background-position: 0 -143px;
+    }
+
+    &.YE {
+        background-position: 0 -1672px;
+    }
+
+    &.KZ {
+        background-position: 0 -1210px;
+    }
+
+    &.KY {
+        background-position: 0 -308px;
+    }
+
+    &.KH {
+        background-position: 0 -242px;
+    }
+
+    &.CM {
+        background-position: 0 -2057px;
+    }
+
+    &.CA {
+        background-position: 0 -1375px;
+    }
+
+    &.QA {
+        background-position: 0 -462px;
+    }
+
+    &.KE {
+        background-position: 0 -2630px;
+    }
+
+    &.CY {
+        background-position: 0 -561px;
+    }
+
+    &.KG {
+        background-position: 0 -1617px;
+    }
+
+    &.KI {
+        background-position: 0 -374px;
+    }
+
+    &.CN {
+        background-position: 0 -825px;
+    }
+
+    &.CO {
+        background-position: 0 -330px;
+    }
+
+    &.KM {
+        background-position: 0 -1430px;
+    }
+
+    &.CG {
+        background-position: 0 -1793px;
+    }
+
+    &.CR {
+        background-position: 0 -2090px;
+    }
+
+    &.CI {
+        background-position: 0 -1661px;
+    }
+
+    &.CU {
+        background-position: 0 -748px;
+    }
+
+    &.KW {
+        background-position: 0 -2487px;
+    }
+
+    &.CW {
+        background-position: 0 -2729px;
+    }
+
+    &.LA {
+        background-position: 0 -451px;
+    }
+
+    &.LV {
+        background-position: 0 -1936px;
+    }
+
+    &.LS {
+        background-position: 0 -2190px;
+    }
+
+    &.LR {
+        background-position: 0 -2068px;
+    }
+
+    &.LB {
+        background-position: 0 -1254px;
+    }
+
+    &.LY {
+        background-position: 0 -132px;
+    }
+
+    &.LT {
+        background-position: 0 -1122px;
+    }
+
+    &.LI {
+        background-position: 0 -979px;
+    }
+
+    &.LU {
+        background-position: 0 -1474px;
+    }
+
+    &.MU {
+        background-position: 0 -2179px;
+    }
+
+    &.MR {
+        background-position: 0 -253px;
+    }
+
+    &.MG {
+        background-position: 0 -1287px;
+    }
+
+    &.MO {
+        background-position: 0 -2597px;
+    }
+
+    &.MK {
+        background-position: 0 -1353px;
+    }
+
+    &.MW {
+        background-position: 0 -2145px;
+    }
+
+    &.MY {
+        background-position: 0 -1870px;
+    }
+
+    &.ML {
+        background-position: 0 -2520px;
+    }
+
+    &.MV {
+        background-position: 0 -616px;
+    }
+
+    &.MT {
+        background-position: 0 -1551px;
+    }
+
+    &.MA {
+        background-position: 0 -2333px;
+    }
+
+    &.MQ {
+        background-position: 0 -198px;
+    }
+
+    &.MH {
+        background-position: 0 -1144px;
+    }
+
+    &.MX {
+        background-position: 0 -2024px;
+    }
+
+    &.MZ {
+        background-position: 0 -638px;
+    }
+
+    &.MD {
+        background-position: 0 -2685px;
+    }
+
+    &.MC {
+        background-position: 0 -913px;
+    }
+
+    &.MN {
+        background-position: 0 -2553px;
+    }
+
+    &.MS {
+        background-position: 0 -583px;
+    }
+
+    &.MM {
+        background-position: 0 -11px;
+    }
+
+    &.NA {
+        background-position: 0 -1881px;
+    }
+
+    &.NR {
+        background-position: 0 -1749px;
+    }
+
+    &.NP {
+        background-position: 0 -110px;
+    }
+
+    &.NE {
+        background-position: 0 -550px;
+    }
+
+    &.NG {
+        background-position: 0 -2476px;
+    }
+
+    &.NL {
+        background-position: 0 -1441px;
+    }
+
+    &.NI {
+        background-position: 0 -154px;
+    }
+
+    &.NU {
+        background-position: 0 -2079px;
+    }
+
+    &.NZ {
+        background-position: 0 -1540px;
+    }
+
+    &.NC {
+        background-position: 0 -1276px;
+    }
+
+    &.NO {
+        background-position: 0 -836px;
+    }
+
+    &.AE {
+        background-position: 0 -2223px;
+    }
+
+    &.TC {
+        background-position: 0 -1309px;
+    }
+
+    &.BL {
+        background-position: 0 -1012px;
+    }
+
+    &.SH {
+        background-position: 0 -495px;
+    }
+
+    &.OM {
+        background-position: 0 -2454px;
+    }
+
+    &.CV {
+        background-position: 0 -2652px;
+    }
+
+    &.CK {
+        background-position: 0 -2267px;
+    }
+
+    &.AC {
+        background-position: 0 -55px;
+    }
+
+    &.NF {
+        background-position: 0 -209px;
+    }
+
+    &.MF {
+        background-position: 0 -55px;
+    }
+
+    &.PK {
+        background-position: 0 -2035px;
+    }
+
+    &.PW {
+        background-position: 0 -231px;
+    }
+
+    &.PS {
+        background-position: 0 -1199px;
+    }
+
+    &.PA {
+        background-position: 0 -847px;
+    }
+
+    &.PG {
+        background-position: 0 -1485px;
+    }
+
+    &.PY {
+        background-position: 0 -2344px;
+    }
+
+    &.PE {
+        background-position: 0 -946px;
+    }
+
+    &.PL {
+        background-position: 0 -1177px;
+    }
+
+    &.PT {
+        background-position: 0 -517px;
+    }
+
+    &.PR {
+        background-position: 0 -473px;
+    }
+
+    &.KR {
+        background-position: 0 -2245px;
+    }
+
+    &.RE {
+        background-position: 0 -264px;
+    }
+
+    &.RU {
+        background-position: 0 -660px;
+    }
+
+    &.RW {
+        background-position: 0 -2674px;
+    }
+
+    &.RO {
+        background-position: 0 -671px;
+    }
+
+    &.SV {
+        background-position: 0 -1639px;
+    }
+
+    &.WS {
+        background-position: 0 -2300px;
+    }
+
+    &.SM {
+        background-position: 0 -2123px;
+    }
+
+    &.ST {
+        background-position: 0 -2388px;
+    }
+
+    &.SA {
+        background-position: 0 -33px;
+    }
+
+    &.SZ {
+        background-position: 0 -2278px;
+    }
+
+    &.KP {
+        background-position: 0 -1804px;
+    }
+
+    &.MP {
+        background-position: 0 -704px;
+    }
+
+    &.SC {
+        background-position: 0 -1045px;
+    }
+
+    &.SN {
+        background-position: 0 -2134px;
+    }
+
+    &.PM {
+        background-position: 0 -1078px;
+    }
+
+    &.VC {
+        background-position: 0 -2619px;
+    }
+
+    &.KN {
+        background-position: 0 -99px;
+    }
+
+    &.LC {
+        background-position: 0 -1397px;
+    }
+
+    &.RS {
+        background-position: 0 -2465px;
+    }
+
+    &.SG {
+        background-position: 0 -22px;
+    }
+
+    &.SX {
+        background-position: 0 -2773px;
+    }
+
+    &.SY {
+        background-position: 0 -1826px;
+    }
+
+    &.SK {
+        background-position: 0 -2212px;
+    }
+
+    &.SI {
+        background-position: 0 -1221px;
+    }
+
+    &.SB {
+        background-position: 0 -1067px;
+    }
+
+    &.SO {
+        background-position: 0 -1364px;
+    }
+
+    &.SD {
+        background-position: 0 -352px;
+    }
+
+    &.SR {
+        background-position: 0 -2663px;
+    }
+
+    &.US {
+        background-position: 0 -44px;
+    }
+
+    &.SL {
+        background-position: 0 -737px;
+    }
+
+    &.TJ {
+        background-position: 0 -187px;
+    }
+
+    &.TH {
+        background-position: 0 -957px;
+    }
+
+    &.TW {
+        background-position: 0 -506px;
+    }
+
+    &.TZ {
+        background-position: 0 -2289px;
+    }
+
+    &.TL {
+        background-position: 0 -2784px;
+    }
+
+    &.TG {
+        background-position: 0 -605px;
+    }
+
+    &.TK {
+        background-position: 0 -2751px;
+    }
+
+    &.TO {
+        background-position: 0 -1089px;
+    }
+
+    &.TT {
+        background-position: 0 -440px;
+    }
+
+    &.TV {
+        background-position: 0 -286px;
+    }
+
+    &.TN {
+        background-position: 0 -539px;
+    }
+
+    &.TM {
+        background-position: 0 -2542px;
+    }
+
+    &.TR {
+        background-position: 0 -1606px;
+    }
+
+    &.UG {
+        background-position: 0 -1166px;
+    }
+
+    &.UZ {
+        background-position: 0 -1001px;
+    }
+
+    &.UA {
+        background-position: 0 -2002px;
+    }
+
+    &.WF {
+        background-position: 0 -1012px;
+    }
+
+    &.UY {
+        background-position: 0 -2608px;
+    }
+
+    &.FO {
+        background-position: 0 -1111px;
+    }
+
+    &.FM {
+        background-position: 0 -1738px;
+    }
+
+    &.FJ {
+        background-position: 0 -1859px;
+    }
+
+    &.PH {
+        background-position: 0 -1815px;
+    }
+
+    &.FI {
+        background-position: 0 -1903px;
+    }
+
+    &.FK {
+        background-position: 0 -2762px;
+    }
+
+    &.FR {
+        background-position: 0 -1012px;
+    }
+
+    &.GF {
+        background-position: 0 -2234px;
+    }
+
+    &.PF {
+        background-position: 0 -1705px;
+    }
+
+    &.HR {
+        background-position: 0 -902px;
+    }
+
+    &.CF {
+        background-position: 0 -1837px;
+    }
+
+    &.TD {
+        background-position: 0 -814px;
+    }
+
+    &.ME {
+        background-position: 0 -2167px;
+    }
+
+    &.CZ {
+        background-position: 0 -2256px;
+    }
+
+    &.CL {
+        background-position: 0 -1342px;
+    }
+
+    &.CH {
+        background-position: 0 -1320px;
+    }
+
+    &.SE {
+        background-position: 0 -385px;
+    }
+
+    &.LK {
+        background-position: 0 -2641px;
+    }
+
+    &.EC {
+        background-position: 0 -1188px;
+    }
+
+    &.GQ {
+        background-position: 0 -1507px;
+    }
+
+    &.ER {
+        background-position: 0 -715px;
+    }
+
+    &.EE {
+        background-position: 0 -2410px;
+    }
+
+    &.ET {
+        background-position: 0 -2443px;
+    }
+
+    &.ZA {
+        background-position: 0 -2355px;
+    }
+
+    &.SS {
+        background-position: 0 -2741px;
+    }
+
+    &.JM {
+        background-position: 0 -1727px;
+    }
+
+    &.JP {
+        background-position: 0 -429px;
+    }
+}

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.MailAddressModel" BaseTypeListCollapsed="true">
+    <Position X="12" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEgAAAAAQAAgAAAIAAAAAEAAAEAAA=</HashCode>
+      <FileName>MailAddressModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.MailboxModel" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAABAAAAAgAEAAEAAAAAgIIACAAAkAgAEAEA=</HashCode>
+      <FileName>MailboxModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.MailGroupModel" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAEBAAAAAAAChAAAAEAAAQEkIIACAAAAAgAEAAA=</HashCode>
+      <FileName>MailGroupModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.MailServerFactoryBase" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAACABAAAQAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MailServerFactoryBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.ServerModel">
+    <Position X="0.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAARBAMABDAAEBEDAAEAAiAAgIAACgAADwBEAIAA=</HashCode>
+      <FileName>ServerModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.TypicalTeamlabObject" BaseTypeListCollapsed="true">
+    <Position X="6" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>TypicalTeamlabObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.ServerModel.WebDomainModel" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAgAAAAAQAAAAAAIAAAAAEAAAAAAA=</HashCode>
+      <FileName>WebDomainModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.MailboxCreationException">
+    <Position X="8.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.AddressAddingExcepion">
+    <Position X="8.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.AddressConvertationExcepion">
+    <Position X="12" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.MailAccountBase">
+    <Position X="10.25" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.ServerInformation">
+    <Position X="10.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.MailServerBase">
+    <Position X="0.75" Y="5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailAddress">
+    <Position X="4.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailbox">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailboxQuota">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailGroup">
+    <Position X="2.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailServerFactory">
+    <Position X="7" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.ITeamlabObject" Collapsed="true">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IWebDomain">
+    <Position X="8.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

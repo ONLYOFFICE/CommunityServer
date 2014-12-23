@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 ;
 window.ASC.Files.Editor = (function () {
     var isInit = false;
@@ -46,7 +42,6 @@ window.ASC.Files.Editor = (function () {
     var tabId = "";
     var serverErrorMessage = null;
     var editByUrl = false;
-    var mustAuth = false;
     var canCreate = true;
     var thirdPartyApp = false;
     var options = null;
@@ -162,7 +157,8 @@ window.ASC.Files.Editor = (function () {
             "onDocumentStateChange": ASC.Files.Editor.documentStateChangeEditor,
             "onRequestEditRights": ASC.Files.Editor.requestEditRightsEditor,
             "onSave": ASC.Files.Editor.saveEditor,
-            "onError": ASC.Files.Editor.errorEditor
+            "onError": ASC.Files.Editor.errorEditor,
+            "onOutdatedVersion": ASC.Files.Editor.outdatedVersion
         };
 
         ASC.Files.Editor.docEditor = new DocsAPI.DocEditor("iframeEditor", {
@@ -202,10 +198,14 @@ window.ASC.Files.Editor = (function () {
         }
     };
 
-    var backEditor = function () {
+    var backEditor = function (event) {
         clearTimeout(trackEditTimeout);
         var href = ASC.Files.Editor.docServiceParams ? ASC.Files.Editor.docServiceParams.folderUrl : ASC.Files.Constants.URL_FILES_START;
-        location.href = href;
+        if (event && event.data) {
+            window.open(href, "_blank");
+        } else {
+            location.href = href;
+        }
     };
 
     var documentStateChangeEditor = function (event) {
@@ -246,13 +246,7 @@ window.ASC.Files.Editor = (function () {
             .format(encodeURIComponent(urlSavedDoc), encodeURIComponent(ASC.Files.Editor.docServiceParams.file.title));
         urlRedirect += "&openfolder=true";
 
-        if (ASC.Files.Editor.mustAuth) {
-            jq("#additionalMember").val(urlRedirect);
-            jq(".block-auth").show();
-
-            ASC.Files.Editor.docEditor.processSaveResult(true);
-            return true;
-        } else if (ASC.Files.Editor.editByUrl) {
+        if (ASC.Files.Editor.editByUrl) {
 
             ASC.Files.Editor.docEditor.processSaveResult(true);
             location.href = urlRedirect;
@@ -284,6 +278,10 @@ window.ASC.Files.Editor = (function () {
                     shareLinkParam: ASC.Files.Editor.shareLinkParam
                 });
         }
+    };
+
+    var outdatedVersion = function () {
+        location.reload(true);
     };
 
     var trackEdit = function () {
@@ -465,7 +463,6 @@ window.ASC.Files.Editor = (function () {
         tabId: tabId,
         serverErrorMessage: serverErrorMessage,
         editByUrl: editByUrl,
-        mustAuth: mustAuth,
         canCreate: canCreate,
         options: options,
         thirdPartyApp: thirdPartyApp,
@@ -482,6 +479,7 @@ window.ASC.Files.Editor = (function () {
         requestEditRightsEditor: requestEditRightsEditor,
         errorEditor: errorEditor,
         saveEditor: saveEditor,
+        outdatedVersion: outdatedVersion,
 
         fixedVersion: fixedVersion
     };
@@ -520,25 +518,6 @@ window.ASC.Files.Editor = (function () {
             window.addEventListener("load", ASC.Files.Editor.fixSize);
             window.addEventListener("orientationchange", ASC.Files.Editor.fixSize);
         }
-
-        jq(".block-auth .close").on("click", function () {
-            jq(".block-auth").hide();
-            jq("#wrap iframe").focus();
-        });
-
-        jq(document).bind("keyup", ".block-auth", function (event) {
-            if (!e) {
-                var e = event;
-            }
-
-            e = ASC.Files.Common.fixEvent(e);
-
-            var code = e.keyCode || e.which;
-
-            if (code == ASC.Files.Common.keyCode.esc) {
-                jq(".block-auth .close").click();
-            }
-        });
     });
 })(jQuery);
 

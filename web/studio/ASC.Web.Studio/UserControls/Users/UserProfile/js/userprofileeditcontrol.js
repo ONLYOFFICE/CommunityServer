@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 /*
@@ -196,11 +196,11 @@ window.EditProfileManager = (function () {
             } else {
                 isVisitor = (jq("#userTypeField").attr("data-type") == "user") ? false : true;
             }
-            var firstName = jq("#profileFirstName").val().trim(),
-                lastName = jq("#profileSecondName").val().trim(),
-                position = jq("#profilePosition").val().trim(),
-                location = jq("#profilePlace").val().trim(),
-                email = jq("#profileEmail").val().trim(),
+            var firstName = jq("#profileFirstName").val() ? jq("#profileFirstName").val().trim() : "",
+                lastName = jq("#profileSecondName").val() ? jq("#profileSecondName").val().trim() : "",
+                position = jq("#profilePosition").val() ? jq("#profilePosition").val().trim() : "",
+                location = jq("#profilePlace").val() ? jq("#profilePlace").val().trim() : "",
+                email = jq("#profileEmail").val() ? jq("#profileEmail").val().trim() : "",
                 workFromDate = jq("#profileRegistrationDate").val(),
                 birthDate = jq("#profileBirthDate").val(),
                 pathname = jq("#userProfilePhoto").find("img").attr("src"),
@@ -244,15 +244,15 @@ window.EditProfileManager = (function () {
                 ShowRequiredError(jq("#profilePlace"));
                 isError = true;
             }
-            if (workFromDate != "" && !jq.isDateFormat(workFromDate)) {
+            if (workFromDate && !jq.isDateFormat(workFromDate)) {
                 ShowRequiredError(jq("#profileRegistrationDate"));
                 isError = true;
             }
-            if (birthDate != "" && !jq.isDateFormat(birthDate)) {
+            if (birthDate && !jq.isDateFormat(birthDate)) {
                 ShowRequiredError(jq("#profileBirthDate"));
                 isError = true;
             }
-            if (birthDate != "" && workFromDate != "" && jq("#profileRegistrationDate").datepicker('getDate').getTime() < jq("#profileBirthDate").datepicker('getDate').getTime()) {
+            if (birthDate && workFromDate && jq("#profileRegistrationDate").datepicker('getDate').getTime() < jq("#profileBirthDate").datepicker('getDate').getTime()) {
                 jq("#profileRegistrationDate").siblings(".requiredErrorText").text(ASC.Resources.Master.Resource.ErrorMessage_InvalidDate);
                 ShowRequiredError(jq("#profileRegistrationDate"));
                 isError = true;
@@ -291,7 +291,7 @@ window.EditProfileManager = (function () {
 
             var resetDate = new Date(1900, 00, 01);
 
-            if (birthDate.length) {
+            if (birthDate && birthDate.length) {
                 birthDate = jq("#profileBirthDate").datepicker('getDate');
                 birthDate.setHours(0);
                 birthDate.setMinutes(0);
@@ -301,7 +301,7 @@ window.EditProfileManager = (function () {
             }
 
 
-            if (workFromDate.length) {
+            if (workFromDate && workFromDate.length) {
                 workFromDate = jq("#profileRegistrationDate").datepicker('getDate');
                 workFromDate.setHours(0);
                 workFromDate.setMinutes(0);
@@ -380,35 +380,41 @@ window.EditProfileManager = (function () {
     var InitDatePicker = function () {
 
         var fromDateInp = jq("#profileRegistrationDate"),
-            birthDateInp = jq("#profileBirthDate");
+            birthDateInp = jq("#profileBirthDate"),
+            maxBirthDate = null;
+
         if (!IsInitDatePicker) {
             jq(fromDateInp).mask(ASC.Resources.Master.DatePatternJQ);
             jq(birthDateInp).mask(ASC.Resources.Master.DatePatternJQ);
 
-            jq(fromDateInp)
-                .datepicker({
-                    onSelect: function () {
-                        var date = jq(this).datepicker("getDate");
-                        jq(birthDateInp).datepicker("option", "maxDate", date || null);
-                    }
-                }).val(jq(fromDateInp).attr("data-value"));
-
-            jq(birthDateInp)
-                .datepicker({
-                    onSelect: function () {
-                        var date = jq(this).datepicker("getDate");
-                        jq(fromDateInp).datepicker("option", "minDate", date || null);
-                    }
-                }).val(jq(birthDateInp).attr("data-value"));
+            if (fromDateInp) {
+                jq(fromDateInp)
+                         .datepicker({
+                             onSelect: function () {
+                                 var date = jq(this).datepicker("getDate");
+                                 jq(birthDateInp).datepicker("option", "maxDate", date || null);
+                             }
+                         }).val(jq(fromDateInp).attr("data-value"));
+            }
+            if (birthDateInp) {
+                jq(birthDateInp)
+                    .datepicker({
+                        onSelect: function () {
+                            var date = jq(this).datepicker("getDate");
+                            jq(fromDateInp).datepicker("option", "minDate", date || null);
+                        }
+                    }).val(jq(birthDateInp).attr("data-value"));
+            }
             IsInitDatePicker = true;
         };
         jq(fromDateInp).datepicker("option", "minDate", jq(birthDateInp).datepicker("getDate") || null);
-        jq(birthDateInp).datepicker("option", "maxDate", jq(fromDateInp).datepicker("getDate") || null);
+        maxBirthDate = jq(fromDateInp).datepicker("getDate") || "";
+        jq(birthDateInp).datepicker("option", "maxDate", maxBirthDate.length ? maxBirthDate : null);
     };
 
     var isValidBithday = function () {
-        var fromDateInp = jq("#profileRegistrationDate");
-        var birthDateInp = jq("#profileBirthDate");
+        var fromDateInp = jq("#profileRegistrationDate"),
+            birthDateInp = jq("#profileBirthDate");
         return (fromDateInp.datepicker("getDate").getTime() > birthDateInp.datepicker("getDate").getTime()) ? true : false;
     };
 

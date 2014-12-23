@@ -106,7 +106,7 @@
                     </tr>
                     <tr>
                         <td class="select-cell" colspan="2">
-                            <select id="contactCountry" class="contact_country comboBox" runat="server">
+                            <select id="contactCountry" class="contact_country comboBox">
                             </select>
                         </td>
                     </tr>

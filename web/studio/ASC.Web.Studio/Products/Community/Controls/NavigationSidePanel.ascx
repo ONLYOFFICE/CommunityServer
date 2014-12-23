@@ -10,7 +10,6 @@
     <% if (!IsVisitor) %>
 <% { %>
 <div id="createNewButton" class="studio-action-panel">
-        <div class="corner-top left"></div>
         <ul class="dropdown-content">
             <% if (IsBlogsAvailable) %>
             <% { %>
@@ -110,7 +109,6 @@
     </div>
     
     <div id="otherActions" class="studio-action-panel display-none">
-        <div class="corner-top right"></div>
         <ul class="dropdown-content"></ul>
     </div>
 <% } %>
@@ -293,6 +291,7 @@
             
             <asp:PlaceHolder ID="HelpHolder" runat="server"></asp:PlaceHolder>
             <asp:PlaceHolder ID="SupportHolder" runat="server"></asp:PlaceHolder>
-           
+            <asp:PlaceHolder ID="UserForumHolder" runat="server"></asp:PlaceHolder>
+            <asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>
         </ul>
     </div>

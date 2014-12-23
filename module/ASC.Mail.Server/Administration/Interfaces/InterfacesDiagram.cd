@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.MailboxCreationException">
+    <Position X="7.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.AddressAddingExcepion">
+    <Position X="9.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.AddressConvertationExcepion">
+    <Position X="11" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.MailAccountBase">
+    <Position X="9.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAMAAAAAAgAAAAAAAAAAAAAAAAACAAAQIAAAAAA=</HashCode>
+      <FileName>MailAccountBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.ServerInformation">
+    <Position X="11" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>MailAccountBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASC.Mail.Server.Administration.Interfaces.MailServerBase" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAEIADAAAAECAAAAAKAAAAAAKgCABQAAEIAA=</HashCode>
+      <FileName>MailServerBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailAddress">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAgAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>IMailAddress.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailbox">
+    <Position X="2.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAEAAAAAAAAgAAACAAAkAgAAAEA=</HashCode>
+      <FileName>IMailbox.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailboxQuota">
+    <Position X="4.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IMailboxQuota.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailGroup">
+    <Position X="5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAkAAACAAAAAgAAAAA=</HashCode>
+      <FileName>IMailGroup.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IMailServerFactory">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAACABAAAQAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IMailServerFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.ITeamlabObject">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>ITeamlabObject.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ASC.Mail.Server.Administration.Interfaces.IWebDomain">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>IWebDomain.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

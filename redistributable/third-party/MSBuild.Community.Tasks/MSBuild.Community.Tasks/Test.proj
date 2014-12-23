@@ -1,0 +1,11 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.CopyDirectory" />
+
+  <Target Name="Build">
+    <CopyDirectory
+      SourceFolder="f:\Work\ASC\branches\TeamLab.Mono.2\_ci\additionals"
+      DestinationFolder="."
+      ExcludeRegex="\\empty\\"/>
+  </Target>
+</Project>

@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -45,17 +45,17 @@ namespace ASC.Api.CRM
     public partial class CRMApi
     {
         /// <summary>
-        ///   Open anew the case with the ID specified in the request
+        ///   Close the case with the ID specified in the request
         /// </summary>
-        /// <short>Resume case</short> 
+        /// <short>Close case</short> 
         /// <category>Cases</category>
-        /// <param name="caseid">Case ID</param>
+        /// <param name="caseid" optional="false">Case ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
         ///   Case
         /// </returns>
-        [Update("case/{caseid:[0-9]+}/close")]
+        [Update(@"case/{caseid:[0-9]+}/close")]
         public CasesWrapper CloseCases(int caseid)
         {
             if (caseid <= 0) throw new ArgumentException();
@@ -63,23 +63,23 @@ namespace ASC.Api.CRM
             var cases = DaoFactory.GetCasesDao().CloseCases(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
-            MessageService.Send(_context, MessageAction.CaseClosed, cases.Title);
+            MessageService.Send(Request, MessageAction.CaseClosed, cases.Title);
 
             return ToCasesWrapper(cases);
         }
 
         /// <summary>
-        ///   Close the case with the ID specified in the request
+        ///   Resume the case with the ID specified in the request
         /// </summary>
-        /// <short>Close case</short> 
+        /// <short>Resume case</short> 
         /// <category>Cases</category>
-        /// <param name="caseid">Case ID</param>
+        /// <param name="caseid" optional="false">Case ID</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
         /// <returns>
         ///   Case
         /// </returns>
-        [Update("case/{caseid:[0-9]+}/reopen")]
+        [Update(@"case/{caseid:[0-9]+}/reopen")]
         public CasesWrapper ReOpenCases(int caseid)
         {
             if (caseid <= 0) throw new ArgumentException();
@@ -87,7 +87,7 @@ namespace ASC.Api.CRM
             var cases = DaoFactory.GetCasesDao().ReOpenCases(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
-            MessageService.Send(_context, MessageAction.CaseOpened, cases.Title);
+            MessageService.Send(Request, MessageAction.CaseOpened, cases.Title);
 
             return ToCasesWrapper(cases);
         }
@@ -96,14 +96,27 @@ namespace ASC.Api.CRM
         ///    Creates the case with the parameters specified in the request
         /// </summary>
         /// <short>Create case</short> 
-        /// <param name="title">Case title</param>
-        /// <param optional="true" name="members">Participants</param>
-        /// <param optional="true" name="customFieldList">User field list</param>
-        /// <param optional="true" name="isPrivate">Case privacy: private or not</param>
-        /// <param optional="true" name="accessList">List of users with access to the case</param>
+        /// <param name="title" optional="false">Case title</param>
+        /// <param name="members" optional="true">Participants</param>
+        /// <param name="customFieldList" optional="true">User field list</param>
+        /// <param name="isPrivate" optional="true">Case privacy: private or not</param>
+        /// <param name="accessList" optional="true">List of users with access to the case</param>
         /// <returns>Case</returns>
         /// <category>Cases</category>
         /// <exception cref="ArgumentException"></exception>
+        /// <example>
+        /// <![CDATA[
+        /// 
+        /// Data transfer in application/json format:
+        /// 
+        /// data: {
+        ///    title: "Exhibition organization",
+        ///    isPrivate: false,
+        ///    customFieldList: [{1: "value for text custom field with id = 1"}]
+        /// }
+        /// 
+        /// ]]>
+        /// </example>
         [Create(@"case")]
         public CasesWrapper CreateCases(
             string title,
@@ -119,12 +132,13 @@ namespace ASC.Api.CRM
             var cases = new Cases
                 {
                     ID = casesID,
-                    Title = title
+                    Title = title,
+                    CreateBy = SecurityContext.CurrentAccount.ID,
+                    CreateOn = DateTime.UtcNow
                 };
 
-            var accessListLocal = accessList.ToList();
-
-            if (isPrivate && accessListLocal.Count > 0)
+            var accessListLocal = accessList != null ? accessList.ToList() : new List<Guid>();
+            if (isPrivate && accessListLocal.Any())
             {
                 CRMSecurity.SetAccessTo(cases, accessListLocal);
             }
@@ -133,21 +147,22 @@ namespace ASC.Api.CRM
                 CRMSecurity.MakePublic(cases);
             }
 
-            var membersList = members.ToList();
-            if (members != null && membersList.Any())
+            var membersList = members != null ? members.ToList() : new List<int>();
+            if (membersList.Any())
             {
                 var contacts = DaoFactory.GetContactDao().GetContacts(membersList.ToArray()).Where(CRMSecurity.CanAccessTo).ToList();
                 membersList = contacts.Select(m => m.ID).ToList();
-
                 DaoFactory.GetCasesDao().SetMembers(cases.ID, membersList.ToArray());
             }
 
-            var existingCustomFieldList = DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Case).Select(fd => fd.ID).ToList();
-
-            foreach (var field in customFieldList)
+            if (customFieldList != null)
             {
-                if (string.IsNullOrEmpty(field.Value) || !existingCustomFieldList.Contains(field.Key)) continue;
-                DaoFactory.GetCustomFieldDao().SetFieldValue(EntityType.Case, cases.ID, field.Key, field.Value);
+                var existingCustomFieldList = DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Case).Select(fd => fd.ID).ToList();
+                foreach (var field in customFieldList)
+                {
+                    if (string.IsNullOrEmpty(field.Value) || !existingCustomFieldList.Contains(field.Key)) continue;
+                    DaoFactory.GetCustomFieldDao().SetFieldValue(EntityType.Case, cases.ID, field.Key, field.Value);
+                }
             }
 
             return ToCasesWrapper(DaoFactory.GetCasesDao().GetByID(casesID));
@@ -157,15 +172,30 @@ namespace ASC.Api.CRM
         ///   Updates the selected case with the parameters specified in the request
         /// </summary>
         /// <short>Update case</short> 
+        /// <param name="caseid" optional="false">Case ID</param>
+        /// <param name="title" optional="false">Case title</param>
+        /// <param name="members" optional="true">Participants</param>
+        /// <param name="customFieldList" optional="true">User field list</param>
+        /// <param name="isPrivate" optional="true">Case privacy: private or not</param>
+        /// <param name="accessList" optional="true">List of users with access to the case</param>
         /// <category>Cases</category>
-        /// <param name="caseid">Case ID</param>
-        /// <param name="title">Case title</param>
-        /// <param optional="true" name="members">Participants</param>
-        /// <param optional="true" name="customFieldList">User field list</param>
-        /// <param optional="true" name="isPrivate">Case privacy: private or not</param>
-        /// <param optional="true" name="accessList">List of users with access to the case</param>
-        ///<exception cref="ArgumentException"></exception>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <returns>Case</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ItemNotFoundException"></exception>
+        /// <example>
+        /// <![CDATA[
+        /// 
+        /// Data transfer in application/json format:
+        /// 
+        /// data: {
+        ///    caseid: 0,
+        ///    title: "Exhibition organization",
+        ///    isPrivate: false,
+        ///    customFieldList: [{1: "value for text custom field with id = 1"}]
+        /// }
+        /// 
+        /// ]]>
+        /// </example>
         [Update(@"case/{caseid:[0-9]+}")]
         public CasesWrapper UpdateCases(
             int caseid,
@@ -186,9 +216,8 @@ namespace ASC.Api.CRM
 
             if (CRMSecurity.IsAdmin || cases.CreateBy == Core.SecurityContext.CurrentAccount.ID)
             {
-                var accessListLocal = accessList.ToList();
-
-                if (isPrivate && accessListLocal.Count > 0)
+                var accessListLocal = accessList != null ? accessList.ToList() : new List<Guid>();
+                if (isPrivate && accessListLocal.Any())
                 {
                     CRMSecurity.SetAccessTo(cases, accessListLocal);
                 }
@@ -198,21 +227,22 @@ namespace ASC.Api.CRM
                 }
             }
 
-            var membersList = members.ToList();
-            if (members != null && membersList.Any())
+            var membersList = members != null ? members.ToList() : new List<int>();
+            if (membersList.Any())
             {
                 var contacts = DaoFactory.GetContactDao().GetContacts(membersList.ToArray()).Where(CRMSecurity.CanAccessTo).ToList();
                 membersList = contacts.Select(m => m.ID).ToList();
-
                 DaoFactory.GetCasesDao().SetMembers(cases.ID, membersList.ToArray());
             }
 
-            var existingCustomFieldList = DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Case).Select(fd => fd.ID).ToList();
-
-            foreach (var field in customFieldList)
+            if (customFieldList != null)
             {
-                if (string.IsNullOrEmpty(field.Value) || !existingCustomFieldList.Contains(field.Key)) continue;
-                DaoFactory.GetCustomFieldDao().SetFieldValue(EntityType.Case, cases.ID, field.Key, field.Value);
+                var existingCustomFieldList = DaoFactory.GetCustomFieldDao().GetFieldsDescription(EntityType.Case).Select(fd => fd.ID).ToList();
+                foreach (var field in customFieldList)
+                {
+                    if (string.IsNullOrEmpty(field.Value) || !existingCustomFieldList.Contains(field.Key)) continue;
+                    DaoFactory.GetCustomFieldDao().SetFieldValue(EntityType.Case, cases.ID, field.Key, field.Value);
+                }
             }
 
             return ToCasesWrapper(cases);
@@ -221,9 +251,9 @@ namespace ASC.Api.CRM
         /// <summary>
         ///   Sets access rights for the selected case with the parameters specified in the request
         /// </summary>
-        /// <param name="casesid">Case ID</param>
-        /// <param name="isPrivate">Case privacy: private or not</param>
-        /// <param name="accessList">List of users with access to the case</param>
+        /// <param name="casesid" optional="false">Case ID</param>
+        /// <param name="isPrivate" optional="false">Case privacy: private or not</param>
+        /// <param name="accessList" optional="false">List of users with access to the case</param>
         /// <short>Set rights to case</short> 
         /// <category>Cases</category>
         /// <exception cref="ArgumentException"></exception>
@@ -231,7 +261,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///   Case 
         /// </returns>
-        [Update("case/{caseid:[0-9]+}/access")]
+        [Update(@"case/{caseid:[0-9]+}/access")]
         public CasesWrapper SetAccessToCases(int casesid, bool isPrivate, IEnumerable<Guid> accessList)
         {
             if (casesid <= 0) throw new ArgumentException();
@@ -246,19 +276,17 @@ namespace ASC.Api.CRM
 
         private CasesWrapper SetAccessToCases(Cases cases, bool isPrivate, IEnumerable<Guid> accessList)
         {
-            var accessListLocal = accessList.ToList();
-
-            if (isPrivate && accessListLocal.Count > 0)
+            var accessListLocal = accessList != null ? accessList.ToList() : new List<Guid>();
+            if (isPrivate && accessListLocal.Any())
             {
                 CRMSecurity.SetAccessTo(cases, accessListLocal);
-
-                var users = CoreContext.UserManager.GetUsers(accessListLocal).Select(x => x.DisplayUserName(false));
-                MessageService.Send(_context, MessageAction.CaseRestrictedAccess, cases.Title, users);
+                var users = GetUsersByIdList(accessListLocal).Select(x => x.DisplayUserName(false));
+                MessageService.Send(Request, MessageAction.CaseRestrictedAccess, cases.Title, users);
             }
             else
             {
                 CRMSecurity.MakePublic(cases);
-                MessageService.Send(_context, MessageAction.CaseOpenedAccess, cases.Title);
+                MessageService.Send(Request, MessageAction.CaseOpenedAccess, cases.Title);
             }
 
             return ToCasesWrapper(cases);
@@ -277,7 +305,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///   Case list
         /// </returns>
-        [Update("case/access")]
+        [Update(@"case/access")]
         public IEnumerable<CasesWrapper> SetAccessToBatchCases(IEnumerable<int> casesid, bool isPrivate, IEnumerable<Guid> accessList)
         {
             var result = new List<Cases>();
@@ -286,14 +314,13 @@ namespace ASC.Api.CRM
 
             if (!cases.Any()) return new List<CasesWrapper>();
 
-            var aList = accessList.ToList();
             foreach (var c in cases)
             {
                 if (c == null) throw new ItemNotFoundException();
 
                 if (!(CRMSecurity.IsAdmin || c.CreateBy == Core.SecurityContext.CurrentAccount.ID)) continue;
 
-                SetAccessToCases(c, isPrivate, aList);
+                SetAccessToCases(c, isPrivate, accessList);
                 result.Add(c);
             }
 
@@ -315,7 +342,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///   Case list
         /// </returns>
-        [Update("case/filter/access")]
+        [Update(@"case/filter/access")]
         public IEnumerable<CasesWrapper> SetAccessToBatchCases(
             int contactid,
             bool? isClosed,
@@ -330,14 +357,13 @@ namespace ASC.Api.CRM
 
             if (!caseses.Any()) return new List<CasesWrapper>();
 
-            var aList = accessList.ToList();
             foreach (var casese in caseses)
             {
                 if (casese == null) throw new ItemNotFoundException();
 
                 if (!(CRMSecurity.IsAdmin || casese.CreateBy == Core.SecurityContext.CurrentAccount.ID)) continue;
 
-                SetAccessToCases(casese, isPrivate, aList);
+                SetAccessToCases(casese, isPrivate, accessList);
                 result.Add(casese);
             }
 
@@ -399,7 +425,6 @@ namespace ASC.Api.CRM
             var fromIndex = (int)_context.StartIndex;
             var count = (int)_context.Count;
 
-            var tagsList = tags.ToList();
             if (casesOrderBy != null)
             {
                 result = ToListCasesWrappers(
@@ -409,7 +434,7 @@ namespace ASC.Api.CRM
                             searchString,
                             contactid,
                             isClosed,
-                            tagsList,
+                            tags,
                             fromIndex,
                             count,
                             casesOrderBy)).ToList();
@@ -425,7 +450,7 @@ namespace ASC.Api.CRM
                         .GetCasesDao()
                         .GetCases(
                             searchString, contactid, isClosed,
-                            tagsList,
+                            tags,
                             0,
                             0,
                             null)).ToList();
@@ -439,7 +464,7 @@ namespace ASC.Api.CRM
             }
             else
             {
-                totalCount = DaoFactory.GetCasesDao().GetCasesCount(searchString, contactid, isClosed, tagsList);
+                totalCount = DaoFactory.GetCasesDao().GetCasesCount(searchString, contactid, isClosed, tags);
             }
 
             _context.SetTotalCount(totalCount);
@@ -465,7 +490,7 @@ namespace ASC.Api.CRM
             var cases = DaoFactory.GetCasesDao().DeleteCases(caseid);
             if (cases == null) throw new ItemNotFoundException();
 
-            MessageService.Send(_context, MessageAction.CaseDeleted, cases.Title);
+            MessageService.Send(Request, MessageAction.CaseDeleted, cases.Title);
 
             return ToCasesWrapper(cases);
         }
@@ -481,7 +506,7 @@ namespace ASC.Api.CRM
         /// <returns>
         ///   Case list
         /// </returns>
-        [Delete(@"case")]
+        [Update(@"case")]
         public IEnumerable<CasesWrapper> DeleteBatchCases(IEnumerable<int> casesids)
         {
             if (casesids == null) throw new ArgumentException();
@@ -489,7 +514,7 @@ namespace ASC.Api.CRM
             casesids = casesids.Distinct();
             var caseses = DaoFactory.GetCasesDao().DeleteBatchCases(casesids.ToArray());
 
-            MessageService.Send(_context, MessageAction.CasesDeleted, caseses.Select(c => c.Title));
+            MessageService.Send(Request, MessageAction.CasesDeleted, caseses.Select(c => c.Title));
 
             return ToListCasesWrappers(caseses);
         }
@@ -514,7 +539,7 @@ namespace ASC.Api.CRM
             if (!caseses.Any()) return new List<CasesWrapper>();
 
             caseses = DaoFactory.GetCasesDao().DeleteBatchCases(caseses);
-            MessageService.Send(_context, MessageAction.CasesDeleted, caseses.Select(c => c.Title));
+            MessageService.Send(Request, MessageAction.CasesDeleted, caseses.Select(c => c.Title));
 
             return ToListCasesWrappers(caseses);
         }
@@ -562,7 +587,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetCasesDao().AddMember(caseid, contactid);
 
             var messageAction = contact is Company ? MessageAction.CaseLinkedCompany : MessageAction.CaseLinkedPerson;
-            MessageService.Send(_context, messageAction, cases.Title, contact.GetTitle());
+            MessageService.Send(Request, messageAction, cases.Title, contact.GetTitle());
 
             return ToContactWrapper(contact);
         }
@@ -595,7 +620,7 @@ namespace ASC.Api.CRM
             DaoFactory.GetCasesDao().RemoveMember(caseid, contactid);
 
             var messageAction = contact is Company ? MessageAction.CaseUnlinkedCompany : MessageAction.CaseUnlinkedPerson;
-            MessageService.Send(_context, messageAction, cases.Title, contact.GetTitle());
+            MessageService.Send(Request, messageAction, cases.Title, contact.GetTitle());
 
             return result;
         }
@@ -712,6 +737,11 @@ namespace ASC.Api.CRM
 
             casesWrapper.Members = membersWrapperList;
             return casesWrapper;
+        }
+
+        private IEnumerable<UserInfo> GetUsersByIdList(IEnumerable<Guid> ids)
+        {
+            return CoreContext.UserManager.GetUsers().Where(x => ids.Contains(x.ID));
         }
     }
 }

@@ -29,7 +29,6 @@
 </div>
 
 <div id="invoiceTaxesActionMenu" class="studio-action-panel">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li><a class="dropdown-item editInvoiceTaxLink"><%= CRMInvoiceResource.EditInvoiceTax %></a></li>
         <li><a class="dropdown-item deleteInvoiceTaxLink"><%= CRMCommonResource.Delete %></a></li>

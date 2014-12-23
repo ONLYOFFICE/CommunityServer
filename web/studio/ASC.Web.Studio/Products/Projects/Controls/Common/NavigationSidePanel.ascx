@@ -5,9 +5,11 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NavigationSidePanel.ascx.cs" Inherits="ASC.Web.Projects.Controls.Common.NavigationSidePanel" %>
 <%@ Import Namespace="ASC.Projects.Core.Domain" %>
 <%@ Import Namespace="ASC.Projects.Engine" %>
+<%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Projects" %>
 <%@ Import Namespace="ASC.Web.Projects.Classes" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
 
 <div class="page-menu">
@@ -16,7 +18,6 @@
 <asp:PlaceHolder ID="_taskAction" runat="server"/>
 <asp:PlaceHolder ID="_milestoneAction" runat="server"/>
 <div id="createNewButton" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
         <% if (ParticipantSecurityInfo["Project"])
            {%>
@@ -79,7 +80,8 @@
                     <span id="feed-new-projects-count" class="feed-new-count"></span>
                 </div>
                 <ul class="menu-sub-list">
-                    <% if (MyProjects.Count != 0){%>
+                    <% if (!IsOutsider) { %>
+                    <% if (MyProjects.Count != 0) { %>
                        <li id="myProjectsConteiner" class="menu-sub-item">
                             <div class="menu-item sub-list">
                                 <span id="myProjectsExpander" class="expander"></span>
@@ -94,15 +96,15 @@
                                    <% } %>
                             </ul>
                         </li>
-                    <% }else{%>
+                    <% } else { %>
                        <li class="menu-sub-item filter">
                             <a id="menuMyProjects" class="menu-item-label outer-text text-overflow" href=""><%= ProjectsCommonResource.LeftMenuMyProjects%></a>
                        </li>
                     <% } %>
-
-                    <li class="menu-sub-item filter">
+                    <li id="followedProjectsConteiner" class="menu-sub-item filter">
                         <a id="menuFollowedProjects" class="menu-item-label outer-text text-overflow" href="#followed=true&status=open"><%=ProjectsCommonResource.LeftMenuFollowedProjects%></a>
                     </li>
+                    <% } %>
                     <li class="menu-sub-item filter">
                         <a id="menuActiveProjects" class="menu-item-label outer-text text-overflow" href="#status=open"><%=ProjectsCommonResource.LeftMenuActiveProjects%></a>
                     </li>
@@ -171,7 +173,7 @@
                     </li>
                 </ul>
             </li>
-            <% if (!Request.Browser.IsMobileDevice)
+            <% if (!MobileDetector.IsMobile)
                { %>
             <li id="menuGanttChart" class="menu-item none-sub-list">
                 <a class="menu-item-label outer-text text-overflow" href="ganttchart.aspx">
@@ -198,7 +200,7 @@
                         <span class="menu-item-icon documents"></span>
                         <span class="menu-item-label inner-text"><%= ProjectsFileResource.Documents %></span>
                     </a>
-                    <span class="is-new display-none" title="<%= ASC.Web.Files.Resources.FilesUCResource.RemoveIsNew %>" data-id="<%= ASC.Web.Files.Classes.Global.FolderProjects %>"></span>
+                    <span class="new-label-menu is-new display-none" title="<%= ASC.Web.Files.Resources.FilesUCResource.RemoveIsNew %>" data-id="<%= ASC.Web.Files.Classes.Global.FolderProjects %>"></span>
                 </div>
                 <div class="menu-sub-list documentTreeNavigation">
                     <asp:PlaceHolder runat="server" ID="placeHolderFolderTree"></asp:PlaceHolder>
@@ -241,8 +243,10 @@
                                 <li id="menuImport" class="menu-sub-item filter">
                                     <a id="menuImport" class="menu-item-label outer-text text-overflow" href="import.aspx"><%= ImportResource.Import %></a>
                                 </li>                   
-                              <li class="menu-sub-item filter">
-                                    <a id="menuAccessRights" class="menu-item-label outer-text text-overflow" href="<%= VirtualPathUtility.ToAbsolute("~/management.aspx") + "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights +"#projects" %>"><%= ProjectResource.AccessRightSettings %></a>
+                              <li id="menuAccessRightsItem" class="menu-sub-item filter">
+                                    <a id="menuAccessRights" class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) + "#projects" %>">
+                                        <%= ProjectResource.AccessRightSettings %>
+                                    </a>
                               </li>  
                             <% } %>                          
                         </ul>
@@ -251,6 +255,8 @@
             } %>
             <asp:PlaceHolder ID="HelpHolder" runat="server"></asp:PlaceHolder>
             <asp:PlaceHolder ID="SupportHolder" runat="server"></asp:PlaceHolder>
+            <asp:PlaceHolder ID="UserForumHolder" runat="server"></asp:PlaceHolder>
+            <asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>
         </ul>
 </div>
 

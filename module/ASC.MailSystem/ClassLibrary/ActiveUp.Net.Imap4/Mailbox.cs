@@ -53,7 +53,8 @@ namespace ActiveUp.Net.Mail
         ActiveUp.Net.Mail.MailboxPermission _permission = ActiveUp.Net.Mail.MailboxPermission.Unknown;
         ActiveUp.Net.Mail.MailboxCollection _subMailboxes = new ActiveUp.Net.Mail.MailboxCollection();
         ActiveUp.Net.Mail.Fetch _fetcher = new ActiveUp.Net.Mail.Fetch();
-        int _recent,_messageCount,_unseen,_uidvalidity;
+        private int _recent, _messageCount, _unseen;
+        Int64 _uidvalidity;
 
         #endregion
 
@@ -1561,7 +1562,7 @@ namespace ActiveUp.Net.Mail
         /// <summary>
         /// The Uid Validity number. This number allows to check if Unique Identifiers have changed since the mailbox was last checked.
         /// </summary>
-        public int UidValidity
+        public Int64 UidValidity
         {
             get
             {

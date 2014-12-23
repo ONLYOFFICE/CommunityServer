@@ -1,39 +1,39 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using ASC.Core;
@@ -41,6 +41,7 @@ using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Helpers;
+using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Thrdparty;
 using ASC.Thrdparty.Configuration;
@@ -310,11 +311,13 @@ namespace ASC.Web.Files.ThirdPartyApp
 
                 var cookiesKey = SecurityContext.AuthenticateMe(userInfo.ID);
                 CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
+                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSocialAccount);
 
                 if (isNew)
                 {
                     UserHelpTourHelper.IsNewUser = true;
                     PersonalSettings.IsNewUser = true;
+                    PersonalSettings.IsNotActivated = true;
                 }
 
                 if (!string.IsNullOrEmpty(boxUserId) && !CurrentUser(boxUserId))
@@ -389,21 +392,11 @@ namespace ASC.Web.Files.ThirdPartyApp
 
         private static bool CurrentUser(string boxUserId)
         {
-            var accounts = new AccountLinker("webstudio")
+            var linkedProfiles = new AccountLinker("webstudio")
                 .GetLinkedObjectsByHashId(HashHelper.MD5(string.Format("{0}/{1}", ProviderConstants.Box, boxUserId)));
+            Guid tmp;
             return
-                accounts.Select(x =>
-                                    {
-                                        try
-                                        {
-                                            return new Guid(x);
-                                        }
-                                        catch
-                                        {
-                                            return Guid.Empty;
-                                        }
-                                    })
-                        .Any(account => account == SecurityContext.CurrentAccount.ID);
+                linkedProfiles.Any(profileId => Guid.TryParse(profileId, out tmp) && tmp == SecurityContext.CurrentAccount.ID);
         }
 
         private static void AddLinker(string boxUserId)
@@ -439,18 +432,22 @@ namespace ASC.Web.Files.ThirdPartyApp
             {
                 userInfo = new UserInfo
                     {
-                        Status = EmployeeStatus.Active,
                         FirstName = boxUserInfo.Value<string>("name"),
                         Email = email,
                         MobilePhone = boxUserInfo.Value<string>("phone"),
-                        WorkFromDate = TenantUtil.DateTimeNow(),
                     };
 
-                var cultureName = boxUserInfo.Value<string>("language") ?? CultureInfo.CurrentUICulture.Name;
+                var cultureName = boxUserInfo.Value<string>("language");
+                if(string.IsNullOrEmpty(cultureName))
+                    cultureName = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
                 var cultureInfo = SetupInfo.EnabledCultures.Find(c => String.Equals(c.TwoLetterISOLanguageName, cultureName, StringComparison.InvariantCultureIgnoreCase));
                 if (cultureInfo != null)
                 {
                     userInfo.CultureName = cultureInfo.Name;
+                }
+                else
+                {
+                    Global.Logger.DebugFormat("From box app new personal user '{0}' without culture {1}", userInfo.Email, cultureName);
                 }
 
                 if (string.IsNullOrEmpty(userInfo.FirstName))

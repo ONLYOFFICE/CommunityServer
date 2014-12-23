@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -45,18 +45,22 @@ namespace ASC.Web.Studio.Utility
     public enum ManagementType
     {
         General = 0,
-        ProductsAndInstruments = 1,
-        AccessRights = 2,
-        Customization = 3,
-        Backup = 4,
-        Statistic = 5,
-        ThirdPartyAuthorization = 6,
-        HelpCenter = 7,
+        Customization = 1,
+        ProductsAndInstruments = 2,
+        PortalSecurity = 3,
+        AccessRights = 4,
+        Backup = 5,
+        LoginHistory = 6,
+        AuditTrail = 7,
         LdapSettings = 8,
-        SingleSignOnSettings = 9,
-        Monitoring = 10,
-        LoginHistory = 11,
-        AuditTrail = 12
+        ThirdPartyAuthorization = 9,
+        SmtpSettings = 10,
+        Statistic = 11,
+        Monitoring = 12,
+        SingleSignOnSettings = 13,
+        Migration = 14,
+        DeletionPortal = 15,
+        HelpCenter = 16
     }
 
     //  emp-invite - confirm ivite by email
@@ -157,7 +161,7 @@ namespace ASC.Web.Studio.Utility
                     {
                         uriBuilder = new UriBuilder(Uri.UriSchemeHttp + Uri.SchemeDelimiter + tenant.TenantDomain); // use TenantDomain, not MappedDomain
                     }
-                    else
+                    else if (!CoreContext.Configuration.Standalone)
                     {
                         uriBuilder.Host = tenant.TenantDomain;
                     }
@@ -215,7 +219,7 @@ namespace ASC.Web.Studio.Utility
 
         public static string GetMyStaff()
         {
-            return ToAbsolute("~/products/people/profile.aspx");
+            return CoreContext.Configuration.Personal ? ToAbsolute("~/my.aspx") : ToAbsolute("~/products/people/profile.aspx");
         }
 
         public static string GetEmployees()
@@ -294,12 +298,6 @@ namespace ASC.Web.Studio.Utility
                 IModule module;
                 GetLocationByRequest(out product, out module);
                 if (product != null) productID = product.ID;
-            }
-
-            if (productID == Guid.Empty)
-            {
-                var pid = CallContext.GetData("asc.web.product_id");
-                if (pid != null) productID = (Guid)pid;
             }
 
             return productID;
@@ -545,6 +543,7 @@ namespace ASC.Web.Studio.Utility
         public static string GetHelpLink(bool inCurrentCulture = true)
         {
             var url = WebConfigurationManager.AppSettings["web.help-center"] ?? string.Empty;
+
             if (url.Contains("{"))
             {
                 var parts = url.Split('{');
@@ -575,12 +574,12 @@ namespace ASC.Web.Studio.Utility
 
         public static string GetConfirmationUrl(string email, ConfirmType confirmType, object postfix = null, Guid userId = default(Guid))
         {
-            return GetFullAbsolutePath(GetConfirmationUrlRelative(email, confirmType, postfix, userId));
+            return GetFullAbsolutePath(GetConfirmationUrlRelative(CoreContext.TenantManager.GetCurrentTenant().TenantId, email, confirmType, postfix, userId));
         }
 
-        public static string GetConfirmationUrlRelative(string email, ConfirmType confirmType, object postfix = null, Guid userId = default(Guid))
+        public static string GetConfirmationUrlRelative(int tenantId, string email, ConfirmType confirmType, object postfix = null, Guid userId = default(Guid))
         {
-            var validationKey = EmailValidationKeyProvider.GetEmailKey(email + confirmType + (postfix ?? ""));
+            var validationKey = EmailValidationKeyProvider.GetEmailKey(tenantId, email + confirmType + (postfix ?? ""));
 
             var link = string.Format("confirm.aspx?type={0}&key={1}", confirmType, validationKey);
 

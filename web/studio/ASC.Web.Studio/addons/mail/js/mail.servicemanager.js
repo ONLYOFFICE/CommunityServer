@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 if (typeof window.serviceManager === 'undefined') {
     var xmlEncode = function(s) {
         return s.replace(/&/g, '&amp;')
@@ -174,13 +170,13 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.unsetMailConversationsTag(params, message_ids, tagId, options);
         });
 
-        var getMailAccounts = _wrapper(2, function(params, options) {
-            window.Teamlab.getMailAccounts(params, options);
+        var getAccounts = _wrapper(2, function (params, options) {
+            window.Teamlab.getAccounts(params, options);
         });
 
         var getState = _wrapper(2, function(params, options) {
             window.Teamlab.getMailTags(params, options);
-            window.Teamlab.getMailAccounts(params, options);
+            window.Teamlab.getAccounts(params, options);
             window.Teamlab.getMailFolders(params, TMMail.messages_modify_date, options);
         });
 
@@ -283,14 +279,14 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.getMailRandomGuid(params, options);
         });
 
-        var sendMessage = _wrapper(14, function(id, from, subject, to, cc, bcc, body, attachments,
-            streamId, replyToId, importance, tags, params, options) {
-            window.Teamlab.sendMailMessage(params, id, from, subject, to, cc, bcc, body, attachments, streamId, replyToId, importance, tags, options);
+        var sendMessage = _wrapper(15, function(id, from, subject, to, cc, bcc, body, attachments,
+            streamId, mimeMessageId, mimeReplyToId, importance, tags, params, options) {
+            window.Teamlab.sendMailMessage(params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options);
         });
 
-        var saveMessage = _wrapper(14, function(id, from, subject, to, cc, bcc, body, attachments,
-            streamId, replyToId, importance, tags, params, options) {
-            window.Teamlab.saveMailMessage(params, id, from, subject, to, cc, bcc, body, attachments, streamId, replyToId, importance, tags, options);
+        var saveMessage = _wrapper(15, function(id, from, subject, to, cc, bcc, body, attachments,
+            streamId, mimeMessageId, mimeReplyToId, importance, tags, params, options) {
+            window.Teamlab.saveMailMessage(params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options);
         });
 
         // possible 'status' values: read/unread/important/normal
@@ -398,6 +394,18 @@ if (typeof window.serviceManager === 'undefined') {
         var getHelpCenterHtml = _wrapper(2, function (params, options) {
             window.Teamlab.getMailHelpCenterHtml(params, options);
         });
+        
+        var getMailServer = _wrapper(2, function (params, options) {
+            window.Teamlab.getMailServer(params, options);
+        });
+        
+        var getMailServerFullInfo = _wrapper(2, function (params, options) {
+            window.Teamlab.getMailServerFullInfo(params, options);
+        });
+
+        var getMailServerFreeDns = _wrapper(2, function (params, options) {
+            window.Teamlab.getMailServerFreeDns(params, options);
+        });
 
         var exportAllAttachmentsToMyDocuments = _wrapper(3, function (id_message, params, options) {
             window.Teamlab.exportAllAttachmentsToMyDocuments(params, id_message, options);
@@ -411,12 +419,77 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.setEMailInFolder(params, id_account, email_in_folder, options);
         });
 
+        var getMailDomains = _wrapper(2, function (params, options) {
+            window.Teamlab.getMailDomains(params, options);
+        });
+        
+        var addMailDomain = _wrapper(4, function (domain_name, dns_id, params, options) {
+            window.Teamlab.addMailDomain(params, domain_name, dns_id, options);
+        });
+
+        var removeMailDomain = _wrapper(3, function (id_domain, params, options) {
+            window.Teamlab.removeMailDomain(params, id_domain, options);
+        });
+
+        var addMailbox = _wrapper(4, function (mailbox_name, domain_id, user_id, params, options) {
+            window.Teamlab.addMailbox(params, mailbox_name, domain_id, user_id, options);
+        });
+
+        var getMailboxes = _wrapper(2, function (params, options) {
+            window.Teamlab.getMailboxes(params, options);
+        });
+
+        var removeMailbox = _wrapper(3, function (id_mailbox, params, options) {
+            window.Teamlab.removeMailbox(params, id_mailbox, options);
+        });
+
+        var addMailBoxAlias = _wrapper(4, function (mailbox_id, alias_name, params, options) {
+            window.Teamlab.addMailBoxAlias(params, mailbox_id, alias_name, options);
+        });
+
+        var removeMailBoxAlias = _wrapper(4, function (mailbox_id, address_id, params, options) {
+            window.Teamlab.removeMailBoxAlias(params, mailbox_id, address_id, options);
+        });
+
+
+        var addMailGroup = _wrapper(4, function (group_name, domain_id, address_ids, params, options) {
+            window.Teamlab.addMailGroup(params, group_name, domain_id, address_ids, options);
+        });
+
+        var addMailGroupAddress = _wrapper(4, function (group_id, address_id, params, options) {
+            window.Teamlab.addMailGroupAddress(params, group_id, address_id, options);
+        });
+        
+        var removeMailGroupAddress = _wrapper(4, function (group_id, address_id, params, options) {
+            window.Teamlab.removeMailGroupAddress(params, group_id, address_id, options);
+        });
+        
+        var getMailGroups = _wrapper(2, function (params, options) {
+            window.Teamlab.getMailGroups(params, options);
+        });
+
+        var removeMailGroup = _wrapper(3, function (id_group, params, options) {
+            window.Teamlab.removeMailGroup(params, id_group, options);
+        });
+
+        var isDomainExists = _wrapper(3, function (domain_name, params, options) {
+            window.Teamlab.isDomainExists(params, domain_name, options);
+        });
+
+        var checkDomainOwnership = _wrapper(3, function (domain_name, params, options) {
+            window.Teamlab.checkDomainOwnership(params, domain_name, options);
+        });
+
+        var getDomainDnsSettings = _wrapper(3, function (domain_id, params, options) {
+            window.Teamlab.getDomainDnsSettings(params, domain_id, options);
+        });
+
         return {
             init: init,
             bind: bind,
             unbind: unbind,
             getNodeContent: getNodeContent,
-            getMailAccounts: getMailAccounts,
+            getAccounts: getAccounts,
             createBox: createBox,
             createMinBox: createMinBox,
             createOAuthBox: createOAuthBox,
@@ -455,7 +528,6 @@ if (typeof window.serviceManager === 'undefined') {
             deleteTag: deleteTag,
             updateTag: updateTag,
             removeMailFolderMessages: removeMailFolderMessages,
-            getState: getState,
             updateFolders: updateFolders,
             generateGuid: generateGuid,
             attachDocuments: attachDocuments,
@@ -479,7 +551,26 @@ if (typeof window.serviceManager === 'undefined') {
             updateMailboxSignature: updateMailboxSignature,
             exportAllAttachmentsToMyDocuments: exportAllAttachmentsToMyDocuments,
             exportAttachmentToMyDocuments: exportAttachmentToMyDocuments,
-            setEMailInFolder: setEMailInFolder
+            setEMailInFolder: setEMailInFolder,
+            getMailServer: getMailServer,
+            getMailServerFullInfo: getMailServerFullInfo,
+            getMailServerFreeDns: getMailServerFreeDns,
+            getMailDomains: getMailDomains,
+            addMailDomain: addMailDomain,
+            removeMailDomain: removeMailDomain,
+            addMailbox: addMailbox,
+            getMailboxes: getMailboxes,
+            removeMailbox: removeMailbox,
+            addMailBoxAlias: addMailBoxAlias,
+            removeMailBoxAlias: removeMailBoxAlias,
+            addMailGroup: addMailGroup,
+            addMailGroupAddress: addMailGroupAddress,
+            removeMailGroupAddress: removeMailGroupAddress,
+            getMailGroups: getMailGroups,
+            removeMailGroup: removeMailGroup,
+            isDomainExists: isDomainExists,
+            checkDomainOwnership: checkDomainOwnership,
+            getDomainDnsSettings: getDomainDnsSettings
         };
     })(jQuery);
 }

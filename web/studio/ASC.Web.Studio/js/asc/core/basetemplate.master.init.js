@@ -1,36 +1,32 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-(function () {
+(function() {
     // init jQuery Datepicker
     if (jQuery && jQuery.datepicker) {
         jQuery.datepicker.setDefaults({
@@ -104,7 +100,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         LeftMenuManager.init(StudioManager.getBasePathToModule(), jq(".menu-list .menu-item.sub-list, .menu-list>.menu-item.sub-list>.menu-sub-list>.menu-sub-item"));
         LeftMenuManager.restoreLeftMenu();
 
-        jq(".support-link").on("click", function () {
+        jq(".support-link").on("click", function() {
             jq(".support .expander").trigger("click");
         });
     }
@@ -119,20 +115,48 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         jq.getScript(
             [
                 ASC.Resources.Master.SetupInfoNotifyAddress,
-                "&userId=",
+                "userId=",
                 ASC.Resources.Master.ApiResponsesMyProfile.response.id,
+                "&language=",
+                ASC.Resources.Master.CurrentCultureName,
+                "&version=",
+                ASC.Resources.Master.CurrentTenantVersion,
+                "&tariff=",
+                ASC.Resources.Master.TenantTariff,
+                "&admin=",
+                ASC.Resources.Master.IsAdmin,
+                "&userCreated=",
+                ASC.Resources.Master.ApiResponsesMyProfile.response.created,
+                "&promo=",
+                window.StudioSettings ? window.StudioSettings.ShowPromotions : ""
+            ].join(""));
+    }
+
+    // init Tips
+    if (ASC.Resources.Master.SetupInfoTipsAddress && window.StudioSettings && window.StudioSettings.ShowTips) {
+        jq.getScript(
+            [
+                ASC.Resources.Master.SetupInfoTipsAddress,
+                "userId=",
+                ASC.Resources.Master.ApiResponsesMyProfile.response.id,
+                "&tenantId=",
+                ASC.Resources.Master.CurrentTenantId,
                 "&page=",
-                location.pathname, location.search,
+                encodeURIComponent(window.location.pathname),
+                "&hash=",
+                encodeURIComponent(window.location.hash),
                 "&language=",
                 ASC.Resources.Master.CurrentCultureName,
                 "&admin=",
                 ASC.Resources.Master.IsAdmin,
-                "&promo=",
-                ASC.Resources.Master.ShowPromotions,
-                "&version=",
-                ASC.Resources.Master.CurrentTenantVersion,
-                "&tariff=",
-                ASC.Resources.Master.TenantTariff
+                "&productAdmin=",
+                window.ProductSettings ? window.ProductSettings.IsProductAdmin : "",
+                "&visitor=",
+                ASC.Resources.Master.IsVisitor,
+                "&userCreatedDate=",
+                ASC.Resources.Master.ApiResponsesMyProfile.response.created,
+                "&tenantCreatedDate=",
+                ASC.Resources.Master.CurrentTenantCreatedDate
             ].join(""));
     }
 
@@ -142,11 +166,18 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             tmplName: "userProfileCardTmpl"
         });
 
-    jq(".userLink").each(function () {
+    jq(".userLink").each(function() {
         var id = jq(this).attr("id");
         if (id != null && id != "") {
             studioUserProfileInfo.RegistryElement(id, "\"" + jq(this).attr("data-uid") + "\"");
         }
+    });
+
+    jq("#commonLogout").click(function() {
+        if (typeof SmallChat != "undefined" && SmallChat.logoutEvent) {
+            SmallChat.logoutEvent();
+        }
+        return true;
     });
 })();
 
@@ -164,5 +195,3 @@ var uvOptions = {
         "premium": ASC.Resources.Master.TenantIsPremium
     }
 };
-
-window.CKEDITOR_BASEPATH = ASC.Resources.Master.CKEDITOR_BASEPATH;

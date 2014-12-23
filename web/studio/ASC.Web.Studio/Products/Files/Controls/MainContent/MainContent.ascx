@@ -4,14 +4,15 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MainContent.ascx.cs" Inherits="ASC.Web.Files.Controls.MainContent" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Core.Files" %>
+<%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<div id="contentPanel" data-title="<%= TitlePage %>" data-rootid="<%= FolderIDCurrentRoot %>">
+<div class="files-content-panel" data-title="<%= TitlePage %>" data-rootid="<%= FolderIDCurrentRoot %>">
     <%-- Advansed Filter --%>
-    <div id="filterContainer">
-        <div id="files_advansedFilter"></div>
+    <div class="files-filter">
+        <div></div>
     </div>
 
     <%-- Main Content Header --%>
@@ -23,15 +24,21 @@
             <div class="down_arrow" title="<%= FilesUCResource.TitleSelectFile %>">
             </div>
         </li>
+        <% if(!Global.IsOutsider) { %>
+        <li id="mainShare" class="menuAction" title="<%= FilesUCResource.ButtonShareAccess %>">
+            <span><%= FilesUCResource.ButtonShareAccess %></span>
+        </li>
+        <% } %>
         <li id="mainDownload" class="menuAction" title="<%= FilesUCResource.ButtonDownload %>">
             <span><%= FilesUCResource.ButtonDownload %></span>
         </li>
-        <% if (FileUtility.ExtsConvertible.Any() && TenantExtra.GetTenantQuota().DocsEdition)
+        <% if (0 < FileUtility.ExtsConvertible.Count && TenantExtra.GetTenantQuota().DocsEdition)
            { %>
         <li id="mainConvert" class="menuAction" title="<%= FilesUCResource.DownloadAs %>">
             <span><%= FilesUCResource.DownloadAs %></span>
         </li>
         <% } %>
+        <% if(!Global.IsOutsider) { %>
         <li id="mainMove" class="menuAction" title="<%= FilesUCResource.ButtonMoveTo %>">
             <span><%= FilesUCResource.ButtonMoveTo %></span>
         </li>
@@ -53,6 +60,7 @@
         <li id="mainEmptyTrash" class="menuAction" title="<%= FilesUCResource.ButtonEmptyTrash %>">
             <span><%= FilesUCResource.ButtonEmptyTrash %></span>
         </li>
+        <% } %>
         <li id="switchViewFolder">
             <div id="switchToNormal" title="<%= FilesUCResource.SwitchViewToNormal %>">
                 &nbsp;
@@ -61,36 +69,17 @@
                 &nbsp;
             </div>
         </li>
-
-        <li id="filesListUp" title="<%= FilesUCResource.ButtonUp %>">
-            <span class="baseLinkAction"><%= FilesUCResource.ButtonUp %></span>
+        <li class="menu-action-on-top" title="<%= FilesUCResource.ButtonUp %>">
+            <span class="on-top-link"><%= FilesUCResource.ButtonUp %></span>
         </li>
     </ul>
 
-    <%-- Link To Parent --%>
-    <div id="toParentFolder">
-        <a class="to-parent-folder">...</a>
-    </div>
-
-    <%-- Main Content --%>
-    <div id="mainContent">
-        <ul id="filesMainContent" class="user-select-none"></ul>
-        <div id="pageNavigatorHolder">
-            <a class="button blue gray"></a>
-        </div>
-        <div id="emptyContainer">
-            <asp:PlaceHolder runat="server" ID="EmptyScreenFolder"></asp:PlaceHolder>
-        </div>
-    </div>
+    <asp:PlaceHolder runat="server" ID="ListHolder"></asp:PlaceHolder>
 </div>
-
-<%--tooltip--%>
-<div id="entryTooltip" class="studio-action-panel"></div>
 
 <%--popup window's--%>
 <div id="filesSelectorPanel" class="studio-action-panel">
-    <div class="corner-top">
-    </div>
+
     <ul class="dropdown-content">
         <li id="filesSelectAll"><a class="dropdown-item">
             <%= FilesUCResource.ButtonSelectAll %></a></li>
@@ -106,19 +95,27 @@
             <%= FilesUCResource.ButtonFilterSpreadsheet %></a></li>
         <li id="filesSelectImage"><a class="dropdown-item">
             <%= FilesUCResource.ButtonFilterImage %></a></li>
+        <li id="filesSelectArchive"><a class="dropdown-item">
+            <%= FilesUCResource.ButtonFilterArchive %></a></li>
     </ul>
 </div>
 <div id="filesActionsPanel" class="studio-action-panel">
     <ul class="dropdown-content">
+        <% if(!Global.IsOutsider) { %>
+        <li id="buttonShare"><a class="dropdown-item">
+            <%= FilesUCResource.ButtonShareAccess %>
+            (<span></span>)</a> </li>
+        <% } %>
         <li id="buttonDownload"><a class="dropdown-item">
             <%= FilesUCResource.ButtonDownload %>
             (<span></span>)</a> </li>
-        <% if (FileUtility.ExtsConvertible.Any() && TenantExtra.GetTenantQuota().DocsEdition)
+        <% if (0 < FileUtility.ExtsConvertible.Count && TenantExtra.GetTenantQuota().DocsEdition)
            { %>
         <li id="buttonConvert"><a class="dropdown-item">
             <%= FilesUCResource.DownloadAs %>
             (<span></span>)</a> </li>
         <% } %>
+        <% if(!Global.IsOutsider) { %>
         <li id="buttonUnsubscribe"><a class="dropdown-item">
             <%= FilesUCResource.Unsubscribe %>
             (<span></span>)</a> </li>
@@ -128,9 +125,6 @@
         <li id="buttonCopyto"><a class="dropdown-item">
             <%= FilesUCResource.ButtonCopyTo %>
             (<span></span>)</a> </li>
-        <li id="buttonShare"><a class="dropdown-item">
-            <%= FilesUCResource.ButtonShareAccess %>
-            (<span></span>)</a> </li>
         <li id="buttonRestore"><a class="dropdown-item">
             <%= FilesUCResource.ButtonRestore %>
             (<span></span>)</a> </li>
@@ -139,22 +133,26 @@
             (<span></span>)</a> </li>
         <li id="buttonEmptyTrash"><a class="dropdown-item">
             <%= FilesUCResource.ButtonEmptyTrash %></a> </li>
+        <% } %>
     </ul>
 </div>
 <div id="filesActionPanel" class="studio-action-panel">
-    <div class="corner-top right">
-    </div>
+
     <ul id="actionPanelFiles" class="dropdown-content">
+        <% if(!Global.IsOutsider) { %>
         <li id="filesEdit"><a class="dropdown-item">
             <%= FilesUCResource.ButtonEdit %></a> </li>
+        <% } %>
         <li id="filesOpen"><a class="dropdown-item">
             <%= FilesUCResource.OpenFile %></a> </li>
+        <% if(!Global.IsOutsider) { %>
         <li id="filesShareAccess"><a class="dropdown-item">
             <%= FilesUCResource.ButtonShareAccess %></a> </li>
         <li id="filesLock"><a class="dropdown-item">
             <%= FilesUCResource.ButtonLock %></a> </li>
         <li id="filesUnlock"><a class="dropdown-item">
             <%= FilesUCResource.ButtonUnlock %></a> </li>
+        <% } %>
         <li id="filesDownload"><a class="dropdown-item">
             <%= FilesUCResource.DownloadFile %></a> </li>
         <li id="filesConvert"><a class="dropdown-item">
@@ -164,30 +162,39 @@
         <li id="filesGetLink"><a class="dropdown-item">
             <%= FilesUCResource.GetLink %></a></li>
         <% } %>
+        <% if(!Global.IsOutsider) { %>
         <li id="filesUnsubscribe"><a class="dropdown-item">
             <%= FilesUCResource.Unsubscribe %></a> </li>
         <li id="filesCompleteVersion"><a class="dropdown-item">
             <%= FilesUCResource.ButtonVersionComplete %></a> </li>
+        <% } %>
         <li id="filesVersions"><a class="dropdown-item">
             <%= FilesUCResource.ButtonShowVersions %></a> </li>
+        <% if(!Global.IsOutsider) { %>
         <li id="filesMoveto"><a class="dropdown-item">
             <%= FilesUCResource.ButtonMoveTo %></a> </li>
         <li id="filesCopyto"><a class="dropdown-item">
             <%= FilesUCResource.ButtonCopyTo %></a> </li>
+        <li id="filesCopy"><a class="dropdown-item">
+            <%= FilesUCResource.ButtonCopy %></a> </li>
         <li id="filesRestore"><a class="dropdown-item">
             <%= FilesUCResource.ButtonRestore %></a> </li>
         <li id="filesRename"><a class="dropdown-item">
             <%= FilesUCResource.ButtonRename %></a> </li>
         <li id="filesRemove"><a class="dropdown-item">
             <%= FilesUCResource.ButtonDelete %></a> </li>
+        <% } %>
     </ul>
     <ul id="actionPanelFolders" class="dropdown-content">
         <li id="foldersOpen"><a class="dropdown-item">
             <%= FilesUCResource.OpenFolder %></a> </li>
+        <% if(!Global.IsOutsider) { %>
         <li id="foldersShareAccess"><a class="dropdown-item">
             <%= FilesUCResource.ButtonShareAccess %></a> </li>
+        <% } %>
         <li id="foldersDownload"><a class="dropdown-item">
             <%= FilesUCResource.DownloadFolder %></a> </li>
+        <% if(!Global.IsOutsider) { %>
         <li id="foldersUnsubscribe"><a class="dropdown-item">
             <%= FilesUCResource.Unsubscribe %></a> </li>
         <li id="foldersMoveto"><a class="dropdown-item">
@@ -204,11 +211,10 @@
             <%= FilesUCResource.ButtonChangeThirdParty %></a> </li>
         <li id="foldersRemoveThirdparty"><a class="dropdown-item">
             <%= FilesUCResource.ButtonDeleteThirdParty %></a> </li>
+        <% } %>
     </ul>
 </div>
 <div id="filesNewsPanel" class="files-news-panel studio-action-panel freeze-display">
-    <div class="corner-top corner-left">
-    </div>
     <ul id="filesNewsList" class="dropdown-content webkit-scrollbar"></ul>
     <span id="filesNewsMarkRead" class="baseLinkAction"><%= FilesUCResource.RemoveIsNewAll %></span>
 </div>

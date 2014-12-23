@@ -417,11 +417,11 @@
   <data name="ChangesApplied" xml:space="preserve">
     <value>Changes are applied</value>
   </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Comment cannot be empty</value>
+  </data>
   <data name="ImportUserOverlimitHeader" xml:space="preserve">
     <value>Your pricing plan does not allow you to add any more users</value>
-  </data>
-  <data name="ImportUserOverlimitReason" xml:space="preserve">
-    <value>The selected users will be added as guests. You will be able to change their roles later in the 'People' module.</value>
   </data>
   <data name="SavedTitle" xml:space="preserve">
     <value>Сохранено</value>
@@ -431,5 +431,77 @@
   </data>
   <data name="CreateReportError" xml:space="preserve">
     <value>Error while generating report</value>
+  </data>
+  <data name="UploadHttpsFileTypeError" xml:space="preserve">
+    <value>File extension error</value>
+  </data>
+  <data name="IPRestrictionSuccessfullyAdded" xml:space="preserve">
+    <value>Ограничение успешно добавлено</value>
+  </data>
+  <data name="IPRestrictionSuccessfullyDeleted" xml:space="preserve">
+    <value>Ограничение успешно удалено</value>
+  </data>
+  <data name="IPRestrictionSuccessfullyUpdated" xml:space="preserve">
+    <value>Ограничение успешно изменено</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Select file</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Select folder</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Изменения успешно применены.</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Упс... Ошибочка вышла. Обратитесь к администратору.</value>
+  </data>
+  <data name="GreetingRingtones" xml:space="preserve">
+    <value>Мелодии приветствия</value>
+  </data>
+  <data name="QueueRingtones" xml:space="preserve">
+    <value>Мелодии очереди</value>
+  </data>
+  <data name="VoicemailRingtones" xml:space="preserve">
+    <value>Мелодии голосовой почты</value>
+  </data>
+  <data name="WaitingRingtones" xml:space="preserve">
+    <value>Мелодии ожидания</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>Покупка номера успешно завершена</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Busy</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>Ошибка при загрузке файла</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>Поддерживаемые форматы файлов: mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>Размер файла не должен превышать 5MB </value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>Enter the email</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>The backup copy has been successfully created.</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>Неверный формат IP-адреса</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>Одинаковые ограничения</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>Settings have been successfully updated</value>
   </data>
 </root>

@@ -63,7 +63,7 @@
                title="<%= CRMCommonResource.UnlinkContact %>"
                onclick='ASC.CRM.ListContactView.removeMember({{if typeof(id)=="number"}}${id}{{else}}"${id}"{{/if}});'
                id="trashImg_${id}" />
-            <img src="<%=WebImageSupplier.GetAbsoluteWebPath("loader_16.gif")%>" id="loaderImg_${id}" style="display:none;" />
+            <div id="loaderImg_${id}" class="loader-middle baseList_loaderImg"></div>
             {{/if}}
         </td>
     </tr>
@@ -71,7 +71,6 @@
 
 <script id="simpleContactActionMenuTmpl" type="text/x-jquery-tmpl">
     <div id="simpleContactActionMenu" class="studio-action-panel">
-        <div class="corner-top right"></div>
         <ul class="dropdown-content">
             <li><a class="unlinkContact dropdown-item"><%= CRMCommonResource.UnlinkContact %></a></li>
             <%--<li><a class="writeEmail dropdown-item"><%= CRMContactResource.WriteEmail %></a></li>

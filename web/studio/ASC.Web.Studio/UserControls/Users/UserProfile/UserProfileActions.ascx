@@ -11,7 +11,6 @@
         
 <div id="actionMenu" class="studio-action-panel" data-id="<%= ProfileHelper.UserInfo.ID %>" data-email="<%= ProfileHelper.UserInfo.Email %>" 
     data-admin="<%= IsAdmin.ToString().ToLower()%>" data-name="<%= ProfileHelper.UserInfo.DisplayUserName() %>" data-visitor="<%= ProfileHelper.UserInfo.IsVisitor() %>">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
         <% if (Actions.AllowEdit)
            { %>
@@ -76,7 +75,7 @@
             </a>
         </li>
         <% }
-           if (MyStaff && !ProfileHelper.UserInfo.IsOwner())
+           if (MyStaff && !ProfileHelper.UserInfo.IsOwner() && !CoreContext.Configuration.Personal)
            { %>
         <li class="delete-user">
             <a class="dropdown-item" title="<%= Resource.DeleteProfileButton %>">

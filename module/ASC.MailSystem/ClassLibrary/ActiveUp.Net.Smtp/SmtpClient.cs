@@ -54,6 +54,7 @@ namespace ActiveUp.Net.Mail
         #region Private fields
 
         static long _UIDcounter;
+        private string host;
 #if !PocketPC
         //System.Net.Security.SslStream _sslStream;
 #endif
@@ -217,6 +218,9 @@ namespace ActiveUp.Net.Mail
             private delegate string DelegateAuthenticate(string username, string password, SaslMechanism mechanism);
             private DelegateAuthenticate _delegateAuthenticate;
 
+            private delegate string DelegateLogin(string username, string password);
+            private DelegateLogin _delegateLogin;
+
             private delegate string DelegateData(string data);
             private DelegateData _delegateData;
 
@@ -379,16 +383,6 @@ namespace ActiveUp.Net.Mail
                 this.OnAuthenticated(new ActiveUp.Net.Mail.AuthenticatedEventArgs(username, password, response));
                 return response;
             }
-            
-            private string _Login(string username, string password)
-            {
-                this.OnAuthenticating(new ActiveUp.Net.Mail.AuthenticatingEventArgs(username, password));
-                this.Command("auth login", 334);
-                this.Command(System.Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(username)), 334);
-                string response = this.Command(System.Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(password)), 235);
-                this.OnAuthenticated(new ActiveUp.Net.Mail.AuthenticatedEventArgs(username, password, response));
-                return response;
-            }
 
             private string _LoginOAuth2(string username, string accessToken)
             {
@@ -448,11 +442,11 @@ namespace ActiveUp.Net.Mail
                     /// </example>
                     public string Connect(string host)
                     {
-                        return this.Connect(host,25);
+                        return this.ConnectPlain(host,25);
                     }
                     public IAsyncResult BeginConnect(string host, AsyncCallback callback)
                     {
-                        return this.BeginConnect(host, 25, callback);
+                        return this.BeginConnectPlain(host, 25, callback);
                     }
 
                     /// <summary>
@@ -479,17 +473,18 @@ namespace ActiveUp.Net.Mail
                     /// smtp.Connect("mail.myhost.com",8504);
                     /// </code>
                     /// </example>
-                    public new string Connect(string host, int port)
+                    public override string ConnectPlain(string host, int port)
                     {
+                        this.host = host;
                         this.OnConnecting();
-                        base.Connect(host,port);
-                        string response = this.ReadLine();
-                        this.OnConnected(new ActiveUp.Net.Mail.ConnectedEventArgs(response+" - "+host));
+                        base.Connect(host, port);
+                        var response = this.ReadLine();
+                        this.OnConnected(new ActiveUp.Net.Mail.ConnectedEventArgs(response));
                         return base.Connected ? "+OK" : "-Connection failure";
                     }
-                    public override IAsyncResult BeginConnect(string host, int port, AsyncCallback callback)
+                    public override IAsyncResult BeginConnectPlain(string host, int port, AsyncCallback callback)
                     {
-                        this._delegateConnect = this.Connect;
+                        this._delegateConnect = this.ConnectPlain;
                         return this._delegateConnect.BeginInvoke(host, port, callback, this._delegateConnect);
                     }
 
@@ -533,11 +528,6 @@ namespace ActiveUp.Net.Mail
 #endif
                     }
 
-                    public new string EndConnect(IAsyncResult result)
-                    {
-                        return (string)result.AsyncState.GetType().GetMethod("EndInvoke").Invoke(result.AsyncState, new object[] { result });
-                    }
-
                     /// <summary>
                     /// Gets a value indicating whether this instance is connected.
                     /// </summary>
@@ -576,7 +566,7 @@ namespace ActiveUp.Net.Mail
                     {
                         return this.BeginConnectSsl(host, 465, sslHandShake, callback);
                     }
-                    public string ConnectSsl(string host, int port)
+                    public override string ConnectSsl(string host, int port)
                     {
                         return this.ConnectSsl(host, port, new ActiveUp.Net.Security.SslHandShake(host));
                     }
@@ -588,6 +578,7 @@ namespace ActiveUp.Net.Mail
 #if !PocketPC
                     public string ConnectSsl(string host, int port, ActiveUp.Net.Security.SslHandShake sslHandShake)
                     {
+                        this.host = host;
                         this.OnConnecting();
                         base.Connect(host, port);
                         this.DoSslHandShake(sslHandShake);
@@ -639,10 +630,6 @@ namespace ActiveUp.Net.Mail
                         return this._delegateConnectSslIPAddresses.BeginInvoke(addresses, port, sslHandShake, callback, this._delegateConnectSslIPAddresses);
                     }
 #endif
-                    public override string EndConnectSsl(IAsyncResult result)
-                    {
-                        return (string)result.AsyncState.GetType().GetMethod("EndInvoke").Invoke(result.AsyncState, new object[] { result });
-                    }
 
                     #endregion
 
@@ -679,7 +666,7 @@ namespace ActiveUp.Net.Mail
                     /// smtp.Disconnect();
                     /// </code>
                     /// </example>
-                    public string Authenticate(string username, string password, ActiveUp.Net.Mail.SaslMechanism mechanism)
+                    public override string Authenticate(string username, string password, ActiveUp.Net.Mail.SaslMechanism mechanism)
                     {
                         switch (mechanism)
                         {
@@ -687,7 +674,7 @@ namespace ActiveUp.Net.Mail
                                 this._CramMd5(username, password);
                                 break;
                             case ActiveUp.Net.Mail.SaslMechanism.Login:
-                                this._Login(username, password);
+                                this.Login(username, password);
                                 break;
                             case ActiveUp.Net.Mail.SaslMechanism.OAuth2:
                                 this._LoginOAuth2(username, password);
@@ -703,66 +690,21 @@ namespace ActiveUp.Net.Mail
                         return this._delegateAuthenticate.BeginInvoke(username, password, mechanism, callback, null);
                     }
 
-                    public string EndAuthenticate(IAsyncResult result)
+                    public override string Login(string username, string password)
                     {
-                        return this._delegateAuthenticate.EndInvoke(result);
+                        this.OnAuthenticating(new ActiveUp.Net.Mail.AuthenticatingEventArgs(username, password));
+                        this.Command("auth login", 334);
+                        this.Command(System.Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(username)), 334);
+                        string response = this.Command(System.Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(password)), 235);
+                        this.OnAuthenticated(new ActiveUp.Net.Mail.AuthenticatedEventArgs(username, password, response));
+                        return "+OK";
                     }
 
-                    public override string Login(string username, string password, string host)
+                    public override IAsyncResult BeginLogin(string username, string password, AsyncCallback callback)
                     {
-                        //Todo: Think about login implementation in Smtp
-                        throw new NotImplementedException();
+                        this._delegateLogin = this.Login;
+                        return this._delegateLogin.BeginInvoke(username, password, callback, this._delegateLogin);
                     }
-
-                    //public string StartTLS(string host)
-                    //{
-                    //    try
-                    //    {
-                    //        var response = this.Command("STARTTLS", 220);
-
-                    //        if (response != "Not supported")
-                    //        {
-                    //            this.DoSslHandShake(new ActiveUp.Net.Security.SslHandShake(host));
-
-                    //            response = this.SendEhloHelo();
-                    //        }
-
-                    //        return response;
-                    //    }
-                    //    catch
-                    //    {
-                    //        return "Not supported";
-                    //    }
-                    //}
-
-                    //public string SendEhloHelo()
-                    //{
-                    //    var domain = System.Net.Dns.GetHostName();
-                        
-                    //    try
-                    //    {
-                    //        var hostEntry = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
-                    //        var ip = (
-                    //                   from addr in hostEntry.AddressList
-                    //                   where addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork
-                    //                   select addr.ToString()
-                    //            ).FirstOrDefault();
-
-                    //        if (!string.IsNullOrEmpty(ip)) domain = "[" + ip + "]";
-                    //    }
-                    //    catch
-                    //    {
-                    //    }
-
-                    //    try
-                    //    {
-                    //        return this.Ehlo(domain);
-                    //    }
-                    //    catch
-                    //    {
-                    //        return this.Helo(domain);
-                    //    }
-                    //}
 
         #endregion
 
@@ -799,20 +741,24 @@ namespace ActiveUp.Net.Mail
                     public override string Disconnect()
                     {
                         this.OnDisconnecting();
-                        string response = this.Command("QUIT", 221);
-                        this.Close();
-                        this.OnDisconnected(new ActiveUp.Net.Mail.DisconnectedEventArgs(response));
-                        return response;
+                        try
+                        {
+                            var response = this.Command("QUIT", 221);
+                            this.OnDisconnected(new ActiveUp.Net.Mail.DisconnectedEventArgs(response));
+                            return response;
+                        }
+                        finally
+                        {
+                            if (base._sslStream != null)
+                                base._sslStream.Dispose();
+                            base.Dispose(false);
+                        }
+
                     }
-                    public IAsyncResult BeginDisconnect(AsyncCallback callback)
+                    public override IAsyncResult BeginDisconnect(AsyncCallback callback)
                     {
                         this._delegateDisconnect = this.Disconnect;
                         return this._delegateDisconnect.BeginInvoke(callback, null);
-                    }
-
-                    public string EndDisconnect(IAsyncResult result)
-                    {
-                        return this._delegateDisconnect.EndInvoke(result);
                     }
 
                     #endregion
@@ -3091,7 +3037,7 @@ namespace ActiveUp.Net.Mail
                                     smtp.Connect(servers[i].Host, servers[i].Port);
 #endif
                                 }else {
-                                    smtp.Connect(servers[i].Host,servers[i].Port);
+                                    smtp.ConnectPlain(servers[i].Host,servers[i].Port);
                                 }
                                 try
                                 {
@@ -3264,7 +3210,7 @@ namespace ActiveUp.Net.Mail
                                 smtp.ConnectSsl(host, port);
                                 break;
                             case EncryptionType.StartTLS:
-                                smtp.Connect(host, port);
+                                smtp.ConnectPlain(host, port);
                                 break;
                             default:
                                 throw new ArgumentException("Incompatible EncriptionType with SendSSL: " + enc_type);
@@ -3344,7 +3290,7 @@ namespace ActiveUp.Net.Mail
                         message.CheckBuiltMimePartTree();
 
                         ActiveUp.Net.Mail.SmtpClient smtp = new ActiveUp.Net.Mail.SmtpClient();
-                        smtp.Connect(host,port);
+                        smtp.ConnectPlain(host,port);
                         try
                         {
                             smtp.Ehlo(System.Net.Dns.GetHostName());
@@ -3512,7 +3458,7 @@ namespace ActiveUp.Net.Mail
                                 smtp.ConnectSsl(host, port);
                                 break;
                             case EncryptionType.StartTLS:
-                                smtp.Connect(host, port);
+                                smtp.ConnectPlain(host, port);
                                 break;
                             default:
                                 throw new ArgumentException("Incompatible EncriptionType with SendSSL: " + enc_type);
@@ -3597,7 +3543,7 @@ namespace ActiveUp.Net.Mail
                         message.CheckBuiltMimePartTree();
 
                         var smtp = new SmtpClient();
-                        smtp.Connect(host,port);
+                        smtp.ConnectPlain(host,port);
                         smtp.SendEhloHelo();
                         smtp.Authenticate(username, password, mechanism);
                         if(message.From.Email!=string.Empty) smtp.MailFrom(message.From);
@@ -3884,7 +3830,7 @@ namespace ActiveUp.Net.Mail
                                         }
                                         else
                                         {
-                                            smtp.Connect(servers[i].Host, servers[i].Port);
+                                            smtp.ConnectPlain(servers[i].Host, servers[i].Port);
                                         }
                                         try
                                         {
@@ -4028,7 +3974,7 @@ namespace ActiveUp.Net.Mail
                                         }
                                         else
                                         {
-                                            smtp.Connect(servers[i].Host, servers[i].Port);
+                                            smtp.ConnectPlain(servers[i].Host, servers[i].Port);
                                         }
                                         try
                                         {
@@ -4138,7 +4084,7 @@ namespace ActiveUp.Net.Mail
                     public static int SendCollection(MessageCollection messages, string host, int port)
                     {
                         ActiveUp.Net.Mail.SmtpClient smtp = new ActiveUp.Net.Mail.SmtpClient();
-                        smtp.Connect(host,port);
+                        smtp.ConnectPlain(host,port);
                         try
                         {
                             smtp.Ehlo(System.Net.Dns.GetHostName());
@@ -4248,7 +4194,7 @@ namespace ActiveUp.Net.Mail
                     public static int SendCollection(MessageCollection messages, string host, int port, ref SmtpExceptionCollection errors)
                     {
                         ActiveUp.Net.Mail.SmtpClient smtp = new ActiveUp.Net.Mail.SmtpClient();
-                        smtp.Connect(host,port);
+                        smtp.ConnectPlain(host,port);
                         try
                         {
                             smtp.Ehlo(System.Net.Dns.GetHostName());
@@ -4359,7 +4305,7 @@ namespace ActiveUp.Net.Mail
                     public static int SendCollection(MessageCollection messages, string host, string username, string password, SaslMechanism mechanism)
                     {
                         ActiveUp.Net.Mail.SmtpClient smtp = new ActiveUp.Net.Mail.SmtpClient();
-                        smtp.Connect(host,25);
+                        smtp.ConnectPlain(host,25);
                         try
                         {
                             smtp.Ehlo(System.Net.Dns.GetHostName());
@@ -4472,7 +4418,7 @@ namespace ActiveUp.Net.Mail
                     public static int SendCollection(MessageCollection messages, string host, string username, string password, SaslMechanism mechanism, ref SmtpExceptionCollection errors)
                     {
                         ActiveUp.Net.Mail.SmtpClient smtp = new ActiveUp.Net.Mail.SmtpClient();
-                        smtp.Connect(host,25);
+                        smtp.ConnectPlain(host,25);
                         try
                         {
                             smtp.Ehlo(System.Net.Dns.GetHostName());
@@ -4585,7 +4531,7 @@ namespace ActiveUp.Net.Mail
                     public static int SendCollection(MessageCollection messages, string host, int port, string username, string password, SaslMechanism mechanism)
                     {
                         ActiveUp.Net.Mail.SmtpClient smtp = new ActiveUp.Net.Mail.SmtpClient();
-                        smtp.Connect(host,port);
+                        smtp.ConnectPlain(host,port);
                         try
                         {
                             smtp.Ehlo(System.Net.Dns.GetHostName());
@@ -4636,7 +4582,7 @@ namespace ActiveUp.Net.Mail
                     public static int SendCollection(MessageCollection messages, string host, int port, string username, string password, SaslMechanism mechanism, ref SmtpExceptionCollection errors)
                     {
                         ActiveUp.Net.Mail.SmtpClient smtp = new ActiveUp.Net.Mail.SmtpClient();
-                        smtp.Connect(host,port);
+                        smtp.ConnectPlain(host,port);
                         try
                         {
                             smtp.Ehlo(System.Net.Dns.GetHostName());

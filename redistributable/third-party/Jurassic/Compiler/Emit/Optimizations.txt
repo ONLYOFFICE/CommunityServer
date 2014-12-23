@@ -1,0 +1,38 @@
+﻿OPTIMIZATION TECHNIQUES
+
+Hidden classes
+--------------
+
+
+
+Loop type analysis
+-------------
+
+The body of a loop is scanned for assignment expressions.  For each assignment expression, the
+static type is determined (if possible) and recorded against the loop.  If the type recorded
+for a variable does not change (note that int32 -> number is possible and does not prohibit
+optimization) then the variable used to store the reference can be changed to the static type
+and type conversions can be eliminated.  The following conditions prohibit the use of this
+optimization:
+* Use of eval()
+* Use of "arguments"
+* A call to a nested function that references the variable
+
+
+Loop peeling
+------------
+
+Often the type of a variable is not known for the first iteration of a loop but is known for
+subsequent iterations.  To optimize this case the first iteration is "peeled off" and executed
+separately.  This optimization is always safe.
+
+
+Loop-invariant code motion
+--------------------------
+
+Sections of the parse tree that are not modified during a loop body can be hoisted above the
+loop and replaced with a variable lookup.  Sections of the parse tree with side-effects cannot
+be hoisted; this includes:
+* Function calls
+* A new expression
+* Property access (because of getter functions)

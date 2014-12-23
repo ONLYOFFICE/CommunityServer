@@ -5,8 +5,6 @@
   <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="fres" />
 
   <xsl:template match="entryTooltip">
-    <div class="corner-top">
-    </div>
     <dl>
 
       <dt>
@@ -24,7 +22,7 @@
       </dd>
 
       <xsl:choose>
-        <xsl:when test="error and error= 'true'">
+        <xsl:when test="error = 'true'">
           <dt>
             <resource name="fres.ErrorEntry" />:
           </dt>
@@ -73,7 +71,7 @@
               </dd>
 
             </xsl:when>
-            <xsl:when test="type = 'folder' and provider_key = ''">
+            <xsl:when test="type = 'folder' and (not(provider_key) or provider_key = '')">
               <dt>
                 <resource name="fres.TitleFiles" />:
               </dt>

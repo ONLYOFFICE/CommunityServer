@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 /*******************************************************************************
@@ -185,24 +185,24 @@ span.addUserLink
 
 div.hintDescriptionPanel {
     background-color: #FFFFFF;
-    border: 1px solid #8E908F;
+    border: 1px solid #d1d1d1;
     display: none;
-    margin: 4px 0 0 -80px;
-    max-width: 300px;
-    padding: 10px 15px 15px;
+    margin: 4px 0 0 0;
+    max-width: 310px;
+    padding: 8px 16px;
     position: absolute;
     z-index: 255;
     word-wrap: break-word;
+
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+
+    box-shadow:0 2px 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow:0 2px 4px rgba(0, 0, 0, 0.3);
 }
-div.hintDescriptionPanel .popup-corner {
-    left: 85px;
-    background: url("images/popup-corner.png") no-repeat scroll 0 0 transparent;
-    height: 6px;
-    margin-top: -15px;
-    position: absolute;
-    width: 9px;
-    z-index: 261;
-}
+
 
 /*******************************************************************************
    User Photos
@@ -263,20 +263,17 @@ div.hintDescriptionPanel .popup-corner {
 .mainContainerClass .popupContainerClass .containerHeaderBlock .popupCancel .cancelButton, 
 .popupContainerClass .cancelButton
 {
-    background: #E2E2E2 url("imagescss/popup_close_bg1.png") no-repeat left top;
-    width: 12px;
-    height: 12px;
-    line-height: 1px;
-    font-size: 1px;
+    font-size: 28px;
+    color: #333;
     cursor: pointer;
 }
 
 .popupContainerClass .containerBodyBlock,
 .mainContainerClass .popupContainerClass .containerBodyBlock
 {
-    background-color: #FFFFFF;
+    background-color: #FFF;
     padding: 19px 24px 24px 24px;
-    color: #333333;
+    color: #333;
     font-size: 12px;
     font-weight: normal;
     text-decoration: none;
@@ -370,6 +367,7 @@ div.hintDescriptionPanel .popup-corner {
     margin-top: -4px;
     right: 9px;
 }
+
 /*------------------Container----------------------*/
 .mainContainerClass
 {
@@ -1180,7 +1178,11 @@ input[type="text"].employeeFilterInputFocus{
 {
   display: none;
 }
-
+.ui-datepicker th {
+    padding:.7em 0;
+    width:14.3%;
+    margin:0 auto;
+}
 /* Progress bar style*/
 .asc-progress-wrapper {
     background-color: #d1d1d1;
@@ -1373,65 +1375,18 @@ div.requiredFieldError div#userSelector .adv-userselector-selector-container, .r
     color: #000 !important;
     border-bottom:dotted 1px #000;
 }
-/*************************************************************
-    Combobox
-*************************************************************/
-
-.tl-combobox.notify-by-combobox{max-width:9000px;}
-.tl-combobox.notify-by-combobox .combobox-container{width:180px;}
-
-.tl-combobox{display:inline-block; background:url(images/tlcombobox-button.gif) right center no-repeat; border:0; width:auto; max-width:90%; position:relative; text-align:left;}
-.tl-combobox input,
-.tl-combobox select{position:absolute; left:-9000px;}
-.tl-combobox .combobox-title{display:block; margin:0 0 0 2px; line-height: 15px; position:relative; overflow:hidden; white-space:nowrap; z-index:1; cursor:pointer; color:#333;}
-.tl-combobox .combobox-title .inner-text{display:block; margin:0 24px 0 0; border-bottom:1px dotted #333; overflow:hidden; white-space:nowrap;}
-.tl-combobox .combobox-wrapper{display:block; width:100%; width:1px; height:1px; line-height:1px; position:absolute; right:0; bottom:-5px; z-index:2;}
-.tl-combobox .combobox-container{display:none; background:#FFF url(images/blank.gif); border:1px solid #d1d1d1; width:auto; max-width: 350px; margin:-1px -8px 0 0; padding:10px 20px 15px 15px; position:absolute; right:0; top:0;}
-.tl-combobox .combobox-container{-moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);}
-.tl-combobox.corner-left .combobox-container{right:auto;left: -32px;}
-.tl-combobox .combobox-container .container-corner{display:block; background:url(images/dropdown-corner-top.gif) center center no-repeat; width:7px; height:5px; line-height:5px; position:absolute; right:16px; top:-5px; z-index:1;}
-
-.tl-combobox.top-align .combobox-wrapper{right:0; bottom: auto; top: -5px;}
-.tl-combobox.top-align .combobox-container{right:0; top: auto; bottom:0;}
-.tl-combobox.top-align .combobox-container .container-corner{background:url(images/dropdown-corner-bottom.gif) center center no-repeat;top: auto; bottom:-5px;}
-
-.tl-combobox.corner-left .combobox-container .container-corner{right:auto;left:16px;}
-.tl-combobox .combobox-container .combobox-options{list-style:none; max-height:200px; line-height:21px; margin:0; padding:0; position:relative; z-index:0; overflow-x:hidden; overflow-y:auto;}
-.tl-combobox .combobox-container .combobox-options .option-item{text-decoration:none;background:#FFF url(images/blank.gif); margin:0; padding:0; overflow:hidden; white-space:nowrap; cursor:pointer;}
-.tl-combobox .combobox-container .combobox-options .option-item.in-focus{text-decoration:underline;}
-.tl-combobox .combobox-container .combobox-options .option-item.hidden{display:none;}
-.tl-combobox .combobox-container .combobox-options .option-item.selected-item{font-weight:bold;}
-.tl-combobox .combobox-title,
-.tl-combobox .combobox-title .inner-text,
-.tl-combobox .combobox-container .combobox-options .option-item
-{
-  text-overflow:ellipsis;
-  -o-text-overflow:ellipsis;
-  -moz-text-overflow:ellipsis;
-  -webkit-text-overflow:ellipsis;
-}
-.tl-combobox .combobox-container .combobox-options .option-item:hover {
-   text-decoration:underline;
-}
-.tl-combobox.disabled{background-image:url(images/tlcombobox-button-disabled.gif);}
-.tl-combobox.disabled .combobox-title{color:#646567; cursor:default;}
-.tl-combobox.disabled .combobox-title .inner-text{border-color:#646567;}
-
-.tl-combobox.full-width{max-width:100%;}
-.tl-combobox.left-align{}
-.tl-combobox.left-align .combobox-wrapper{left:auto; right:0;}
-.tl-combobox.left-align .combobox-container{margin:0 0 0 -46px; right:auto; left:0;}
-.tl-combobox.left-align .combobox-container .container-corner{left:30px; right:auto;}
 
 /*************************************************************
     LoadingBanner
 *************************************************************/
 body > div.loadingBanner {
-     cursor: wait;
+     cursor: wait;     
+     left: 50%;
+     margin-left: -180px;
      position: fixed;
-     width: 100%;
      text-align: center;
-     top: 9px;    
+     top: 9px;
+     width: 360px;
 }
 body > div.loadingBanner .loader-block {
     background: url("images/loader_16.gif") no-repeat scroll 10px 50% #FFFFFF;
@@ -1471,6 +1426,18 @@ body > div.loadingBanner .loader-block div {
 {
     cursor: wait !important;
 }
+
+/*.loader-page {
+    background: url("images/loader_64.gif") no-repeat center center  transparent;
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    top: 50%;
+    margin-top: -32px;
+    margin-left: 100px;
+    left: 50%;
+   
+}*/
 
 /*******************************************************************************
     Wizard
@@ -1611,12 +1578,6 @@ body > div.loadingBanner .loader-block div {
 
 .help_center .linkDescribe.bigtitle {margin-top:6px;}
 
-div.hintDescriptionPanel.help .popup-corner {
-    background-image: url("images/popup-corner-yellow.png") ;
-    bottom:-5px;
-    left: 82px;    
-}
-
 div.hintDescriptionPanel.help {
     background-color: #FFFFE0;
     margin-top: -4px;
@@ -1625,13 +1586,6 @@ div.hintDescriptionPanel.help {
 div.hintDescriptionPanel.help_bottom  {
     background-color: #FFFFE0;
 }
-
-div.hintDescriptionPanel.help_bottom .popup-corner
-{
-    background-image: url("images/popup-corner-yellow-down.png") ;    
-    left: 82px;
-}
-
 
 /*******************************************************************************
    Helper Block
@@ -1933,6 +1887,7 @@ input[type=number] {
 .settings-block input[type=checkbox] + label {
     float: left;
     margin: 0 0 8px 8px;
+    width: 320px;
 }
 .settings-help-block  {
      background: url('imagescss/question.png') no-repeat left top;
@@ -1952,6 +1907,7 @@ input[type=number] {
     }
 }
 .settings-help-block  p{
+    color: #787878;
     font-size:11px;
     margin:0;
 }
@@ -2013,7 +1969,7 @@ welcome popup for Collaborator
 
 .welcome-to-teamlab-with-logo
 {
-    background: url("imagescss/teamlab_7.0_pop-up.png") -10px 3px no-repeat;
+    background: url("imagescss/welcometo_logo.png") -10px 3px no-repeat;
     padding-left: 111px;
     color:#333;
 }
@@ -2109,7 +2065,7 @@ welcome popup for Collaborator
     background: url("imagescss/icon-owner-big.png") center no-repeat;
     }
 .loader32 {
-    background: url("imagescss/loader_32.png") center center no-repeat #fff;
+    background: url("images/loader_32.gif") center center no-repeat #fff;
 }
 
 /* Set min-height for Ipad */
@@ -2193,4 +2149,57 @@ iframe[name='google_conversion_frame'] {
     font-size: 0 !important;
     margin-top: -13px;
     float: left;
+}
+
+/*******************************************************************************
+            Menu Action (Group buttons)
+*******************************************************************************/
+
+/*********People********/
+
+.menuAction.otherFunctions {
+    display: none;
+}
+  .menuAction.otherFunctions  li {
+        display: none;
+    }
+
+
+@media all and (max-width: 1210px) {
+    .menuAction.menuWriteLetter  {
+        display: none;
+    }
+    .menuAction.otherFunctions li.menuWriteLetter {
+        display: block;
+    }
+}
+
+@media all and (max-width: 1160px) {
+    .menuAction.menuSendInvite {
+        display: none;
+    }
+    .menuAction.otherFunctions li.menuSendInvite {
+            display: block;
+        }
+}
+
+@media all and (max-width: 1250px) {
+    .menuAction.menuRemoveUsers {
+        display: none;
+    }
+    .menuAction.otherFunctions {
+        display: block;
+    }
+
+    .menuAction.otherFunctions li.menuRemoveUsers {
+        display: block;
+    }
+}
+/*******************************************************************************
+            Psw Reminder
+*******************************************************************************/
+
+#studio_emailPwdReminder {
+    margin-top: 15px;
+    width: 100%;
 }

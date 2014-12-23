@@ -21,7 +21,6 @@
 
 
 <div id="tagActionMenu" class="studio-action-panel">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li><a class="editAccount dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.Edit%></a></li>
         <li><a class="deleteAccount dropdown-item"><%=ASC.Web.Mail.Resources.MailScriptResource.Delete%></a></li>

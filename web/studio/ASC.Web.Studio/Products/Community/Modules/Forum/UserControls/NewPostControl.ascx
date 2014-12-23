@@ -65,22 +65,21 @@
 
     <div class="clearFix">
         <div id="panel_buttons" class="middle-button-container">
-            <a class="button blue middle" href="javascript:void(0);"
-				    onclick="ForumManager.SendMessage(); return false;">
-                <%=ForumUCResource.PublishButton%>
-            </a>
+            <a id="createPostBth" class="button blue middle" onclick="ForumManager.SendMessage()"><%=ForumUCResource.PublishButton%></a>
             <span class="splitter-buttons"></span>
-            <a class="button blue middle" href="javascript:void(0);"
-				    onclick="ForumManager.PreviewFCK()"; return false;">
-                <%=ForumUCResource.PreviewButton%>
-            </a>
+            <% if (string.IsNullOrEmpty(_text))
+            { %>
+            <a id="btnPreview" class="button blue middle disable" onclick="ForumManager.PreviewEditor()"><%= ForumUCResource.PreviewButton %></a>
+        <% } else { %>
+            <a id="btnPreview" class="button blue middle" onclick="ForumManager.PreviewEditor()"><%= ForumUCResource.PreviewButton %></a>
+        <% } %>
             <span class="splitter-buttons"></span>
-            <a class="button gray middle cancelFckEditorChangesButtonMarker" onclick="javascript:ForumManager.BlockButtons(); ForumManager.CancelPost('<%=(EditedPost == null)?"":EditedPost.ID.ToString()%>');" href="#">
+            <a class="button gray middle cancelFckEditorChangesButtonMarker" onclick="javascript:ForumManager.BlockButtons(); ForumManager.CancelPost('<%=(EditedPost == null)?"":EditedPost.ID.ToString()%>');">
                 <%=ForumUCResource.CancelButton%>
             </a>
             <div style="display:inline-block; vertical-align: middle; margin-left: 17px;">
-            <%=RenderSubscription()%>
-        </div>
+                <%=RenderSubscription()%>
+            </div>
         </div>
     </div>
 </div>

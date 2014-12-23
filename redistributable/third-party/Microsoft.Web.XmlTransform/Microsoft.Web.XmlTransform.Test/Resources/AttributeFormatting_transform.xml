@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<configuration xmlns:xct="http://schemas.microsoft.com/XML-Document-Transform">
+  <connectionStrings>
+    <!-- ADDING ATTRIBUTE SCENARIOS -->
+    <!-- 1. All attributes added, no newlines required -->
+    <add name="AddingScenario1" connectionString="Just ask Joe, he'll do it" providerName="Joe" xct:Transform="Replace" xct:Locator="Match(name)"/>
+    <!-- 2. All attributes added, No newlines from siblings -->
+    <add name="AddingScenario2" connectionString="Just ask Joe, he'll do it" providerName="Joe, the great provider of data who will provide your data for you!!!!!" xct:Transform="Replace" xct:Locator="Match(name)"/>
+    <!-- 3. All attributes added, Newline from sibling element (before) -->
+    <add name="AddingScenario3" connectionString="Just ask Joe, he'll do it" providerName="Joe, the great provider of data who will provide your data for you!!!!!" xct:Transform="Replace" xct:Locator="Match(name)"/>
+    <!-- 4. All attributes added, Newline from sibling element (after)) -->
+    <add name="AddingScenario4" connectionString="Just ask Joe, he'll do it" providerName="Joe, the great provider of data who will provide your data for you!!!!!" xct:Transform="Replace" xct:Locator="Match(name)"/>
+    <!-- 5. Attribute added to a one-per-line tag -->
+    <add name="AddingScenario5" foo="foo"  xct:Transform="SetAttributes(foo)" xct:Locator="Match(name)"/>
+    <!-- 6. Attribute added to a multiple-per-line tag (all attributes on the same line) -->
+    <add name="AddingScenario6" foo="foo"  xct:Transform="SetAttributes(foo)" xct:Locator="Match(name)"/>
+    <!-- 7. Attribute added to a multiple-per-line tag (One newline) -->
+    <add name="AddingScenario7" foo="foo"  xct:Transform="SetAttributes(foo)" xct:Locator="Match(name)"/>
+    <!-- 8. Attribute added to a multiple-per-line tag (Many newlines, but two attributes on one line) -->
+    <add name="AddingScenario8" foo="foo"  xct:Transform="SetAttributes(foo)" xct:Locator="Match(name)"/>
+
+    <!-- REMOVING ATTRIBUTE SCENARIOS -->
+    <!-- 1. Removed first attribute (following attribute on the same line) -->
+    <add name="RemovingScenario1" xct:Transform="RemoveAttributes(name)" xct:Locator="Match(name)"/>
+    <!-- 2. Removed first attribute (following attribute on a new line) -->
+    <add name="RemovingScenario2" xct:Transform="RemoveAttributes(name)" xct:Locator="Match(name)"/>
+    <!-- 3. Removed first attribute (following attribute is new) -->
+    <add name="RemovingScenario3" foo="foo" xct:Transform="SetAttributes(foo)" xct:Locator="Match(name)"/>
+    <add name="RemovingScenario3" xct:Transform="RemoveAttributes(name)" xct:Locator="Match(name)"/>
+    <!-- 4. Removed subsequent attribute on the same line -->
+    <add name="RemovingScenario4" xct:Transform="RemoveAttributes(connectionString)" xct:Locator="Match(name)"/>
+    <!-- 5. Removed subsequent attribute on a new line (Following attribute was original on same line) -->
+    <add name="RemovingScenario5" xct:Transform="RemoveAttributes(connectionString)" xct:Locator="Match(name)"/>
+    <!-- 6. Removed subsequent attribute on a new line (Following attribute was original on new line) -->
+    <add name="RemovingScenario6" xct:Transform="RemoveAttributes(connectionString)" xct:Locator="Match(name)"/>
+    <!-- 7. Removed subsequent attribute on a new line (Following attribute is new) -->
+    <add name="RemovingScenario7" foo="foo" xct:Transform="SetAttributes(foo)" xct:Locator="Match(name)"/>
+    <add name="RemovingScenario7" xct:Transform="RemoveAttributes(connectionString)" xct:Locator="Match(name)"/>
+    <!-- 8. Removed last attribute on the same line -->
+    <add name="RemovingScenario8" xct:Transform="RemoveAttributes(providerName)" xct:Locator="Match(name)"/>
+    <!-- 9. Removed last attribute on a new line -->
+    <add name="RemovingScenario9" xct:Transform="RemoveAttributes(providerName)" xct:Locator="Match(name)"/>
+
+    <!-- MIXED ADDING AND REMOVING SCENARIOS -->
+    <!-- All attributes removed and a new attribute is added -->
+    <add name="AddAndRemoveScenario1" foo="foo" xct:Transform="SetAttributes(foo)" xct:Locator="Match(name)" />
+    <add name="AddAndRemoveScenario1" xct:Transform="RemoveAttributes(name, connectionString, providerName)" xct:Locator="Match(name)"/>
+    <!-- First attribute removed and a new attribute added -->
+    <add name="AddAndRemoveScenario2" foo="foo" xct:Transform="SetAttributes(foo)" xct:Locator="Match(name)" />
+    <add name="AddAndRemoveScenario2" xct:Transform="RemoveAttributes(name)" xct:Locator="Match(name)"/>
+    <!-- Middle attribute removed and a new attribute is added (new name) -->
+    <add name="AddAndRemoveScenario3" xct:Transform="RemoveAttributes(connectionString)" xct:Locator="Match(name)"/>
+    <add name="AddAndRemoveScenario3" foo="foo" xct:Transform="SetAttributes(foo)" xct:Locator="Match(name)" />
+    <!-- Middle attribute removed and a new attribute is added (existing name) -->
+    <add name="AddAndRemoveScenario4" xct:Transform="RemoveAttributes(connectionString)" xct:Locator="Match(name)"/>
+    <add name="AddAndRemoveScenario4" connectionString="foo" xct:Transform="SetAttributes(connectionString)" xct:Locator="Match(name)" />
+    <!-- Last attribute removed and a new attribute is added (new name) -->
+    <add name="AddAndRemoveScenario5" xct:Transform="RemoveAttributes(providerName)" xct:Locator="Match(name)"/>
+    <add name="AddAndRemoveScenario5" foo="foo" xct:Transform="SetAttributes(foo)" xct:Locator="Match(name)" />
+    <!-- Last attribute removed and a new attribute is added (existing name) -->
+    <add name="AddAndRemoveScenario6" xct:Transform="RemoveAttributes(providerName)" xct:Locator="Match(name)"/>
+    <add name="AddAndRemoveScenario6" providerName="foo" xct:Transform="SetAttributes(providerName)" xct:Locator="Match(name)" />
+  </connectionStrings>
+</configuration>

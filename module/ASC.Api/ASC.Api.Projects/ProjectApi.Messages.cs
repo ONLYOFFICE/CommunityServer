@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -32,9 +32,11 @@ using System.Linq;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Documents;
+using ASC.Api.Employee;
 using ASC.Api.Exceptions;
 using ASC.Api.Projects.Wrappers;
 using ASC.Api.Utils;
+using ASC.Core;
 using ASC.MessagingSystem;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
@@ -44,28 +46,29 @@ namespace ASC.Api.Projects
 {
     public partial class ProjectApi
     {
-        ///<summary>
-        ///Returns the list with the detailed information about all the message matching the filter parameters specified in the request
-        ///</summary>
-        ///<short>
-        /// Get message by filter
-        ///</short>
-        /// <category>Discussions</category>
-        ///<param name="projectid" optional="true"> Project ID</param>
-        ///<param name="tag" optional="true">Project Tag</param>
-        ///<param name="departament" optional="true">Departament GUID</param>
-        ///<param name="participant" optional="true">Participant GUID</param>
-        ///<param name="createdStart" optional="true">Minimum value of message creation date</param>
-        ///<param name="createdStop" optional="true">Maximum value of message creation date</param>
-        ///<param name="lastId">Last message ID</param>
-        ///<param name="myProjects">Messages in my projects</param>
-        ///<param name="follow">Followed messages</param>
-        ///<returns>List of messages</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
+        /// <summary>
+        /// Returns the list with the detailed information about all the message matching the filter parameters specified in the request
+        /// </summary>
+        /// <short>
+        ///  Get message by filter
+        /// </short>
+        ///  <category>Discussions</category>
+        /// <param name="projectid" optional="true"> Project ID</param>
+        /// <param name="tag" optional="true">Project Tag</param>
+        /// <param name="departament" optional="true">Departament GUID</param>
+        /// <param name="participant" optional="true">Participant GUID</param>
+        /// <param name="createdStart" optional="true">Minimum value of message creation date</param>
+        /// <param name="createdStop" optional="true">Maximum value of message creation date</param>
+        /// <param name="lastId">Last message ID</param>
+        /// <param name="myProjects">Messages in my projects</param>
+        /// <param name="follow">Followed messages</param>
+        /// <param name="status"></param>
+        /// <returns>List of messages</returns>
+        /// <exception cref="ItemNotFoundException"></exception>
         [Read(@"message/filter")]
         public IEnumerable<MessageWrapper> GetMessageByFilter(int projectid, int tag, Guid departament, Guid participant,
                                                               ApiDateTime createdStart, ApiDateTime createdStop, int lastId,
-                                                              bool myProjects, bool follow)
+                                                              bool myProjects, bool follow, MessageStatus? status)
         {
             var messageEngine = EngineFactory.GetMessageEngine();
             var taskFilter = new TaskFilter
@@ -82,7 +85,8 @@ namespace ASC.Api.Projects
                 Max = _context.Count,
                 MyProjects = myProjects,
                 LastId = lastId,
-                Follow = follow
+                Follow = follow,
+                MessageStatus = status
             };
 
             if (projectid != 0)
@@ -148,7 +152,7 @@ namespace ASC.Api.Projects
             };
 
             discussion = EngineFactory.GetMessageEngine().SaveOrUpdate(discussion, notify ?? true, ToGuidList(participants), null);
-            MessageService.Send(_context, MessageAction.DiscussionCreated, discussion.Project.Title, discussion.Title);
+            MessageService.Send(Request, MessageAction.DiscussionCreated, discussion.Project.Title, discussion.Title);
             
             return new MessageWrapper(discussion);
         }
@@ -183,7 +187,33 @@ namespace ASC.Api.Projects
             discussion.Title = Update.IfNotEmptyAndNotEquals(discussion.Title, title);
 
             discussion = messageEngine.SaveOrUpdate(discussion, notify ?? true, ToGuidList(participants), null);
-            MessageService.Send(_context, MessageAction.DiscussionUpdated, discussion.Project.Title, discussion.Title);
+            MessageService.Send(Request, MessageAction.DiscussionUpdated, discussion.Project.Title, discussion.Title);
+
+            return new MessageWrapper(discussion);
+        }
+
+        ///<summary>
+        ///Updates the selected message status
+        ///</summary>
+        ///<short>
+        ///Update message status
+        ///</short>
+        /// <category>Discussions</category>
+        ///<param name="messageid">Message ID</param>
+        ///<param name="status">Project ID</param>
+        ///<returns></returns>
+        ///<exception cref="ArgumentException"></exception>
+        ///<exception cref="ItemNotFoundException"></exception>
+        [Update(@"message/{messageid:[0-9]+}/status")]
+        public MessageWrapper UpdateProjectMessage(int messageid, MessageStatus status)
+        {
+            var messageEngine = EngineFactory.GetMessageEngine();
+            var discussion = messageEngine.GetByID(messageid).NotFoundIfNull();
+            ProjectSecurity.DemandEdit(discussion);
+
+            discussion.Status = status;
+            messageEngine.ChangeStatus(discussion);
+            MessageService.Send(Request, MessageAction.DiscussionUpdated, discussion.Project.Title, discussion.Title);
 
             return new MessageWrapper(discussion);
         }
@@ -207,7 +237,7 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandEdit(discussion);
             
             discussionEngine.Delete(discussion);
-            MessageService.Send(_context, MessageAction.DiscussionDeleted, discussion.Project.Title, discussion.Title);
+            MessageService.Send(Request, MessageAction.DiscussionDeleted, discussion.Project.Title, discussion.Title);
             
             return new MessageWrapper(discussion);
         }
@@ -285,7 +315,7 @@ namespace ASC.Api.Projects
                 messageEngine.AttachFile(discussion, file.ID, true);
             }
 
-            MessageService.Send(_context, MessageAction.DiscussionAttachedFiles, discussion.Project.Title, discussion.Title, fileNames);
+            MessageService.Send(Request, MessageAction.DiscussionAttachedFiles, discussion.Project.Title, discussion.Title, fileNames);
 
             return new MessageWrapper(discussion);
         }
@@ -313,7 +343,7 @@ namespace ASC.Api.Projects
             var file = fileEngine.GetFile(fileid, 1).NotFoundIfNull();
             
             messageEngine.DetachFile(discussion, fileid);
-            MessageService.Send(_context, MessageAction.DiscussionDetachedFile, discussion.Project.Title, discussion.Title, file.Title);
+            MessageService.Send(Request, MessageAction.DiscussionDetachedFile, discussion.Project.Title, discussion.Title, file.Title);
 
             return new MessageWrapper(discussion);
         }
@@ -392,7 +422,7 @@ namespace ASC.Api.Projects
             comment = messageEngine.SaveOrUpdateComment(messageEngine.GetByID(messageid).NotFoundIfNull(), comment);
 
             var message = messageEngine.GetByID(messageid);
-            MessageService.Send(_context, MessageAction.DiscussionCommentCreated, message.Project.Title, message.Title);
+            MessageService.Send(Request, MessageAction.DiscussionCommentCreated, message.Project.Title, message.Title);
             
             return new CommentWrapper(comment);
         }
@@ -416,7 +446,7 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandAuthentication();
 
             discussionEngine.Follow(discussion);
-            MessageService.Send(_context, MessageAction.DiscussionUpdatedFollowing, discussion.Project.Title, discussion.Title);
+            MessageService.Send(Request, MessageAction.DiscussionUpdatedFollowing, discussion.Project.Title, discussion.Title);
 
             return new MessageWrapper(discussion);
         }
@@ -430,7 +460,7 @@ namespace ASC.Api.Projects
         /// <category>Discussions</category>
 		///<param name="messageid">Message ID</param>
         ///<exception cref="ItemNotFoundException"></exception>
-        [Read(@"message/{message:[0-9]+}/subscribe")]
+        [Read(@"message/{messageid:[0-9]+}/subscribe")]
         public bool IsSubscribedToMessage(int messageid)
         {
             var messageEngine = EngineFactory.GetMessageEngine();
@@ -440,6 +470,28 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandAuthentication();
 
             return messageEngine.IsSubscribed(message);
+        }
+
+        ///<summary>
+        ///Get subscribers
+        ///</summary>
+        ///<short>
+        ///Get subscribers
+        ///</short>
+        /// <category>Discussions</category>
+        ///<param name="messageid">Message ID</param>
+        ///<exception cref="ItemNotFoundException"></exception>
+        [Read(@"message/{messageid:[0-9]+}/subscribes")]
+        public IEnumerable<EmployeeWraperFull> GetProjectMessageSubscribers(int messageid)
+        {
+            var messageEngine = EngineFactory.GetMessageEngine();
+
+            var message = messageEngine.GetByID(messageid).NotFoundIfNull();
+
+            ProjectSecurity.DemandAuthentication();
+
+            return messageEngine.GetSubscribers(message).Select(r=> new EmployeeWraperFull(CoreContext.UserManager.GetUsers(new Guid(r.ID))))
+                .OrderBy(r=> r.DisplayName).ToList();
         }
     }
 }

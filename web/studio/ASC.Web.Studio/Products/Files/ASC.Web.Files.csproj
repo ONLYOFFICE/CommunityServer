@@ -2,6 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,8 +16,6 @@
     <RootNamespace>ASC.Web.Files</RootNamespace>
     <AssemblyName>ASC.Web.Files</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TrunkDir>..\..\..\..\..\</TrunkDir>
-    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -28,12 +27,12 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <OutputPath>..\..\bin\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,162 +41,121 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=db0125e360716f7b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+    <Reference Include="AjaxPro.2">
+      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="AppLimit.CloudComputing.SharpBox, Version=1.1.0.440, Culture=neutral, PublicKeyToken=ec6c83edb3a952dc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\ShrapBox\compiled\AppLimit.CloudComputing.SharpBox.dll</HintPath>
+    <Reference Include="AppLimit.CloudComputing.SharpBox">
+      <HintPath>..\..\..\..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.440\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\..\..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+    <Reference Include="Google.Apis">
+      <HintPath>..\..\..\..\..\packages\Google.Apis.1.8.1\lib\net40\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth">
+      <HintPath>..\..\..\..\..\packages\Google.Apis.Auth.1.8.1\lib\net40\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core">
+      <HintPath>..\..\..\..\..\packages\Google.Apis.Core.1.8.1\lib\portable-net4+sl4+wp71+win8\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Drive.v2">
+      <HintPath>..\..\..\..\..\packages\Google.Apis.Drive.v2.1.8.1.1270\lib\portable-net4+sl4+wp71+win8\Google.Apis.Drive.v2.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\..\..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
+      <Aliases>ionic</Aliases>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASC.FederatedLogin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.FederatedLogin.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.FullTextIndex, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.FullTextIndex.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.MessagingSystem">
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.MessagingSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Specific, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Specific.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ASC.Thrdparty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Thrdparty.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.Web.Studio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\ASC.Web.Studio.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DotNetOpenAuth, Version=4.0.0.11165, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.ApplicationBlock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\DotNetOpenAuth.ApplicationBlock.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\DotNotZip\Ionic.Zip.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\redistributable\third-party\Microsoft\SharePoint\Microsoft.SharePoint.Client.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\redistributable\third-party\Microsoft\SharePoint\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\..\..\..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IdentityModel">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\..\..\..\..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.ServiceModel">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="System.ServiceModel.Web">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.Abstractions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="UAParser, Version=1.0.2.0, Culture=neutral, PublicKeyToken=f7377bf021646069, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\UAParser\UAParser.dll</HintPath>
+    <Reference Include="UAParser">
+      <HintPath>..\..\..\..\..\packages\UAParser.1.0.2.0\lib\net40\UAParser.dll</HintPath>
     </Reference>
-    <Reference Include="YamlDotNet, Version=2.0.1.41986, Culture=neutral, PublicKeyToken=2b53052c5884d7a1, processorArchitecture=MSIL">
+    <Reference Include="YamlDotNet">
+      <HintPath>..\..\..\..\..\packages\YamlDotNet.3.0.0\lib\net35\YamlDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Zlib.Portable, Version=1.9.1.9000, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\UAParser\YamlDotNet.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Zlib.Portable.1.9.1.2\lib\portable-net4+sl4+wp71+win8\Zlib.Portable.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\FilesSettings.cs" />
+    <Compile Include="Controls\ContentList\ContentList.ascx.cs">
+      <DependentUpon>ContentList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ContentList\ContentList.ascx.designer.cs">
+      <DependentUpon>ContentList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FileSelector\FileSelector.ascx.cs">
       <DependentUpon>FileSelector.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -212,16 +170,26 @@
     <Compile Include="App.aspx.designer.cs">
       <DependentUpon>App.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MoreFeatures\MoreFeatures.ascx.cs">
+      <DependentUpon>MoreFeatures.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\MoreFeatures\MoreFeatures.ascx.designer.cs">
+      <DependentUpon>MoreFeatures.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Core\ResponseStream.cs" />
     <Compile Include="Helpers\FilesMessageService.cs" />
+    <Compile Include="Services\WCFService\FileExceptionFilterAttribute.cs" />
+    <Compile Include="Services\WCFService\FileStorageServiceController.cs" />
     <Compile Include="ThirdPartyApp\BoxApp.cs" />
     <Compile Include="ThirdPartyApp\IThirdPartyApp.cs" />
     <Compile Include="ThirdPartyApp\Request.cs" />
     <Compile Include="ThirdPartyApp\GoogleDriveApp.cs" />
     <Compile Include="ThirdPartyApp\Token.cs" />
     <Compile Include="HttpHandlers\ThirdPartyAppHandler.ashx.cs">
-      <DependentUpon>ThirdPartyAppHandler.ashx</DependentUpon>
+      <DependentUpon>thirdpartyapphandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Services\WCFService\FileEntrySerializer.cs" />
     <Compile Include="Share.aspx.cs">
       <DependentUpon>Share.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -277,9 +245,18 @@
     <Compile Include="Masters\ClientScripts\FilesLocalizationResources.cs" />
     <Compile Include="Masters\ClientScripts\FilesConstantsResources.cs" />
     <Content Include="Controls\ChunkUploadDialog\Images\mainmenu_upload.png" />
+    <Content Include="Controls\ContentList\ContentList.ascx" />
+    <Content Include="Controls\ContentList\contentlist.css" />
+    <Content Include="Controls\ContentList\Images\lock.png" />
+    <Content Include="Controls\ContentList\Images\throbber.gif" />
+    <Content Include="Controls\ContentList\Images\version_operation.png" />
     <Content Include="Controls\FileSelector\fileselector.js" />
     <Content Include="Controls\FileSelector\FileSelector.ascx" />
     <Content Include="Controls\FileSelector\fileselector.css" />
+    <Content Include="Controls\MoreFeatures\css\img\check.png" />
+    <Content Include="Controls\MoreFeatures\css\morefeatures.css" />
+    <Content Include="Controls\MoreFeatures\morefeatures.css" />
+    <Content Include="Controls\MoreFeatures\MoreFeatures.ascx" />
     <Content Include="Masters\EditorScripts.ascx" />
     <Content Include="Masters\FilesScripts.ascx" />
     <Content Include="Masters\BasicTemplate.Master" />
@@ -288,7 +265,7 @@
   <ItemGroup>
     <Content Include="DocEditor.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="HttpHandlers\FileHandler.ashx" />
+    <Content Include="HttpHandlers\filehandler.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocEditor.aspx.cs">
@@ -306,27 +283,16 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="HttpHandlers\FileHandler.ashx.cs">
-      <DependentUpon>FileHandler.ashx</DependentUpon>
+      <DependentUpon>filehandler.ashx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Import\Document.cs" />
-    <Content Include="Import\Boxnet\BoxLogin.aspx" />
     <Compile Include="Import\ImportConfiguration.cs" />
     <Content Include="Import\DropBox\Dropbox.aspx" />
-    <Content Include="Import\Google\OAuth.aspx" />
-    <Content Include="Import\SkyDrive\SkyDriveOAuth.aspx" />
+    <Content Include="Import\OneDrive\OneDriveOAuth.aspx" />
     <Compile Include="Import\Utils.cs" />
     <Compile Include="Import\IDocumentProvider.cs" />
-    <Compile Include="Import\Zoho\ZohoDocumentProvider.cs" />
-    <Compile Include="Import\Boxnet\BoxLogin.aspx.cs">
-      <DependentUpon>BoxLogin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Import\Boxnet\BoxDocumentProvider.cs" />
-    <Compile Include="Import\Boxnet\BoxLogin.aspx.designer.cs">
-      <DependentUpon>BoxLogin.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Import\DropBox\Dropbox.aspx.cs">
       <DependentUpon>Dropbox.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -334,23 +300,23 @@
     <Compile Include="Import\DropBox\Dropbox.aspx.designer.cs">
       <DependentUpon>Dropbox.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Import\Google\GoogleDocumentProvider.cs" />
-    <Compile Include="Import\Google\OAuth.aspx.cs">
-      <DependentUpon>OAuth.aspx</DependentUpon>
+    <Content Include="Import\Google\Google.aspx" />
+    <Compile Include="Import\Google\Google.aspx.cs">
+      <DependentUpon>Google.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Import\Google\OAuth.aspx.designer.cs">
-      <DependentUpon>OAuth.aspx</DependentUpon>
+    <Compile Include="Import\Google\Google.aspx.designer.cs">
+      <DependentUpon>Google.aspx</DependentUpon>
     </Compile>
     <Compile Include="Import\OAuthBase.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Import\SkyDrive\SkyDriveOAuth.aspx.cs">
-      <DependentUpon>SkyDriveOAuth.aspx</DependentUpon>
+    <Compile Include="Import\OneDrive\OneDriveOAuth.aspx.cs">
+      <DependentUpon>OneDriveOAuth.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Import\SkyDrive\SkyDriveOAuth.aspx.designer.cs">
-      <DependentUpon>SkyDriveOAuth.aspx</DependentUpon>
+    <Compile Include="Import\OneDrive\OneDriveOAuth.aspx.designer.cs">
+      <DependentUpon>OneDriveOAuth.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -362,28 +328,21 @@
     <Compile Include="Services\NotifyService\NotifyClient.cs" />
     <Compile Include="Services\NotifyService\NotifyConstants.cs" />
     <Compile Include="Services\NotifyService\NotifySource.cs" />
-    <Compile Include="Services\WCFService\Wrappers\AceWrapper.cs" />
-    <Compile Include="Services\WCFService\Wrappers\BaseTypeWrapper.cs" />
     <Compile Include="Services\WCFService\FileOperations\FileMarkAsReadOperation.cs" />
-    <Compile Include="Services\WCFService\ServiceErrorLoggingBehavior.cs" />
-    <Compile Include="Services\WCFService\FileOperations\FileImportOperation.cs" />
     <Compile Include="Services\WCFService\FileOperations\FileOperationType.cs" />
     <Compile Include="Services\WCFService\FileOperations\FileOperationResult.cs" />
     <Compile Include="Services\WCFService\FileOperations\FileDownloadOperation.cs" />
     <Compile Include="Services\WCFService\FileOperations\FileConflictResolveType.cs" />
     <Compile Include="Services\WCFService\FileOperations\FileDeleteOperation.cs" />
-    <Compile Include="Services\WCFService\Wrappers\DataWrapper.cs" />
     <Compile Include="Services\WCFService\FileOperations\FileMoveCopyOperation.cs" />
     <Compile Include="Services\WCFService\FileOperations\FileOperation.cs" />
     <Compile Include="Services\WCFService\IFileStorageService.cs" />
-    <Compile Include="Services\WCFService\Wrappers\DataToImport.cs" />
+    <Compile Include="Services\WCFService\Wrappers\AceWrapper.cs" />
+    <Compile Include="Services\WCFService\Wrappers\BaseTypeWrapper.cs" />
+    <Compile Include="Services\WCFService\Wrappers\DataWrapper.cs" />
+    <Compile Include="Services\WCFService\Wrappers\MessageParams.cs" />
     <Compile Include="Services\WCFService\Wrappers\ThirdPartyParams.cs" />
     <Compile Include="Services\WCFService\UriTemplates.cs" />
-    <Compile Include="Services\WCFService\ServiceAuthenticationBehavior.cs" />
-    <Content Include="Services\WCFService\Service.svc" />
-    <Compile Include="Services\WCFService\Service.svc.cs">
-      <DependentUpon>Service.svc</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.aspx" />
@@ -396,7 +355,6 @@
     <Content Include="Templates\getfolderitem.xsl" />
     <Content Include="Templates\getfolderitems.xsl" />
     <Content Include="Templates\getfolderstree.xsl" />
-    <Content Include="Templates\getimportdata.xsl" />
     <Content Include="Templates\gettooltip.xsl" />
     <Content Include="Templates\getlistconvert.xsl" />
     <Content Include="Templates\getthirdpartyitem.xsl" />
@@ -454,13 +412,6 @@
     <Compile Include="Controls\ConvertFile\ConvertFile.ascx.designer.cs">
       <DependentUpon>ConvertFile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\LoginDialog\LoginDialog.ascx.cs">
-      <DependentUpon>LoginDialog.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\LoginDialog\LoginDialog.ascx.designer.cs">
-      <DependentUpon>LoginDialog.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Core\Entries\ChunkedUploadSession.cs" />
     <Compile Include="HttpHandlers\ChunkedUploaderHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -491,13 +442,6 @@
     </Compile>
     <Compile Include="Controls\EmptyFolder\EmptyFolder.ascx.designer.cs">
       <DependentUpon>EmptyFolder.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ImportControl\ImportControl.ascx.cs">
-      <DependentUpon>ImportControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\ImportControl\ImportControl.ascx.designer.cs">
-      <DependentUpon>ImportControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\FileViewer\FileViewer.ascx.cs">
       <DependentUpon>FileViewer.ascx</DependentUpon>
@@ -560,19 +504,11 @@
     <Content Include="Controls\FileViewer\Images\iv_buttons.png" />
     <Content Include="Controls\FileViewer\Images\iv_buttons_other.png" />
     <Content Include="Controls\FileViewer\Images\iv_close.png" />
-    <Content Include="Controls\LoginDialog\LoginDialog.ascx" />
-    <Content Include="Controls\LoginDialog\logindialog.css" />
-    <Content Include="Controls\LoginDialog\Images\icons.png" />
-    <Content Include="Controls\LoginDialog\Images\cross-grey.png" />
     <Content Include="Controls\MainContent\MainContent.ascx" />
     <Content Include="Controls\MainContent\maincontent.css" />
     <Content Include="Controls\MainContent\Images\switch_view.png" />
-    <Content Include="Controls\MainContent\Images\throbber.gif" />
     <Content Include="Controls\MainContent\Images\info_16.png" />
     <Content Include="Controls\MainContent\Images\expl_16.png" />
-    <Content Include="Controls\MainContent\Images\version_operation.png" />
-    <Content Include="Controls\MainContent\Images\to-up.png" />
-    <Content Include="Controls\MainContent\Images\lock.png" />
     <Content Include="Controls\ConvertFile\ConvertFile.ascx" />
     <Content Include="Controls\ConvertFile\convertfile.css" />
     <Content Include="Controls\ConvertFile\convertfile.js" />
@@ -581,16 +517,14 @@
     <Content Include="Controls\ThirdParty\ThirdParty.ascx" />
     <Content Include="Controls\ThirdParty\thirdparty.css" />
     <Content Include="Controls\ThirdParty\thirdparty.js" />
-    <Content Include="Controls\ThirdParty\Images\box_net.png" />
-    <Content Include="Controls\ThirdParty\Images\drop_box.png" />
-    <Content Include="Controls\ThirdParty\Images\google_drive.png" />
-    <Content Include="Controls\ThirdParty\Images\share_point.png" />
-    <Content Include="Controls\ThirdParty\Images\sky_drive.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_boxnet.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_dropbox.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_google.png" />
+    <Content Include="Controls\ThirdParty\Images\thirdparty_onedrivebusiness.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_sharepoint.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_skydrive.png" />
+    <Content Include="Controls\ThirdParty\Images\thirdparty_webdav.png" />
+    <Content Include="Controls\ThirdParty\Images\thirdparty_yandex.png" />
     <Content Include="Controls\Tree\Tree.ascx" />
     <Content Include="Controls\Tree\TreeBuilder.ascx" />
     <Content Include="Controls\Tree\treebuilder.css" />
@@ -606,10 +540,6 @@
     <Content Include="Controls\EmptyFolder\emptyfolder.css" />
     <Content Include="Controls\EmptyFolder\emptyfolder.js" />
     <Content Include="Controls\EmptyFolder\Images\btn_emptyfolder.png" />
-    <Content Include="Controls\ImportControl\Images\tree.png" />
-    <Content Include="Controls\ImportControl\ImportControl.ascx" />
-    <Content Include="Controls\ImportControl\importcontrol.css" />
-    <Content Include="Controls\ImportControl\importcontrol.js" />
     <Content Include="Controls\MainMenu\MainMenu.ascx" />
     <Content Include="Controls\ChunkUploadDialog\ChunkUploadDialog.ascx" />
     <Content Include="Controls\ChunkUploadDialog\chunkuploaddialog.css" />
@@ -656,17 +586,63 @@
     <Content Include="App_Themes\Default\Images\product_logolarge.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HttpHandlers\ThirdPartyAppHandler.ashx" />
+    <Content Include="HttpHandlers\thirdpartyapphandler.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
+      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
+      <Name>ASC.Data.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api.Client\ASC.Api.Client.csproj">
+      <Project>{012b11ca-b298-404a-8923-978903cdfc25}</Project>
+      <Name>ASC.Api.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
+      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
+      <Name>ASC.Api.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Specific\ASC.Specific.csproj">
+      <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
+      <Name>ASC.Specific</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
+      <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
+      <Name>ASC.FullTextIndex</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
+      <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
+      <Name>ASC.MessagingSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
+      <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
+      <Name>ASC.FederatedLogin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
+      <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
+      <Name>ASC.Thrdparty</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\DotNetOpenAuth.ApplicationBlock\DotNetOpenAuth.ApplicationBlock.csproj">
+      <Project>{aa78d112-d889-414b-a7d4-467b34c7b663}</Project>
+      <Name>DotNetOpenAuth.ApplicationBlock</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Name>ASC.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
+      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
+      <Name>ASC.Web.Studio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Target Name="BeforeBuild">
-    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
-  </Target>
-  <Target Name="AfterBuild">
-    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile-&gt;'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
-    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath-&gt;'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
-  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

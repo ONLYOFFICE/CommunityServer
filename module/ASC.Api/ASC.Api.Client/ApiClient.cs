@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -33,8 +33,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
+using System.Security.Authentication;
 using System.Text;
-using System.Web;
 using System.Xml.Linq;
 
 namespace ASC.Api.Client
@@ -61,16 +61,16 @@ namespace ASC.Api.Client
 
         public ApiClient(string host, string apiRoot, UriScheme uriScheme)
         {
-            if (apiRoot.Length > 0 && apiRoot[0] == '~')
+            if (string.IsNullOrEmpty(host))
             {
-                if (HttpContext.Current != null && HttpContext.Current.Request.Cookies.Get("asc_auth_key") != null)
-                    apiRoot = VirtualPathUtility.ToAbsolute(apiRoot);
-                else
-                    apiRoot = apiRoot.TrimStart('~');
+                throw new ArgumentException("Empty host.", "host");
             }
-
+            if (apiRoot == null)
+            {
+                throw new ArgumentNullException("apiRoot");
+            }
             Host = host;
-            ApiRoot = apiRoot.Trim('/');
+            ApiRoot = apiRoot.TrimStart('~').Trim('/');
             UriScheme = uriScheme;
         }
 
@@ -84,13 +84,24 @@ namespace ASC.Api.Client
                     .WithParameter("password", password));
 
             var xml = XElement.Load(new StringReader(response.Response));
-            return xml.Element("token").Value;
+
+            var tokenElement = xml.Element("token");
+            var token = tokenElement != null ? tokenElement.Value : null;
+            
+            if (string.IsNullOrEmpty(token))
+            {
+                throw new AuthenticationException("No authorization token returned from server.");
+            }
+
+            return token;
         }
 
         public ApiResponse GetResponse(ApiRequest request)
         {
             if (request == null)
+            {
                 throw new ArgumentNullException("request");
+            }
 
             HttpWebRequest webRequest = CreateWebRequest(request);
             HttpWebResponse webResponse;
@@ -101,22 +112,30 @@ namespace ASC.Api.Client
             catch (WebException exception)
             {
                 if (exception.Response == null)
+                {
                     throw;
+                }
 
                 webResponse = (HttpWebResponse)exception.Response;
                 if (new ContentType(webResponse.ContentType).MediaType == "text/html") // generic http error
+                {
                     throw new HttpErrorException((int)webResponse.StatusCode, webResponse.StatusDescription);
+                }
             }
 
             using (webResponse)
             using (var responseStream = webResponse.GetResponseStream())
             {
-                if (new ContentType(webResponse.ContentType).MediaType == "application/json")
+                var mediaType = new ContentType(webResponse.ContentType).MediaType;
+                switch (mediaType)
                 {
-                    return ResponseParser.ParseJsonResponse(responseStream);
+                    case "application/json":
+                        return ResponseParser.ParseJsonResponse(responseStream);
+                    case "text/xml":
+                        return ResponseParser.ParseXmlResponse(responseStream);
+                    default:
+                        throw new UnsupportedMediaTypeException(mediaType);
                 }
-
-                return ResponseParser.ParseXmlResponse(responseStream);
             }
         }
 
@@ -125,20 +144,23 @@ namespace ASC.Api.Client
             var uri = new UriBuilder(UriScheme.ToString().ToLower(), Host) {Path = CreatePath(request)};
 
             if (request.Method == HttpMethod.Get || request.Method == HttpMethod.Delete)
+            {
                 uri.Query = CreateQuery(request);
+            }
             
             var httpRequest = (HttpWebRequest)WebRequest.Create(uri.ToString());
             httpRequest.Method = request.Method.ToString().ToUpper();
             httpRequest.AllowAutoRedirect = true;
 
             if (!string.IsNullOrWhiteSpace(request.AuthToken))
+            {
                 httpRequest.Headers["Authorization"] = request.AuthToken;
-
+            }
             httpRequest.Headers.Add(request.Headers);
 
             if (request.Method != HttpMethod.Get && request.Method != HttpMethod.Delete)
             {
-                if (request.Files.Any())
+                if (request.Files.Any() || request.RequestType == RequestType.Multipart)
                 {
                     WriteMultipart(httpRequest, request);
                 }
@@ -191,7 +213,15 @@ namespace ASC.Api.Client
                                               Path.GetFileName(file.Name),
                                               !string.IsNullOrEmpty(file.ContentType) ? file.ContentType : "application/octet-stream");
 
+                    if (file.Data.CanSeek)
+                    {
+                        file.Data.Seek(0, SeekOrigin.Begin);
+                    }
                     file.Data.CopyTo(requestStream);
+                    if (file.CloseStream)
+                    {
+                        file.Data.Close();
+                    }
                 }
 
                 requestStream.WriteString("\r\n--{0}--\r\n", boundary);

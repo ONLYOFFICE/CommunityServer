@@ -1,41 +1,42 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ASC.Common.Security;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Core.Caching;
 
 namespace ASC.Core
 {
-    internal class ClientUserManager : IUserManagerClient, IGroupManagerClient
+    class ClientUserManager : IUserManagerClient, IGroupManagerClient
     {
         private readonly IUserService userService;
 
@@ -44,11 +45,14 @@ namespace ASC.Core
 
         public ClientUserManager(IUserService service)
         {
-            userService = service;
+            this.userService = service;
 
-            systemUsers = Configuration.Constants.SystemAccounts.ToDictionary(a => a.ID, a => new UserInfo {ID = a.ID, LastName = a.Name});
+            systemUsers = Configuration.Constants.SystemAccounts.ToDictionary(a => a.ID, a => new UserInfo { ID = a.ID, LastName = a.Name });
             systemUsers[Constants.LostUser.ID] = Constants.LostUser;
+            systemUsers[Constants.OutsideUser.ID] = Constants.OutsideUser;
+            systemUsers[Constants.NamingPoster.ID] = Constants.NamingPoster;
         }
+
 
         #region Users
 
@@ -80,10 +84,10 @@ namespace ASC.Core
         public DateTime GetMaxUsersLastModified()
         {
             return userService.GetUsers(CoreContext.TenantManager.GetCurrentTenant().TenantId, default(DateTime))
-                              .Values
-                              .Select(g => g.LastModified)
-                              .DefaultIfEmpty()
-                              .Max();
+                .Values
+                .Select(g => g.LastModified)
+                .DefaultIfEmpty()
+                .Max();
         }
 
         public string[] GetUserNames(EmployeeStatus status)
@@ -97,13 +101,13 @@ namespace ASC.Core
         public UserInfo GetUserByUserName(string username)
         {
             return GetUsersInternal()
-                       .FirstOrDefault(u => string.Compare(u.UserName, username, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
+                .FirstOrDefault(u => string.Compare(u.UserName, username, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
         }
 
         public UserInfo GetUserBySid(string sid)
         {
             return GetUsersInternal()
-                       .FirstOrDefault(u => u.Sid != null && string.Compare(u.Sid, sid, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
+                .FirstOrDefault(u => u.Sid != null && string.Compare(u.Sid, sid, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
         }
 
         public bool IsUserNameExists(string username)
@@ -114,20 +118,9 @@ namespace ASC.Core
 
         public UserInfo GetUsers(Guid id)
         {
-            if (systemUsers.ContainsKey(id)) return systemUsers[id];
+            if (IsSysytemUser(id)) return systemUsers[id];
             var u = userService.GetUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, id);
             return u != null && !u.Removed ? u : Constants.LostUser;
-        }
-
-        public IEnumerable<UserInfo> GetUsers(IEnumerable<Guid> ids)
-        {
-            var susers = systemUsers.Where(x => ids.Contains(x.Key)).Select(x => x.Value).ToList();
-            if (susers.Any()) return susers;
-
-            var users = userService.GetUsers(CoreContext.TenantManager.GetCurrentTenant().TenantId, ids);
-
-            var result = users.Select(x => x != null && !x.Removed ? x : Constants.LostUser);
-            return result;
         }
 
         public UserInfo GetUsers(int tenant, string login, string passwordHash)
@@ -141,12 +134,17 @@ namespace ASC.Core
             return !GetUsers(id).Equals(Constants.LostUser);
         }
 
+        public bool IsSysytemUser(Guid id)
+        {
+            return systemUsers.ContainsKey(id);
+        }
+
         public UserInfo GetUserByEmail(string email)
         {
             if (string.IsNullOrEmpty(email)) return Constants.LostUser;
 
             return GetUsersInternal()
-                       .FirstOrDefault(u => string.Compare(u.Email, email, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
+                .FirstOrDefault(u => string.Compare(u.Email, email, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
         }
 
         public UserInfo[] Search(string text, EmployeeStatus status)
@@ -158,24 +156,24 @@ namespace ASC.Core
         {
             if (text == null || text.Trim() == string.Empty) return new UserInfo[0];
 
-            var words = text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            var words = text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             if (words.Length == 0) return new UserInfo[0];
 
             var users = groupId == Guid.Empty ?
-                            GetUsers(status) :
-                            GetUsersByGroup(groupId).Where(u => (u.Status & status) == status);
+                GetUsers(status) :
+                GetUsersByGroup(groupId).Where(u => (u.Status & status) == status);
 
             var findUsers = new List<UserInfo>();
             foreach (var user in users)
             {
-                var properties = new[]
-                    {
-                        user.LastName ?? string.Empty,
-                        user.FirstName ?? string.Empty,
-                        user.Title ?? string.Empty,
-                        user.Location ?? string.Empty,
-                        user.Email ?? string.Empty
-                    };
+                var properties = new string[]
+                {
+                    user.LastName ?? string.Empty,
+                    user.FirstName ?? string.Empty,
+                    user.Title ?? string.Empty,
+                    user.Location ?? string.Empty,
+                    user.Email ?? string.Empty,
+                };
                 if (IsPropertiesContainsWords(properties, words))
                 {
                     findUsers.Add(user);
@@ -186,7 +184,7 @@ namespace ASC.Core
 
         public UserInfo SaveUserInfo(UserInfo u)
         {
-            if (systemUsers.ContainsKey(u.ID)) return systemUsers[u.ID];
+            if (IsSysytemUser(u.ID)) return systemUsers[u.ID];
             if (u.ID == Guid.Empty) SecurityContext.DemandPermissions(Constants.Action_AddRemoveUser);
             else SecurityContext.DemandPermissions(new UserSecurityProvider(u.ID), Constants.Action_EditUser);
 
@@ -204,7 +202,7 @@ namespace ASC.Core
 
         public void DeleteUser(Guid id)
         {
-            if (systemUsers.ContainsKey(id)) return;
+            if (IsSysytemUser(id)) return;
             SecurityContext.DemandPermissions(Constants.Action_AddRemoveUser);
             if (id == CoreContext.TenantManager.GetCurrentTenant().OwnerId)
             {
@@ -216,7 +214,7 @@ namespace ASC.Core
 
         public void SaveUserPhoto(Guid id, Guid notused, byte[] photo)
         {
-            if (systemUsers.ContainsKey(id)) return;
+            if (IsSysytemUser(id)) return;
             SecurityContext.DemandPermissions(new UserSecurityProvider(id), Constants.Action_EditUser);
 
             userService.SetUserPhoto(CoreContext.TenantManager.GetCurrentTenant().TenantId, id, photo);
@@ -224,7 +222,7 @@ namespace ASC.Core
 
         public byte[] GetUserPhoto(Guid id, Guid notused)
         {
-            if (systemUsers.ContainsKey(id)) return null;
+            if (IsSysytemUser(id)) return null;
             return userService.GetUserPhoto(CoreContext.TenantManager.GetCurrentTenant().TenantId, id);
         }
 
@@ -306,6 +304,7 @@ namespace ASC.Core
 
         #endregion Users
 
+
         #region Company
 
         public GroupInfo[] GetDepartments()
@@ -352,6 +351,7 @@ namespace ASC.Core
 
         #endregion Company
 
+
         #region Groups
 
         public GroupInfo[] GetGroups()
@@ -369,22 +369,22 @@ namespace ASC.Core
         public GroupInfo GetGroupInfo(Guid groupID)
         {
             return GetGroupsInternal()
-                       .SingleOrDefault(g => g.ID == groupID) ?? Constants.LostGroupInfo;
+                .SingleOrDefault(g => g.ID == groupID) ?? Constants.LostGroupInfo;
         }
 
         public GroupInfo GetGroupInfoBySid(string sid)
         {
             return GetGroupsInternal()
-                       .SingleOrDefault(g => g.Sid == sid) ?? Constants.LostGroupInfo;
+                .SingleOrDefault(g => g.Sid == sid) ?? Constants.LostGroupInfo;
         }
 
         public DateTime GetMaxGroupsLastModified()
         {
             return userService.GetGroups(CoreContext.TenantManager.GetCurrentTenant().TenantId, default(DateTime))
-                              .Values
-                              .Select(g => g.LastModified)
-                              .DefaultIfEmpty()
-                              .Max();
+                .Values
+                .Select(g => g.LastModified)
+                .DefaultIfEmpty()
+                .Max();
         }
 
         public GroupInfo SaveGroupInfo(GroupInfo g)
@@ -408,6 +408,7 @@ namespace ASC.Core
 
         #endregion Groups
 
+
         private bool IsPropertiesContainsWords(IEnumerable<string> properties, IEnumerable<string> words)
         {
             foreach (var w in words)
@@ -427,17 +428,17 @@ namespace ASC.Core
         private IEnumerable<UserInfo> GetUsersInternal()
         {
             return userService.GetUsers(CoreContext.TenantManager.GetCurrentTenant().TenantId, default(DateTime))
-                              .Values
-                              .Where(u => !u.Removed);
+                .Values
+                .Where(u => !u.Removed);
         }
 
         private IEnumerable<GroupInfo> GetGroupsInternal()
         {
             return userService.GetGroups(CoreContext.TenantManager.GetCurrentTenant().TenantId, default(DateTime))
-                              .Values
-                              .Where(g => !g.Removed)
-                              .Select(g => new GroupInfo(g.CategoryId) {ID = g.Id, Name = g.Name, Sid = g.Sid})
-                              .Concat(Constants.BuildinGroups);
+                .Values
+                .Where(g => !g.Removed)
+                .Select(g => new GroupInfo(g.CategoryId) { ID = g.Id, Name = g.Name, Sid = g.Sid })
+                .Concat(Constants.BuildinGroups);
         }
 
         private IDictionary<string, UserGroupRef> GetRefsInternal()
@@ -453,7 +454,11 @@ namespace ASC.Core
             {
                 return true;
             }
-            if (groupId == Constants.GroupAdmin.ID && (tenant.OwnerId == userId || userId == Configuration.Constants.CoreSystem.ID))
+            if (groupId == Constants.GroupAdmin.ID && (tenant.OwnerId == userId || userId == Configuration.Constants.CoreSystem.ID || userId == Constants.NamingPoster.ID))
+            {
+                return true;
+            }
+            if (groupId == Constants.GroupVisitor.ID && userId == Constants.OutsideUser.ID)
             {
                 return true;
             }
@@ -478,13 +483,13 @@ namespace ASC.Core
         {
             if (g == null) return null;
             return new Group
-                {
-                    Id = g.ID,
-                    Name = g.Name,
-                    ParentId = g.Parent != null ? g.Parent.ID : Guid.Empty,
-                    CategoryId = g.CategoryID,
-                    Sid = g.Sid
-                };
+            {
+                Id = g.ID,
+                Name = g.Name,
+                ParentId = g.Parent != null ? g.Parent.ID : Guid.Empty,
+                CategoryId = g.CategoryID,
+                Sid = g.Sid
+            };
         }
     }
 }

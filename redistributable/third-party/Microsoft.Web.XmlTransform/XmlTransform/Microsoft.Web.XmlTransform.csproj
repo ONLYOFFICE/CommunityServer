@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ExtensionsCommonTargets>..\WebPublish.Src.Settings.targets</ExtensionsCommonTargets>
+    <ExtensionsCommonTargetsExists>false</ExtensionsCommonTargetsExists>
+    <ExtensionsCommonTargetsExists Condition="Exists('$(ExtensionsCommonTargets)')">true</ExtensionsCommonTargetsExists>
+  </PropertyGroup>
+  <Import Project="$(ExtensionsCommonTargets)" Condition="$(ExtensionsCommonTargetsExists)" />
+  <PropertyGroup>
+    <ProjectGuid>{0684EE2A-6F30-4BC7-B5E7-8CBA15534E06}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Microsoft.Web.XmlTransform</RootNamespace>
+    <AssemblyName>Microsoft.Web.XmlTransform</AssemblyName>
+  </PropertyGroup>
+  <!--If we have no common settings file, let us set up each individual property here -->
+  <PropertyGroup Condition="!$(ExtensionsCommonTargetsExists)">
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU' AND !$(ExtensionsCommonTargetsExists)">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU' AND !$(ExtensionsCommonTargetsExists)">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!--End each individual property setup-->
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="$(ExtensionsCommonTargetsExists)">
+      <ItemGroup>
+        <Compile Include="$(ExtensionsSource)\GlobalAssemblyInfo.cs">
+          <Link>Properties\GlobalAssemblyInfo.cs</Link>
+        </Compile>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Compile Include="Properties\AssemblyInfo.cs" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfoComVisible.cs" />
+    <Compile Include="IXmlOriginalDocumentService.cs" />
+    <Compile Include="IXmlTransformationLogger.cs" />
+    <Compile Include="NamedTypeFactory.cs" />
+    <Compile Include="PositionTrackingTextReaders.cs" />
+    <Compile Include="SR.Designer.cs">
+      <DependentUpon>SR.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="XmlArgumentUtility.cs" />
+    <Compile Include="XmlAttributePreservationDict.cs" />
+    <Compile Include="XmlAttributePreservationProvider.cs" />
+    <Compile Include="XmlAttributePreservingWriter.cs" />
+    <Compile Include="XmlAttributeTransform.cs" />
+    <Compile Include="XmlElementContext.cs" />
+    <Compile Include="XmlFileInfoDocument.cs" />
+    <Compile Include="XmlFormatter.cs" />
+    <Compile Include="XmlLocator.cs" />
+    <Compile Include="XmlLocators.cs" />
+    <Compile Include="XmlNodeContext.cs" />
+    <Compile Include="XmlNodeException.cs" />
+    <Compile Include="XmlTransform.cs" />
+    <Compile Include="XmlTransformableDocument.cs" />
+    <Compile Include="XmlTransformation.cs" />
+    <Compile Include="XmlTransformationException.cs" />
+    <Compile Include="XmlTransformationLogger.cs" />
+    <Compile Include="XmlTransforms.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <UsingTask TaskName="PolicheckTask" AssemblyFile="$(ExtensionsTools)\PoliCheck\Microsoft.Build.Tasks.Policheck.dll" />
+  <Target Name="AfterBuild" Condition="$(ExtensionsCommonTargetsExists)">
+    <!--The project will go open source, so running PoliCheck is mandatory-->
+    <PolicheckTask RootDirectory="$(ExtensionsRoot)" Directories="$(ProjectDir)" Severities="1|2" ContinueOnError="false" Condition="$(RunPoliCheckOnBuild)=='true'" />
+  </Target>
+</Project>

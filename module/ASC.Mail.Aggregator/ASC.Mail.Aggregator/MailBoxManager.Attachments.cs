@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -45,6 +45,7 @@ using System.IO;
 using ASC.Common.Data;
 using ASC.Web.Files.Utils;
 using ASC.Data.Storage;
+using ActiveUp.Net.Mail;
 using HtmlAgilityPack;
 using MimeMapping = ASC.Common.Web.MimeMapping;
 
@@ -420,7 +421,7 @@ namespace ASC.Mail.Aggregator
                         .SelectSum(AttachmentTable.Columns.size)
                         .Where(AttachmentTable.Columns.id_mail, id_mail)
                         .Where(AttachmentTable.Columns.need_remove, false)
-                        .Where(Exp.Eq(AttachmentTable.Columns.content_id, Exp.Empty)))
+                        .Where(AttachmentTable.Columns.content_id, null))
                         .ConvertAll(r => Convert.ToInt64(r[0]))
                         .FirstOrDefault();
 
@@ -467,29 +468,79 @@ namespace ASC.Mail.Aggregator
                 return string.Empty;
             }
 
+            // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
+            var save_path = MailStoragePathCombiner.GetBodyKey(id_user, mail.StreamId);
+            var storage = MailDataStore.GetDataStore(id_tenant);
+
             try
             {
                 var safe_body = ReplaceEmbeddedImages(mail);
 
                 using (var reader = new MemoryStream(Encoding.UTF8.GetBytes(safe_body)))
                 {
-                    // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
-                    var save_body_path = MailStoragePathCombiner.GetBodyKey(id_user, mail.StreamId);
-
-                    var res = MailDataStore.GetDataStore(id_tenant)
-                        .UploadWithoutQuota(string.Empty, save_body_path, reader, "text/html", string.Empty)
+                    var res = storage
+                        .UploadWithoutQuota(string.Empty, save_path, reader, "text/html", string.Empty)
                         .ToString();
 
                     _log.Debug("StoreMailBody() tenant='{0}', user_id='{1}', save_body_path='{2}' Result: {3}",
-                        id_tenant, id_user, save_body_path, res);
+                        id_tenant, id_user, save_path, res);
 
                     return res;
                 }
             }
             catch (Exception)
             {
-                MailDataStore.GetDataStore(id_tenant).Delete(string.Empty, MailStoragePathCombiner.GetBodyKey(id_user, mail.StreamId));
-                _log.Debug(String.Format("StoreMailBody() Problems with message saving in messageId={0}. Body was deleted.", mail.MessageId));
+                storage.Delete(string.Empty, save_path);
+                _log.Debug(String.Format("StoreMailBody() Problems with message saving in messageId={0}. Body was deleted.", mail.MimeMessageId));
+                throw;
+            }
+        }
+
+        public string GetMailEmlUrl(int id_tenant, string id_user, string stream_id)
+        {
+            // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
+            var eml_path = MailStoragePathCombiner.GetEmlKey(id_user, stream_id);
+            var data_store = MailDataStore.GetDataStore(id_tenant);
+
+            try
+            {
+                var eml_uri = data_store.GetUri(string.Empty, eml_path);
+                var url = MailStoragePathCombiner.GetStoredUrl(eml_uri);
+
+                return url;
+            }
+            catch (Exception ex)
+            {
+                _log.Error("GetMailEmlUrl() tenant='{0}', user_id='{1}', save_eml_path='{2}' Exception: {3}",
+                           id_tenant, id_user, eml_path, ex.ToString());
+            }
+
+            return "";
+        }
+
+        public string StoreMailEml(int id_tenant, string id_user, string stream_id, Message message)
+        {
+            // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
+            var save_path = MailStoragePathCombiner.GetEmlKey(id_user, stream_id);
+            var storage = MailDataStore.GetDataStore(id_tenant);
+
+            try
+            {
+                using (var reader = new MemoryStream(message.OriginalData))
+                {
+                    var res = storage
+                        .UploadWithoutQuota(string.Empty, save_path, reader, "message/rfc822", string.Empty)
+                        .ToString();
+
+                    _log.Debug("StoreMailEml() tenant='{0}', user_id='{1}', save_eml_path='{2}' Result: {3}",
+                        id_tenant, id_user, save_path, res);
+
+                    return res;
+                }
+            }
+            catch (Exception)
+            {
+                storage.Delete(string.Empty, save_path);
                 throw;
             }
         }
@@ -736,7 +787,7 @@ namespace ASC.Mail.Aggregator
                             .SelectCount(AttachmentTable.Columns.id)
                             .Where(AttachmentTable.Columns.id_mail, id_mail)
                             .Where(AttachmentTable.Columns.need_remove, false)
-                            .Where(Exp.Eq(AttachmentTable.Columns.content_id, Exp.Empty)));
+                            .Where(AttachmentTable.Columns.content_id, null));
             return count_attachments;
         }
 
@@ -784,7 +835,7 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        private void QuotaUsedDelete(int tenant, long used_quota)
+        public void QuotaUsedDelete(int tenant, long used_quota)
         {
             try
             {

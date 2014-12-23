@@ -150,6 +150,9 @@
   <data name="ButtonFilterImage" xml:space="preserve">
     <value>Images</value>
   </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
   <data name="ButtonFilterPresentation" xml:space="preserve">
     <value>Presentations</value>
   </data>
@@ -246,30 +249,6 @@
   <data name="ButtonAddGoogle" xml:space="preserve">
     <value>Add Google account</value>
   </data>
-  <data name="ButtonImport" xml:space="preserve">
-    <value>Import</value>
-  </data>
-  <data name="IfFileNameConflict" xml:space="preserve">
-    <value>In case of file conflict </value>
-  </data>
-  <data name="Ignore" xml:space="preserve">
-    <value>Ignore</value>
-  </data>
-  <data name="ImportToFolder" xml:space="preserve">
-    <value>Import to the folder</value>
-  </data>
-  <data name="Overwrite" xml:space="preserve">
-    <value>Overwrite</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="ProcessAuthentificate" xml:space="preserve">
-    <value>Authentication process...</value>
-  </data>
   <data name="Trash" xml:space="preserve">
     <value>Trash</value>
   </data>
@@ -279,17 +258,11 @@
   <data name="ButtonCopyTo" xml:space="preserve">
     <value>Copy</value>
   </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Create a copy</value>
+  </data>
   <data name="Documents" xml:space="preserve">
     <value>Documents</value>
-  </data>
-  <data name="ImportFromBoxNet" xml:space="preserve">
-    <value>Import from Box.Net</value>
-  </data>
-  <data name="ImportFromGoogle" xml:space="preserve">
-    <value>Import from Google Docs</value>
-  </data>
-  <data name="ImportFromZoho" xml:space="preserve">
-    <value>Import from Zoho</value>
   </data>
   <data name="ProjectFiles" xml:space="preserve">
     <value>Project documents</value>
@@ -342,9 +315,6 @@
   <data name="SharedForMe" xml:space="preserve">
     <value>Shared with Me</value>
   </data>
-  <data name="ButtonAddThirdParty" xml:space="preserve">
-    <value>Add resource</value>
-  </data>
   <data name="ThirdPartyConnectAccount" xml:space="preserve">
     <value>Connect account</value>
   </data>
@@ -385,7 +355,7 @@
     <value>Set up access right with link</value>
   </data>
   <data name="ButtonUp" xml:space="preserve">
-    <value>Up</value>
+    <value>On top</value>
   </data>
   <data name="ButtonToParentFolder" xml:space="preserve">
     <value>Back to parent folder</value>
@@ -410,6 +380,9 @@
   </data>
   <data name="EmptyScreenDescrMy" xml:space="preserve">
     <value>The documents and image files you {0}create{1} or {2}upload{3} to the portal are kept here in 'My Documents' section. You can {4}open{5} and {6}edit{7} them using the TeamLab portal editor, share them with friends or colleagues, organize into folders.</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>The documents and image files you {2}upload{3} to the portal are kept here in 'My Documents' section. You can share them with friends or colleagues, organize into folders.</value>
   </data>
   <data name="EmptyScreenDescrForme" xml:space="preserve">
     <value>The 'Shared with Me' section is used to show the files which your friends or colleagues gave you access to. In case you haven't seen the latest changes in the documents they are marked 'new'. You can remove the files from the list clicking the appropriate button.</value>
@@ -558,8 +531,17 @@
   <data name="ThirdPartySkyDrive" xml:space="preserve">
     <value>SkyDrive</value>
   </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
   <data name="ThirdPartySharePoint" xml:space="preserve">
     <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>OneDrive for Business</value>
   </data>
   <data name="CaptionCopyConvertOpen" xml:space="preserve">
     <value>Convert and open document</value>
@@ -638,5 +620,47 @@
   </data>
   <data name="AddAccount" xml:space="preserve">
     <value>Add account</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Show more</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Show more</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>The maximum file size is {0}</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Get free account</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>More Features</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Document management</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM and Invoicing</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Task management and Gantt Chart</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Email Aggregator</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Have a project and a team to collaborate with?{0}We've prepared something for you.{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Invite up to 3 colleagues or subcontractors and benefit from additional features provided for free:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>ONLYOFFICE™ for small teams is also free!</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Other account</value>
+  </data>
+  <data name="ButtonAddYandex" xml:space="preserve">
+    <value>Add Yandex account</value>
   </data>
 </root>

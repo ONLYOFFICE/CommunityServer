@@ -2,6 +2,7 @@
 <%@ Import Namespace="ASC.Web.Studio.Core.SMS" %>
 <%@ Import Namespace="Resources" %>
 
+<% if (isEnableSmsValidation) { %>
 <div class="clearFix <%= SmsEnable ? "" : "disable" %>">
      <div id="studio_smsValidationSettings" class="settings-block">
          <a name="sms-auth"></a>
@@ -40,3 +41,4 @@
          </p>
      </div>
 </div>
+<% } %>

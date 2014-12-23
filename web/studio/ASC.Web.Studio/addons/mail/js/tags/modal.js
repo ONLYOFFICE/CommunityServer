@@ -1,41 +1,35 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 window.tagsModal = (function($) {
     var 
         is_init = false,
-        _page,
-        _wnd,
-        REQUIRED_FIELD_ERROR_CSS = "requiredFieldError"; ;
+        _wnd;
 
     var init = function() {
         if (is_init === false) {
@@ -95,20 +89,7 @@ window.tagsModal = (function($) {
         }
     };
 
-    var _setRequiredHint = function (container_id, text) {
-        var hint = $("#" + container_id + ".requiredField span");
-        hint.text(text);
-        hint.attr('title', text);
-    };
-
-    var _setRequiredError = function(container_id, need_show) {
-        if (need_show)
-            $("#" + container_id + ".requiredField").addClass(REQUIRED_FIELD_ERROR_CSS);
-        else
-            $("#" + container_id + ".requiredField").removeClass(REQUIRED_FIELD_ERROR_CSS);
-    };
-
-    var _onTagsChange = function() {
+    var _onTagsChange = function () {
         hide();
     };
 
@@ -164,8 +145,8 @@ window.tagsModal = (function($) {
             if (_wnd.find('.buttons .save').attr('disabled') || _wnd.find('.buttons .save').hasClass('disable'))
                 return false;
 
-            _setRequiredError('mail_CreateTag_Email', false);
-            _setRequiredError('mail_CreateTag_Name', false);
+            TMMail.setRequiredError('mail_CreateTag_Email', false);
+            TMMail.setRequiredError('mail_CreateTag_Name', false);
 
             if (_wnd.find('input.addemail').val() && !_wnd.find('input.addemail').hasClass('placeholder'))
                 if (!_addAddressHandler(this))
@@ -173,8 +154,8 @@ window.tagsModal = (function($) {
 
             tag = _getTagFromWnd();
             if (tag.name.length == 0) {
-                _setRequiredHint('mail_CreateTag_Name', MailScriptResource.ErrorEmptyField);
-                _setRequiredError('mail_CreateTag_Name', true);
+                TMMail.setRequiredHint('mail_CreateTag_Name', MailScriptResource.ErrorEmptyField);
+                TMMail.setRequiredError('mail_CreateTag_Name', true);
                 return false;
             }
 
@@ -189,8 +170,8 @@ window.tagsModal = (function($) {
         _wnd.find('input.addemail').val('');
 
         _wnd.find('.addemail_error').hide();
-        _setRequiredError('mail_CreateTag_Name', false);
-        _setRequiredError('mail_CreateTag_Email', false);
+        TMMail.setRequiredError('mail_CreateTag_Name', false);
+        TMMail.setRequiredError('mail_CreateTag_Email', false);
 
         var margintop = jq(window).scrollTop() - 135;
         margintop = margintop + 'px';
@@ -298,8 +279,8 @@ window.tagsModal = (function($) {
 
         //check on errors
         if (address == undefined || address.length == 0) {
-            _setRequiredHint('mail_CreateTag_Email', MailScriptResource.ErrorEmptyField);
-            _setRequiredError('mail_CreateTag_Email', true);
+            TMMail.setRequiredHint('mail_CreateTag_Email', MailScriptResource.ErrorEmptyField);
+            TMMail.setRequiredError('mail_CreateTag_Email', true);
             return undefined;
         }
 
@@ -312,19 +293,19 @@ window.tagsModal = (function($) {
         }
 
         if (TMMail.in_array(address.toLowerCase(), fromArray)) {
-            _setRequiredHint('mail_CreateTag_Email', MailResource.ErrorEmailExist);
-            _setRequiredError('mail_CreateTag_Email', true);
+            TMMail.setRequiredHint('mail_CreateTag_Email', MailResource.ErrorEmailExist);
+            TMMail.setRequiredError('mail_CreateTag_Email', true);
             return undefined;
         }
 
         if (!TMMail.reEmailStrict.test(address)) {
-            _setRequiredHint('mail_CreateTag_Email', MailScriptResource.ErrorIncorrectEmail);
-            _setRequiredError('mail_CreateTag_Email', true);
+            TMMail.setRequiredHint('mail_CreateTag_Email', MailScriptResource.ErrorIncorrectEmail);
+            TMMail.setRequiredError('mail_CreateTag_Email', true);
             return undefined;
         }
 
         _wnd.find('.addemail_error').hide();
-        _setRequiredError('mail_CreateTag_Email', false);
+        TMMail.setRequiredError('mail_CreateTag_Email', false);
 
         _addAddressHtml(address);
         _wnd.find('input.addemail').val('');

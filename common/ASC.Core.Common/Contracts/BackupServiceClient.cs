@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -34,24 +34,34 @@ namespace ASC.Core.Common.Contracts
 {
     public class BackupServiceClient : BaseWcfClient<IBackupService>, IBackupService
     {
-        public BackupResult CreateBackup(int tenantID, Guid userID)
+        public BackupProgress StartBackup(StartBackupRequest request)
         {
-            return Channel.CreateBackup(tenantID, userID);
+            return Channel.StartBackup(request);
         }
 
-        public BackupResult GetBackupStatus(string id)
+        public BackupProgress GetBackupProgress(int tenantId)
         {
-            return Channel.GetBackupStatus(id);
+            return Channel.GetBackupProgress(tenantId);
         }
 
-        public BackupResult TransferPortal(TransferRequest request)
+        public void DeleteBackup(Guid backupId)
         {
-            return Channel.TransferPortal(request);
+            Channel.DeleteBackup(backupId);
         }
 
-        public BackupResult GetTransferStatus(int tenantID)
+        public List<BackupHistoryRecord> GetBackupHistory(int tenantId)
         {
-            return Channel.GetTransferStatus(tenantID);
+            return Channel.GetBackupHistory(tenantId);
+        }
+
+        public BackupProgress StartTransfer(StartTransferRequest request)
+        {
+            return Channel.StartTransfer(request);
+        }
+
+        public BackupProgress GetTransferProgress(int tenantID)
+        {
+            return Channel.GetTransferProgress(tenantID);
         }
 
         public List<TransferRegion> GetTransferRegions()
@@ -59,14 +69,34 @@ namespace ASC.Core.Common.Contracts
             return Channel.GetTransferRegions();
         }
 
-        public BackupResult RestorePortal(int tenantId, string pathToBackupFile)
+        public BackupProgress StartRestore(StartRestoreRequest request)
         {
-            return Channel.RestorePortal(tenantId, pathToBackupFile);
+            return Channel.StartRestore(request);
         }
 
-        public BackupResult GetRestoreStatus(int tenantId)
+        public BackupProgress GetRestoreProgress(int tenantId)
         {
-            return Channel.GetRestoreStatus(tenantId);
+            return Channel.GetRestoreProgress(tenantId);
+        }
+
+        public void CreateSchedule(CreateScheduleRequest request)
+        {
+            Channel.CreateSchedule(request);
+        }
+
+        public void DeleteSchedule(int tenantId)
+        {
+            Channel.DeleteSchedule(tenantId);
+        }
+
+        public ScheduleResponse GetSchedule(int tenantId)
+        {
+            return Channel.GetSchedule(tenantId);
+        }
+
+        public string HealthCheck(int tenantId)
+        {
+            return Channel.HealthCheck(tenantId);
         }
     }
 }

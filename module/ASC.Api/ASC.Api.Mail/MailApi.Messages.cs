@@ -1,37 +1,39 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Api.Mail.DAO;
+using ASC.Api.Mail.Extensions;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
@@ -306,18 +308,19 @@ namespace ASC.Api.Mail
         /// <summary>
         ///    Sends the message with the ID specified in the request
         /// </summary>
-        /// <param name="id">Mwssage id which will be sended.</param>
-        /// <param name="attachments">List of attachments represented as MailAttachment object</param>
-        /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="replyToId">Message id to which the reply answer</param>
-        /// <param name="from">From email. Format: Name&lt;name@domain&gt;</param>
+        /// <param name="id">Massage id which will be sended.</param>
+        /// <param name="attachments">List of attachments represented as MailAttachment object.</param>
+        /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt;. </param>
+        /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt;. </param>
+        /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt;. </param>
+        /// <param name="mimeMessageId">Mime message id which will be sended.</param>
+        /// <param name="mimeReplyToId">Mime message id to which the reply answer.</param>
+        /// <param name="from">From email. Format: Name&lt;name@domain&gt;.</param>
         /// <param name="body">Message body as html string.</param>
         /// <param name="importance">Importanse fla. Values: true - important, false - not important.</param>
         /// <param name="tags">List of tags id added to message</param>
         /// <param name="streamId">Stream id. Needed for correct attachment saving.</param>
-        /// <param name="subject">Sended message subject</param>
+        /// <param name="subject">Sended message subject.</param>
         /// <returns>message id</returns>
         /// <short>Send message</short> 
         /// <category>Messages</category>
@@ -327,7 +330,8 @@ namespace ASC.Api.Mail
             IEnumerable<string> to,
             IEnumerable<string> bcc,
             IEnumerable<string> cc,
-            int replyToId,
+            string mimeMessageId,
+            string mimeReplyToId,
             string from,
             string body,
             bool importance,
@@ -340,7 +344,8 @@ namespace ASC.Api.Mail
                     Attachments = new List<MailAttachment>(attachments),
                     Bcc = new List<string>(bcc),
                     Cc = new List<string>(cc),
-                    ReplyToId = replyToId,
+                    MimeMessageId = string.IsNullOrEmpty(mimeMessageId) ? MailBoxManager.CreateMessageId() : mimeMessageId,
+                    MimeReplyToId = mimeReplyToId,
                     From = from,
                     HtmlBody = body,
                     Important = importance,
@@ -349,7 +354,15 @@ namespace ASC.Api.Mail
                     Subject = subject,
                     To = new List<string>(to)
                 };
-            return SendQueue.Send(TenantId, Username, item, id);
+
+            var accounts = MailBoxManager.GetAccountInfo(TenantId, Username).ToAddressData();
+            var mail_address = new MailAddress(item.From);
+            var account = accounts.FirstOrDefault(a => a.Email.ToLower().Equals(mail_address.Address));
+
+            if (account == null)
+                throw new ArgumentException("no such mailbox");
+
+            return SendQueue.Send(TenantId, Username, item, id, account.MailboxId);
         }
 
         /// <summary>
@@ -360,7 +373,8 @@ namespace ASC.Api.Mail
         /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt; </param>
         /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt; </param>
         /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="replyToId">Message id to which the reply answer</param>
+        /// <param name="mimeMessageId">Mime message id which will be saved.</param>
+        /// <param name="mimeReplyToId">Message id to which the reply answer</param>
         /// <param name="from">From email. Format: Name&lt;name@domain&gt;</param>
         /// <param name="body">Message body as html string.</param>
         /// <param name="importance">Importanse fla. Values: true - important, false - not important.</param>
@@ -376,7 +390,8 @@ namespace ASC.Api.Mail
             IEnumerable<string> to,
             IEnumerable<string> bcc,
             IEnumerable<string> cc,
-            int replyToId,
+            string mimeMessageId,
+            string mimeReplyToId,
             string from,
             string body,
             bool importance,
@@ -392,7 +407,8 @@ namespace ASC.Api.Mail
                 Attachments = new List<MailAttachment>(attachments),
                 Bcc = new List<string>(bcc),
                 Cc = new List<string>(cc),
-                ReplyToId = replyToId,
+                MimeReplyToId = mimeReplyToId,
+                MimeMessageId = string.IsNullOrEmpty(mimeMessageId) ? MailBoxManager.CreateMessageId() : mimeMessageId,
                 From = from,
                 HtmlBody = body,
                 Important = importance,
@@ -401,7 +417,15 @@ namespace ASC.Api.Mail
                 Subject = subject,
                 To = new List<string>(to)
             };
-            return SendQueue.SaveToDraft(TenantId, Username, item, id);
+
+            var accounts = MailBoxManager.GetAccountInfo(TenantId, Username).ToAddressData();
+            var mail_address = new MailAddress(item.From);
+            var account = accounts.FirstOrDefault(a => a.Email.ToLower().Equals(mail_address.Address));
+
+            if (account == null)
+                throw new ArgumentException("no such mailbox");
+
+            return SendQueue.SaveToDraft(TenantId, Username, item, id, account.MailboxId);
         }
 
         /// <summary>
@@ -440,6 +464,8 @@ namespace ASC.Api.Mail
                 HtmlBody = "",
                 Important = false,
                 ReplyTo = "",
+                MimeMessageId = "",
+                MimeReplyToId = "",
                 To = "",
                 StreamId = MailBoxManager.CreateNewStreamId()
             };
@@ -513,21 +539,6 @@ namespace ASC.Api.Mail
             {
                 throw new Exception(MailApiResource.AttachmentsUnknownError);
             }
-        }
-
-        /// <summary>
-        ///    Sets the is_from_crm status to true for the selected messages. Method needed for hide Add to CRM Contact link in From field.
-        /// </summary>
-        /// <param name="emails">Emails which messages must be marked as from crm.</param>
-        /// <param name="userIds">Teamlab users id in list.</param>
-        /// <returns>List of updated emails</returns>
-        /// <short>Set message crm status</short>
-        /// <category>Messages</category>
-        [Create(@"messages/update_crm")]
-        public IEnumerable<string> UpdateCrmMessages(IEnumerable<string> emails, IEnumerable<string> userIds)
-        {
-            MailBoxManager.UpdateCrmMessages(TenantId, emails, userIds);
-            return emails;
         }
 
         /// <summary>

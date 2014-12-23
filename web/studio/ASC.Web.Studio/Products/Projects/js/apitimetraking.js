@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 ASC.Projects.TimeTraking = (function() {
     var timer,
         seconds = 0,
@@ -40,9 +36,18 @@ ASC.Projects.TimeTraking = (function() {
         focusTime = null,
         pausedTime = null,
         clickPauseFlag = false,
-        isPlay = true;
+        isPlay = true,
+        inputMinutes,
+        inputHours,
+        inputDate,
+        errorPanel;
 
-    var init = function() {
+    var init = function () {
+        inputMinutes = jq("#inputTimeMinutes");
+        inputHours = jq("#inputTimeHours");
+        inputDate = jq('#inputDate');
+        errorPanel = jq("#timeTrakingErrorPanel");
+        
         window.onfocus = function () {
             var diffTime = {};
             if (startTime && seconds > 0 && !isPlay) {
@@ -103,18 +108,18 @@ ASC.Projects.TimeTraking = (function() {
             };
 
             unlockElements();
-            jq('#inputTimeHours').focus();
+            inputHours.focus();
             
             if (jq("#teamList option").length == 0 || jq("#selectUserTasks option").length == 0) {
                 lockStartAndAddButtons();
             }
 
-            if (!jq('#inputDate').hasClass('hasDatepicker')) {
-                jq('#inputDate').datepicker({ selectDefaultDate: false, onSelect: function() { jq('#inputDate').blur(); } });
+            if (!inputDate.hasClass('hasDatepicker')) {
+                inputDate.datepicker({ selectDefaultDate: false, onSelect: function () { inputDate.blur(); } });
             }
 
-            jq("#inputDate").mask(ASC.Resources.Master.DatePatternJQ);
-            jq("#inputDate").datepicker('setDate', Teamlab.getDisplayDate(new Date()));
+            inputDate.mask(ASC.Resources.Master.DatePatternJQ);
+            inputDate.datepicker('setDate', Teamlab.getDisplayDate(new Date()));
 
             jq('#timerTime #selectUserProjects').bind('change', function(event) {
                 var prjid = parseInt(jq("#selectUserProjects option:selected").val());
@@ -139,20 +144,22 @@ ASC.Projects.TimeTraking = (function() {
                 playPauseTimer();
             });
 
-            jq('#timerTime .reset').bind('click', function(event) {
+            jq('#timerTime .reset').bind('click', function (event) {
+                if (jq(this).hasClass("disable")) return;
                 resetTimer();
             });
 
-            jq('#timerTime #addLog').bind('click', function(event) {
+            jq('#timerTime #addLog').bind('click', function (event) {
+                if (jq(this).hasClass("disable")) return;
                 lockStartAndAddButtons();
                 var h, m, s;
                 var prjid = parseInt(jq("#selectUserProjects option:selected").attr("value"));
                 var personid = jq("#teamList option:selected").attr("value");
                 var taskid = parseInt(jq("#selectUserTasks option:selected").attr("value"));
                 var description = jq.trim(jq("#textareaTimeDesc").val());
-                jq("#inputTimeHours").removeClass('error');
-                jq("#inputTimeMinutes").removeClass('error');
-                jq("#timeTrakingErrorPanel").empty();
+                inputHours.removeClass('error');
+                inputMinutes.removeClass('error');
+                errorPanel.empty();
                 var invalidTime = false;
 
                 if (seconds > 0) {
@@ -166,23 +173,22 @@ ASC.Projects.TimeTraking = (function() {
 
                     resetTimer();
                 } else {
-                    var errorPanel = jq("#timeTrakingErrorPanel");
-                    if (jq("#inputTimeHours").val() == "" && jq("#inputTimeMinutes").val() == "") {
+                    if (inputHours.val() == "" && inputMinutes.val() == "") {
                         errorPanel.addClass('error').removeClass("success");
                         errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.TimerNoData);
                         unlockStartAndAddButtons();
                         return;
                     }
-                    h = parseInt(jq("#inputTimeHours").val(), 10);
-                    m = parseInt(jq("#inputTimeMinutes").val(), 10);
+                    h = parseInt(inputHours.val(), 10);
+                    m = parseInt(inputMinutes.val(), 10);
 
                     if (h < 0 || !isInt(h)) {
-                        jq("#inputTimeHours").addClass('error');
+                        inputHours.addClass('error');
                         invalidTime = true;
                     }
 
                     if (m > 59 || m < 0 || !isInt(m)) {
-                        jq("#inputTimeMinutes").addClass('error');
+                        inputMinutes.addClass('error');
                         invalidTime = true;
                     }
 
@@ -199,17 +205,20 @@ ASC.Projects.TimeTraking = (function() {
                     var hours = h + m / 60;
                 }
 
-                var data = {};
-                data.date = jq('#inputDate').datepicker('getDate');
+                var data = { hours: hours, note: description, personId: personid, projectId: prjid };
+                data.date = inputDate.datepicker('getDate');
                 data.date.setHours(0);
                 data.date.setMinutes(0);
                 data.date = Teamlab.serializeTimestamp(data.date);
-                data.hours = hours;
-                data.note = description;
-                data.personId = personid;
-                data.projectId = prjid;
 
                 Teamlab.addPrjTime({}, taskid, data, { success: onAddTaskTime });
+            });
+
+            inputMinutes.on("blur", function (e) {
+                var min = jq(this).val();
+                if (min.length == 1) {
+                    jq(this).val("0" + min);
+                }
             });
         }
     };
@@ -221,11 +230,9 @@ ASC.Projects.TimeTraking = (function() {
     var playTimer = function() {
         lockElements(true);
 
-        jq("#inputTimeHours").val('');
-        jq("#inputTimeMinutes").val('');
-        jq("#timeTrakingErrorPanel").empty();
-        jq("#inputTimeHours").removeClass('error');
-        jq("#inputTimeMinutes").removeClass('error');
+        inputHours.val('').removeClass('error');
+        inputMinutes.val('').removeClass('error');
+        errorPanel.empty();
 
         timer = setInterval(timerTick, 1000);
     };
@@ -304,28 +311,28 @@ ASC.Projects.TimeTraking = (function() {
     };
 
     var lockElements = function(onlyManualInput) {
-        jq("#inputTimeHours").attr("disabled", "true");
-        jq("#inputTimeMinutes").attr("disabled", "true");
+        inputHours.attr("disabled", "true");
+        inputMinutes.attr("disabled", "true");
         if (!onlyManualInput) {
-            jq("#inputDate").attr("disabled", "true");
+            inputDate.attr("disabled", "true");
             jq("#textareaTimeDesc").attr("disabled", "true");
         }
     };
 
     var unlockElements = function() {
-        jq("#inputTimeHours").removeAttr("disabled");
-        jq("#inputTimeMinutes").removeAttr("disabled");
-        jq("#inputDate").removeAttr("disabled");
+        inputHours.removeAttr("disabled");
+        inputMinutes.removeAttr("disabled");
+        inputDate.removeAttr("disabled");
         jq("#textareaTimeDesc").removeAttr("disabled");
     };
 
     var lockStartAndAddButtons = function() {
-        jq("#firstViewStyle .start, #addLog").addClass("disable");
+        jq("#firstViewStyle .start, #firstViewStyle .reset, #addLog").addClass("disable");
         lockElements();
     };
 
     var unlockStartAndAddButtons = function() {
-        jq("#firstViewStyle .start, #addLog").removeClass("disable");
+        jq("#firstViewStyle .start, #firstViewStyle .reset, #addLog").removeClass("disable");
         unlockElements();
     };
 
@@ -347,12 +354,11 @@ ASC.Projects.TimeTraking = (function() {
     };
 
     var onAddTaskTime = function(data) {
-        var errorPanel = jq("#timeTrakingErrorPanel");
         errorPanel.removeClass("error").addClass("success");
         errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.SuccessfullyAdded);
         jq("#textareaTimeDesc").val('');
-        jq("#inputTimeHours").val('');
-        jq("#inputTimeMinutes").val('');
+        inputHours.val('');
+        inputMinutes.val('');
         jq("#firstViewStyle .h,#firstViewStyle .m,#firstViewStyle .s").val('00');
         unlockStartAndAddButtons();
     };
@@ -400,7 +406,7 @@ ASC.Projects.TimeTraking = (function() {
     };
 
     var ifNotAdded = function() {
-        return seconds > 0 || jq("#inputTimeHours").val() != '' || jq("#inputTimeMinutes").val() != '';
+        return seconds > 0 || inputHours.val() != '' || inputMinutes.val() != '';
     };
 
     return {
@@ -416,12 +422,15 @@ ASC.Projects.TimeTrakingEdit = (function () {
         oldTime = {},
         loadListTeamFlag = false,
         commonPopupContainer = jq("#commonPopupContainer"),
-        $popupContainer;
+        $popupContainer,
+        inputMinutes,
+        inputHours,
+        errorPanel;
 
     var initPopup = function () {
         if (isInit) return;
         var clonedPopup = commonPopupContainer.clone();
-        clonedPopup.attr("id", "timeTrakingPopup")
+        clonedPopup.attr("id", "timeTrakingPopup");
         jq("#CommonListContainer").append(clonedPopup);
         $popupContainer = clonedPopup;
         $popupContainer.find(".commonPopupContent").append(jq.tmpl("projects_editTimerPopup", {}));
@@ -430,40 +439,34 @@ ASC.Projects.TimeTrakingEdit = (function () {
 
     var init = function () {
         initPopup();
+        
         if (!isInit) {
             isInit = true;
         }
+        
+        inputMinutes = jq("#inputTimeMinutes");
+        inputHours = jq("#inputTimeHours");
+        errorPanel = jq("#timeTrakingErrorPanel");
+        
+        inputMinutes.on("blur", function (e) {
+            var min = jq(this).val();
+            if (min.length == 1) {
+                jq(this).val("0" + min);
+            }
+        });
+        
         if (jq.getURLParam("prjID"))
-            ASC.Projects.Common.bind(ASC.Projects.Common.events.loadTeam, function () {
                 loadListTeamFlag = true;
-            });
 
         jq('#timeTrakingPopup .middle-button-container a.button.blue.middle').bind('click', function (event) {
             var data = {};
-            var h = jq("#inputTimeHours").val();
-            var m = jq("#inputTimeMinutes").val();
+            var h = inputHours.val();
+            var m = inputMinutes.val();
 
-            if (parseInt(m, 10) > 59 || parseInt(m, 10) < 0 || !isInt(m)) {
-                jq("#timeTrakingErrorPanel").show();
-                jq("#timeTrakingErrorPanel").text(ASC.Projects.Resources.ProjectsJSResource.InvalidTime);
-                setInterval('jq("#timeTrakingErrorPanel").hide();', 5000);
-                jq("#inputTimeMinutes").focus();
+            if (checkError(h, m, jq('#timeTrakingPopup #timeTrakingDate').val())) {
                 return;
             }
-            if (parseInt(h, 10) < 0 || !isInt(h)) {
-                jq("#timeTrakingErrorPanel").show();
-                jq("#timeTrakingErrorPanel").text(ASC.Projects.Resources.ProjectsJSResource.InvalidTime);
-                setInterval('jq("#timeTrakingErrorPanel").hide();', 5000);
-                jq("#inputTimeHours").focus();
-                return;
-            }
-            if (!parseInt(h, 10) && !parseInt(m, 10)) {
-                jq("#timeTrakingErrorPanel").show();
-                jq("#timeTrakingErrorPanel").text(ASC.Projects.Resources.ProjectsJSResource.InvalidTime);
-                setInterval('jq("#timeTrakingErrorPanel").hide();', 5000);
-                jq("#inputTimeMinutes").focus();
-                return;
-            }
+           
             m = parseInt(m, 10);
             h = parseInt(h, 10);
 
@@ -471,19 +474,10 @@ ASC.Projects.TimeTrakingEdit = (function () {
             if (!(m > 0)) m = 0;
 
             data.hours = h + m / 60;
-
-            data.date = jq('#timeTrakingPopup #timeTrakingDate').val();
-            var isValidDate = jq.isValidDate(data.date);
-            if (jq.trim(data.date) == "" || data.date == null || !isValidDate) {
-                jq("#timeTrakingErrorPanel").text(ASC.Projects.Resources.ProjectsJSResource.IncorrectDate);
-                jq("#timeTrakingErrorPanel").show();
-                setInterval('jq("#timeTrakingErrorPanel").hide();', 5000);
-                jq('#timeTrakingPopup #timeTrakingDate').focus();
-                return;
-            }
-            data.date = jq('#timeTrakingPopup #timeTrakingDate').datepicker('getDate');
+            
             var timeid = jq("#timeTrakingPopup").attr('timeid');
-            data.date = Teamlab.serializeTimestamp(data.date);
+            
+            data.date = Teamlab.serializeTimestamp(jq('#timeTrakingPopup #timeTrakingDate').datepicker('getDate'));
             data.note = jq('#timeTrakingPopup #timeDescription').val();
             data.personId = jq('#teamList option:selected').attr('value');
 
@@ -493,9 +487,39 @@ ASC.Projects.TimeTrakingEdit = (function () {
 
         });
     };
+
+    var checkError = function (h, m, d) {
+        var error = false;
+        
+        if (parseInt(m, 10) > 59 || parseInt(m, 10) < 0 || !isInt(m)) {
+            errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.InvalidTime);
+            inputMinutes.focus();
+            error = true;
+        }
+        if (parseInt(h, 10) < 0 || !isInt(h)) {
+            errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.InvalidTime);
+            inputHours.focus();
+            error = true;
+        }
+        
+        if (jq.trim(d) == "" || d == null || !jq.isValidDate(d)) {
+            errorPanel.text(ASC.Projects.Resources.ProjectsJSResource.IncorrectDate);
+            jq('#timeTrakingPopup #timeTrakingDate').focus();
+            error = true;
+        }
+
+        if (error) {
+            errorPanel.show();
+            setInterval('jq("#timeTrakingErrorPanel").hide();', 5000);
+        }
+
+        return error;
+    };
+    
     var isInt = function (input) {
         return parseInt(input, 10) == input;
     };
+    
     var showPopup = function (prjid, taskid, taskName, timeId, time, date, description, responsible) {
         $timerDate = jq("#timeTrakingDate");
         timeCreator = responsible;
@@ -505,8 +529,9 @@ ASC.Projects.TimeTrakingEdit = (function () {
         jq("#TimeLogTaskTitle").attr('taskid', taskid);
 
         oldTime = time;
-        jq("#inputTimeHours").val(time.hours);
-        jq("#inputTimeMinutes").val(time.minutes);
+        inputHours.val(time.hours);
+        if (time.minutes > 9) inputMinutes.val(time.minutes);
+        else inputMinutes.val("0" + time.minutes);
 
         date = Teamlab.getDisplayDate(new Date(date));
         $timerDate.mask(ASC.Resources.Master.DatePatternJQ);
@@ -525,7 +550,7 @@ ASC.Projects.TimeTrakingEdit = (function () {
         }
 
         StudioBlockUIManager.blockUI($popupContainer, 550, 400, 0, "absolute");
-        jq('#inputTimeHours').focus();
+        inputHours.focus();
     };
 
     var onGetTimeSpend = function (params, data) {

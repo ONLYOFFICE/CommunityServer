@@ -13,7 +13,9 @@
 <div class="simplePageNavigator"></div>
 
 <div id="CommonListContainer">
-    <div id="groupActionContainer"></div>
+    <div id="groupActionContainer">
+        <div class="header-menu-spacer"> </div>
+    </div>
     <div class="taskList"></div>
 
     <table id="tableListProjects">

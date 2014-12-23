@@ -9,15 +9,15 @@
     </Header>
     <Body>
       <div id="studio_AddContentContent">
-        <asp:Repeater runat="server" ID="ContentTypesRepeater" ItemType=" ASC.Web.Studio.UserControls.Users.AddContentControl.ContentTypes">
+        <asp:Repeater runat="server" ID="ContentTypesRepeater">
           <HeaderTemplate>
             <ul class="types">
           </HeaderTemplate>
           <ItemTemplate>
             <li class="type even">
-              <a class="item" href="<%#Item.Link%>">
-                <img class="icon" src="<%#Item.Icon%>" alt="" />
-                <span class="label"><%#HttpUtility.HtmlEncode(Item.Label)%></span>   
+              <a class="item" href="<%#((ASC.Web.Studio.UserControls.Users.AddContentControl.ContentTypes)Container.DataItem).Link%>">
+                <img class="icon" src="<%#((ASC.Web.Studio.UserControls.Users.AddContentControl.ContentTypes)Container.DataItem).Icon%>" alt="" />
+                <span class="label"><%#HttpUtility.HtmlEncode(((ASC.Web.Studio.UserControls.Users.AddContentControl.ContentTypes)Container.DataItem).Label)%></span>   
               </a>
             </li>
           </ItemTemplate>

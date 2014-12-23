@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -32,6 +32,8 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Caching;
+using ASC.Core;
+using ASC.Core.Users;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
 
@@ -45,10 +47,14 @@ namespace ASC.Mail.Aggregator.CollectionService
         private readonly MailWorkerQueue _queue;
         private readonly ILogger _log;
         private bool _noTasks;
+        private readonly TasksConfig _tasksConfig;
 
         public Collector(MailBoxManager manager, MailQueueSettings settings, List<MessageHandlerBase> message_handlers) 
         {
             _log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Nlog, "Collector");
+
+            Environment.SetEnvironmentVariable("MONO_TLS_SESSION_CACHE_TIMEOUT", "0");
+
             _manager = manager;
             _settings = settings;
             _itemManger = new MailItemManager(_manager, message_handlers);
@@ -56,6 +62,8 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             _log.Info("MailWorkerQueue: ConcurrentThreadCount = {0} and CheckInterval = {1}", 
                 settings.ConcurrentThreadCount, settings.CheckInterval);
+
+            var config_builder = new TasksConfig.Builder();
 
             if (settings.WorkOnUsersOnly != null && settings.WorkOnUsersOnly.Any())
             {
@@ -65,6 +73,12 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 _log.Info("Aggreagtor will get tasks for this users only:" + users);
             }
+
+            config_builder.SetUsersToWorkOn(settings.WorkOnUsersOnly);
+            config_builder.SetOnlyTeamlabTasks(settings.OnlyTeamlabTasks);
+            config_builder.SetActiveInterval(settings.ActivityTimeout);
+
+            _tasksConfig = config_builder.Build();
         }
 
         public int ItemsPerSession { 
@@ -120,7 +134,7 @@ namespace ASC.Mail.Aggregator.CollectionService
             {
                 while(true)
                 {
-                    if(!_noTasks) _log.Debug("Getting new Item...");
+                    if(!_noTasks) _log.Info("Getting new Item...");
 
                     MailBox mbox = null;
                     var locked_in_this_thread = false;
@@ -135,7 +149,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                     try
                     {
                         if (locked_in_this_thread && _isGetMailboxRunning)
-                            mbox = _manager.GetMailboxForProcessing(_settings.ActivityTimeout, _settings.WorkOnUsersOnly);
+                            mbox = _manager.GetMailboxForProcessing(_tasksConfig);
                     }
                     finally
                     {
@@ -146,7 +160,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                     if (mbox == null)
                     {
-                        if (!_noTasks) _log.Debug("Nothing to do.");
+                        if (!_noTasks) _log.Info("Nothing to do.");
                         _noTasks = true;
                         break;
                     }
@@ -155,7 +169,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                     var type = HttpRuntime.Cache.Get(mbox.TenantId.ToString(CultureInfo.InvariantCulture));
                     if (type == null)
                     {
-                        _log.Debug("Tenant {0} isn't in cache", mbox.TenantId);
+                        _log.Info("Tenant {0} isn't in cache", mbox.TenantId);
                         absence = true;
                         try
                         {
@@ -169,11 +183,11 @@ namespace ASC.Mail.Aggregator.CollectionService
                     }
                     else
                     {
-                        _log.Debug("Tenant {0} is in cache", mbox.TenantId);
+                        _log.Info("Tenant {0} is in cache", mbox.TenantId);
                     }
 
                     _noTasks = false;
-                    _log.Info("MailboxId: {0} is being processed. EMail: '{1}'  User: '{2}' TenanntId: {3} ",
+                    _log.Info("MailboxId: {0} is processing. EMail: '{1}'  User: '{2}' TenantId: {3} ",
                               mbox.MailBoxId, 
                               mbox.EMail.Address, 
                               mbox.UserId, 
@@ -190,9 +204,35 @@ namespace ASC.Mail.Aggregator.CollectionService
                             _manager.SetNextLoginDelayedForTenant(mbox.TenantId, _settings.OverdueAccountDelay);
                             break;
                         default:
+                            var user_terminated = false;
+                            try
+                            {
+                                CoreContext.TenantManager.SetCurrentTenant(mbox.TenantId);
+                                var user = CoreContext.UserManager.GetUsers(new Guid(mbox.UserId));
+                                if (user.Status == EmployeeStatus.Terminated)
+                                {
+                                    user_terminated = true;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                _log.Error(ex, "Cannot get current user = '{0}'", mbox.UserId);
+                            }
+
+                            if (user_terminated)
+                            {
+                                _log.Info("User '{0}' was terminated. TenantId: {1}. Stop processing mailboxes.", mbox.UserId, mbox.TenantId);
+                                _manager.DisableMailboxesForUser(mbox.TenantId, mbox.UserId);
+                                return null;
+                            }
+
                             if (absence)
-                                HttpRuntime.Cache.Insert(mbox.TenantId.ToString(CultureInfo.InvariantCulture), type, null,
+                            {
+                                var mboxKey = mbox.TenantId.ToString(CultureInfo.InvariantCulture);
+                                HttpRuntime.Cache.Remove(mboxKey);
+                                HttpRuntime.Cache.Insert(mboxKey, type, null,
                                                          DateTime.UtcNow.Add(_settings.TenantCachingPeriod), Cache.NoSlidingExpiration);
+                            }
                             _log.Debug("CreateItemForAccount()...");
                             return MailItemQueueFactory.CreateItemForAccount(mbox, _itemManger);
                     }

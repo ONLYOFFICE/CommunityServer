@@ -366,6 +366,9 @@
   <data name="LblOKButton" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Change users status</value>
+  </data>
   <data name="LblActive" xml:space="preserve">
     <value>Active</value>
   </data>
@@ -418,7 +421,7 @@
     <value>{0} selected</value>
   </data>
   <data name="ChangeStatusDialogConstraint" xml:space="preserve">
-    <value>Other users status will not be changed</value>
+    <value>Upgrade your plan and repeat the operation or other users status will not be changed.</value>
   </data>
   <data name="ChangeStatusDialogHeader" xml:space="preserve">
     <value>Change user status</value>
@@ -433,7 +436,7 @@
     <value>The users with the 'Active' status will be disabled.</value>
   </data>
   <data name="ChangeTypeDialogConstraint" xml:space="preserve">
-    <value>The other users type will not be changed</value>
+    <value>Upgrade your plan and repeat the operation or other users type will not be changed.</value>
   </data>
   <data name="ChangeTypeDialogHeader" xml:space="preserve">
     <value>Change user type</value>
@@ -525,5 +528,14 @@ You cannot delete the users if they have 'Active' or 'Pending' status, they need
   </data>
   <data name="ImportPeople" xml:space="preserve">
     <value>Import People</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Invitation Link</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Or {0}read about non-profit usage{1}.</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Всплывающие подсказки</value>
   </data>
 </root>

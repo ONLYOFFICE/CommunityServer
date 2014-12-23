@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -43,13 +43,6 @@ namespace ASC.Web.Projects.Configuration
     {
         private readonly Guid _newCommentForMessage = new Guid("{04EAEAB5-948D-4491-8CB9-493CDD37B52A}");
         private readonly Guid _newCommentForTask = new Guid("{3E732AFC-B786-48a0-A88D-F7C43A45942E}");
-
-        private readonly Guid _taskClosed = new Guid("{6C0ED420-DDF1-41ff-8D40-93D3BF213FA3}");
-        private readonly Guid _responsibleForTask = new Guid("{85502DA1-E681-4fc0-98A0-08BA4E58D435}");
-        private readonly Guid _responsibleForMilestone = new Guid("{BEC3DFF6-FA2B-447a-A3D3-1A35477C9288}");
-        private readonly Guid _responsibleForProject = new Guid("{E838ECA9-DC2E-4a06-A786-28958C9EEE2C}");
-        private readonly Guid _inviteToProject = new Guid("{6C950DA7-C69C-4ed2-935F-E2E55B0318DF}");
-        private readonly Guid _removeFromProject = new Guid("{F25BA11D-68EF-44cc-803B-EE96080FA87B}");
 
         private readonly Dictionary<Int32, Guid> _bindingProjectID = new Dictionary<Int32, Guid>();
         private readonly Dictionary<Int32, List<int>> _bindingMessageID = new Dictionary<Int32, List<int>>();
@@ -283,49 +276,6 @@ namespace ASC.Web.Projects.Configuration
                                    Single = false,
                                    GetSubscriptionObjects = GetNewCommentForTaskObjects,
                                    IsEmptySubscriptionType = IsEmptyNewCommentForTaskSubscriptionType
-                               },
-                           new SubscriptionType
-                               {
-                                   ID = _taskClosed,
-                                   Name = "Close task",
-                                   NotifyAction = NotifyConstants.Event_TaskClosed,
-                                   Single = false
-                               },
-                           new SubscriptionType
-                               {
-                                   ID = _responsibleForTask,
-                                   Name = "Responsible for task",
-                                   NotifyAction = NotifyConstants.Event_ResponsibleForTask,
-                                   Single = false
-                               },
-                           new SubscriptionType
-                               {
-                                   ID = _responsibleForProject,
-                                   Name = "Responsible for project",
-                                   NotifyAction = NotifyConstants.Event_ResponsibleForProject,
-                                   Single = false
-                               },
-                           new SubscriptionType
-                               {
-                                   ID = _responsibleForMilestone,
-                                   Name = "Deadline milestone",
-                                   NotifyAction = NotifyConstants.Event_MilestoneDeadline,
-                                   Single = false
-                               },
-
-                           new SubscriptionType
-                               {
-                                   ID = _inviteToProject,
-                                   Name = "Invite to project",
-                                   NotifyAction = NotifyConstants.Event_InviteToProject,
-                                   Single = false
-                               },
-                           new SubscriptionType
-                               {
-                                   ID = _removeFromProject,
-                                   Name = "Remove from project",
-                                   NotifyAction = NotifyConstants.Event_RemoveFromProject,
-                                   Single = false
                                }
                        };
         }
@@ -414,7 +364,8 @@ namespace ASC.Web.Projects.Configuration
 
         private IEnumerable<string> GetSubscriptions(INotifyAction action)
         {
-            return SubscriptionProvider.GetSubscriptions(action, NotifySource.Instance.GetRecipientsProvider().GetRecipient(SecurityContext.CurrentAccount.ID.ToString()));
+            return SubscriptionProvider.GetSubscriptions(action, 
+                NotifySource.Instance.GetRecipientsProvider().GetRecipient(SecurityContext.CurrentAccount.ID.ToString()), false);
         }
     }
 }

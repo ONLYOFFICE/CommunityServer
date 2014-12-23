@@ -13,7 +13,7 @@
         <div class="text-base">
             <%= string.IsNullOrEmpty(User.MobilePhone)
                     ? string.Empty
-                    : (string.Format(UserControlsCommonResource.MobileCurrentNumber, "<b>" + "+" + User.MobilePhone + "</b>") + "<br/>") %>
+                    : (string.Format(UserControlsCommonResource.MobileCurrentNumber, "<b>" + "+" + SmsManager.GetPhoneValueDigits(User.MobilePhone) + "</b>") + "<br/>") %>
             <%= String.Format(UserControlsCommonResource.MobilePhoneDescription, "<br />") %>
         </div>
         <br />
@@ -48,11 +48,8 @@
     </div>
 </div>
 
-<% if (!Activation)
-   { %>
 <div id="GreetingBlock">
     <div class="help-block-signin">
         <asp:PlaceHolder ID="_communitations" runat="server"></asp:PlaceHolder>
     </div>
 </div>
-<% } %>

@@ -16,6 +16,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
 using System;
+using System.Text;
 using System.Text.RegularExpressions;
 using ActiveUp.Net.Security;
 
@@ -228,6 +229,7 @@ namespace ActiveUp.Net.Mail
 
         int _messageCount;
         long _totalSize;
+        private string host;
 //#if !PocketPC
 //        System.Net.Security.SslStream _sslStream;
 //#endif
@@ -347,6 +349,9 @@ namespace ActiveUp.Net.Mail
         private delegate string DelegateAuthenticate(string username, string password, SaslMechanism mechanism);
         private DelegateAuthenticate _delegateAuthenticate;
 
+        private delegate string DelegateLogin(string username, string password);
+        private DelegateLogin _delegateLogin;
+
         private delegate string DelegateDisconnect();
         private DelegateDisconnect _delegateDisconnect;
 
@@ -406,13 +411,7 @@ namespace ActiveUp.Net.Mail
         #region Methods
 
         #region Private utility methods
-#if !PocketPC
-        protected override void DoSslHandShake(ActiveUp.Net.Security.SslHandShake sslHandShake)
-        {
-            this._sslStream = new System.Net.Security.SslStream(base.GetStream(), false, sslHandShake.ServerCertificateValidationCallback, sslHandShake.ClientCertificateSelectionCallback);
-            this._sslStream.AuthenticateAsClient(sslHandShake.HostName, sslHandShake.ClientCertificates, sslHandShake.SslProtocol, sslHandShake.CheckRevocation);
-        }
-#endif
+
         private string _CramMd5(string username, string password)
         {
             this.OnAuthenticating(new ActiveUp.Net.Mail.AuthenticatingEventArgs(username, password));
@@ -430,17 +429,23 @@ namespace ActiveUp.Net.Mail
             return response;
         }
 
-        public override string Login(string user, string pass, string host)
+        public override string Login(string user, string pass)
         {
-            this.OnAuthenticating(new ActiveUp.Net.Mail.AuthenticatingEventArgs(user, pass, host));
+            this.OnAuthenticating(new ActiveUp.Net.Mail.AuthenticatingEventArgs(user, pass, this.host));
             string response = this.Command("USER " + user);
             string presponse = this.Command("PASS " + pass);
-            this.OnAuthenticated(new ActiveUp.Net.Mail.AuthenticatedEventArgs(user, pass, host, response));
+            this.OnAuthenticated(new ActiveUp.Net.Mail.AuthenticatedEventArgs(user, pass, this.host, response));
             /*response = this.Command("STAT");
                 var splited = response.Split(' ');
                 this._messageCount = System.Convert.ToInt32(splited[1]);
                 this._totalSize = System.Convert.ToInt32(splited[2]);*/
             return presponse;
+        }
+
+        public override IAsyncResult BeginLogin(string username, string password, AsyncCallback callback)
+        {
+            this._delegateLogin = this.Login;
+            return this._delegateLogin.BeginInvoke(username, password, callback, this._delegateLogin);
         }
 
         private string _Login(string username, string password)
@@ -531,11 +536,12 @@ namespace ActiveUp.Net.Mail
             /// </example>
             public string Connect(string host)
             {
-                return this.Connect(host, 110);
+                this.host = host;
+                return this.ConnectPlain(host, 110);
             }
             public IAsyncResult BeginConnect(string host, AsyncCallback callback)
             {
-                return this.BeginConnect(host, 110, callback);
+                return this.BeginConnectPlain(host, 110, callback);
             }
 
             /// <summary>
@@ -562,23 +568,23 @@ namespace ActiveUp.Net.Mail
             /// pop.Connect("mail.myhost.com",8503);
             /// </code>
             /// </example>
-            public new string Connect(string host, int port)
+            public override string ConnectPlain(string host, int port)
             {
+                this.host = host;
                 this.OnConnecting();
                 base.Connect(host, port);
-                string response = "";
-                response = this.ReadLine();
+                var response = this.ReadLine();
                 this.OnConnected(new ActiveUp.Net.Mail.ConnectedEventArgs(response));
                 return response;
             }
             public string ConnectTLS(string host, int port)
             {
-                this.Connect(host, port);
+                this.ConnectPlain(host, port);
                 return this.StartTLS(host);
             }
-            public override IAsyncResult BeginConnect(string host, int port, AsyncCallback callback)
+            public override IAsyncResult BeginConnectPlain(string host, int port, AsyncCallback callback)
             {
-                this._delegateConnect = this.Connect;
+                this._delegateConnect = this.ConnectPlain;
                 return this._delegateConnect.BeginInvoke(host, port, callback, this._delegateConnect);
             }
             public IAsyncResult BeginConnectTLS(string host, int port, AsyncCallback callback)
@@ -653,11 +659,6 @@ namespace ActiveUp.Net.Mail
                 return this._delegateConnectAuth.BeginInvoke(host, port, username, password, callback, this._delegateConnectAuth);
             }
 
-            public new string EndConnect(IAsyncResult result)
-            {
-                return (string)result.AsyncState.GetType().GetMethod("EndInvoke").Invoke(result.AsyncState, new object[] { result });
-            }
-
             /// <summary>
             /// Connects the object with the remote POP server using the given parameters and APOP.
             /// </summary>
@@ -720,7 +721,7 @@ namespace ActiveUp.Net.Mail
             /// </example>
             public string APOPConnect(string host, int port, string user, string pass)
             {
-                string response = this.Connect(host, port);
+                string response = this.ConnectPlain(host, port);
                 string presponse = "";
                 this.OnAuthenticating(new ActiveUp.Net.Mail.AuthenticatingEventArgs(user, pass, host));
                 Match timestamp = Regex.Match(response, @"<.+@.+>");
@@ -784,7 +785,7 @@ namespace ActiveUp.Net.Mail
             {
                 return this.BeginConnectSsl(host, 995, sslHandShake, callback);
             }
-            public string ConnectSsl(string host, int port)
+            public override string ConnectSsl(string host, int port)
             {
                 return this.ConnectSsl(host, port, new ActiveUp.Net.Security.SslHandShake(host));
             }
@@ -795,6 +796,7 @@ namespace ActiveUp.Net.Mail
 
             public string ConnectSsl(string host, int port, ActiveUp.Net.Security.SslHandShake sslHandShake)
             {
+                this.host = host;
                 this.OnConnecting();
                 base.Connect(host, port);
                 this.DoSslHandShake(sslHandShake);
@@ -885,11 +887,6 @@ namespace ActiveUp.Net.Mail
                 this._delegateConnectSslAuth = this.ConnectSsl;
                 return this._delegateConnectSslAuth.BeginInvoke(host, port, user, pass, sslHandShake, callback, this._delegateConnectSslAuth);
             }
-
-            public override string EndConnectSsl(IAsyncResult result)
-            {
-                return (string)result.AsyncState.GetType().GetMethod("EndInvoke").Invoke(result.AsyncState, new object[] { result });
-            }
 #endif
             #endregion
 
@@ -926,7 +923,7 @@ namespace ActiveUp.Net.Mail
             /// pop.Disconnect();
             /// </code>
             /// </example>
-            public string Authenticate(string username, string password, SaslMechanism mechanism)
+            public override string Authenticate(string username, string password, SaslMechanism mechanism)
             {
                 switch (mechanism)
                 {
@@ -942,11 +939,6 @@ namespace ActiveUp.Net.Mail
             {
                 this._delegateAuthenticate = this.Authenticate;
                 return this._delegateAuthenticate.BeginInvoke(username, password, mechanism, callback, null);
-            }
-
-            public string EndAuthenticate(IAsyncResult result)
-            {
-                return this._delegateAuthenticate.EndInvoke(result);
             }
 
             #endregion
@@ -983,21 +975,24 @@ namespace ActiveUp.Net.Mail
             public override string Disconnect()
             {
                 this.OnDisconnecting();
-                string response = this.Command("QUIT");
-                this.Close();
-                this.OnDisconnected(new ActiveUp.Net.Mail.DisconnectedEventArgs(response));
-                return response;
+                try
+                {
+                    var response = this.Command("QUIT");
+                    this.OnDisconnected(new ActiveUp.Net.Mail.DisconnectedEventArgs(response));
+                    return response;
+                }
+                finally
+                {
+                    if (base._sslStream != null)
+                        base._sslStream.Dispose();
+                    base.Dispose(false);
+                }
             }
 
-            public IAsyncResult BeginDisconnect(AsyncCallback callback)
+            public override IAsyncResult BeginDisconnect(AsyncCallback callback)
             {
                 this._delegateDisconnect = this.Disconnect;
                 return this._delegateDisconnect.BeginInvoke(callback, null);
-            }
-
-            public string EndDisconnect(IAsyncResult result)
-            {
-                return this._delegateDisconnect.EndInvoke(result);
             }
 
             #endregion
@@ -1467,8 +1462,34 @@ namespace ActiveUp.Net.Mail
         public Message RetrieveMessageObject(int message_index)
         {
             var msg = RetrieveMessageString(message_index);
-            
-            var message = Parser.ParseMessage(ref msg);
+
+            Message message;
+
+            try {
+                message = Parser.ParseMessage(ref msg);
+            }
+            catch (Exception ex)
+            {
+                if (ex is ParsingException || ex is IndexOutOfRangeException)
+                {
+                    var header_string = RetrieveHeaderString(message_index);
+
+                    Header header;
+
+                    if (!Parser.TryParseDefectiveHeader(header_string, out header))
+                        throw;
+
+                    message = new Message(header);
+
+                    message.AddAttachmentFromString("original_message.eml", msg);
+
+                    message.OriginalData = Encoding.GetEncoding("iso-8859-1").GetBytes(msg);
+
+                    message.HasParseError = true;
+                }
+                else
+                    throw;
+            }
 
             return message;
         }
@@ -1584,10 +1605,16 @@ namespace ActiveUp.Net.Mail
 
         #region Header as raw data
 
+        public string RetrieveHeaderString(int messageIndex)
+        {
+            return this.RetrieveHeaderString(messageIndex, 0);
+        }
+
         public byte[] RetrieveHeader(int messageIndex)
         {
             return this.RetrieveHeader(messageIndex, 0);
         }
+
         public IAsyncResult BeginRetrieveHeader(int messageIndex, AsyncCallback callback)
         {
             return this.BeginRetrieveHeader(messageIndex, 0, callback);
@@ -1626,7 +1653,7 @@ namespace ActiveUp.Net.Mail
         public byte[] RetrieveHeader(int messageIndex, int numberOfBodyLines)
         {
             this.OnHeaderRetrieving(new ActiveUp.Net.Mail.HeaderRetrievingEventArgs(messageIndex, this.MessageCount));
-            string header = this.CommandMultiline("TOP " + messageIndex.ToString() + " " + numberOfBodyLines.ToString());
+            string header = RetrieveHeaderString(messageIndex, numberOfBodyLines);
             //header = header.Replace(header.Split('\n')[0],"").TrimStart('\n');
             //byte[] buf = System.Text.Encoding.ASCII.GetBytes(header);
 #if !PocketPC
@@ -1637,6 +1664,13 @@ namespace ActiveUp.Net.Mail
             this.OnHeaderRetrieved(new ActiveUp.Net.Mail.HeaderRetrievedEventArgs(buf, messageIndex, this.MessageCount));
             return buf;
         }
+
+        public string RetrieveHeaderString(int messageIndex, int numberOfBodyLines)
+        {
+            var header_string = this.CommandMultiline("TOP " + messageIndex.ToString() + " " + numberOfBodyLines.ToString());
+            return header_string;
+        }
+
         public IAsyncResult BeginRetrieveHeader(int messageIndex, int numberOfBodyLines, AsyncCallback callback)
         {
             this._delegateRetrieveHeader = this.RetrieveHeader;

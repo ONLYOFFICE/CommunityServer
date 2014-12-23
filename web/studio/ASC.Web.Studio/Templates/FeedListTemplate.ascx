@@ -3,12 +3,12 @@
 
 <script id="feed-inner-comment-tmpl" type="text/x-jquery-tmpl">
     <div class="comment">
-        <a href="${authorUrl}" target="_blank"><img class="comment-avatar" src="${authorAvatar}"/></a>
+        <a href="${author.ProfileUrl}" target="_blank"><img class="comment-avatar" src="${author.avatarBig}"/></a>
         <div class="comment-content-box">
             <div class="comment-author">
-                <a href="${authorUrl}" class="title" target="_blank">${author.DisplayName}</a>,
-                {{if author.UserInfo.Title}}
-                <span>${author.UserInfo.Title},</span>
+                <a href="${author.profileUrl}" class="title" target="_blank">${author.displayName}</a>,
+                {{if author.title}}
+                <span>${author.title},</span>
                 {{/if}}
                 <span>${formattedDate}</span>
             </div>
@@ -21,10 +21,10 @@
 <script id="feedTmpl" type="text/x-jquery-tmpl">
     <div id="feed_${id}" class="item clearFix">
         <div class="avatar">
-            {{if byGuest}}
-            <img src="${authorAvatar}" />
+            {{if isGuest}}
+            <img src="${author.avatarBig}" />
             {{else}}
-            <a href="${authorUrl}" target="_blank"><img src="${authorAvatar}"/></a>
+            <a href="${author.profileUrl}" target="_blank"><img src="${author.avatarBig}"/></a>
             {{/if}}
         </div>
         <div class="content-box">
@@ -32,10 +32,10 @@
                 <div class="header">
                     <span class="action">${actionText}.</span>
                     <a href="${itemUrl}" class="title" target="_blank"
-                       data-extra="${extra}" data-hintName="${hintName}"
-                       data-extra2="${extra2}" data-hintName2="${hintName2}"
-                       data-extra3="${extra3}" data-hintName3="${hintName3}"
-                       data-extra4="${extra4}" data-hintName4="${hintName4}">${title}
+                       data-extra="${additionalInfo}" data-hintName="${hintName}"
+                       data-extra2="${additionalInfo2}" data-hintName2="${hintName2}"
+                       data-extra3="${additionalInfo3}" data-hintName3="${hintName3}"
+                       data-extra4="${additionalInfo4}" data-hintName4="${hintName4}">${title}
                     </a>
                     {{if groupedFeeds.length}}
                     <span class="grouped-feeds-count">
@@ -69,15 +69,15 @@
                     <span class="time">${displayCreatedTime}</span>
                     {{/if}}
                 </div>
-                {{if author}}
+                {{if author && !excludeAuthorBox}}
                 <div class="author">
                     <span class="label"><%= FeedResource.Author %>:</span>
-                    {{if byGuest}}
-                    <span class="guest">${author.DisplayName}</span>
+                    {{if isGuest}}
+                    <span class="guest">${author.displayName}</span>
                     {{else}}
-                    <a href="${authorUrl}" class="title" target="_blank">${author.DisplayName}</a>{{if authorTitle}},
+                    <a href="${author.profileUrl}" class="title" target="_blank">${author.displayName}</a>{{if author.title}},
                     <span class="author-title">
-                        ${authorTitle}</span>
+                        ${author.title}</span>
                     {{/if}}
                     {{/if}}
                 </div>
@@ -160,12 +160,12 @@
 
 <script id="feedCommentTmpl" type="text/x-jquery-tmpl">
     <div class="comment">
-        <a href="${authorUrl}" target="_blank"><img class="comment-avatar" src="${authorAvatar}"/></a>
+        <a href="${author.profileUrl}" target="_blank"><img class="comment-avatar" src="${author.avatarBig}"/></a>
         <div class="comment-content-box">
             <div class="comment-author">
-                <a href="${authorUrl}" class="title" target="_blank">${authorName}</a>,
-                {{if authorTitle}}
-                <span>${authorTitle},</span>
+                <a href="${author.profileUrl}" class="title" target="_blank">${author.displayName}</a>,
+                {{if author.title}}
+                <span>${author.title},</span>
                 {{/if}}
                 <span>${date}</span>
             </div>

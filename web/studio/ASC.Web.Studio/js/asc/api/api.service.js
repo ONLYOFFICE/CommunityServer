@@ -1,34 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
-*/
-
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 ;
@@ -1073,6 +1068,18 @@ window.ServiceManager = (function(helper) {
         );
         return true;
     };
+    
+    var updatePrjDiscussionStatus = function(eventname, params, id, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'project/message/' + id + '/status.json',
+            data,
+            options
+        );
+        return true;
+    };
 
     var removePrjDiscussion = function(eventname, params, id, options) {
         helper.request(
@@ -1130,6 +1137,17 @@ window.ServiceManager = (function(helper) {
             params,
             UPDATE,
             'project/message/' + id + '/subscribe.json',
+            id,
+            options
+        );
+    };
+    
+    var getSubscribesToPrjDiscussion = function(eventname, params, id, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'project/message/' + id + '/subscribes.json',
             id,
             options
         );
@@ -1785,6 +1803,28 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
+
+    var getFolderPath = function(eventname, id, options) {
+        return helper.request(
+            eventname,
+            null,
+            GET,
+            'files/folder/' + id + '/path.json',
+            null,
+            options
+        );
+    };
+
+    var setNewEditors = function (eventname, set, options) {
+        return helper.request(
+            eventname,
+            null,
+            UPDATE,
+            'files/neweditors.json',
+            {set: set},
+            options
+        );
+    };
     /* </documents> */
 
     /* <crm> */
@@ -2033,6 +2073,18 @@ window.ServiceManager = (function(helper) {
             eventname,
             params,
             ADD,
+            'crm/' + type + '/' + id + '/tag/group.json',
+            { entityid: id, entityType: type, tagName: tagname },
+            options
+        );
+        return true;
+    };
+
+    var deleteCrmContactTagFromGroup = function(eventname, params, type, id, tagname, options) {
+        helper.request(
+            eventname,
+            params,
+            REMOVE,
             'crm/' + type + '/' + id + '/tag/group.json',
             { entityid: id, entityType: type, tagName: tagname },
             options
@@ -2758,12 +2810,14 @@ window.ServiceManager = (function(helper) {
     };
 
     var removeCrmCase = function(eventname, params, ids, options) {
+        var isNumberOrString = ids && (typeof ids === 'number' || typeof ids === 'string'),
+            isObject = ids && typeof ids === 'object';
         helper.request(
             eventname,
             params,
-            REMOVE,
-            'crm/case' + (ids && (typeof ids === 'number' || typeof ids === 'string') ? '/' + ids : '') + '.json',
-            ids && typeof ids === 'object' ? { casesids: ids } : null,
+            isNumberOrString ? REMOVE : UPDATE,
+            'crm/case' + (isNumberOrString ? '/' + ids : '') + '.json',
+            isObject ? { casesids: ids } : null,
             options
         );
         return true;
@@ -2882,6 +2936,17 @@ window.ServiceManager = (function(helper) {
         );
     };
 
+    var getContactsByContactInfo = function (eventname, params, data, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/contact/bycontactinfo.json',
+            data,
+            options
+        );
+    };
+
     var getCrmOpportunities = function(eventname, params, options) {
         return helper.request(
             eventname,
@@ -2916,12 +2981,14 @@ window.ServiceManager = (function(helper) {
     };
 
     var removeCrmOpportunity = function(eventname, params, ids, options) {
+        var isNumberOrString = ids && (typeof ids === 'number' || typeof ids === 'string'),
+            isObject = ids && typeof ids === 'object';
         helper.request(
             eventname,
             params,
-            REMOVE,
-            'crm/opportunity' + (ids && (typeof ids === 'number' || typeof ids === 'string') ? '/' + ids : '') + '.json',
-            ids && typeof ids === 'object' ? { opportunityids: ids } : null,
+            isNumberOrString ? REMOVE : UPDATE,
+            'crm/opportunity' + (isNumberOrString ? '/' + ids : '') + '.json',
+            isObject ? { opportunityids: ids } : null,
             options
         );
         return true;
@@ -2954,7 +3021,18 @@ window.ServiceManager = (function(helper) {
             eventname,
             params,
             GET,
-            'crm/settings/currency/' + currency + '/summarytable.json',
+            'crm/settings/currency/summarytable.json',
+            { currency: currency },
+            options
+        );
+    };
+
+     var updateCrmCurrency = function(eventname, params, currency, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/settings/currency.json',
             { currency: currency },
             options
         );
@@ -2978,6 +3056,17 @@ window.ServiceManager = (function(helper) {
             UPDATE,
             'crm/contact/tag/settings.json',
             { addTagToContactGroupAuto: addTagToContactGroupAuto },
+            options
+        );
+    };
+
+    var updateCRMContactMailToHistorySettings = function(eventname, params, writeMailToHistoryAuto, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/contact/mailtohistory/settings.json',
+            { writeMailToHistoryAuto: writeMailToHistoryAuto },
             options
         );
     };
@@ -3014,6 +3103,51 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
+
+    var getOrganisationSettingsLogo = function(eventname, params, logoid, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/settings/organisation/logo.json',
+            {id: logoid},
+            options
+        );
+    };
+
+    var updateWebToLeadFormKey = function(eventname, params, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/settings/webformkey/change.json',
+            null,
+            options
+        );
+    };
+
+    var updateCRMSMTPSettings = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/settings/smtp.json',
+            data,
+            options
+        );
+    };
+
+    var sendSMTPTestMail = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/settings/testmail.json',
+            data,
+            options
+        );
+    };
+
 
     var addCrmHistoryEvent = function(eventname, params, data, options) {
         helper.request(
@@ -3675,6 +3809,419 @@ window.ServiceManager = (function(helper) {
         return true;
     };
 
+    var getCrmContactTweets = function(eventname, params, contactid, count, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/contact/' + contactid + '/tweets.json',
+            {contactid: contactid, count: count},
+            options
+        );
+    };
+
+    var getCrmContactTwitterProfiles = function(eventname, params, searchText, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/contact/twitterprofile.json',
+            {searchText: searchText},
+            options
+        );
+    };
+
+    var getCrmContactFacebookProfiles = function(eventname, params, searchText, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/contact/facebookprofile.json',
+            {searchText: searchText},
+            options
+        );
+    };
+
+    var getCrmContactLinkedinProfiles = function(eventname, params, firstName, lastName, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/contact/linkedinprofile.json',
+            {firstName: firstName, lastName: lastName},
+            options
+        );
+    };
+
+    var removeCrmContactAvatar = function(eventname, params, contactid, data, options) {
+        return helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'crm/contact/'+ contactid + '/avatar.json',
+            data,
+            options
+        );
+    };
+
+    var updateCrmContactAvatar = function(eventname, params, contactid, data, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/contact/'+ contactid + '/avatar.json',
+            data,
+            options
+        );
+    };
+
+    var getCrmContactSocialMediaAvatar = function(eventname, params, contactid, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/contact/'+ contactid + '/socialmediaavatar.json',
+            null,
+            options
+        );
+    };
+
+    var getCrmContactInCruchBase = function(eventname, params, data, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/contact/crunchbase.json',
+            data,
+            options
+        );
+    };
+
+    var startCrmImportFromCSV = function (eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/' + data.entityType + '/import/start.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getStatusCrmImportFromCSV = function (eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/' + data.entityType + '/import/status.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getCrmImportFromCSVSampleRow = function (eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/import/samplerow.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var uploadFakeCrmImportFromCSV = function (eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/import/uploadfake.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    //#region VoIP
+    
+    var getCrmVoipAvailableNumbers = function (eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/voip/numbers/available.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var getCrmVoipExistingNumbers = function (eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/voip/numbers/existing.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var getCrmCurrentVoipNumber = function (eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/voip/numbers/current.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var createCrmVoipNumber = function (eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/voip/numbers.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var removeCrmVoipNumber = function (eventname, params, id, options) {
+        helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'crm/voip/numbers/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var updateCrmVoipNumberSettings = function (eventname, params, id, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/voip/numbers/' + id + '/settings.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var updateCrmVoipSettings = function (eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/voip/numbers/settings.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var getCrmVoipSettings = function (eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/voip/numbers/settings.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var getCrmVoipNumberOperators = function (eventname, params, id, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/voip/numbers/' + id + '/oper.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var addCrmVoipNumberOperators = function (eventname, params, id, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/voip/numbers/' + id + '/oper.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var updateCrmVoipOperator = function (eventname, params, id, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/voip/opers/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var removeCrmVoipNumberOperators = function (eventname, params, id, data, options) {
+        helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'crm/voip/numbers/' + id + '/oper.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var callVoipNumber = function (eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/voip/call.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var answerVoipCall = function (eventname, params, id, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/voip/call/' + id + '/answer.json',
+            id,
+            options
+        );
+        return true;
+    };
+    
+    var rejectVoipCall = function (eventname, params, id, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/voip/call/' + id + '/reject.json',
+            id,
+            options
+        );
+        return true;
+    };
+    
+    var redirectVoipCall = function (eventname, params, id, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/voip/call/' + id + '/redirect.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var saveVoipCall = function (eventname, params, id, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/voip/call/' + id + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var getVoipMissedCalls = function (eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/voip/call/missed.json',
+            null,
+            options
+        );
+    };
+
+    var getVoipCalls = function (eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/voip/call.json',
+            data,
+            options
+        );
+    };
+
+    var getVoipCall = function(eventname, params, id, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/voip/call/' + id + '.json',
+            null,
+            options
+        );
+    };
+    
+    var getVoipToken = function(eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/voip/token.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var getVoipUploads = function(eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/voip/uploads.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var deleteVoipUploads = function (eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'crm/voip/uploads.json',
+            data,
+            options
+        );
+        return true;
+    };
+   
+    
+    //#endregion
 
     /* </crm> */
 
@@ -3723,7 +4270,7 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var getMailAccounts = function(eventname, params, options) {
+    var getAccounts = function(eventname, params, options) {
         return helper.request(
             eventname,
             params,
@@ -4164,7 +4711,7 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var sendMailMessage = function(eventname, params, id, from, subject, to, cc, bcc, body, attachments, streamId, replyToId, importance, tags, options) {
+    var sendMailMessage = function (eventname, params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options) {
         return helper.request(
             eventname,
             params,
@@ -4180,7 +4727,8 @@ window.ServiceManager = (function(helper) {
                 body: body,
                 attachments: attachments,
                 streamId: streamId,
-                replyToId: replyToId,
+                mimeMessageId: mimeMessageId,
+                mimeReplyToId: mimeReplyToId,
                 importance: importance,
                 tags: tags
             },
@@ -4188,7 +4736,7 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var saveMailMessage = function(eventname, params, id, from, subject, to, cc, bcc, body, attachments, streamId, replyToId, importance, tags, options) {
+    var saveMailMessage = function (eventname, params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options) {
         return helper.request(
             eventname,
             params,
@@ -4204,7 +4752,8 @@ window.ServiceManager = (function(helper) {
                 body: body,
                 attachments: attachments,
                 streamId: streamId,
-                replyToId: replyToId,
+                mimeMessageId: mimeMessageId,
+                mimeReplyToId: mimeReplyToId,
                 importance: importance,
                 tags: tags
             },
@@ -4414,7 +4963,7 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
-    
+
     var exportAllAttachmentsToMyDocuments = function (eventname, params, message_id, options) {
         return helper.request(
             eventname,
@@ -4450,6 +4999,215 @@ window.ServiceManager = (function(helper) {
             {
                 email_in_folder: email_in_folder
             },
+            options
+        );
+    };
+
+    var getMailServer = function (eventname, params, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mailserver/server.json',
+            null,
+            options
+        );
+    };
+
+    var getMailServerFullInfo = function (eventname, params, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mailserver/serverinfo/get.json',
+            null,
+            options
+        );
+    };
+
+    var getMailServerFreeDns = function (eventname, params, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mailserver/freedns/get.json',
+            null,
+            options
+        );
+    };
+
+    var getMailDomains = function (eventname, params, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mailserver/domains/get.json',
+            null,
+            options
+        );
+    };
+
+    var addMailDomain = function (eventname, params, domain_name, dns_id, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'mailserver/domains/add.json',
+            { name: domain_name, id_dns: dns_id },
+            options
+        );
+    };
+
+    var removeMailDomain = function (eventname, params, id_domain, options) {
+        return helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'mailserver/domains/remove/' + id_domain + '.json',
+            null,
+            options
+        );
+    };
+
+    var addMailbox = function (eventname, params, mailbox_name, domain_id, user_id, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'mailserver/mailboxes/add.json',
+            { name: mailbox_name, domain_id: domain_id, user_id: user_id },
+            options
+        );
+    };
+
+    var getMailboxes = function (eventname, params, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mailserver/mailboxes/get.json',
+            null,
+            options
+        );
+    };
+
+    var removeMailbox = function (eventname, params, id_mailbox, options) {
+        return helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'mailserver/mailboxes/remove/' + id_mailbox + '.json',
+            null,
+            options
+        );
+    };
+
+    var addMailBoxAlias = function (eventname, params, mailbox_id, address_name, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'mailserver/mailboxes/alias/add.json',
+            { mailbox_id: mailbox_id, alias_name: address_name },
+            options
+        );
+    };
+
+    var removeMailBoxAlias = function (eventname, params, mailbox_id, address_id, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'mailserver/mailboxes/alias/remove.json',
+            { mailbox_id: mailbox_id, address_id: address_id },
+            options
+        );
+    };
+
+    var addMailGroup = function (eventname, params, group_name, domain_id, address_ids, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'mailserver/groupaddress/add.json',
+            { name: group_name, domain_id: domain_id, address_ids: address_ids },
+            options
+        );
+    };
+    
+    var addMailGroupAddress = function (eventname, params, group_id, address_id, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'mailserver/groupaddress/address/add.json',
+            { mailgroup_id: group_id, address_id: address_id },
+            options
+        );
+    };
+    
+    var removeMailGroupAddress = function (eventname, params, group_id, address_id, options) {
+        return helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'mailserver/groupaddress/addresses/remove.json',
+            { mailgroup_id: group_id, address_id: address_id },
+            options
+        );
+    };
+
+    var getMailGroups = function (eventname, params, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mailserver/groupaddress/get.json',
+            null,
+            options
+        );
+    };
+
+    var removeMailGroup = function (eventname, params, id_group, options) {
+        return helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'mailserver/groupaddress/remove/' + id_group + '.json',
+            null,
+            options
+        );
+    };
+
+    var isDomainExists = function (eventname, params, domain_name, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mailserver/domains/exists.json',
+            { name: domain_name },
+            options
+        );
+    };
+    
+    var checkDomainOwnership = function (eventname, params, domain_name, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mailserver/domains/ownership/check.json',
+            { name: domain_name },
+            options
+        );
+    };
+    
+    var getDomainDnsSettings = function (eventname, params, domain_id, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mailserver/domains/dns/get.json',
+            { id: domain_id },
             options
         );
     };
@@ -4521,6 +5279,7 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
+
     var getPortalLogo = function(eventname, params, options) {
         return helper.request(
             eventname,
@@ -4542,14 +5301,59 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
+    
+    var getIpRestrictions = function(options) {
+        return helper.request(
+            null,
+            null,
+            GET,
+            'settings/iprestrictions.json',
+            null,
+            options
+        );
+    };
+
+    var saveIpRestrictions = function(data, options) {
+        return helper.request(
+            null,
+            null,
+            UPDATE,
+            'settings/iprestrictions.json',
+            data,
+            options
+        );
+    };
+    
+    var updateIpRestrictionsSettings = function(data, options) {
+        return helper.request(
+            null,
+            null,
+            UPDATE,
+            'settings/iprestrictions/settings.json',
+            data,
+            options
+        );
+    };
+
+    var updateTipsSettings = function(data, options) {
+        return helper.request(
+            null,
+            null,
+            UPDATE,
+            'settings/tips.json',
+            data,
+            options
+        );
+    };
+
     /* </settings> */
     
     //#region Security
 
-    var getLoginEvents = function(eventname, params, id, options) {
+    var getLoginEvents = function(eventname, options) {
         return helper.request(
             eventname,
-            params,
+            null,
             GET,
             'security/audit/login/last.json',
             null,
@@ -4599,6 +5403,18 @@ window.ServiceManager = (function(helper) {
             GET,
             'portal/talk/unreadmessages.json',
             null,
+            options
+        );
+        return true;
+    };
+
+    var registerUserOnPersonal = function (eventname, data, options) {
+        helper.request(
+            eventname,
+            null,
+            ADD,
+            'authentication/register.json',
+            data,
             options
         );
         return true;
@@ -4694,10 +5510,13 @@ window.ServiceManager = (function(helper) {
 
         addPrjDiscussion: addPrjDiscussion,
         updatePrjDiscussion: updatePrjDiscussion,
+        updatePrjDiscussionStatus: updatePrjDiscussionStatus,
         removePrjDiscussion: removePrjDiscussion,
         getPrjDiscussion: getPrjDiscussion,
         getPrjDiscussions: getPrjDiscussions,
         subscribeToPrjDiscussion: subscribeToPrjDiscussion,
+        getSubscribesToPrjDiscussion: getSubscribesToPrjDiscussion,
+
         addPrjProject: addPrjProject,
         updatePrjProject: updatePrjProject,
         updatePrjProjectStatus: updatePrjProjectStatus,
@@ -4761,6 +5580,8 @@ window.ServiceManager = (function(helper) {
         getDocFolder: getDocFolder,
         removeDocFile: removeDocFile,
         createDocUploadSession: createDocUploadSession,
+        getFolderPath: getFolderPath,
+        setNewEditors: setNewEditors,
 
         createCrmUploadFile: createCrmUploadFile,
 
@@ -4786,6 +5607,7 @@ window.ServiceManager = (function(helper) {
 
         addCrmTag: addCrmTag,
         addCrmContactTagToGroup: addCrmContactTagToGroup,
+        deleteCrmContactTagFromGroup: deleteCrmContactTagFromGroup,
         addCrmEntityTag: addCrmEntityTag,
         removeCrmTag: removeCrmTag,
         removeCrmEntityTag: removeCrmEntityTag,
@@ -4858,11 +5680,17 @@ window.ServiceManager = (function(helper) {
         updateCrmOpportunityMilestone: updateCrmOpportunityMilestone,
         getCrmCurrencyConvertion: getCrmCurrencyConvertion,
         getCrmCurrencySummaryTable: getCrmCurrencySummaryTable,
+        updateCrmCurrency: updateCrmCurrency,
         updateCRMContactStatusSettings: updateCRMContactStatusSettings,
         updateCRMContactTagSettings: updateCRMContactTagSettings,
+        updateCRMContactMailToHistorySettings: updateCRMContactMailToHistorySettings,
         updateOrganisationSettingsCompanyName: updateOrganisationSettingsCompanyName,
         updateOrganisationSettingsAddresses: updateOrganisationSettingsAddresses,
         updateOrganisationSettingsLogo: updateOrganisationSettingsLogo,
+        getOrganisationSettingsLogo: getOrganisationSettingsLogo,
+        updateWebToLeadFormKey: updateWebToLeadFormKey,
+        updateCRMSMTPSettings: updateCRMSMTPSettings,
+        sendSMTPTestMail: sendSMTPTestMail,
         addCrmHistoryEvent: addCrmHistoryEvent,
         removeCrmHistoryEvent: removeCrmHistoryEvent,
         getCrmHistoryEvents: getCrmHistoryEvents,
@@ -4876,6 +5704,7 @@ window.ServiceManager = (function(helper) {
         getCrmEntityFiles: getCrmEntityFiles,
         getCrmTaskCategories: getCrmTaskCategories,
         getCrmCase: getCrmCase,
+        getContactsByContactInfo: getContactsByContactInfo,
 
         addCrmEntityTaskTemplateContainer: addCrmEntityTaskTemplateContainer,
         updateCrmEntityTaskTemplateContainer: updateCrmEntityTaskTemplateContainer,
@@ -4914,23 +5743,59 @@ window.ServiceManager = (function(helper) {
         addCrmInvoiceLine: addCrmInvoiceLine,
         updateCrmInvoiceLine: updateCrmInvoiceLine,
         removeCrmInvoiceLine: removeCrmInvoiceLine,
-        
+
         getCrmInvoiceSettings: getCrmInvoiceSettings,
         updateCrmInvoiceSettingsName: updateCrmInvoiceSettingsName,
         updateCrmInvoiceSettingsTerms: updateCrmInvoiceSettingsTerms,
-        
+
         getCrmCurrencyRates: getCrmCurrencyRates,
         getCrmCurrencyRateById: getCrmCurrencyRateById,
         getCrmCurrencyRateByCurrencies: getCrmCurrencyRateByCurrencies,
         addCrmCurrencyRate: addCrmCurrencyRate,
         updateCrmCurrencyRate: updateCrmCurrencyRate,
         removeCrmCurrencyRate: removeCrmCurrencyRate,
+        getCrmContactTweets: getCrmContactTweets,
+        getCrmContactTwitterProfiles: getCrmContactTwitterProfiles,
+        getCrmContactFacebookProfiles: getCrmContactFacebookProfiles,
+        getCrmContactLinkedinProfiles: getCrmContactLinkedinProfiles,
+        removeCrmContactAvatar: removeCrmContactAvatar,
+        updateCrmContactAvatar: updateCrmContactAvatar,
+        getCrmContactSocialMediaAvatar: getCrmContactSocialMediaAvatar,
+        getCrmContactInCruchBase: getCrmContactInCruchBase,
+        startCrmImportFromCSV: startCrmImportFromCSV,
+        getStatusCrmImportFromCSV: getStatusCrmImportFromCSV,
+        getCrmImportFromCSVSampleRow: getCrmImportFromCSVSampleRow,
+        uploadFakeCrmImportFromCSV: uploadFakeCrmImportFromCSV,
+
+        getCrmVoipAvailableNumbers: getCrmVoipAvailableNumbers,
+        getCrmVoipExistingNumbers: getCrmVoipExistingNumbers,
+        getCrmCurrentVoipNumber: getCrmCurrentVoipNumber,
+        createCrmVoipNumber: createCrmVoipNumber,
+        removeCrmVoipNumber: removeCrmVoipNumber,
+        updateCrmVoipNumberSettings: updateCrmVoipNumberSettings,
+        updateCrmVoipSettings: updateCrmVoipSettings,
+        getCrmVoipSettings: getCrmVoipSettings,
+        addCrmVoipNumberOperators: addCrmVoipNumberOperators,
+        updateCrmVoipOperator: updateCrmVoipOperator,
+        removeCrmVoipNumberOperators: removeCrmVoipNumberOperators,
+        getCrmVoipNumberOperators: getCrmVoipNumberOperators,
+        callVoipNumber: callVoipNumber,
+        answerVoipCall: answerVoipCall,
+        rejectVoipCall: rejectVoipCall,
+        redirectVoipCall: redirectVoipCall,
+        saveVoipCall: saveVoipCall,
+        getVoipCalls: getVoipCalls,
+        getVoipMissedCalls: getVoipMissedCalls,
+        getVoipCall: getVoipCall,
+        getVoipToken: getVoipToken,
+        getVoipUploads: getVoipUploads,
+        deleteVoipUploads: deleteVoipUploads,
 
         getMailFilteredMessages: getMailFilteredMessages,
         getMailFolders: getMailFolders,
         getMailMessagesModifyDate: getMailMessagesModifyDate,
         getMailFolderModifyDate: getMailFolderModifyDate,
-        getMailAccounts: getMailAccounts,
+        getAccounts: getAccounts,
         getMailTags: getMailTags,
         getMailMessage: getMailMessage,
         getNextMailMessageId: getNextMailMessageId,
@@ -4988,6 +5853,26 @@ window.ServiceManager = (function(helper) {
         exportAllAttachmentsToMyDocuments: exportAllAttachmentsToMyDocuments,
         exportAttachmentToMyDocuments: exportAttachmentToMyDocuments,
         setEMailInFolder: setEMailInFolder,
+        getMailServer: getMailServer,
+        getMailServerFullInfo: getMailServerFullInfo,
+        getMailServerFreeDns: getMailServerFreeDns,
+        getMailDomains: getMailDomains,
+        addMailDomain: addMailDomain,
+        removeMailDomain: removeMailDomain,
+        addMailbox: addMailbox,
+        getMailboxes: getMailboxes,
+        removeMailbox: removeMailbox,
+        addMailBoxAlias: addMailBoxAlias,
+        removeMailBoxAlias: removeMailBoxAlias,
+        addMailGroup: addMailGroup,
+        addMailGroupAddress: addMailGroupAddress,
+        removeMailGroupAddress: removeMailGroupAddress,
+        getMailGroups: getMailGroups,
+        removeMailGroup: removeMailGroup,
+        isDomainExists: isDomainExists,
+        checkDomainOwnership: checkDomainOwnership,
+        getDomainDnsSettings: getDomainDnsSettings,
+
 
         getWebItemSecurityInfo: getWebItemSecurityInfo,
         setWebItemSecurity: setWebItemSecurity,
@@ -4996,14 +5881,19 @@ window.ServiceManager = (function(helper) {
         isProductAdministrator: isProductAdministrator,
         getPortalSettings: getPortalSettings,
         getPortalLogo: getPortalLogo,
-        
+        getIpRestrictions: getIpRestrictions,
+        saveIpRestrictions: saveIpRestrictions,
+        updateIpRestrictionsSettings: updateIpRestrictionsSettings,
+        updateTipsSettings: updateTipsSettings,
+
         isMobileAppUser: isMobileAppUser,
-        
+
         getLoginEvents: getLoginEvents,
         getAuditEvents: getAuditEvents,
         createLoginHistoryReport: createLoginHistoryReport,
         createAuditTrailReport: createAuditTrailReport,
 
         getTalkUnreadMessages: getTalkUnreadMessages,
+        registerUserOnPersonal: registerUserOnPersonal,
     };
 })(ServiceHelper);

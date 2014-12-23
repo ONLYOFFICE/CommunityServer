@@ -65,6 +65,7 @@ var FileUploadManager = new function() {
     this.OnFileUploaded = null;
     this.OnFileRemove = null;
     this.OnError = null;
+    this.OnRenderItemInUploadingProcess = null;
     /* */
 
     this.GenerateSubmitUrl = function() {
@@ -174,6 +175,9 @@ var FileUploadManager = new function() {
 
         if (events.OnCustomCalculateAttachments != null && events.OnCustomCalculateAttachments != undefined)
             FileUploadManager.OnCustomCalculateAttachments = events.OnCustomCalculateAttachments;
+
+        if (events.OnRenderItemInUploadingProcess != null && events.OnRenderItemInUploadingProcess != undefined)
+            FileUploadManager.OnRenderItemInUploadingProcess = events.OnRenderItemInUploadingProcess;
     }
 
     this.IsFlash = function(uploader) {
@@ -314,7 +318,7 @@ var FileUploadManager = new function() {
         FileUploadManager.CalculateAttachments(JSON.parse(resp.response));
     };
 
-    this.FileProgress = function(up, file) {
+    this.FileProgress = function (up, file) {
         var renderedData = FileUploadManager.PrepareCommonDataToRender(file, UPLOADER_STATUS.FILE_UPLOADING, null);
         FileUploadManager.RenderItemToUpload(renderedData);
     };
@@ -508,9 +512,12 @@ var FileUploadManager = new function() {
         }
 
         if (jq('#fu_item_' + data.id).length != 0) {
-            jq('#fu_item_' + data.id).replaceWith(jq.tmpl(FileUploadManager.renderedItemTemplate, data));
-        }
-        else {
+            if (FileUploadManager.OnRenderItemInUploadingProcess != null) {
+                FileUploadManager.OnRenderItemInUploadingProcess(data);
+            } else {
+                jq('#fu_item_' + data.id).replaceWith(jq.tmpl(FileUploadManager.renderedItemTemplate, data));
+            }
+        } else {
             jq('#' + FileUploadManager.config.TargetContainerID).append(jq.tmpl(FileUploadManager.renderedItemTemplate, data));
         }
 

@@ -12,7 +12,6 @@
 
 
 <div id="taskActions" class="studio-action-panel">
-    <div class="corner-top left"></div>
     <ul class="dropdown-content">
         <% if (CanEditTask && !Page.Participant.IsVisitor)
         if(Task.Status == TaskStatus.Open)
@@ -188,11 +187,6 @@
         </span>
     </div>
     <div id="commentContainer">
-        <div id="emptyCommentsPanel" style="display: none;">
-            <div class="emptyScrBttnPnl icon-link plus">
-                <span class="baseLinkAction"><%= ProjectResource.AddFirstComment %></span>
-            </div>
-        </div>
         <div id="commentsListWrapper">
             <scl:CommentsList ID="commentList" runat="server" BehaviorID="commentsList">
             </scl:CommentsList>
@@ -203,11 +197,15 @@
 </div>
 
 <div class="popup_helper" id="hintInvalidLink">
-      <p><%= TaskResource.RelatedLinkInvalid %> <a href="<%= CommonLinkUtility.GetHelpLink() + "guides/link-tasks.aspx" %>" target="_blank"><%=ProjectsCommonResource.LearnMoreLink%></a></p>
+      <p><%= TaskResource.RelatedLinkInvalid %>
+          <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+             { %>
+           <a href="<%= CommonLinkUtility.GetHelpLink() + "guides/link-tasks.aspx" %>" target="_blank"><%= ProjectsCommonResource.LearnMoreLink %></a>
+          <% } %>
+      </p>
 </div> 
 
 <div id="linkedTaskActionPanel" class="studio-action-panel">
-    <div class="corner-top right"></div>        
     <ul class="dropdown-content">
         <li id="linkEdit" class="dropdown-item"><span><%= TaskResource.Edit%></span></li>
         <li id="linkRemove" class="dropdown-item"><span><%= ProjectsCommonResource.Delete%></span></li>

@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -62,6 +62,8 @@ namespace ASC.Mail.Aggregator.Dal.DbSchema
             public const string id_smtp_server = "id_smtp_server";
             public const string id_in_server = "id_in_server";
             public const string email_in_folder = "email_in_folder";
+            public const string is_teamlab_mailbox = "is_teamlab_mailbox";
+            public const string date_created = "date_created ";
         }
     }
 
@@ -76,35 +78,6 @@ namespace ASC.Mail.Aggregator.Dal.DbSchema
             public const string display_name = "display_name";
             public const string display_short_name = "display_short_name";
             public const string documentation = "documentation";
-        }
-    }
-
-    public static class MailboxDomainTable
-    {
-        public const string name = "mail_mailbox_domain";
-
-        public static class Columns
-        {
-            public const string id_provider = "id_provider";
-            public const string name = "name";
-        }
-    }
-
-    public static class MailboxServerTable
-    {
-        public const string name = "mail_mailbox_server";
-
-        public static class Columns
-        {
-            public const string id = "id";
-            public const string id_provider = "id_provider";
-            public const string type = "type";
-            public const string hostname = "hostname";
-            public const string port = "port";
-            public const string socket_type = "socket_type";
-            public const string username = "username";
-            public const string authentication = "authentication";
-            public const string is_user_data = "is_user_data";
         }
     }
 
@@ -320,6 +293,151 @@ namespace ASC.Mail.Aggregator.Dal.DbSchema
             public const string address = "address";
             public const string last_modified = "last_modified";
             public const string id_tenant = "tenant";
+        }
+    }
+
+    public static class MailboxDomainTable
+    {
+        public const string name = "mail_mailbox_domain";
+
+        public static class Columns
+        {
+            public const string id = "id";
+            public const string id_provider = "id_provider";
+            public const string name = "name";
+        };
+    }
+
+    public static class MailboxServerTable
+    {
+        public const string name = "mail_mailbox_server";
+
+        public static class Columns
+        {
+            public const string id = "id";
+            public const string id_provider = "id_provider";
+            public const string type = "type";
+            public const string hostname = "hostname";
+            public const string port = "port";
+            public const string socket_type = "socket_type";
+            public const string username = "username";
+            public const string authentication = "authentication";
+            public const string is_user_data = "is_user_data";
+        };
+    }
+
+    public static class AddressTable
+    {
+        public const string name = "mail_server_address";
+
+        public static class Columns
+        {
+            public const string id = "id";
+            public const string name = "name";
+            public const string tenant = "tenant";
+            public const string id_domain = "id_domain";
+            public const string id_mailbox = "id_mailbox";
+            public const string is_mail_group = "is_mail_group";
+            public const string is_alias = "is_alias";
+            public const string date_created = "date_created";
+        };
+    }
+
+
+    public static class DomainTable
+    {
+        public const string name = "mail_server_domain";
+
+        public static class Columns
+        {
+            public const string id = "id";
+            public const string tenant = "tenant";
+            public const string name = "name";
+            public const string is_verified = "is_verified";
+            public const string date_added = "date_added";
+            public const string date_checked = "date_checked";
+        };
+    }
+
+    public static class ServerTable
+    {
+        public const string name = "mail_server_server";
+
+        public static class Columns
+        {
+            public const string id = "id";
+            public const string mx_record = "mx_record";
+            public const string connection_string = "connection_string";
+            public const string server_type = "server_type";
+            public const string smtp_settings_id = "smtp_settings_id";
+            public const string imap_settings_id = "imap_settings_id";
+        };
+    }
+
+    public static class TenantXServerTable
+    {
+        public const string name = "mail_server_server_x_tenant";
+
+        public static class Columns
+        {
+            public const string id_tenant = "id_tenant";
+            public const string id_server = "id_server";
+            public const string cname = "cname";
+        };
+    }
+
+    public static class ServerTypeTable
+    {
+        public const string name = "mail_server_server_type";
+
+        public static class Columns
+        {
+            public const string id = "id";
+            public const string name = "name";
+        };
+    }
+
+    public static class MailGroupTable
+    {
+        public const string name = "mail_server_mail_group";
+
+        public static class Columns
+        {
+            public const string id = "id";
+            public const string id_tenant = "id_tenant";
+            public const string id_address = "id_address";
+            public const string address = "address";
+            public const string date_created = "date_created";
+        }
+    }
+
+    public static class MailGroupXAddressesTable
+    {
+        public const string name = "mail_server_mail_group_x_mail_server_address";
+
+        public static class Columns
+        {
+            public const string id_mail_group = "id_mail_group";
+            public const string id_address = "id_address";
+        }
+    }
+
+    public static class DnsTable
+    {
+        public const string name = "mail_server_dns";
+
+        public static class Columns
+        {
+            public const string id = "id";
+            public const string tenant = "tenant";
+            public const string user = "id_user";
+            public const string id_domain = "id_domain";
+            public const string dkim_selector = "dkim_selector";
+            public const string dkim_private_key = "dkim_private_key";
+            public const string dkim_public_key = "dkim_public_key";
+            public const string domain_check = "domain_check";
+            public const string spf = "spf";
+            public const string time_modified = "time_modified";
         }
     }
 }

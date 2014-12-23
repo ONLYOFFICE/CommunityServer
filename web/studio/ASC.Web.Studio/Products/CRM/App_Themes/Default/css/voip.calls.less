@@ -1,0 +1,241 @@
+/*
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+*/
+
+@import "base.less";
+
+#voip-calls-view {
+    #call-info-box {
+        margin-top: 20px;
+
+        .call-info-row {
+            height: 26px;
+            line-height: 26px;
+            
+            .call-info-title {
+                margin-right: 5px;
+                color: #83888D;
+            }
+        }
+    }
+
+    #call-redirections-list {
+        margin-top: 10px;
+
+        .call-redirection-agent {
+            padding-left: 5px;
+        }
+
+        .call-redirection-waiting-time, .call-redirection-duration {
+            width: 100px;
+            text-align: center;
+        }
+    }
+
+    #play-record-not-support-box {
+        display: none;
+    }
+    
+    #calls-filter {
+        display: none;
+    }
+    
+    #calls-list {
+        display: none;
+        
+        .call-row {
+            .toggle-redirections-btn {
+                cursor: pointer;
+                font-size: 11px;
+                margin-left: 5px;
+                border-bottom: 1px dotted;
+            }
+        }
+
+        .redirection-row {
+            display: none;
+
+            .call-type-icon.hide {
+                background-image: none !important;
+            }
+        }
+
+        .call-type {
+            width: 60px;
+            padding-left: 5px;
+            text-align: left;
+
+            .call-type-icon {
+                display: block;
+                float: left;
+                width: 16px;
+                height: 16px;
+                background: url("../images/voip_call_icons_sprite.png") no-repeat;
+                margin-right: 3px;
+
+                &.answered {
+                    background-position: 0 0;
+                }
+
+                &.missed {
+                    background-position: 0 -16px;
+                }
+
+                &.outgoing {
+                    background-position: -16px 0;
+                }
+
+                &.play {
+                    position: relative;
+                    background-position: 0 -32px;
+                    cursor: pointer;
+                    &:hover {
+                        background-position: -16px -32px;
+                    }
+                }
+
+                &.pause {
+                    background-position: -16px -16px;
+                }
+            }
+        }
+
+        .call-date {
+            width: 120px;
+            text-align: left;
+
+            a {
+                text-decoration: none;
+                color: #333;
+                font-size: 12px;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .call-agent {
+            text-align: left;
+        }
+
+        .call-client {
+            text-align: left;
+        }
+
+        .call-duration {
+            text-align: left;
+        }
+
+        .call-cost {
+            text-align: left;
+        }
+    }
+
+    #calls-paging {
+        display: none;
+        
+        margin-top: 10px;
+        width: 100%;
+
+        #calls-paging-stat-box {
+            text-align: right;
+
+            > span {
+                color: #666;
+            }
+
+            .tl-combobox {
+                vertical-align: middle;
+
+                .inner-text {
+                    color: #666;
+                }
+            }
+
+            #calls-paging-items-count {
+                margin-right: 20px;
+            }
+        }
+    }
+
+    #voip-calls-empty-filter-box, #voip-calls-empty-list-box {
+        display: none;
+    }
+
+    #call-record-play-panel {
+        display: none;
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        width: 205px;
+        height: 20px;
+        cursor: default;
+
+        #call-record-play-panel-loader {
+            display: none;
+            position: relative;
+            float: left;
+            margin-top: 2px;
+            margin-right: 3px;
+        }
+
+        .call-type-icon {
+            display: none;
+            margin-top: 1px;
+            cursor: pointer;
+        }
+
+        #call-record-play-panel-progress {
+            display: block;
+            float: left;
+            width: 130px;
+            height: 12px;
+            margin: 4px 0;
+            background-color: #d1d1d1;
+
+            #call-record-play-panel-progress-percentage {
+                display: inline-block;
+                width: 0;
+                height: 12px;
+                .bg-vertical-gradient(#5badda, #2784b4);
+            }
+        }
+
+        #call-record-play-panel-timer {
+            float: right;
+            margin-left: 2px;
+            font-size: 11px;
+            line-height: 20px;
+        }
+
+        .stop {
+            float: right;
+            margin-top: 2px;
+            margin-left: 2px;
+        }
+    }
+}

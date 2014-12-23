@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -34,7 +34,6 @@ using ASC.Core;
 using ASC.Files.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Studio.Core;
-using AppLimit.CloudComputing.SharpBox;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
 {
@@ -43,30 +42,27 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public GoogleDriveFolderDao(GoogleDriveDaoSelector.GoogleDriveInfo googleDriveInfo, GoogleDriveDaoSelector googleDriveDaoSelector)
             : base(googleDriveInfo, googleDriveDaoSelector)
         {
-
         }
 
         public Folder GetFolder(object folderId)
         {
-            return ToFolder(GetFolderById(folderId));
+            return ToFolder(GetDriveEntry(folderId));
         }
 
         public Folder GetFolder(string title, object parentId)
         {
-            var parentFolder = GoogleDriveProviderInfo.Storage.GetFolder(MakePath(parentId));
-            return ToFolder(parentFolder.OfType<ICloudDirectoryEntry>().FirstOrDefault(x => x.Name.Equals(title, StringComparison.OrdinalIgnoreCase)));
+            return ToFolder(GetDriveEntries(parentId, true)
+                                .FirstOrDefault(folder => folder.Title.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public Folder GetRootFolderByFile(object fileId)
         {
-            return ToFolder(RootFolder());
+            return GetRootFolder("");
         }
 
         public List<Folder> GetFolders(object parentId)
         {
-
-            var parentFolder = GoogleDriveProviderInfo.Storage.GetFolder(MakePath(parentId));
-            return parentFolder.OfType<ICloudDirectoryEntry>().Select(ToFolder).ToList();
+            return GetDriveEntries(parentId, true).Select(ToFolder).ToList();
         }
 
         public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText)
@@ -120,49 +116,54 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public List<Folder> GetParentFolders(object folderId)
         {
             var path = new List<Folder>();
-            var folder = GetFolderById(folderId);
-            if (folder != null)
+
+            while (folderId != null)
             {
-                do
-                {
-                    path.Add(ToFolder(folder));
-                } while ((folder = folder.Parent) != null);
+                var driveFolder = GetDriveEntry(folderId);
+
+                if (driveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFolder).Error);
+
+                path.Add(ToFolder(driveFolder));
+                folderId = GetParentDriveId(driveFolder);
             }
+
             path.Reverse();
             return path;
         }
 
-        public Folder SaveFolder(Folder folder)
+        public object SaveFolder(Folder folder)
         {
             if (folder.ID != null)
             {
-                //Create with id
-                var savedfolder = GoogleDriveProviderInfo.Storage.CreateFolder(MakePath(folder.ID));
-                return ToFolder(savedfolder);
+                return RenameFolder(folder.ID, folder.Title);
             }
+
             if (folder.ParentFolderID != null)
             {
-                var parentFolder = GetFolderById(folder.ParentFolderID);
+                var driveFolderId = MakeDriveId(folder.ParentFolderID);
 
-                folder.Title = GetAvailableTitle(folder.Title, parentFolder, IsExist);
+                var driveFolder = GoogleDriveProviderInfo.Storage.InsertEntry(null, folder.Title, driveFolderId, true);
 
-                var newFolder = GoogleDriveProviderInfo.Storage.CreateFolder(folder.Title, parentFolder);
-                return ToFolder(newFolder);
+                CacheInsert(driveFolder);
+                var parentDriveId = GetParentDriveId(driveFolder);
+                if (parentDriveId != null) CacheReset(parentDriveId, true);
+
+                return MakeId(driveFolder);
             }
             return null;
         }
 
         public void DeleteFolder(object folderId)
         {
-            var folder = GetFolderById(folderId);
-            var id = MakeId(folder);
+            var driveFolder = GetDriveEntry(folderId);
+            var id = MakeId(driveFolder);
 
             using (var tx = DbManager.BeginTransaction())
             {
                 var hashIDs = DbManager.ExecuteList(Query("files_thirdparty_id_mapping")
                                                         .Select("hash_id")
                                                         .Where(Exp.Like("id", id, SqlLike.StartWith)))
-                    .ConvertAll(x => x[0]);
+                                       .ConvertAll(x => x[0]);
 
                 DbManager.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", hashIDs)));
                 DbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
@@ -172,43 +173,51 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 tx.Commit();
             }
 
-            if (!(folder is ErrorEntry))
-                GoogleDriveProviderInfo.Storage.DeleteFileSystemEntry(folder);
+            if (!(driveFolder is ErrorDriveEntry))
+                GoogleDriveProviderInfo.Storage.DeleteEntry(driveFolder.Id);
+
+            CacheReset(driveFolder.Id);
+            var parentDriveId = GetParentDriveId(driveFolder);
+            if (parentDriveId != null) CacheReset(parentDriveId, true);
         }
 
-        public bool IsExist(string title, ICloudDirectoryEntry folder)
+        public object MoveFolder(object folderId, object toRootFolderId)
         {
-            try
+            var driveFolder = GetDriveEntry(folderId);
+            if (driveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFolder).Error);
+
+            var toDriveFolder = GetDriveEntry(toRootFolderId);
+            if (toDriveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)toDriveFolder).Error);
+
+            var fromFolderDriveId = GetParentDriveId(driveFolder);
+
+            GoogleDriveProviderInfo.Storage.InsertEntryIntoFolder(driveFolder.Id, toDriveFolder.Id);
+            if (fromFolderDriveId != null)
             {
-                return GoogleDriveProviderInfo.Storage.GetFileSystemObject(title, folder) != null;
+                GoogleDriveProviderInfo.Storage.RemoveEntryFromFolder(driveFolder.Id, fromFolderDriveId);
             }
-            catch (ArgumentException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
 
-            }
-            return false;
-        }
+            CacheReset(driveFolder.Id);
+            CacheReset(fromFolderDriveId, true);
+            CacheReset(toDriveFolder.Id, true);
 
-        public void MoveFolder(object folderId, object toRootFolderId)
-        {
-            var oldIdValue = MakeId(GetFolderById(folderId));
-
-            GoogleDriveProviderInfo.Storage.MoveFileSystemEntry(MakePath(folderId), MakePath(toRootFolderId));
-
-            var newIdValue = MakeId(GetFolderById(folderId));
-
-            UpdatePathInDB(oldIdValue, newIdValue);
+            return MakeId(driveFolder.Id);
         }
 
         public Folder CopyFolder(object folderId, object toRootFolderId)
         {
-            var folder = GetFolderById(folderId);
-            GoogleDriveProviderInfo.Storage.CopyFileSystemEntry(MakePath(folderId), MakePath(toRootFolderId));
-            return ToFolder(GetFolderById(toRootFolderId).OfType<ICloudDirectoryEntry>().FirstOrDefault(x => x.Name == folder.Name));
+            var driveFolder = GetDriveEntry(folderId);
+            if (driveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFolder).Error);
+
+            var toDriveFolder = GetDriveEntry(toRootFolderId);
+            if (toDriveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)toDriveFolder).Error);
+
+            var newDriveFolder = GoogleDriveProviderInfo.Storage.InsertEntry(null, driveFolder.Title, toDriveFolder.Id, true);
+
+            CacheInsert(newDriveFolder);
+            CacheReset(toDriveFolder.Id, true);
+
+            return ToFolder(newDriveFolder);
         }
 
         public IDictionary<object, string> CanMoveOrCopy(object[] folderIds, object to)
@@ -218,12 +227,9 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public object RenameFolder(object folderId, string newTitle)
         {
-            var folder = GetFolderById(folderId);
+            var driveFolder = GetDriveEntry(folderId);
 
-            var oldId = MakeId(folder);
-            var newId = oldId;
-
-            if ("/".Equals(MakePath(folderId)))
+            if (IsRoot(driveFolder))
             {
                 //It's root folder
                 GoogleDriveDaoSelector.RenameProvider(GoogleDriveProviderInfo, newTitle);
@@ -232,24 +238,21 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             else
             {
                 //rename folder
-                if (GoogleDriveProviderInfo.Storage.RenameFileSystemEntry(folder, newTitle))
-                {
-                    //Folder data must be already updated by provider
-                    //We can't search google folders by title because root can have multiple folders with the same name
-                    //var newFolder = GoogleDriveProviderInfo.Storage.GetFileSystemObject(newTitle, folder.Parent);
-                    newId = MakeId(folder);
-                }
+                driveFolder.Title = newTitle;
+                driveFolder = GoogleDriveProviderInfo.Storage.UpdateEntry(driveFolder);
             }
 
-            UpdatePathInDB(oldId, newId);
+            CacheInsert(driveFolder);
+            var parentDriveId = GetParentDriveId(driveFolder);
+            if (parentDriveId != null) CacheReset(parentDriveId, true);
 
-            return newId;
+            return MakeId(driveFolder.Id);
         }
 
         public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText)
         {
             //Get only files
-            var files = GetFolderById(parentId).Where(x => !(x is ICloudDirectoryEntry)).Select(x => ToFile(x));
+            var files = GetDriveEntries(parentId, false).Select(ToFile);
             //Filter
             switch (filterType)
             {
@@ -272,6 +275,9 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     break;
                 case FilterType.ImagesOnly:
                     files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Image);
+                    break;
+                case FilterType.ArchiveOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
                     break;
             }
 
@@ -301,18 +307,12 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public List<object> GetFiles(object parentId, bool withSubfolders)
         {
-            var folder = GetFolderById(parentId).AsEnumerable();
-            if (!withSubfolders)
-            {
-                folder = folder.Where(x => !(x is ICloudDirectoryEntry));
-            }
-            return folder.Select(x => (object) MakeId(x)).ToList();
+            return GetDriveEntries(parentId, false).Select(entry => (object)MakeId(entry.Id)).ToList();
         }
 
         public int GetItemsCount(object folderId, bool withSubfoldes)
         {
-            var folder = GetFolderById(folderId);
-            return folder.Count;
+            return GetDriveEntries(folderId).Count;
         }
 
         public bool UseTrashForRemove(Folder folder)
@@ -322,7 +322,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public bool UseRecursiveOperation(object folderId, object toRootFolderId)
         {
-            return false;
+            return true;
         }
 
         public long GetMaxUploadSize(object folderId, bool chunkedUpload)
@@ -380,6 +380,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
             return null;
         }
+
         public object GetFolderIDProjects(bool createIfNotExists)
         {
             return null;

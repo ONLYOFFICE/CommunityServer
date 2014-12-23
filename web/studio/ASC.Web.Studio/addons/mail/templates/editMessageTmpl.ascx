@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" %>
 <%@ Assembly Name="ASC.Web.Mail" %>
 <%@ Import Namespace="ASC.Web.Mail.Resources" %>
+<%@ Import Namespace="ASC.Core" %>
 
 <script id="editMessageHeaderTmpl" type="text/x-jquery-tmpl">
     <div class="simpleWrapper">
@@ -18,6 +19,9 @@
                 <li class="menuAction btnAddTag unlockAction">
                     <span title="<%: MailResource.AddTag %>"><%: MailResource.AddTag %></span>
                     <div class="down_arrow"></div>
+                </li>
+                <li style="float: left; padding: 1px 5px 1px;">
+                    <span id="newMessageSaveMarker"></span>
                 </li>
                 <li class="menu-action-on-top">
                     <a class="on-top-link" onclick="javascript:window.scrollTo(0, 0);">
@@ -57,7 +61,10 @@
                         <a id="AddCopy" class="link dotline"><%: MailResource.AddCopy %></a>
                     </div>
                     <div class="value with-right">
-                        <textarea id="newmessageTo" class="to" spellcheck="false" placeholder="<%= MailResource.SearchInToCcBccFieldsPlaceHolderLabel %>" style="resize: none;" tabindex="1">{{if $item.action!='forward'}}${to}{{/if}}</textarea>
+                        <textarea id="newmessageTo" class="to" spellcheck="false" 
+                            <% if (!CoreContext.Configuration.Personal) {%>  
+                                placeholder="<%= MailResource.SearchInToCcBccFieldsPlaceHolderLabel %>" 
+                            <%} %> style="resize: none;" tabindex="1">{{if $item.action!='forward'}}${to}{{/if}}</textarea>
                     </div>
                 </div>
                 <div class="value-group cc hidden">

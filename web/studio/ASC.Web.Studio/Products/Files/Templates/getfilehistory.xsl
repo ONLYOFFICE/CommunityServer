@@ -55,7 +55,7 @@
               </span>
             </td>
             <td class="version-comment" >
-              <xsl:if test="comment != ''">
+              <xsl:if test="comment and comment != ''">
                 <xsl:attribute name="title">
                   <xsl:value-of select="comment"/>
                 </xsl:attribute>

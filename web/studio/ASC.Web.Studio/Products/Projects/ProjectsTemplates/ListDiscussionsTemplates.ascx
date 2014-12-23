@@ -14,6 +14,9 @@
                   <a href="${discussionUrl}">
                       ${title}
                   </a>
+                  {{if status == 1}}
+                    <span class="status"><%= MessageResource.ArchiveDiscussionStatus %></span>
+                  {{/if}}
               </div>
               <div class="info-list">
                     <span class="caption-list"><%=MessageResource.AuthorTitle%>:</span>
@@ -31,7 +34,7 @@
           </div>
         </div>
         <div class="content-list">
-                {{html text}}
+                {{html htmlUtility.getFull(text)}}
                 
                 {{if hasPreview}}
                    <div><a class="read-more" target="_blank" href="${discussionUrl}"><font><%=MessageResource.ReadMore%></font></a></div>
@@ -39,7 +42,9 @@
                 
                 <div class="comment-list">
                     <a href="${commentsUrl}"><%=MessageResource.Comments%>: ${commentsCount}</a>
+                    {{if canComment}}
                     <a href="${writeCommentUrl}"><%=ProjectsCommonResource.WriteComment%></a>
+                    {{/if}}
                 </div>
         </div>
     </div>
@@ -74,11 +79,14 @@
 </script>
 
 <script id="projects_subscribedUser" type="text/x-jquery-tmpl">
-    <tr class="discussionParticipant" guid='${id}'>
-        <td class="name"><span>${displayName}</span></td>
-        <td class="department"><span>${department}</span></td>
-        <td class="title"><span>${title}</span></td>
-        <td class="delMember">{{if !descriptionFlag}}<span></span>{{/if}}</td>
-        
-    </tr>
+    <li class="items-display-list_i" guid='${id}'>
+        <span class="item-name">
+            {{if hidden}}
+            <a class="link gray" href="${profileUrl}" target="_blank">${displayName}</a>
+            {{else}}
+            <a class="link" href="${profileUrl}" target="_blank">${displayName}</a>
+            {{/if}}
+        </span>
+        {{if !descriptionFlag}}<div class="reset-action"></div>{{/if}}
+    </li>
 </script>

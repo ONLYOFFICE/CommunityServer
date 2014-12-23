@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 /*
@@ -31,7 +31,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
  For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang("specialchar","hr",{euro:"Euro znak",lsquo:"Lijevi jednostruki navodnik",rsquo:"Desni jednostruki navodnik",ldquo:"Lijevi dvostruki navodnik",rdquo:"Desni dvostruki navodnik",ndash:"En crtica",mdash:"Em crtica",iexcl:"Naopaki uskličnik",cent:"Cent znak",pound:"Funta znak",curren:"Znak valute",yen:"Yen znak",brvbar:"Potrgana prečka",sect:"Znak odjeljka",uml:"Prijeglasi",copy:"Copyright znak",ordf:"Feminine ordinal indicator",laquo:"Lijevi dvostruki uglati navodnik",not:"Not znak",
-reg:"Registered znak",macr:"Macron",deg:"Stupanj znak",sup2:"Superscript two",sup3:"Superscript three",acute:"Acute accent",micro:"Mikro znak",para:"Pilcrow sign",middot:"Srednja točka",cedil:"Cedilla",sup1:"Superscript one",ordm:"Masculine ordinal indicator",raquo:"Desni dvostruku uglati navodnik",frac14:"Vulgar fraction one quarter",frac12:"Vulgar fraction one half",frac34:"Vulgar fraction three quarters",iquest:"Naopaki upitnik",Agrave:"Veliko latinsko slovo A s akcentom",Aacute:"Latin capital letter A with acute accent",
+reg:"Registered znak",macr:"Macron",deg:"Stupanj znak",sup2:"Superscript two",sup3:"Superscript three",acute:"Acute accent",micro:"Mikro znak",para:"Pilcrow sign",middot:"Srednja točka",cedil:"Cedilla",sup1:"Superscript one",ordm:"Masculine ordinal indicator",raquo:"Desni dvostruku uglati navodnik",frac14:"Vulgar fraction one quarter",frac12:"Vulgar fraction one half",frac34:"Vulgar fraction three quarters",iquest:"Naopaki upitnik",Agrave:"Veliko latinsko slovo A s akcentom",Aacute:"Latinično veliko slovo A sa oštrim naglaskom",
 Acirc:"Latin capital letter A with circumflex",Atilde:"Latin capital letter A with tilde",Auml:"Latin capital letter A with diaeresis",Aring:"Latin capital letter A with ring above",AElig:"Latin Capital letter Æ",Ccedil:"Latin capital letter C with cedilla",Egrave:"Latin capital letter E with grave accent",Eacute:"Latin capital letter E with acute accent",Ecirc:"Latin capital letter E with circumflex",Euml:"Latin capital letter E with diaeresis",Igrave:"Latin capital letter I with grave accent",Iacute:"Latin capital letter I with acute accent",
 Icirc:"Latin capital letter I with circumflex",Iuml:"Latin capital letter I with diaeresis",ETH:"Latin capital letter Eth",Ntilde:"Latin capital letter N with tilde",Ograve:"Latin capital letter O with grave accent",Oacute:"Latin capital letter O with acute accent",Ocirc:"Latin capital letter O with circumflex",Otilde:"Latin capital letter O with tilde",Ouml:"Latin capital letter O with diaeresis",times:"Multiplication sign",Oslash:"Latin capital letter O with stroke",Ugrave:"Latin capital letter U with grave accent",
 Uacute:"Latin capital letter U with acute accent",Ucirc:"Latin capital letter U with circumflex",Uuml:"Latin capital letter U with diaeresis",Yacute:"Latin capital letter Y with acute accent",THORN:"Latin capital letter Thorn",szlig:"Latin small letter sharp s",agrave:"Latin small letter a with grave accent",aacute:"Latin small letter a with acute accent",acirc:"Latin small letter a with circumflex",atilde:"Latin small letter a with tilde",auml:"Latin small letter a with diaeresis",aring:"Latin small letter a with ring above",

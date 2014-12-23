@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 
@@ -38,7 +38,6 @@ window.messagePage = (function($) {
         message_is_dirty = false,
         message_is_sending = false,
         is_message_read = false,
-        reply_to_id = 0,
         random_guid = '',
         sort_conversation_by_asc = true,
         max_conversation_show = 5,
@@ -133,7 +132,12 @@ window.messagePage = (function($) {
     }
 
     function conversation(id, load_all_content) {
-        serviceManager.getConversation(id, load_all_content, { action: 'conversation' }, { error: onOpenMessageError }, ASC.Resources.Master.Resource.LoadingProcessing);
+        var content = seekRememberedContent(id);
+
+        if (!content)
+            serviceManager.getConversation(id, load_all_content, { action: 'conversation', id: id }, { error: onOpenMessageError }, ASC.Resources.Master.Resource.LoadingProcessing);
+        else
+            onGetMailConversation({ action: 'conversation', id: id }, content);
     }
 
     function onOpenConversationMessageError(event, errors) {
@@ -278,7 +282,8 @@ window.messagePage = (function($) {
                 data.HtmlBody,
                 data.Attachments,
                 data.StreamId,
-                data.ReplyToId,
+                data.MimeMessageId,
+                data.MimeReplyToId,
                 data.Important,
                 data.Labels,
                 {},
@@ -334,17 +339,18 @@ window.messagePage = (function($) {
                 data.HtmlBody,
                 data.Attachments,
                 data.StreamId,
-                data.ReplyToId,
+                data.MimeMessageId,
+                data.MimeReplyToId,
                 data.Important,
                 data.Labels,
                 {},
                 { error: onErrorSendMessage },
                 window.MailScriptResource.SendingMessage);
         } else {
-            disableButton($('#editMessagePage .btnSend'), false);
-            disableButton($('#editMessagePage .btnSave'), false);
-            if (message_id > 0) disableButton($('#editMessagePage .btnDelete'), false);
-            disableButton($('#editMessagePage .btnAddTag'), false);
+            TMMail.disableButton($('#editMessagePage .btnSend'), false);
+            TMMail.disableButton($('#editMessagePage .btnSave'), false);
+            if (message_id > 0) TMMail.disableButton($('#editMessagePage .btnDelete'), false);
+            TMMail.disableButton($('#editMessagePage .btnAddTag'), false);
         }
     }
 
@@ -455,14 +461,17 @@ window.messagePage = (function($) {
         }
 
         var data = {};
-        var labels_collection = $.makeArray($(".tags .itemTags a").map(function() { return parseInt($(this).attr("tagid")); }));
+        var labels_collection = $.makeArray($(".tags .itemTags a").map(function () { return parseInt($(this).attr("tagid")); }));
+
+        var message = getEditingMessage();
 
         data.From = from;
         data.To = to;
         data.Cc = cc;
         data.Bcc = bcc;
         data.Subject = subject;
-        data.ReplyToId = reply_to_id;
+        data.MimeReplyToId = message.mimeReplyToId;
+        data.MimeMessageId = message.mimeMessageId;
         data.Important = importance;
         data.Labels = labels_collection;
         data.HtmlBody = body;
@@ -763,11 +772,16 @@ window.messagePage = (function($) {
             var buttons = [];
             for (var i = 0; i < accounts.length; i++) {
                 var account = accounts[i];
+                var explanation = undefined;
+                if (account.is_alias) explanation = window.MailScriptResource.AliasLabel;
+                else if (account.is_group) continue;
+               
                 var title = TMMail.ltgt(account.name + " <" + account.email + ">");
                 var css_class = account.enabled ? '' : 'disabled';
 
                 var account_info = {
                     text: title,
+                    explanation: explanation,
                     handler: selectFromAccount,
                     mailbox_email: account.email,
                     account_enabled: account.enabled,
@@ -801,14 +815,6 @@ window.messagePage = (function($) {
         }
     }
 
-    function disableButton(button, disable) {
-        button.toggleClass("disable", disable);
-        if (disable)
-            button.attr("disabled", "disabled");
-        else
-            button.removeAttr("disabled");
-    }
-
     function setEditMessageButtons() {
         updateFromSelected();
 
@@ -821,7 +827,7 @@ window.messagePage = (function($) {
         $('#editMessagePage .btnDelete').unbind('click').click(deleteAction);
 
         if (mailBox.currentMessageId < 1) {
-            disableButton($('#editMessagePage .btnDelete'), true);
+            TMMail.disableButton($('#editMessagePage .btnDelete'), true);
         }
 
         // Add tag
@@ -1134,10 +1140,10 @@ window.messagePage = (function($) {
             return false;
         // Google Analytics
         window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.actionClick, "delete");
-        disableButton($('#editMessagePage .btnDelete'), true);
-        disableButton($('#editMessagePage .btnSend'), true);
-        disableButton($('#editMessagePage .btnSave'), true);
-        disableButton($('#editMessagePage .btnAddTag'), true);
+        TMMail.disableButton($('#editMessagePage .btnDelete'), true);
+        TMMail.disableButton($('#editMessagePage .btnSend'), true);
+        TMMail.disableButton($('#editMessagePage .btnSave'), true);
+        TMMail.disableButton($('#editMessagePage .btnAddTag'), true);
         deleteCurrent();
     }
 
@@ -1146,7 +1152,7 @@ window.messagePage = (function($) {
             return false;
         // Google Analytics
         window.ASC.Mail.ga_track(ga_Categories.createMail, ga_Actions.buttonClick, "save");
-        disableButton($('#editMessagePage .btnSave'), true);
+        TMMail.disableButton($('#editMessagePage .btnSave'), true);
         saveMessage();
     }
 
@@ -1162,10 +1168,10 @@ window.messagePage = (function($) {
 
         //google analytics
         window.ASC.Mail.ga_track(ga_Categories.createMail, ga_Actions.buttonClick, "send");
-        disableButton($('#editMessagePage .btnSend'), true);
-        disableButton($('#editMessagePage .btnSave'), true);
-        disableButton($('#editMessagePage .btnDelete'), true);
-        disableButton($('#editMessagePage .btnAddTag'), true);
+        TMMail.disableButton($('#editMessagePage .btnSend'), true);
+        TMMail.disableButton($('#editMessagePage .btnSave'), true);
+        TMMail.disableButton($('#editMessagePage .btnDelete'), true);
+        TMMail.disableButton($('#editMessagePage .btnAddTag'), true);
         messagePage.sendMessage();
     }
 
@@ -1326,13 +1332,28 @@ window.messagePage = (function($) {
             });
         }
     }
+    
+    function updateReplyTo(value) {
+        var message = getEditingMessage();
+        message.mimeReplyToId = value;
+        setEditingMessage(message);
+    }
+
+    function setEditingMessage(message) {
+        $('#editMessagePage').data('message', message);
+    }
+
+    function getEditingMessage() {
+        return $('#editMessagePage').data('message');
+    }
 
     function bindOnMessageChanged() {
         $('#newmessageTo').bind('textchange', onMessageChanged);
         $('#newmessageCopy').bind('textchange', onMessageChanged);
         $('#newmessageBCC').bind('textchange', onMessageChanged);
         $('#newmessageSubject').bind('textchange', function () {
-            reply_to_id = 0; // Subject has changed, then it's a new chain;
+            // Subject has changed, then it's a new chain;
+            updateReplyTo("");
             onMessageChanged();
         });
         $('#newmessageImportance').bind('click', onMessageChanged);
@@ -1423,10 +1444,9 @@ window.messagePage = (function($) {
     /* -= Callbacks =- */
 
     function onSaveMessage(params, message) {
-        disableButton($('#editMessagePage .btnSave'), false);
-        disableButton($('#editMessagePage .btnSend'), false);
-        disableButton($('#editMessagePage .btnAddTag'), false);
-
+        TMMail.disableButton($('#editMessagePage .btnSave'), false);
+        TMMail.disableButton($('#editMessagePage .btnSend'), false);
+        TMMail.disableButton($('#editMessagePage .btnAddTag'), false);
 
         mailBox.markFolderAsChanged(TMMail.sysfolders.drafts.id);
 
@@ -1459,10 +1479,12 @@ window.messagePage = (function($) {
 
             $('#itemContainer .head[message_id]:visible').attr('message_id', message.id);
             mailBox.currentMessageId = message.id;
-            disableButton($('#editMessagePage .btnDelete'), false);
+            TMMail.disableButton($('#editMessagePage .btnDelete'), false);
         }
 
         releaseSavingLock();
+
+        setEditingMessage(message);
 
         if(needCrmLink())
             serviceManager.markChainAsCrmLinked(mailBox.currentMessageId, crm_contacts_info, {}, ASC.Resources.Master.Resource.LoadingProcessing);
@@ -1472,10 +1494,10 @@ window.messagePage = (function($) {
         var error_limit_cnt = $('#id_block_errors_container');
         error_limit_cnt.show();
         error_limit_cnt.find('span').text(error[0]);
-        disableButton($('#editMessagePage .btnSave'), false);
-        disableButton($('#editMessagePage .btnSend'), false);
-        disableButton($('#editMessagePage .btnAddTag'), false);
-        disableButton($('#editMessagePage .btnDelete'), false);
+        TMMail.disableButton($('#editMessagePage .btnSave'), false);
+        TMMail.disableButton($('#editMessagePage .btnSend'), false);
+        TMMail.disableButton($('#editMessagePage .btnAddTag'), false);
+        TMMail.disableButton($('#editMessagePage .btnDelete'), false);
         releaseSavingLock();
     }
 
@@ -1507,7 +1529,6 @@ window.messagePage = (function($) {
         mailBox.hidePages();
         $('#itemContainer').height('auto');
 
-        reply_to_id = 0;
         mailBox.hideContentDivs();
         mailBox.hideLoadingMask();
 
@@ -1660,7 +1681,46 @@ window.messagePage = (function($) {
         }
     }
 
+    function rememberContent(id, content) {
+        var $message_row = $('#itemContainer .messages tr[data_id=' + id + ']');
+        if ($message_row) {
+            var content_clone = $.extend(true, {}, { content: content });
+            $message_row.data('content', content_clone);
+        }
+    }
+    
+    function seekRememberedContent(id) {
+        var $message_row = $('#itemContainer .messages tr[data_id=' + id + ']');
+        if ($message_row && $message_row.data('content'))
+            return $message_row.data('content').content;
+
+        return undefined;
+    }
+
     function onGetMailConversation(params, messages) {
+        var important = false;
+        var folder_id = TMMail.sysfolders.inbox.id;
+        var last_message = null;
+        var need_remember = true;
+        $.each(messages, function (i, m) {
+            if (isMessageExpanded(m) && m.isBodyCorrupted) {
+                need_remember = false;
+            }
+            
+            important |= m.important;
+
+            if (m.id == mailBox.currentMessageId) {
+                folder_id = m.folder;
+                last_message = m;
+            }
+        });
+
+        if (last_message == null)
+            return;
+
+        if (need_remember)
+            rememberContent(params.id, messages);
+
         closeMessagePanel();
         mailBox.hidePages();
         $('#itemContainer').height('auto');
@@ -1677,19 +1737,6 @@ window.messagePage = (function($) {
             TMMail.showCompleteActionHint(TMMail.action_types.delete_messages, true, 1);
             messagePage.conversation_deleted = false;
         }
-
-        var important = false;
-        var folder_id = TMMail.sysfolders.inbox.id;
-        var last_message = null;
-        
-        $.each(messages, function(i, v) {
-            important |= v.important;
-
-            if (v.id == mailBox.currentMessageId) {
-                folder_id = v.folder;
-                last_message = v;
-            }
-        });
 
         folderPanel.markFolder(folder_id);
 
@@ -1735,7 +1782,7 @@ window.messagePage = (function($) {
             $('#itemContainer').find('.full-view .head').actionMenu('messageActionMenu', message_menu_items, pretreatmentConversationMessage);
         }
 
-        $('.header-crm-link').unbind('click').bind('click', function () { showLinkChainPopup() });
+        $('.header-crm-link').unbind('click').bind('click', showLinkChainPopup);
         serviceManager.isConversationLinkedWithCrm(messages[0].id);
         tuneNextPrev();
     }
@@ -1821,7 +1868,8 @@ window.messagePage = (function($) {
             }
 
             if (action == 'reply' || action == 'forward' || action == 'replyAll') {
-                reply_to_id = message.id;
+                message.mimeReplyToId = message.mimeMessageId;
+                message.mimeMessageId = "";
 
                 if (message.folder != TMMail.sysfolders.sent.id) {
                     if (action == 'replyAll') {
@@ -2150,6 +2198,7 @@ window.messagePage = (function($) {
         $('#newmessageTo').trigger('input');
         setEditMessageButtons();
         setComposeFocus(message);
+        setEditingMessage(message);
     }
 
     function setComposeFocus(message) {
@@ -2453,7 +2502,6 @@ window.messagePage = (function($) {
         conversation_moved: conversation_moved,
         conversation_deleted: conversation_deleted,
         setHasLinked: setHasLinked,
-        disableButton: disableButton,
         updateAttachmentsActionMenu: updateAttachmentsActionMenu,
         updateEditAttachmentsActionMenu: updateEditAttachmentsActionMenu,
         editDocumentAttachment: editDocumentAttachment,

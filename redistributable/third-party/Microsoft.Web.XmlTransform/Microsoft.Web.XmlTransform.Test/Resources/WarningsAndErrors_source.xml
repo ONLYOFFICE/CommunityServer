@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<configuration>
+  <connectionStrings>
+    <add name="NorthwindConnectionString" connectionString="Data Source=JODAVIS-DEV1;Initial Catalog=Northwind;Integrated Security=True" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+</configuration>

@@ -1,34 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
-*/
-
-/*
-    Copyright (c) Ascensio System SIA 2014. All rights reserved.
-    http://www.teamlab.com
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 var SmallChat = (function () {
@@ -70,7 +65,7 @@ var SmallChat = (function () {
         isActive = false,
         titleTimerId = null,
         starsNumber = 1,
-        soundPath = null,
+        soundPath = jq(".small_chat_en_dis_sounds").attr("data-path"),
         sendTypingSignalTimeout = null,
         typingSignalTimeout = null,
         shouldOpenUserDialogs = [],
@@ -133,6 +128,50 @@ var SmallChat = (function () {
             var clear = function () {
                 sessionStorage.clear();
             };
+           
+            return {
+                isAvailable: isAvailable,
+                getItem: getItem,
+                setItem: setItem,
+                removeItem: removeItem,
+                clear: clear
+            };
+        }();
+        localStorageManager = function () {
+            var isAvailable;
+            try {
+                isAvailable = "localStorage" in window && window["localStorage"] !== null;
+            } catch (e) {
+                return { isAvailable: false };
+            }
+            var getItem = function (key) {
+                if (!key) {
+                    return null;
+                }
+                return JSON.parse(localStorage.getItem(key));
+            };
+            var setItem = function (key, value) {
+                if (!key) {
+                    return;
+                }
+                try {
+                    localStorage.setItem(key, JSON.stringify(value));
+                } catch (e) {
+                    if (typeof QUOTA_EXCEEDED_ERR != undefined && e == QUOTA_EXCEEDED_ERR) {
+                        throw "Local storage is full";
+                    }
+                }
+            };
+            var removeItem = function (key) {
+                if (!key) {
+                    return null;
+                }
+                localStorage.removeItem(key);
+            };
+
+            var clear = function () {
+                localStorage.clear();
+            };
 
             return {
                 isAvailable: isAvailable,
@@ -142,50 +181,6 @@ var SmallChat = (function () {
                 clear: clear
             };
         }();
-    localStorageManager = function () {
-        var isAvailable;
-        try {
-            isAvailable = "localStorage" in window && window["localStorage"] !== null;
-        } catch (e) {
-            return { isAvailable: false };
-        }
-        var getItem = function (key) {
-            if (!key) {
-                return null;
-            }
-            return JSON.parse(localStorage.getItem(key));
-        };
-        var setItem = function (key, value) {
-            if (!key) {
-                return;
-            }
-            try {
-                localStorage.setItem(key, JSON.stringify(value));
-            } catch (e) {
-                if (typeof QUOTA_EXCEEDED_ERR != undefined && e == QUOTA_EXCEEDED_ERR) {
-                    throw "Local storage is full";
-                }
-            }
-        };
-        var removeItem = function (key) {
-            if (!key) {
-                return null;
-            }
-            localStorage.removeItem(key);
-        };
-
-        var clear = function () {
-            localStorage.clear();
-        };
-
-        return {
-            isAvailable: isAvailable,
-            getItem: getItem,
-            setItem: setItem,
-            removeItem: removeItem,
-            clear: clear
-        };
-    }();
     if (Teamlab.profile.id && sessionStorageManager.getItem("currentUserId") != Teamlab.profile.id) {
         sessionStorageManager.clear();
         sessionStorageManager.setItem("currentUserId", Teamlab.profile.id);
@@ -193,14 +188,13 @@ var SmallChat = (function () {
 
     if (typeof (chat) !== undefined) {
         // initDataRetrieved
-        chat.client.idr = function (userName, showUserName, users, tenantId, tenantName, path) {
+        chat.client.idr = function (userName, showUserName, users, tenantId, tenantName) {
             currentAccount = {
                 TenantName: tenantName,
                 TenantId: tenantId,
                 UserName: userName,
                 ShowUserName: showUserName
             };
-            soundPath = path;
             var $userList = jq(".user_list"),
                 usersOnline = {},
                 usersAway = {},
@@ -240,9 +234,9 @@ var SmallChat = (function () {
                 UsersOffline: usersOffline
             }),
                 htmlTenant = jq("#tenantBlockTmpl").tmpl({
-                    TenantGuid: tenantGuid,
-                    TenantName: currentAccount.TenantName
-                }),
+                TenantGuid: tenantGuid,
+                TenantName: currentAccount.TenantName
+            }),
                 smallChatHeight = sessionStorageManager.getItem("SmallChatHeight");
             if (smallChatHeight) {
                 jq(".small_chat_main_window").css("height", smallChatHeight);
@@ -281,6 +275,7 @@ var SmallChat = (function () {
             jq(".extend_chat_icon").off("click").on("click", extendChat);
             ASC.Controls.JabberClient.extendChat = extendChat;
             setPingSending();
+            already = false;
         };
 
         // sendInvite
@@ -389,7 +384,7 @@ var SmallChat = (function () {
             if (isDialogOpen(userName)) {
                 var $conversationBlock = jq(".conversation_block[data-username='" + userName + "']"),
                     $typingMessageNotification = $conversationBlock.find(".typing_message_notification");
-
+                
                 if ($typingMessageNotification.hasClass("display-none")) {
                     $messageBusContainer = $conversationBlock.find(".message_bus_container");
 
@@ -459,6 +454,7 @@ var SmallChat = (function () {
             jq(".extend_chat_icon").off("click").on("click", extendChat);
             ASC.Controls.JabberClient.extendChat = extendChat;
             setPingSending();
+            already = false;
         };
 
         // setStatus
@@ -500,7 +496,7 @@ var SmallChat = (function () {
     }
 
     function s4() {
-        return (0 | ((1 + Math.random()) * 0x10000)).toString(16).substring(1);
+        return (0|((1 + Math.random()) * 0x10000)).toString(16).substring(1);
     }
 
     function guid() {
@@ -514,7 +510,7 @@ var SmallChat = (function () {
         pingTimerId = setInterval(function () {
             if (sessionStorageManager.getItem("WasConnected")) {
                 // ping
-                chat.server.p();
+                chat.server.p(getUserNumberByState(sessionStorageManager.getItem("CurrentStatus")));
             } else {
                 clearInterval(pingTimerId);
                 pingTimerId = null;
@@ -566,7 +562,7 @@ var SmallChat = (function () {
                 // if user was disabled
                 if (!$contactRecord.length) {
                     sessionStorageManager.setItem("dialogsNumberInMenu", dialogsNumberInMenu - 1);
-                    for (var j = i; j < dialogsNumberInMenu - 1; j++) {
+                    for(var j = i; j < dialogsNumberInMenu - 1; j++) {
                         sessionStorageManager.setItem("dn_userName" + j, sessionStorageManager.getItem("dn_userName" + (j + 1)));
                     }
                     sessionStorageManager.removeItem("dn_userName" + (dialogsNumberInMenu - 1));
@@ -577,13 +573,14 @@ var SmallChat = (function () {
                 addToMenu({
                     UserName: userName,
                     ShowUserName: $contactRecord.text(),
-                }, true);
+                }, true, sessionStorageManager.getItem("messageInMenu" + userName));
             }
             // if user was disabled
             if (getMaxDialogNumber() > sessionStorageManager.getItem("dialogsNumber")) {
-                userName = jq("#messageDialogPopupID").find(".message_dialog_item").first().attr("data-username");
+                userName = jq("#messageDialogPopupID").find(".message_dialog_item").first().attr("data-username"),
+                messageInMenu = sessionStorageManager.getItem("messageInMenu" + userName);
                 closeMessageDialogItem(userName);
-                openMessageDialog(userName);
+                openMessageDialog(userName, null, null, null, messageInMenu);
             }
         }
         jq(".message_input_area").blur();
@@ -847,14 +844,16 @@ var SmallChat = (function () {
             $messageInputArea = $conversationBlock.find(".message_input_area"),
             cursorPos = $messageInputArea.prop("selectionStart"),
             v = $messageInputArea.val(),
+            userName = $conversationBlock.attr("data-username")
             smileString = " " + $smile.text();
 
         $messageInputArea.val(v.substring(0, cursorPos) + smileString + v.substring(cursorPos, v.length));
         $messageInputArea.val($messageInputArea.val() + " ");
         setCaretPosition($messageInputArea, cursorPos + smileString.length);
         $messageInputArea.trigger("autosize.resize");
+        sessionStorageManager.setItem("message" + userName, $messageInputArea.val());
         $messageInputArea.scrollTop($messageInputArea.prop("scrollHeight"));
-        sendTypingSignal($conversationBlock.attr("data-username"));
+        sendTypingSignal(userName);
         $smileMenu.css("display", "none");
     }
 
@@ -956,7 +955,7 @@ var SmallChat = (function () {
         }
         return state;
     }
-
+    
     function openUserDetailList(e) {
         if (isMobile) {
             return;
@@ -982,10 +981,12 @@ var SmallChat = (function () {
                     Teamlab.getProfile({}, userName, {
                         success: function (params, data) {
                             var departments = {};
-                            if (data.groups) {
+                            if (data.groups && data.groups.length) {
                                 for (var i = 0; i < data.groups.length; i++) {
                                     departments[data.groups[i].id] = data.groups[i].name;
                                 }
+                            } else {
+                                departments = undefined;
                             }
                             userInformation = {
                                 UserName: userName,
@@ -1005,7 +1006,7 @@ var SmallChat = (function () {
             $contactBlock.data("timeoutId", timeoutId);
         }
     }
-
+    
     function openDetail(userName, data, $contactBlock) {
         if (!jq($contactBlock).is(":hover")) {
             return;
@@ -1125,7 +1126,7 @@ var SmallChat = (function () {
             $showSmallChatIcon = jq(".show_small_chat_icon"),
             $smallChatMainWindow = jq(".small_chat_main_window");
         if (smallChatHeight) {
-            $smallChatMainWindow.css("height", "initial");
+            $smallChatMainWindow.css("height", "auto");
         }
         $smallChatMainWindow.removeClass("small_chat_main_window_full");
         $showSmallChatIcon.addClass("small_chat_icon_white");
@@ -1206,7 +1207,7 @@ var SmallChat = (function () {
             messages = [],
             $allMessageBlocks = undefined,
             isCurrentAccount;
-
+        
         if (recentMessages.length != NUMBER_OF_RECENT_MSGS) {
             $conversationBlock.attr("data-internal-id", "stop");
         } else if (recentMessages[0]) {
@@ -1252,14 +1253,18 @@ var SmallChat = (function () {
 
     function showMessageDialogFromMenu(newUserName, dialogsNumber, maxDialogNumber) {
         var userName = undefined,
+            message,
+            messageInMenu,
             $contactRecord;
         if (maxDialogNumber) {
             if (dialogsNumber == maxDialogNumber) {
                 userName = sessionStorageManager.getItem("userName" + (dialogsNumber - 1));
+                message = sessionStorageManager.getItem("message" + userName);
                 closeConversationBlock(userName);
             }
+            messageInMenu = sessionStorageManager.getItem("messageInMenu" + newUserName);
             closeMessageDialogItem(newUserName);
-            openMessageDialog(newUserName);
+            openMessageDialog(newUserName, null, null, null, messageInMenu);
             if (!sessionStorageManager.getItem("WasConnected")) {
                 jq(".conversation_block[data-username='" + newUserName + "']").addClass("display-none");
             }
@@ -1269,14 +1274,14 @@ var SmallChat = (function () {
                     addToMenu({
                         UserName: userName,
                         ShowUserName: $contactRecord.text()
-                    });
+                    }, null, message);
                 }
             }
         }
     }
 
     function getMaxDialogNumber() {
-        var max = 0 | ((jq(window).width() - LEFT_PANEL_AND_INDENT_WIDTH) / CONVERSATION_BLOCK_WIDTH);
+        var max = 0|((jq(window).width() - LEFT_PANEL_AND_INDENT_WIDTH) / CONVERSATION_BLOCK_WIDTH);
         return max < 0 ? 0 : max;
     }
 
@@ -1303,9 +1308,9 @@ var SmallChat = (function () {
         window.onmousewheel = document.onmousewheel = preventDefault;
     }
 
-    function openMessageDialog(userName, reload, index, inMenu) {
+    function openMessageDialog(userName, reload, index, inMenu, messageInMenu) {
         var dialogsNumber = sessionStorageManager.getItem("dialogsNumber") || 0,
-            $conversationBlock = undefined,
+            $conversationBlock  = undefined,
             closeUserName = undefined;
         if (!sessionStorageManager.getItem("dialogsNumber")) {
             var $allWindows = jq(".small_chat_minimize_all_windows");
@@ -1356,6 +1361,15 @@ var SmallChat = (function () {
                     className: "message_input_area_autosizejs",
                     callback: resizeMessageInputArea
                 });
+                var message = messageInMenu;
+                if (!message || message == "") {
+                    message = sessionStorageManager.getItem("message" + userName);
+                }
+                if (message && message != "") {
+                    $messageInputArea.val(message);
+                    $messageInputArea.trigger("autosize.resize");
+                    sessionStorageManager.setItem("message" + userName, $messageInputArea.val());
+                }
                 var $chatMessagesLoading = $conversationBlock.find(".chat_messages_loading");
                 $conversationBlock.find(".message_bus_container").scroll(function () {
                     if ($conversationBlock.attr("data-internal-id") != "stop" && !$conversationBlock.find(".message_bus_container").scrollTop() &&
@@ -1379,7 +1393,7 @@ var SmallChat = (function () {
                     chat.server.grm(userName == sessionStorageManager.getItem("TenantGuid") ? "" : userName,
                         INT_MAX_VALUE).done(function (recentMessages) {
                             receiveRecentMessages(userName, recentMessages, $chatMessagesLoading, $conversationBlock, 0);
-                        });
+                    });
                 }
                 if (reload) {
                     jq(".conversation_block[data-username='" + userName + "']").css("right", index * CONVERSATION_BLOCK_WIDTH + 10 + PX);
@@ -1396,22 +1410,26 @@ var SmallChat = (function () {
                 }
                 setSmilesPopupMenu(userName, dn);
             } else if (maxDialogNumber) {
+                var messageInMenu,
+                    message;
                 if (isDialogInMenu(userName)) {
+                    messageInMenu = sessionStorageManager.getItem("messageInMenu" + userName);
                     closeMessageDialogItem(userName);
                 }
                 closeUserName = sessionStorageManager.getItem("userName" + (dialogsNumber - 1));
+                message = sessionStorageManager.getItem("message" + closeUserName);
                 closeConversationBlock(closeUserName);
-                openMessageDialog(userName);
+                openMessageDialog(userName, null, null, null, messageInMenu);
                 addToMenu({
                     UserName: closeUserName,
                     ShowUserName: jq(".contact_block[data-username='" + closeUserName + "']").find(".contact_record").text()
-                }, inMenu);
+                }, inMenu, message);
             }
             else {
                 addToMenu({
                     UserName: userName,
                     ShowUserName: jq(".contact_block[data-username='" + userName + "']").find(".contact_record").text()
-                }, inMenu);
+                }, inMenu, sessionStorageManager.getItem("message" + userName));
             }
         } else {
             flashConversationBlock(userName);
@@ -1483,7 +1501,7 @@ var SmallChat = (function () {
         }
     }
 
-    function addToMenu(object, inMenu) {
+    function addToMenu(object, inMenu, message) {
         if (!jq(".message_dialog_btn").length) {
             html = jq("#messageDialogMenuTmpl").tmpl(object);
             jq(".mainPageContent").append(html);
@@ -1505,6 +1523,9 @@ var SmallChat = (function () {
         }
         if (!inMenu) {
             setParametersOfDialogInMenu(object.UserName);
+        }
+        if (message && message != "") {
+            sessionStorageManager.setItem("messageInMenu" + object.UserName, message);
         }
     }
 
@@ -1558,9 +1579,9 @@ var SmallChat = (function () {
         $conversationBlock.find(".message_input_area").trigger("autosize.destroy");
         $conversationBlock.remove();
         moveOtherConversationBlocks(+$conversationBlock.attr("data-dialog-number"));
-        sessionStorageManager.setItem("dialogsNumber", +sessionStorageManager.getItem("dialogsNumber") - 1);
+        sessionStorageManager.setItem("dialogsNumber",+sessionStorageManager.getItem("dialogsNumber") - 1);
         sessionStorageManager.removeItem("MiniCB" + userName);
-
+        sessionStorageManager.removeItem("message" + userName);
 
         if (!sessionStorageManager.getItem("dialogsNumber")) {
             var $this = jq(".small_chat_restore_all_windows");
@@ -1590,6 +1611,7 @@ var SmallChat = (function () {
             jq(".message_dialog_btn").remove();
             jq("#messageDialogPopupID").remove();
         }
+        sessionStorageManager.removeItem("messageInMenu" + userName);
     }
 
     function moveOtherConversationBlocks(dialogNumber) {
@@ -1656,7 +1678,7 @@ var SmallChat = (function () {
             userName = $conversationBlock.attr("data-username"),
             $messageBusContainer = $conversationBlock.find(".message_bus_container"),
             $minimizeRestoreConversationBlock = $conversationBlock.find(".minimize_restore_conversation_block");
-        $messageInputArea = $conversationBlock.find(".message_input_area");
+            $messageInputArea = $conversationBlock.find(".message_input_area");
 
         $conversationBlock.find(".smile_icon").removeClass("display-none");
         $messageBusContainer.removeClass("display-none");
@@ -1682,7 +1704,6 @@ var SmallChat = (function () {
                 sessionStorageManager.removeItem("minimizeWindows");
             }
         }
-
         $messageInputArea.focus();
     }
 
@@ -1751,14 +1772,16 @@ var SmallChat = (function () {
             text = $messageInputArea.val(),
             isTenant = false,
             enableCtrlEnter = localStorageManager.getItem("EnableCtrlEnter"),
-            newUserName;
+            newUserName,
+            messageInMenu;
         if (k == 27) { /* Escape Key */
             closeConversationBlock(userName);
             var dialogsNumberInMenu = sessionStorageManager.getItem("dialogsNumberInMenu");
             if (dialogsNumberInMenu) {
                 newUserName = sessionStorageManager.getItem("dn_userName" + (dialogsNumberInMenu - 1));
+                messageInMenu = sessionStorageManager.getItem("messageInMenu" + newUserName);
                 closeMessageDialogItem(newUserName);
-                openMessageDialog(newUserName);
+                openMessageDialog(newUserName, null, null, null, messageInMenu);
             } else {
                 newUserName = sessionStorageManager.getItem("userName" + (sessionStorageManager.getItem("dialogsNumber") - 1));
                 jq(".conversation_block[data-username='" + newUserName + "']").find(".message_input_area").focus();
@@ -1784,7 +1807,7 @@ var SmallChat = (function () {
             }
             return false;
         }
-
+        
         var timerId = flashBlocks[userName];
         if (timerId) {
             $conversationBlock.find(".not_read_message").removeClass("not_read_message");
@@ -1810,10 +1833,12 @@ var SmallChat = (function () {
                 var cursorPos = $messageInputArea.prop("selectionStart"),
                     v = $messageInputArea.val();
                 $messageInputArea.val(v.substring(0, cursorPos) + "\n" + v.substring(cursorPos, v.length));
-                $messageInputArea.val($messageInputArea.val() + " ");
+                //$messageInputArea.val($messageInputArea.val() + " ");
                 setCaretPosition($messageInputArea, cursorPos + 1);
                 $messageInputArea.trigger("autosize.resize");
                 $messageInputArea.scrollTop($messageInputArea.prop("scrollHeight"));
+                //sessionStorageManager.setItem("message" + userName, $messageInputArea.val());
+                return true;
             } else if (k == ENTER_KEY_CODE && ((!enableCtrlEnter && !ctrlKey) || (enableCtrlEnter && ctrlKey))) {
                 if ((/^\s*$/.test(text))) {
                     return true;
@@ -1827,13 +1852,20 @@ var SmallChat = (function () {
                     Message: addBr(text)
                 }, userName);
 
-                $conversationBlock.css({ "height": "300px", "padding-bottom": "61px" });
+                $conversationBlock.css({"height": "300px", "padding-bottom": "61px"});
                 $messageInputArea.css("height", "29px");
                 $messageInputArea.attr("data-height", "29");
                 $messageInputArea.val("");
+                sessionStorageManager.removeItem("message" + userName);
                 return false;
             }
         }
+    }
+
+    function saveTextMessage(e) {
+        var $messageInputArea = jq(e.currentTarget),
+            userName = $messageInputArea.closest(".conversation_block").attr("data-username");
+        sessionStorageManager.setItem("message" + userName, $messageInputArea.val());
     }
 
     function setCaretPosition(elem, caretPos) {
@@ -1856,7 +1888,7 @@ var SmallChat = (function () {
                     el.setSelectionRange(caretPos, caretPos);
                     return true;
                 }
-                else { // fail city, fortunately this never happens (as far as I've tested) :)
+                else {
                     el.focus();
                     return false;
                 }
@@ -2051,9 +2083,9 @@ var SmallChat = (function () {
             return;
         }
         already = true;
-
+        
         var $smallChatMainWindow = jq(".small_chat_main_window");
-        chat.server.cu().done(function () {
+        chat.server.cu(getUserNumberByStateForConnection()).done(function () {
             $smallChatMainWindow.off("click", ".show_small_chat_icon");
             $smallChatMainWindow.on("click", ".show_small_chat_icon", showOrHideSmallChat);
             if (connectionStartTimer) {
@@ -2062,21 +2094,16 @@ var SmallChat = (function () {
             }
             if (!currentAccount) {
                 // getInitData
-                chat.server.gid().done(function () {
-                    already = false;
-                }).fail(function () {
+                chat.server.gid().fail(function () {
                     already = false;
                 });
             } else {
                 // getStates
-                chat.server.gs().done(function () {
-                    already = false;
-                }).fail(function () {
+                chat.server.gs().fail(function () {
                     already = false;
                 });
             }
-            //already = false;
-        }).fail(function () {
+        }).fail(function() {
             $smallChatMainWindow.off("click", ".show_small_chat_icon");
             $smallChatMainWindow.on("click", ".show_small_chat_icon", showOrHideSmallChat);
             showErrorNotification();
@@ -2123,9 +2150,9 @@ var SmallChat = (function () {
         }
         already = true;
         sessionStorageManager.setItem("WasConnected", false);
-        chat.server.dcu().done(function () {
+        chat.server.dcu().done(function() {
             already = false;
-        }).fail(function () {
+        }).fail(function() {
             already = false;
         });
         if (pingTimerId) {
@@ -2203,7 +2230,7 @@ var SmallChat = (function () {
                 }
                 openMessageDialog(userName);
             }
-        } else {
+         } else {
             jq(e.currentTarget).closest("li").remove();
         }
     }
@@ -2327,6 +2354,7 @@ var SmallChat = (function () {
             closeUserDetailList();
         });
         $mainPageContent.on("keydown", ".message_input_area", sendMessage).
+        on("keyup", ".message_input_area", saveTextMessage).
         on("blur", ".message_input_area", minimizeAllWindowsIfLoseFocus).
         on("mouseover", ".conversation_block", function (e) {
             var $this = jq(e.currentTarget),
@@ -2346,9 +2374,10 @@ var SmallChat = (function () {
         on("click", ".close_conversation_block", function (e) {
             closeConversationBlock(jq(e.currentTarget).closest(".conversation_block").attr("data-username"));
             if (jq(".message_dialog_btn").length) {
-                var userName = jq("#messageDialogPopupID").find(".message_dialog_item").first().attr("data-username");
+                var userName = jq("#messageDialogPopupID").find(".message_dialog_item").first().attr("data-username"),
+                messageInMenu = sessionStorageManager.getItem("messageInMenu" + userName);
                 closeMessageDialogItem(userName);
-                openMessageDialog(userName);
+                openMessageDialog(userName, null, null, null, messageInMenu);
             }
         }).
         on("click", ".minimize_restore_conversation_block", function (e) {
@@ -2448,11 +2477,12 @@ var SmallChat = (function () {
                     for (var i = 0; i < diff; i++) {
                         userName = sessionStorageManager.getItem("userName" + (dialogsNumber - 1));
                         if (userName) {
+                            var message = sessionStorageManager.getItem("message" + userName);
                             closeConversationBlock(userName);
                             addToMenu({
                                 UserName: userName,
                                 ShowUserName: jq(".contact_block[data-username='" + userName + "']").find(".contact_record").text(),
-                            });
+                            }, null, message);
                             dialogsNumber = sessionStorageManager.getItem("dialogsNumber");
                         }
                     }
@@ -2532,19 +2562,6 @@ var SmallChat = (function () {
         }
     }
 
-    function loadTest(userName) {
-        var i = 0,
-            j = 0;
-        setInterval(function () {
-            //send
-            chat.server.s(userName, "load test" + i++);
-        }, 100);
-        setInterval(function () {
-            //sendStateToTenant
-            chat.server.sstt((j++ % 3) + 1);
-        }, 100);
-    }
-
     function logoutEvent() {
         if (jq.connection.hub.state !== jq.connection.connectionState.disconnected) {
             connectionStop();
@@ -2556,7 +2573,6 @@ var SmallChat = (function () {
         openContacts: openContacts,
         extendChat: extendChat,
         minimizeAllWindowsIfLoseFocus: minimizeAllWindowsIfLoseFocus,
-        loadTest: loadTest,
         logoutEvent: logoutEvent,
         getUserNumberByStateForConnection: getUserNumberByStateForConnection
     };

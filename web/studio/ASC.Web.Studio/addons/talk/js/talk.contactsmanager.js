@@ -248,8 +248,8 @@ window.ASC.TMTalk.contactsManager = (function () {
         // if not found, add in place
         resources.splice(newResourcePos, 0, newResource);
       }
-      // if resource with larger priority, commented for signalr
-      //if (newResourcePos === 0) {
+
+      if (newResourcePos === 0) {
         var contactsInd = contacts.length;
         while (contactsInd--) {
           if (contacts[contactsInd].jid === jid) {
@@ -260,7 +260,7 @@ window.ASC.TMTalk.contactsManager = (function () {
           }
         }
         eventManager.call(customEvents.comeContact, window, [jid, currentStatus, newResource]);
-      //}
+      }
     } else {
       var contactsInd = contacts.length;
       while (contactsInd--) {
@@ -294,19 +294,19 @@ window.ASC.TMTalk.contactsManager = (function () {
     }
 
     if (onlineContacts[jid].length === 1) {
-      currentStatus = statuses[ASC.TMTalk.connectionManager.offlineStatusId];
-      var contactsInd = contacts.length;
-      while (contactsInd--) {
-        if (contacts[contactsInd].jid === jid) {
-          contacts[contactsInd].show = currentStatus.title;
-          contacts[contactsInd].state = currentStatus.id;
-          contacts[contactsInd].status = '';
-          break;
+        currentStatus = statuses[ASC.TMTalk.connectionManager.offlineStatusId];
+        var contactsInd = contacts.length;
+        while (contactsInd--) {
+            if (contacts[contactsInd].jid === jid) {
+                contacts[contactsInd].show = currentStatus.title;
+                contacts[contactsInd].state = currentStatus.id;
+                contacts[contactsInd].status = '';
+                break;
+            }
         }
-      }
-      delete onlineContacts[jid];
-      eventManager.call(customEvents.leftContact, window, [jid, currentStatus]);
-      return undefined;
+        delete onlineContacts[jid];
+        eventManager.call(customEvents.leftContact, window, [jid, currentStatus]);
+        return undefined;
     }
     resources = onlineContacts[jid];
     var resourceInd = resources.length;
@@ -316,28 +316,29 @@ window.ASC.TMTalk.contactsManager = (function () {
         break;
       }
     }
-    if (resourceInd === 0) {
-      newResource = resources[0];
-      show = newResource.show;
-      message = newResource.message;
-      var statusesInd = statuses.length;
-      while (statusesInd--) {
-        if (statuses[statusesInd].show === show) {
-          currentStatus = statuses[statusesInd];
-          break;
+   // commented for signalr
+   // if (resourceInd === 0) {
+        newResource = resources[0];
+        show = newResource.show;
+        message = newResource.message;
+        var statusesInd = statuses.length;
+        while (statusesInd--) {
+            if (statuses[statusesInd].show === show) {
+                currentStatus = statuses[statusesInd];
+                break;
+            }
         }
-      }
-      var contactsInd = contacts.length;
-      while (contactsInd--) {
-        if (contacts[contactsInd].jid === jid) {
-          contacts[contactsInd].show = currentStatus.title;
-          contacts[contactsInd].state = currentStatus.id;
-          contacts[contactsInd].status = newResource.message;
-          break;
+        var contactsInd = contacts.length;
+        while (contactsInd--) {
+            if (contacts[contactsInd].jid === jid) {
+                contacts[contactsInd].show = currentStatus.title;
+                contacts[contactsInd].state = currentStatus.id;
+                contacts[contactsInd].status = newResource.message;
+                break;
+            }
         }
-      }
-      eventManager.call(customEvents.comeContact, window, [jid, currentStatus, newResource]);
-    }
+        eventManager.call(customEvents.comeContact, window, [jid, currentStatus, newResource]);
+   // }
   };
 
   var addContact = function () {

@@ -27,15 +27,18 @@
                <li><%=MailResource.BlankModalTagsTip3%></li>
            </ul>
        </div>
+        <% if (IsCrmAvailable())
+           { %>
        <div class="module-block">
            <div class="img crm"></div>
-           <div class="title"><%=MailResource.BlankModalCRMTitle%></div>
+           <div class="title"><%= MailResource.BlankModalCRMTitle %></div>
            <ul>
-               <li><%=MailResource.BlankModalCRMTip1%></li>
-               <li><%=MailResource.BlankModalCRMTip2%></li>
-               <li><%=MailResource.BlankModalCRMTip3%></li>
+               <li><%= MailResource.BlankModalCRMTip1 %></li>
+               <li><%= MailResource.BlankModalCRMTip2 %></li>
+               <li><%= MailResource.BlankModalCRMTip3 %></li>
            </ul>
        </div>
+        <% } %>
     </div>
     <div class="dashboard-buttons">
         <a class="button huge create-button" href="#" onclick="blankModal.addAccount();"><%=MailResource.BlankModalCreateBtn%></a>

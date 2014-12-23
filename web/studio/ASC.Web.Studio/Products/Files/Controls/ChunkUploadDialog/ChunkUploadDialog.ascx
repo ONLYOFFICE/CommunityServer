@@ -7,6 +7,7 @@
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Utils" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 
@@ -54,7 +55,13 @@
                 <%= FilesUCResource.ConfirmStoreOriginalUploadTitle %>
             </div>
             <% } %>
-            <% if (!CoreContext.Configuration.Personal && !CoreContext.Configuration.Standalone)
+            <% if (!CoreContext.Configuration.Standalone)
+               { %>
+            <% if (CoreContext.Configuration.Personal)
+               { %>
+            <span class="gray-text"><%= string.Format(FilesUCResource.MaxFileSize, FileSizeComment.FilesSizeToString(TenantExtra.GetTenantQuota().MaxFileSize)) %></span>
+            <% }
+               else
                { %>
             <span class="free-space gray-text"></span>
             <% if (!CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
@@ -65,9 +72,9 @@
             </a>
             <% } %>
             <% } %>
+            <% } %>
         </div>
         <div id="uploadSettingsPanel" class="studio-action-panel">
-            <div class="corner-top left"></div>
             <ul class="dropdown-content">
                 <li>
                     <label class="gray-text">

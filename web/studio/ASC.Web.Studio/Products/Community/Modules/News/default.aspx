@@ -9,6 +9,7 @@
 
 <%@ Register Src="Controls/FeedItem.ascx" TagName="FeedItem" TagPrefix="fc" %>
 <%@ Register Src="Controls/FeedView.ascx" TagName="FeedView" TagPrefix="fc" %>
+<%@ Import Namespace="ASC.Web.Community.Product" %>
 <%@ Register TagPrefix="scl" Namespace="ASC.Web.Studio.UserControls.Common.Comments" Assembly="ASC.Web.Studio" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
@@ -71,8 +72,10 @@
         <div class="eventsHeaderBlock header-with-menu" style="margin-bottom: 16px;">
             <span class="main-title-icon events"></span>
             <span class="header"><%=HttpUtility.HtmlEncode(EventTitle)%></span>
+            <% if(!CommunitySecurity.IsOutsider()) { %>
             <asp:Literal ID="SubscribeLinkBlock" runat="server"></asp:Literal>
             <span class="menu-small"></span>
+            <% } %>
         </div>
         <div id="viewItem">
             <fc:FeedView id="FeedViewCtrl" runat="server">

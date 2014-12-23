@@ -45,7 +45,6 @@
             <span id="addNewTag" class="baseLinkAction crm-withArrowDown" title="<%= CRMCommonResource.AddNewTag %>"><%= CRMCommonResource.AddNewTag %></span>
 
             <div id="addTagDialog" class="studio-action-panel addTagDialog">
-                <div class="corner-top left"></div>
                 <ul class="dropdown-content mobile-overflow">
                     {{each availableTags}}
                         {{tmpl({"tagLabel": $value}) 'tagInAllTagsTmpl'}}
@@ -115,7 +114,7 @@
             </div>
             {{else}}
             <div>
-                {{html XSS.toStaticHTML(Encoder.htmlDecode(ASC.CRM.Common.convertText(content, true))) }}
+                {{html htmlUtility.getFull(Encoder.htmlDecode(ASC.CRM.Common.convertText(content, true))) }}
             </div>
             {{/if}}
 
@@ -128,7 +127,6 @@
                     <%= CRMCommonResource.ViewFiles %>
                 </a>
                 <div id="eventAttach_${id}" class="studio-action-panel eventAttachPanel">
-                    <div class="corner-top right"></div>
                     <ul class="dropdown-content">
                         {{each(i, file) files}}
                             <li id="fileContent_${file.id}">
@@ -150,8 +148,7 @@
           {{if canEdit == true }}
             <a id="eventTrashImg_${id}" class="crm-deleteLink" title="<%= CRMCommonResource.DeleteHistoryEvent %>"
                onclick="ASC.CRM.HistoryView.deleteEvent(${id})"></a>
-            <img src="<%=WebImageSupplier.GetAbsoluteWebPath("loader_16.gif")%>"
-                id="eventLoaderImg_${id}" style="display:none;" />
+            <div id="eventLoaderImg_${id}" class="loader-middle baseList_loaderImg"></div>
           {{/if}}
       </td>
     </tr>
@@ -209,7 +206,7 @@
                         <tr valign="top">
                             <td>${headerTest}</td>
                             <td class="popupCancel">
-                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" title="<%= CRMCommonResource.Close %>"></div>
+                                <div onclick="PopupKeyUpActionProvider.CloseDialog();" class="cancelButton" title="<%= CRMCommonResource.Close %>">&times</div>
                             </td>
                         </tr>
                     </tbody>

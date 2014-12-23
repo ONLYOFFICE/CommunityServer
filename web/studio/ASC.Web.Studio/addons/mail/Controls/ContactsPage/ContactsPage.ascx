@@ -14,7 +14,6 @@
 </div>
 
 <div id="contactActionMenu" class="studio-action-panel">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li><a class="viewContact dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.ViewContact%></a></li>
         <li><a class="writeLetter dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.WriteLetter%></a></li>

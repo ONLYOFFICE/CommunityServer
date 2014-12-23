@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -97,7 +97,7 @@ namespace ASC.Files.Core.Data
 
         private IEnumerable<Tag> SelectTagByQuery(SqlQuery q)
         {
-            using (var DbManager = GetDbManager())
+            using (var DbManager = GetDb())
             {
                 return DbManager.ExecuteList(q).ConvertAll(r => ToTag(r));
             }
@@ -132,13 +132,13 @@ namespace ASC.Files.Core.Data
 
             if (tags == null) return result;
 
-            tags = tags.Where(x => !x.EntryId.Equals(null) && !x.EntryId.Equals(0)).ToArray();
+            tags = tags.Where(x => x != null && !x.EntryId.Equals(null) && !x.EntryId.Equals(0)).ToArray();
 
             if (tags.Length == 0) return result;
 
             lock (syncRoot)
             {
-                using (var DbManager = GetDbManager())
+                using (var DbManager = GetDb())
                 using (var tx = DbManager.BeginTransaction())
                 {
                     var mustBeDeleted = DbManager.ExecuteList(Query("files_tag ft")
@@ -221,7 +221,7 @@ namespace ASC.Files.Core.Data
 
             lock (syncRoot)
             {
-                using (var DbManager = GetDbManager())
+                using (var DbManager = GetDb())
                 using (var tx = DbManager.BeginTransaction(true))
                 {
                     var createOn = TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow());
@@ -249,7 +249,7 @@ namespace ASC.Files.Core.Data
 
             lock (syncRoot)
             {
-                using (var DbManager = GetDbManager())
+                using (var DbManager = GetDb())
                 using (var tx = DbManager.BeginTransaction(true))
                 {
                     foreach (var t in tags)
@@ -286,7 +286,7 @@ namespace ASC.Files.Core.Data
 
             lock (syncRoot)
             {
-                using (var DbManager = GetDbManager())
+                using (var DbManager = GetDb())
                 using (var tx = DbManager.BeginTransaction())
                 {
                     DbManager.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("tag_id", ids)));
@@ -298,7 +298,7 @@ namespace ASC.Files.Core.Data
 
         public IEnumerable<Tag> GetNewTags(Guid subject, params FileEntry[] fileEntries)
         {
-            using (var DbManager = GetDbManager())
+            using (var DbManager = GetDb())
             {
                 var result = new List<Tag>();
 
@@ -337,7 +337,7 @@ namespace ASC.Files.Core.Data
 
                     while (fileEntries.Any())
                     {
-                        var insertQuery = new SqlInsert("files_tag_temporary", true)
+                        var insertQuery = new SqlInsert("files_tag_temporary")
                             .InColumns(new[] { GetTenantColumnName("files_tag_temporary"), "entry_id", "entry_type" });
 
                         foreach (var fileEntrie in fileEntries.Take(100))
@@ -377,7 +377,7 @@ namespace ASC.Files.Core.Data
 
         public IEnumerable<Tag> GetNewTags(Guid subject, Folder parentFolder, bool deepSearch)
         {
-            using (var DbManager = GetDbManager())
+            using (var DbManager = GetDb())
             {
                 if (parentFolder == null || parentFolder.ID == null)
                     throw new ArgumentException("folderId");
@@ -419,6 +419,7 @@ namespace ASC.Files.Core.Data
                                                                              Exp.EqColumns("fs.entry_id", "ftl.entry_id") &
                                                                              Exp.EqColumns("fs.entry_type", "ftl.entry_type")));
 
+                    //TODO:Optimize
                     var tmpShareFileTags = DbManager.ExecuteList(
                         shareQuery().InnerJoin("files_file f",
                                                Exp.EqColumns("f.tenant_id", "ftl.tenant_id") &

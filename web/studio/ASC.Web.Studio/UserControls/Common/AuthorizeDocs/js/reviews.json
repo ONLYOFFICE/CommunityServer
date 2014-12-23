@@ -1,0 +1,302 @@
+{
+	"en" : {
+		"reviews" : [
+		{
+			"value": "Best office compatible chrome app out there. Retains formatting. Works great as a file manager that allows you to move between onedrive, google drive, and onebox. With offline access this would be the killer app.", 
+			"author" : "Jay Borok",
+			"date": "October 18, 2014",
+			"rating" : "5",
+			"photo": "default.png"
+		},
+		{
+			"value": "Just tried it and it's the next best thing to MS Word. The popular editing functionality works really well especially the copy/paste functionality when pasting into a .gdoc. Opening/converting .docx files is smooth, converted tables are a dream! Far superior than Google docs.", 
+			"author" : "Linda Stansfield",
+			"date": "October 17, 2014",
+			"rating" : "5",
+			"photo": "Linda-Stansfield.png"
+		},
+		{
+			"value": "This app works as explained and works much better than having to use docs and convert files over to Word. Everything is formatted just right and all the tools required for editing are there as well. This is a must have if you are a student and need to use Word docx files.", 
+			"author" : "Carlos Navarrete",
+			"date": "October 8, 2014",
+			"rating" : "5",
+			"photo": "default.png"
+		},
+		{
+			"value": "Seems to easily have the best fidelity for presenting and editing MS Word docs, including complex tables.", 
+			"author" : "Ben Low",
+			"date": "September 18, 2014",
+			"rating" : "4",
+			"photo": "Ben_Low.png"
+		},
+		{
+			"value": "Everything I ever expected from an app like this .... Only started a few days ago but for now is just WOW!", 
+			"author": "Ciprian Ungureanu", 
+			"date": "September 10, 2014",
+			"rating" : "5",
+			"photo" : "Ciprian_Ungureanu.png"
+		},
+		{
+			"value": "Absolutely the best office-like product out there and I've tried a lot. Kept a lot of complicated formatting in place and is tremendously usable. Thanks for this!", 
+			"author": "Kasey Esposito", 
+			"date": "September 9, 2014",
+			"rating" : "5",
+			"photo": "Kasey_Esposito.png"
+		},
+		{
+			"value": "Well executed and simple. The same two reason I also love google docs. This just fills in all the gaps google drive leaves out with MS Office files . It's also much better than quickoffice. Seriously, quickoffice is a joke next to this.", 
+			"author": "Jacob Meyer", 
+			"date": "August 6, 2014",
+			"rating" : "5",
+			"photo": "Jacob_Meyer.png"
+		},
+		{
+			"value": "Just started using this, but it looks amazing! It even allows comments in Word documents. Great stuff.", 
+			"author": "David Williamson", 
+			"date": "May 23, 2014",
+			"rating" : "5",
+			"photo": "David_Williamson.png"
+		},
+		{
+			"value": "Fantastic print quality. As good as Microsoft Office Online. Highly recommended!", 
+			"author": "Daniel Kueh", 
+			"date": "May 8, 2014",
+			"rating" : "5",
+			"photo": "Daniel_Kueh.png"
+		},
+		{
+			"value": "As good as Microsoft Office. But inside Google Drive!", 
+			"author": "Andrey Sidorenko", 
+			"date": "April 10, 2014",
+			"rating" : "5",
+			"photo": "Andrey_Sidorenko.png"
+		},
+		{
+			"value": "Better than MS Online office suite.", 
+			"author": "Kabeer Ahmed", 
+			"date": "April 23, 2014",
+			"rating" : "5",
+			"photo": "Kabeer_Ahmed.png"
+		},
+		{
+			"value": "Seems to be everything as advertised. Looks good to me. I wonder if the new Google Docs/Slides/Sheets apps functionality will match it. Either way, the user is the winner. Great work!!", 
+			"author": "Peter Pavlovic", 
+			"date": "June 26, 2014",
+			"rating" : "5",
+			"photo": "Peter_Pavlovic.png"
+		},
+		{
+			"value": "I am not a Microsoft fan, and I can't believe my good fortune in finding this program. I am a personal user, and so far the program meets and exceeds all my needs- Great job!", 
+			"author": "Frederick Prince", 
+			"date": "Oct 23, 2014",
+			"rating" : "5",
+			"photo": "Frederick_Prince.png"
+		},
+		{
+			"value": "This is by far the best alternative to MS Office that I have used on Chrome.", 
+			"author": "Benjamin Coate", 
+			"date": "Oct 25, 2014",
+			"rating" : "4",
+			"photo": "Benjamin_Coate.png"
+		},
+		{
+			"value": "Best Web editor for Office-Open-XML documents yet.", 
+			"author": "Sebastian Reuter", 
+			"date": "Oct 30, 2014",
+			"rating" : "5",
+			"photo": "Sebastian_Reuter.png"
+		},
+		{
+			"value": "First impression is that I don't need any other office-type application and this will do all that I want.", 
+			"author": "Tony Harvey", 
+			"date": "Nov 13, 2014",
+			"rating" : "4",
+			"photo": "Tony_Harvey.png"
+		},
+		{
+			"value": "This is an outstanding Word processor. It works very well and has many features that large competitors offer. The UI is very easy to navigate. Everything does take a bit to load, but in the end, it's all worth it.", 
+			"author": "andrewjcole Scratch", 
+			"date": "Nov 15, 2014",
+			"rating" : "5",
+			"photo": "andrewjcole_Scratch.png"
+		},
+		{
+			"value": "Excellent!", 
+			"author": "Olga Kaczmarczyk", 
+			"date": "Nov 19, 2014",
+			"rating" : "5",
+			"photo": "Olga_Kaczmarczyk.png"
+		},
+		{
+			"value": "As others have pointed out, it matches the settings of the original document well (something Word Online fails to do) and includes lots of settings that make this operate much more like a real version than a stripped-down web version.", 
+			"author": "Tim Byers", 
+			"date": "Nov 24, 2014",
+			"rating" : "4",
+			"photo": "Tim_Byers.png"
+		}
+		]
+	},
+	"ru" : {
+		"reviews" : [
+		{
+			"value": "Отличное приложение, 100% замена мелкомягкому офису!", 
+			"author": "Станислав Савельев", 
+			"date": "7 Июня 2014",
+			"rating" : "5",
+			"photo": "default.png"
+		},
+		{
+			"value": "То, что доктор прописал)", 
+			"author": "Виталий Плитенко", 
+			"date": "12 Апреля 2014",
+			"rating" : "5",
+			"photo": "Vitaliy_Plitenko.png"
+		},
+		{
+			"value": "Пожалуй лучший онлайн-редактор", 
+			"author": "Denis Ozdemir", 
+			"date": "24 Апреля 2014",
+			"rating" : "5",
+			"photo": "default.png"
+		},
+		{
+			"value": "Отличный сервис. Из всех опробованных сервисов и программ обладает максимальной совместимостью с продуктами Microsoft Office.", 
+			"author": "Александр Слюсарев", 
+			"date": "14 Сентября 2014",
+			"rating" : "5",
+			"photo": "Alexsandr_Slusarev.png"
+		}
+		]
+	},
+	"es" : {
+		"reviews" : [
+		{
+			"value": "Es la mejor webapp para editar texto mejor que Documents de Drive y mucho mejor que Word de Web office. Un saludo y espero sigan mucho tiempo así", 
+			"author": "SaJu CeLo", 
+			"date": "6 de agosto 2014",
+			"rating" : "5",
+			"photo": "SaJu_CeLo.png"
+		},
+		{
+			"value": "Excelente aplicación. Sincroniza a la perfección con mi dropbox", 
+			"author": "Emanuel Rodriguez", 
+			"date": "10 de junio 2014",
+			"rating" : "5",
+			"photo": "Emanuel_Rodriguez.png"
+		},
+		{
+			"value": "Excelente aplicación, fácil de usar y gran compatibilidad !!!", 
+			"author": "Samuel Valderrama Martínez", 
+			"date": "17 de septiembre 2014",
+			"rating" : "5",
+			"photo": "Samuel_Valderrama_Martinez.png"
+		},
+		{
+			"value": "Al fin encontré una buena app para abrir mis documentos en linea.. :) .. Gracias!!", 
+			"author": "Angie Benitez Serofani", 
+			"date": "6 de mayo 2014",
+			"rating" : "5",
+			"photo": "Angie_Benitez_Serofani.png"
+		},
+		{
+			"value": "Es buenisimo para las cromebook 5 estrellas", 
+			"author": "Luis chuta", 
+			"date": "4 de mayo 2014",
+			"rating" : "5",
+			"photo": "Luis_chuta.png"
+		},
+		{
+			"value": "es buenísima...lo recomiendo...", 
+			"author": "Omar Gallardo", 
+			"date": "25 de septiembre 2014",
+			"rating" : "5",
+			"photo": "Omar_Gallardo.png"
+		},
+		{
+			"value": "Funciona muy bien!!", 
+			"author": "Alonso Cardona Pereira", 
+			"date": "14 de octubre 2014",
+			"rating" : "5",
+			"photo": "Alonso_Cardona_Pereira.png"
+		},
+		{
+			"value": "Una maravilla... Lo recomiendo!!!", 
+			"author": "Jon Cortes", 
+			"date": "29 de octubre 2014",
+			"rating" : "5",
+			"photo": "Jon_Cortes.png"
+		},
+		{
+			"value": "Me encanta! Excelente!", 
+			"author": "Mauricio Oscar Alberto Piaggi", 
+			"date": "10 de noviembre 2014",
+			"rating" : "5",
+			"photo": "Mauricio_Oscar_Alberto_Piaggi.png"
+		},
+		{
+			"value": "Excelente aplicación en la nube. La mejor para editar archivos de office.", 
+			"author": "Pedro Vilanova", 
+			"date": "18 de noviembre 2014",
+			"rating" : "4",
+			"photo": "Pedro_Vilanova.png"
+		}
+		]
+	},
+	"fr" : {
+		"reviews" : [
+		{
+			"value": "Très bonne application. A utiliser sans réserve. Un plus, la connexion avec vos autres applications (dropbox...)", 
+			"author": "Jean-Luc Plavis ", 
+			"date": "13 avril 2014",
+			"rating" : "5",
+			"photo": "default.png"
+		},
+		{
+			"value": "Très bonne application pour traiter ses fichiers en ligne.", 
+			"author": "Franck Emile Kouassi ", 
+			"date": "6 mai 2014",
+			"rating" : "5",
+			"photo": "Franck_Emile_Kouassi.png"
+		},
+		{
+			"value": "Bien pensée, bien faite, très intéressante la connexion avec les autres plateformes (Google Drive, Dropbox, OneDrive ...). En espérant des améliorations notables dans l'avenir.", 
+			"author": "Eric Genestine", 
+			"date": "16 avril 2014",
+			"rating" : "3",
+			"photo": "Eric_Genestine.png"
+		},
+		{
+			"value": "Accessibilité aux fonctions vraiment très simple mais l'interface n'est pas très jolie mais ca fait l'affaire", 
+			"author": "kenneth nitcheu", 
+			"date": "24 avr. 2014",
+			"rating" : "4",
+			"photo": "kenneth_nitcheu.png"
+		},
+		{
+			"value": "Utile pour ma part et bonne appréciation Continuez ....", 
+			"author": "Arnaud D", 
+			"date": "24 juil. 2014",
+			"rating" : "4",
+			"photo": "Arnaud_D.png"
+		}
+		]
+	},
+	"de" : {
+		"reviews" : [
+		{
+			"value": "Vorher bin ich Nutzer eines Notebooks mit Windows gewesen und bin auf ein Chromebook umgestiegen und die App ist so ziemlich die beste Alternative gegenüber Microsoft Office und man kann sogar seine Sprache auswählen.", 
+			"author": "Clemens Torno", 
+			"date": "8. Okt. 2014",
+			"rating" : "5",
+			"photo": "Clemens_Torno.png"
+		},
+		{
+			"value": "Gute Sache das! Bearbeitung leicht, schnell und intuitiv. Große Auswahl bei Cloud-Drives. Sehr empfehlenswert.", 
+			"author": "Bert Beck ", 
+			"date": "27. Aug. 2014",
+			"rating" : "4",
+			"photo": "Bert_Beck.png"
+		}
+		]
+	}
+}

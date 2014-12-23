@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Author" xml:space="preserve">
     <value>Author</value>
@@ -324,6 +324,9 @@
   <data name="StatusAll" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="StatusArchivedDiscussion" xml:space="preserve">
+    <value>Archived</value>
+  </data>
   <data name="StatusClosedMilestone" xml:space="preserve">
     <value>Closed</value>
   </data>
@@ -338,6 +341,9 @@
   </data>
   <data name="StatusLate" xml:space="preserve">
     <value>Late</value>
+  </data>
+  <data name="StatusOpenDiscussion" xml:space="preserve">
+    <value>Open</value>
   </data>
   <data name="StatusOpenMilestone" xml:space="preserve">
     <value>Open</value>

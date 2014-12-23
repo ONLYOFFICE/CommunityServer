@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -156,7 +156,7 @@ namespace ASC.Web.Projects.Classes
 
             if (viewType == ReportViewType.EMail)
             {
-                parameters.Add(CommonLinkUtility.GetFullAbsolutePath(string.Format("~/products/projects/reports.aspx?reportType={0}&tmplId={1}", ReportType, templateID)));
+                parameters.Add(CommonLinkUtility.GetFullAbsolutePath(string.Format("~/products/projects/reports.aspx?reportType={0}&tmplId={1}", (int)ReportType, templateID)));
                 parameters.Add(ReportResource.ChangeSettings);
             }
             else
@@ -214,7 +214,7 @@ namespace ASC.Web.Projects.Classes
             get { return CommonLinkUtility.ServerRootPath + VirtualRoot; }
         }
 
-        protected static IEnumerable<object[]> AddUserInfo(IEnumerable<object[]> rows, int userIdIndex)
+        protected static IEnumerable<object[]> AddUserInfo(IEnumerable<object[]> rows, int userIdIndex, Guid? groupId = null)
         {
             var result = new List<object[]>();
             foreach (var row in rows)
@@ -228,10 +228,12 @@ namespace ASC.Web.Projects.Classes
                     if (userID != Guid.Empty)
                     {
                         var user = CoreContext.UserManager.GetUsers(userID);
-                        if (user.ID != Constants.LostUser.ID && user.Status != EmployeeStatus.Terminated)
+                        if (user.ID != Constants.LostUser.ID && user.Status != EmployeeStatus.Terminated && 
+                            (!groupId.HasValue || groupId.Value.Equals(Guid.Empty) || CoreContext.UserManager.IsUserInGroup(user.ID, groupId.Value)))
                         {
                             list.Add(user.DisplayUserName(false));
                             list.Add(user.GetUserProfilePageURL());
+                            list[userIdIndex] = userID;
                             result.Add(list.ToArray());
                         }
                     }
@@ -613,7 +615,7 @@ namespace ASC.Web.Projects.Classes
                                                    HtmlUtil.GetText(r.Description, 500)
                                                });
 
-            result = AddUserInfo(result, 8);
+            result = AddUserInfo(result, 8, filter.DepartmentId);
             result = AddStatusCssClass(result);
 
             return result;
@@ -646,7 +648,7 @@ namespace ASC.Web.Projects.Classes
         private string GetResponsible(Task task, Guid? userID)
         {
             if (GetReportType() == ReportType.TasksByUsers && userID.HasValue && !userID.Equals(Guid.Empty))
-                task.Responsibles.RemoveWhere(r => !r.Equals(userID));
+                task.Responsibles.RemoveAll(r => !r.Equals(userID));
 
             return task.Responsibles.Any()
                                 ? task.Responsibles.Select(a => a.ToString()).Aggregate((a, b) => a + "," + b)

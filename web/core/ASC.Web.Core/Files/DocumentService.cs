@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -36,6 +36,7 @@ using System.Web;
 using System.Xml;
 using System.Xml.Linq;
 using ASC.Common.Utils;
+using ASC.Core;
 
 namespace ASC.Web.Core.Files
 {
@@ -48,7 +49,7 @@ namespace ASC.Web.Core.Files
         private readonly string _secretKey;
         private readonly int _userCount;
         private const string RequestParams = "?url={0}&outputtype={1}&filetype={2}&title={3}&key={4}&vkey={5}";
-        private const string RequestTrackParams = "?c={0}&key={1}&vkey={2}&callback={3}&userid={4}";
+        private const string RequestTrackParams = "?c={0}&key={1}&vkey={2}&callback={3}&userid={4}&status={5}";
 
         /// <summary>
         /// Timeout to request conversion
@@ -201,13 +202,15 @@ namespace ASC.Web.Core.Files
         /// <param name="documentRevisionId">Key for caching on service, whose used in editor</param>
         /// <param name="callbackUrl">Url to the callback handler</param>
         /// <param name="userId">user id for drop</param>
+        /// <param name="status">saving status</param>
         /// <returns>Response</returns>
         public string CommandRequest(
             string documentTrackerUrl,
             string method,
             string documentRevisionId,
             string callbackUrl,
-            string userId)
+            string userId,
+            string status)
         {
             var validateKey = GenerateValidateKey(documentRevisionId, string.Empty);
 
@@ -217,12 +220,20 @@ namespace ASC.Web.Core.Files
                                            documentRevisionId,
                                            validateKey,
                                            HttpUtility.UrlEncode(callbackUrl ?? ""),
-                                           userId);
+                                           userId,
+                                           status);
 
             var request = (HttpWebRequest)WebRequest.Create(urlToTrack);
             request.Method = "GET";
 
             string data;
+
+            // hack. http://ubuntuforums.org/showthread.php?t=1841740
+            if (WorkContext.IsMono)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
+            }
+
             using (var response = request.GetResponse())
             using (var stream = response.GetResponseStream())
             {
@@ -255,7 +266,7 @@ namespace ASC.Web.Core.Files
             if (string.IsNullOrEmpty(fromExtension)) throw new ArgumentNullException("fromExtension", "Document's extension is not known");
 
             var title = Path.GetFileName(documentUri);
-            title = string.IsNullOrEmpty(title) ? Guid.NewGuid().ToString() : title;
+            title = string.IsNullOrEmpty(title) || title.Contains("?") ? Guid.NewGuid().ToString() : title;
 
             documentRevisionId = string.IsNullOrEmpty(documentRevisionId)
                                      ? documentUri
@@ -269,7 +280,7 @@ namespace ASC.Web.Core.Files
                                                HttpUtility.UrlEncode(documentUri),
                                                toExtension.Trim('.'),
                                                fromExtension.Trim('.'),
-                                               title,
+                                               HttpUtility.UrlEncode(title),
                                                documentRevisionId,
                                                validateKey);
 
@@ -366,14 +377,8 @@ namespace ASC.Web.Core.Files
                 case -8: // public const int c_nErrorFileVKey = -8;
                     errorMessage = "document VKey";
                     break;
-                case -7: // public const int c_nErrorFileRequest = -7;
-                    errorMessage = "document request";
-                    break;
                 case -6: // public const int c_nErrorDatabase = -6;
                     errorMessage = "database";
-                    break;
-                case -5: // public const int c_nErrorUnexpectedGuid = -5;
-                    errorMessage = "unexpected guid";
                     break;
                 case -4: // public const int c_nErrorDownloadError = -4;
                     errorMessage = "download";

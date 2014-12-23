@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 #region Usings
@@ -31,6 +31,9 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Globalization;
 using ASC.Mail.Aggregator.Common;
@@ -187,27 +190,23 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 _log.Debug("Connecting to {0}", Account.EMail);
 
-                switch (Account.IncomingEncryptionType)
+                try
                 {
-                    case EncryptionType.StartTLS:
-                        pop.ConnectTLS(Account.Server, Account.Port);
-                        break;
-                    case EncryptionType.SSL:
-                        pop.ConnectSsl(Account.Server, Account.Port);
-                        break;
-                    case EncryptionType.None:
-                        pop.Connect(Account.Server, Account.Port);
-                        break;
+                    pop.Authorize(new MailServerSettings
+                        {
+                            AccountName = Account.Account,
+                            AccountPass = Account.Password,
+                            AuthenticationType = Account.AuthenticationTypeIn,
+                            EncryptionType = Account.IncomingEncryptionType,
+                            Port = Account.Port,
+                            Url = Account.Server
+                        }, Account.AuthorizeTimeoutInMilliseconds, _log);
+                }
+                catch (TargetInvocationException ex_target)
+                {
+                    throw ex_target.InnerException;
                 }
 
-                if (Account.AuthenticationTypeIn == SaslMechanism.Login)
-                {
-                    pop.Login(Account.Account, Account.Password, Account.Server);
-                }
-                else
-                {
-                    pop.Authenticate(Account.Account, Account.Password, Account.AuthenticationTypeIn);
-                }
                 UpdateTimeCheckedIfNeeded();
 
                 _log.Debug("UpdateStats()");
@@ -231,6 +230,16 @@ namespace ASC.Mail.Aggregator.CollectionService
                 LastRetrieve = DateTime.UtcNow;
 
                 return true;
+            }
+            catch (SocketException s_ex)
+            {
+                if (s_ex.SocketErrorCode == SocketError.HostNotFound)
+                    if (OnAuthFailed != null) OnAuthFailed(Account, "Host unknown");
+
+                _log.Warn("Retrieve() Pop3: {0} Port: {1} Account: '{2}' ErrorMessage:\r\n{3}\r\n",
+                        Account.Server, Account.Port, Account.Account, s_ex.Message);
+
+                throw;
             }
             catch (Pop3Exception e)
             {
@@ -258,7 +267,11 @@ namespace ASC.Mail.Aggregator.CollectionService
                         pop.Disconnect();
                     }
                 }
-                catch { }
+                catch(Exception ex)
+                {
+                    _log.Warn("Retrieve() Pop3->Disconnect: {0} Port: {1} Account: '{2}' ErrorMessage:\r\n{3}\r\n",
+                        Account.Server, Account.Port, Account.Account, ex.Message);
+                }
             }
         }
 
@@ -368,7 +381,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                     foreach (var new_message in new_messages)
                     {
                         var has_parse_error = false;
-                        
+
                         try
                         {
                             if (stop_event.WaitOne(0))
@@ -382,34 +395,25 @@ namespace ASC.Mail.Aggregator.CollectionService
                                 break;
                             }
 
-                            _log.Debug("Processing new message\tid={0}\t{1}\t",
-                                new_message.Key,
-                                (IsUidlSupported ? "UIDL: " : "MD5: ") + new_message.Value);
-
                             if (!client.IsConnected)
                             {
-                                _log.Warn("POP3 server is disconnected. Skip another messages.");
+                                _log.Warn("POP3-server is disconnected. Skip another messages.");
                                 bad_messages_exist = true;
                                 break;
                             }
 
-                            Message message = null;
+                            _log.Debug("Processing new message\tUID: {0}\t{1}\t",
+                                       new_message.Key,
+                                       (IsUidlSupported ? "UIDL: " : "MD5: ") + new_message.Value);
 
-                            try
+                            var message = client.RetrieveMessageObject(new_message.Key);
+
+                            if (message.HasParseError)
                             {
-                                message = client.RetrieveMessageObject(new_message.Key);
+                                _log.Error("ActiveUp: message parsed with some errors.");
+                                has_parse_error = true;
                             }
-                            catch (Exception ex)
-                            {
-                                if (ex is ParsingException || ex is IndexOutOfRangeException)
-                                {
-                                    _log.Error("ActiveUp Parse error: trying to save message with 'has_parse_error' flag. Exception:\r\n {0}", ex.ToString());
-                                    message = GetPop3MessageAfterParseError(client, new_message.Key);
-                                    has_parse_error = true;
-                                }
-                                else
-                                    throw;
-                            }
+
 
                             UpdateTimeCheckedIfNeeded();
 
@@ -420,7 +424,8 @@ namespace ASC.Mail.Aggregator.CollectionService
                                     _log.Info("Skip other messages older then {0}.", Account.BeginDate);
                                     break;
                                 }
-                                _log.Debug("Skip message (Date = {0}) on BeginDate = {1}", message.Date, Account.BeginDate);
+                                _log.Debug("Skip message (Date = {0}) on BeginDate = {1}", message.Date,
+                                           Account.BeginDate);
                                 continue;
                             }
 
@@ -457,40 +462,40 @@ namespace ASC.Mail.Aggregator.CollectionService
                             }
 
                             InvokeOnRetrieve(message,
-                                MailFolder.Ids.inbox, 
-                                IsUidlSupported ? new_message.Value : "",
-                                IsUidlSupported ? header_md5 : new_message.Value, has_parse_error);
-                        }
-                        catch (IOException io_ex)
-                        {
-                            if (io_ex.Message.StartsWith("Unable to write data to the transport connection") ||
-                                io_ex.Message.StartsWith("Unable to read data from the transport connection"))
-                            {
-                                _log.Error("ProcessMessages() Account='{0}': {1}",
-                                     Account.EMail.Address, io_ex.ToString());
-
-                                max_messages_per_session = 0; //It needed for stop messsages proccessing.
-                                bad_messages_exist = true;
-                                break;
-                            }
-                        }
-                        catch (MailBoxOutException ex)
-                        {
-                            _log.Info("ProcessMessages() Tenant={0} User='{1}' Account='{2}': {3}",
-                                Account.TenantId, Account.UserId, Account.EMail.Address, ex.Message);
-                            bad_messages_exist = true;
-                            break;
-                        }
-                        catch (TenantQuotaException qex)
-                        {
-                            _log.Info("Tenant {0} quota exception: {1}", Account.TenantId, qex.Message);
-                            quota_error_flag = true;
+                                             MailFolder.Ids.inbox,
+                                             IsUidlSupported ? new_message.Value : "",
+                                             IsUidlSupported ? header_md5 : new_message.Value, has_parse_error);
                         }
                         catch (Exception e)
                         {
-                            bad_messages_exist = true;
-                            _log.Error("ProcessMessages() Tenant={0} User='{1}' Account='{2}', MailboxId={3}, MessageIndex={4}, UIDL='{5}' Exception:\r\n{6}\r\n",
-                                Account.TenantId, Account.UserId, Account.EMail.Address, Account.MailBoxId, new_message.Key, new_message.Value, e.ToString());
+                            var common_error =
+                                string.Format(
+                                    "ProcessMessages() Tenant={0} User='{1}' Account='{2}', MailboxId={3}, MessageIndex={4}, UIDL='{5}' Exception:\r\n{6}\r\n",
+                                    Account.TenantId, Account.UserId, Account.EMail.Address, Account.MailBoxId,
+                                    new_message.Key, new_message.Value, e.ToString());
+
+
+                            if (e is IOException || e is MailBoxOutException)
+                            {
+                                max_messages_per_session = 0; //It needed for stop messsages proccessing.
+                                bad_messages_exist = true;
+                                if (e is IOException)
+                                    _log.Error(common_error);
+                                else
+                                    _log.Info(common_error);
+                                break;
+                            }
+
+                            if (e is TenantQuotaException)
+                            {
+                                _log.Info("Tenant {0} quota exception: {1}", Account.TenantId, e.Message);
+                                quota_error_flag = true;
+                            }
+                            else
+                            {
+                                bad_messages_exist = true;
+                                _log.Error(common_error);
+                            }
                         }
 
                         UpdateTimeCheckedIfNeeded();
@@ -508,19 +513,6 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             processed_messages_count -= max_messages_per_session;
             return !bad_messages_exist && max_messages_per_session > 0;
-        }
-
-        private Message GetPop3MessageAfterParseError(Pop3Client client, int message_index)
-        {
-            var header = client.RetrieveHeaderObject(message_index);
-
-            var eml_message_string = client.RetrieveMessageString(message_index);
-
-            var message = new Message(header);
-
-            message.AddAttachmentFromString("original_message.eml", eml_message_string);
-
-            return message;
         }
 
         public override bool Equals(object obj)

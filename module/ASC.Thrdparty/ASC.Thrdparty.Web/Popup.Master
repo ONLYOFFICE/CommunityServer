@@ -1,0 +1,43 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Popup.master.cs" Inherits="ASC.Thrdparty.Web.Popup" %>
+<%@ Import Namespace="ASC.Thrdparty.Web" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title></title>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+    
+    <link rel="stylesheet" href="<%=ResolveUrl("~/content/popup.css") %>" type="text/css" />
+    <script type="text/javascript">
+        document.domain = '<%=SetupInfo.Domain%>';
+        window.client = {
+            init: function() {
+            },
+            send: function(msg) {
+                window.opener.master.callback(msg);
+            },
+            sendAndClose: function(msg, error) {
+                try {
+                    client.send(JSON.stringify(msg), error);
+                }
+                catch (ex) {
+                }
+                window.close();
+            }
+        };
+
+        client.init();
+  </script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+        
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+<form enctype="multipart/form-data" id="Form" method="post" runat="server">
+        <asp:ContentPlaceHolder ID="bodyContent" runat="server">
+        
+        </asp:ContentPlaceHolder>
+ </form>
+</body>
+</html>

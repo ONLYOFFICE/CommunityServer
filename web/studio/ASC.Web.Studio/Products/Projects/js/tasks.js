@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 ASC.Projects.TasksManager = (function() {
     var isInit = false,
         currentUserId,
@@ -47,6 +43,7 @@ ASC.Projects.TasksManager = (function() {
         $taskListContainer = jq('.taskList'),
         taskActionPanel = null,
         taskDescribePanel = null,
+        isFirstLoad = true,
         statusListObject = {
             listId: "tasksStatusList",
             statuses: [
@@ -67,15 +64,25 @@ ASC.Projects.TasksManager = (function() {
             ]
         };
 
-
+    var hideFirstLoader = function () {
+        isFirstLoad = false;
+        jq(".mainPageContent").children(".loader-page").hide();
+        jq("#filterContainer, #CommonListContainer").show();
+        jq('#ProjectsAdvansedFilter').advansedFilter("resize");
+    };
+    
+    var self;
     var init = function () {
         if (isInit === false) {
             initActionPanels();
             isInit = true;
         }
+        self = this;
+        isFirstLoad = true;
+        jq(".mainPageContent").children(".loader-page").show();
 
-        ASC.Projects.Common.setDocumentTitle(ASC.Projects.Resources.ProjectsJSResource.TasksModule);
-        ASC.Projects.Common.checkElementNotFound(ASC.Projects.Resources.ProjectsJSResource.TaskNotFound);
+        self.setDocumentTitle(ASC.Projects.Resources.ProjectsJSResource.TasksModule);
+        self.checkElementNotFound(ASC.Projects.Resources.ProjectsJSResource.TaskNotFound);
 
         currentUserId = Teamlab.profile.id;
         currentProjectId = jq.getURLParam('prjID');
@@ -86,34 +93,33 @@ ASC.Projects.TasksManager = (function() {
         ASC.Projects.SubtasksManager.onChangeTaskStatusHandler = onUpdateSubtaskStatus;
 
         //page navigator
-        ASC.Projects.Common.initPageNavigator(this, "tasksKeyForPagination");
+        self.initPageNavigator("tasksKeyForPagination");
 
-        LoadingBanner.displayLoading();
+        if (!isFirstLoad) {
+            LoadingBanner.displayLoading();
+            jq("#filterContainer, #CommonListContainer").show();
+            jq('#ProjectsAdvansedFilter').advansedFilter("resize");
+        } else {
+            jq("#filterContainer, #CommonListContainer").hide();
+        }
 
         statusListContainer = jq('#' + statusListObject.listId);
 
         // waiting data from api
-        jq(document).bind("createAdvansedFilter", function () {
-            createAdvansedFilter();
-        });
+        createAdvansedFilter();
 
-        ASC.Projects.Common.bind(ASC.Projects.Common.events.loadMilestones, function () {
-            updateMilestonesListForMovePanel(ASC.Projects.Master.Milestones);
-        });
+        updateMilestonesListForMovePanel(ASC.Projects.Master.Milestones);
 
         if (currentProjectId) {
-            ASC.Projects.Common.bind(ASC.Projects.Common.events.loadTeam, function () {
-                projectParticipants = ASC.Projects.Master.Team;
-            });
-            
+            projectParticipants = ASC.Projects.Master.Team;
             taskDescribePanel.find(".project").remove();
         }
         
         jq("#countOfRows").change(function (evt) {
-            ASC.Projects.Common.changeCountOfRows(ASC.Projects.TasksManager, this.value);
+            self.changeCountOfRows(this.value);
         });
 
-        jq('body').bind("click", function (event) {
+        jq('body').on("click.tasksInit", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
             var $elt = jq(elt);
@@ -308,7 +314,7 @@ ASC.Projects.TasksManager = (function() {
             if (!user) {
                 user = currentUserId;
             }
-            ASC.Projects.Common.showTimer('timer.aspx?prjID=' + projectId + '&taskId=' + taskId + '&userID=' + user);
+            self.showTimer('timer.aspx?prjID=' + projectId + '&taskId=' + taskId + '&userID=' + user);
             return false;
         });
         
@@ -346,7 +352,7 @@ ASC.Projects.TasksManager = (function() {
         
         $taskListContainer.on('click', '.task .other', function (event) {
             jq('#othersListPopup').html(jq('.taskList .task .others[taskid="' + jq(this).attr('taskid') + '"]').html());
-            showActionsPanel('othersPanel', this);
+            showActionsPanel.call(this, 'othersPanel');
             event.stopPropagation();
         });
         
@@ -400,7 +406,7 @@ ASC.Projects.TasksManager = (function() {
 
                 panelContent.append(jq.tmpl("projects_descriptionPanelContent", descriptionObj));
 
-                showActionsPanel('taskDescrPanel', targetObject);
+                showActionsPanel.call(targetObject, 'taskDescrPanel');
                 overTaskDescriptionPanel = true;
             }, 400, this);
         });
@@ -411,27 +417,28 @@ ASC.Projects.TasksManager = (function() {
             hideDescriptionPanel();
         });
 
-        $taskListContainer.on('click', '.task .entity-menu', function () {
+        function showEntityMenu(event) {
             ASC.Projects.SubtasksManager.hideSubtaskActionPanel();
             ASC.Projects.SubtasksManager.hideSubtaskFields();
 
-            $taskListContainer.find('.task').removeClass('menuopen');
-            if (taskActionPanel.is(':visible')) {
-                jq(this).closest(".task").removeClass('menuopen');
-            } else {
-                jq(this).closest(".task").addClass('menuopen');
-            }
-            
-            showActionsPanel('taskActionPanel', this);
+            $taskListContainer.find(".task").removeClass('menuopen');
+            jq(this).closest(".task").addClass('menuopen');
+
+            showActionsPanel.call(this, 'taskActionPanel', event ? { x: event.pageX | (event.clientX + event.scrollLeft), y: event.pageY | (event.clientY + event.scrollTop) } : undefined);
 
             // ga-track
-            try {
-                if (window._gat) {
-                    window._gaq.push(['_trackEvent', ga_Categories.tasks, ga_Actions.actionClick, "task-menu"]);
-                }
-            } catch (err) {
-            }
+            trackingGoogleAnalitics(ga_Categories.tasks, ga_Actions.actionClick, "task-menu");
+
             return false;
+        }
+
+        $taskListContainer.on('click', '.task .entity-menu', function () {
+            return showEntityMenu.call(this);
+        });
+
+        $taskListContainer.on('contextmenu', '.task', function (event) {
+            jq('.studio-action-panel, .filter-list').hide();
+            return showEntityMenu.call(this, event);
         });
 
         $taskListContainer.on('click', '.subtasksCount span.expand', function () {
@@ -539,17 +546,17 @@ ASC.Projects.TasksManager = (function() {
     };
 
     var initActionPanels = function () {
-        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "taskDescrPanel", cornerPosition: "left" }));
+        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "taskDescrPanel"}));
         taskDescribePanel = jq("#taskDescrPanel");
 
         jq("#" + statusListObject.listId).remove();
         commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
         //action panel
-        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "taskActionPanel", cornerPosition: "right" }));
+        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "taskActionPanel"}));
         taskActionPanel = jq("#taskActionPanel");
         taskActionPanel.find(".panel-content").empty().append(jq.tmpl("projects_actionMenuContent", actionMenuItems));
 
-        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "othersPanel", cornerPosition: "right" }));
+        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "othersPanel" }));
         jq("#othersPanel .panel-content").empty().append(jq.tmpl("projects_actionMenuContent", { menuItems: [] }));
         jq("#othersPanel .dropdown-content").attr("id", "othersListPopup");
 
@@ -570,7 +577,7 @@ ASC.Projects.TasksManager = (function() {
 
         // Responsible
         if (currentProjectId) {
-            if (ASC.Projects.Common.userInProjectTeam(currentUserId)) {
+            if (self.userInProjectTeam(currentUserId)) {
                 filters.push({
                     type: "combobox",
                     id: "me_tasks_responsible",
@@ -669,7 +676,7 @@ ASC.Projects.TasksManager = (function() {
                 title: ASC.Projects.Resources.ProjectsFilterResource.OtherProjects,
                 filtertitle: ASC.Projects.Resources.ProjectsFilterResource.ByProject + ":",
                 group: ASC.Projects.Resources.ProjectsFilterResource.ByProject,
-                options: ASC.Projects.Common.getProjectsForFilter(),
+                options: self.getProjectsForFilter(),
                 hashmask: "project/{0}",
                 groupby: "projects",
                 defaulttitle: ASC.Projects.Resources.ProjectsFilterResource.Select
@@ -776,11 +783,11 @@ ASC.Projects.TasksManager = (function() {
             groupby: "deadline"
         });
         
-        ASC.Projects.TasksManager.filters = filters;
-        ASC.Projects.TasksManager.colCount = 2;
-        if (!currentProjectId && milestones.length > 1) ASC.Projects.TasksManager.colCount = 3;
+        self.filters = filters;
+        self.colCount = 2;
+        if (!currentProjectId && milestones.length > 1) self.colCount = 3;
 
-        ASC.Projects.TasksManager.sorters =
+        self.sorters =
         [
             { id: "deadline", title: ASC.Projects.Resources.ProjectsFilterResource.ByDeadline, sortOrder: "ascending", def: true },
             { id: "priority", title: ASC.Projects.Resources.ProjectsFilterResource.ByPriority, sortOrder: "descending" },
@@ -789,7 +796,7 @@ ASC.Projects.TasksManager = (function() {
             { id: "title", title: ASC.Projects.Resources.ProjectsFilterResource.ByTitle, sortOrder: "ascending" }
         ];
         
-        ASC.Projects.ProjectsAdvansedFilter.init(ASC.Projects.TasksManager);
+        ASC.Projects.ProjectsAdvansedFilter.init(self);
 
         //filter
         ASC.Projects.ProjectsAdvansedFilter.filter.one("adv-ready", function () {
@@ -845,16 +852,11 @@ ASC.Projects.TasksManager = (function() {
         return true;
     };
 
-    var getData = function (filter) {
+    var getData = function () {
+        self.currentFilter.Count = self.entryCountOnPage;
+        self.currentFilter.StartIndex = self.entryCountOnPage * self.currentPage;
 
-        filter.Count = ASC.Projects.TasksManager.entryCountOnPage;
-        filter.StartIndex = ASC.Projects.TasksManager.entryCountOnPage * ASC.Projects.TasksManager.currentPage;
-
-        if (filter.StartIndex > filterTaskCount) {
-            filter.StartIndex = 0;
-            ASC.Projects.TasksManager.currentPage = 1;
-        }
-        Teamlab.getPrjTasks({}, { filter: filter, success: onGetTasks });
+        Teamlab.getPrjTasks({}, { filter: self.currentFilter, success: onGetTasks });
     };
 
     var getFilteredTaskById = function (taskId) {
@@ -887,7 +889,7 @@ ASC.Projects.TasksManager = (function() {
                 var task = jq('.taskList .task[taskid=' + taskId + ']');
                 task.find(".taskProcess").remove();
                 task.find(".check div").show();
-                ASC.Projects.Common.displayInfoPanel(response[0], true);
+                self.displayInfoPanel(response[0], true);
             }
         });
     };
@@ -945,7 +947,7 @@ ASC.Projects.TasksManager = (function() {
     };
 
     var updateMilestonesListForMovePanel = function (milestones) {
-        milestones = milestones.sort(ASC.Projects.Common.milestoneSort);
+        milestones = milestones.sort(self.milestoneSort);
         jq('#moveTaskPanel .milestonesList .ms').remove();
         jq.tmpl("projects_milestoneForMoveTaskPanelTmpl", milestones).prependTo("#moveTaskPanel .milestonesList");
     };
@@ -974,7 +976,7 @@ ASC.Projects.TasksManager = (function() {
 
         if (isItems) {
             jq('.noContentBlock').hide();
-            jq('#ProjectsAdvansedFilter').show();
+            self.showAdvansedFilter();
             jq('#tableForNavigation').show();
             jq(".taskList").show();
         } else {
@@ -982,14 +984,14 @@ ASC.Projects.TasksManager = (function() {
                 jq(emptyScreen).show();
                 jq('#tableForNavigation').hide();
                 if (emptyScreen == '#emptyListTask') {
-                    jq('#ProjectsAdvansedFilter').hide();
+                    self.hideAdvansedFilter();
                     jq('#tasksEmptyScreenForFilter').hide();
                 }
             }
             else {
-                if (ASC.Projects.TasksManager.currentPage > 0) {
-                    ASC.Projects.TasksManager.currentPage--;
-                    ASC.Projects.TasksManager.getData(ASC.Projects.TasksManager.currentFilter, false);
+                if (self.currentPage > 0) {
+                    self.currentPage--;
+                    getData();
                 }
             }
         }
@@ -1005,17 +1007,17 @@ ASC.Projects.TasksManager = (function() {
     // show popup methods
 
     var popupWindow = function(taskId) {
-        ASC.Projects.Common.showCommonPopup("projects_closedTaskQuestion", 480, 200, 0);
+        self.showCommonPopup("projects_closedTaskQuestion", 480, 200, 0);
         jq('.commonPopupContent .end').attr('taskid', taskId);
         PopupKeyUpActionProvider.EnterAction = "jq('.commonPopupContent .end').click();";
     };
 
     var showRemindTaskPopup = function() {
-        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.TasksResource.MessageSend);
+        self.displayInfoPanel(ASC.Projects.Resources.TasksResource.MessageSend);
     };
 
     var showQuestionWindowTaskRemove = function(taskId) {
-        ASC.Projects.Common.showCommonPopup("projects_taskRemoveWarning", 400, 200);
+        self.showCommonPopup("projects_taskRemoveWarning", 400, 200);
         PopupKeyUpActionProvider.EnterAction = "jq('.commonPopupContent .remove').click();";
         commonPopupContainer.attr('taskId', taskId);
     };
@@ -1037,19 +1039,21 @@ ASC.Projects.TasksManager = (function() {
         PopupKeyUpActionProvider.EnterAction = "jq('#moveTaskPanel .blue').click();";
     };
 
-    var showActionsPanel = function(panelId, obj) {     // REFACTOR THIS!!!
+    var showActionsPanel = function (panelId, coord) {
+        var self = jq(this);
+        if (!self.is(".entity-menu") && panelId == "taskActionPanel") self = self.find(".entity-menu");
         var objid = '',
             objidAttr = '';
         var x, y;
-        if (typeof jq(obj).attr('projectid') != 'undefined') {
-            taskActionPanel.find('#ta_move').attr('projectid', jq(obj).attr('projectid'));
-            taskActionPanel.find('#ta_time').attr('projectid', jq(obj).attr('projectid'));
+        if (typeof self.attr('projectid') != 'undefined') {
+            taskActionPanel.find('#ta_move').attr('projectid', self.attr('projectid'));
+            taskActionPanel.find('#ta_time').attr('projectid', self.attr('projectid'));
         }
-        if (typeof jq(obj).attr('userid') != 'undefined') {
-            taskActionPanel.find('#ta_time').attr('userid', jq(obj).attr('userid'));
+        if (typeof self.attr('userid') != 'undefined') {
+            taskActionPanel.find('#ta_time').attr('userid', self.attr('userid'));
         }
         if (panelId == 'taskActionPanel') {
-            objid = jq(obj).attr('taskid');
+            objid = self.attr('taskid');
         }
         if (objid.length) {
             objidAttr = '[objid=' + objid + ']';
@@ -1066,16 +1070,17 @@ ASC.Projects.TasksManager = (function() {
             jq('.changeStatusCombobox').removeClass('selected');
 
             jq('#' + panelId).show();
+            // remove magic numbers
             if (panelId == 'taskDescrPanel') {
-                x = jq(obj).offset().left + 10;
-                y = jq(obj).offset().top + 20;
-                jq('#' + panelId).attr('objid', jq(obj).attr('taskid'));
+                x = self.offset().left + 10;
+                y = self.offset().top + 20;
+                jq('#' + panelId).attr('objid', jq(this).attr('taskid'));
             } else if (panelId == 'othersPanel') {
-                x = jq(obj).offset().left - 133;
-                y = jq(obj).offset().top + 26;
+                x = self.offset().left - 133;
+                y = self.offset().top + 26;
             } else {
-                x = jq(obj).offset().left - 131;
-                y = jq(obj).offset().top + 16;
+                x = self.offset().left - 110;
+                y = self.offset().top + 20;
                 jq('#' + panelId).attr('objid', objid);
                 taskActionPanel.find('.dropdown-item').show();
 
@@ -1103,14 +1108,14 @@ ASC.Projects.TasksManager = (function() {
                 }
 
                 if (jq('.task[taskid=' + objid + ']').length) {
-                    if (jq(obj).attr('canDelete') != "true") {
+                    if (self.attr('canDelete') != "true") {
                         taskActionPanel.find('#ta_remove').hide();
 
-                        if (jq(obj).attr('canEdit') == "false" || Teamlab.profile.isVisitor) {
+                        if (self.attr('canEdit') == "false" || Teamlab.profile.isVisitor) {
                             taskActionPanel.find('#ta_edit').hide();
                             taskActionPanel.find('#ta_move').hide();
                             taskActionPanel.find('#ta_mesres').hide();
-                            if (jq(obj).attr("data-cancreatesubtask") == "false")
+                            if (self.attr("data-cancreatesubtask") == "false")
                                 taskActionPanel.find("#ta_subtask").hide();
                         }
                     }
@@ -1118,19 +1123,25 @@ ASC.Projects.TasksManager = (function() {
             }
 
             if (typeof y == 'undefined')
-                y = jq(obj).offset().top + 29;
+                y = self.offset().top + 29;
+            
+            if (coord) {
+                x = coord.x - jq('#' + panelId).outerWidth();
+                y = coord.y;
+            }
             jq('#' + panelId).css({ left: x, top: y });
 
-            jq('body').click(function(event) {
+            jq('body').off("click.tasksShowActionsPanel");
+            jq('body').on("click.tasksShowActionsPanel", function (event) {
                 var elt = (event.target) ? event.target : event.srcElement;
                 var isHide = true;
-                if (jq(elt).is('[id="' + panelId + '"]') || (elt.id == obj.id && obj.id.length) || jq(elt).is('.entity-menu') || jq(elt).is('.other')) {
+                if (jq(elt).is('[id="' + panelId + '"]') || (elt.id == this.id && this.id.length) || jq(elt).is('.entity-menu') || jq(elt).is('.other')) {
                     isHide = false;
                 }
 
                 if (isHide)
                     jq(elt).parents().each(function() {
-                        if (jq(this).is('[id="' + panelId + '"]')) {
+                        if (self.is('[id="' + panelId + '"]')) {
                             isHide = false;
                             return false;
                         }
@@ -1166,8 +1177,8 @@ ASC.Projects.TasksManager = (function() {
         selectedStatusCombobox.addClass('selected');
         jq('.studio-action-panel, .filter-list').hide();
         jq('.task.menuopen').removeClass('menuopen');
-        var top = selectedStatusCombobox.offset().top + 25;
-        var left = selectedStatusCombobox.offset().left + 9;
+        var top = selectedStatusCombobox.offset().top + 28;
+        var left = selectedStatusCombobox.offset().left;
         statusListContainer.css({ left: left, top: top });
 
         if (status == 'overdue' || status == 'active') {
@@ -1201,7 +1212,7 @@ ASC.Projects.TasksManager = (function() {
 
     //api callback
     var onGetTasks = function (params, tasks) {
-        ASC.Projects.Common.clearTables();
+        self.clearTables();
 
         filteredTasks = tasks;
         jq('#CommonListContainer').height('auto');
@@ -1221,10 +1232,10 @@ ASC.Projects.TasksManager = (function() {
             jq('#CommonListContainer .choose.project').attr('value', '');
         }
 
-        LoadingBanner.hideLoading();
+        isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
 
         filterTaskCount = params.__total != undefined ? params.__total : 0;
-        ASC.Projects.Common.updatePageNavigator(ASC.Projects.TasksManager, filterTaskCount);
+        self.updatePageNavigator(filterTaskCount);
         emptyScreenList(tasks.length);
     };
 
@@ -1235,7 +1246,7 @@ ASC.Projects.TasksManager = (function() {
         jq.tmpl("projects_taskListItemTmpl", task).prependTo(".taskList");
         jq('#CommonListContainer .taskSaving').hide();
         jq('.taskList .task:first').yellowFade();
-        ASC.Projects.Common.updatePageNavigator(ASC.Projects.TasksManager, filterTaskCount);
+        self.updatePageNavigator(filterTaskCount);
         emptyScreenList(true);
     };
 
@@ -1250,7 +1261,7 @@ ASC.Projects.TasksManager = (function() {
         }
         setFilteredTask(task);
         jq.unblockUI();
-        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TaskUpdated);
+        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TaskUpdated);
     };
     
     var onRemoveTask = function (params, task) {
@@ -1263,7 +1274,7 @@ ASC.Projects.TasksManager = (function() {
         }
 
         filterTaskCount--;
-        ASC.Projects.Common.updatePageNavigator(ASC.Projects.TasksManager, filterTaskCount);
+        self.updatePageNavigator(filterTaskCount);
         if (typeof task != 'undefined') {
             emptyScreenList(task.length);
         } else {
@@ -1272,7 +1283,7 @@ ASC.Projects.TasksManager = (function() {
         jq('.taskList .task[taskid=' + taskId + ']').html('<div class="taskProcess"></div>');
         commonPopupContainer.removeAttr('taskId');
         jq.unblockUI();
-        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TaskRemoved);
+        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TaskRemoved);
         
         if (filterTaskCount == 0) {
             jq("#emptyListTimers .addFirstElement").addClass("display-none");
@@ -1342,7 +1353,7 @@ ASC.Projects.TasksManager = (function() {
         jq.unblockUI();
     };
 
-    return {
+    return jq.extend({
         init: init,
         getData: getData,
         openedCount: openedCount,
@@ -1354,5 +1365,6 @@ ASC.Projects.TasksManager = (function() {
         onAddMilestone: onAddMilestone,
         unbindListEvents: unbindListEvents,
         basePath: 'sortBy=deadline&sortOrder=ascending'
-    };
+    }, ASC.Projects.Common);
+    
 })(jQuery);

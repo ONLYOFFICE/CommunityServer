@@ -1,34 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
-*/
-
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 function toggleNewsControllist(element) 
@@ -174,16 +169,10 @@ function changeCountOfRows (val) {
     window.location.href = href + "&size=" + val;
 }
 
-function showCommentBox() {
-    if (CKEDITOR && !jq.isEmptyObject(CKEDITOR.instances)) {
-        CommentsManagerObj.AddNewComment();
-    } else {
-        setTimeout("showCommentBox();", 500);
-    }
-}
-
-function GetPreviewFull () {
-    var html = CKEDITOR.instances.ckEditor.getData();
+function GetPreviewFull() {
+    if (jq("#btnPreview").hasClass("disable")) return;
+    
+    var html = newsEditor.getData();
 
     AjaxPro.onLoading = function (b) {
         if (b) {
@@ -198,11 +187,42 @@ function GetPreviewFull () {
     });
 }
 
+function resizeContent() {
+
+    var windowWidth = jq(window).width() - 24 * 2,
+        newWidth = windowWidth,
+        mainBlockWidth = parseInt(jq(".mainPageLayout").css("min-width"));
+    if (windowWidth < mainBlockWidth) {
+        newWidth = mainBlockWidth;
+    }
+
+    jq("#feedPrevDiv").each(
+        function() {
+            jq(this).css("max-width", newWidth - jq(".mainPageTableSidePanel").width() - 24 * 2 + "px");
+        }
+    );
+};
+
+function submitNewsData(btnObj) {
+    if (jq(btnObj).hasClass("disable"))
+        return;
+        
+    NewsBlockButtons();
+    CheckDataNews();
+};
+
+function submitPollData(btnObj) {
+    if (jq(btnObj).hasClass("disable"))
+        return;
+
+    NewsBlockButtons();
+    CheckData();
+};
+
 jq(document).ready(function() {
     jq.dropdownToggle({
         dropdownID: "eventsActionsMenuPanel",
         switcherSelector: ".eventsHeaderBlock .menu-small",
-        addTop: -4,
         addLeft: -11,
         showFunction: function(switcherObj, dropdownItem) {
         jq('.eventsHeaderBlock .menu-small.active').removeClass('active');
@@ -223,7 +243,13 @@ jq(document).ready(function() {
     }
     var anchor = ASC.Controls.AnchorController.getAnchor();
     if (anchor == "addcomment" && CommentsManagerObj) {
-        showCommentBox();
+        ckeditorConnector.onReady(CommentsManagerObj.AddNewComment);
     }
+
+    resizeContent();
+
+    jq(window).resize(function () {
+        resizeContent();
+    });
 
 });

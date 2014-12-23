@@ -1,41 +1,44 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
+using System.Security;
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Core;
 using ASC.Core.Caching;
 using ASC.Core.Users;
+using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using SecurityAction = ASC.Common.Security.Authorizing.Action;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Core
 {
@@ -43,7 +46,7 @@ namespace ASC.Web.Core
     {
         private static readonly SecurityAction Read = new SecurityAction(new Guid("77777777-32ae-425f-99b5-83176061d1ae"), "ReadWebItem", false, true);
 
-        private static readonly ICache cache = new AspCache();
+        private static readonly ICache cache = AscCache.Default;
 
 
         public static bool IsAvailableForUser(string id, Guid @for)
@@ -70,7 +73,8 @@ namespace ASC.Web.Core
             // can read or administrator
             var securityObj = WebItemSecurityObject.Create(id);
 
-            if (securityObj.WebItemId != WebItemManager.DocumentsProductID && CoreContext.Configuration.Personal)
+            if (CoreContext.Configuration.Personal
+                && securityObj.WebItemId != WebItemManager.DocumentsProductID)
             {
                 // only files visible in your-docs portal
                 result = false;
@@ -87,6 +91,13 @@ namespace ASC.Web.Core
                         CoreContext.UserManager.GetUsers(@for).IsVisitor())
                     {
                         // hack: crm, people, birtthday and mail products not visible for collaborators
+                        result = false;
+                    }
+                    else if ((webitem.ID == WebItemManager.CalendarProductID ||
+                              webitem.ID == WebItemManager.TalkProductID) &&
+                             CoreContext.UserManager.GetUsers(@for).IsOutsider())
+                    {
+                        // hack: calendar and talk products not visible for outsider
                         result = false;
                     }
                     else if (webitem is IModule)
@@ -126,6 +137,9 @@ namespace ASC.Web.Core
 
         public static void SetSecurity(string id, bool enabled, params Guid[] subjects)
         {
+            if(SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone)
+                throw new SecurityException("Security settings are disabled for an open portal");
+            
             var securityObj = WebItemSecurityObject.Create(id);
 
             // remove old aces

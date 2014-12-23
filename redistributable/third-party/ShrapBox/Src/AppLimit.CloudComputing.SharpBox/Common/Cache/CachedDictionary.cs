@@ -44,6 +44,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Cache
 #if (DEBUG)
             Debug.Print("inserted root key {0}", rootKey);
 #endif
+            HttpRuntime.Cache.Remove(rootKey);
             HttpRuntime.Cache.Insert(rootKey, DateTime.UtcNow.Ticks, null, System.Web.Caching.Cache.NoAbsoluteExpiration, System.Web.Caching.Cache.NoSlidingExpiration,
                                      CacheItemPriority.NotRemovable,(key,value,reason)=> Debug.Print("gloabl root key: {0} removed. reason: {1}", key, reason));
         }
@@ -67,6 +68,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Cache
                 Debug.Print("added root key {0}",builtrootkey);
 #endif
                 //Insert root if no present
+                HttpRuntime.Cache.Remove(builtrootkey);
                 HttpRuntime.Cache.Insert(builtrootkey,DateTime.UtcNow.Ticks, null, AbsoluteExpiration, SlidingExpiration,
                                          CacheItemPriority.NotRemovable, (removedkey, value, reason) => Debug.Print("root key: {0} removed. reason: {1}", removedkey, reason));
             }
@@ -76,6 +78,8 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Cache
 #endif
             if (newValue != null)
             {
+                string buildKey = BuildKey(key, rootkey);
+                HttpRuntime.Cache.Remove(buildKey);
                 HttpRuntime.Cache.Insert(BuildKey(key, rootkey), newValue,
                                          new CacheDependency(null, new[] {_baseKey, builtrootkey}),
                                          AbsoluteExpiration, SlidingExpiration,

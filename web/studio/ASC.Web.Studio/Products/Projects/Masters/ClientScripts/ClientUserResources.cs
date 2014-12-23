@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -31,7 +31,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
@@ -55,40 +54,40 @@ namespace ASC.Web.Projects.Masters.ClientScripts
             yield return RegisterObject("VisiblePageCount", Global.VisiblePageCount);
 
             var filter = new TaskFilter
-            {
-                SortBy = "title",
-                SortOrder = true,
-                ProjectStatuses = new List<ProjectStatus> { ProjectStatus.Open }
-            };
+                {
+                    SortBy = "title",
+                    SortOrder = true,
+                    ProjectStatuses = new List<ProjectStatus> {ProjectStatus.Open}
+                };
 
             var projects = Global.EngineFactory.GetProjectEngine().GetByFilter(filter)
-                .Select(pr => new
-                    {
-                        id = pr.ID,
-                        title = pr.Title,
-                        responsible = pr.Responsible,
-                        //created = (ApiDateTime) pr.CreateOn,
-                        security = new
-                            {
-                                canCreateMilestone = ProjectSecurity.CanCreateMilestone(pr),
-                                canCreateMessage = ProjectSecurity.CanCreateMessage(pr),
-                                canCreateTask = ProjectSecurity.CanCreateTask(pr),
-                                canEditTeam = ProjectSecurity.CanEditTeam(pr),
-                                canReadFiles = ProjectSecurity.CanReadFiles(pr),
-                                canReadMilestones = ProjectSecurity.CanReadMilestones(pr),
-                                canReadMessages = ProjectSecurity.CanReadMessages(pr),
-                                canReadTasks = ProjectSecurity.CanReadTasks(pr),
-                                isInTeam = ProjectSecurity.IsInTeam(pr, SecurityContext.CurrentAccount.ID, false),
-                                canLinkContact = ProjectSecurity.CanLinkContact(pr),
-                            },
-                        isPrivate = pr.Private,
-                        status = pr.Status
-                    });
+                                 .Select(pr => new
+                                     {
+                                         id = pr.ID,
+                                         title = pr.Title,
+                                         responsible = pr.Responsible,
+                                         //created = (ApiDateTime) pr.CreateOn,
+                                         security = new
+                                             {
+                                                 canCreateMilestone = ProjectSecurity.CanCreateMilestone(pr),
+                                                 canCreateMessage = ProjectSecurity.CanCreateMessage(pr),
+                                                 canCreateTask = ProjectSecurity.CanCreateTask(pr),
+                                                 canEditTeam = ProjectSecurity.CanEditTeam(pr),
+                                                 canReadFiles = ProjectSecurity.CanReadFiles(pr),
+                                                 canReadMilestones = ProjectSecurity.CanReadMilestones(pr),
+                                                 canReadMessages = ProjectSecurity.CanReadMessages(pr),
+                                                 canReadTasks = ProjectSecurity.CanReadTasks(pr),
+                                                 isInTeam = ProjectSecurity.IsInTeam(pr, SecurityContext.CurrentAccount.ID, false),
+                                                 canLinkContact = ProjectSecurity.CanLinkContact(pr),
+                                             },
+                                         isPrivate = pr.Private,
+                                         status = pr.Status
+                                     });
 
-            var tags = Global.EngineFactory.GetTagEngine().GetTags().Select(r => new { id = r.Key, title = r.Value.HtmlEncode() });
+            var tags = Global.EngineFactory.GetTagEngine().GetTags().Select(r => new {id = r.Key, title = r.Value.HtmlEncode()});
 
-            yield return RegisterObject("Projects", new { response = projects });
-            yield return RegisterObject("Tags", new { response = tags });
+            yield return RegisterObject("Projects", new {response = projects});
+            yield return RegisterObject("Tags", new {response = tags});
 
 
             if (context.Request.UrlReferrer != null && string.IsNullOrEmpty(HttpUtility.ParseQueryString(context.Request.GetUrlRewriter().Query)["prjID"]) && string.IsNullOrEmpty(HttpUtility.ParseQueryString(context.Request.UrlReferrer.Query)["prjID"]))
@@ -97,18 +96,19 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                     {
                         SortBy = "deadline",
                         SortOrder = false,
-                        MilestoneStatuses = new List<MilestoneStatus> { MilestoneStatus.Open }
+                        MilestoneStatuses = new List<MilestoneStatus> {MilestoneStatus.Open}
                     };
 
                 var milestones = Global.EngineFactory.GetMilestoneEngine().GetByFilter(filter)
-                    .Select(m => new
-                        {
-                            id = m.ID,
-                            title = m.Title,
-                            deadline = SetDate(m.DeadLine, TimeZoneInfo.Local)
-                        });
+                                       .Select(m => new
+                                           {
+                                               id = m.ID,
+                                               title = m.Title,
+                                               deadline = SetDate(m.DeadLine, TimeZoneInfo.Local),
+                                               projectOwner = new {id = m.Project.ID}
+                                           });
 
-                yield return RegisterObject("Milestones", new { response = milestones });
+                yield return RegisterObject("Milestones", new {response = milestones});
             }
         }
 
@@ -165,51 +165,53 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                     currentProject = HttpUtility.ParseQueryString(context.Request.UrlReferrer.Query)["prjID"];
                 }
             }
-            
+
             var filter = new TaskFilter
-            {
-                SortBy = "deadline",
-                SortOrder = false,
-                MilestoneStatuses = new List<MilestoneStatus> { MilestoneStatus.Open },
-                ProjectIds = new List<int> { Convert.ToInt32(currentProject) }
-            };
+                {
+                    SortBy = "deadline",
+                    SortOrder = false,
+                    MilestoneStatuses = new List<MilestoneStatus> {MilestoneStatus.Open},
+                    ProjectIds = new List<int> {Convert.ToInt32(currentProject)}
+                };
 
             var milestones = Global.EngineFactory.GetMilestoneEngine().GetByFilter(filter)
                                    .Select(m => new
                                        {
                                            id = m.ID,
                                            title = m.Title,
-                                           deadline = ClientUserResources.SetDate(m.DeadLine, TimeZoneInfo.Local)
+                                           deadline = ClientUserResources.SetDate(m.DeadLine, TimeZoneInfo.Local),
+                                           projectOwner = new {id = m.Project.ID}
                                        });
 
             var team = Global.EngineFactory.GetProjectEngine().GetTeam(Convert.ToInt32(currentProject))
-                .Select(r => new
-                            {
-                                id = r.UserInfo.ID,
-                                displayName = DisplayUserSettings.GetFullUserName(r.UserInfo.ID),
-                                userName = r.UserInfo.UserName,
-                                avatarSmall = UserPhotoManager.GetSmallPhotoURL(r.UserInfo.ID),
-                                status = r.UserInfo.Status,
-                                groups = CoreContext.UserManager.GetUserGroups(r.UserInfo.ID).Select(x => new
-                                    {
-                                        id = x.ID,
-                                        name = x.Name,
-                                        manager = CoreContext.UserManager.GetUsers(CoreContext.UserManager.GetDepartmentManager(x.ID)).UserName
-                                    }).ToList(),
-                                isVisitor = r.UserInfo.IsVisitor(),
-                                isAdmin = r.UserInfo.IsAdmin(),
-                                isOwner = r.UserInfo.IsOwner(),
-                                canReadFiles = r.CanReadFiles,
-                                canReadMilestones = r.CanReadMilestones,
-                                canReadMessages = r.CanReadMessages,
-                                canReadTasks = r.CanReadTasks,
-                                canReadContacts = r.CanReadContacts,
-                                isAdministrator = r.UserInfo.IsAdmin(),
-                                title = r.UserInfo.Title
-                            }).OrderBy(r=> r.displayName).ToList();
+                             .Select(r => new
+                                 {
+                                     id = r.UserInfo.ID,
+                                     displayName = DisplayUserSettings.GetFullUserName(r.UserInfo.ID),
+                                     userName = r.UserInfo.UserName,
+                                     avatarSmall = UserPhotoManager.GetSmallPhotoURL(r.UserInfo.ID),
+                                     status = r.UserInfo.Status,
+                                     groups = CoreContext.UserManager.GetUserGroups(r.UserInfo.ID).Select(x => new
+                                         {
+                                             id = x.ID,
+                                             name = x.Name,
+                                             manager = CoreContext.UserManager.GetUsers(CoreContext.UserManager.GetDepartmentManager(x.ID)).UserName
+                                         }).ToList(),
+                                     isVisitor = r.UserInfo.IsVisitor(),
+                                     isAdmin = r.UserInfo.IsAdmin(),
+                                     isOwner = r.UserInfo.IsOwner(),
+                                     canReadFiles = r.CanReadFiles,
+                                     canReadMilestones = r.CanReadMilestones,
+                                     canReadMessages = r.CanReadMessages,
+                                     canReadTasks = r.CanReadTasks,
+                                     canReadContacts = r.CanReadContacts,
+                                     isAdministrator = r.UserInfo.IsAdmin(),
+                                     title = r.UserInfo.Title,
+                                     profileUrl = r.UserInfo.GetUserProfilePageURL()
+                                 }).OrderBy(r => r.displayName).ToList();
 
-            yield return RegisterObject("Milestones", new { response = milestones });
-            yield return RegisterObject("Team", new { response = team });
+            yield return RegisterObject("Milestones", new {response = milestones});
+            yield return RegisterObject("Team", new {response = team});
         }
 
         protected override string GetCacheHash()
@@ -218,7 +220,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
             var currentProject = "0";
 
-            if (HttpContext.Current.Request.GetUrlRewriter() != null )
+            if (HttpContext.Current.Request.GetUrlRewriter() != null)
             {
                 currentProject = HttpUtility.ParseQueryString(HttpContext.Current.Request.GetUrlRewriter().Query)["prjID"];
 
@@ -253,7 +255,6 @@ namespace ASC.Web.Projects.Masters.ClientScripts
         {
             return SecurityContext.CurrentAccount.ID +
                 CoreContext.UserManager.GetMaxUsersLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
-                CoreContext.GroupManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture);
-        }
+                CoreContext.GroupManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture);        }
     }
 }

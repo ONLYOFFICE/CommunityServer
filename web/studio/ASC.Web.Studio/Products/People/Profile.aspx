@@ -18,17 +18,18 @@
     </div>
     <% if (ProfileHelper.UserInfo.IsMe())
        { %>
-    <div id="subscriptionBlockContainer" class="user-block">
-        <div class="tabs-section">
-            <span class="header-base"><%=PeopleResource.LblSubscriptions%></span>
-            <span id="switcherSubscriptionButton" class="toggle-button"
-                data-switcher="1" data-showtext="<%=Resources.Resource.Show%>" data-hidetext="<%=Resources.Resource.Hide%>">
-                <%=Resources.Resource.Show%>
-            </span>
+        <div id="subscriptionBlockContainer" class="user-block">
+            <div class="tabs-section">
+                <span class="header-base"><%= PeopleResource.LblSubscriptions %></span>
+                <span id="switcherSubscriptionButton" class="toggle-button"
+                      data-switcher="1" data-showtext="<%= Resources.Resource.Show %>" data-hidetext="<%= Resources.Resource.Hide %>">
+                    <%= Resources.Resource.Show %>
+                </span>
+            </div>
+            <div id="subscriptionContainer" style="display: none;" class="tabs-content">
+                <asp:PlaceHolder ID="_phSubscriptionView" runat="server" />
+            </div>
         </div>
-        <div id="subscriptionContainer" style="display: none;" class="tabs-content">
-            <asp:PlaceHolder ID="_phSubscriptionView" runat="server" />
-        </div>
-    </div>
-    <% }%>
+        <asp:PlaceHolder ID="_phTipsSettingsView" runat="server" />
+    <% } %>
 </asp:Content>

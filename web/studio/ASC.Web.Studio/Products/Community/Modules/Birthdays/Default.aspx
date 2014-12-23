@@ -18,7 +18,7 @@
 <asp:Content ID="SettingsPageContent" ContentPlaceHolderID="CommunityPageContent"  runat="server">
     
     
-    <asp:repeater ID="todayRpt" runat="server" ItemType="ASC.Core.Users.UserInfo">
+    <asp:repeater ID="todayRpt" runat="server">
         <HeaderTemplate>
             <div class="birthday-header birthday-content-splitter">
                 <%= BirthdaysResource.BirthdaysTodayTitle%>
@@ -40,19 +40,19 @@
                             <div class="user-card clearFix">
 
                                 <div class="user-avatar borderBase">
-                                    <img src="<%# Item.GetBigPhotoURL() %>">
+                                    <img src="<%# ((ASC.Core.Users.UserInfo)Container.DataItem).GetBigPhotoURL() %>">
                                 </div>
 
                                 <div class="user-info">
-                                    <a class="linkHeader" href="<%#CommonLinkUtility.GetUserProfile(Item.ID) %>">
-                                        <%# Item.DisplayUserName()%>
+                                    <a class="linkHeader" href="<%#CommonLinkUtility.GetUserProfile(((ASC.Core.Users.UserInfo)Container.DataItem).ID) %>">
+                                        <%# ((ASC.Core.Users.UserInfo)Container.DataItem).DisplayUserName()%>
                                     </a>
                                     <div class="user-info-title gray-text">
-                                        <%# Item.Title%>
+                                        <%# ((ASC.Core.Users.UserInfo)Container.DataItem).Title%>
                                     </div>
                                     <a class="<%# ((UserInfo)Container.DataItem).ID == SecurityContext.CurrentAccount.ID ? "display-none" : "button blue middle" %>"
                                          onclick="ASC.Community.Birthdays.openContact(this);"
-                                         username="<%# Item.UserName.HtmlEncode() %>">
+                                         username="<%# ((ASC.Core.Users.UserInfo)Container.DataItem).UserName.HtmlEncode() %>">
                                         <%= BirthdaysResource.BirthdayCongratulateLinkTitle%>
                                     </a>
                                 </div>
@@ -74,7 +74,7 @@
 
     <asp:PlaceHolder ID="upcomingEmptyContent" runat="server"></asp:PlaceHolder>
 
-    <asp:repeater ID="upcomingRpt" runat="server" ItemType="ASC.Web.Community.Birthdays.Default.BirthdayWrapper">
+    <asp:repeater ID="upcomingRpt" runat="server">
         <HeaderTemplate>
             <table class="tableBase birthday-content-splitter" cellspacing="0" cellpadding="8">
                 <colgroup>
@@ -87,22 +87,22 @@
                     <tr>
                         <td class="birthday-date birthday-header borderBase">
                             <div class="birthday-date">
-                                <%# Item.Date.ToShortDayMonth()%>
+                                <%# ((ASC.Web.Community.Birthdays.Default.BirthdayWrapper)Container.DataItem).Date.ToShortDayMonth()%>
                             </div>
                         </td>
                         <td class="borderBase">
                             <div class="user-card-list">
-                                <asp:repeater ID="uinnerRpt" runat="server" DataSource="<%# Item.Users %>" ItemType="ASC.Core.Users.UserInfo">
+                                <asp:repeater ID="uinnerRpt" runat="server" DataSource="<%# ((ASC.Web.Community.Birthdays.Default.BirthdayWrapper)Container.DataItem).Users %>">
                                     <ItemTemplate>
-                                        <div class="small-user-card clearFix <%# IsInRemindList(Item.ID) ? "active" : "" %>">
+                                        <div class="small-user-card clearFix <%# IsInRemindList(((ASC.Core.Users.UserInfo)Container.DataItem).ID) ? "active" : "" %>">
                                             <div class="user-avatar">
-                                                <img src="<%# UserPhotoManager.GetMediumPhotoURL(Item.ID) %>">
+                                                <img src="<%# UserPhotoManager.GetMediumPhotoURL(((ASC.Core.Users.UserInfo)Container.DataItem).ID) %>">
                                             </div>
                                             <div class="user-info">
-                                                <a class="link bold" href="<%# CommonLinkUtility.GetUserProfile(Item.ID) %>">
-                                                    <%# Item.DisplayUserName()%>
+                                                <a class="link bold" href="<%# CommonLinkUtility.GetUserProfile(((ASC.Core.Users.UserInfo)Container.DataItem).ID) %>">
+                                                    <%# ((ASC.Core.Users.UserInfo)Container.DataItem).DisplayUserName()%>
                                                 </a>
-                                                <div class="user-info-title <%# Item.ID == SecurityContext.CurrentAccount.ID ? "display-none" : "" %>">
+                                                <div class="user-info-title <%# ((ASC.Core.Users.UserInfo)Container.DataItem).ID == SecurityContext.CurrentAccount.ID ? "display-none" : "" %>">
                                                     <a class="baseLinkAction gray-text birthday-remind" onclick="ASC.Community.Birthdays.remind(this);">
                                                         <%= BirthdaysResource.BirthdayRemindLinkTitle%>
                                                     </a>
@@ -111,7 +111,7 @@
                                                         <a onclick="ASC.Community.Birthdays.clearRemind(this);"></a>
                                                     </span>
                                                 </div>
-                                                <input type="hidden" value="<%# Item.ID %>"/>
+                                                <input type="hidden" value="<%# ((ASC.Core.Users.UserInfo)Container.DataItem).ID %>"/>
                                             </div>
                                         </div>
                                     </ItemTemplate>

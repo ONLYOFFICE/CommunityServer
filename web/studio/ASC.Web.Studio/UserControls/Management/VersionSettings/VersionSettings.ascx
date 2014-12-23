@@ -47,6 +47,9 @@
  </div>
  <div class="settings-help-block">
         <p><%=String.Format(Resource.HelpAnswerPortalVersion,"<br /> ", " <b>", "</b>")%></p>
+     <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+             { %>
         <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+     <% } %>
  </div>  
 </div>

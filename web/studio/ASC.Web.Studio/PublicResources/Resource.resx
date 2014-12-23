@@ -268,7 +268,7 @@
     <value>Go to title page</value>
   </data>
   <data name="Backup" xml:space="preserve">
-    <value>Backup/Deactivation</value>
+    <value>Backup/Restore</value>
   </data>
   <data name="BackupDesc" xml:space="preserve">
     <value>Use this option if you would like to get all data from your portal to a local drive.{0}Important! Backup files cannot be re-imported back to the portal.</value>
@@ -277,11 +277,9 @@
     <value>Backup false. Plase try again later.</value>
   </data>
   <data name="BackupReadyText" xml:space="preserve">
-    <value>{0}You can download the backup to your local drive using the link above. The link will
-                                        be active for 24 hours after the time it was requested.{1}
-                                        An email containing the link and the instructions has been sent to your email
-                                        address.
-                                    {2}</value>
+    <value>You can download the backup to your local drive using the link below. The link will
+                                        be active for 24 hours after the time it was requested.
+                                      </value>
   </data>
   <data name="Birthdate" xml:space="preserve">
     <value>Date of Birth</value>
@@ -804,9 +802,6 @@ Are you sure want to delete {!group} {0}?</value>
   <data name="ErrorEmailAlreadyExists" xml:space="preserve">
     <value>{!User} with this email is already registered</value>
   </data>
-  <data name="ErrorEmailConfirmEmpty" xml:space="preserve">
-    <value>Email confirmation field is empty</value>
-  </data>
   <data name="ErrorEmailEmpty" xml:space="preserve">
     <value>Email field is empty</value>
   </data>
@@ -824,9 +819,6 @@ Are you sure want to delete {!group} {0}?</value>
   </data>
   <data name="ErrorEmptyUserLastName" xml:space="preserve">
     <value>Enter your last name</value>
-  </data>
-  <data name="ErrorMissMatchEmail" xml:space="preserve">
-    <value>The new email and confirmation email do not match</value>
   </data>
   <data name="ErrorMissMatchPwd" xml:space="preserve">
     <value>The new password and its confirmation do not match</value>
@@ -1393,7 +1385,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Use capital letters</value>
   </data>
   <data name="PassworResetTitle" xml:space="preserve">
-    <value>Create new password</value>
+    <value>Now you can create a new password.</value>
   </data>
   <data name="PaymentsTitle" xml:space="preserve">
     <value>Payment History</value>
@@ -1509,9 +1501,6 @@ Are you sure want to delete {!group} {0}?</value>
   <data name="RecipientAddress" xml:space="preserve">
     <value>Recipient</value>
   </data>
-  <data name="ReEmail" xml:space="preserve">
-    <value>Confirm email</value>
-  </data>
   <data name="RegDateCaption" xml:space="preserve">
     <value>Registration Date</value>
   </data>
@@ -1523,9 +1512,6 @@ Are you sure want to delete {!group} {0}?</value>
   </data>
   <data name="RemindPwdButton" xml:space="preserve">
     <value>Send password to specified email</value>
-  </data>
-  <data name="RePassword" xml:space="preserve">
-    <value>Confirm Password</value>
   </data>
   <data name="ReplyMessageTemplate" xml:space="preserve">
     <value>user «user» wrote:</value>
@@ -1718,7 +1704,7 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>Source</value>
   </data>
   <data name="StatisticsTitle" xml:space="preserve">
-    <value>Statistics</value>
+    <value>Common</value>
   </data>
   <data name="StudioDomainSettings" xml:space="preserve">
     <value>Trusted Mail Domain Settings</value>
@@ -2246,9 +2232,6 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="HelpAnswerAdministrators" xml:space="preserve">
     <value>The {1}Administrators{2} tab gives access to the list of portal administrators and the ability to add/remove them.{0}Click the {1}Edit{2} button below the list. In the {1}Select Employees{2} window check the needed people on the list of employees on the left and click the rightwards arrow to add them to the list.{0}To remove employees, check them in the list to the right and click the leftwards arrow.{0}Please, keep in mind that you cannot remove yourself from the list of administrators. If you wish to be excluded, you will have to ask another administrator to remove you.{0}To apply the changes you made use the {1}Save{2} button.</value>
   </data>
-  <data name="HelpAnswerDataBackup" xml:space="preserve">
-    <value>When your backup is created you can restore it on your local server:{0}1. Log in to your server.{0}2. Follow {1}_ci\deploy\service\{2}{0}3. Double-click the {1}ASC.Data.Backup.Restore.exe{2} file to launch the restore application.{0} 4. In the opened window browse for the backup {1}.bak{2} file you created.{0}5. When ready, click {1}Restore{2}.{0}6. Wait while the application restores the backup.{0}7. Restart the {1}TeamLab{2} Windows service. To do that, go {1}Control Panel{2} &gt;&gt; {1}System and Maintenance{2} &gt;&gt; {1}Administrative Tools{2}, open {1}Services{2}, find {1}theTeamLabPortal{2} service in the list and start it.</value>
-  </data>
   <data name="HelpAnswerSocialAccount" xml:space="preserve">
     <value>Linking these social accounts with your TeamLab account allows you to access TeamLab portal when you are logged in to these social accounts.{0} To link one of these social accounts with TeamLab, click the {1}Connect{2} link located next to the account you wish to connect and sign in to it.{0}Next time when you log in to the linked account you will be able to access the TeamLab portal just clicking the corresponding icon on the {1}Sign in{2} page.</value>
   </data>
@@ -2356,7 +2339,7 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
     <value>Send message</value>
   </data>
   <data name="AdminMessageDescription" xml:space="preserve">
-    <value>Cannot access the portal?</value>
+    <value>No access to the portal?</value>
   </data>
   <data name="AdminMessageEmail" xml:space="preserve">
     <value>Email address that can be used to contact you</value>
@@ -2377,8 +2360,7 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
     <value>Please describe your issue</value>
   </data>
   <data name="AdminMessageTitle" xml:space="preserve">
-    <value>If you have problems accessing this portal or you need to enter the portal but do
-                not know how to do it, please contact the portal administrator using the form below.</value>
+    <value>If you are an existing user and have problems accessing this portal or you want to register as the portal new user, please contact the portal administrator using the form below.</value>
   </data>
   <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
     <value>Click here to join</value>
@@ -2707,6 +2689,9 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   <data name="TariffTrial" xml:space="preserve">
     <value>You are using FreeTrial Plan.</value>
   </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>You are using Free Plan.</value>
+  </data>
   <data name="TariffChooseLabel" xml:space="preserve">
     <value>Choose a plan that suits your needs best. The plan, we recommend, is highlighted below.</value>
   </data>
@@ -2727,6 +2712,9 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   </data>
   <data name="TariffButtonUpgrade" xml:space="preserve">
     <value>Change</value>
+  </data>
+  <data name="TariffButtonFree" xml:space="preserve">
+    <value>Be Free</value>
   </data>
   <data name="TariffButtonTryNow" xml:space="preserve">
     <value>Try now</value>
@@ -2918,7 +2906,7 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
     <value>Yes, add users</value>
   </data>
   <data name="ImportUserLimitReason" xml:space="preserve">
-    <value>The remaining users from the list will be added as guests. You will be able to change their roles later in the 'People' module.</value>
+    <value>Upgrade you plan or add more users as guests with view-only permissions. You will be able to change their roles later in the 'People' module.</value>
   </data>
   <data name="ImportUserLimitTitle" xml:space="preserve">
     <value>Adding users</value>
@@ -2969,7 +2957,7 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
     <value>Registration date must be later than birth date</value>
   </data>
   <data name="NotFoundLanguage" xml:space="preserve">
-    <value>In case you cannot find your language in the list of the available ones, feel free to write to us at {0}documentation@teamlab.com{1} to take part in the translation and get up to 1 year free of charge.</value>
+    <value>In case you cannot find your language in the list of the available ones, feel free to write to us at {0}documentation@onlyoffice.com{1} to take part in the translation and get up to 1 year free of charge.</value>
   </data>
   <data name="ErrorMessageLongField255" xml:space="preserve">
     <value>You can only enter up to 255 characters for this field.</value>
@@ -3056,7 +3044,7 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
     <value>Join to our Affilliate Program</value>
   </data>
   <data name="HelpJoinToAffilliate" xml:space="preserve">
-    <value>The program purpose is to legally advertise TeamLab Office to receive a commission on subscriptions purchased by referred individuals.</value>
+    <value>The program purpose is to legally advertise ONLYOFFICE™ to receive a commission on subscriptions purchased by referred individuals.</value>
   </data>
   <data name="MigrationNotAvailable" xml:space="preserve">
     <value>The {0}Portal Region Migration{1} feature is available for owners of the paid portals only.</value>
@@ -3280,20 +3268,11 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
   </data>
-  <data name="AuthActionsWithDocs" xml:space="preserve">
-    <value>Create, Co-Edit and Embed Documents Online</value>
-  </data>
-  <data name="AuthDocsGoing" xml:space="preserve">
-    <value>Docs Going</value>
-  </data>
   <data name="AuthSeeActionDocs" xml:space="preserve">
     <value>or see it in action first</value>
   </data>
   <data name="AuthSignUpDocs" xml:space="preserve">
     <value>Sign up now for free</value>
-  </data>
-  <data name="AuthWorksWith" xml:space="preserve">
-    <value>works with</value>
   </data>
   <data name="AllRightsReserved" xml:space="preserve">
     <value>All rights reserved</value>
@@ -3303,9 +3282,6 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   </data>
   <data name="AuthDocsMetaKeywords" xml:space="preserve">
     <value>edit word online, online word processor, edit document online, online spreadsheet editor, online presentation, collaborative editing</value>
-  </data>
-  <data name="AuthDocsTitle" xml:space="preserve">
-    <value>Online Workspace for Your Documents</value>
   </data>
   <data name="AuthDocEditor" xml:space="preserve">
     <value>Document{0}Editor</value>
@@ -3486,9 +3462,6 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   </data>
   <data name="TermsWarranties8" xml:space="preserve">
     <value>TeamLab Office and all its components belong to Ascensio System SIA. You undertake to respect our intellectual property rights. In particular, you shall not modify, disassemble, reverse engineer, analyze, decompile, convert or translate TeamLab Office.</value>
-  </data>
-  <data name="BannerRegistration" xml:space="preserve">
-    <value>Register in Teamlab Office</value>
   </data>
   <data name="LdapSettings" xml:space="preserve">
     <value>LDAP Settings</value>
@@ -3703,12 +3676,6 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   <data name="DownloadButton" xml:space="preserve">
     <value>Download</value>
   </data>
-  <data name="HelpAnswerUploadHttpsSettings" xml:space="preserve">
-    <value>Help</value>
-  </data>
-  <data name="UploadHttpsSettingsDesciption" xml:space="preserve">
-    <value>Введите пароль и загрузите .pfx</value>
-  </data>
   <data name="UploadHttpsSettingsTitle" xml:space="preserve">
     <value>Upload Https Certificate</value>
   </data>
@@ -3811,7 +3778,7 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
     <value>Use this option to deactivate your portal temporarily.</value>
   </data>
   <data name="RestoreTitle" xml:space="preserve">
-    <value>Restore</value>
+    <value>Data Restore</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Source</value>
@@ -3828,8 +3795,68 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
     <value>Не удается создать пользователей, получены некоректные данные</value>
   </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>Доступ к порталу ограничен</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>IP Security</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Добавить ограничение</value>
+  </data>
+  <data name="IncorrectIPAddressFormat" xml:space="preserve">
+    <value>Неверный формат IP-адреса</value>
+  </data>
+  <data name="SameIPRestrictionMsg" xml:space="preserve">
+    <value>Такое ограничение уже было применено</value>
+  </data>
   <data name="CreateReportError" xml:space="preserve">
     <value>Error while generating report</value>
+  </data>
+  <data name="BackupAutoSave" xml:space="preserve">
+    <value>Make backup automatically</value>
+  </data>
+  <data name="BackupCloud" xml:space="preserve">
+    <value>Cloud</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>The count of backup copies</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>Teamlab documents</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Make copy</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>The third-party services are not connected.{0}For connection go to the module "Documents".</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>Use this option if you want to get all data contained on the portal as file.</value>
+  </data>
+  <data name="BackupThirdStorage" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Every day</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Every month</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Every week</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>Computer file</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>Send notification about backup to users</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>Show the backup list</value>
   </data>
   <data name="SingleSignOnSettings" xml:space="preserve">
     <value>Single sign-on</value>
@@ -3848,6 +3875,12 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   </data>
   <data name="HostedNonAuthorizedVersion" xml:space="preserve">
     <value>non-authorized version</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Backup list</value>
   </data>
   <data name="SsoSettingsEmptyField" xml:space="preserve">
     <value>Empty field</value>
@@ -3906,8 +3939,42 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   <data name="SsoSettingsValidationTypeHelper" xml:space="preserve">
     <value>При использовании JWT необходимо выбрать верный тип проверки подписи токена - с помощью открытого ключа X.509 сертификата, публичного ключа  асимметричного алгоритма RSA SHA-256 или приватного ключа симметричного алгоритма HMAC SHA-256. Тип проверки зависит от того каким образом был подписан токен на стороне поставщика учётных записей. При использовании SAML для проверки подписи используется открытый ключ X.509 сертификата.</value>
   </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Integration</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>Statistic</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Portal Access</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Data Management</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Deactivation/Deletion Portal</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>{0}Data Backup{1} option is used to backup the portal data to be able to restore it later to your local server or SaaS portal. Select the storage for the data (do not forget to enter your Amazon details to be able to access it).{2}
+{0}Note:{1} you need to connect your third party account (DropBox, Box.com, OneDrive or Google Drive) to Teamlab Documents before you will be able to save your backup there.</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}IP Security{1} is used to restrict access to the portal for certain IP addresses only. You can set the restrictions using either exact IP addresses in the IPv4 format (#.#.#.#, where # is the number value from 0 to 255) or IP range (in the #.#.#.#-#.#.#.# format).</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>{0}Data Restore{1} option is used to restore your previously saved portal data (from a local server or SaaS portal). Select the storage where the data is saved, enter necessary details and check the {0}Send notification to portal users{1} to alert your portal users about the backup/restore operations.</value>
+  </data>
   <data name="SsoSettingsHelp" xml:space="preserve">
-    <value>{0}Single Sign-on{1} allows to enable or disable third party authentication using SAML/JWT. After enabling single sign-on select the {0}SSO Type{1} from the drop-down list, {0}Issuer URL{1}, {0}SSO Endpoint URL{1}, {0}SLO Endpoint URL{1} and {0}Signature Validation Type{1} (for JWT only).</value>
+    <value>{0}Single Sign-on{1} allows to enable or disable third party authentication using SAML/JWT. After enabling single sign-on select the {0}SSO Type{1} from the drop-down list, {0}Issuer URL{1}, {0}SSO Endpoint URL{1}, {0}SLO Endpoint URL{1} and {0}Signature Validation Type{1} (for JWT only). </value>
+  </data>
+  <data name="UploadHttpsHelp" xml:space="preserve">
+    <value>{0}Upload HTTPS Certificate{1} allows you to upload the server certificate for your custom domain so that the server successfully passed the authentication without any warnings. Use the {0}Upload{1} link to select the certificate .pfx file on your computer hard disk drive.</value>
   </data>
   <data name="SsoSettingsCantCreateUser" xml:space="preserve">
     <value>Не удалось создать пользователя, используя полученный аутентификационный токен</value>
@@ -3944,5 +4011,301 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   </data>
   <data name="SsoEndpointURL" xml:space="preserve">
     <value>SSO Endpoint URL</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Asia Pacific (Singapore)</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>Once the restore process is over, you'll be automatically redirected to your portal.</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>Portal restore is underway.</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>Once the migration process is over, you'll be automatically redirected to the new URL of your portal.</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>Portal migration{0} to another region is underway.</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>Доступ к порталу ограничен. Свяжитесь с администратором.</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>Show unwatched video</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Default Settings</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>Доступ к порталу ограничен.</value>
+  </data>
+  <data name="AuthDocsChromeStore" xml:space="preserve">
+    <value>Chrome Web Store Rating</value>
+  </data>
+  <data name="AuthDocsEditText" xml:space="preserve">
+    <value>Edit .DOCX, .XLSX and .PPTX.</value>
+  </data>
+  <data name="AuthDocsEmailHint" xml:space="preserve">
+    <value>Enter your E-mail</value>
+  </data>
+  <data name="AuthDocsOnlyOfficeMicrosoft" xml:space="preserve">
+    <value>The Only Office Compatible with Microsoft{0}®{1} Files.</value>
+  </data>
+  <data name="AuthDocsReadReviewsBtn" xml:space="preserve">
+    <value>Read the rest of reviews</value>
+  </data>
+  <data name="AuthDocsTitle" xml:space="preserve">
+    <value>Get Free Office{0} In The Cloud</value>
+  </data>
+  <data name="AuthDocsTryText" xml:space="preserve">
+    <value>Try Now</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>Or</value>
+  </data>
+  <data name="AuthDocsItsFree" xml:space="preserve">
+    <value>It is Free</value>
+  </data>
+  <data name="AuthDocsOr" xml:space="preserve">
+    <value>or sign in</value>
+  </data>
+  <data name="AuthDocsCheckEmail" xml:space="preserve">
+    <value>Check your email box to confirm the account.</value>
+  </data>
+  <data name="AuthDocsSendActivationEmail" xml:space="preserve">
+    <value>Sent you an activation email at </value>
+  </data>
+  <data name="AuthDocsThanksRegistration" xml:space="preserve">
+    <value>Thank you for registering your Personal ONLYOFFICE™.</value>
+  </data>
+  <data name="AuthDocsEnterViaSocial" xml:space="preserve">
+    <value>Or enter via your social networks</value>
+  </data>
+  <data name="AuthDocsForgotPswd" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="AuthDocsNotRegistered" xml:space="preserve">
+    <value>Not registered yet?</value>
+  </data>
+  <data name="AuthDocsSignUp" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="AuthDocsCreateAccount" xml:space="preserve">
+    <value>To create your account ONLYOFFICE enter your email.</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>Join</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>You've successfully confirmed your registration. Create a password and start your work! </value>
+  </data>
+  <data name="ChooseRegion" xml:space="preserve">
+    <value>Choose Region</value>
+  </data>
+  <data name="VoipPackageSateMsg" xml:space="preserve">
+    <value>Voip Package: {0}/{1}</value>
+  </data>
+  <data name="VoipBuyHelperMsg" xml:space="preserve">
+    <value>Не допускайте нулевого баланса, чтобы всегда иметь возможность совершать и принимать звонки.</value>
+  </data>
+  <data name="VoipBuyMsg" xml:space="preserve">
+    <value>Buy voip-package</value>
+  </data>
+  <data name="VoipPackageMsg" xml:space="preserve">
+    <value>voip-package for {0}</value>
+  </data>
+  <data name="NewEmail" xml:space="preserve">
+    <value>New Email</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>Remove Comment</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Ответить</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Браузер</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Позвонить</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>Разговор закончен</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Идет соединение</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Идет звонок</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Входящий</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Идет загрузка, пожалуйста подождите</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>Пропущенных звонков нет</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>Больше никого нет, отвечай сам!</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>Перевести</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Отклонить</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>К сожалению, сервис временно недоступен. Попробуйте позже.</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{1}Public Portal{2} is a free option that allows anyone to view your public contents without registration. No private projects are available and the Crm module is disabled for such portals.{0}Registration to public portals is not limited in number of users, new users are added upon the request to the portal administrator. Use the {1}Register new users Immediately{2} option to remove any registration confirmation necessity.</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>Public portal</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>Private portal</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>Portal Access Settings</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>See all</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE™ is a cloud office that enables you to manage documents, projects, team and customer relations in one place.</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>online document editor, project management tool, business tools, crm system, gantt chart, online collaboration, cloud office, online word, documents management, online spreadsheets, online office, collaborative editing, online office application, online docs</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>Limit exceeded ({0} Mb disc space)</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>This feature enabled on free tariff only</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>Limit exceeded ({0} active users)</value>
+  </data>
+  <data name="AuthDocsChromebook" xml:space="preserve">
+    <value>on your {0}Chromebook{1}.</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>No backups have been created yet. Create one or more backups for them to appear in this list.</value>
+  </data>
+  <data name="AuthDocsTitlePage" xml:space="preserve">
+    <value>Get Free Office In The Cloud</value>
+  </data>
+  <data name="ImportUserOpenPortalLimitReason" xml:space="preserve">
+    <value>Upgrade you plan or add more users as guests with view-only permissions. You will be able to change their roles later in the 'People' module or {0}Read about non-profit usage{1}</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>User Forum</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>Register new users immediately</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>You need to connect your third party account (DropBox, Box.com, OneDrive or Google Drive) to ONLYOFFICE Documents before you will be able to save your backup there.</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>There is no unread mail. Please go to the Mail to read all your messages.</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>Temporary</value>
+  </data>
+  <data name="OnlineEditorsSettings" xml:space="preserve">
+    <value>Online Editors</value>
+  </data>
+  <data name="OnlineEditorsSettingsInfo" xml:space="preserve">
+    <value>The new version of {1}Online Editors{2} contain a lot of changes compared to the previous version. The editors are currently at {1}BETA{1} stage and can be recommended for preview only. {0}Please do not use it if you have important documents on your portals critical to loss of data. We are not liable for all the risks of using beta versions.</value>
+  </data>
+  <data name="OnlineEditors25" xml:space="preserve">
+    <value>Current 2.5 version</value>
+  </data>
+  <data name="OnlineEditors30" xml:space="preserve">
+    <value>New 3.0 beta version</value>
+  </data>
+  <data name="OnlineEditorsSwitch" xml:space="preserve">
+    <value>Select version</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>Download the backup</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>The portal will become unavailable during the restore process. After the restore is complete all the changes made after the date of the selected restore point will be lost.</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="StartUpWaitText" xml:space="preserve">
+    <value>The creation process might take some time, please wait...</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>Migration</value>
+  </data>
+  <data name="FilesBannerBtnCancel" xml:space="preserve">
+    <value>I will wait till the version is stable</value>
+  </data>
+  <data name="FilesBannerBtnOk" xml:space="preserve">
+    <value>Awesome! I want to be among beta-testers</value>
+  </data>
+  <data name="FilesBannerGoodNews" xml:space="preserve">
+    <value>Good News!</value>
+  </data>
+  <data name="FilesBannerHeader1" xml:space="preserve">
+    <value>We have released a beta version of new ONLYOFFICE. </value>
+  </data>
+  <data name="FilesBannerHeader2" xml:space="preserve">
+    <value>What to expect:</value>
+  </data>
+  <data name="FilesBannerItem1" xml:space="preserve">
+    <value>Modern flat UI design</value>
+  </data>
+  <data name="FilesBannerItem2" xml:space="preserve">
+    <value>Document autosave</value>
+  </data>
+  <data name="FilesBannerItem3" xml:space="preserve">
+    <value>3X speed-up</value>
+  </data>
+  <data name="FilesBannerItem4" xml:space="preserve">
+    <value>Workbook search and replace</value>
+  </data>
+  <data name="FilesBannerItemMore" xml:space="preserve">
+    <value>...and even more!</value>
+  </data>
+  <data name="FilesBannerNote" xml:space="preserve">
+    <value>if you change your mind later, just switch the version in Portal Settings (upper right corner)</value>
+  </data>
+  <data name="FilesBannerNotePersonal" xml:space="preserve">
+    <value>If you change your mind later just open the menu in the upper right corner and switch the version.</value>
+  </data>
+  <data name="FilesBannerText" xml:space="preserve">
+    <value>You can try the new version before it's officially released! How does it feel?</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Включение и отключение всплывающих подсказок</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>Для вашего удобства при оплате в рублях расчет происходит по фиксированному курсу {0} рублей за 1 доллар.</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>Make backup with mail</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>If you delete any items from the list, their corresponding files will also be
+deleted. This action cannot be undone. To delete all the files use the link: {0}
+Clear the list{1}.</value>
   </data>
 </root>

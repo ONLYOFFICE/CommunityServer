@@ -12,7 +12,7 @@
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="TopContent" runat="server">
-    <asp:ScriptManager runat="server" EnableScriptGlobalization="True" EnableScriptLocalization="True" EnableCdn="True" />
+    <asp:ScriptManager runat="server" EnableScriptGlobalization="True" EnableScriptLocalization="True" />
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">

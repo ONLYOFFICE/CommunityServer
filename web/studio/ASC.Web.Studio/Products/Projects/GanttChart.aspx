@@ -25,7 +25,6 @@
             </li>
         </ul>
         <div id="createNewButton" class="studio-action-panel">
-            <div class="corner-top left"></div>
             <ul class="dropdown-content">
                 <li><a id="createNewMilestone" class="dropdown-item" href="javascript:void(0)"><%= MilestoneResource.Milestone %></a></li>
                 <li><a id="createNewTask" class="dropdown-item" href="javascript:void(0)"><%= TaskResource.Task%></a></li>
@@ -78,8 +77,10 @@
     </div>
 
     <div id="ganttHelpPanel" class="studio-action-panel gantt-legend gantt-context-menu">
-        <div class="corner-top right"></div>
+         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+             { %>
         <a class="link underline blue to-full-help" href="<%= CommonLinkUtility.GetHelpLink() + "projects.aspx" %>" target="_blank"><%=ProjectResource.GanttSeeFullGuide %></a>
+         <% } %>
         <div class="header-base middle"><%=ProjectResource.GanttLegend %>:</div>
         <i class="gray-text"><%=ProjectResource.GanttLegendSimbDesc %></i>
         <div class="clearFix">
@@ -300,7 +301,6 @@
     </div>
 
     <div id="statusListContainer" class="studio-action-panel gantt-context-menu">
-        <div class="corner-top left"></div>
         <ul id="statusList" class="dropdown-content">
             <li class="open dropdown-item"><%= TaskResource.Open%></li>
             <li class="closed dropdown-item"><%= TaskResource.Closed%></li>
@@ -310,7 +310,6 @@
     <!--Context Menus -->
 
     <div id="taskContextMenu" class="studio-action-panel gantt-context-menu">
-        <div class="corner-top left"></div>
         <ul class="dropdown-content">
             <li class="edit dropdown-item"><%= ProjectResource.GanttEditTitle%></li>
             <li class="delete dropdown-item"><%= ProjectsCommonResource.Delete%></li>
@@ -321,7 +320,6 @@
     </div>
 
     <div id="milestoneContextMenu" class="studio-action-panel gantt-context-menu">
-        <div class="corner-top left"></div>
         <ul class="dropdown-content">
             <li class="edit dropdown-item"><%= ProjectResource.GanttEditTitle%></li>
             <li class="delete dropdown-item"><%= ProjectsCommonResource.Delete%></li>
@@ -333,7 +331,6 @@
     </div>
 
     <div id="responsiblesContainer" class="studio-action-panel gantt-context-menu">
-        <div class="corner-top left"></div>
         <ul class="dropdown-content">
 
         </ul>

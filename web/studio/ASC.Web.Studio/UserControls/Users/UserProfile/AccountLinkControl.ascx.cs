@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -33,6 +33,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.MessagingSystem;
 using ASC.Thrdparty;
 using ASC.Thrdparty.Configuration;
@@ -58,8 +59,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             get
             {
                 return
-                    !string.IsNullOrEmpty(KeyStorage.Get("googleConsumerKey"))
-                    || !string.IsNullOrEmpty(KeyStorage.Get("facebookAppID"))
+                    !string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId)
+                    || !string.IsNullOrEmpty(FacebookLoginProvider.FacebookOAuth20ClientId)
                     || !string.IsNullOrEmpty(KeyStorage.Get("twitterKey"))
                     || !string.IsNullOrEmpty(KeyStorage.Get("linkedInKey"));
             }
@@ -96,10 +97,10 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
             var fromOnly = string.IsNullOrWhiteSpace(HttpContext.Current.Request["fromonly"]) ? string.Empty : HttpContext.Current.Request["fromonly"].ToLower();
 
-            if (!string.IsNullOrEmpty(KeyStorage.Get("googleClientId")) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "google" || fromOnly == "openid"))
+            if (!string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "google" || fromOnly == "openid"))
                 AddProvider(ProviderConstants.Google, linkedAccounts);
 
-            if (!string.IsNullOrEmpty(KeyStorage.Get("facebookAppID")) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "facebook"))
+            if (!string.IsNullOrEmpty(FacebookLoginProvider.FacebookOAuth20ClientId) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "facebook"))
                 AddProvider(ProviderConstants.Facebook, linkedAccounts);
 
             if (!string.IsNullOrEmpty(KeyStorage.Get("twitterKey")) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "twitter"))
@@ -117,7 +118,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
                     Provider = provider,
                     Url = VirtualPathUtility.ToAbsolute("~/login.ashx")
                           + "?auth=" + provider
-                          + (SettingsView || InviteView || !MobileDetector.IsMobile || provider == ProviderConstants.Google
+                          + (SettingsView || InviteView || !MobileDetector.IsMobile
                                  ? ("&mode=popup&callback=" + ClientCallback)
                                  : ("&mode=Redirect&returnurl=" + HttpUtility.UrlEncode(new Uri(Request.GetUrlRewriter(), "auth.aspx").ToString())))
                 });
@@ -128,9 +129,20 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         {
             //Link it
             var profile = new LoginProfile(serializedProfile);
-            GetLinker().AddLink(SecurityContext.CurrentAccount.ID.ToString(), profile);
-            MessageService.Send(HttpContext.Current.Request, MessageAction.UserLinkedSocialAccount, GetMeaningfulProviderName(profile.Provider));
-            
+
+            if (string.IsNullOrEmpty(profile.AuthorizationError))
+            {
+                GetLinker().AddLink(SecurityContext.CurrentAccount.ID.ToString(), profile);
+                MessageService.Send(HttpContext.Current.Request, MessageAction.UserLinkedSocialAccount, GetMeaningfulProviderName(profile.Provider));
+            }
+            else
+            {
+                // ignore cancellation
+                if (profile.AuthorizationError != "Canceled at provider")
+                {
+                    throw new Exception(profile.AuthorizationError);
+                }
+            }
             return RenderControlHtml();
         }
 

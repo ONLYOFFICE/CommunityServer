@@ -1,33 +1,35 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Web;
 using ASC.Common.Utils;
@@ -54,7 +56,8 @@ namespace ASC.Web.Files.Services.DocumentService
         public enum TrackMethod
         {
             Info,
-            Drop
+            Drop,
+            Saved,
         }
 
         public enum TrackerStatus
@@ -154,33 +157,69 @@ namespace ASC.Web.Files.Services.DocumentService
 
                 case TrackerStatus.MustSave:
                 case TrackerStatus.Corrupted:
-                    if (fileData.Users != null && fileData.Users.Count > 0)
-                    {
-                        Guid.TryParse(fileData.Users[0], out userId);
-                    }
+                    var comments = new List<string>();
+                    if (fileData.Status == TrackerStatus.Corrupted)
+                        comments.Add(FilesCommonResource.ErrorMassage_SaveCorrupted);
 
-                    SecurityContext.AuthenticateMe(userId);
+                    if (fileData.Users == null || fileData.Users.Count == 0 || !Guid.TryParse(fileData.Users[0], out userId))
+                    {
+                        userId = FileTracker.GetEditingBy(fileId).FirstOrDefault();
+                    }
 
                     try
                     {
-                        var file = EntryManager.SaveEditing(fileId, -1, userId, fileData.Url, isNew, string.Empty,
-                                                            fileData.Status == TrackerStatus.Corrupted ? FilesCommonResource.ErrorMassage_SaveCorrupted : String.Empty,
-                                                            false);
-                        var user = CoreContext.UserManager.GetUsers(userId);
-                        if (file != null && user != null)
-                        {
-                            FilesMessageService.Send(file, MessageInitiator.DocsService, MessageAction.UserFileUpdated, user.DisplayUserName(false), file.Title);
-                        }
+                        SecurityContext.AuthenticateMe(userId);
                     }
                     catch (Exception ex)
                     {
-                        Global.Logger.Error(string.Format("DocService save error. File id: '{0}'. UserId: {1}. DocKey '{2}'. DownloadUri: {3}", fileId, userId, fileData.Key, fileData.Url), ex);
+                        Global.Logger.Warn("DocService save error: anonymous author", ex);
+                        comments.Add(FilesCommonResource.ErrorMassage_SaveAnonymous);
+                    }
 
-                        StoringFileAfterError(fileId, userId.ToString(), fileData.Url);
+                    File file = null;
+
+                    if (string.IsNullOrEmpty(fileData.Url))
+                    {
+                        try
+                        {
+                            comments.Add(FilesCommonResource.ErrorMassage_SaveUrlLost);
+
+                            file = EntryManager.CompleteVersionFile(fileId, 0, false, false);
+
+                            using (var fileDao = Global.DaoFactory.GetFileDao())
+                            {
+                                fileDao.UpdateComment(file.ID, file.Version, string.Join("; ", comments));
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Global.Logger.Error(string.Format("DocService save error. Version update. File id: '{0}'. UserId: {1}. DocKey '{2}'", fileId, userId, fileData.Key), ex);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            file = EntryManager.SaveEditing(fileId, -1, userId, fileData.Url, isNew, string.Empty, string.Join("; ", comments), false);
+                        }
+                        catch (Exception ex)
+                        {
+                            Global.Logger.Error(string.Format("DocService save error. File id: '{0}'. UserId: {1}. DocKey '{2}'. DownloadUri: {3}", fileId, userId, fileData.Key, fileData.Url), ex);
+
+                            StoringFileAfterError(fileId, userId.ToString(), fileData.Url);
+                        }
+                    }
+
+                    if (file != null)
+                    {
+                        var user = CoreContext.UserManager.GetUsers(userId);
+                        if (user != null)
+                            FilesMessageService.Send(file, MessageInitiator.DocsService, MessageAction.UserFileUpdated, user.DisplayUserName(false), file.Title);
                     }
 
                     FileTracker.Remove(fileId);
 
+                    Command(TrackMethod.Saved, fileData.Key, fileId, null, userId.ToString(), file == null ? "0" : "1");
                     break;
             }
         }
@@ -190,12 +229,12 @@ namespace ASC.Web.Files.Services.DocumentService
             return Command(TrackMethod.Drop, docKeyForTrack, fileId, null, userId);
         }
 
-        private static bool Command(TrackMethod method, string docKeyForTrack, string fileId = null, string callbackUrl = null, string userId = null)
+        private static bool Command(TrackMethod method, string docKeyForTrack, string fileId = null, string callbackUrl = null, string userId = null, string status = null)
         {
-            Global.Logger.DebugFormat("DocService command {0} fileId '{1}' docKey '{2}'", method, fileId, docKeyForTrack);
+            Global.Logger.DebugFormat("DocService command {0} fileId '{1}' docKey '{2}' callbackUrl '{3}' userId '{4}' status '{5}'", method, fileId, docKeyForTrack, callbackUrl, userId, status);
             try
             {
-                var response = DocumentServiceConnector.CommandRequest(method.ToString().ToLower(), docKeyForTrack, callbackUrl, userId);
+                var response = DocumentServiceConnector.CommandRequest(method.ToString().ToLower(CultureInfo.InvariantCulture), docKeyForTrack, callbackUrl, userId, status);
                 Global.Logger.DebugFormat("DocService command response: '{0}'", response);
 
                 var jResponse = JObject.Parse(response);
@@ -216,9 +255,9 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 var fileName = fileId + FileUtility.GetFileExtension(downloadUri);
                 var path = string.Format(@"save_crash\{0}\{1}_{2}",
-                                         DateTime.UtcNow.ToString("yyyy_MM_dd"),
-                                         userId,
-                                         fileName);
+                    DateTime.UtcNow.ToString("yyyy_MM_dd"),
+                    userId,
+                    fileName);
 
                 var store = Global.GetStore();
                 var req = (HttpWebRequest)WebRequest.Create(downloadUri);

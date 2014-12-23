@@ -786,4 +786,10 @@
   <data name="GanttUndoNote" xml:space="preserve">
     <value>The undo list will also be cleared and you will not be able to undo all the previous actions.</value>
   </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Add project manager</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>manage (create, edit, delete) milestones, tasks, discussions, documents</value>
+  </data>
 </root>

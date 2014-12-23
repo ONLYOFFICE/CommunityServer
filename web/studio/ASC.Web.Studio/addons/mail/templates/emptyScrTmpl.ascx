@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" %>
-<%@ Import Namespace="ASC.Web.Mail.Resources" %>
+<%@ Assembly Name="ASC.Web.Mail" %>
 
 <%-- Empty screen control --%>
 <script id="emptyScrTmpl" type="text/x-jquery-tmpl">

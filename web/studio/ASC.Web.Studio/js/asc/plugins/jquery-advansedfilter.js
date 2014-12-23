@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 (function ($, win, doc, body) {
     var
       defaultAnykeyTimeout = 500,
@@ -400,7 +396,6 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
           itemvaluesInd = 0, itemvaluesLen = 0;
 
         colcount = opts && typeof opts === 'object' && opts.hasOwnProperty('colcount') && isFinite(+opts.colcount) ? +opts.colcount : colcount;
-        html.push('<li class="item-list-top ' + type + '-list-top"></li>');
         for (itemgroupsInd = 0, itemgroupsLen = itemgroups.length; itemgroupsInd < itemgroupsLen; itemgroupsInd++) {
             if (type === 'filter' && colcount > 1) {
                 if (itemgroupsInd < colcount) {
@@ -1232,7 +1227,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
           $filter = null;
 
         $filteritems.filter('[data-id="' + filterid + '"]').removeClass('hidden-item');
-        updateFiltersList($container.find('ul.filter-list:first li').not('li.item-list-top'));
+        updateFiltersList($container.find('ul.filter-list:first li'));
     }
 
     function hideUserFilterByOption($container, filterid, nonetrigger) {
@@ -1242,7 +1237,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
           $filter = null;
 
         $filteritems.filter('[data-id="' + filterid + '"]').addClass('hidden-item');
-        updateFiltersList($container.find('ul.filter-list:first li').not('li.item-list-top'));
+        updateFiltersList($container.find('ul.filter-list:first li'));
 
         if (($filter = $selectedfilters.filter('[data-id="' + filterid + '"]')).length > 0) {
             removeUserFilterByObject($container, $filter, nonetrigger);
@@ -1257,7 +1252,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
           $filter = null;
 
         $filteritems.filter('[data-id="' + filterid + '"]').removeClass('disabled-item');
-        updateFiltersList($container.find('ul.filter-list:first li').not('li.item-list-top'));
+        updateFiltersList($container.find('ul.filter-list:first li'));
     }
 
     function disableUserFilterByOption($container, filterid, nonetrigger) {
@@ -1267,7 +1262,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
           $filter = null;
 
         $filteritems.filter('[data-id="' + filterid + '"]').addClass('disabled-item');
-        updateFiltersList($container.find('ul.filter-list:first li').not('li.item-list-top'));
+        updateFiltersList($container.find('ul.filter-list:first li'));
 
         if (($filter = $selectedfilters.filter('[data-id="' + filterid + '"]')).length > 0) {
             removeUserFilterByObject($container, $filter, nonetrigger);
@@ -1663,11 +1658,10 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         if ($container.width() - $filteritem[0].offsetLeft - $filteritem.parent()[0].offsetLeft - $filteritem.width() < $control.width()) {
             var
               offset = $control.width() - ($container.width() - $filteritem[0].offsetLeft - $filteritem.parent()[0].offsetLeft - $filteritem.width()) + 40,
-              offsetcontroltop = $control.find('div.control-top:first')[0].offsetLeft || 0,
+              offsetcontroltop = 0,
               margincontainer = parseFloat($control.css('margin-left'));
 
-            $control.removeClass('reset-position').css('margin-left', -offset + 'px')
-              .find('div.control-top:first').css('left', offsetcontroltop + offset - (isFinite(margincontainer) ? Math.abs(margincontainer) : 0) + 'px');
+            $control.removeClass('reset-position').css('margin-left', -offset + 'px');
         }
     }
 
@@ -1711,14 +1705,14 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             timeout = isFinite(+timeout) ? +timeout : defaultAnykeyTimeout;
             if (timeout > 0) {
                 filterInputKeyupTimeout = timeout;
-                $container.find('input.advansed-filter-input:first').unbind('keyup', onFilterInputKeyupHelper).bind('keyup', onFilterInputKeyupHelper);
+                $container.find('input.advansed-filter-input:first').unbind('keyup paste', onFilterInputKeyupHelper).bind('keyup paste', onFilterInputKeyupHelper);
             } else {
-                $container.find('input.advansed-filter-input:first').unbind('keyup', onFilterInputKeyup).bind('keyup', onFilterInputKeyup);
+                $container.find('input.advansed-filter-input:first').unbind('keyup paste', onFilterInputKeyup).bind('keyup paste', onFilterInputKeyup);
             }
         } else {
-            $container.find('input.advansed-filter-input:first').unbind('keyup', onFilterInputEnter).bind('keyup', onFilterInputEnter);
+            $container.find('input.advansed-filter-input:first').unbind('keyup paste', onFilterInputEnter).bind('keyup paste', onFilterInputEnter);
         }
-        $container.find('input.advansed-filter-input:first').unbind('keyup', onKeyUp).bind('keyup', onKeyUp);
+        $container.find('input.advansed-filter-input:first').unbind('keyup paste', onKeyUp).bind('keyup paste', onKeyUp);
 
         $container.find('.btn-start-filter:first').unbind('click', onStartFilter).bind('click', onStartFilter);
         $container.find('label.btn-reset-filter:first').unbind('click', onResetFilter).bind('click', onResetFilter);
@@ -2569,7 +2563,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         opts.colcount = opts.hasOwnProperty('colcount') && isFinite(+opts.colcount) ? +opts.colcount : colcount;
         opts.colcount = opts.colcount > 4 ? 4 : opts.colcount;
 
-        if (!opts.hintDefaultDisable) {
+        if (!opts.hintDefaultDisable && ASC.Resources.Master.FilterHelpCenterLink) {
         opts.hint = opts.hasOwnProperty('hint') ? opts.hint : ASC.Resources.Master.Resource.AdvansedFilterInfoText.format(
                                 '<b>',
                                 '</b>',

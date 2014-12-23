@@ -37,12 +37,12 @@
                     </div>
                 </div>
                 <div class="big-button-container">
-                    <a class="button blue big" href="javascript:ForumMakerProvider.SaveThreadCategory();">
+                    <a id="createThreadCategoryBth" class="button blue big" onclick="ForumMakerProvider.SaveThreadCategory();">
                         <%=ASC.Web.Community.Forum.Resources.ForumResource.CreateButton%>
                     </a>
                     <span class="splitter-buttons"></span>
-                    <a class="button gray big" onclick="javascript:ForumManager.BlockButtons(); ForumManager.CancelForum('<%=""%>')" href="#">
-                            <%=ASC.Web.Community.Forum.Resources.ForumResource.CancelButton%>
+                    <a class="button gray big" onclick="ForumManager.BlockButtons(); ForumManager.CancelForum('<%=""%>')">
+                        <%=ASC.Web.Community.Forum.Resources.ForumResource.CancelButton%>
                     </a>
                 </div>                
             </div>

@@ -1,10 +1,8 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" CodeBehind="confirm.aspx.cs" Inherits="ASC.Web.Studio.Confirm" Title="ONLYOFFICE™" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="True" EnableScriptLocalization="True"></asp:ScriptManager>
-
     <asp:PlaceHolder runat="server" ID="_contentWithControl">
-        <div class="confirm-block-page">
+        <div class="confirm-block-page <%= isPersonal ? "confirm-personal" : "" %>">
             <div class="confirm-block-cnt">
                 <div class="confirm-block-header">
                     <a href="auth.aspx">

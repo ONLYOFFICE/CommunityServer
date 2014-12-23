@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -111,7 +111,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             }
 
             MoveOrCopyFolders(Folders, toFolder, _copy);
-            MoveOrCopyFiles(Files, toFolder, _copy, _resolveType);
+            MoveOrCopyFiles(Files, toFolder, _copy);
 
             _needToMarkAsNew.Distinct().ToList().ForEach(x => FileMarker.MarkAsNew(x, _markAsNewRecipientIDs));
         }
@@ -136,7 +136,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 {
                     Error = FilesCommonResource.ErrorMassage_SecurityException_ReadFolder;
                 }
-                else if (!Equals((folder.ParentFolderID ?? string.Empty).ToString(), toFolderId.ToString()))
+                else if (!Equals((folder.ParentFolderID ?? string.Empty).ToString(), toFolderId.ToString()) || _resolveType == FileConflictResolveType.Duplicate)
                 {
                     try
                     {
@@ -161,12 +161,16 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 if (isToFolder)
                                     _needToMarkAsNew.Add(newFolder);
 
-                                ProcessedFolder(folderId);
+                                if (ProcessedFolder(folderId))
+                                {
+                                    Status += string.Format("folder_{0}{1}", newFolder.ID, SplitCharacter);
+                                    ResultedFolder(newFolder.ID);
+                                }
                             }
 
                             if (FolderDao.UseRecursiveOperation(folder.ID, toFolderId))
                             {
-                                MoveOrCopyFiles(FolderDao.GetFiles(folder.ID, false), newFolder, copy, _resolveType);
+                                MoveOrCopyFiles(FolderDao.GetFiles(folder.ID, false), newFolder, copy);
                                 MoveOrCopyFolders(FolderDao.GetFolders(folder.ID).Select(f => f.ID).ToList(), newFolder, copy);
 
                                 if (!copy)
@@ -174,7 +178,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     if (FolderDao.GetItemsCount(folder.ID, true) == 0 && FilesSecurity.CanDelete(folder))
                                     {
                                         FolderDao.DeleteFolder(folder.ID);
-                                        ProcessedFolder(folderId);
+                                        if (ProcessedFolder(folderId))
+                                        {
+                                            Status += string.Format("folder_{0}{1}", newFolder.ID, SplitCharacter);
+                                            ResultedFolder(newFolder.ID);
+                                        }
                                     }
                                 }
                             }
@@ -182,9 +190,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                             {
                                 if (conflictFolder != null)
                                 {
+                                    object newFolderId;
                                     if (copy)
                                     {
                                         newFolder = FolderDao.CopyFolder(folder.ID, toFolderId);
+                                        newFolderId = newFolder.ID;
                                         FilesMessageService.Send(folder, toFolder, httpRequestHeaders, MessageAction.FolderCopiedWithOverwriting, folder.Title, toFolder.Title);
 
                                         if (isToFolder)
@@ -192,14 +202,18 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     }
                                     else
                                     {
-                                        FolderDao.MoveFolder(folder.ID, toFolderId);
+                                        newFolderId = FolderDao.MoveFolder(folder.ID, toFolderId);
                                         FilesMessageService.Send(folder, toFolder, httpRequestHeaders, MessageAction.FolderMovedWithOverwriting, folder.Title, toFolder.Title);
 
                                         if (isToFolder)
-                                            _needToMarkAsNew.Add(FolderDao.GetFolder(folder.ID));
+                                            _needToMarkAsNew.Add(FolderDao.GetFolder(newFolderId));
                                     }
 
-                                    ProcessedFolder(folderId);
+                                    if (ProcessedFolder(folderId))
+                                    {
+                                        Status += string.Format("folder_{0}{1}", newFolderId, SplitCharacter);
+                                        ResultedFolder(newFolderId);
+                                    }
                                 }
                             }
                         }
@@ -209,13 +223,17 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                             {
                                 FileMarker.RemoveMarkAsNewForAll(folder);
 
-                                FolderDao.MoveFolder(folder.ID, toFolderId);
+                                var newFolderId = FolderDao.MoveFolder(folder.ID, toFolderId);
                                 FilesMessageService.Send(folder, toFolder, httpRequestHeaders, MessageAction.FolderMoved, folder.Title, toFolder.Title);
 
                                 if (isToFolder)
-                                    _needToMarkAsNew.Add(FolderDao.GetFolder(folder.ID));
+                                    _needToMarkAsNew.Add(FolderDao.GetFolder(newFolderId));
 
-                                ProcessedFolder(folderId);
+                                if (ProcessedFolder(folderId))
+                                {
+                                    Status += string.Format("folder_{0}{1}", newFolderId, SplitCharacter);
+                                    ResultedFolder(newFolderId);
+                                }
                             }
                             else
                             {
@@ -234,7 +252,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             }
         }
 
-        private void MoveOrCopyFiles(ICollection fileIds, Folder toFolder, bool copy, FileConflictResolveType resolveType)
+        private void MoveOrCopyFiles(ICollection fileIds, Folder toFolder, bool copy)
         {
             if (fileIds.Count == 0) return;
 
@@ -257,12 +275,14 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 {
                     Error = FilesCommonResource.ErrorMassage_NotSupportedFormat;
                 }
-                else if (!Equals(file.FolderID.ToString(), toFolderId))
+                else if (!Equals(file.FolderID.ToString(), toFolderId.ToString()) || _resolveType == FileConflictResolveType.Duplicate)
                 {
                     var parentFolder = FolderDao.GetFolder(file.FolderID);
                     try
                     {
-                        var conflict = FileDao.GetFile(toFolderId, file.Title);
+                        var conflict = _resolveType == FileConflictResolveType.Duplicate
+                                           ? null
+                                           : FileDao.GetFile(toFolderId, file.Title);
                         if (conflict != null && !FilesSecurity.CanEdit(conflict))
                         {
                             Error = FilesCommonResource.ErrorMassage_SecurityException;
@@ -286,7 +306,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                         _needToMarkAsNew.Add(newFile);
                                     }
 
-                                    ProcessedFile(fileId);
+                                    if (ProcessedFile(fileId))
+                                    {
+                                        Status += string.Format("file_{0}{1}", newFile.ID, SplitCharacter);
+                                        ResultedFile(newFile.ID);
+                                    }
                                 }
                                 catch
                                 {
@@ -300,7 +324,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 {
                                     Error = FilesCommonResource.ErrorMassage_LockedFile;
                                 }
-                                else if ((file.FileStatus & FileStatus.IsEditing) == FileStatus.IsEditing)
+                                else if (FileTracker.IsEditing(file.ID))
                                 {
                                     Error = FilesCommonResource.ErrorMassage_SecurityException_UpdateEditingFile;
                                 }
@@ -316,7 +340,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                         _needToMarkAsNew.Add(FileDao.GetFile(newFileId));
                                     }
 
-                                    ProcessedFile(fileId);
+                                    if (ProcessedFile(fileId))
+                                    {
+                                        Status += string.Format("file_{0}{1}", newFileId, SplitCharacter);
+                                        ResultedFile(newFileId);
+                                    }
                                 }
                                 else
                                 {
@@ -326,13 +354,13 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                         }
                         else
                         {
-                            if (resolveType == FileConflictResolveType.Overwrite)
+                            if (_resolveType == FileConflictResolveType.Overwrite)
                             {
                                 if (EntryManager.FileLockedForMe(conflict.ID))
                                 {
                                     Error = FilesCommonResource.ErrorMassage_LockedFile;
                                 }
-                                else if ((conflict.FileStatus & FileStatus.IsEditing) == FileStatus.IsEditing)
+                                else if (FileTracker.IsEditing(conflict.ID))
                                 {
                                     Error = FilesCommonResource.ErrorMassage_SecurityException_UpdateEditingFile;
                                 }
@@ -351,7 +379,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     if (copy)
                                     {
                                         FilesMessageService.Send(file, toFolder, httpRequestHeaders, MessageAction.FileCopiedWithOverwriting, file.Title, parentFolder.Title, toFolder.Title);
-                                        ProcessedFile(fileId);
+                                        if (ProcessedFile(fileId))
+                                        {
+                                            Status += string.Format("file_{0}{1}", conflict.ID, SplitCharacter);
+                                            ResultedFile(conflict.ID);
+                                        }
                                     }
                                     else
                                     {
@@ -359,7 +391,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                         {
                                             Error = FilesCommonResource.ErrorMassage_LockedFile;
                                         }
-                                        else if ((file.FileStatus & FileStatus.IsEditing) == FileStatus.IsEditing)
+                                        else if (FileTracker.IsEditing(file.ID))
                                         {
                                             Error = FilesCommonResource.ErrorMassage_SecurityException_UpdateEditingFile;
                                         }
@@ -369,8 +401,12 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                             FileDao.DeleteFolder(file.ID);
 
                                             FilesMessageService.Send(file, toFolder, httpRequestHeaders, MessageAction.FileMovedWithOverwriting, file.Title, parentFolder.Title, toFolder.Title);
-                                            
-                                            ProcessedFile(fileId);
+
+                                            if (ProcessedFile(fileId))
+                                            {
+                                                Status += string.Format("file_{0}{1}", conflict.ID, SplitCharacter);
+                                                ResultedFile(conflict.ID);
+                                            }
                                         }
                                         else
                                         {
@@ -379,7 +415,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     }
                                 }
                             }
-                            else if (resolveType == FileConflictResolveType.Skip)
+                            else if (_resolveType == FileConflictResolveType.Skip)
                             {
                                 //nothing
                             }

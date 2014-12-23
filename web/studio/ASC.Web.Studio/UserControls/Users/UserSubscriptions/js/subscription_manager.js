@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 var CommonSubscriptionManager = new function() {
     this.currentModuleSubsTab;
     this.currentModuleSubsSubtabContents;
@@ -60,13 +56,7 @@ var CommonSubscriptionManager = new function() {
     };
 
     this.SubscribeToWhatsNew = function() {
-        AjaxPro.onLoading = function(b) {
-            if (b) {
-                jq.blockUI();
-            } else {
-                jq.unblockUI();
-            }
-        };
+
         AjaxPro.SubscriptionManager.SubscribeToWhatsNew(function(result) {
             var res = result.value;
             if (res.rs1 == '1') {
@@ -78,13 +68,6 @@ var CommonSubscriptionManager = new function() {
     };
 
     this.SubscribeToAdminNotify = function() {
-        AjaxPro.onLoading = function(b) {
-            if (b) {
-                jq.blockUI();
-            } else {
-                jq.unblockUI();
-            }
-        };
         AjaxPro.SubscriptionManager.SubscribeToAdminNotify(function(result) {
             var res = result.value;
             if (res.rs1 == '1') {
@@ -95,16 +78,32 @@ var CommonSubscriptionManager = new function() {
         });
     };
 
+    var UpdateTypeSubscriptionCallback = function(result) {
+        var res = result.value;
+        if (res.Status == 1) {
+            var but = jq('#studio_subscribeType_' + res.Data.Id + '_' + res.SubItemId + '_' + res.SubscriptionTypeID).find("a.on_off_button");
+            if (but.hasClass("on")) {
+                but.removeClass("on").addClass("off");
+            } else {
+                but.removeClass("off").addClass("on");
+            }
+        } 
+    };
+
     var UpdateProductSubscriptionCallback = function(result) {
         var res = result.value;
         if (res.Status == 1) {
+            if (jq('#content_product_subscribeBox_' + res.Data.Id).find(".subs-subtab").length) {
+                jq(".subs-tabs .subs-module.active").removeClass("active");
+                jq(".subs-subtab .module.active").removeClass("active");
+                jq("[id^='studio_subscriptions_" + res.Data.Id + "']").remove();
+                CommonSubscriptionManager.ClickProductTag(res.Data.Id);
+                return;
+            }
+            
             jq('#content_product_subscribeBox_' + res.Data.Id).replaceWith(jq('#contentSubscriptionsTemplate').tmpl({ Items: [res.Data] }));
             var subscribeBox = jq('#content_product_subscribeBox_' + res.Data.Id);
             subscribeBox.addClass("active");
-            if (subscribeBox.find(".subs-subtab").length) {
-                subscribeBox.find("#" + CommonSubscriptionManager.currentModuleSubsTab).addClass("active");
-                subscribeBox.find("#" + CommonSubscriptionManager.currentModuleSubsSubtabContents).addClass("active");
-            }
             CommonSubscriptionManager.InitNotifyByComboboxes();
             CommonSubscriptionManager.InitListTabsComboboxes();
         } else {
@@ -125,71 +124,43 @@ var CommonSubscriptionManager = new function() {
         if (!confirm(mes))
             return;
 
-        AjaxPro.onLoading = function(b) {
-            if (b) {
-                jq.blockUI();
-            } else {
-                jq.unblockUI();
-            }
-        };
-
         AjaxPro.SubscriptionManager.UnsubscribeProduct(productID, UpdateProductSubscriptionCallback);
     };
 
-    this.UnsubscribeType = function(productID, moduleID, subscribeType) {
-        if (!confirm(ASC.Resources.Master.Resource.ConfirmMessage))
+    this.SubscribeType = function (productID, moduleID, subscribeType) {
+        var subscribe = jq('#studio_subscribeType_' + productID + '_' + moduleID + '_' + subscribeType).find("a.on_off_button").hasClass("on");
+        
+        if (subscribe && !confirm(ASC.Resources.Master.Resource.ConfirmMessage))
             return;
 
-        AjaxPro.onLoading = function(b) {
-            if (b) {
-                jq('#content_product_subscribeBox_' + productID).block();
-            } else {
-                jq('#content_product_subscribeBox_' + productID).unblock();
-            }
-        };
-
         CommonSubscriptionManager.RememberCurrentModuleSubtab(productID);
 
-        AjaxPro.SubscriptionManager.UnsubscribeType(productID, moduleID, subscribeType, UpdateProductSubscriptionCallback);
+        if (subscribe)
+            AjaxPro.SubscriptionManager.UnsubscribeType(productID, moduleID, subscribeType, UpdateTypeSubscriptionCallback);
+        else
+            AjaxPro.SubscriptionManager.SubscribeType(productID, moduleID, subscribeType, UpdateTypeSubscriptionCallback);
+        
     };
 
-    this.SubscribeType = function(productID, moduleID, subscribeType) {
-
-        AjaxPro.onLoading = function(b) {
-            if (b) {
-                jq('#content_product_subscribeBox_' + productID).block();
-            } else {
-                jq('#content_product_subscribeBox_' + productID).unblock();
-            }
-        };
-
-        CommonSubscriptionManager.RememberCurrentModuleSubtab(productID);
-
-        AjaxPro.SubscriptionManager.SubscribeType(productID, moduleID, subscribeType, UpdateProductSubscriptionCallback);
-    };
-
-    this.UnsubscribeObject = function(productID, moduleID, subscribeType, obj) {
+    this.SubscribeObject = function(productID, moduleID, subscribeType, obj) {
         var item = jq(obj).attr("data-value");
-        AjaxPro.SubscriptionManager.UnsubscribeObject(productID, moduleID, subscribeType, item, function(result) {
+        var subscribe = jq(obj).hasClass("off");
+        AjaxPro.SubscriptionManager.SubscribeObject(productID, moduleID, subscribeType, item, subscribe, function (result) {
             var res = result.value;
-            var productID = res.rs2;
-            var moduleID = res.rs3;
-            var typeID = res.rs4;
-            var item = res.rs5;
             if (res.rs1 == '1') {
-
-                jq('#studio_subscribeItem_' + productID + '_' + moduleID + '_' + typeID + '_' + item).remove();
-
-                if (jq('div[id^="studio_subscribeItem_' + productID + '_' + moduleID + '_' + typeID + '_"]').length == 0) {
-                    jq('#studio_subscribeType_' + productID + '_' + moduleID + '_' + typeID).remove();
+                var but = jq('#studio_subscribeItem_' + productID + '_' + moduleID + '_' + subscribeType + '_' + item).find('a');
+                if (subscribe) {
+                    but.removeClass('off').addClass('on');
+                } else {
+                    but.removeClass('on').addClass('off');
                 }
             } else {
-                jq('#studio_subscribeType_' + productID + '_' + moduleID + '_' + typeID).html(res.rs6);
+                jq('#studio_subscribeType_' + productID + '_' + moduleID + '_' + subscribeType).html(res.rs6);
             }
 
         });
-    }
-
+    };
+    
     this.ClickProductTag = function(productID) {
 
         var id = "product_subscribeBox_" + productID;
@@ -272,39 +243,14 @@ var CommonSubscriptionManager = new function() {
     };
 
     this.SetNotifyByMethod = function(productID, notifyBy) {
-
-        AjaxPro.onLoading = function(b) {
-            if (b) {
-                jq.blockUI();
-            } else {
-                jq.unblockUI();
-            }
-        };
         AjaxPro.SubscriptionManager.SetNotifyByMethod(productID, notifyBy, function(result) { });
     };
 
     this.SetWhatsNewNotifyByMethod = function(notifyBy) {
-
-        AjaxPro.onLoading = function(b) {
-            if (b) {
-                jq.blockUI();
-            } else {
-                jq.unblockUI();
-            }
-        };
         AjaxPro.SubscriptionManager.SetWhatsNewNotifyByMethod(notifyBy, function(result) { });
     };
     this.SetAdminNotifyNotifyByMethod = function(notifyBy) {
 
-        AjaxPro.onLoading = function(b) {
-            if (b) {
-                jq.blockUI();
-            } else {
-                jq.unblockUI();
-            }
-        };
         AjaxPro.SubscriptionManager.SetAdminNotifyNotifyByMethod(notifyBy, function(result) { });
     };
-
-
 };

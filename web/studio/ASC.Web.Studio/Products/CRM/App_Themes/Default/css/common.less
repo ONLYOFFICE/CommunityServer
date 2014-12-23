@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 @import "base.less";
 /*******************************************************************************
    CSS Reset
@@ -59,23 +55,24 @@ textarea {
 
 
 .tooltip {
-    line-height: 20px;
+    line-height: 24px;
     min-width: 300px;
     max-width: 420px;
+    padding: 4px 16px;
+    .clearfix();
 
     .tooltipTable {
         border-collapse: collapse;
         width: 100%;
-        margin: 3px 0 -6px 1px;
 
         >tbody>tr>td {
             vertical-align: top;
+            padding: 4px 0;
         }
     }
 
     div.param, div.value{
         line-height: 16px;
-        margin-bottom: 9px;
     }
     div.param {
         color: #9CA0A4;
@@ -129,15 +126,6 @@ textarea {
     font-weight: bold;
     text-decoration: none;
 }
-.crm-loadingLink, .crm-loadingLink:hover{
-    background: url("../images/loader_16.gif") no-repeat scroll left center transparent;
-    color: @textColorGrayDark;
-    cursor: default;
-    font-weight: bold;
-    padding-left: 20px;
-    text-decoration:none;
-}
-
 
 .crm-email, .crm-phone, .crm-address{
     display: inline-block;
@@ -281,7 +269,11 @@ div.advansed-filter-container .filter-item-custom-contact .contact-selector {
     }
 }
 
-
+.baseList_loaderImg {
+    display: none;
+    margin-left: 1px;
+    margin-right: 1px;
+}
 /*******************************************************************************
 Table for address data
 *******************************************************************************/
@@ -292,28 +284,46 @@ Table for address data
     tr {
         vertical-align: top;
     }
+
     .cell {
         padding-bottom: 4px;
     }
+
     .input-cell {
         padding-right: 8px;
     }
+
     .select-cell {
         padding-right: 2px;
     }
+
     .textarea-cell {
         padding-left: 2px;
     }
+
     select {
         margin: 0;
         padding: 0;
         width: 100%;
+
+        option.option-first-in-group-separated {
+            border-top: 1px dotted #a6a6a6;
+            width: 100%;
+            margin-top: 1px;
+            padding-top: 1px;
+        }
+
+        option.default-option {
+            color: #999999;
+        }
     }
+
     input {
         margin: 0;
         padding: 1px 2px;
-        width: 100%; 
+        width: 100%;
     }
+
     textarea {
         margin: 0;
         padding: 1px 2px;
@@ -473,7 +483,7 @@ dd.listForBatchDelete {
 ContactInfoCard.ascx
 *******************************************************************************/
 .crm-contactInfoCard {
-    padding: 10px;
+    padding: 16px;
     max-width: 360px;
     min-width: 250px;
     z-index: 9999999;
@@ -481,7 +491,7 @@ ContactInfoCard.ascx
     > a {
         clear: left;
         float: left;
-        margin-bottom: 10px; 
+        margin-bottom: 16px; 
         width: 82px;
     }
     .infoCardContent {
@@ -579,7 +589,7 @@ TagView.ascx
     padding-bottom: 20px;
 
     ul.dropdown-content {
-        max-width: 200px;
+        max-width: 210px;
         max-height: 200px;
         overflow: auto;
     }
@@ -632,11 +642,9 @@ File Uploader css style
     text-decoration:none !important;
 }
 .pm_loadingCSSClass {
-    background:url("../images/loader_small.gif") no-repeat scroll center center transparent;
-    .crm-actionLinkBase(24px);
-    cursor:default;
-    margin-top:2px;
-    margin-left:-5px;
+    display: block;
+    margin-top: -15px;
+    margin-left: 4px;
     text-decoration:none !important;
 }
 .pm_completeCSSClass {
@@ -677,8 +685,12 @@ File Uploader css style
     z-index:290;
 }
 
-a.pm_upload_btn, a.pm_upload_btn:hover {
+a.button.pm_upload_btn,
+a.button.pm_upload_btn:hover,
+a.button.pm_upload_btn:active,
+a.button.pm_upload_btn:visited {
     cursor:pointer;
+    color: #666666; 
     float: left;
     position: absolute !important;
     margin: -5px 0px 0 13px;
@@ -1172,7 +1184,29 @@ HistoryView.ascx
             .text-overflow(800px);
         }
     }
+
+    #eventsTable {
+        border-collapse: collapse;
+        width: 100%;
+
+        tbody {
+            td {
+                border-left: medium none;
+                border-right: medium none;
+                text-align: left;
+                vertical-align: middle;
+
+                a.title {
+                    font-weight: bold;
+                }
+            }
+            tr:last-child {
+                border-bottom: none;
+            }
+        }
+    }
 }
+
 
 #eventLinkToPanel .tl-combobox {
     margin-bottom: 1px;
@@ -1202,6 +1236,7 @@ table td.activityData {
         margin-top: 4px;
     }
 }
+
 #showMoreEventsButtons {
     padding-top: 20px;
     padding-left: 15px;

@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -79,7 +79,7 @@ namespace ASC.Api.CRM
                 };
 
             dealMilestone.ID = DaoFactory.GetDealMilestoneDao().Create(dealMilestone);
-            MessageService.Send(_context, MessageAction.OpportunityStageCreated, dealMilestone.Title);
+            MessageService.Send(Request, MessageAction.OpportunityStageCreated, dealMilestone.Title);
 
             return ToDealMilestoneWrapper(dealMilestone);
         }
@@ -129,7 +129,7 @@ namespace ASC.Api.CRM
                 };
 
             DaoFactory.GetDealMilestoneDao().Edit(dealMilestone);
-            MessageService.Send(_context, MessageAction.OpportunityStageUpdated, dealMilestone.Title);
+            MessageService.Send(Request, MessageAction.OpportunityStageUpdated, dealMilestone.Title);
 
             return ToDealMilestoneWrapper(dealMilestone);
         }
@@ -159,7 +159,7 @@ namespace ASC.Api.CRM
             dealMilestone.Color = color;
 
             DaoFactory.GetDealMilestoneDao().ChangeColor(id, color);
-            MessageService.Send(_context, MessageAction.OpportunityStageUpdatedColor, dealMilestone.Title);
+            MessageService.Send(Request, MessageAction.OpportunityStageUpdatedColor, dealMilestone.Title);
 
             return ToDealMilestoneWrapper(dealMilestone);
         }
@@ -178,7 +178,7 @@ namespace ASC.Api.CRM
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        [Update("opportunity/stage/reorder")]
+        [Update(@"opportunity/stage/reorder")]
         public IEnumerable<DealMilestoneWrapper> UpdateDealMilestonesOrder(IEnumerable<int> ids)
         {
             if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
@@ -195,7 +195,7 @@ namespace ASC.Api.CRM
             }
 
             DaoFactory.GetDealMilestoneDao().Reorder(idsList.ToArray());
-            MessageService.Send(_context, MessageAction.OpportunityStagesUpdatedOrder, result.Select(x => x.Title));
+            MessageService.Send(Request, MessageAction.OpportunityStagesUpdatedOrder, result.Select(x => x.Title));
 
             return result;
         }
@@ -224,7 +224,7 @@ namespace ASC.Api.CRM
             var result = ToDealMilestoneWrapper(dealMilestone);
 
             DaoFactory.GetDealMilestoneDao().Delete(id);
-            MessageService.Send(_context, MessageAction.OpportunityStageDeleted, dealMilestone.Title);
+            MessageService.Send(Request, MessageAction.OpportunityStageDeleted, dealMilestone.Title);
 
             return result;
         }
@@ -256,7 +256,7 @@ namespace ASC.Api.CRM
                 };
 
             listItem.ID = DaoFactory.GetListItemDao().CreateItem(ListType.HistoryCategory, listItem);
-            MessageService.Send(_context, MessageAction.HistoryEventCategoryCreated, listItem.Title);
+            MessageService.Send(Request, MessageAction.HistoryEventCategoryCreated, listItem.Title);
 
             return ToHistoryCategoryWrapper(listItem);
         }
@@ -294,7 +294,7 @@ namespace ASC.Api.CRM
                 };
 
             DaoFactory.GetListItemDao().EditItem(ListType.HistoryCategory, listItem);
-            MessageService.Send(_context, MessageAction.HistoryEventCategoryUpdated, listItem.Title);
+            MessageService.Send(Request, MessageAction.HistoryEventCategoryUpdated, listItem.Title);
 
             return ToHistoryCategoryWrapper(listItem);
         }
@@ -324,7 +324,7 @@ namespace ASC.Api.CRM
             historyCategory.AdditionalParams = imageName;
 
             DaoFactory.GetListItemDao().ChangePicture(id, imageName);
-            MessageService.Send(_context, MessageAction.HistoryEventCategoryUpdatedIcon, historyCategory.Title);
+            MessageService.Send(Request, MessageAction.HistoryEventCategoryUpdatedIcon, historyCategory.Title);
 
             return ToHistoryCategoryWrapper(historyCategory);
         }
@@ -343,7 +343,7 @@ namespace ASC.Api.CRM
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        [Update("history/category/reorder")]
+        [Update(@"history/category/reorder")]
         public IEnumerable<HistoryCategoryWrapper> UpdateHistoryCategoriesOrder(IEnumerable<string> titles)
         {
             if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
@@ -358,7 +358,7 @@ namespace ASC.Api.CRM
             }
 
             DaoFactory.GetListItemDao().ReorderItems(ListType.HistoryCategory, titles.ToArray());
-            MessageService.Send(_context, MessageAction.HistoryEventCategoriesUpdatedOrder, result.Select(x => x.Title));
+            MessageService.Send(Request, MessageAction.HistoryEventCategoriesUpdatedOrder, result.Select(x => x.Title));
 
             return result;
         }
@@ -391,7 +391,7 @@ namespace ASC.Api.CRM
             var result = ToHistoryCategoryWrapper(listItem);
 
             dao.DeleteItem(ListType.HistoryCategory, id);
-            MessageService.Send(_context, MessageAction.HistoryEventCategoryDeleted, listItem.Title);
+            MessageService.Send(Request, MessageAction.HistoryEventCategoryDeleted, listItem.Title);
 
             return result;
         }
@@ -424,7 +424,7 @@ namespace ASC.Api.CRM
                 };
 
             listItem.ID = DaoFactory.GetListItemDao().CreateItem(ListType.TaskCategory, listItem);
-            MessageService.Send(_context, MessageAction.CrmTaskCategoryCreated, listItem.Title);
+            MessageService.Send(Request, MessageAction.CrmTaskCategoryCreated, listItem.Title);
 
             return ToTaskCategoryWrapper(listItem);
         }
@@ -466,7 +466,7 @@ namespace ASC.Api.CRM
                 };
 
             DaoFactory.GetListItemDao().EditItem(ListType.TaskCategory, listItem);
-            MessageService.Send(_context, MessageAction.CrmTaskCategoryUpdated, listItem.Title);
+            MessageService.Send(Request, MessageAction.CrmTaskCategoryUpdated, listItem.Title);
 
             return ToTaskCategoryWrapper(listItem);
         }
@@ -496,7 +496,7 @@ namespace ASC.Api.CRM
             taskCategory.AdditionalParams = imageName;
 
             DaoFactory.GetListItemDao().ChangePicture(id, imageName);
-            MessageService.Send(_context, MessageAction.CrmTaskCategoryUpdatedIcon, taskCategory.Title);
+            MessageService.Send(Request, MessageAction.CrmTaskCategoryUpdatedIcon, taskCategory.Title);
 
             return ToTaskCategoryWrapper(taskCategory);
         }
@@ -515,7 +515,7 @@ namespace ASC.Api.CRM
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        [Update("task/category/reorder")]
+        [Update(@"task/category/reorder")]
         public IEnumerable<TaskCategoryWrapper> UpdateTaskCategoriesOrder(IEnumerable<string> titles)
         {
             if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
@@ -530,7 +530,7 @@ namespace ASC.Api.CRM
             }
 
             DaoFactory.GetListItemDao().ReorderItems(ListType.TaskCategory, titles.ToArray());
-            MessageService.Send(_context, MessageAction.CrmTaskCategoriesUpdatedOrder, result.Select(x => x.Title));
+            MessageService.Send(Request, MessageAction.CrmTaskCategoriesUpdatedOrder, result.Select(x => x.Title));
 
             return result;
         }
@@ -560,7 +560,7 @@ namespace ASC.Api.CRM
             }
 
             dao.DeleteItem(ListType.TaskCategory, categoryid);
-            MessageService.Send(_context, MessageAction.CrmTaskCategoryDeleted, listItem.Title);
+            MessageService.Send(Request, MessageAction.CrmTaskCategoryDeleted, listItem.Title);
 
             return ToTaskCategoryWrapper(listItem);
         }
@@ -593,7 +593,7 @@ namespace ASC.Api.CRM
                 };
 
             listItem.ID = DaoFactory.GetListItemDao().CreateItem(ListType.ContactStatus, listItem);
-            MessageService.Send(_context, MessageAction.ContactTemperatureLevelCreated, listItem.Title);
+            MessageService.Send(Request, MessageAction.ContactTemperatureLevelCreated, listItem.Title);
 
             return ToContactStatusWrapper(listItem);
         }
@@ -635,7 +635,7 @@ namespace ASC.Api.CRM
                 };
 
             DaoFactory.GetListItemDao().EditItem(ListType.ContactStatus, listItem);
-            MessageService.Send(_context, MessageAction.ContactTemperatureLevelUpdated, listItem.Title);
+            MessageService.Send(Request, MessageAction.ContactTemperatureLevelUpdated, listItem.Title);
 
             return ToContactStatusWrapper(listItem);
         }
@@ -665,7 +665,7 @@ namespace ASC.Api.CRM
             contactStatus.Color = color;
 
             DaoFactory.GetListItemDao().ChangeColor(id, color);
-            MessageService.Send(_context, MessageAction.ContactTemperatureLevelUpdatedColor, contactStatus.Title);
+            MessageService.Send(Request, MessageAction.ContactTemperatureLevelUpdatedColor, contactStatus.Title);
 
             return ToContactStatusWrapper(contactStatus);
         }
@@ -684,7 +684,7 @@ namespace ASC.Api.CRM
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        [Update("contact/status/reorder")]
+        [Update(@"contact/status/reorder")]
         public IEnumerable<ContactStatusWrapper> UpdateContactStatusesOrder(IEnumerable<string> titles)
         {
             if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
@@ -699,7 +699,7 @@ namespace ASC.Api.CRM
             }
 
             DaoFactory.GetListItemDao().ReorderItems(ListType.ContactStatus, titles.ToArray());
-            MessageService.Send(_context, MessageAction.ContactTemperatureLevelsUpdatedOrder, result.Select(x => x.Title));
+            MessageService.Send(Request, MessageAction.ContactTemperatureLevelsUpdatedOrder, result.Select(x => x.Title));
 
             return result;
         }
@@ -734,7 +734,7 @@ namespace ASC.Api.CRM
             var contactStatus = ToContactStatusWrapper(listItem);
 
             dao.DeleteItem(ListType.ContactStatus, contactStatusid);
-            MessageService.Send(_context, MessageAction.ContactTemperatureLevelDeleted, contactStatus.Title);
+            MessageService.Send(Request, MessageAction.ContactTemperatureLevelDeleted, contactStatus.Title);
 
             return contactStatus;
         }
@@ -784,7 +784,7 @@ namespace ASC.Api.CRM
                 };
 
             listItem.ID = DaoFactory.GetListItemDao().CreateItem(ListType.ContactType, listItem);
-            MessageService.Send(_context, MessageAction.ContactTypeCreated, listItem.Title);
+            MessageService.Send(Request, MessageAction.ContactTypeCreated, listItem.Title);
 
             return ToContactTypeWrapper(listItem);
         }
@@ -822,7 +822,7 @@ namespace ASC.Api.CRM
                 };
 
             DaoFactory.GetListItemDao().EditItem(ListType.ContactType, listItem);
-            MessageService.Send(_context, MessageAction.ContactTypeUpdated, listItem.Title);
+            MessageService.Send(Request, MessageAction.ContactTypeUpdated, listItem.Title);
 
             return ToContactTypeWrapper(listItem);
         }
@@ -841,7 +841,7 @@ namespace ASC.Api.CRM
         /// <exception cref="SecurityException"></exception>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
-        [Update("contact/type/reorder")]
+        [Update(@"contact/type/reorder")]
         public IEnumerable<ContactTypeWrapper> UpdateContactTypesOrder(IEnumerable<string> titles)
         {
             if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
@@ -856,7 +856,7 @@ namespace ASC.Api.CRM
             }
 
             DaoFactory.GetListItemDao().ReorderItems(ListType.ContactType, titles.ToArray());
-            MessageService.Send(_context, MessageAction.ContactTypesUpdatedOrder, result.Select(x => x.Title));
+            MessageService.Send(Request, MessageAction.ContactTypesUpdatedOrder, result.Select(x => x.Title));
 
             return result;
         }
@@ -891,7 +891,7 @@ namespace ASC.Api.CRM
             var contactType = ToContactTypeWrapper(listItem);
 
             dao.DeleteItem(ListType.ContactType, contactTypeid);
-            MessageService.Send(_context, MessageAction.ContactTypeDeleted, listItem.Title);
+            MessageService.Send(Request, MessageAction.ContactTypeDeleted, listItem.Title);
 
             return contactType;
         }

@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9F815B60-7918-440E-83A2-22CB200AD6F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASC.Api.MailServer</RootNamespace>
+    <AssemblyName>ASC.Api.MailServer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <OutputPath>..\..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
+    <DocumentationFile>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.MailServer.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog, Version=2.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataContracts\AddressData.cs" />
+    <Compile Include="DataContracts\FullServerData.cs" />
+    <Compile Include="DataContracts\DnsData.cs" />
+    <Compile Include="DataContracts\MailGroupData.cs" />
+    <Compile Include="DataContracts\MailboxData.cs" />
+    <Compile Include="DataContracts\ServerData.cs" />
+    <Compile Include="DataContracts\WebDomainData.cs" />
+    <Compile Include="Extensions\DataContractsExtensions.cs" />
+    <Compile Include="MailServerApi.cs" />
+    <Compile Include="MailServerApi.Mailbox.cs" />
+    <Compile Include="MailServerApi.MailGroup.cs" />
+    <Compile Include="MailServerApi.Server.cs" />
+    <Compile Include="MailServerApi.WebDomain.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Name>ASC.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
+      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
+      <Name>ASC.Web.Studio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
+      <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
+      <Name>ASC.Mail.Aggregator.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
+      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
+      <Name>ASC.Mail.Aggregator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail.Server\Administration\AdministrationModel\AdministrationModel.csproj">
+      <Project>{5733df9d-daca-43f4-85b0-18c1c9a89953}</Project>
+      <Name>AdministrationModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail.Server\Administration\Interfaces\Interfaces.csproj">
+      <Project>{02fca8fd-16b7-4242-9bb9-7863c12b6c61}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail.Server\Administration\MockAdministration\MockAdministration.csproj">
+      <Project>{3449202d-abf3-4cb8-8847-a9b32e6c9183}</Project>
+      <Name>MockAdministration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail.Server\Administration\PostfixAdministration\PostfixAdministration.csproj">
+      <Project>{59940f84-34ff-450f-9d8d-cb8d86e20be5}</Project>
+      <Name>PostfixAdministration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail.Server\Dal\MailServerDal\MailServerDal.csproj">
+      <Project>{c436e243-3092-441d-8b25-aeba1cf2cefe}</Project>
+      <Name>MailServerDal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail.Server\DnsChecker\DnsChecker.csproj">
+      <Project>{92f13aa5-840f-4b3e-9b6b-1dfee916d86d}</Project>
+      <Name>DnsChecker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail.Server\MailServerUtils\MailServerUtils.csproj">
+      <Project>{fb62491c-d153-45d0-a4f6-8c7ceadfa035}</Project>
+      <Name>MailServerUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
+      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
+      <Name>ASC.Api.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

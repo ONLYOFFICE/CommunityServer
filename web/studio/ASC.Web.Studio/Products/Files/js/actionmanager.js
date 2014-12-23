@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 window.ASC.Files.Actions = (function () {
     var isInit = false;
     var clipGetLink = null;
@@ -52,7 +48,8 @@ window.ASC.Files.Actions = (function () {
                 {
                     switcherSelector: "#mainContentHeader .down_arrow",
                     dropdownID: "filesSelectorPanel",
-                    anchorSelector: ".menuActionSelectAll"
+                    anchorSelector: ".menuActionSelectAll",
+                    addTop: 4
                 });
         }
     };
@@ -73,7 +70,7 @@ window.ASC.Files.Actions = (function () {
         jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):has(.checkbox input:checked)").each(function () {
             var entryObj = jq(this);
 
-            if (ASC.Files.UI.editingFile(entryObj) || !ASC.Files.UI.accessAdmin(entryObj) || ASC.Files.UI.lockedForMe(entryObj)) {
+            if (ASC.Files.UI.editingFile(entryObj) || !ASC.Files.UI.accessDelete(entryObj) || ASC.Files.UI.lockedForMe(entryObj)) {
                 countWithRights--;
             }
 
@@ -153,6 +150,7 @@ window.ASC.Files.Actions = (function () {
 
         if (countCanShare > 0) {
             jq("#buttonShare").show().find("span").html(countCanShare);
+            jq("#mainShare").addClass("unlockAction");
         }
 
         if (typeof event != "undefined") {
@@ -192,8 +190,8 @@ window.ASC.Files.Actions = (function () {
         ASC.Files.UI.selectRow(entryObj, true);
         ASC.Files.UI.updateMainContentHeader();
 
-        var accessibleObj = ASC.Files.UI.accessibleItem(entryData, entryObj);
-        var accessAdminObj = ASC.Files.UI.accessAdmin(entryObj);
+        var accessibleObj = ASC.Files.UI.accessEdit(entryData, entryObj);
+        var accessAdminObj = ASC.Files.UI.accessDelete(entryObj);
 
         jq("#actionPanelFolders, #actionPanelFiles").hide();
         if (entryData.entryType === "file") {
@@ -209,6 +207,7 @@ window.ASC.Files.Actions = (function () {
                 #filesVersions,\
                 #filesMoveto,\
                 #filesCopyto,\
+                #filesCopy,\
                 #filesRename,\
                 #filesRestore,\
                 #filesRemove").show();
@@ -243,7 +242,7 @@ window.ASC.Files.Actions = (function () {
             }
 
             if (!ASC.Files.UI.editableFile(entryData)
-                || editingFile && !ASC.Files.Utility.CanCoAuhtoring(entryTitle)) {
+                || editingFile && (!ASC.Files.Utility.CanCoAuhtoring(entryTitle) || entryObj.hasClass("on-edit-alone"))) {
                 jq("#filesEdit").hide();
             }
 
@@ -286,7 +285,8 @@ window.ASC.Files.Actions = (function () {
             }
 
             if (ASC.Files.ThirdParty && ASC.Files.ThirdParty.isThirdParty(entryObj)) {
-                jq("#filesCompleteVersion").hide();
+                jq("#filesCompleteVersion,\
+                    #filesCopy").hide();
             }
 
             if (!accessAdminObj || lockedForMe) {
@@ -300,6 +300,10 @@ window.ASC.Files.Actions = (function () {
 
             if (ASC.Files.Folders.folderContainer != "forme") {
                 jq("#filesUnsubscribe").hide();
+            }
+
+            if (!ASC.Files.UI.accessEdit()) {
+                jq("#filesCopy").hide();
             }
 
             jq("#actionPanelFiles").show();
@@ -382,9 +386,8 @@ window.ASC.Files.Actions = (function () {
                     "top": target.offset().top + target.outerHeight(),
                     "left": "auto",
                     "right": jq(window).width() - target.offset().left - target.width() - 2,
-                    "margin": "5px -8px 0 0"
-                })
-                .find(".corner-top").show();
+                    "margin": "0 -8px 0 0"
+                });
         } else {
             var correctionX = document.body.clientWidth - (e.pageX - pageXOffset + dropdownItem.innerWidth()) > 0 ? 0 : dropdownItem.innerWidth();
             var correctionY = document.body.clientHeight - (e.pageY - pageYOffset + dropdownItem.innerHeight()) > 0 ? 0 : dropdownItem.innerHeight();
@@ -395,8 +398,7 @@ window.ASC.Files.Actions = (function () {
                     "left": e.pageX - correctionX,
                     "right": "auto",
                     "margin": "0"
-                })
-                .find(".corner-top").hide();
+                });
         }
 
         dropdownItem.toggle();
@@ -535,16 +537,13 @@ window.ASC.Files.Actions = (function () {
     };
 
     var showMoveToSelector = function (isCopy) {
-        if (ASC.Files.Import) {
-            ASC.Files.Import.isImport = false;
-        }
         ASC.Files.Folders.isCopyTo = (isCopy === true);
 
         if (ASC.Files.Folders.folderContainer != "trash"
             && !ASC.Files.Folders.isCopyTo) {
-            if (!ASC.Files.UI.accessibleItem()) {
+            if (!ASC.Files.UI.accessEdit()) {
                 var listWithAccess = jq.grep(jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):has(.checkbox input:checked)"), function (i, item) {
-                    return ASC.Files.UI.accessAdmin(item);
+                    return ASC.Files.UI.accessDelete(item);
                 });
 
                 if (!listWithAccess.length) {
@@ -583,7 +582,7 @@ window.ASC.Files.Actions = (function () {
         if (!jq((event.target) ? event.target : event.srcElement).parents().addBack()
             .is("#treeViewPanelSelector, #foldersMoveto, #filesMoveto, #foldersCopyto, #filesCopyto,\
                  #foldersRestore, #filesRestore, #buttonMoveto, #buttonCopyto, #buttonRestore,\
-                 #mainMove, #mainCopy, #mainRestore, #importToFolderBtn")) {
+                 #mainMove, #mainCopy, #mainRestore")) {
             ASC.Files.Actions.hideAllActionPanels();
             jq("body").unbind("click", ASC.Files.Actions.registerHideTree);
         }
@@ -617,7 +616,7 @@ window.ASC.Files.Actions = (function () {
         });
 
         jq("#filesSelectFile, #filesSelectFolder, #filesSelectDocument,\
-            #filesSelectPresentation, #filesSelectSpreadsheet, #filesSelectImage").click(function () {
+            #filesSelectPresentation, #filesSelectSpreadsheet, #filesSelectImage, #filesSelectArchive").click(function () {
             var filter = this.id.replace("filesSelect", "").toLowerCase();
             ASC.Files.UI.checkSelect(filter);
         });
@@ -677,6 +676,11 @@ window.ASC.Files.Actions = (function () {
         jq("#filesEdit").click(function () {
             ASC.Files.Actions.hideAllActionPanels();
             ASC.Files.Folders.clickOnFile(ASC.Files.Actions.currentEntryData, true);
+        });
+
+        jq("#filesCopy").click(function () {
+            ASC.Files.Actions.hideAllActionPanels();
+            ASC.Files.Folders.createDuplicate(ASC.Files.Actions.currentEntryData);
         });
 
         jq("#foldersOpen").click(function () {

@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 if (typeof ASC === "undefined")
     ASC = {};
 if (typeof ASC.Projects === "undefined")
@@ -45,6 +41,10 @@ ASC.Projects.AllProject = (function () {
         linkViewTasks = moduleLocationPath + 'tasks.aspx?prjID=',
         linkViewParticipants = moduleLocationPath + 'projectTeam.aspx?prjID=',
         commonListContainer = jq("#CommonListContainer"),
+        prjEmptyScreenForFilter = jq("#prjEmptyScreenForFilter"),
+        emptyListProjects = jq("#emptyListProjects"),
+        projectsAdvansedFilter,
+        filterContainer = jq('#filterContainer'),
         projectsTable = null,
         describePanel = null;
 
@@ -53,13 +53,22 @@ ASC.Projects.AllProject = (function () {
     var isSimpleView;
     var filterProjCount = 0;
 
+    var isFirstLoad = true;
+
     // object for list statuses
     var statusListObject = { listId: "projectsStatusList" };
 
+    var hideFirstLoader = function () {
+        isFirstLoad = false;
+        jq(".mainPageContent").children(".loader-page").hide();
+        filterContainer.show();
+        commonListContainer.show();
+        projectsAdvansedFilter.advansedFilter("resize");
+    };
 
     var initActionPanels = function () {
         if (!describePanel) {
-            commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "projectDescrPanel", cornerPosition: "left" })); // description panel
+            commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "projectDescrPanel"})); // description panel
             describePanel = jq("#projectDescrPanel");
         }
         if (isSimpleView) return;
@@ -72,33 +81,42 @@ ASC.Projects.AllProject = (function () {
         jq("#" + statusListObject.listId).remove();
         commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
     };
-
+    
+    var self;
+    
     //filter Set
     var init = function (isSimpleViewFlag) {
         if (isInit === false) {
             isInit = true;
             Teamlab.bind(Teamlab.events.getPrjProjects, onGetListProject);
         }
+        self = this;
+        isFirstLoad = true;
+        jq(".mainPageContent").children(".loader-page").show();
+
         projectsTable = jq("#tableListProjects");
 
         isSimpleView = isSimpleViewFlag;
         currentUserId = Teamlab.profile.id;
 
         initActionPanels();
-
+        
         if (!isSimpleView) {
-            ASC.Projects.Common.setDocumentTitle(ASC.Projects.Resources.ProjectsJSResource.ProjectsModule);
-            ASC.Projects.Common.checkElementNotFound(ASC.Projects.Resources.ProjectsJSResource.ProjectNotFound);
-            LoadingBanner.displayLoading();
+            projectsAdvansedFilter = createAdvansedFilter();
+            this.setDocumentTitle(ASC.Projects.Resources.ProjectsJSResource.ProjectsModule);
+            this.checkElementNotFound(ASC.Projects.Resources.ProjectsJSResource.ProjectNotFound);
+            if (!isFirstLoad) {
+                LoadingBanner.displayLoading();
+                filterContainer.show();
+                commonListContainer.show();
+                projectsAdvansedFilter.advansedFilter("resize");
+            } else {
+                filterContainer.hide();
+                commonListContainer.hide();
+            }
             //page navigator
-            ASC.Projects.Common.initPageNavigator(this, "projectsKeyForPagination");
+            this.initPageNavigator("projectsKeyForPagination");
 
-            // waiting data from api
-            jq(document).bind("createAdvansedFilter", function () {
-                createAdvansedFilter();
-            });
-        }
-        if (!isSimpleView) {
             projectsTable.on('click', "td.responsible span.userLink", function () {
                 var responsibleId = jq(this).attr('id');
                 if (responsibleId != "4a515a15-d4d6-4b8e-828e-e0586f18f3a3") {
@@ -163,10 +181,10 @@ ASC.Projects.AllProject = (function () {
         /*--------events--------*/
 
         jq("#countOfRows").change(function (evt) {
-            ASC.Projects.Common.changeCountOfRows(ASC.Projects.AllProject, this.value);
+            self.changeCountOfRows(this.value);
         });
 
-        jq('body').click(function (event) {
+        jq('body').on("click.projectsInit", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
             var $elt = jq(elt);
@@ -324,11 +342,11 @@ ASC.Projects.AllProject = (function () {
             });
         }
 
-        ASC.Projects.AllProject.filters = filters;
-        ASC.Projects.AllProject.sorters = sorters;
-        ASC.Projects.AllProject.colCount = 2;
+        self.filters = filters;
+        self.sorters = sorters;
+        self.colCount = 2;
 
-        ASC.Projects.ProjectsAdvansedFilter.init(ASC.Projects.AllProject);
+        var filter = ASC.Projects.ProjectsAdvansedFilter.init(self);
 
         if (!isSimpleView) {
             //filter
@@ -347,6 +365,8 @@ ASC.Projects.AllProject = (function () {
                 jq("#ProjectsAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.projects, ga_Actions.filterClick, "search_text", "enter");
             });
         }
+        
+        return filter;
     };
 
 
@@ -369,49 +389,43 @@ ASC.Projects.AllProject = (function () {
 
     var hideDescrPanel = function () {
         setTimeout(function () {
-            if (!overProjDescrPanel) jq('#projectDescrPanel').hide(100);
+            if (!overProjDescrPanel) describePanel.hide(100);
         }, 200);
     };
 
     var getProjTmpl = function (proj) {
-        var projTmpl = {};
-        projTmpl.title = proj.title;
-        projTmpl.id = proj.id;
-        projTmpl.created = proj.displayDateCrtdate;
-        projTmpl.createdBy = proj.createdBy ? proj.createdBy.displayName : "";
-        projTmpl.projLink = linkViewProject + projTmpl.id;
-        projTmpl.description = proj.description;
-        projTmpl.milestones = proj.milestoneCount;
-        projTmpl.linkMilest = linkViewMilestones + projTmpl.id + '#sortBy=deadline&sortOrder=ascending&status=open';
-        projTmpl.tasks = proj.taskCount;
-        projTmpl.linkTasks = linkViewTasks + projTmpl.id + '#sortBy=deadline&sortOrder=ascending&status=open';
-        projTmpl.responsible = proj.responsible.displayName;
-        projTmpl.responsibleId = proj.responsible.id;
-        projTmpl.participants = proj.participantCount ? proj.participantCount - 1 : "";
-        projTmpl.linkParticip = linkViewParticipants + projTmpl.id;
-        projTmpl.privateProj = proj.isPrivate;
-        projTmpl.canEdit = proj.canEdit;
-        projTmpl.isSimpleView = isSimpleView;
-        projTmpl.canLinkContact = proj.canLinkContact;
-
-        if (proj.status == 0) {
-            projTmpl.status = 'open';
-        }
-        else {
-            projTmpl.status = 'closed';
-        }
-        if (proj.status == 2) projTmpl.status = 'paused';
-
-        return projTmpl;
+        return {
+            title: proj.title,
+            id: proj.id,
+            created: proj.displayDateCrtdate,
+            createdBy: proj.createdBy ? proj.createdBy.displayName : "",
+            projLink: linkViewProject + proj.id,
+            description: proj.description,
+            milestones: proj.milestoneCount,
+            linkMilest: linkViewMilestones + proj.id + '#sortBy=deadline&sortOrder=ascending&status=open',
+            tasks: proj.taskCount,
+            linkTasks: linkViewTasks + proj.id + '#sortBy=deadline&sortOrder=ascending&status=open',
+            responsible: proj.responsible.displayName,
+            responsibleId: proj.responsible.id,
+            participants: proj.participantCount ? proj.participantCount - 1 : "",
+            linkParticip: linkViewParticipants + proj.id,
+            privateProj: proj.isPrivate,
+            canEdit: proj.canEdit,
+            isSimpleView: isSimpleView,
+            canLinkContact: proj.canLinkContact,
+            status: proj.status == 0 ? 'open' : (proj.status == 2 ? 'paused' :'closed')
+        };
     };
 
     var showProjDescribePanel = function (targetObject) {
         var x = jq(targetObject).offset().left + 10;
         var y = jq(targetObject).offset().top + 20;
-        jq('#projectDescrPanel').css({ left: x, top: y });
-        jq('#projectDescrPanel').show();
+        describePanel.css({ left: x, top: y });
+        describePanel.show();
 
-        jq('body').click(function (event) {
+        jq('body')
+            .off("click.projectsShowProjDescribePanel")
+            .on("click.projectsShowProjDescribePanel", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
             if (jq(elt).is('[id="#projectDescrPanel"]')) {
@@ -432,59 +446,50 @@ ASC.Projects.AllProject = (function () {
         });
     };
 
-    var getData = function (filter) {
-        filter.Count = ASC.Projects.AllProject.entryCountOnPage;
-        filter.StartIndex = ASC.Projects.AllProject.entryCountOnPage * ASC.Projects.AllProject.currentPage;
+    var getData = function () {
+        self.currentFilter.Count = self.entryCountOnPage;
+        self.currentFilter.StartIndex = self.entryCountOnPage * self.currentPage;
 
-        if (filter.StartIndex > filterProjCount) {
-            filter.StartIndex = 0;
-            ASC.Projects.AllProject.currentPage = 1;
-        }
-
-        Teamlab.getPrjProjects({}, { filter: filter });
+        Teamlab.getPrjProjects({}, { filter: self.currentFilter });
     };
 
     var onGetListProject = function (params, listProj) {
         $projectsTableBody = projectsTable.find('tbody');
         if (typeof (isSimpleView) != "undefined" && isSimpleView == false) {
-            ASC.Projects.Common.clearTables();
+            self.clearTables();
             filterProjCount = params.__total != undefined ? params.__total : 0;
-            ASC.Projects.Common.updatePageNavigator(ASC.Projects.AllProject, filterProjCount);
         }
 
         clearTimeout(projDescribeTimeout);
         overProjDescrPanel = false;
         hideDescrPanel();
 
-        var listTmplProj = new Array(),
-            projTmpl;
-
         $projectsTableBody.empty();
 
         if (listProj.length != 0) {
-            for (var i = 0; i < listProj.length; i++) {
-                projTmpl = getProjTmpl(listProj[i]);
-                listTmplProj.push(projTmpl);
-            }
-            $projectsTableBody.append(jq.tmpl("projects_projectTmpl", listTmplProj));
+            $projectsTableBody.append(jq.tmpl("projects_projectTmpl", listProj.map(getProjTmpl)));
 
-            jq("#prjEmptyScreenForFilter").hide();
+            prjEmptyScreenForFilter.hide();
             projectsTable.show();
         }
         else {
             jq('#tableForNavigation').hide();
             projectsTable.hide();
             if (ASC.Projects.ProjectsAdvansedFilter.baseFilter) {
-                jq("#prjEmptyScreenForFilter").hide();
-                jq("#emptyListProjects").show();
-                jq('#ProjectsAdvansedFilter').hide();
+                prjEmptyScreenForFilter.hide();
+                emptyListProjects.show();
+                projectsAdvansedFilter.hide();
             } else {
-                jq("#prjEmptyScreenForFilter").show();
-                jq("#emptyListProjects").hide();
-                jq('#ProjectsAdvansedFilter').show();
+                prjEmptyScreenForFilter.show();
+                emptyListProjects.hide();
+                projectsAdvansedFilter.show();
             }
         }
-        LoadingBanner.hideLoading();
+        if (typeof(isSimpleView) != "undefined" && isSimpleView == false) {
+            self.updatePageNavigator(filterProjCount);
+            isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
+        }
+
     };
 
     var changeStatus = function (item) {
@@ -520,7 +525,7 @@ ASC.Projects.AllProject = (function () {
         if (!tasks.length) {
             var milestones = jq.trim(proj.find('td.taskCount').data("milestones"));
             if (milestones.length && milestones != 0) {
-                ASC.Projects.Common.showCommonPopup("projects_projectOpenMilestoneWarning", 400, 200, 0);
+                self.showCommonPopup("projects_projectOpenMilestoneWarning", 400, 200, 0);
                 var milUrl = linkViewMilestones + projId + '#sortBy=deadline&sortOrder=ascending&status=open';
                 jq('#linkToMilestines').attr('href', milUrl);
             }
@@ -528,7 +533,7 @@ ASC.Projects.AllProject = (function () {
                 return false;
             }
         } else {
-            ASC.Projects.Common.showCommonPopup("projects_projectOpenTaskWarning", 400, 200, 0);
+            self.showCommonPopup("projects_projectOpenTaskWarning", 400, 200, 0);
             var tasksUrl = linkViewTasks + projId + '#sortBy=deadline&sortOrder=ascending&status=open';
             jq('#linkToTasks').attr('href', tasksUrl);
         }
@@ -541,8 +546,8 @@ ASC.Projects.AllProject = (function () {
         var x, y, statusList;
         objid = jq(obj).attr('id');
 
-        x = jq(obj).offset().left + 9;
-        y = jq(obj).offset().top + 25;
+        x = jq(obj).offset().left;
+        y = jq(obj).offset().top + 28;
         statusList = jq('#' + statusListObject.listId);
 
         statusList.attr('objid', objid);
@@ -573,7 +578,8 @@ ASC.Projects.AllProject = (function () {
 
         statusList.show();
 
-        jq('body').click(function (event) {
+        jq('body').off("click.projectsShowListStatus");
+        jq('body').on("click.projectsShowListStatus", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
             if (jq(elt).is('[id="' + statusListObject.listId + '"]')) {
@@ -595,7 +601,7 @@ ASC.Projects.AllProject = (function () {
         });
     };
 
-    return {
+    return jq.extend({
         init: init,
         renderListProjects: renderListProjects,
         addProjectsToSimpleList: addProjectsToSimpleList,
@@ -603,6 +609,6 @@ ASC.Projects.AllProject = (function () {
         createAdvansedFilter: createAdvansedFilter,
         unbindListEvents: unbindListEvents,
         basePath: 'sortBy=create_on&sortOrder=ascending'
-    };
+    }, ASC.Projects.Common);
 })(jQuery);
 

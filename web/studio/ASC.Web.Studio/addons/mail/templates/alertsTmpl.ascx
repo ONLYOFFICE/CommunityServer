@@ -1,6 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" %>
 <%@ Assembly Name="ASC.Web.Mail" %>
-<%@ Import Namespace="ASC.Web.Mail.Resources" %>
 
 <script id="alertPopupBodyTmpl" type="text/x-jquery-tmpl">
     <div class="popup">

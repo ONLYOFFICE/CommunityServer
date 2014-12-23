@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -71,11 +71,24 @@ namespace ASC.Web.Studio
         private string _email;
         private ConfirmType _type;
 
+        protected bool isPersonal
+        {
+            get { return CoreContext.Configuration.Personal; }
+        }
+
         protected override void OnPreInit(EventArgs e)
         {
             base.OnPreInit(e);
-            if (CoreContext.Configuration.Personal)
-                Context.Response.Redirect(FilesLinkUtility.FilesBaseAbsolutePath);
+            _type = typeof(ConfirmType).TryParseEnum(Request["type"] ?? "", ConfirmType.EmpInvite);
+
+            if (!SecurityContext.IsAuthenticated && CoreContext.Configuration.Personal)
+            {
+                if (Request["campaign"] == "personal")
+                {
+                    Session["campaign"] = "personal";
+                }
+                SetLanguage();
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -87,13 +100,12 @@ namespace ASC.Web.Studio
             Master.TopStudioPanel.DisableUserInfo = true;
             Master.TopStudioPanel.DisableSearch = true;
             Master.TopStudioPanel.DisableSettings = true;
-            Master.TopStudioPanel.DisableVideo = true;
             Master.TopStudioPanel.DisableTariff = true;
+            Master.TopStudioPanel.DisableLoginPersonal = true;
 
             _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
 
             _email = Request["email"] ?? "";
-            _type = typeof(ConfirmType).TryParseEnum(Request["type"] ?? "", ConfirmType.EmpInvite);
 
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             if (tenant.Status != TenantStatus.Active && _type != ConfirmType.PortalContinue)
@@ -118,6 +130,7 @@ namespace ASC.Web.Studio
         {
             var key = Request["key"] ?? "";
             var emplType = Request["emplType"] ?? "";
+            var social = Request["social"] ?? "";
 
             var validInterval = SetupInfo.ValidEamilKeyInterval;
             var authInterval = TimeSpan.FromHours(1);
@@ -161,7 +174,9 @@ namespace ASC.Web.Studio
 
                                 var authCookie = SecurityContext.AuthenticateMe(user.ID);
                                 CookiesManager.SetCookies(CookiesType.AuthKey, authCookie);
-                                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess, user.DisplayUserName(false));
+
+                                var messageAction = social == "true" ? MessageAction.LoginSuccessViaSocialAccount : MessageAction.LoginSuccess;
+                                MessageService.Send(HttpContext.Current.Request, messageAction);
                             }
 
                             AuthRedirect(user, first.ToLower() == "true", module, Request[FilesLinkUtility.FileUri]);
@@ -369,8 +384,8 @@ namespace ASC.Web.Studio
                         Response.Redirect(createUrl, true);
                     }
 
-                    var welcomeUrl = "~/welcome.aspx?module=" + module;
-                    Response.Redirect(welcomeUrl, true);
+                    Response.Redirect(CommonLinkUtility.GetDefault(), true);
+
                 }
             }
             else

@@ -3,6 +3,7 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PageHistoryList.aspx.cs"
     Inherits="ASC.Web.Community.Wiki.PageHistoryList" MasterPageFile="~/Products/Community/Modules/Wiki/Wiki.Master" %>
 
+<%@ Import Namespace="ASC.Web.Community.Product" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki.Data" %>
 <asp:Content ContentPlaceHolderID="HeadContent" runat="Server">
@@ -86,9 +87,11 @@
                     <%#GetAuthor(Container.DataItem as ASC.Web.UserControls.Wiki.Data.Page)%>
                 </td>
                 <td class="borderBase" style="text-align:right">
+                    <% if(!CommunitySecurity.IsOutsider()) { %>
                     <asp:LinkButton ID="cmdRevert" Text='<%#WikiResource.cmdRevert%>' runat="Server" CssClass="linkMedium"
                         OnClick="cmdRevert_Click" CommandName='<%#(Container.DataItem as ASC.Web.UserControls.Wiki.Data.Page).Version%>'
                         Visible='<%#Container.ItemIndex != 0%>' OnClientClick="javascript:return VersionRevernConfirm();" />
+                    <% } %>
                 </td>
             </tr>
         </ItemTemplate>

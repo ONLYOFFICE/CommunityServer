@@ -1162,11 +1162,11 @@
   <data name="AccessRightsForReadWriting" xml:space="preserve">
     <value>for reading/writing</value>
   </data>
-  <data name="VoIPNumbers" xml:space="preserve">
-    <value>VoIP Numbers</value>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Номера</value>
   </data>
-  <data name="VoIPCalls" xml:space="preserve">
-    <value>VoIP Calls</value>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Звонки</value>
   </data>
   <data name="VoIPSettings" xml:space="preserve">
     <value>VoIP Settings</value>
@@ -1177,10 +1177,31 @@
   <data name="PortalName" xml:space="preserve">
     <value>Portal name</value>
   </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Общие</value>
+  </data>
   <data name="Country_Benin" xml:space="preserve">
     <value>Benin</value>
   </data>
   <data name="Country_IvoryCoast" xml:space="preserve">
     <value>Ivory Coast</value>
+  </data>
+  <data name="Country_Andorra" xml:space="preserve">
+    <value>Andorra</value>
+  </data>
+  <data name="Country_Bahamas" xml:space="preserve">
+    <value>Bahamas</value>
+  </data>
+  <data name="Currency_CentralAfricanFranc" xml:space="preserve">
+    <value>Central African Franc</value>
+  </data>
+  <data name="Currency_WestAfricanFranc" xml:space="preserve">
+    <value>West African Franc</value>
+  </data>
+  <data name="Currency_DominicanPeso" xml:space="preserve">
+    <value>Dominican Peso</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value>Max. number of characters exceeded: {0}</value>
   </data>
 </root>

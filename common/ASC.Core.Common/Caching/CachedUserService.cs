@@ -1,37 +1,37 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
+using ASC.Core.Tenants;
+using ASC.Core.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using ASC.Core.Tenants;
-using ASC.Core.Users;
 
 namespace ASC.Core.Caching
 {
@@ -43,7 +43,7 @@ namespace ASC.Core.Caching
 
         private readonly IUserService service;
         private readonly ICache cache;
-        private TrustInterval trustInterval;
+        private readonly TrustInterval trustInterval;
         private int getchanges;
 
 
@@ -58,9 +58,10 @@ namespace ASC.Core.Caching
             if (service == null) throw new ArgumentNullException("service");
 
             this.service = service;
-            cache = new AspCache();
+            cache = AscCache.Default;
+            trustInterval = new TrustInterval();
 
-            CacheExpiration = TimeSpan.FromHours(1);
+            CacheExpiration = TimeSpan.FromMinutes(20);
             DbExpiration = TimeSpan.FromMinutes(1);
             PhotoExpiration = TimeSpan.FromMinutes(10);
         }
@@ -83,15 +84,6 @@ namespace ASC.Core.Caching
                 UserInfo u;
                 users.TryGetValue(id, out u);
                 return u;
-            }
-        }
-
-        public IEnumerable<UserInfo> GetUsers(int tenant, IEnumerable<Guid> ids)
-        {
-            var users = GetUsers(tenant);
-            lock (users)
-            {
-                return users.Where(x => ids.Contains(x.Key)).Select(x => x.Value);
             }
         }
 
@@ -254,18 +246,27 @@ namespace ASC.Core.Caching
 
         private void GetChangesFromDb()
         {
+            if (!trustInterval.Expired)
+            {
+                return;
+            }
+
             if (Interlocked.CompareExchange(ref getchanges, 1, 0) == 0)
             {
                 try
                 {
-                    if (trustInterval == null)
+                    if (!trustInterval.Expired)
                     {
-                        trustInterval = new TrustInterval();
-                        trustInterval.Start(DbExpiration);
+                        return;
                     }
-                    if (!trustInterval.Expired) return;
+                                        
+                    var starttime = trustInterval.StartTime;
+                    if (starttime != default(DateTime))
+                    {
+                        var correction = TimeSpan.FromTicks(DbExpiration.Ticks * 3);
+                        starttime = trustInterval.StartTime.Subtract(correction);
+                    }
 
-                    var starttime = trustInterval.StartTime.AddMinutes(-1);
                     trustInterval.Start(DbExpiration);
 
                     //get and merge changes in cached tenants

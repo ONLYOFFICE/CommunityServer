@@ -3,6 +3,7 @@
 
 <script language="javascript" type="text/javascript">
 var g_fcOptions = {
+        isPersonal: "<%= ASC.Core.CoreContext.Configuration.Personal %>" == "True",
 
 		isRTL:           <%=(System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? "true" : "false")%>,
 

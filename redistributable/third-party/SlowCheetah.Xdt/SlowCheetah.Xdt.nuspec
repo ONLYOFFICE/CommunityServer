@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SlowCheetah.Xdt</id>
+    <version>1.1.6-beta</version>
+    <authors>Sayed Ibrahim Hashimi</authors>
+    <owners>Sayed Ibrahim Hashimi</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/sayedihashimi/package-web/</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+    This package contains extensions for XDT (XML Document Transforms). Included here is an MSBuild task as well as other extensions.
+    </description>
+    <!--<releaseNotes></releaseNotes>-->
+    <copyright>Copyright 2013-2014 Sayed Ibrahim Hashimi</copyright>
+    <tags>XDT, web.config transform, transform, xml, web.config,SlowCheetah, Slow Cheetah, Visual Studio</tags>
+    <dependencies>
+      <dependency id="Microsoft.Web.Xdt" />
+    </dependencies>
+  </metadata>
+</package>

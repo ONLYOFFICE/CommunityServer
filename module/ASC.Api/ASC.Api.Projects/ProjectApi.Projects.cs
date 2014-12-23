@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -222,32 +222,39 @@ namespace ASC.Api.Projects
 
         #region Create
 
-        ///<summary>
-        ///Creates a new project using all the necessary (title, description, responsible ID, etc) and some optional parameters specified in the request
-        ///</summary>
-        ///<short>
-        ///Create project
-        ///</short>
-        /// <category>Projects</category>
-        ///<param name="title">Title</param>
-        ///<param name="description">Description</param>
-        ///<param name="responsibleId">Responsible ID</param>
-        ///<param name="tags">Tags</param>
-        ///<param name="private">Is project private</param>
-        ///<param name="participants" optional="true">Project participants</param>
-        ///<param name="notify" optional="true">Notify project manager</param>
-        ///<returns>Newly created project</returns>
-        ///<exception cref="ArgumentException"></exception>
+        /// <summary>
+        /// Creates a new project using all the necessary (title, description, responsible ID, etc) and some optional parameters specified in the request
+        /// </summary>
+        /// <short>
+        /// Create project
+        /// </short>
+        ///  <category>Projects</category>
+        /// <param name="title">Title</param>
+        /// <param name="description">Description</param>
+        /// <param name="responsibleId">Responsible ID</param>
+        /// <param name="tags">Tags</param>
+        /// <param name="private">Is project private</param>
+        /// <param name="participants" optional="true">Project participants</param>
+        /// <param name="notify" optional="true">Notify project manager</param>
+        /// <param name="tasks"></param>
+        /// <param name="milestones"></param>
+        /// <returns>Newly created project</returns>
+        /// <exception cref="ArgumentException"></exception>
         [Create("")]
-        public ProjectWrapperFull CreateProject(string title, string description, Guid responsibleId, string tags, bool @private, IEnumerable<Guid> participants, bool? notify)
+        public ProjectWrapperFull CreateProject(string title, string description, Guid responsibleId, string tags, bool @private, 
+            IEnumerable<Guid> participants, bool? notify, IEnumerable<Task> tasks, IEnumerable<Milestone> milestones)
         {
             if (responsibleId == Guid.Empty) throw new ArgumentException(@"responsible can't be empty", "responsibleId");
             if (string.IsNullOrEmpty(title)) throw new ArgumentException(@"title can't be empty", "title");
+
+            if (@private && ProjectSecurity.IsPrivateDisabled) throw new ArgumentException(@"private", "private");
 
             ProjectSecurity.DemandCreateProject();
 
             var projectEngine = EngineFactory.GetProjectEngine();
             var participantEngine = EngineFactory.GetParticipantEngine();
+            var taskEngine = EngineFactory.GetTaskEngine();
+            var milestoneEngine = EngineFactory.GetMilestoneEngine();
 
             var project = new Project
                 {
@@ -268,7 +275,26 @@ namespace ASC.Api.Projects
                 projectEngine.AddToTeam(project, participantEngine.GetByID(participant), true);
             }
 
-            MessageService.Send(_context, MessageAction.ProjectCreated, project.Title);
+            foreach (var milestone in milestones)
+            {
+                milestone.Description = string.Empty;
+                milestone.Project = project;
+                milestoneEngine.SaveOrUpdate(milestone, false);
+            }
+            var ml = milestones.ToArray();
+            foreach (var task in tasks)
+            {
+                task.Description = string.Empty;
+                task.Project = project;
+                task.Status = TaskStatus.Open;
+                if (task.Milestone != 0)
+                {
+                    task.Milestone = ml[task.Milestone - 1].ID;
+                }
+                taskEngine.SaveOrUpdate(task, null, false);
+            }
+
+            MessageService.Send(Request, MessageAction.ProjectCreated, project.Title);
 
             return new ProjectWrapperFull(project) {ParticipantCount = participantsList.Count()};
         }
@@ -289,6 +315,7 @@ namespace ASC.Api.Projects
         ///<param name="description">Description</param>
         ///<param name="responsibleId">Responsible ID</param>
         ///<param name="tags">Tags</param>
+        ///<param name="participants">participants</param>
         ///<param name="private">Is project private</param>
         ///<param name="status">Status. One of (Open|Closed)</param>
         ///<param name="notify">Notify project manager</param>
@@ -296,7 +323,7 @@ namespace ASC.Api.Projects
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         [Update(@"{id:[0-9]+}")]
-        public ProjectWrapperFull UpdateProject(int id, string title, string description, Guid responsibleId, string tags, ProjectStatus? status, bool? @private, bool notify)
+        public ProjectWrapperFull UpdateProject(int id, string title, string description, Guid responsibleId, string tags, IEnumerable<Guid> participants, ProjectStatus? status, bool? @private, bool notify)
         {
             if (responsibleId == Guid.Empty) throw new ArgumentException(@"responsible can't be empty", "responsibleId");
             if (string.IsNullOrEmpty(title)) throw new ArgumentException(@"title can't be empty", "title");
@@ -330,7 +357,9 @@ namespace ASC.Api.Projects
 
             project = projectEngine.SaveOrUpdate(project, notify);
             EngineFactory.GetTagEngine().SetProjectTags(project.ID, tags);
-            MessageService.Send(_context, MessageAction.ProjectUpdated, project.Title);
+            projectEngine.UpdateTeam(project, participants, true);
+
+            MessageService.Send(Request, MessageAction.ProjectUpdated, project.Title);
 
             return new ProjectWrapperFull(project, EngineFactory.GetFileEngine().GetRoot(id));
         }
@@ -353,7 +382,7 @@ namespace ASC.Api.Projects
             var project = projectEngine.GetByID(id).NotFoundIfNull();
 
             project = projectEngine.ChangeStatus(project, status);
-            MessageService.Send(_context, MessageAction.ProjectUpdatedStatus, project.Title, LocalizedEnumConverter.ConvertToString(project.Status));
+            MessageService.Send(Request, MessageAction.ProjectUpdatedStatus, project.Title, LocalizedEnumConverter.ConvertToString(project.Status));
 
             return new ProjectWrapperFull(project, EngineFactory.GetFileEngine().GetRoot(id));
         }
@@ -381,7 +410,7 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandEdit(project);
 
             projectEngine.Delete(id);
-            MessageService.Send(_context, MessageAction.ProjectDeleted, project.Title);
+            MessageService.Send(Request, MessageAction.ProjectDeleted, project.Title);
 
             return new ProjectWrapperFull(project, EngineFactory.GetFileEngine().GetRoot(id));
         }
@@ -412,12 +441,12 @@ namespace ASC.Api.Projects
             if (participantEngine.GetFollowingProjects(CurrentUserId).Contains(projectId))
             {
                 participantEngine.RemoveFromFollowingProjects(projectId, CurrentUserId);
-                MessageService.Send(_context, MessageAction.ProjectUnfollowed, project.Title);
+                MessageService.Send(Request, MessageAction.ProjectUnfollowed, project.Title);
             }
             else
             {
                 participantEngine.AddToFollowingProjects(projectId, CurrentUserId);
-                MessageService.Send(_context, MessageAction.ProjectFollowed, project.Title);
+                MessageService.Send(Request, MessageAction.ProjectFollowed, project.Title);
             }
 
             return new ProjectWrapper(project);
@@ -505,7 +534,7 @@ namespace ASC.Api.Projects
                     Responsible = responsible
                 };
             milestone = EngineFactory.GetMilestoneEngine().SaveOrUpdate(milestone, notifyResponsible);
-            MessageService.Send(_context, MessageAction.MilestoneCreated, milestone.Project.Title, milestone.Title);
+            MessageService.Send(Request, MessageAction.MilestoneCreated, milestone.Project.Title, milestone.Title);
 
             return new MilestoneWrapper(milestone);
         }
@@ -653,7 +682,7 @@ namespace ASC.Api.Projects
             var user = team.SingleOrDefault(t => t.Id == userId);
             if (user != null)
             {
-                MessageService.Send(_context, MessageAction.ProjectUpdatedMemberRights, project.Title, HttpUtility.HtmlDecode(user.DisplayName));
+                MessageService.Send(Request, MessageAction.ProjectUpdatedMemberRights, project.Title, HttpUtility.HtmlDecode(user.DisplayName));
             }
 
             return team;
@@ -681,7 +710,7 @@ namespace ASC.Api.Projects
             var particapant = EngineFactory.GetParticipantEngine().GetByID(userId);
             projectEngine.RemoveFromTeam(project, particapant, true);
 
-            MessageService.Send(_context, MessageAction.ProjectDeletedMember, project.Title, particapant.UserInfo.DisplayUserName(false));
+            MessageService.Send(Request, MessageAction.ProjectDeletedMember, project.Title, particapant.UserInfo.DisplayUserName(false));
 
             return GetProjectTeam(projectid);
         }
@@ -710,7 +739,7 @@ namespace ASC.Api.Projects
             projectEngine.UpdateTeam(project, participantsList, notify);
 
             var team = GetProjectTeam(projectId);
-            MessageService.Send(_context, MessageAction.ProjectUpdatedTeam, project.Title, team.Select(t => t.DisplayName));
+            MessageService.Send(Request, MessageAction.ProjectUpdatedTeam, project.Title, team.Select(t => t.DisplayName));
 
             return team;
         }
@@ -785,13 +814,13 @@ namespace ASC.Api.Projects
                     Title = title,
                     Project = project,
                     Milestone = milestoneid,
-                    Responsibles = new HashSet<Guid>(responsibles),
+                    Responsibles = new List<Guid>(responsibles.Distinct()),
                     StartDate = startDate
                 };
             EngineFactory.GetTaskEngine().SaveOrUpdate(task, null, notify);
 
             var wrapper = GetTask(task.ID);
-            MessageService.Send(_context, MessageAction.TaskCreated, project.Title, wrapper.Title);
+            MessageService.Send(Request, MessageAction.TaskCreated, project.Title, wrapper.Title);
 
             return wrapper;
         }
@@ -875,7 +904,7 @@ namespace ASC.Api.Projects
                 taskEngine.Subscribe(task, new Guid(participiant.ID));
             }
 
-            MessageService.Send(_context, MessageAction.TaskCreatedFromDiscussion, project.Title, discussion.Title, task.Title);
+            MessageService.Send(Request, MessageAction.TaskCreatedFromDiscussion, project.Title, discussion.Title, task.Title);
 
             return new TaskWrapper(task);
         }
@@ -1163,7 +1192,7 @@ namespace ASC.Api.Projects
             projectEngine.AddProjectContact(projectid, contactid);
 
             var messageAction = contact is Company ? MessageAction.CompanyLinkedProject : MessageAction.PersonLinkedProject;
-            MessageService.Send(_context, messageAction, contact.GetTitle(), project.Title);
+            MessageService.Send(Request, messageAction, contact.GetTitle(), project.Title);
 
             return new ProjectWrapperFull(project);
         }
@@ -1191,7 +1220,7 @@ namespace ASC.Api.Projects
             projectEngine.DeleteProjectContact(projectid, contactid);
 
             var messageAction = contact is Company ? MessageAction.CompanyUnlinkedProject : MessageAction.PersonUnlinkedProject;
-            MessageService.Send(_context, messageAction, contact.GetTitle(), project.Title);
+            MessageService.Send(Request, messageAction, contact.GetTitle(), project.Title);
 
             return new ProjectWrapperFull(project);
         }
@@ -1256,7 +1285,7 @@ namespace ASC.Api.Projects
                 };
 
             template = EngineFactory.GetTemplateEngine().SaveOrUpdate(template).NotFoundIfNull();
-            MessageService.Send(_context, MessageAction.ProjectTemplateCreated, template.Title);
+            MessageService.Send(Request, MessageAction.ProjectTemplateCreated, template.Title);
 
             return new ObjectWrapperBase {Id = template.Id, Title = template.Title, Description = template.Description};
         }
@@ -1287,7 +1316,7 @@ namespace ASC.Api.Projects
             template.Description = Update.IfNotEmptyAndNotEquals(template.Description, description);
 
             template = templateEngine.SaveOrUpdate(template);
-            MessageService.Send(_context, MessageAction.ProjectTemplateUpdated, template.Title);
+            MessageService.Send(Request, MessageAction.ProjectTemplateUpdated, template.Title);
 
             return new ObjectWrapperBase {Id = template.Id, Title = template.Title, Description = template.Description};
         }
@@ -1309,7 +1338,7 @@ namespace ASC.Api.Projects
             var template = templateEngine.GetByID(id).NotFoundIfNull();
 
             templateEngine.Delete(id);
-            MessageService.Send(_context, MessageAction.ProjectTemplateDeleted, template.Title);
+            MessageService.Send(Request, MessageAction.ProjectTemplateDeleted, template.Title);
 
             return new ObjectWrapperBase {Id = template.Id, Title = template.Title, Description = template.Description};
         }

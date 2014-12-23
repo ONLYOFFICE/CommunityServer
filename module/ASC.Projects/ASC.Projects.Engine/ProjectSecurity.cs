@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -35,6 +35,8 @@ using ASC.Projects.Data;
 using ASC.Web.Core;
 using System.Web;
 using System.IO;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Projects.Engine
 {
@@ -58,6 +60,16 @@ namespace ASC.Projects.Engine
         private static bool CurrentUserIsVisitor
         {
             get { return IsVisitor(CurrentUserId); }
+        }
+
+        private static bool CurrentUserIsOutsider
+        {
+            get { return IsOutsider(CurrentUserId); }
+        }
+
+        public static bool IsPrivateDisabled
+        {
+            get { return SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone; }
         }
 
         public static bool IsProjectsEnabled(Guid userID)
@@ -232,6 +244,7 @@ namespace ASC.Projects.Engine
         {
             if (!IsProjectsEnabled(userId)) return false;
             if (project == null) return false;
+            if (project.Private && IsPrivateDisabled) return false;
             return !project.Private || IsInTeam(project, userId);
         }
 
@@ -359,7 +372,12 @@ namespace ASC.Projects.Engine
 
         public static bool CanCreateComment()
         {
-            return IsProjectsEnabled(CurrentUserId) && SecurityContext.IsAuthenticated;
+            return IsProjectsEnabled(CurrentUserId) && SecurityContext.IsAuthenticated && !CurrentUserIsOutsider;
+        }
+
+        public static bool CanCreateComment(Message message)
+        {
+            return message.Status == MessageStatus.Open && CanCreateComment();
         }
 
         public static bool CanCreateTimeSpend(Project project)
@@ -443,6 +461,11 @@ namespace ASC.Projects.Engine
             return comment.CreateBy == CurrentUserId || IsProjectManager(project);
         }
 
+        public static bool CanEditComment(Message message, Comment comment)
+        {
+            return message.Status == MessageStatus.Open && CanEditComment(message.Project, comment);
+        }
+
         public static bool CanEdit(TimeSpend timeSpend)
         {
             if (!Can(timeSpend)) return false;
@@ -521,6 +544,11 @@ namespace ASC.Projects.Engine
             if (!CanCreateComment()) throw CreateSecurityException();
         }
 
+        public static void DemandCreateComment(Message message)
+        {
+            if (!CanCreateComment(message)) throw CreateSecurityException();
+        }
+
 
         public static void DemandRead(Milestone milestone)
         {
@@ -593,6 +621,11 @@ namespace ASC.Projects.Engine
             if (!CanEditComment(project, comment)) throw CreateSecurityException();
         }
 
+        public static void DemandEditComment(Message message, Comment comment)
+        {
+            if (!CanEditComment(message, comment)) throw CreateSecurityException();
+        }
+
 
         public static void DemandDeleteTimeSpend(TimeSpend timeSpend)
         {
@@ -651,6 +684,11 @@ namespace ASC.Projects.Engine
         public static bool IsVisitor(Guid userId)
         {
             return CoreContext.UserManager.GetUsers(userId).IsVisitor();
+        }
+
+        public static bool IsOutsider(Guid userId)
+        {
+            return CoreContext.UserManager.GetUsers(userId).IsOutsider();
         }
 
         public static bool IsInTeam(Project project)

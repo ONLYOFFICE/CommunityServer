@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -38,10 +38,11 @@ namespace ASC.Common.Data
 {
     public static class DbRegistry
     {
+        private const string DEFAULT = "DEFAULT";
         private static readonly object syncRoot = new object();
-        private static readonly IDictionary<string, DbProviderFactory> providers = new Dictionary<string, DbProviderFactory>();
-        private static readonly IDictionary<string, string> connnectionStrings = new Dictionary<string, string>();
-        private static readonly IDictionary<string, ISqlDialect> dialects = new Dictionary<string, ISqlDialect>();
+        private static readonly IDictionary<string, DbProviderFactory> providers = new Dictionary<string, DbProviderFactory>(StringComparer.InvariantCultureIgnoreCase);
+        private static readonly IDictionary<string, string> connnectionStrings = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+        private static readonly IDictionary<string, ISqlDialect> dialects = new Dictionary<string, ISqlDialect>(StringComparer.InvariantCultureIgnoreCase);
         private static volatile bool configured = false;
 
         static DbRegistry()
@@ -51,7 +52,7 @@ namespace ASC.Common.Data
             dialects["System.Data.SQLite.SQLiteFactory"] = new SQLiteDialect();
         }
 
-        public static void RegisterDatabase(string databaseId, DbProviderFactory providerFactory, string connectionString)
+        internal static void RegisterDatabase(string databaseId, DbProviderFactory providerFactory, string connectionString)
         {
             if (string.IsNullOrEmpty(databaseId)) throw new ArgumentNullException("databaseId");
             if (providerFactory == null) throw new ArgumentNullException("providerFactory");
@@ -72,7 +73,7 @@ namespace ASC.Common.Data
             }
         }
 
-        public static void RegisterDatabase(string databaseId, string providerInvariantName, string connectionString)
+        internal static void RegisterDatabase(string databaseId, string providerInvariantName, string connectionString)
         {
             RegisterDatabase(databaseId, DbProviderFactories.GetFactory(providerInvariantName), connectionString);
         }
@@ -80,16 +81,6 @@ namespace ASC.Common.Data
         public static void RegisterDatabase(string databaseId, ConnectionStringSettings connectionString)
         {
             RegisterDatabase(databaseId, connectionString.ProviderName, connectionString.ConnectionString);
-        }
-
-        public static void RegisterDatabase(string databaseId, DbProviderFactory providerFactory)
-        {
-            RegisterDatabase(databaseId, providerFactory, null);
-        }
-
-        public static void RegisterDatabase(string databaseId, string providerInvariantName)
-        {
-            RegisterDatabase(databaseId, providerInvariantName, null);
         }
 
         public static bool IsDatabaseRegistered(string databaseId)
@@ -103,6 +94,12 @@ namespace ASC.Common.Data
         public static IDbConnection CreateDbConnection(string databaseId)
         {
             Configure();
+
+            if (!providers.ContainsKey(databaseId))
+            {
+                databaseId = DEFAULT;
+            }
+            
             var connection = providers[databaseId].CreateConnection();
             if (connnectionStrings.ContainsKey(databaseId))
             {
@@ -114,12 +111,22 @@ namespace ASC.Common.Data
         public static DbProviderFactory GetDbProviderFactory(string databaseId)
         {
             Configure();
+
+            if (!providers.ContainsKey(databaseId))
+            {
+                databaseId = DEFAULT;
+            }
             return providers.ContainsKey(databaseId) ? providers[databaseId] : null;
         }
 
         public static ConnectionStringSettings GetConnectionString(string databaseId)
         {
             Configure();
+
+            if (!connnectionStrings.ContainsKey(databaseId))
+            {
+                databaseId = DEFAULT;
+            }
             return connnectionStrings.ContainsKey(databaseId) ? new ConnectionStringSettings(databaseId, connnectionStrings[databaseId], providers[databaseId].GetType().Name) : null;
         }
 

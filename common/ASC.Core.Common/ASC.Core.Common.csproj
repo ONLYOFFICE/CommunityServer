@@ -9,8 +9,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ASC.Core.Common</RootNamespace>
     <AssemblyName>ASC.Core.Common</AssemblyName>
-    <TrunkDir>..\..\</TrunkDir>
-    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -18,12 +16,12 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
+    <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,7 +30,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -40,53 +37,40 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-      <HintPath>..\..\redistributable\third-party\Microsoft\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    <Reference Include="AWSSDK">
+      <HintPath>..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\redistributable\third-party\db\mysql\MySql.Data.dll</HintPath>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+      <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="System.Runtime.Serialization">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.ServiceModel">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.ServiceModel.Web">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="ASC.Common">
-      <HintPath>..\..\redistributable\asc\ASC.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK">
-      <HintPath>..\..\redistributable\third-party\Amazon\AWSSDK.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="log4net">
-      <HintPath>..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <HintPath>..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Billing\BillingClient.cs" />
@@ -101,7 +85,7 @@
     <Compile Include="Billing\Tariff.cs" />
     <Compile Include="Billing\TariffState.cs" />
     <Compile Include="Billing\TariffSyncService.cs" />
-    <Compile Include="Caching\AspCache.cs" />
+    <Compile Include="Caching\AscCache.cs" />
     <Compile Include="Caching\AzRecordStore.cs" />
     <Compile Include="Caching\CachedAzService.cs" />
     <Compile Include="Caching\CachedQuotaService.cs" />
@@ -109,6 +93,7 @@
     <Compile Include="Caching\ICache.cs" />
     <Compile Include="Caching\TrustInterval.cs" />
     <Compile Include="Caching\UserGroupRefStore.cs" />
+    <Compile Include="Configuration\AmazonS3Settings.cs" />
     <Compile Include="Configuration\ConnectionStringNameTypeConverter.cs" />
     <Compile Include="Configuration\AmiPublicDnsSyncService.cs" />
     <Compile Include="Context\ClientImpl\ClientPaymentManager.cs" />
@@ -123,8 +108,6 @@
     <Compile Include="Core\PartnerPaymentMethod.cs" />
     <Compile Include="Core\PartnerStatus.cs" />
     <Compile Include="Core\PartnerType.cs" />
-    <Compile Include="Logging\AdoNetAppender2.cs" />
-    <Compile Include="Logging\AdminLogFormatter.cs" />
     <Compile Include="MultiRegionHostedSolution.cs" />
     <Compile Include="Core\EmployeeType.cs" />
     <Compile Include="Core\EmployeeActivationStatus.cs" />
@@ -161,14 +144,10 @@
     <Compile Include="Core\UserGroupRef.cs" />
     <Compile Include="Core\UserGroupRefType.cs" />
     <Compile Include="Data\DbBaseService.cs" />
-    <Compile Include="Data\DbExecuter.cs" />
-    <Compile Include="Data\IDbExecuter.cs" />
     <Compile Include="HostedSolution.cs" />
     <Compile Include="Context\CoreContext.cs" />
     <Compile Include="Context\WorkContext.cs" />
     <Compile Include="Configuration\Constants.cs" />
-    <Compile Include="Logging\AdminLogLayout.cs" />
-    <Compile Include="Logging\AdminLog.cs" />
     <Compile Include="Notify\DirectSubscriptionProvider.cs" />
     <Compile Include="Notify\Jabber\IReverseJabberService.cs" />
     <Compile Include="Notify\Jabber\JabberServiceClient.cs" />
@@ -195,6 +174,7 @@
     <Compile Include="Notify\EmailSenderSink.cs" />
     <Compile Include="Security\Crypto.cs" />
     <Compile Include="Security\EmailValidationKeyProvider.cs" />
+    <Compile Include="Tenants\TenantDomainValidator.cs" />
     <Compile Include="Tenants\TenantIndustry.cs" />
     <Compile Include="Tenants\TenantQuotaException.cs" />
     <Compile Include="Tenants\TenantQuotaType.cs" />
@@ -219,10 +199,10 @@
     <None Include="Tests\App.config">
     </None>
     <Compile Include="Tests\BillingClientTest.cs" />
+    <Compile Include="Tests\SignatureTest.cs" />
     <Compile Include="Tests\TariffSyncServiceTest.cs" />
     <Compile Include="Tests\HostedSolutionTest.cs" />
     <Compile Include="Tests\EmailValidationKeyPairProvider_Test.cs" />
-    <Compile Include="Tests\LoggingTests.cs" />
     <Compile Include="Tests\TariffServiceTest.cs" />
     <Compile Include="Tests\DbAzServiceTest.cs" />
     <Compile Include="Tests\DbBaseTest.cs" />
@@ -244,10 +224,11 @@
     <Compile Include="Users\UserExtensions.cs" />
     <Compile Include="Users\UserFormatter.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild">
-    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile->'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
-    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath->'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
-  </Target>
 </Project>

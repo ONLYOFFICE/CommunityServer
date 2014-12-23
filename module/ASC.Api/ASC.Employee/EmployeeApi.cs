@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -31,6 +31,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Security;
+using System.Web;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Exceptions;
@@ -47,6 +49,7 @@ using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using log4net;
 using ASC.Web.Core;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Employee
 {
@@ -65,6 +68,11 @@ namespace ASC.Api.Employee
         public EmployeeApi(ApiContext context)
         {
             _context = context;
+        }
+
+        private static HttpRequest Request
+        {
+            get { return HttpContext.Current.Request; }
         }
 
         ///<summary>
@@ -97,6 +105,7 @@ namespace ASC.Api.Employee
         [Read("status/{status}")]
         public IEnumerable<EmployeeWraperFull> GetByStatus(EmployeeStatus status)
         {
+            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
             var query = CoreContext.UserManager.GetUsers(status).AsEnumerable();
             if ("group".Equals(_context.FilterBy, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(_context.FilterValue))
             {
@@ -119,6 +128,7 @@ namespace ASC.Api.Employee
         [Read("{username}")]
         public EmployeeWraperFull GetById(string username)
         {
+            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
             var user = CoreContext.UserManager.GetUserByUserName(username);
             if (user.ID == Core.Users.Constants.LostUser.ID)
             {
@@ -144,6 +154,8 @@ namespace ASC.Api.Employee
         [Read("email/{email}")]
         public EmployeeWraperFull GetByEmail(string email)
         {
+            if (CoreContext.Configuration.Personal && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsOwner())
+                throw new MethodAccessException("Method not available on personal.onlyoffice.com");
             var user = CoreContext.UserManager.GetUserByEmail(email);
             if (user.ID == Core.Users.Constants.LostUser.ID)
             {
@@ -163,6 +175,7 @@ namespace ASC.Api.Employee
         [Read("@search/{query}")]
         public IEnumerable<EmployeeWraperFull> GetSearch(string query)
         {
+            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
             try
             {
                 var groupId = Guid.Empty;
@@ -189,7 +202,7 @@ namespace ASC.Api.Employee
         ///<short>
         ///User search
         ///</short>
-        ///<param name="query" remarks="from body">Search text</param>
+        ///<param name="query">Search text</param>
         ///<returns>User list</returns>
         [Read("search")]
         public IEnumerable<EmployeeWraperFull> GetPeopleSearch(string query)
@@ -209,6 +222,7 @@ namespace ASC.Api.Employee
         [Read("status/{status}/search")]
         public IEnumerable<EmployeeWraperFull> GetAdvanced(EmployeeStatus status, string query)
         {
+            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
             try
             {
                 var list = CoreContext.UserManager.GetUsers(status).AsEnumerable();
@@ -252,6 +266,7 @@ namespace ASC.Api.Employee
         [Read("filter")]
         public IEnumerable<EmployeeWraperFull> GetByFilter(EmployeeStatus? employeeStatus, Guid? groupId, EmployeeActivationStatus? activationStatus, EmployeeType? employeeType, bool? isAdministrator)
         {
+            if (CoreContext.Configuration.Personal) throw new MethodAccessException("Method not available on personal.onlyoffice.com");
             var isAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
             var status = isAdmin ? EmployeeStatus.All : EmployeeStatus.Default;
 
@@ -364,7 +379,7 @@ namespace ASC.Api.Employee
             user = UserManagerWrapper.AddUser(user, password, false, true, isVisitor);
 
             var messageAction = isVisitor ? MessageAction.GuestCreated : MessageAction.UserCreated;
-            MessageService.Send(_context, messageAction, user.DisplayUserName(false));
+            MessageService.Send(Request, messageAction, user.DisplayUserName(false));
 
             UpdateDepartments(department, user);
 
@@ -488,6 +503,7 @@ namespace ASC.Api.Employee
 
         private static void UpdateContacts(IEnumerable<Contact> contacts, UserInfo user)
         {
+            SecurityContext.DemandPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser);
             user.Contacts.Clear();
             if (contacts == null) return;
 
@@ -500,6 +516,7 @@ namespace ASC.Api.Employee
 
         private static void DeleteContacts(IEnumerable<Contact> contacts, UserInfo user)
         {
+            SecurityContext.DemandPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser);
             if (contacts == null) return;
 
             foreach (var contact in contacts)
@@ -515,6 +532,7 @@ namespace ASC.Api.Employee
 
         private static void UpdatePhotoUrl(string files, UserInfo user)
         {
+            SecurityContext.DemandPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser);
             if (String.IsNullOrEmpty(files)) return;
 
             var fileName = Path.GetFileName(files);
@@ -550,7 +568,11 @@ namespace ASC.Api.Employee
             SecurityContext.DemandPermissions(new UserSecurityProvider(new Guid(userid)), Core.Users.Constants.Action_EditUser);
 
             var user = GetUserInfo(userid);
-            var self = SecurityContext.CurrentAccount.ID.Equals(new Guid(userid));
+
+            if(CoreContext.UserManager.IsSysytemUser(user.ID))
+                throw new SecurityException();
+
+            var self = SecurityContext.CurrentAccount.ID.Equals(user.ID);
             var resetDate = new DateTime(1900, 01, 01);
 
             //Update it
@@ -629,7 +651,7 @@ namespace ASC.Api.Employee
             }
 
             CoreContext.UserManager.SaveUserInfo(user);
-            MessageService.Send(_context, MessageAction.UserUpdated, user.DisplayUserName(false));
+            MessageService.Send(Request, MessageAction.UserUpdated, user.DisplayUserName(false));
 
             return new EmployeeWraperFull(user);
         }
@@ -648,14 +670,19 @@ namespace ASC.Api.Employee
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_AddRemoveUser);
 
             var user = GetUserInfo(userid);
-            user.Status = EmployeeStatus.Terminated;
+
+            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+                throw new SecurityException();
+
+            if (user.Status != EmployeeStatus.Terminated)
+                throw new Exception("The user is not suspended");
 
             var userName = user.DisplayUserName(false);
 
             UserPhotoManager.RemovePhoto(Guid.Empty, user.ID);
             CoreContext.UserManager.DeleteUser(user.ID);
 
-            MessageService.Send(_context, MessageAction.UserDeleted, userName);
+            MessageService.Send(Request, MessageAction.UserDeleted, userName);
 
             return new EmployeeWraperFull(user);
         }
@@ -673,6 +700,10 @@ namespace ASC.Api.Employee
         public EmployeeWraperFull UpdateMemberContacts(string userid, IEnumerable<Contact> contacts)
         {
             var user = GetUserInfo(userid);
+
+            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+                throw new SecurityException();
+
             UpdateContacts(contacts, user);
             CoreContext.UserManager.SaveUserInfo(user);
             return new EmployeeWraperFull(user);
@@ -691,6 +722,10 @@ namespace ASC.Api.Employee
         public EmployeeWraperFull SetMemberContacts(string userid, IEnumerable<Contact> contacts)
         {
             var user = GetUserInfo(userid);
+
+            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+                throw new SecurityException();
+
             user.Contacts.Clear();
             UpdateContacts(contacts, user);
             CoreContext.UserManager.SaveUserInfo(user);
@@ -710,6 +745,10 @@ namespace ASC.Api.Employee
         public EmployeeWraperFull DeleteMemberContacts(string userid, IEnumerable<Contact> contacts)
         {
             var user = GetUserInfo(userid);
+
+            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+                throw new SecurityException();
+
             DeleteContacts(contacts, user);
             CoreContext.UserManager.SaveUserInfo(user);
             return new EmployeeWraperFull(user);
@@ -728,13 +767,17 @@ namespace ASC.Api.Employee
         public EmployeeWraperFull UpdateMemberPhoto(string userid, string files)
         {
             var user = GetUserInfo(userid);
+
+            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+                throw new SecurityException();
+
             if (files != UserPhotoManager.GetPhotoAbsoluteWebPath(user.ID))
             {
                 UpdatePhotoUrl(files, user);
             }
 
             CoreContext.UserManager.SaveUserInfo(user);
-            MessageService.Send(_context, MessageAction.UserAddedAvatar, user.DisplayUserName(false));
+            MessageService.Send(Request, MessageAction.UserAddedAvatar, user.DisplayUserName(false));
 
             return new EmployeeWraperFull(user);
         }
@@ -752,10 +795,15 @@ namespace ASC.Api.Employee
         {
             var user = GetUserInfo(userid);
 
+            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+                throw new SecurityException();
+
+            SecurityContext.DemandPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser);
+
             UserPhotoManager.RemovePhoto(Guid.Empty, user.ID);
 
             CoreContext.UserManager.SaveUserInfo(user);
-            MessageService.Send(_context, MessageAction.UserDeletedAvatar, user.DisplayUserName(false));
+            MessageService.Send(Request, MessageAction.UserDeletedAvatar, user.DisplayUserName(false));
 
             return new EmployeeWraperFull(user);
         }
@@ -801,6 +849,9 @@ namespace ASC.Api.Employee
             if (!CoreContext.UserManager.UserExists(userid)) return null;
 
             var user = CoreContext.UserManager.GetUsers(userid);
+
+            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+                throw new SecurityException();
 
             if (!string.IsNullOrEmpty(email))
             {
@@ -852,7 +903,7 @@ namespace ASC.Api.Employee
         public IEnumerable<EmployeeWraperFull> UpdateEmployeeActivationStatus(EmployeeActivationStatus activationstatus, IEnumerable<Guid> userIds)
         {
             var retuls = new List<EmployeeWraperFull>();
-            foreach (var id in userIds)
+            foreach (var id in userIds.Where(userId => !CoreContext.UserManager.IsSysytemUser(userId)))
             {
                 SecurityContext.DemandPermissions(new UserSecurityProvider(id), Core.Users.Constants.Action_EditUser);
                 var u = CoreContext.UserManager.GetUsers(id);
@@ -879,7 +930,7 @@ namespace ASC.Api.Employee
         public IEnumerable<EmployeeWraperFull> UpdateUserType(EmployeeType type, IEnumerable<Guid> userIds)
         {
             var users = userIds
-                .Where(userId => !userId.Equals(Core.Users.Constants.LostUser.ID))
+                .Where(userId => !CoreContext.UserManager.IsSysytemUser(userId))
                 .Select(userId => CoreContext.UserManager.GetUsers(userId))
                 .ToList();
 
@@ -907,7 +958,7 @@ namespace ASC.Api.Employee
                 }
             }
 
-            MessageService.Send(_context, MessageAction.UsersUpdatedType, users.Select(x => x.DisplayUserName(false)));
+            MessageService.Send(Request, MessageAction.UsersUpdatedType, users.Select(x => x.DisplayUserName(false)));
 
             return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
         }
@@ -927,7 +978,7 @@ namespace ASC.Api.Employee
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
 
             var users = userIds
-                .Where(userId => !userId.Equals(Core.Users.Constants.LostUser.ID))
+                .Where(userId => !CoreContext.UserManager.IsSysytemUser(userId))
                 .Select(userId => CoreContext.UserManager.GetUsers(userId))
                 .ToList();
 
@@ -955,7 +1006,7 @@ namespace ASC.Api.Employee
                 }
             }
 
-            MessageService.Send(_context, MessageAction.UsersUpdatedStatus, users.Select(x => x.DisplayUserName(false)));
+            MessageService.Send(Request, MessageAction.UsersUpdatedStatus, users.Select(x => x.DisplayUserName(false)));
 
             return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
         }
@@ -972,7 +1023,7 @@ namespace ASC.Api.Employee
         public IEnumerable<EmployeeWraperFull> ResendUserInvites(IEnumerable<Guid> userIds)
         {
             var users = userIds
-                .Where(userId => !userId.Equals(Core.Users.Constants.LostUser.ID))
+                .Where(userId => !CoreContext.UserManager.IsSysytemUser(userId))
                 .Select(userId => CoreContext.UserManager.GetUsers(userId))
                 .ToList();
 
@@ -997,7 +1048,7 @@ namespace ASC.Api.Employee
                 }
             }
 
-            MessageService.Send(_context, MessageAction.UsersSentActivationInstructions, users.Select(x => x.DisplayUserName(false)));
+            MessageService.Send(Request, MessageAction.UsersSentActivationInstructions, users.Select(x => x.DisplayUserName(false)));
 
             return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
         }
@@ -1013,8 +1064,10 @@ namespace ASC.Api.Employee
         [Update("delete")]
         public IEnumerable<EmployeeWraperFull> RemoveUsers(IEnumerable<Guid> userIds)
         {
+            SecurityContext.DemandPermissions(Core.Users.Constants.Action_AddRemoveUser);
+
             var users = userIds
-                .Where(userId => !userId.Equals(Core.Users.Constants.LostUser.ID))
+                .Where(userId => !CoreContext.UserManager.IsSysytemUser(userId))
                 .Select(userId => CoreContext.UserManager.GetUsers(userId))
                 .ToList();
 
@@ -1028,7 +1081,7 @@ namespace ASC.Api.Employee
                 CoreContext.UserManager.DeleteUser(user.ID);
             }
 
-            MessageService.Send(_context, MessageAction.UsersDeleted, userNames);
+            MessageService.Send(Request, MessageAction.UsersDeleted, userNames);
 
             return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
         }

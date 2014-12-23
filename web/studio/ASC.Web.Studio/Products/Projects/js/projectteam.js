@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 ASC.Projects.ProjectTeam = (function() {
     var projectId = null;
     var managerId = null;
@@ -42,25 +38,6 @@ ASC.Projects.ProjectTeam = (function() {
         projectId = parseInt(jq.getURLParam("prjID"));
         managerId = jq(".pm-projectTeam-projectLeaderCard").find(".manager-info").attr("data-manager-guid");
 
-        ASC.Projects.Common.bind(ASC.Projects.Common.events.loadTeam, function() {
-            displayTeam(ASC.Projects.Master.TeamWithBlockedUsers);
-            calculateWidthBlockUserInfo();
-
-            var teamUserIds = [];
-            jq(ASC.Projects.Master.TeamWithBlockedUsers).each(function (i, el) { teamUserIds.push(el.id) });
-
-            // userselector for the team
-
-            jq("#pm-projectTeam-Selector").useradvancedSelector({
-                showGroups: true,
-                itemsSelectedIds: teamUserIds,
-                itemsDisabledIds: [managerId]
-            }).on("showList", manageTeam);
-
-        });
-
-
-
         // calculate width
         jq(window).resize(function() {
             calculateWidthBlockUserInfo();
@@ -70,6 +47,59 @@ ASC.Projects.ProjectTeam = (function() {
         //--change partisipant security
         $teamContainer = jq("#team_container");
         $actionPanel = jq("#userActionPanel");
+
+        jq.dropdownToggle({
+            dropdownID: "userActionPanel",
+            switcherSelector: "#team_container .entity-menu",
+            addTop: 0,
+            addLeft: 10,
+            rightPos: true,
+            showFunction: function (switcherObj, dropdownItem) {
+                var $container = jq(switcherObj).closest('tr'),
+                    $openItem = jq("#team_container tr.open"),
+                    userId = $container.attr("data-partisipantid"),
+                    userName = jq.trim($container.find(".user-name").text()),
+                    email = $container.attr("data-email"),
+                    jabber = $container.attr("data-user");
+
+                if (jq(switcherObj).attr("data-status") == "2") {
+                    jq("#addNewTask, #writeJabber, #sendEmail").hide();
+                } else {
+                    if (Teamlab.profile.id == userId) {
+                        jq("#writeJabber, #sendEmail").hide();
+                    } else {
+                        jq("#writeJabber, #sendEmail").show();
+                    }
+                    if (jq(switcherObj).attr("data-isVisitor") == "true") {
+                        jq("#addNewTask, #reportOpenTasks, #reportClosedTasks, #viewOpenTasks").hide();
+                    } else {
+                        jq("#addNewTask, #reportOpenTasks, #reportClosedTasks, #viewOpenTasks").show();
+                    }
+                }
+
+                dropdownItem.attr("data-userid", userId);
+                dropdownItem.attr("data-username", userName);
+                dropdownItem.attr("data-email", email);
+                dropdownItem.find("#writeJabber").attr("data-username", jabber);
+                if (managerId == userId) {
+                    dropdownItem.find("#removeFromTeam").hide();
+                } else {
+                    dropdownItem.find("#removeFromTeam").show();
+                }
+
+                $openItem.removeClass("open");
+                if (!$openItem.is($container)) {
+                    dropdownItem.hide();
+                }
+                if (dropdownItem.is(":hidden")) {
+                    $container.addClass("open");
+                }
+            },
+            hideFunction: function () {
+                jq("#team_container tr.open").removeClass("open");
+            }
+        });
+
 
         $teamContainer.on("click", ".right-checker", function() {
             var cheker = jq(this);
@@ -86,36 +116,7 @@ ASC.Projects.ProjectTeam = (function() {
             }
             Teamlab.setTeamSecurity({ partisipant: data.userId, securityFlag: data.security }, projectId, data, { success: onSetTeamSecurity });
         });
-        //--show user menu
 
-        $teamContainer.on('click', ".entity-menu", function() {
-            $container = jq(this).closest("tr");
-            $container.addClass("open");
-            var userId = $container.attr("data-partisipantid");
-            var userName = jq.trim($container.find(".user-name").text());
-            var email = $container.attr("data-email");
-            var jabberNeme = $container.attr("data-user");
-
-            if (jq(this).attr("data-status") == "2") {
-                jq("#addNewTask, #writeJabber, #sendEmail").hide();
-            } else {
-                if (Teamlab.profile.id == userId) {
-                    jq("#writeJabber, #sendEmail").hide();
-                } else {
-                    jq("#writeJabber, #sendEmail").show();
-                }
-                if (jq(this).attr("data-isVisitor") == "true") {
-                    jq("#addNewTask, #reportOpenTasks, #reportClosedTasks, #viewOpenTasks").hide();
-                } else {
-                    jq("#addNewTask, #reportOpenTasks, #reportClosedTasks, #viewOpenTasks").show();
-                }
-            }
-            if ($actionPanel.css("display") == "none") {
-                showActionPanel(this, userId, userName, email, jabberNeme);
-            } else {
-                $actionPanel.hide();
-            }
-        });
         //--menu actions
         $actionPanel.on("click", "#addNewTask", function () {
             $actionPanel.hide();
@@ -205,6 +206,20 @@ ASC.Projects.ProjectTeam = (function() {
                 jq("#team_container tr.open").removeClass("open");
             }
         });
+        
+        displayTeam(ASC.Projects.Master.TeamWithBlockedUsers);
+        calculateWidthBlockUserInfo();
+
+        var teamUserIds = [];
+        jq(ASC.Projects.Master.TeamWithBlockedUsers).each(function (i, el) { teamUserIds.push(el.id) });
+
+        // userselector for the team
+
+        jq("#pm-projectTeam-Selector").useradvancedSelector({
+            showGroups: true,
+            itemsSelectedIds: teamUserIds,
+            itemsDisabledIds: [managerId]
+        }).on("showList", manageTeam);
     };
 
     var onRemoveMember = function (params, user) {
@@ -271,12 +286,9 @@ ASC.Projects.ProjectTeam = (function() {
 
     var displayTeam = function(team) {
         for (var i = 0; i < team.length; i++) {
-            if (managerId == team[i].id) {
-                team[i].isManager = true;
-            }
-            else {
-                team[i].isManager = false;
-            }
+            team[i].isManager = managerId == team[i].id;
+            team[i].title = team[i].title ? team[i].title : "";
+            
             if (myGUID == team[i].id) {
                 canCreateTask = team[i].canReadTasks;
             }
@@ -285,23 +297,6 @@ ASC.Projects.ProjectTeam = (function() {
         jq('#memberTemplate').tmpl(team).prependTo("#team_container");
     };
 
-    function showActionPanel(obj, id, userName, userEmail, jabber) {
-        jq("#team_container .with-entity-menu").removeClass("open");
-        var x = jq(obj).offset().left - 172;
-        var y = jq(obj).offset().top + 17;
-        $actionPanel = jq("#userActionPanel");
-        $actionPanel.attr("data-userid", id);
-        $actionPanel.attr("data-username", userName);
-        $actionPanel.attr("data-email", userEmail);
-        $actionPanel.find("#writeJabber").attr("data-username", jabber);
-        if (managerId == id) {
-            $actionPanel.find("#removeFromTeam").hide();
-        } else {
-            $actionPanel.find("#removeFromTeam").show();
-        }
-        $actionPanel.css({ left: x, top: y });
-        $actionPanel.show();
-    }
     var onSetTeamSecurity = function(params, data) {
         var userId = params.partisipant;
         var flagCont = jq(".pm-projectTeam-participantContainer[data-partisipantId='" + userId + "']").find("span[data-flag='" + params.securityFlag + "']");

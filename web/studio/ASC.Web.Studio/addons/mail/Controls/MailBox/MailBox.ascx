@@ -97,9 +97,9 @@
     </div>
 
     <div id="messagesActionMenu" class="studio-action-panel">
-        <div class="corner-top right"></div>
         <ul class="dropdown-content">
             <li><a class="openMail dropdown-item"><%=MailResource.OpenBtnLabel%></a></li>
+            <li><a class="openNewTabMail dropdown-item"><%=MailResource.OpenInNewTabBtnLabel%></a></li>
             <li><a class="replyMail dropdown-item"><%=MailResource.ReplyBtnLabel%></a></li>
             <li><a class="replyAllMail dropdown-item"><%=MailResource.ReplyAllBtnLabel%></a></li>
             <li><a class="createEmail dropdown-item"><%=MailResource.CreateEmailToSenderLabel%></a></li>
@@ -146,7 +146,6 @@
 
 
 <div id="attachmentActionMenu" class="studio-action-panel">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li><a class="downloadAttachment dropdown-item"><%=MailResource.DownloadAttachment%></a></li>
         <li><a class="viewAttachment dropdown-item"><%=MailResource.ViewAttachment%></a></li>
@@ -156,7 +155,6 @@
 </div>
 
 <div id="attachmentEditActionMenu" class="studio-action-panel">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li><a class="downloadAttachment dropdown-item"><%=MailResource.DownloadAttachment%></a></li>
         <li><a class="viewAttachment dropdown-item"><%=MailResource.ViewAttachment%></a></li>
@@ -165,7 +163,6 @@
 </div>
 
 <div id="messageActionMenu" class="studio-action-panel">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li><a class="replyMail dropdown-item"><%=MailResource.ReplyBtnLabel%></a></li>
         <li><a class="replyAllMail dropdown-item"><%=MailResource.ReplyAllBtnLabel%></a></li>
@@ -178,7 +175,6 @@
 </div>
 
 <div id="singleMessageActionMenu" class="studio-action-panel">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li><a class="replyMail dropdown-item"><%=MailResource.ReplyBtnLabel%></a></li>
         <li><a class="replyAllMail dropdown-item"><%=MailResource.ReplyAllBtnLabel%></a></li>

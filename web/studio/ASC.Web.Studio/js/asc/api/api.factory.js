@@ -1,34 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
-*/
-
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 ;
@@ -241,6 +236,7 @@ window.ServiceFactory = (function() {
             { handler: 'doc-file', re: /files\/file\/[\w\d-]+\.json/ },
             { handler: 'doc-file', re: /files\/[\w\d-]+\/upload\.xml/ },
             { handler: 'doc-file', re: /files\/[\w\d-]+\/upload\.json/ },
+            { handler: 'doc-settings', re: /files\/neweditors\.json/, method: 'put' },
             { handler: 'doc-session', re: /files\/[\w\d-]+\/upload\/create_session\.json/ },
             { handler: 'doc-file', re: /crm\/files\/[\w\d-]+\.json/ },
             { handler: 'doc-file', re: /crm\/[case|contact|opportunity]+\/[\w\d-]+\/files\/upload\.xml/ },
@@ -257,7 +253,12 @@ window.ServiceFactory = (function() {
             { handler: 'crm-contact', re: /crm\/[case|opportunity]+\/[\w\d-]+\/contact\.json/, method: 'post' },
             { handler: 'crm-contact', re: /crm\/[case|opportunity]+\/[\w\d-]+\/contact\/[\w\d-]+\.json/, method: 'post' },
             { handler: 'crm-contact', re: /crm\/[case|opportunity]+\/[\w\d-]+\/contact\/[\w\d-]+\.json/ },
+            { handler: 'crm-contacts', re: /crm\/contact\/bycontactinfo\.json/, method: 'get' },
             { handler: 'crm-contact', re: /crm\/contact\/merge\.json/ },
+            { handler: 'crm-tweets', re: /crm\/contact\/[\w\d-]+\/tweets\.json/ },
+            { handler: 'crm-twitterprofiles', re: /crm\/contact\/twitterprofile\.json/ },
+            { handler: 'crm-facebookprofiles', re: /crm\/contact\/facebookprofile\.json/ },
+            { handler: 'crm-linkedinprofiles', re: /crm\/contact\/linkedinprofile\.json/ },
             { handler: 'crm-task', re: /crm\/task\.json/ },
             { handler: 'crm-task', re: /crm\/task\/[\w\d-]+\.json/ },
             { handler: 'crm-task', re: /crm\/task\/[\w\d-]+\/close\.json/ },
@@ -295,7 +296,7 @@ window.ServiceFactory = (function() {
             { handler: 'crm-cases', re: /crm\/case\/filter\.json/ },
             { handler: 'crm-cases', re: /crm\/case\/byprefix\.json/ },
             { handler: 'crm-contacts', re: /crm\/contact\.json/ },
-            { handler: 'crm-contacts', re: /crm\/contact\/byprefix\.json/ },
+            { handler: 'crm-basecontacts', re: /crm\/contact\/byprefix\.json/ },
             { handler: 'crm-contacts', re: /crm\/contact\/filter\.json/ },
             { handler: 'crm-simplecontacts', re: /crm\/contact\/simple\/filter\.json/ },
             { handler: 'crm-basecontacts', re: /crm\/contact\/mail\.json/ },
@@ -303,6 +304,7 @@ window.ServiceFactory = (function() {
             { handler: 'crm-contacts', re: /crm\/[case|opportunity]+\/[\w\d-]+\/contact\.json/, method: 'get' },
             { handler: 'crm-contacts', re: /crm\/contact\/access\.json/ },
             { handler: 'crm-contacts', re: /crm\/contact\/[\w\d-]+\/access\.json/ },
+            { handler: 'crm-crunchbaseinfo', re: /crm\/contact\/crunchbase\.json/ },
             { handler: 'crm-cases', re: /crm\/case\/access\.json/ },
             { handler: 'crm-cases', re: /crm\/case\/[\w\d-]+\/access\.json/ },
             { handler: 'crm-opportunities', re: /crm\/opportunity\/access\.json/ },
@@ -328,12 +330,13 @@ window.ServiceFactory = (function() {
             { handler: 'crm-historycategories', re: /crm\/history\/category\/reorder\.json/ },
             { handler: 'crm-historycategories', re: /crm\/history\/category\.json/, method: 'get' },
             { handler: 'crm-currency', re: /crm\/settings\/currency\.json/ },
+            { handler: 'crm-currencies', re: /crm\/settings\/currency\.json/, method: 'get' },
+            { handler: 'crm-smtpsettings', re: /crm\/settings\/smtp\.json/ },
             { handler: 'crm-rootfolder', re: /crm\/files\/root\.json/ },
             { handler: 'crm-tasktemplatecontainer', re: /crm\/[contact|person|company|opportunity|case]+\/tasktemplatecontainer\.json/ },
             { handler: 'crm-tasktemplatecontainer', re: /crm\/tasktemplatecontainer\/[\w\d-]+\.json/ },
             { handler: 'crm-tasktemplate', re: /crm\/tasktemplatecontainer\/[\w\d-]+\/tasktemplate\.json/ },
             { handler: 'crm-tasktemplate', re: /crm\/tasktemplatecontainer\/tasktemplate\/[\w\d-]+\.json/ },
-
             { handler: 'crm-invoiceline', re: /crm\/invoiceline\.json/ },
             { handler: 'crm-invoiceline', re: /crm\/invoice\/[\w\d-]+\.json/ },
             { handler: 'crm-invoice', re: /crm\/invoice\.json/, method: 'post' },
@@ -356,13 +359,20 @@ window.ServiceFactory = (function() {
             { handler: 'crm-invoiceSettings', re: /crm\/invoice\/settings\/name\.json/ },
             { handler: 'crm-invoiceSettings', re: /crm\/invoice\/settings\/terms\.json/ },
             { handler: 'doc-file', re: /crm\/invoice\/[\w\d-]+\/pdf\.json/ },
-            { handler: 'crm-converterData', re: /crm\/invoice\/converter\/data\.json/ },
-            
+            { handler: 'crm-converterData', re: /crm\/invoice\/converter\/data\.json/ },            
             { handler: 'crm-currencyRates', re: /crm\/currency\/rates\.json/, method: 'get' },
             { handler: 'crm-currencyRate', re: /crm\/currency\/rates\/[\w\d-]+\.json/ },
             { handler: 'crm-currencyRate', re: /crm\/currency\/rates\/\w{3}\/\w{3}\.json/, method: 'get' },
-            { handler: 'crm-currencyRate', re: /crm\/currency\/rates\.json/, method: 'post' },
-
+            { handler: 'crm-currencyRate', re: /crm\/currency\/rates\.json/, method: 'post' },            
+            { handler: 'crm-voipNumbers', re: /crm\/voip\/numbers\/available\.json/ },
+            { handler: 'crm-voipNumbers', re: /crm\/voip\/numbers\/existing\.json/ },
+            { handler: 'crm-voipNumber', re: /crm\/voip\/numbers\.json/, method: 'post' },
+            { handler: 'crm-voipNumber', re: /crm\/voip\/numbers\/current\.json/ },
+            { handler: 'crm-voipCall', re: /crm\/voip\/call\.json/, method: 'post' },
+            { handler: 'crm-voipCalls', re: /crm\/voip\/call\.json/, method: 'get' },
+            { handler: 'crm-voipCall', re: /crm\/voip\/call\/[\w\d-]+\.json/, method: 'get' },
+            { handler: 'crm-voipCalls', re: /crm\/voip\/call\/missed\.json/, method: 'get' },
+            { handler: 'crm-voipUploads', re: /crm\/voip\/uploads\.json/ },
             { handler: 'authentication', re: /authentication\.json/ },
             { handler: 'settings', re: /settings\.json/ },
             { handler: 'security', re: /settings\/security\.json/ },
@@ -384,6 +394,8 @@ window.ServiceFactory = (function() {
             { handler: 'groups', re: /group\.json/ },
             { handler: 'crm-tasks', re: /crm\/contact\/task\/group\.json/ },
             { handler: 'crm-tag', re: /crm\/[company|person]+\/[\w\d-]+\/tag\/group\.json/ },
+            { handler: 'crm-voipNumber', re: /crm\/voip\/numbers\/[\w]+\/settings.json/, method: 'put' },
+            { handler: 'crm-voipSettings', re: /crm\/voip\/numbers\/settings.json/ },
             { handler: 'comment', re: /comment\.json/, method: 'post' },
             { handler: 'comments', re: /comment\.json/, method: 'get' },
             { handler: 'feed-feeds', re: /feed\/filter\.json/ },
@@ -791,8 +803,9 @@ window.ServiceFactory = (function() {
             if (!d) {
                 return null;
             }
-            var date = null, timestamp = d && typeof d === 'object' && d.hasOwnProperty('utc') && d.utc || d;
-            var offset = d && typeof d === 'object' && d.hasOwnProperty('offset') && isFinite(+d.offset) && +d.offset || 0;
+            var date = null, timestamp = d && typeof d === 'object' && d.hasOwnProperty('utc') && d.utc || d,
+                offset = d && typeof d === 'object' && d.hasOwnProperty('offset') && isFinite(+d.offset) && +d.offset || 0;
+
             if (typeof timestamp !== 'string') {
                 return null;
             }
@@ -809,17 +822,19 @@ window.ServiceFactory = (function() {
             if (typeof(toUTC) !== "undefined" && toUTC !== true) {
                 date = new Date(date[0][0], date[0][1] - 1, date[0][2], date[1][0], date[1][1], date[1][2], 0);
             } else {
+                //Fix Bug 27729
                 date = new Date(
                     Date.UTC(
                         +date[0][0],
                         +date[0][1] - 1,
                         +date[0][2],
                         +date[1][0],
-                        +date[1][1] + new Date().getTimezoneOffset(),
+                        +date[1][1],
                         +date[1][2],
                         0
                     )
                 );
+                date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
             }
 
             if (toUTC !== true && date instanceof Date) {
@@ -1003,7 +1018,8 @@ window.ServiceFactory = (function() {
             return null;
         }
         if (o.hasOwnProperty('email') && o.hasOwnProperty('contacts')) {
-            o.contacts = [{ type: 'mail', value: o.email }].concat(o.contacts);
+            var email = { type: 'mail', value: o.email };
+            o.contacts = o.contacts == null ? [email] : [email].concat(o.contacts);
         }
 
         var person = null,
@@ -1049,12 +1065,14 @@ window.ServiceFactory = (function() {
             isPortalOwner: typeof(o.isOwner) != "undefined" ? o.isOwner : null,
             isAdmin: typeof(o.isAdmin) != "undefined" ? o.isAdmin : null,
             listAdminModules: typeof(o.listAdminModules) != "undefined" ? o.listAdminModules : [],
-            isVisitor: typeof(o.isVisitor) != "undefined" ? o.isVisitor : null,
+            isVisitor: typeof (o.isVisitor) != "undefined" ? o.isVisitor : null,
+            isOutsider: typeof (o.isOutsider) != "undefined" ? o.isOutsider : null,
             sex: o.sex || '',
             location: o.location || '',
             title: o.title || '',
             notes: o.notes || '',
-            culture: o.cultureName || ''
+            culture: o.cultureName || '',
+            profileUrl: o.profileUrl || ''
         };
 
         return person;
@@ -1588,7 +1606,8 @@ window.ServiceFactory = (function() {
                 projectTitle: response.hasOwnProperty('projectOwner') ? response.projectOwner.title : '',
                 parentId: null,
                 comments: null,
-                text: response.text || ''
+                text: response.text || '',
+                status: response.status
             });
         },
 
@@ -1769,10 +1788,7 @@ window.ServiceFactory = (function() {
                 itemId: response.ItemId,
                 itemUrl: response.ItemUrl,
                 id: response.Id,
-                author: response.Author,
-                authorUrl: response.Author.ProfileUrl,
-                authorTitle: response.Author.UserInfo.Title,
-                authorAvatar: ASC.Resources.Master.UserPhotoHandlerUrl + "?userId=" + response.Author.UserInfo.ID,
+                authorId: response.AuthorId,
                 date: date,
                 displayCreatedDatetime: getDisplayDatetime(date),
                 displayCreatedDate: getDisplayDate(date),
@@ -1787,10 +1803,10 @@ window.ServiceFactory = (function() {
                 description: response.Description,
                 extraLocation: response.ExtraLocation,
                 extraLocationUrl: response.ExtraLocationUrl,
-                extra: response.AdditionalInfo,
-                extra2: response.AdditionalInfo2,
-                extra3: response.AdditionalInfo3,
-                extra4: response.AdditionalInfo4,
+                additionalInfo: response.AdditionalInfo,
+                additionalInfo2: response.AdditionalInfo2,
+                additionalInfo3: response.AdditionalInfo3,
+                additionalInfo4: response.AdditionalInfo4,
                 hasPreview: response.HasPreview,
                 canComment: response.CanComment,
                 commentApiUrl: response.CommentApiUrl,
@@ -1824,9 +1840,7 @@ window.ServiceFactory = (function() {
                 return {
                     id: comment.Id,
                     description: comment.Description,
-                    author: comment.Author,
-                    authorUrl: comment.Author.ProfileUrl,
-                    authorAvatar: ASC.Resources.Master.UserPhotoHandlerUrl + "?userId=" + comment.Author.UserInfo.ID,
+                    authorId: comment.AuthorId,
                     date: commentDate,
                     formattedDate: getDisplayDatetime(commentDate)
                 };
@@ -2081,9 +2095,9 @@ window.ServiceFactory = (function() {
                 isPrimary: response.isPrimary
             };
         },
-        
-        addresses: function (response) {
-            return collection(response, this.address, function (response) {
+
+        addresses: function(response) {
+            return collection(response, this.address, function(response) {
                 return factories.crm.address(response);
             });
         },
@@ -2095,7 +2109,7 @@ window.ServiceFactory = (function() {
                 isCompany: response.isCompany,
                 isPrivate: response.isPrivate,
                 isShared: response.isShared,
-                shareType : response.shareType,
+                shareType: response.shareType,
                 smallFotoUrl: response.smallFotoUrl,
                 mediumFotoUrl: response.mediumFotoUrl,
                 company: response.company ? factories.crm.company(response.company) : null,
@@ -2174,7 +2188,8 @@ window.ServiceFactory = (function() {
                 type: 'contact',
                 contactclass: response.isCompany ? 'company' : 'person',
                 displayName: response.displayName,
-                email: response.email,
+                email: response.email,//may be undefined if ContactBaseWithPhoneWrapper
+                phone: response.phone,//may be undefined if ContactBaseWithEmailWrapper
                 isCompany: response.isCompany,
                 currency: response.currency ? factories.crm.currency(response.currency) : null,
                 isPrivate: response.isPrivate,
@@ -2185,6 +2200,80 @@ window.ServiceFactory = (function() {
                 mediumFotoUrl: response.mediumFotoUrl,
                 canEdit: response.canEdit,
                 canDelete: response.canDelete
+            });
+        },
+
+        tweet: function(response) {
+            var postedOn = serializeDate(response.postedOn);
+            return {
+                type: "tweet",
+                userImageUrl: response.userImageUrl,
+                userName: response.userName,
+                text: response.text,
+                postedOn: postedOn,
+                postedOnDisplay: getDisplayDatetime(postedOn),				
+                source: response.source
+            };
+        },
+
+        tweets: function(response) {
+            return collection(response, null, function(response) {
+                return factories.crm.tweet(response);
+            });
+        },
+
+        twitterprofile: function(response) {
+            var postedOn = serializeDate(response.postedOn);
+            return {
+                type: "twitterprofile",
+                userID: response.userID,
+                screenName: response.screenName,
+                userName: response.userName,
+                smallImageUrl: response.smallImageUrl,
+                description: response.description
+            };
+        },
+
+        twitterprofiles: function(response) {
+            return collection(response, null, function(response) {
+                return factories.crm.twitterprofile(response);
+            });
+        },
+
+        facebookprofile: function(response) {
+            var postedOn = serializeDate(response.postedOn);
+            return {
+                type: "facebookprofile",
+                userID: response.userID,
+                userName: response.userName,
+                smallImageUrl: response.smallImageUrl
+            };
+        },
+
+        facebookprofiles: function(response) {
+            return collection(response, null, function(response) {
+                return factories.crm.facebookprofile(response);
+            });
+        },
+
+        linkedinprofile: function(response) {
+            var postedOn = serializeDate(response.postedOn);
+            return {
+                type: "linkedinprofile",
+                userID: response.userID,
+                userName: response.userName,
+                firstName: response.firstName,
+                lastName: response.lastName,
+                companyName: response.companyName,
+                imageUrl: response.imageUrl,
+                position: response.position,
+                publicProfileUrl: response.publicProfileUrl
+            };
+        },
+
+        linkedinprofiles: function(response) {
+            return collection(response, null, function(response) {
+                return factories.crm.linkedinprofile(response);
             });
         },
 
@@ -2303,7 +2392,6 @@ window.ServiceFactory = (function() {
             return items;
         },
 
-
         contacts: function(response) {
             return collection(response, this.item, function(response) {
                 return factories.crm.contact(response);
@@ -2406,14 +2494,35 @@ window.ServiceFactory = (function() {
         },
 
         currency: function(response) {
-            return extend(this.item(response), {
+            return {
                 type: 'currency',
                 abbreviation: response.abbreviation,
-                cultureName: response.culturename,
+                cultureName: response.cultureName,
                 symbol: response.symbol,
                 title: response.title,
-                isConvertable: response.isconvertable
+                isConvertable: response.isConvertable,
+                isBasic: response.isBasic
+            };
+        },
+
+        currencies: function(response) {
+            return collection(response, null, function(response) {
+                return factories.crm.currency(response);
             });
+        },
+
+        smtpsettings: function(response){
+            return {
+                type: 'smtpsettings',
+                enableSSL: response.enableSSL,
+                host: response.host,
+                hostLogin: response.hostLogin,
+                hostPassword: response.hostPassword,
+                port: response.port,
+                requiredHostAuthentication: response.requiredHostAuthentication,
+                senderDisplayName: response.senderDisplayName,
+                senderEmailAddress: response.senderEmailAddress
+            };
         },
 
         rootfolder: function(response) {
@@ -2421,11 +2530,10 @@ window.ServiceFactory = (function() {
                 id: response
             };
         },
-        
-        invoice: function (response) {
+
+        invoice: function(response) {
             var issueDate = serializeDate(response.issueDate),
                 issueDateString = getDisplayDate(issueDate),
-
                 dueDate = serializeDate(response.dueDate),
                 dueDateString = dueDate && (dueDate.getHours() == 0 && dueDate.getMinutes() == 0 && dueDate.getSeconds() == 0)
                     ? getDisplayDate(dueDate)
@@ -2465,23 +2573,23 @@ window.ServiceFactory = (function() {
             });
         },
 
-        invoices: function (response) {
-            return collection(response, this.item, function (response) {
+        invoices: function(response) {
+            return collection(response, this.item, function(response) {
                 return factories.crm.invoice(response);
             });
         },
-        
-        invoiceJsonData: function (response) {
-            return  jq.parseJSON(response || null);
+
+        invoiceJsonData: function(response) {
+            return jq.parseJSON(response || null);
         },
-        
-        invoiceLines: function (response) {
-            return collection(response, this.item, function (response) {
+
+        invoiceLines: function(response) {
+            return collection(response, this.item, function(response) {
                 return factories.crm.invoiceLine(response);
             });
         },
 
-        invoiceLine: function (response) {
+        invoiceLine: function(response) {
             return {
                 type: 'invoiceLine',
                 id: response.id,
@@ -2498,13 +2606,13 @@ window.ServiceFactory = (function() {
             };
         },
 
-        invoiceItems: function (response) {
-            return collection(response, this.item, function (response) {
+        invoiceItems: function(response) {
+            return collection(response, this.item, function(response) {
                 return factories.crm.invoiceItem(response);
             });
         },
 
-        invoiceItem: function (response) {
+        invoiceItem: function(response) {
             return {
                 type: 'invoiceItem',
                 id: response.id,
@@ -2522,23 +2630,23 @@ window.ServiceFactory = (function() {
                 sortOrder: response.sortOrder,
                 canEdit: response.canEdit,
                 canDelete: response.canDelete
-           };
+            };
         },
-        
-        invoicesAndItems: function (response) {
+
+        invoicesAndItems: function(response) {
             return {
-                invoices: response.key && response.key.length != 0 ? factories.crm.invoices(response.key) : null, 
+                invoices: response.key && response.key.length != 0 ? factories.crm.invoices(response.key) : null,
                 invoiceItems: response.value && response.value.length != 0 ? factories.crm.invoiceItems(response.value) : null
             };
         },
 
-        invoiceTaxes: function (response) {
-            return collection(response, this.item, function (response) {
+        invoiceTaxes: function(response) {
+            return collection(response, this.item, function(response) {
                 return factories.crm.invoiceTax(response);
             });
         },
 
-        invoiceTax: function (response) {
+        invoiceTax: function(response) {
             return {
                 type: 'invoiceTax',
                 id: response.id,
@@ -2549,8 +2657,8 @@ window.ServiceFactory = (function() {
                 canDelete: response.canDelete
             };
         },
-        
-        invoiceSettings: function (response) {
+
+        invoiceSettings: function(response) {
             return {
                 type: 'invoiceSettings',
                 autogenerated: response.autogenerated,
@@ -2560,13 +2668,13 @@ window.ServiceFactory = (function() {
             };
         },
 
-        currencyRates: function (response) {
-            return collection(response, this.item, function (response) {
+        currencyRates: function(response) {
+            return collection(response, this.item, function(response) {
                 return factories.crm.currencyRate(response);
             });
         },
 
-        currencyRate: function (response) {
+        currencyRate: function(response) {
             return {
                 type: 'currencyRate',
                 id: response.id,
@@ -2575,8 +2683,72 @@ window.ServiceFactory = (function() {
                 rate: response.rate
             };
         },
-        
-        converterData: function (response) {
+
+        crunchbaseinfo: function(response) {
+            return response;
+        },
+
+        voipNumbers: function(response) {
+            return collection(response, null, function(response) {
+                return factories.crm.voipNumber(response);
+            });
+        },
+
+        voipNumber: function(response) {
+            return {
+                id: response.id,
+                number: response.number,
+                alias: response.alias,
+                settings: response.settings
+            };
+        },
+
+        voipSettings: function(response) {
+            return response;
+        },
+
+        voipCalls: function(response) {
+            return collection(response, null, function(response) {
+                return factories.crm.voipCall(response);
+            });
+        },
+
+        voipCall: function (response) {
+            var serializedDate = serializeDate(response.dialDate);
+
+            return {
+                id: response.id,
+                from: response.from,
+                to: response.to,
+                status: response.status,
+                answeredBy: createPerson(response.answeredBy),
+                dateObj: serializedDate,
+                datetime: getDisplayDatetime(serializedDate),
+                time: getDisplayTime(serializedDate),
+                dialDuration: response.dialDuration,
+                cost: response.cost,
+                recordUrl: "",
+                recordDuration: 0,
+                contact: response.hasOwnProperty('contact') && response.contact ? factories.crm.contact(response.contact) : null,
+                history: response.history
+            };
+        },
+
+        voipUploads: function(response) {
+            return collection(response, null, function(response) {
+                return factories.crm.voipUpload(response);
+            });
+        },
+
+        voipUpload: function(response) {
+            return {
+                path: response.path,
+                name: response.name,
+                audioType: response.audioType,
+            };
+        },
+
+        converterData: function(response) {
             return {
                 type: 'converterData',
                 converterUrl: response.converterUrl,

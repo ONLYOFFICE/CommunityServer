@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 ASC.Projects.AllMilestones = (function () {
     var isInit = false;
 
@@ -48,13 +44,20 @@ ASC.Projects.AllMilestones = (function () {
 
     var filterMilestoneCount = 0;
 
+    var isFirstLoad = true;
+
     var selectedStatusCombobox;
     var selectedActionCombobox;
 
-    var advansedFilter;
-
     var descriptionTimeout;
     var overDescriptionPanel = false;
+
+    var hideFirstLoader = function () {
+        isFirstLoad = false;
+        jq(".mainPageContent").children(".loader-page").hide();
+        jq("#filterContainer, #CommonListContainer").show();
+        jq('#ProjectsAdvansedFilter').advansedFilter("resize");
+    };
 
     var getMilestoneTasksLink = function (prjId, milestoneId, status) {
         var link = 'tasks.aspx?prjID=' + prjId + '#milestone=' + milestoneId + '&status=' + status;
@@ -71,7 +74,7 @@ ASC.Projects.AllMilestones = (function () {
     };
 
     var setCurrentFilter = function (filter) {
-        ASC.Projects.AllMilestones.currentFilter = filter;
+        self.currentFilter = filter;
     };
 
     var showNewMilestoneButton = function () {
@@ -98,45 +101,55 @@ ASC.Projects.AllMilestones = (function () {
 
     var initActionPanels = function () {
         if(!milestoneDescribePanel){
-            commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "milestoneDescrPanel", cornerPosition: "left" })); // description panel
+            commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "milestoneDescrPanel"})); // description panel
             milestoneDescribePanel = jq("#milestoneDescrPanel");
         }
 
         jq("#" + statusListObject.listId).remove();
         commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
         //action panel
-        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "milestoneActionContainer", cornerPosition: "right" }));
+        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "milestoneActionContainer"}));
         jq("#milestoneActionContainer .panel-content").empty().append(jq.tmpl("projects_actionMenuContent", actionMenuItems));
 
     };
 
+    var self;
+    
     var init = function () {
         currentUserId = Teamlab.profile.id;
 
         if (isInit === false) {
             isInit = true;
         }
-
-        ASC.Projects.Common.setDocumentTitle(ASC.Projects.Resources.ProjectsJSResource.MilestonesModule);
+        
+        self = this;
+        isFirstLoad = true;
+        jq(".mainPageContent").children(".loader-page").show();
+        self.setDocumentTitle(ASC.Projects.Resources.ProjectsJSResource.MilestonesModule);
 
         currentProjectId = jq.getURLParam('prjID');
         //page navigator
-        ASC.Projects.Common.initPageNavigator(this, "milestonesKeyForPagination");
+        self.initPageNavigator("milestonesKeyForPagination");
 
+        if (!isFirstLoad) {
+            LoadingBanner.displayLoading();
+            jq("#filterContainer, #CommonListContainer").show();
+            jq('#ProjectsAdvansedFilter').advansedFilter("resize");
+        } else {
+            jq("#filterContainer, #CommonListContainer").hide();
+        }
+
+        createAdvansedFilter();
         initActionPanels();
         statusListContainer = jq('#' + statusListObject.listId);
         milestoneActionContainer = jq('#milestoneActionContainer');
 
-        advansedFilter = jq('#ProjectsAdvansedFilter');
 
-        jq(document).bind("createAdvansedFilter", function () {
-            createAdvansedFilter();
-        });
 
         // Events
 
         jq("#countOfRows").change(function (evt) {
-            ASC.Projects.Common.changeCountOfRows(ASC.Projects.AllMilestones, this.value);
+            self.changeCountOfRows(this.value);
         });
 
         jq('#emptyListMilestone').on('click', '.addFirstElement', function () {
@@ -157,7 +170,7 @@ ASC.Projects.AllMilestones = (function () {
             return false;
         });
 
-        jq('body').on('click', function (event) {
+        jq('body').on('click.milestonesInit', function (event) {
             var target = (event.target) ? event.target : event.srcElement;
             var element = jq(target);
             if (!element.is('.entity-menu')) {
@@ -267,27 +280,39 @@ ASC.Projects.AllMilestones = (function () {
             }
         });
 
-        milestoneList.on('click', 'td.actions .entity-menu', function () {
+        function showEntityMenu() {
             hideStatusListContainer();
             var currentMilestone = selectedActionCombobox !== undefined ? selectedActionCombobox.attr('milestoneId') : -1;
             milestoneList.find("#" + currentMilestone).find(".entity-menu").removeClass('selected');
             selectedActionCombobox = jq(this);
 
+            if (!selectedActionCombobox.is(".entity-menu")) selectedActionCombobox = selectedActionCombobox.siblings(".actions").find(".entity-menu");
+
             if (selectedActionCombobox.attr('milestoneId') !== milestoneActionContainer.attr('milestoneId')) {
                 milestoneActionContainer.attr('milestoneId', selectedActionCombobox.attr('milestoneId'));
                 milestoneActionContainer.attr('projectId', selectedActionCombobox.attr('projectId'));
-                showMilestoneActionContainer(selectedActionCombobox);
             }
-            else {
-                toggleMilestoneActionContainer(selectedActionCombobox);
-            }
+            milestoneList.find(".menuopen").removeClass("menuopen");
+            milestoneList.find("#" + selectedActionCombobox.attr('milestoneId')).addClass("menuopen");
+
             // ga-track
-            try {
-                if (window._gat) {
-                    window._gaq.push(['_trackEvent', ga_Categories.milestones, ga_Actions.actionClick, "milestone-menu"]);
-                }
-            } catch (err) {
-            }
+            trackingGoogleAnalitics(ga_Categories.milestones, ga_Actions.actionClick, "milestone-menu");
+        }
+
+        milestoneList.on('click', 'td.actions .entity-menu', function () {
+            showEntityMenu.call(this);
+            showMilestoneActionContainer(selectedActionCombobox);
+            return false;
+        });
+        
+        milestoneList.on('contextmenu', 'td.title', function (event) {
+            showEntityMenu.call(this);
+            
+            var top = (event.pageY | (event.clientY + event.scrollTop));
+            var left = (event.pageX | (event.clientX + event.scrollLeft)) - milestoneActionContainer.outerWidth();
+            milestoneActionContainer.css({ 'top': top, 'left': left });
+            milestoneActionContainer.show();
+
             return false;
         });
 
@@ -353,7 +378,7 @@ ASC.Projects.AllMilestones = (function () {
         // Responsible
 
         if (currentProjectId) {
-            if (ASC.Projects.Common.userInProjectTeam(currentUserId)) {
+            if (self.userInProjectTeam(currentUserId)) {
                 filters.push({
                     type: "combobox",
                     id: "me_responsible_for_milestone",
@@ -458,7 +483,7 @@ ASC.Projects.AllMilestones = (function () {
                 title: ASC.Projects.Resources.ProjectsFilterResource.OtherProjects,
                 filtertitle: ASC.Projects.Resources.ProjectsFilterResource.ByProject + ":",
                 group: ASC.Projects.Resources.ProjectsFilterResource.ByProject,
-                options: ASC.Projects.Common.getProjectsForFilter(),
+                options: self.getProjectsForFilter(),
                 groupby: "projects",
                 defaulttitle: ASC.Projects.Resources.ProjectsFilterResource.Select
             });
@@ -541,18 +566,18 @@ ASC.Projects.AllMilestones = (function () {
             groupby: "deadline"
         });
 
-        ASC.Projects.AllMilestones.filters = filters;
-        ASC.Projects.AllMilestones.colCount = 3;
-        if (currentProjectId) ASC.Projects.AllMilestones.colCount = 2;
+        self.filters = filters;
+        self.colCount = 3;
+        if (currentProjectId) self.colCount = 2;
 
-        ASC.Projects.AllMilestones.sorters =
+        self.sorters =
         [
             { id: "deadline", title: ASC.Projects.Resources.ProjectsFilterResource.ByDeadline, sortOrder: "ascending", def: true },
             { id: "create_on", title: ASC.Projects.Resources.ProjectsFilterResource.ByCreateDate, sortOrder: "descending" },
             { id: "title", title: ASC.Projects.Resources.ProjectsFilterResource.ByTitle, sortOrder: "ascending" }
         ];
 
-        ASC.Projects.ProjectsAdvansedFilter.init(ASC.Projects.AllMilestones);
+        ASC.Projects.ProjectsAdvansedFilter.init(self);
 
         // ga-track-events
 
@@ -579,22 +604,16 @@ ASC.Projects.AllMilestones = (function () {
         });
     };
 
-    var getData = function (filter) {
+    var getData = function () {
+        self.currentFilter.Count = self.entryCountOnPage;
+        self.currentFilter.StartIndex = self.entryCountOnPage * self.currentPage;
 
-        filter.Count = ASC.Projects.AllMilestones.entryCountOnPage;
-        filter.StartIndex = ASC.Projects.AllMilestones.entryCountOnPage * ASC.Projects.AllMilestones.currentPage;
-
-        if (filter.StartIndex > filterMilestoneCount) {
-            filter.StartIndex = 0;
-            ASC.Projects.AllMilestones.currentPage = 1;
-        }
-
-        Teamlab.getPrjMilestones({}, { filter: filter, success: onGetMilestones });
+        Teamlab.getPrjMilestones({}, { filter: self.currentFilter, success: onGetMilestones });
     };
 
     var showOrHideEmptyScreen = function (milestonesCount) {
         if (milestonesCount) {
-            ASC.Projects.Common.showAdvansedFilter();
+            self.showAdvansedFilter();
             showNewMilestoneButton();
             jq('.noContentBlock').hide();
             milestoneList.show();
@@ -604,17 +623,17 @@ ASC.Projects.AllMilestones = (function () {
                 jq('#mileEmptyScreenForFilter').hide();
                 jq('#emptyListMilestone').show();
                 hideNewMilestoneButton();
-                ASC.Projects.Common.hideAdvansedFilter();
+                self.hideAdvansedFilter();
             } else {
                 jq('#emptyListMilestone').hide();
-                ASC.Projects.Common.showAdvansedFilter();
+                self.showAdvansedFilter();
                 jq('#mileEmptyScreenForFilter').show();
             }
         }
     };
 
     var onGetMilestones = function (params, milestones) {
-        ASC.Projects.Common.clearTables();
+        self.clearTables();
         var tmplMile, listTmplMiles = new Array(),
             milestonesCount = milestones.length;
 
@@ -622,7 +641,6 @@ ASC.Projects.AllMilestones = (function () {
 
         milestoneListBody.empty();
         filterMilestoneCount = params.__total != undefined ? params.__total : 0;
-        ASC.Projects.Common.updatePageNavigator(ASC.Projects.AllMilestones, filterMilestoneCount);
 
         LoadingBanner.hideLoading();
         showOrHideEmptyScreen(milestonesCount);
@@ -635,6 +653,8 @@ ASC.Projects.AllMilestones = (function () {
             milestoneListBody.append(jq.tmpl("projects_milestoneTemplate", listTmplMiles));
             milestoneList.show();
         }
+        self.updatePageNavigator(filterMilestoneCount);
+        isFirstLoad ? hideFirstLoader() : LoadingBanner.hideLoading();
     };
 
     var getMilestoneTemplate = function (milestone) {
@@ -683,8 +703,8 @@ ASC.Projects.AllMilestones = (function () {
     var showStatusListContainer = function (status) {
         selectedStatusCombobox.addClass('selected');
 
-        var top = selectedStatusCombobox.offset().top + 25;
-        var left = selectedStatusCombobox.offset().left + 9;
+        var top = selectedStatusCombobox.offset().top + 28;
+        var left = selectedStatusCombobox.offset().left;
         statusListContainer.css({ left: left, top: top });
 
         if (status == 'overdue' || status == 'active') {
@@ -724,13 +744,13 @@ ASC.Projects.AllMilestones = (function () {
     };
 
     var showQuestionWindow = function (milestoneId) {
-        ASC.Projects.Common.showCommonPopup("projects_closeMilestoneWithOpenTasks", 400, 200, 0);
+        self.showCommonPopup("projects_closeMilestoneWithOpenTasks", 400, 200, 0);
         var proj = jq("tr#" + milestoneId + " td.title").find("a").attr("projectid");
         jq("#linkToTasksPage").attr("href", 'tasks.aspx?prjID=' + proj + '#milestone=' + milestoneId + '&status=open');
     };
 
     var showQuestionWindowMilestoneRemove = function (milestoneId) {
-        ASC.Projects.Common.showCommonPopup("projects_milestoneRemoveWarning", 400, 200, 0);
+        self.showCommonPopup("projects_milestoneRemoveWarning", 400, 200, 0);
         commonPopupContainer.attr("milestoneId", milestoneId);
     };
 
@@ -772,11 +792,16 @@ ASC.Projects.AllMilestones = (function () {
             jq('#removeMilestoneButton').hide();
         }
 
-        var top = selectedActionCombobox.offset().top + selectedActionCombobox.innerHeight() - 3;
+        var top = selectedActionCombobox.offset().top + selectedActionCombobox.innerHeight();
         var left = selectedActionCombobox.offset().left - milestoneActionContainer.innerWidth() + 29;
 
+        if (milestoneActionContainer.position().top == top && (milestoneActionContainer.position().left == left)) {
+            milestoneList.find("#" + selectedActionCombobox.attr('milestoneId')).removeClass("menuopen");
+            toggleMilestoneActionContainer();
+            return;
+        }
+        
         milestoneActionContainer.css({ 'top': top, 'left': left });
-
         milestoneActionContainer.show();
     };
 
@@ -803,6 +828,7 @@ ASC.Projects.AllMilestones = (function () {
     var hideMilestoneActionContainer = function () {
         if (selectedActionCombobox) {
             selectedActionCombobox.removeClass('selected');
+            milestoneList.find(".menuopen").removeClass("menuopen");
         }
         milestoneActionContainer.hide();
         jq("#projectActions").hide();
@@ -822,7 +848,7 @@ ASC.Projects.AllMilestones = (function () {
 
     var onAddMilestone = function (params, milestone) {
         filterMilestoneCount++;
-        ASC.Projects.Common.updatePageNavigator(ASC.Projects.AllMilestones, filterMilestoneCount);
+        self.updatePageNavigator(filterMilestoneCount);
 
         var milestoneTemplate = getMilestoneTemplate(milestone);
 
@@ -853,7 +879,7 @@ ASC.Projects.AllMilestones = (function () {
         newMilestone.yellowFade();
         ASC.Projects.MilestoneAction.unlockMilestoneActionPage();
         jq.unblockUI();
-        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.MilestoneUpdated);
+        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.MilestoneUpdated);
     };
 
     var onUpdateMilestoneError = function (params, error) {
@@ -865,7 +891,7 @@ ASC.Projects.AllMilestones = (function () {
         if (error[0] == "Can not close a milestone with open tasks") {
             showQuestionWindow(params.milestoneId);
         } else {
-            ASC.Projects.Common.displayInfoPanel(error[0], true);
+            self.displayInfoPanel(error[0], true);
         }
     };
 
@@ -885,7 +911,7 @@ ASC.Projects.AllMilestones = (function () {
         }
 
         filterMilestoneCount--;
-        ASC.Projects.Common.updatePageNavigator(ASC.Projects.AllMilestones, filterMilestoneCount);
+        self.updatePageNavigator(filterMilestoneCount);
 
         if (milestoneListBody.children("tr").length == 0) {
             clearTimeout(descriptionTimeout);
@@ -896,13 +922,13 @@ ASC.Projects.AllMilestones = (function () {
                 showOrHideEmptyScreen(0);
             }
             else {
-                ASC.Projects.AllMilestones.currentPage--;
-                getData(ASC.Projects.AllMilestones.currentFilter, true);
+                self.currentPage--;
+                getData(true);
             }
         }
         
         LoadingBanner.hideLoading();
-        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.MilestoneRemoved);
+        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.MilestoneRemoved);
     };
 
     var onAddTask = function (params, task) {
@@ -932,7 +958,7 @@ ASC.Projects.AllMilestones = (function () {
         jq('#' + statusListObject.listId).unbind();
     };
 
-    return {
+    return jq.extend({
         init: init,
         getCurrentProjectId: getCurrentProjectId,
         setCurrentFilter: setCurrentFilter,
@@ -946,5 +972,5 @@ ASC.Projects.AllMilestones = (function () {
         getData: getData,
         unbindListEvents: unbindListEvents,
         basePath: 'sortBy=deadline&sortOrder=ascending'
-    };
+    }, ASC.Projects.Common);
 })(jQuery);

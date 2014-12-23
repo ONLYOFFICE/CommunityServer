@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -37,13 +37,14 @@ using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
+using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Users;
+using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Configuration;
-using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility.HtmlUtility;
 using AjaxPro;
 
@@ -68,30 +69,43 @@ namespace ASC.Web.Projects.Controls.Messages
         public int FilesCount { get; private set; }
         public int ProjectFolderId { get; set; }
 
+        protected bool FilesAvailable { get; set; }
+        protected bool CommentsAvailable { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Utility.RegisterTypeForAjax(typeof(DiscussionDetails), Page);
 
             _hintPopup.Options.IsPopup = true;
 
-            LoadCommentsControl();
-
             BindDiscussionParticipants();
+
             CanEdit = ProjectSecurity.CanEdit(Discussion);
-
-            if (CanEdit)
-                LoadDiscussionParticipantsSelector();
-
             CanReadFiles = ProjectSecurity.CanReadFiles(Discussion.Project);
-            CanEditFiles = ProjectSecurity.IsInTeam(Project);
+            CanEditFiles = ProjectSecurity.IsInTeam(Project) && Discussion.Status == MessageStatus.Open;
             Author = CoreContext.UserManager.GetUsers(Discussion.CreateBy);
             FilesCount = FileEngine2.GetMessageFiles(Discussion).Count();
+            FilesAvailable = CanReadFiles && !MobileDetector.IsMobile && (CanEditFiles || FilesCount > 0);
+            CommentsAvailable = Discussion.Status == MessageStatus.Open || Discussion.CommentsCount > 0;
 
-            if (CanReadFiles && (CanEditFiles || FilesCount > 0))
+            if (FilesAvailable)
             {
                 LoadDiscussionFilesControl();
             }
-            Page.EssenceStatus = string.Empty;
+
+            if (Discussion.Status == MessageStatus.Archived)
+            {
+                Page.EssenceStatus = MessageResource.ArchiveDiscussionStatus;
+            }
+
+            if (CommentsAvailable)
+            {
+                LoadCommentsControl();
+            }
+            else
+            {
+                discussionComments.Visible = false;
+            }
         }
 
         #region LoadControls
@@ -105,20 +119,6 @@ namespace ASC.Web.Projects.Controls.Messages
             var newList = new List<ParticipiantWrapper>();
             newList.AddRange(participants.Where(r => r.CanRead));
             newList.AddRange(participants.Where(r => !r.CanRead));
-
-            discussionParticipantRepeater.DataSource = newList;
-            discussionParticipantRepeater.DataBind();
-        }
-
-        private void LoadDiscussionParticipantsSelector()
-        {
-            var discussionParticipantsSelector = (Studio.UserControls.Users.UserSelector)LoadControl(Studio.UserControls.Users.UserSelector.Location);
-            discussionParticipantsSelector.BehaviorID = "discussionParticipantsSelector";
-            discussionParticipantsSelector.DisabledUsers.Add(new Guid());
-            discussionParticipantsSelector.Title = MessageResource.DiscussionParticipants;
-            discussionParticipantsSelector.SelectedUserListTitle = MessageResource.DiscussionParticipants;
-
-            discussionParticipantsSelectorHolder.Controls.Add(discussionParticipantsSelector);
         }
 
         private void LoadDiscussionFilesControl()
@@ -185,7 +185,7 @@ namespace ASC.Web.Projects.Controls.Messages
 
             var countMessageToUpdate = messageToUpdate != null ? Global.EngineFactory.GetCommentEngine().Count(messageToUpdate) : 0;
 
-            commentList.IsShowAddCommentBtn = ProjectSecurity.CanCreateComment();
+            commentList.IsShowAddCommentBtn = ((messageToUpdate != null && messageToUpdate.Status == MessageStatus.Open) || messageToUpdate == null) && ProjectSecurity.CanCreateComment();
             commentList.CommentsCountTitle = countMessageToUpdate != 0 ? countMessageToUpdate.ToString(CultureInfo.InvariantCulture) : "0";
             commentList.ObjectID = messageToUpdate != null
                                        ? messageToUpdate.ID.ToString(CultureInfo.InvariantCulture) : "";
@@ -205,7 +205,6 @@ namespace ASC.Web.Projects.Controls.Messages
         [AjaxMethod]
         public AjaxResponse AddComment(string parrentCommentID, string messageID, string text, string pid)
         {
-            text = HtmlUtility.GetFull(text);
             ProjectSecurity.DemandCreateComment();
 
             var resp = new AjaxResponse();
@@ -228,6 +227,8 @@ namespace ASC.Web.Projects.Controls.Messages
 
             if (Discussion == null) return new AjaxResponse {status = "error", message = "Access denied."};
 
+            ProjectSecurity.DemandCreateComment(Discussion);
+
             comment = messageEngine.SaveOrUpdateComment(Discussion, comment);
             MessageService.Send(HttpContext.Current.Request, MessageAction.DiscussionCommentCreated, Discussion.Project.Title, Discussion.Title);
 
@@ -247,8 +248,8 @@ namespace ASC.Web.Projects.Controls.Messages
                     UserID = comment.CreateBy,
                     UserFullName = creator.UserInfo.DisplayUserName(),
                     Inactive = comment.Inactive,
-                    IsEditPermissions = ProjectSecurity.CanEditComment(Discussion != null ? Discussion.Project : null, comment),
-                    IsResponsePermissions = ProjectSecurity.CanCreateComment(),
+                    IsEditPermissions = ProjectSecurity.CanEditComment(Discussion, comment),
+                    IsResponsePermissions = ProjectSecurity.CanCreateComment(Discussion),
                     IsRead = true,
                     UserAvatar = Global.GetHTMLUserAvatar(creator.UserInfo),
                     UserPost = creator.UserInfo.Title
@@ -270,7 +271,6 @@ namespace ASC.Web.Projects.Controls.Messages
         [AjaxMethod]
         public AjaxResponse UpdateComment(string commentID, string text, string pid)
         {
-            text = HtmlUtility.GetFull(text);
             var messageEngine = Global.EngineFactory.GetMessageEngine();
             var resp = new AjaxResponse {rs1 = commentID};
 
@@ -283,16 +283,14 @@ namespace ASC.Web.Projects.Controls.Messages
 
             if (target == null) return new AjaxResponse {status = "error", message = "Access denied."};
 
-            var targetProject = target.Project;
-
-            ProjectSecurity.DemandEditComment(targetProject, comment);
-
             Discussion = target;
+
+            ProjectSecurity.DemandEditComment(Discussion, comment);
 
             messageEngine.SaveOrUpdateComment(target, comment);
             MessageService.Send(HttpContext.Current.Request, MessageAction.DiscussionCommentUpdated, Discussion.Project.Title, Discussion.Title);
 
-            resp.rs2 = text + CodeHighlighter.GetJavaScriptLiveHighlight(true);
+            resp.rs2 = HtmlUtility.GetFull(text) + CodeHighlighter.GetJavaScriptLiveHighlight(true);
             return resp;
         }
 
@@ -306,9 +304,8 @@ namespace ASC.Web.Projects.Controls.Messages
 
             var targetID = Convert.ToInt32(comment.TargetUniqID.Split('_')[1]);
             var target = Global.EngineFactory.GetMessageEngine().GetByID(targetID);
-            var targetProject = target.Project;
 
-            ProjectSecurity.DemandEditComment(targetProject, comment);
+            ProjectSecurity.DemandEditComment(target, comment);
             ProjectSecurity.DemandRead(target);
 
             Discussion = target;
@@ -322,7 +319,6 @@ namespace ASC.Web.Projects.Controls.Messages
         [AjaxMethod]
         public string GetPreview(string text, string commentID)
         {
-            text = HtmlUtility.GetFull(text);
             ProjectSecurity.DemandAuthentication();
 
             return GetHTMLComment(text, commentID);
@@ -360,8 +356,12 @@ namespace ASC.Web.Projects.Controls.Messages
 
             if (!isPreview)
             {
-                commentInfo.IsEditPermissions = ProjectSecurity.CanEditComment(Discussion.Project, comment);
-                commentInfo.IsResponsePermissions = ProjectSecurity.CanCreateComment();
+                var targetID = Convert.ToInt32(comment.TargetUniqID.Split('_')[1]);
+                var target = Global.EngineFactory.GetMessageEngine().GetByID(targetID);
+                Discussion = target;
+
+                commentInfo.IsEditPermissions = ProjectSecurity.CanEditComment(Discussion, comment);
+                commentInfo.IsResponsePermissions = ProjectSecurity.CanCreateComment(Discussion);
                 commentInfo.IsRead = true;
             }
 
@@ -408,8 +408,8 @@ namespace ASC.Web.Projects.Controls.Messages
                     TimeStampStr = parent.CreateOn.Ago(),
                     IsRead = true,
                     Inactive = parent.Inactive,
-                    IsResponsePermissions = ProjectSecurity.CanCreateComment(),
-                    IsEditPermissions = ProjectSecurity.CanEditComment(Discussion.Project, parent),
+                    IsResponsePermissions = ProjectSecurity.CanCreateComment(Discussion),
+                    IsEditPermissions = ProjectSecurity.CanEditComment(Discussion, parent),
                     CommentID = parent.ID.ToString(),
                     CommentBody = parent.Content,
                     UserID = parent.CreateBy,

@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 if (typeof ASC === "undefined") {
     ASC = {};
 }
@@ -70,7 +66,7 @@ ASC.CRM.SettingsPage = (function() {
         jq.dropdownToggle({
             dropdownID: "customFieldActionMenu",
             switcherSelector: "#customFieldList .entity-menu",
-            addTop: -2,
+            addTop: 0,
             addLeft: 10,
             rightPos: true,
             beforeShowFunction: function (switcherObj, dropdownItem) {
@@ -101,6 +97,9 @@ ASC.CRM.SettingsPage = (function() {
         _resetManageFieldPanel();
         RemoveRequiredErrorClass(jq("#manageField dl input:first"));
         jq('#manageField .middle-button-container a.button.blue.middle').unbind('click').click(function () {
+            if (jq(this).hasClass("disable"))
+                return;
+
             _createField();
         });
         PopupKeyUpActionProvider.EnableEsc = false;
@@ -116,16 +115,19 @@ ASC.CRM.SettingsPage = (function() {
             maxCountCols = ASC.CRM.Data.MaxCustomFieldCols,
             maxCountSize = ASC.CRM.Data.MaxCustomFieldSize;
 
-        jq.forceIntegerOnly("#text_field_size");
-        jq("#text_field_size").focusout(function(e) {
+        jq.forceNumber({
+            parent: "#manageField",
+            input: "#text_field_size, #textarea_field_rows, #textarea_field_cols",
+            integerOnly: true,
+            positiveOnly: true
+        });
+
+        jq("#text_field_size").focusout(function (e) {
             var fieldSize = jq.trim(jq("#text_field_size").val());
             if (fieldSize != "" && fieldSize * 1 > maxCountSize) {
                 jq("#text_field_size").val(maxCountSize);
             }
         });
-
-        jq.forceIntegerOnly("#textarea_field_rows");
-        jq.forceIntegerOnly("#textarea_field_cols");
 
         jq("#textarea_field_rows").focusout(function(e) {
             var fieldSize = jq.trim(jq("#textarea_field_rows").val());
@@ -216,7 +218,7 @@ ASC.CRM.SettingsPage = (function() {
                 });
 
                 if (selectedItem.length == 0) {
-                    alert(ASC.CRM.Resources.CRMJSResource.EmptyItemList);
+                    toastr.error(ASC.CRM.Resources.CRMJSResource.EmptyItemList);
                     return;
                 }
                 field.mask = jq.toJSON(selectedItem);
@@ -408,29 +410,32 @@ ASC.CRM.SettingsPage = (function() {
     };
 
     var _changeDefaultCurrencyComplete = function () {
-        var item = jq("#defaultCurrency");
+        var item = jq("#defaultCurrency"),
+            newCurrency = item.val();
 
-        AjaxPro.onLoading = function (b) {
-            if (b) {
-                item.prop("disabled", true);
-                item.next().show();
-                item.next('span').hide();
-            } else {
-                item.prop("disabled", false);
-                item.next().hide();
-                item.next().next().show();
-            }
-        };
-
-        var newCurrency = item.val();
-        AjaxPro.CommonSettingsView.SaveChangeSettings(newCurrency, function (res) {
-            if (res.error != null) {
-                alert(res.error.Message);
-                return;
-            }
-            jq.data(item[0], "val", newCurrency);
-            jq.unblockUI();
-        });
+        Teamlab.updateCrmCurrency({ item: item }, newCurrency,
+            {
+                before: function (params) {
+                    params.item.prop("disabled", true);
+                    params.item.next().show();
+                    params.item.next('span').hide();
+                },
+                after: function (params) {
+                    params.item.prop("disabled", false);
+                    params.item.next().hide();
+                },
+                success: function (params, response) {
+                    jq.data(params.item[0], "val", response.abbreviation);
+                    params.item.next().next().show();
+                    jq.unblockUI();
+                },
+                error: function (params, errors) {
+                    var err = errors[0];
+                    jq.unblockUI();
+                    params.item.val(jq.data(params.item[0], "val"));
+                    toastr.error(err);
+                }
+            });
     };
 
     var _iniDeleteFieldConfirmationPanel = function () {
@@ -573,7 +578,7 @@ ASC.CRM.SettingsPage = (function() {
 
             AjaxPro.CommonSettingsView.StartExportData(function(res) {
                 if (res.error != null) {
-                    alert(res.error.Message);
+                    toastr.error(res.error.Message);
                     return;
                 }
                 ASC.CRM.SettingsPage.checkExportStatus(true);
@@ -737,7 +742,12 @@ ASC.CRM.SettingsPage = (function() {
 
             ASC.CRM.SettingsPage.testMailBodyText = ASC.CRM.Common.convertText(Encoder.htmlDecode(testMailBodyText));
 
-            jq.forceIntegerOnly("#tbxPort");
+            jq.forceNumber({
+                parent: "#SMTPSettingsPannel",
+                input: "#tbxPort",
+                integerOnly: true,
+                positiveOnly: true
+            });
 
             if (typeof (window.SMTPSettings.EnableSSL) != "undefined" && window.SMTPSettings.EnableSSL != null) {
                 jq("#tbxHost").val(window.SMTPSettings.Host);
@@ -794,23 +804,25 @@ ASC.CRM.SettingsPage = (function() {
             jq("#smtpSettingsContent div.errorBox").remove();
             jq("#smtpSettingsContent div.okBox").remove();
 
-            var host = jq("#tbxHost").val().trim(),
-                port = jq("#tbxPort").val().trim(),
-                authentication = jq("#cbxAuthentication").is(":checked"),
-                hostLogin = jq("#tbxHostLogin").val().trim(),
-                hostPassword = jq("#tbxHostPassword").val().trim(),
-                senderDisplayName = jq("#tbxSenderDisplayName").val().trim(),
-                senderEmailAddress = jq("#tbxSenderEmailAddress").val().trim(),
-                enableSSL = jq("#cbxEnableSSL").is(":checked"),
+            var data = {
+                host: jq("#tbxHost").val().trim(),
+                port: jq("#tbxPort").val().trim(),
+                authentication: jq("#cbxAuthentication").is(":checked"),
+                hostLogin: jq("#tbxHostLogin").val().trim(),
+                hostPassword: jq("#tbxHostPassword").val().trim(),
+                senderDisplayName: jq("#tbxSenderDisplayName").val().trim(),
+                senderEmailAddress: jq("#tbxSenderEmailAddress").val().trim(),
+                enableSSL: jq("#cbxEnableSSL").is(":checked")
+            },
 
-                isValid = true;
+            isValid = true;
 
-            if (authentication
-                && (host == "" || port == "" || hostLogin == "" || hostPassword == "" || senderDisplayName == "" || senderEmailAddress == "")) {
+            if (data.authentication
+                && (data.host == "" || data.port == "" || data.hostLogin == "" || data.hostPassword == "" || data.senderDisplayName == "" || data.senderEmailAddress == "")) {
                     isValid = false;
             }
-            if (!authentication
-                && (host == "" || port == "" || senderDisplayName == "" || senderEmailAddress == "")) {
+            if (!data.authentication
+                && (data.host == "" || data.port == "" || data.senderDisplayName == "" || data.senderEmailAddress == "")) {
                     isValid = false;
             }
 
@@ -820,24 +832,25 @@ ASC.CRM.SettingsPage = (function() {
                 );
                 return;
             }
+            
 
-            AjaxPro.onLoading = function(b) { if (b) { } else { } };
-
-            AjaxPro.CommonSettingsView.SaveSMTPSettings(host, port, authentication, hostLogin, hostPassword, senderDisplayName, senderEmailAddress, enableSSL, function(res) {
-                if (res.error != null) {
+            Teamlab.updateCRMSMTPSettings({}, data, {
+                success: function (params, response) {
+                    jq("#smtpSettingsContent div.errorBox").remove();
                     jq("#smtpSettingsContent").prepend(
-                        jq("<div></div>").addClass("errorBox").text(res.error.Message)
+                        jq("<div></div>").addClass("okBox").text(ASC.CRM.Resources.CRMJSResource.SettingsUpdated)
                     );
-                    return;
+                    jq("#showSendTestMailPanelBtn").removeClass("disable");
+                    setTimeout(function () {
+                        jq("#smtpSettingsContent div.okBox").remove();
+                    }, 3000);
+                },
+                error: function (params, errors) {
+                    var err = errors[0];
+                    jq("#smtpSettingsContent").prepend(
+                                            jq("<div></div>").addClass("errorBox").text(err)
+                                        );
                 }
-                jq("#smtpSettingsContent div.errorBox").remove();
-                jq("#smtpSettingsContent").prepend(
-                    jq("<div></div>").addClass("okBox").text(ASC.CRM.Resources.CRMJSResource.SettingsUpdated)
-                );
-                jq("#showSendTestMailPanelBtn").removeClass("disable");
-                setTimeout(function() {
-                    jq("#smtpSettingsContent div.okBox").remove();
-                }, 3000);
             });
         },
 
@@ -862,24 +875,32 @@ ASC.CRM.SettingsPage = (function() {
 
         sendTestMailSMTP: function() {
             var fromEmail = jq("#tbxSenderEmailAddress").val().trim(),
-                toEmail = jq("#sendTestMailPanel input.testMailToField").val().trim(),
-                mailSubj = jq("#sendTestMailPanel input.testMailSubjectField").val().trim(),
-                mailBody = jq("#sendTestMailPanel textarea.testMailBodyField").val().trim();
+                data = {
+                    toEmail: jq("#sendTestMailPanel input.testMailToField").val().trim(),
+                    mailSubj: jq("#sendTestMailPanel input.testMailSubjectField").val().trim(),
+                    mailBody: jq("#sendTestMailPanel textarea.testMailBodyField").val().trim()
+                };
 
-            if (fromEmail == "" || toEmail == "" || mailBody == "") {
+            if (fromEmail == "" || data.toEmail == "" || data.mailBody == "") {
                 return;
             }
             LoadingBanner.showLoaderBtn("#sendTestMailPanel");
 
-
-            AjaxPro.onLoading = function(b) { if (b) { } else { } };
-
-            AjaxPro.CommonSettingsView.SendTestMailSMTP(toEmail, mailSubj, mailBody, function (res) {
-                PopupKeyUpActionProvider.EnableEsc = true;
-                jq.unblockUI();
-                setTimeout(function() {
+            Teamlab.sendSMTPTestMail({}, data, {
+                success: function (params, response) {
+                    PopupKeyUpActionProvider.EnableEsc = true;
+                    jq.unblockUI();
+                    setTimeout(function () {
+                        LoadingBanner.hideLoaderBtn("#sendTestMailPanel");
+                    }, 0);
+                },
+                error: function (params, errors) {
                     LoadingBanner.hideLoaderBtn("#sendTestMailPanel");
-                }, 0);
+                    var err = errors[0];
+                    if (err != null) {
+                        toastr.error(err);
+                    }
+                }
             });
         },
 
@@ -891,7 +912,7 @@ ASC.CRM.SettingsPage = (function() {
 
             AjaxPro.CommonSettingsView.GetStatus(function(res) {
                 if (res.error != null) {
-                    alert(res.error.Message);
+                    toastr.error(res.error.Message);
                     return false;
                 }
                 if (res.value == null) {
@@ -903,10 +924,7 @@ ASC.CRM.SettingsPage = (function() {
                 $edt.find("div.progress").css("width", parseInt(res.value.Percentage) + "%");
                 $edt.find("div.percent").text(parseInt(res.value.Percentage) + "%");
                 $edt.find("a.button.blue.middle").hide();
-                $edt.find("div.progress-container").show();
-                $edt.find("div.middle-button-container").show();
-                $edt.find("p.header-base-small").show();
-                $edt.find("#abortButton").show();
+                $edt.find("div.progress-container,div.middle-button-container,p.header-base-small,#abortButton").show();
                 $edt.find("#okButton").hide();
 
                 if (res.value.Error != null && res.value.Error != "") {
@@ -930,7 +948,7 @@ ASC.CRM.SettingsPage = (function() {
         abortExport: function() {
             AjaxPro.onLoading = function(b) { };
             AjaxPro.CommonSettingsView.Cancel(function(res) {
-                if (res.error != null) { alert(res.error.Message); return; }
+                if (res.error != null) { toastr.error(res.error.Message); return; }
                 ASC.CRM.SettingsPage.closeExportProgressPanel();
             });
         },
@@ -940,15 +958,12 @@ ASC.CRM.SettingsPage = (function() {
             $edt.find("div.progress").css("width", "0%");
             $edt.find("div.percent").text("0%");
             $edt.find("#abortButton").show();
-            $edt.find("#okButton").hide();
-            $edt.find("div.progress-container").hide();
-            $edt.find("div.middle-button-container").hide();
+
+            $edt.find("#okButton,div.progress-container,div.middle-button-container").hide();
             $edt.find("a.button.blue.middle").show();
-            $edt.find("#exportErrorBox").hide();
-            $edt.find(" #exportLinkBox").hide();
-            $edt.find("p.header-base-small").hide();
-            $edt.find("div.progressErrorBox").html("");
-            $edt.find("#exportLinkBox span").html("");
+            $edt.find("#exportErrorBox,#exportLinkBox,p.header-base-small").hide();
+
+            $edt.find("div.progressErrorBox,#exportLinkBox span").html("");
         },
 
         buildErrorList: function(res) {
@@ -1020,7 +1035,7 @@ ASC.CRM.ListItemView = (function() {
         jq.dropdownToggle({
             dropdownID: "listItemActionMenu",
             switcherSelector: "#listView .entity-menu",
-            addTop: -2,
+            addTop: 0,
             addLeft: 10,
             rightPos: true,
             showFunction: function(switcherObj, dropdownItem) {
@@ -1084,6 +1099,9 @@ ASC.CRM.ListItemView = (function() {
         _resetManageItemPanel();
 
         jq('#manageItem .middle-button-container a.button.blue.middle').unbind('click').click(function () {
+            if (jq(this).hasClass("disable"))
+                return;
+            
             _createItem();
         });
         RemoveRequiredErrorClass(jq("#manageItem input:first"));
@@ -1135,16 +1153,12 @@ ASC.CRM.ListItemView = (function() {
 
     var _changeIcon = function(Obj, listItemId, $imgObj) {
         var imgName = $imgObj.attr("img_name"),
-            cssClass = imgName.split('.')[0],
-            title = $imgObj.attr("title"),
-            alt = $imgObj.attr("alt"),
-
             data = {
                 id: listItemId,
                 imageName: imgName
             };
 
-        Teamlab.updateCrmListItemIcon({ Obj: jq(Obj), cssClass: cssClass, alt: alt, title: title }, ASC.CRM.ListItemView.CurrentType, listItemId, data, {
+        Teamlab.updateCrmListItemIcon({ Obj: jq(Obj) }, ASC.CRM.ListItemView.CurrentType, listItemId, data, {
             before: function(params) {
                 params.Obj.hide();
                 params.Obj.parent().find("div.ajax_change_icon").show();
@@ -1152,11 +1166,16 @@ ASC.CRM.ListItemView = (function() {
             success: function(params, listItem) {
                 var index = _findIndexOfItemByID(listItem.id);
                 if (index === -1) { return; }
+
+                _itemFactory(listItem);
                 ASC.CRM.ListItemView.itemList[index] = listItem;
 
-                params.Obj.attr("class", ["currentIcon ", ASC.CRM.ListItemView.CurrentType == 2 ? "task_category" : "event_category", " ", params.cssClass].join(''));
-                params.Obj.attr("title", params.title);
-                params.Obj.attr("alt", params.alt);
+                params.Obj
+                    .attr("class", ["currentIcon ", ASC.CRM.ListItemView.CurrentType == 2 ? "task_category" : "event_category", " ", listItem.cssClass].join(''))
+                    .attr("img_name", listItem.imageName)
+                    .attr("title", listItem.imageTitle)
+                    .attr("alt", listItem.imageAlt);
+
                 params.Obj.parent().find("div.ajax_change_icon").hide();
 
                 jq(params.Obj).show();
@@ -1516,14 +1535,13 @@ ASC.CRM.ListItemView = (function() {
 
             currIcon = jq(liObj).find("label.currentIcon");
             if (currIcon.length == 1) {
-                var $selectedIcinObj = jq("#manageItem label.selectedIcon"),
-                    cssClass = jq(currIcon).attr("img_name").split('.')[0];
+                var $selectedIcinObj = jq("#manageItem label.selectedIcon");
 
-                $selectedIcinObj.attr('img_name', jq(currIcon).attr("img_name"));
-                $selectedIcinObj.attr('title', jq(currIcon).attr('title'));
-                $selectedIcinObj.attr('alt', jq(currIcon).attr('alt'));
+                $selectedIcinObj.attr('img_name', item.imageName);
+                $selectedIcinObj.attr('title', item.imageTitle);
+                $selectedIcinObj.attr('alt', item.imageAlt);
 
-                $selectedIcinObj.attr("class", ["selectedIcon ", ASC.CRM.ListItemView.CurrentType == 2 ? "task_category" : "event_category", " ", cssClass].join(''));
+                $selectedIcinObj.attr("class", ["selectedIcon ", ASC.CRM.ListItemView.CurrentType == 2 ? "task_category" : "event_category", " ", item.cssClass].join(''));
             } else {
                 var currentColor = jq(liObj).find("div.currentColor").css("background-color");
                 jq("#manageItem .selectedColor").css("background-color", currentColor);
@@ -1574,25 +1592,25 @@ ASC.CRM.ListItemView = (function() {
 
             if (jq("#listView li").length == 1) {
                 if (ASC.CRM.ListItemView.CurrentType == 1) {
-                    alert(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastContactStage,
+                    toastr.error(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastContactStage,
                         jq.trim(jq(liObj).find(".item_title").text())) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
                     jq("#listView").find(".entity-menu").hide();
                     return;
                 }
                 if (ASC.CRM.ListItemView.CurrentType == 2) {
-                    alert(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastTaskCategory,
+                    toastr.error(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastTaskCategory,
                         jq.trim(jq(liObj).find(".item_title").text())) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
                     jq("#listView").find(".entity-menu").hide();
                     return;
                 }
                 if (ASC.CRM.ListItemView.CurrentType == 3) {//HistoryCategory
-                    alert(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastHistoryCategory,
+                    toastr.error(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastHistoryCategory,
                         jq.trim(jq(liObj).find(".item_title").text())) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
                     jq("#listView").find(".entity-menu").hide();
                     return;
                 }
                 if (ASC.CRM.ListItemView.CurrentType == 4) {
-                    alert(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastContactType,
+                    toastr.error(jq.format(ASC.CRM.Resources.CRMJSResource.ErrorTheLastContactType,
                         jq.trim(jq(liObj).find(".item_title").text())) + "\n" + ASC.CRM.Resources.CRMJSResource.PleaseRefreshThePage);
                     jq("#listView").find(".entity-menu").hide();
                     return;
@@ -1682,7 +1700,7 @@ ASC.CRM.DealMilestoneView = (function() {
         jq.dropdownToggle({
             dropdownID: "dealMilestoneActionMenu",
             switcherSelector: "#dealMilestoneList .entity-menu",
-            addTop: -2,
+            addTop: 0,
             addLeft: 10,
             rightPos: true,
             showFunction: function(switcherObj, dropdownItem) {
@@ -1722,6 +1740,9 @@ ASC.CRM.DealMilestoneView = (function() {
         _resetManageItemPanel();
 
         jq('#manageDealMilestone .middle-button-container a.button.blue.middle').unbind('click').click(function () {
+            if (jq(this).hasClass("disable"))
+                return;
+
             _createDealMilestone();
         });
         RemoveRequiredErrorClass(jq("#manageDealMilestone .title"));
@@ -1758,6 +1779,13 @@ ASC.CRM.DealMilestoneView = (function() {
         };
         Teamlab.updateCrmDealMilestoneColor({ Obj: Obj }, listItemId, data,
             function(params, dealMilestone) {
+                _dealMilestoneItemFactory(dealMilestone);
+
+                var index = _findIndexOfDealMilestoneByID(dealMilestone.id);
+                if (index != -1) {
+                    ASC.CRM.DealMilestoneView.dealMilestoneList[index] = dealMilestone;
+                }
+
                 jq(params.Obj).css("background", dealMilestone.color);
                 jq("#colorsPanel").hide();
             }
@@ -1986,7 +2014,12 @@ ASC.CRM.DealMilestoneView = (function() {
                 addLeft: -12
             });
 
-            jq.forceIntegerOnly("#manageDealMilestone .probability");
+            jq.forceNumber({
+                parent: "#manageDealMilestone",
+                input: ".probability",
+                integerOnly: true,
+                positiveOnly: true
+            });
         },
 
         showEditDealMilestonePanel: function() {
@@ -2046,7 +2079,7 @@ ASC.CRM.DealMilestoneView = (function() {
             if (liObj.length != 1) { return; }
 
             if (jq("#dealMilestoneList li").length == 1) {
-                alert(ASC.CRM.Resources.CRMJSResource.ErrorTheLastDealMilestone);
+                toastr.error(ASC.CRM.Resources.CRMJSResource.ErrorTheLastDealMilestone);
                 return;
             }
 
@@ -2218,7 +2251,12 @@ ASC.CRM.TagSettingsView = (function() {
         }).insertAfter("#tagList");
 
         jq("#manageTag .button.gray").on("click", function () { PopupKeyUpActionProvider.EnableEsc = true; jq.unblockUI(); });
-        jq("#manageTag .button.blue").on("click", function () { ASC.CRM.TagSettingsView.createTag(); });
+        jq("#manageTag .button.blue").on("click", function () {
+            if (jq(this).hasClass("disable"))
+                return;
+
+            ASC.CRM.TagSettingsView.createTag();
+        });
     };
 
     return {
@@ -2503,7 +2541,7 @@ ASC.CRM.SettingsPage.WebToLeadFormView = (function() {
             companyName = jq("#tblFieldList input[name='companyName']:checked");
 
         if ((firstName.length == 0 || lastName.length == 0) && companyName.length == 0) {
-            alert(ASC.CRM.Resources.CRMJSResource.ErrorNotMappingBasicColumn);
+            toastr.error(ASC.CRM.Resources.CRMJSResource.ErrorNotMappingBasicColumn);
             isValid = false;
         }
 
@@ -2599,15 +2637,18 @@ ASC.CRM.SettingsPage.WebToLeadFormView = (function() {
             if (!confirm(ASC.CRM.Resources.CRMJSResource.ConfirmChangeKey + "\n" + ASC.CRM.Resources.CRMJSResource.ConfirmChangeKeyNote))
             { return false; }
 
-            AjaxPro.WebToLeadFormView.ChangeWebFormKey(
-               function(res) {
-                   if (res.error != null) {
-                       alert(res.error.Message);
-                   }
-                   jq("#properties_webFormKey input").val(res.value);
-                   jq("#webFormKeyContainer").html(res.value);
-               }
-            );
+            Teamlab.updateWebToLeadFormKey({}, {
+                success: function (params, response) {
+                    jq("#properties_webFormKey input").val(response);
+                    jq("#webFormKeyContainer").html(response);
+                },
+                error: function (params, errors) {
+                    var err = errors[0];
+                    if (err != null) {
+                        toastr.error(err);
+                    }
+                }
+            });
         },
 
         generateSampleForm: function() {
@@ -2680,6 +2721,59 @@ ASC.CRM.TaskTemplateView = (function() {
         jq("#menuCreateNewTask").bind("click", function() { ASC.CRM.TaskActionView.showTaskPanel(0, "", 0, null, {}); });
     };
 
+    var _getCurEntityType = function () {
+        var available = ["contact", "person", "company", "opportunity", "case"],
+            type = jq.getURLParam("view");
+        if (type == null || type == "" || available.indexOf(type) == -1) { type = "contact"; }
+        return type;
+    };
+
+    var _initTabs = function (type) {
+
+        jq("<div class='fakeTabContainer' id='contTagsFake'></div>\
+            <div class='fakeTabContainer' id='compTagsFake'></div>\
+            <div class='fakeTabContainer' id='persTagsFake'></div>\
+            <div class='fakeTabContainer' id='dealTagsFake'></div>\
+            <div class='fakeTabContainer' id='caseTagsFake'></div>").insertAfter("#TaskTemplateViewTabs");
+
+        window.ASC.Controls.ClientTabsNavigator.init("TaskTemplateViewTabs", {
+            tabs: [
+            {
+                title: ASC.CRM.Resources.CRMSettingResource.BothPersonAndCompany,
+                selected: type === "contact",
+                divID: "contTagsFake",
+                href: "settings.aspx?type=task_template&view=contact"
+            },
+            {
+                title: ASC.CRM.Resources.CRMSettingResource.JustForCompany,
+                selected: type === "company",
+                divID: "contTagsFake",
+                href: "settings.aspx?type=task_template&view=company"
+            },
+            {
+                title: ASC.CRM.Resources.CRMSettingResource.JustForPerson,
+                selected: type === "person",
+                divID: "contTagsFake",
+                href: "settings.aspx?type=task_template&view=person"
+            },
+            {
+                title: ASC.CRM.Resources.CRMCommonResource.DealModuleName,
+                selected: type === "opportunity",
+                divID: "dealTagsFake",
+                href: "settings.aspx?type=task_template&view=opportunity"
+            },
+            {
+                title: ASC.CRM.Resources.CRMCommonResource.CasesModuleName,
+                selected: type === "case",
+                divID: "caseTagsFake",
+                href: "settings.aspx?type=task_template&view=case"
+            }]
+        });
+
+        jq("<label class='linkTabsLabel'></label>").text(ASC.CRM.Resources.CRMCommonResource.Show + ":").insertAfter("#TaskTemplateViewTabs");
+    };
+
+
     function checkTemplateConatainers() {
         if (jq("#templateConatainerContent li").length != 0) {
             jq("#emptyContent").hide();
@@ -2691,14 +2785,24 @@ ASC.CRM.TaskTemplateView = (function() {
     };
 
     return {
-        init: function() {
+        init: function () {
+
+            var type = _getCurEntityType();
+            _initTabs(type);
+
+
             if (typeof (window.templateConatainerList) != "undefined") {
                 window.templateConatainerList = jq.parseJSON(jQuery.base64.decode(window.templateConatainerList)).response;
             } else {
                 window.templateConatainerList = [];
             }
 
-            jq.forceIntegerOnly("#templatePanel #tbxTemplateDisplacement");
+            jq.forceNumber({
+                parent: "#templatePanel",
+                input: "#tbxTemplateDisplacement",
+                integerOnly: true,
+                positiveOnly: true
+            });
 
             jq.tmpl("templateContainerRow", window.templateConatainerList).appendTo("#templateConatainerContent");
             checkTemplateConatainers();

@@ -1,34 +1,35 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using ASC.Common.Utils;
@@ -147,6 +148,10 @@ namespace ASC.Web.Studio.UserControls.Management
             return String.IsNullOrEmpty(value) ? account.LastName : value;
         }
 
+        protected bool isPersonal {
+            get { return CoreContext.Configuration.Personal; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/confirminviteactivation/js/confirm_invite_activation.js"));
@@ -166,7 +171,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var email = GetEmailAddress();
 
-            if (_type != ConfirmType.Activation && AccountLinkControl.IsNotEmpty)
+            if (_type != ConfirmType.Activation && AccountLinkControl.IsNotEmpty && !CoreContext.Configuration.Personal)
             {
                 var thrd = (AccountLinkControl) LoadControl(AccountLinkControl.Location);
                 thrd.InviteView = true;
@@ -232,7 +237,6 @@ namespace ASC.Web.Studio.UserControls.Management
             var firstName = GetFirstName();
             var lastName = GetLastName();
             var pwd = (Request["pwdInput"] ?? "").Trim();
-            var repwd = (Request["repwdInput"] ?? "").Trim();
             var mustChangePassword = false;
             LoginProfile thirdPartyProfile;
 
@@ -283,7 +287,7 @@ namespace ASC.Web.Studio.UserControls.Management
                     return;
                 }
 
-                var checkPassResult = CheckPassword(pwd, repwd);
+                var checkPassResult = CheckPassword(pwd);
                 if (!String.IsNullOrEmpty(checkPassResult))
                 {
                     _errorMessage = checkPassResult;
@@ -316,7 +320,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
                     if (Request["__EVENTTARGET"] == "thirdPartyLogin")
                     {
-                        if (!String.IsNullOrEmpty(CheckPassword(pwd, repwd)))
+                        if (!String.IsNullOrEmpty(CheckPassword(pwd)))
                         {
                             pwd = UserManagerWrapper.GeneratePassword();
                             mustChangePassword = true;
@@ -375,7 +379,7 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 var cookiesKey = SecurityContext.AuthenticateMe(user.Email, pwd);
                 CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess, user.DisplayUserName(false));
+                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess);
                 StudioNotifyService.Instance.UserHasJoin();
 
                 if (mustChangePassword)
@@ -390,7 +394,9 @@ namespace ASC.Web.Studio.UserControls.Management
             }
 
             UserHelpTourHelper.IsNewUser = true;
-            Response.Redirect(user.IsVisitor() ? "~/" : "~/welcome.aspx");
+            if (CoreContext.Configuration.Personal)
+                PersonalSettings.IsNewUser = true;
+            Response.Redirect("~/");
         }
 
         private static void SaveContactImage(Guid userID, string url)
@@ -430,7 +436,7 @@ namespace ASC.Web.Studio.UserControls.Management
             _confirmHolder.Visible = false;
         }
 
-        private static string CheckPassword(string pwd, string repwd)
+        private static string CheckPassword(string pwd)
         {
             if (String.IsNullOrEmpty(pwd))
                 return Resource.ErrorPasswordEmpty;
@@ -444,9 +450,6 @@ namespace ASC.Web.Studio.UserControls.Management
                 return ex.Message;
             }
 
-            if (!String.Equals(pwd, repwd))
-                return Resource.ErrorMissMatchPwd;
-
             return String.Empty;
         }
 
@@ -454,38 +457,25 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             var isVisitor = employeeType == EmployeeType.Visitor;
 
-            var secretEmailPattern = ConfigurationManager.AppSettings["web.autotest.secret-email"];
-            if (!string.IsNullOrEmpty(secretEmailPattern) && Regex.IsMatch(email, secretEmailPattern, RegexOptions.Compiled))
+            if (SetupInfo.IsSecretEmail(email))
             {
                 fromInviteLink = false;
             }
 
-            var newUser = UserManagerWrapper.AddUser(new UserInfo
-                {
-                    FirstName = string.IsNullOrEmpty(firstName) ? UserControlsCommonResource.UnknownFirstName : firstName,
-                    LastName = string.IsNullOrEmpty(lastName) ? UserControlsCommonResource.UnknownLastName : lastName,
-                    Email = email,
-                    WorkFromDate = TenantUtil.DateTimeNow()
-                }, pwd, true, true, isVisitor, fromInviteLink);
-
-            return newUser;
-        }
-
-        private static string GetMeaningfulProviderName(string providerName)
-        {
-            switch (providerName)
+            var userInfo = new UserInfo
             {
-                case "openid":
-                    return "Google";
-                case "facebook":
-                    return "Facebook";
-                case "twitter":
-                    return "Twitter";
-                case "linkedin":
-                    return "LinkedIn";
-                default:
-                    return "Unknown Provider";
+                FirstName = string.IsNullOrEmpty(firstName) ? UserControlsCommonResource.UnknownFirstName : firstName,
+                LastName = string.IsNullOrEmpty(lastName) ? UserControlsCommonResource.UnknownLastName : lastName,
+                Email = email,
+            };
+
+            if (CoreContext.Configuration.Personal)
+            {
+                userInfo.ActivationStatus = EmployeeActivationStatus.Activated;
+                userInfo.CultureName = Thread.CurrentThread.CurrentUICulture.Name;
             }
+
+            return UserManagerWrapper.AddUser(userInfo, pwd, true, true, isVisitor, fromInviteLink);
         }
     }
 }

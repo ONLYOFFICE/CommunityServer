@@ -20,7 +20,7 @@
                      Response.Write("<div style=\"margin-top:3px;\"><a class=\"link\" href=\"" + _settings.LinkProvider.TopicList(Topic.ThreadID) + "\">" + HttpUtility.HtmlEncode(Topic.ThreadTitle) + "</a></div>");
                %>
               <div style="padding:5px 0px;" class="clearFix">
-                <%= ASC.Core.Users.StudioUserInfoExtension.RenderCustomProfileLink(ASC.Core.CoreContext.UserManager.GetUsers(Topic.PosterID), _settings.ProductID, "describe-text", "link gray")%>             
+                <%= ASC.Core.Users.StudioUserInfoExtension.RenderCustomProfileLink(ASC.Core.CoreContext.UserManager.GetUsers(Topic.PosterID), "describe-text", "link gray")%>             
              </div>
              <% %>
              <asp:Panel runat="server" ID="_tagsPanel">

@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -56,7 +56,7 @@ namespace ASC.Files.Core.Data
             _dbId = storageKey;
         }
 
-        protected DbManager GetDbManager()
+        protected DbManager GetDb()
         {
             return new DbManager(_dbId);
         }
@@ -68,7 +68,7 @@ namespace ASC.Files.Core.Data
 
         protected List<object[]> ExecList(ISqlInstruction sql)
         {
-            using (var manager = GetDbManager())
+            using (var manager = GetDb())
             {
                 return manager.ExecuteList(sql);
             }
@@ -76,7 +76,7 @@ namespace ASC.Files.Core.Data
 
         protected List<object[]> ExecList(string sql)
         {
-            using (var manager = GetDbManager())
+            using (var manager = GetDb())
             {
                 return manager.ExecuteList(sql);
             }
@@ -84,7 +84,7 @@ namespace ASC.Files.Core.Data
 
         protected T ExecScalar<T>(ISqlInstruction sql)
         {
-            using (var manager = GetDbManager())
+            using (var manager = GetDb())
             {
                 return manager.ExecuteScalar<T>(sql);
             }
@@ -92,7 +92,7 @@ namespace ASC.Files.Core.Data
 
         protected int ExecNonQuery(ISqlInstruction sql)
         {
-            using (var manager = GetDbManager())
+            using (var manager = GetDb())
             {
                 return manager.ExecuteNonQuery(sql);
             }
@@ -140,7 +140,7 @@ namespace ASC.Files.Core.Data
                 .Select("f.modified_on")
                 .Select("f.modified_by")
                 .Select(GetRootFolderType("folder_id"))
-                .Select(GetSharedQuery(FileEntryType.File))
+                .Select(Exp.Exists(GetSharedQuery(FileEntryType.File)))
                 .Select("converted_type")
                 .Select("f.comment")
                 .Where(where);
@@ -173,12 +173,14 @@ namespace ASC.Files.Core.Data
 
         protected SqlQuery GetRootFolderType(string parentFolderColumnName)
         {
-            return Query("files_folder d")
+            return new SqlQuery("files_folder d")
                 .From("files_folder_tree t")
                 .Select("concat(cast(d.folder_type as char),d.create_by,cast(d.id as char))")
-                .Where(Exp.EqColumns("d.id", "t.parent_id") &
+                .Where(Exp.EqColumns("d.tenant_id", "f.tenant_id") &
+                        Exp.EqColumns("d.id", "t.parent_id") &
                        Exp.EqColumns("t.folder_id", "f." + parentFolderColumnName))
                 .OrderBy("level", false)
+                .GroupBy("level")
                 .SetMaxResults(1);
         }
 
@@ -201,11 +203,12 @@ namespace ASC.Files.Core.Data
 
         protected SqlQuery GetSharedQuery(FileEntryType type)
         {
-            return Query("files_security s")
-                .SelectCount()
-                .Where(Exp.EqColumns("s.entry_id", "f.id"))
+            return new SqlQuery("files_security s")
+                .Select("s.tenant_id")
+                .Where(Exp.EqColumns("s.tenant_id", "f.tenant_id"))
                 .Where("s.entry_type", (int)type)
-                .Where("owner", SecurityContext.CurrentAccount.ID.ToString());
+                .Where(Exp.EqColumns("s.entry_id", "f.id"))
+                .Where("owner", SecurityContext.CurrentAccount.ID);
         }
 
         protected SqlUpdate GetRecalculateFilesCountUpdate(object folderId)
@@ -242,7 +245,7 @@ namespace ASC.Files.Core.Data
 
             object result;
 
-            using (var DbManager = GetDbManager())
+            using (var DbManager = GetDb())
             {
                 if (id.ToString().StartsWith("sbox") || id.ToString().StartsWith("spoint") || id.ToString().StartsWith("drive"))
                     result = Regex.Replace(BitConverter.ToString(Hasher.Hash(id.ToString(), HashAlg.MD5)), "-", "").ToLower();

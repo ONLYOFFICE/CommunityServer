@@ -1,0 +1,50 @@
+﻿Executing Remove (transform line 4, 30)
+  on /configuration/appSettings/add[@key='RemoveNewLine']
+  Applying to 'add' element (source line 7, 6)
+  Removed 'add' element
+Done executing Remove
+Executing Remove (transform line 5, 34)
+  on /configuration/appSettings/add[@key='RemoveExtraSpace1']
+  Applying to 'add' element (source line 10, 6)
+  Removed 'add' element
+Done executing Remove
+Executing InsertBefore (transform line 6, 58)
+  on /configuration/appSettings/add
+  Applying to 'appSettings' element (source line 4, 4)
+  Inserted 'add' element
+Done executing InsertBefore
+Executing InsertAfter (transform line 7, 58)
+  on /configuration/appSettings/add
+  Applying to 'appSettings' element (source line 4, 4)
+  Inserted 'add' element
+Done executing InsertAfter
+Executing InsertBefore (transform line 8, 61)
+  on /configuration/appSettings/add
+  Applying to 'appSettings' element (source line 4, 4)
+  Inserted 'add' element
+Done executing InsertBefore
+Executing Insert (transform line 11, 16)
+  on /configuration/appSettings
+  Applying to 'configuration' element (source line 2, 2)
+  Inserted 'appSettings' element
+Done executing Insert
+Executing Insert (transform line 22, 58)
+  on /configuration/location/appSettings[1]/add
+  Applying to 'appSettings' element (source line 30, 9)
+  Inserted 'add' element
+Done executing Insert
+Executing Insert (transform line 26, 72)
+  on /configuration/location/appSettings[2]/add
+  Applying to 'appSettings' element (source line 33, 8)
+  Inserted 'add' element
+Done executing Insert
+Executing Insert (transform line 30, 72)
+  on /configuration/location/appSettings[3]/add
+  Applying to 'appSettings' element (source line 37, 3)
+  Inserted 'add' element
+Done executing Insert
+Executing Insert (transform line 34, 98)
+  on /configuration/backward/tag/indenting/structure
+  Applying to 'structure' element (source line 22, 4)
+  Inserted 'location' element
+Done executing Insert

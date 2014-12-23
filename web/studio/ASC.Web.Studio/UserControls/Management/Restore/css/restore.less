@@ -1,0 +1,165 @@
+/*
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+*/
+
+/*******************************************************************************
+    Restore
+*******************************************************************************/
+.restore-setting_desc {
+    margin-bottom: 30px;
+}
+.restore-setting_file {
+    display: none;
+    float:left;
+}
+
+.restore-setting_form {
+    margin-bottom: 15px;
+}
+.restore-settings_show-list {
+    display:inline-block;
+    margin-bottom:15px;
+}
+.restore-setting_filename {
+    height: 18px;
+    width: 65%;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.restore-setting_teamlab-file {
+    #restoreChooseTeamlabFile {
+        min-width: 15%;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+.restore-settings_title {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.restore-settings_places {
+    list-style-type: none;
+    margin: 0 0 15px 0;
+    padding: 0;
+
+    li {
+        display: block;
+        clear: both;
+        margin: 0;
+        padding: 0;
+
+        .expl {
+            display: none;
+        }
+
+        &.disabled {
+            color: #808080;
+
+            .expl {
+                display: inline-block;
+                padding: 0;
+                margin: 0 0 -3px 0;
+            }
+        }
+    }
+}
+.restore-settings_path {
+    margin-bottom: 15px;
+}
+
+.restore-settings-amazon,
+.restore-setting_teamlab-file,
+.restore-setting_computer-file{
+    display: none;
+}
+.restore-settings_amazon_params {
+    height: 20px;
+    margin-bottom: 10px;
+
+    &.access-key-id {
+        float: left;
+        margin-right: 8px;
+        width: 166px;
+    }
+
+    &.secret-access-key {
+        width: 166px;
+    }
+
+    &.bucket,
+    &.file-path {
+        width: 343px;
+    }
+
+    &.file-path {
+        margin-bottom: 0;
+    }
+
+    &.region {
+        height: 24px;
+        width: 345px;
+    }
+}
+
+/*******************************************************************************
+    Backup List
+*******************************************************************************/
+
+#restoreChooseBackupDialog {
+    .containerBodyBlock {
+        text-align: center;
+    }
+
+    .middle-button-container {
+        text-align: left;
+    }
+}
+.restore-backup-list_w {
+    max-height: 225px;
+    overflow-y: auto;
+}
+.restore-backup-list {
+    .trash {
+        cursor: pointer;
+    }
+}
+.restore-backup-list_name {
+    padding: 0 10px;
+    width:70%;
+}
+
+.restore-backup-empty-list {
+     display: none;
+     text-align: left;
+}
+
+.restore-backup-text {
+    margin-bottom: 25px;
+    text-align: left;
+}

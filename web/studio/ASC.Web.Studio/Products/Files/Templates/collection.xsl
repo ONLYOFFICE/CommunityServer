@@ -10,8 +10,6 @@
 
   <xsl:include href="getfolderstree.xsl"/>
 
-  <xsl:include href="getimportdata.xsl"/>
-
   <xsl:include href="getlistconvert.xsl"/>
 
   <xsl:include href="getthirdpartyitem.xsl"/>

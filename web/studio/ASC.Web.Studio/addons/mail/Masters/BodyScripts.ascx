@@ -34,6 +34,15 @@
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/tags/colorspopup.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/tags/dropdown.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/tags/page.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/error.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/administration.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/page.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/forms.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/modal/editmailgroup.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/modal/editmailbox.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/modal/createdomain.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/modal/createmailbox.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/modal/createmailgroup.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/tags/modal.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/contacts/crmFilter.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/contacts/page.js") %>" type="text/javascript"></script>
@@ -52,3 +61,6 @@
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/init.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/helpcenter/panel.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/helpcenter/page.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/plugin/jquery-mailboxadvansedselector.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/plugin/jquery-domainadvansedselector.js") %>" type="text/javascript"></script>
+

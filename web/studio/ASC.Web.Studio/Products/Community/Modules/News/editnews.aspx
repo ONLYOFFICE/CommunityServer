@@ -27,19 +27,22 @@
         <div class="headerPanelSmall-splitter">
             <b><%=NewsResource.NewsBody%>:</b>
         </div>
-        <textarea id="ckEditor" name="mobiletext" style="width:100%; height:400px;" autocomplete="off"><%=_text%></textarea>
+        <textarea id="ckEditor" name="news_text" style="width:100%; height:400px;" autocomplete="off"><%=_text%></textarea>
     </div>
     
     <div class="big-button-container" id="panel_buttons">
-        <a href="javascript:void(0);" id="lbSave" class="button blue big" onclick="NewsBlockButtons(); CheckDataNews();"><%=NewsResource.PostButton%></a>
+        <a id="lbSave" class="button blue big" onclick="submitNewsData(this)"><%=NewsResource.PostButton%></a>
         <span class="splitter-buttons"></span>
-        <a href="javascript:void(0);" onclick="GetPreviewFull(); return false;"
-            class="button blue big">
-            <%=NewsResource.Preview%></a>
+        <% if (string.IsNullOrEmpty(_text))
+        { %>
+        <a id="btnPreview" class="button blue big disable" onclick="GetPreviewFull();"><%= NewsResource.Preview %></a>
+    <% } else { %>
+        <a id="btnPreview" class="button blue big" onclick="GetPreviewFull();"><%= NewsResource.Preview %></a>
+    <% } %>
+
         <span class="splitter-buttons"></span>
-            <asp:LinkButton ID="lbCancel" CssClass="button gray big cancelFckEditorChangesButtonMarker"
-            OnClick="CancelFeed" CausesValidation="true" OnClientClick="javascript:NewsBlockButtons();" runat="server"><%=NewsResource.CancelButton%></asp:LinkButton>
-             
+        <asp:LinkButton ID="lbCancel" CssClass="button gray big cancelFckEditorChangesButtonMarker"
+        OnClick="CancelFeed" CausesValidation="true" OnClientClick="NewsBlockButtons()" runat="server"><%=NewsResource.CancelButton%></asp:LinkButton>
     </div>
     </div>
     <div id="feedPrevDiv" style="display: none; padding-top: 20px">

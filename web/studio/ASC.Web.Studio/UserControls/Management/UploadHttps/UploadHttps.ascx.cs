@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -34,6 +34,7 @@ using System.Security.Permissions;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.UI;
+using ASC.Core;
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Utility;
 using AjaxPro;
@@ -79,20 +80,19 @@ namespace ASC.Web.Studio.UserControls.Management
 
     }
 
+    //[ManagementControl(ManagementType.PortalSecurity, Location, SortOrder = 250)]
     [AjaxNamespace("UploadHttps")]
     public partial class UploadHttps : UserControl
     {
-        public static string Location
-        {
-            get { return "~/UserControls/Management/UploadHttps/UploadHttps.ascx"; }
-        }
+        public const string Location = "~/UserControls/Management/UploadHttps/UploadHttps.ascx";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             _checkAttachmentContainer.Options.IsPopup = true;
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/ajaxupload.js"));
+            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/plupload.js"));
             Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/uploadhttps/js/uploadhttps.js"));
+            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/uploadhttps/css/uploadhttps.less"));
         }
 
         [AjaxMethod]
@@ -104,7 +104,7 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 using (var serverManager = new ServerManager())
                 {
-                    if (serverManager.Sites.SelectMany(r => r.Bindings).Any(r => r.BindingInformation.Contains("*:443:")))
+                    if (CoreContext.Configuration.Standalone && serverManager.Sites.SelectMany(r => r.Bindings).Any(r => r.BindingInformation.Contains("*:443:")))
                     {
                         response.status = "error";
                         return response;
@@ -129,41 +129,23 @@ namespace ASC.Web.Studio.UserControls.Management
 
             try
             {
-                const string newbindinginformation = "*:443:";
-
+                var filePath = Path.Combine(Path.GetTempPath(), fileName);
                 var store2 = new X509Store(StoreName.My, StoreLocation.LocalMachine);
                 var sp = new StorePermission(PermissionState.Unrestricted) {Flags = StorePermissionFlags.AllFlags};
                 sp.Assert();
                 store2.Open(OpenFlags.MaxAllowed);
 
-                var cert = new X509Certificate2(fileName, password) {FriendlyName = fileName.Split('\\').Last()};
+                var cert = fileName.EndsWith(".pfx")
+                                            ? new X509Certificate2(filePath, password) {FriendlyName = fileName}
+                                            : new X509Certificate2(new X509Certificate(filePath));
+
                 store2.Add(cert);
                 store2.Close();
 
-                using (var serverManager = new ServerManager())
-                {
-                    foreach (var s in serverManager.Sites)
-                    {
-                        var bindingIndex = -1;
-                        foreach (var b in s.Bindings.Where(r => r.BindingInformation.Contains(newbindinginformation)))
-                        {
-                            bindingIndex = s.Bindings.IndexOf(b);
-                        }
-
-                        if (bindingIndex != -1)
-                        {
-                            s.Bindings.RemoveAt(bindingIndex);
-                        }
-                    }
-
-                    var site = serverManager.Sites[HostingEnvironment.ApplicationHost.GetSiteName()];
-                    var binding = site.Bindings.Add(newbindinginformation, cert.GetCertHash(), store2.Name);
-                    binding.Protocol = "https";
-
-                    AddRewriteRules(serverManager);
-
-                    serverManager.CommitChanges();
-                }
+                if (CoreContext.Configuration.Standalone)
+                    UploadStandAloneCertificate(store2, cert);
+                else
+                    UploadSaaSCertificate(store2, cert);
 
                 response.status = "success";
                 response.message = Resource.UploadHttpsSettingsSuccess;
@@ -177,9 +159,70 @@ namespace ASC.Web.Studio.UserControls.Management
             return response;
         }
 
-        private static void AddRewriteRules(ServerManager serverManager)
+        private static void UploadStandAloneCertificate(X509Store store2, X509Certificate cert)
         {
-            var config = serverManager.GetWebConfiguration("asc");
+            using (var serverManager = new ServerManager())
+            {
+                const string newbindinginformation = "*:443:";
+
+                foreach (var s in serverManager.Sites)
+                {
+                    var bindingIndex = -1;
+                    foreach (var b in s.Bindings.Where(r => r.BindingInformation.Contains(newbindinginformation)))
+                    {
+                        bindingIndex = s.Bindings.IndexOf(b);
+                    }
+
+                    if (bindingIndex != -1)
+                    {
+                        s.Bindings.RemoveAt(bindingIndex);
+                    }
+                }
+
+                var site = serverManager.Sites[HostingEnvironment.SiteName];
+
+                AddHttpsBinding(site, newbindinginformation, cert.GetCertHash(), store2.Name);
+
+                AddRewriteRules(serverManager, site);
+
+                serverManager.CommitChanges();
+            }
+        }
+
+        private static void UploadSaaSCertificate(X509Store store2, X509Certificate cert)
+        {
+            using (var serverManager = new ServerManager())
+            {
+                var siteName = cert.Issuer.Contains("CN=")
+                                      ? cert.Issuer.Substring(cert.Issuer.IndexOf("CN=", StringComparison.Ordinal) + 3)
+                                      : CoreContext.TenantManager.GetCurrentTenant().MappedDomain;
+
+                var newbindinginformation = "*:443:" + siteName;
+
+                var site = serverManager.Sites[siteName];
+                if (site == null)
+                {
+                    site = serverManager.Sites.Add(siteName, "http", "*:80:" + siteName, HostingEnvironment.ApplicationPhysicalPath);
+                    site.Applications[0].ApplicationPoolName = serverManager.Sites[HostingEnvironment.SiteName].Applications[0].ApplicationPoolName;
+                }
+
+                AddHttpsBinding(site, newbindinginformation, cert.GetCertHash(), store2.Name);
+
+                serverManager.CommitChanges();
+            }
+        }
+
+        private static void AddHttpsBinding(Site site, string newbindinginformation, byte[] certHash, string storeName)
+        {
+            var binding = site.Bindings.Add(newbindinginformation, certHash, storeName);
+            binding.Protocol = "https";
+            if (!string.IsNullOrEmpty(site.Bindings[0].Host))
+                binding["sslFlags"] = 1;
+        }
+
+        private static void AddRewriteRules(ServerManager serverManager, Site site)
+        {
+            var config = serverManager.GetWebConfiguration(site.Name);
 
             var rulesSection = config.GetSection("system.webServer/rewrite/rules");
 

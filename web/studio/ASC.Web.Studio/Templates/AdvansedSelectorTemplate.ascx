@@ -20,7 +20,7 @@
                             </span>
                         </div>
                         {{/if}}
-                        {{if (opts.onechosen === false) && (opts.showGroups === false)}}
+                        {{if (opts.onechosen === false) && (opts.showGroups === false) && !(opts.isTempLoad)}}
                         <div class="advanced-selector-all-select">
                             <input type="checkbox" />
                             <label><%= Resources.UserControlsCommonResource.SelectAll%></label>
@@ -52,9 +52,9 @@
                 </div>
                 {{if (opts.onechosen === false)}}
                 <div class="advanced-selector-btn-cnt">
-                    <button class="advanced-selector-btn-action button blue"><%= Resources.UserControlsCommonResource.SaveButton%></button>
+                    <button type="button" class="advanced-selector-btn-action button blue"><%= Resources.UserControlsCommonResource.SaveButton%></button>
                     <span class="splitter-buttons"></span>
-                    <button class="advanced-selector-btn-cancel button gray"><%= Resources.UserControlsCommonResource.CancelButton%></button>
+                    <button type="button" class="advanced-selector-btn-cancel button gray"><%= Resources.UserControlsCommonResource.CancelButton%></button>
                 </div>
                 {{/if}}
             </div>
@@ -92,9 +92,9 @@
         {{/each}}
         </div>
         <div class="advanced-selector-btn-cnt">
-            <button class="advanced-selector-btn-add button blue">${btnTitle}</button>
+            <button type="button" class="advanced-selector-btn-add button blue">${btnTitle}</button>
             <span class="splitter-buttons"></span>
-            <button class="advanced-selector-btn-cancel button gray"><%= Resources.UserControlsCommonResource.CancelButton%></button>
+            <button type="button" class="advanced-selector-btn-cancel button gray"><%= Resources.UserControlsCommonResource.CancelButton%></button>
         </div>
     </div>
 </script>

@@ -1,37 +1,38 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web.Caching;
+using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -39,111 +40,35 @@ using ASC.Core;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Security.Cryptography;
-using AppLimit.CloudComputing.SharpBox;
+using ASC.Web.Files.Classes;
 using ASC.Core.Tenants;
+using DriveFile = Google.Apis.Drive.v2.Data.File;
+using File = ASC.Files.Core.File;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
 {
     internal abstract class GoogleDriveDaoBase : IDisposable
     {
-        protected class ErrorEntry : ICloudDirectoryEntry
+        protected class ErrorDriveEntry : DriveFile
         {
-            public ErrorEntry(Exception e, object id)
+            public ErrorDriveEntry(Exception e, object id)
             {
                 if (e != null) Error = e.Message;
 
-                Id = String.IsNullOrEmpty(id.ToString()) ? "/" : id.ToString();
+                ErrorId = id.ToString();
             }
 
             public string Error { get; set; }
 
-            public string Name
-            {
-                get { return "/"; }
-            }
-
-            public string Id { get; private set; }
-
-            public long Length
-            {
-                get { return 0; }
-            }
-
-            public DateTime Modified
-            {
-                get { return DateTime.UtcNow; }
-            }
-
-            public string ParentID
-            {
-                get { return ""; }
-                set { }
-            }
-
-            public ICloudDirectoryEntry Parent
-            {
-                get { return null; }
-                set { }
-            }
-
-            public ICloudFileDataTransfer GetDataTransferAccessor()
-            {
-                return null;
-            }
-
-            public string GetPropertyValue(string key)
-            {
-                return null;
-            }
-
-            private readonly List<ICloudFileSystemEntry> _entries = new List<ICloudFileSystemEntry>(0);
-
-            public IEnumerator<ICloudFileSystemEntry> GetEnumerator()
-            {
-                return _entries.GetEnumerator();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
-
-            public ICloudFileSystemEntry GetChild(string name)
-            {
-                return null;
-            }
-
-            public ICloudFileSystemEntry GetChild(string name, bool bThrowException)
-            {
-                if (bThrowException) throw new ArgumentNullException(name);
-                return null;
-            }
-
-            public ICloudFileSystemEntry GetChild(string idOrName, bool bThrowException, bool firstByNameIfNotFound)
-            {
-                if (bThrowException) throw new ArgumentNullException(idOrName);
-                return null;
-            }
-
-            public ICloudFileSystemEntry GetChild(int idx)
-            {
-                return null;
-            }
-
-            public int Count
-            {
-                get { return 0; }
-            }
-
-            public nChildState HasChildrens
-            {
-                get { return nChildState.HasNoChilds; }
-            }
+            public string ErrorId { get; private set; }
         }
 
-        public DbManager DbManager { get; private set; }
+        protected readonly GoogleDriveDaoSelector GoogleDriveDaoSelector;
 
+        public DbManager DbManager { get; private set; }
         public int TenantID { get; private set; }
+        public GoogleDriveProviderInfo GoogleDriveProviderInfo { get; private set; }
+        public string PathPrefix { get; private set; }
 
         protected GoogleDriveDaoBase(GoogleDriveDaoSelector.GoogleDriveInfo googleDriveInfo, GoogleDriveDaoSelector googleDriveDaoSelector)
         {
@@ -154,7 +79,13 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             TenantID = CoreContext.TenantManager.GetCurrentTenant().TenantId;
         }
 
-        protected object MappingID(object id, bool saveIfNotExist)
+        public void Dispose()
+        {
+            DbManager.Dispose();
+            GoogleDriveProviderInfo.Storage.Close();
+        }
+
+        protected object MappingID(object id, bool saveIfNotExist = false)
         {
             if (id == null) return null;
             int n;
@@ -180,50 +111,6 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return result;
         }
 
-        protected object MappingID(object id)
-        {
-            return MappingID(id, false);
-        }
-
-        protected void UpdatePathInDB(String oldValue, String newValue)
-        {
-            if (oldValue.Equals(newValue)) return;
-
-            using (var tx = DbManager.BeginTransaction())
-            {
-                var oldIDs = DbManager.ExecuteList(Query("files_thirdparty_id_mapping")
-                                                       .Select("id")
-                                                       .Where(Exp.Like("id", oldValue, SqlLike.StartWith)))
-                                      .ConvertAll(x => x[0].ToString());
-
-                foreach (var oldID in oldIDs)
-                {
-                    var oldHashID = MappingID(oldID);
-                    var newID = oldID.Replace(oldValue, newValue);
-                    var newHashID = MappingID(newID);
-
-                    DbManager.ExecuteNonQuery(Update("files_thirdparty_id_mapping")
-                                                  .Set("id", newID)
-                                                  .Set("hash_id", newHashID)
-                                                  .Where(Exp.Eq("hash_id", oldHashID)));
-
-                    DbManager.ExecuteNonQuery(Update("files_security")
-                                                  .Set("entry_id", newHashID)
-                                                  .Where(Exp.Eq("entry_id", oldHashID)));
-
-                    DbManager.ExecuteNonQuery(Update("files_tag_link")
-                                                  .Set("entry_id", newHashID)
-                                                  .Where(Exp.Eq("entry_id", oldHashID)));
-                }
-
-                tx.Commit();
-            }
-        }
-
-        protected readonly GoogleDriveDaoSelector GoogleDriveDaoSelector;
-        public GoogleDriveProviderInfo GoogleDriveProviderInfo { get; private set; }
-        public string PathPrefix { get; private set; }
-
         protected SqlQuery Query(string table)
         {
             return new SqlQuery(table).Where(GetTenantColumnName(table), TenantID);
@@ -239,98 +126,106 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return new SqlInsert(table, true).InColumns(GetTenantColumnName(table)).Values(TenantID);
         }
 
-        protected SqlUpdate Update(string table)
+        private static string GetTenantColumnName(string table)
         {
-            return new SqlUpdate(table).Where(GetTenantColumnName(table), TenantID);
-        }
-
-        protected string GetTenantColumnName(string table)
-        {
-            var tenant = "tenant_id";
+            const string tenant = "tenant_id";
             if (!table.Contains(" ")) return tenant;
             return table.Substring(table.IndexOf(" ")).Trim() + "." + tenant;
         }
 
-        protected string MakePath(object entryId)
+
+        protected static string MakeDriveId(object entryId)
         {
-            return string.Format("/{0}", Convert.ToString(entryId, CultureInfo.InvariantCulture).TrimStart('/').TrimEnd('/'));
+            var id = Convert.ToString(entryId, CultureInfo.InvariantCulture);
+            return string.IsNullOrEmpty(id)
+                       ? "root"
+                       : id.TrimStart('/');
         }
 
-        protected string MakeId(ICloudFileSystemEntry entry)
+        protected static string GetParentDriveId(DriveFile driveEntry)
+        {
+            return driveEntry == null || driveEntry.Parents == null || driveEntry.Parents.Count == 0
+                       ? null
+                       : driveEntry.Parents[0].Id;
+        }
+
+        protected string MakeId(DriveFile driveEntry)
         {
             var path = string.Empty;
-            if (entry != null && !(entry is ErrorEntry))
+            if (driveEntry != null)
             {
-                path = GoogleDriveProviderInfo.Storage.GetFileSystemObjectPath(entry);
-            }
-            else if (entry != null)
-            {
-                path = entry.Id;
+                path = IsRoot(driveEntry) ? "root" : driveEntry.Id;
             }
 
-            return string.Format("{0}{1}", PathPrefix, string.IsNullOrEmpty(path) || path == "/" ? "" : ("-" + path.Replace('/', '|')));
+            return MakeId(path);
         }
 
-        protected String MakeTitle(ICloudFileSystemEntry fsEntry)
+        protected string MakeId(string path = null)
         {
-            if (fsEntry is ICloudDirectoryEntry && IsRoot(fsEntry as ICloudDirectoryEntry))
+            return string.Format("{0}{1}", PathPrefix, string.IsNullOrEmpty(path) || path == "root" ? "" : ("-|" + path));
+        }
+
+        protected String MakeFolderTitle(DriveFile driveFolder)
+        {
+            if (driveFolder == null || IsRoot(driveFolder))
             {
                 return GoogleDriveProviderInfo.CustomerTitle;
             }
 
-            return Web.Files.Classes.Global.ReplaceInvalidCharsAndTruncate(fsEntry.Name);
+            return Global.ReplaceInvalidCharsAndTruncate(driveFolder.Title);
         }
 
-        protected string PathParent(string path)
+        protected String MakeFileTitle(DriveFile driveFile)
         {
-            if (!string.IsNullOrEmpty(path))
+            var ext = string.Empty;
+            if (driveFile == null || string.IsNullOrEmpty(driveFile.Title))
             {
-                var index = path.TrimEnd('/').LastIndexOf('/');
-                if (index != -1)
-                {
-                    //Cut to it
-                    return path.Substring(0, index);
-                }
+                return GoogleDriveProviderInfo.ProviderKey;
             }
-            return path;
+
+            Tuple<string, string> mimeData;
+            if (GoogleDriveStorage.GoogleFilesMimeTypes.TryGetValue(driveFile.MimeType, out mimeData))
+            {
+                ext = mimeData.Item1;
+            }
+
+            return Global.ReplaceInvalidCharsAndTruncate(driveFile.Title + ext);
         }
 
-        public void Dispose()
+        protected Folder ToFolder(DriveFile driveEntry)
         {
-            DbManager.Dispose();
-            GoogleDriveProviderInfo.Storage.Close();
-        }
-
-        protected Folder ToFolder(ICloudDirectoryEntry fsEntry)
-        {
-            if (fsEntry == null) return null;
-            if (fsEntry is ErrorEntry)
+            if (driveEntry == null) return null;
+            if (driveEntry is ErrorDriveEntry)
             {
                 //Return error entry
-                return ToErrorFolder(fsEntry as ErrorEntry);
+                return ToErrorFolder(driveEntry as ErrorDriveEntry);
             }
 
-            //var childFoldersCount = fsEntry.OfType<ICloudDirectoryEntry>().Count();//NOTE: Removed due to performance isssues
-            var isRoot = IsRoot(fsEntry);
+            if (driveEntry.MimeType != GoogleDriveStorage.GoogleFolderMimeType)
+            {
+                return null;
+            }
+
+            var isRoot = IsRoot(driveEntry);
 
             var folder = new Folder
                 {
-                    ID = MakeId(fsEntry),
-                    ParentFolderID = isRoot ? null : MakeId(fsEntry.Parent),
+                    ID = MakeId(driveEntry),
+                    ParentFolderID = isRoot ? null : MakeId(GetParentDriveId(driveEntry)),
                     CreateBy = GoogleDriveProviderInfo.Owner,
-                    CreateOn = isRoot ? GoogleDriveProviderInfo.CreateOn : fsEntry.Modified,
+                    CreateOn = isRoot ? GoogleDriveProviderInfo.CreateOn : (driveEntry.CreatedDate.HasValue ? driveEntry.CreatedDate.Value : default(DateTime)),
                     FolderType = FolderType.DEFAULT,
                     ModifiedBy = GoogleDriveProviderInfo.Owner,
-                    ModifiedOn = isRoot ? GoogleDriveProviderInfo.CreateOn : fsEntry.Modified,
+                    ModifiedOn = isRoot ? GoogleDriveProviderInfo.CreateOn : (driveEntry.ModifiedDate.HasValue ? driveEntry.ModifiedDate.Value : default(DateTime)),
                     ProviderId = GoogleDriveProviderInfo.ID,
                     ProviderKey = GoogleDriveProviderInfo.ProviderKey,
                     RootFolderCreator = GoogleDriveProviderInfo.Owner,
-                    RootFolderId = MakeId(RootFolder()),
+                    RootFolderId = MakeId(),
                     RootFolderType = GoogleDriveProviderInfo.RootFolderType,
 
                     Shareable = false,
-                    Title = MakeTitle(fsEntry),
-                    TotalFiles = 0, /*fsEntry.Count - childFoldersCount NOTE: Removed due to performance isssues*/
+                    Title = MakeFolderTitle(driveEntry),
+                    TotalFiles = 0, /*driveEntry.Count - childFoldersCount NOTE: Removed due to performance isssues*/
                     TotalSubFolders = 0, /*childFoldersCount NOTE: Removed due to performance isssues*/
                 };
 
@@ -343,91 +238,87 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return folder;
         }
 
-        private bool IsRoot(ICloudDirectoryEntry entry)
+        protected static bool IsRoot(DriveFile driveFolder)
         {
-            if (entry != null && entry.Name != null)
-                return string.IsNullOrEmpty(entry.Name.Trim('/'));
-            return false;
+            return IsDriveFolder(driveFolder) && GetParentDriveId(driveFolder) == null;
         }
 
-        private Files.Core.File ToErrorFile(ErrorEntry fsEntry)
+        private static bool IsDriveFolder(DriveFile driveFolder)
         {
-            return new Files.Core.File
+            return driveFolder != null && driveFolder.MimeType == GoogleDriveStorage.GoogleFolderMimeType;
+        }
+
+        private File ToErrorFile(ErrorDriveEntry driveEntry)
+        {
+            if (driveEntry == null) return null;
+            return new File
                 {
-                    ID = MakeId(fsEntry),
+                    ID = MakeId(driveEntry.ErrorId),
                     CreateBy = GoogleDriveProviderInfo.Owner,
-                    CreateOn = fsEntry.Modified,
+                    CreateOn = TenantUtil.DateTimeNow(),
                     ModifiedBy = GoogleDriveProviderInfo.Owner,
-                    ModifiedOn = fsEntry.Modified,
+                    ModifiedOn = TenantUtil.DateTimeNow(),
                     ProviderId = GoogleDriveProviderInfo.ID,
                     ProviderKey = GoogleDriveProviderInfo.ProviderKey,
                     RootFolderCreator = GoogleDriveProviderInfo.Owner,
-                    RootFolderId = MakeId(RootFolder()),
+                    RootFolderId = MakeId(),
                     RootFolderType = GoogleDriveProviderInfo.RootFolderType,
-                    Title = MakeTitle(fsEntry),
-                    Error = fsEntry.Error
+                    Title = MakeFileTitle(driveEntry),
+                    Error = driveEntry.Error
                 };
         }
 
-        private Folder ToErrorFolder(ErrorEntry fsEntry)
+        private Folder ToErrorFolder(ErrorDriveEntry driveEntry)
         {
-            ICloudDirectoryEntry rootFolder = null;
-            try
-            {
-                rootFolder = RootFolder();
-            }
-            catch (Exception)
-            {
-            }
-
+            if (driveEntry == null) return null;
             return new Folder
                 {
-                    ID = MakeId(fsEntry),
+                    ID = MakeId(driveEntry.ErrorId),
                     ParentFolderID = null,
                     CreateBy = GoogleDriveProviderInfo.Owner,
-                    CreateOn = fsEntry.Modified,
+                    CreateOn = TenantUtil.DateTimeNow(),
                     FolderType = FolderType.DEFAULT,
                     ModifiedBy = GoogleDriveProviderInfo.Owner,
-                    ModifiedOn = fsEntry.Modified,
+                    ModifiedOn = TenantUtil.DateTimeNow(),
                     ProviderId = GoogleDriveProviderInfo.ID,
                     ProviderKey = GoogleDriveProviderInfo.ProviderKey,
                     RootFolderCreator = GoogleDriveProviderInfo.Owner,
-                    RootFolderId = MakeId(rootFolder),
+                    RootFolderId = MakeId(),
                     RootFolderType = GoogleDriveProviderInfo.RootFolderType,
                     Shareable = false,
-                    Title = MakeTitle(fsEntry),
-                    TotalFiles = fsEntry.Count - 0,
+                    Title = MakeFolderTitle(driveEntry),
+                    TotalFiles = 0,
                     TotalSubFolders = 0,
-                    Error = fsEntry.Error
+                    Error = driveEntry.Error
                 };
         }
 
-        protected Files.Core.File ToFile(ICloudFileSystemEntry fsEntry)
+        public File ToFile(DriveFile driveFile)
         {
-            if (fsEntry == null) return null;
+            if (driveFile == null) return null;
 
-            if (fsEntry is ErrorEntry)
+            if (driveFile is ErrorDriveEntry)
             {
                 //Return error entry
-                return ToErrorFile(fsEntry as ErrorEntry);
+                return ToErrorFile(driveFile as ErrorDriveEntry);
             }
 
-            return new Files.Core.File
+            return new File
                 {
-                    ID = MakeId(fsEntry),
+                    ID = MakeId(driveFile.Id),
                     Access = FileShare.None,
-                    ContentLength = fsEntry.Length,
+                    ContentLength = driveFile.FileSize.HasValue ? (long)driveFile.FileSize : 0,
                     CreateBy = GoogleDriveProviderInfo.Owner,
-                    CreateOn = fsEntry.Modified.Kind == DateTimeKind.Utc ? TenantUtil.DateTimeFromUtc(fsEntry.Modified) : fsEntry.Modified,
+                    CreateOn = driveFile.CreatedDate.HasValue ? TenantUtil.DateTimeFromUtc(driveFile.CreatedDate.Value) : default(DateTime),
                     FileStatus = FileStatus.None,
-                    FolderID = MakeId(fsEntry.Parent),
+                    FolderID = MakeId(GetParentDriveId(driveFile)),
                     ModifiedBy = GoogleDriveProviderInfo.Owner,
-                    ModifiedOn = fsEntry.Modified.Kind == DateTimeKind.Utc ? TenantUtil.DateTimeFromUtc(fsEntry.Modified) : fsEntry.Modified,
-                    NativeAccessor = fsEntry,
+                    ModifiedOn = driveFile.ModifiedDate.HasValue ? TenantUtil.DateTimeFromUtc(driveFile.ModifiedDate.Value) : default(DateTime),
+                    NativeAccessor = driveFile,
                     ProviderId = GoogleDriveProviderInfo.ID,
                     ProviderKey = GoogleDriveProviderInfo.ProviderKey,
-                    Title = MakeTitle(fsEntry),
-                    RootFolderId = MakeId(RootFolder()),
+                    Title = MakeFileTitle(driveFile),
+                    RootFolderId = MakeId(),
                     RootFolderType = GoogleDriveProviderInfo.RootFolderType,
                     RootFolderCreator = GoogleDriveProviderInfo.Owner,
                     SharedByMe = false,
@@ -437,21 +328,17 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public Folder GetRootFolder(object folderId)
         {
-            return ToFolder(RootFolder());
+            return ToFolder(GetDriveEntry(""));
         }
 
-        protected ICloudDirectoryEntry RootFolder()
+        protected DriveFile GetDriveEntry(object entryId)
         {
-            return GoogleDriveProviderInfo.Storage.GetRoot();
-        }
-
-        protected ICloudDirectoryEntry GetFolderById(object folderId)
-        {
-            ICloudDirectoryEntry entry = null;
+            DriveFile entry = null;
             Exception e = null;
+            var driveId = MakeDriveId(entryId);
             try
             {
-                entry = GoogleDriveProviderInfo.Storage.GetFolder(MakePath(folderId));
+                entry = CacheEntry.Get(GoogleDriveProviderInfo.ID + driveId, () => GoogleDriveProviderInfo.Storage.GetEntry(driveId));
             }
             catch (Exception ex)
             {
@@ -460,82 +347,84 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             if (entry == null)
             {
                 //Create error entry
-                entry = new ErrorEntry(e, folderId);
+                entry = new ErrorDriveEntry(e, driveId);
             }
 
             return entry;
         }
 
-        protected ICloudFileSystemEntry GetFileById(object fileId)
+        protected IEnumerable<string> GetChildren(object folderId)
         {
-            ICloudFileSystemEntry entry = null;
-            Exception e = null;
-            try
+            return GetDriveEntries(folderId).Select(entry => MakeId(entry.Id));
+        }
+
+        protected List<DriveFile> GetDriveEntries(object parentId, bool? folder = null)
+        {
+            var driveId = MakeDriveId(parentId);
+            if (folder.HasValue)
             {
-                entry = GoogleDriveProviderInfo.Storage.GetFile(MakePath(fileId), RootFolder());
-            }
-            catch (Exception ex)
-            {
-                e = ex;
-            }
-            if (entry == null)
-            {
-                //Create error entry
-                entry = new ErrorEntry(e, fileId);
+                return folder.Value
+                           ? CacheChildFolders.Get(GoogleDriveProviderInfo.ID + driveId, () => GoogleDriveProviderInfo.Storage.GetEntries(driveId, true))
+                           : CacheChildFiles.Get(GoogleDriveProviderInfo.ID + driveId, () => GoogleDriveProviderInfo.Storage.GetEntries(driveId, false));
             }
 
-            return entry;
-        }
-
-        protected IEnumerable<ICloudFileSystemEntry> GetFolderFiles(object folderId)
-        {
-            return GetFolderFiles(GoogleDriveProviderInfo.Storage.GetFolder(MakePath(folderId)));
-        }
-
-        protected IEnumerable<ICloudFileSystemEntry> GetFolderSubfolders(object folderId)
-        {
-            return GetFolderSubfolders(GoogleDriveProviderInfo.Storage.GetFolder(MakePath(folderId)));
-        }
-
-        protected IEnumerable<ICloudFileSystemEntry> GetFolderFiles(ICloudDirectoryEntry folder)
-        {
-            return folder.Where(x => !(x is ICloudDirectoryEntry));
-        }
-
-        protected IEnumerable<ICloudFileSystemEntry> GetFolderSubfolders(ICloudDirectoryEntry folder)
-        {
-            return folder.Where(x => (x is ICloudDirectoryEntry));
-        }
-
-        protected String GetAvailableTitle(String requestTitle, ICloudDirectoryEntry parentFolderID, Func<string, ICloudDirectoryEntry, bool> isExist)
-        {
-            if (!isExist(requestTitle, parentFolderID)) return requestTitle;
-
-            var re = new Regex(@"( \(((?<index>[0-9])+)\)(\.[^\.]*)?)$");
-            var match = re.Match(requestTitle);
-
-            if (!match.Success)
+            if (!CacheChildFiles.HasItem(GoogleDriveProviderInfo.ID + driveId) && !CacheChildFolders.HasItem(GoogleDriveProviderInfo.ID + driveId))
             {
-                var insertIndex = requestTitle.Length;
-                if (requestTitle.LastIndexOf(".") != -1)
-                {
-                    insertIndex = requestTitle.LastIndexOf(".");
-                }
-                requestTitle = requestTitle.Insert(insertIndex, " (1)");
+                var entries = GoogleDriveProviderInfo.Storage.GetEntries(driveId);
+
+                CacheChildFiles.Add(GoogleDriveProviderInfo.ID + driveId, entries.Where(entry => entry.MimeType != GoogleDriveStorage.GoogleFolderMimeType).ToList());
+                CacheChildFolders.Add(GoogleDriveProviderInfo.ID + driveId, entries.Where(entry => entry.MimeType == GoogleDriveStorage.GoogleFolderMimeType).ToList());
+
+                return entries;
             }
 
-            while (isExist(requestTitle, parentFolderID))
-            {
-                requestTitle = re.Replace(requestTitle, MatchEvaluator);
-            }
-            return requestTitle;
+            var folders = CacheChildFolders.Get(GoogleDriveProviderInfo.ID + driveId, () => GoogleDriveProviderInfo.Storage.GetEntries(driveId, true));
+            var files = CacheChildFiles.Get(GoogleDriveProviderInfo.ID + driveId, () => GoogleDriveProviderInfo.Storage.GetEntries(driveId, false));
+
+            return folders.Concat(files).ToList();
         }
 
-        private static String MatchEvaluator(Match match)
+        #region cache
+
+        private static readonly CachedDictionary<DriveFile> CacheEntry =
+            new CachedDictionary<DriveFile>("drive-entry", Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(20), x => true);
+
+        private static readonly CachedDictionary<List<DriveFile>> CacheChildFiles =
+            new CachedDictionary<List<DriveFile>>("drive-files", Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(20), x => true);
+
+        private static readonly CachedDictionary<List<DriveFile>> CacheChildFolders =
+            new CachedDictionary<List<DriveFile>>("drive-folders", Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(20), x => true);
+
+        protected void CacheReset(string driveId = null, bool? childFolder = null)
         {
-            var index = Convert.ToInt32(match.Groups[2].Value);
-            var staticText = match.Value.Substring(String.Format(" ({0})", index).Length);
-            return String.Format(" ({0}){1}", index + 1, staticText);
+            if (driveId == null)
+            {
+                CacheEntry.Clear();
+                CacheChildFiles.Clear();
+                CacheChildFolders.Clear();
+            }
+            else
+            {
+                if (driveId == GoogleDriveProviderInfo.DriveRootId) driveId = "root";
+                CacheEntry.Reset(GoogleDriveProviderInfo.ID + driveId);
+                CacheResetChilds(driveId, childFolder);
+            }
         }
+
+        protected void CacheResetChilds(string parentDriveId, bool? childFolder = null)
+        {
+            if (!childFolder.HasValue || !childFolder.Value)
+                CacheChildFiles.Reset(GoogleDriveProviderInfo.ID + parentDriveId);
+
+            if (!childFolder.HasValue || childFolder.Value)
+                CacheChildFolders.Reset(GoogleDriveProviderInfo.ID + parentDriveId);
+        }
+
+        protected void CacheInsert(DriveFile driveEntry)
+        {
+            CacheEntry.Add(GoogleDriveProviderInfo.ID + driveEntry.Id, driveEntry);
+        }
+
+        #endregion
     }
 }

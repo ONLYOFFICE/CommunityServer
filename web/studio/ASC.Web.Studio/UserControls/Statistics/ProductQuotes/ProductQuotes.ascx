@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProductQuotes.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Statistics.ProductQuotes" %>
+<%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="Resources" %>
 
 <%-- Quotes --%>
@@ -17,15 +18,18 @@
     </div>
     <div class="header-base storeUsage">
         <%= Resource.TenantUsedSpace %>: <span class="diskUsage"><%= RenderUsedSpace() %></span>
+        <% if (!CoreContext.Configuration.Standalone)
+           { %>
         <div class="description">
             <%= String.Format(Resource.TenantUsedSpacePremiumDescription, GetMaxTotalSpace()) %>
         </div>
+        <% } %>
     </div>
     
-    <asp:Repeater ID="_itemsRepeater" runat="server" ItemType="ASC.Web.Studio.UserControls.Statistics.ProductQuotes.Product">
+    <asp:Repeater ID="_itemsRepeater" runat="server">
         <ItemTemplate>
             <div class="header-base header">
-                <img align="absmiddle" src="<%# Item.Icon %>" alt="" /> <%# Item.Name.HtmlEncode() %>
+                <img align="absmiddle" src="<%# ((ASC.Web.Studio.UserControls.Statistics.ProductQuotes.Product)Container.DataItem).Icon %>" alt="" /> <%# ((ASC.Web.Studio.UserControls.Statistics.ProductQuotes.Product)Container.DataItem).Name.HtmlEncode() %>
             </div>
             <div class="contentBlock">
                 <asp:Repeater ID="_usageSpaceRepeater" runat="server">

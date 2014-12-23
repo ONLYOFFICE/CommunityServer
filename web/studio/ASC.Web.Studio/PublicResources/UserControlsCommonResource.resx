@@ -442,9 +442,6 @@ will appear in this list.</value>
   <data name="LoginWith" xml:space="preserve">
     <value>Please, log in with your account</value>
   </data>
-  <data name="LoginWithFromTry" xml:space="preserve">
-    <value>The document is opened in DEMO mode.{0}Please register using one of the social networks below to save changes to the edited documents.</value>
-  </data>
   <data name="TariffServerCE" xml:space="preserve">
     <value>You're using the {0}Server Community Edition{1} of TeamLab Office.</value>
   </data>
@@ -492,6 +489,9 @@ will appear in this list.</value>
   </data>
   <data name="TariffLimitOkButtonLicense" xml:space="preserve">
     <value>Buy now</value>
+  </data>
+  <data name="UpgradeButton" xml:space="preserve">
+    <value>Upgrade pricing plan</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Yes, upgrade plan</value>
@@ -607,12 +607,6 @@ will appear in this list.</value>
   <data name="LinkText" xml:space="preserve">
     <value>Add users</value>
   </data>
-  <data name="CancelNonEmptyCommentErrorMessage" xml:space="preserve">
-    <value>Are you sure you want to cancel creating the comment? If you cancel now, the comment you entered will not be saved.</value>
-  </data>
-  <data name="EmptyCommentErrorMessage" xml:space="preserve">
-    <value>Comment cannot be empty</value>
-  </data>
   <data name="NoComments" xml:space="preserve">
     <value>No comments</value>
   </data>
@@ -630,5 +624,20 @@ will appear in this list.</value>
   </data>
   <data name="HostedUnauthorizedEditingReason" xml:space="preserve">
     <value>Для возобновления работы с офисными приложениями TeamLab {0}обратитесь{1} к своему поставщику TeamLab.</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>There are no calls matching this filter</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>No calls matching your filter can be displayed in this section.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>There is nothing to be displayed here</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>There is nothing to be displayed here</value>
+  </data>
+  <data name="ReadAboutNonProfitUsage" xml:space="preserve">
+    <value>Read about non-profit usage</value>
   </data>
 </root>

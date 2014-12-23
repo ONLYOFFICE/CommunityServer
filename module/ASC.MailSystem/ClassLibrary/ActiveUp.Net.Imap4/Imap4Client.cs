@@ -119,7 +119,7 @@ namespace ActiveUp.Net.Mail
         private delegate string DelegateAuthenticate(string username, string password, SaslMechanism mechanism);
         private DelegateAuthenticate _delegateAuthenticate;
 
-        private delegate string DelegateLogin(string username, string password, string host);
+        private delegate string DelegateLogin(string username, string password);
         private DelegateLogin _delegateLogin;
 
         private delegate string DelegateCommand(string command, string stamp, CommandOptions options);
@@ -370,37 +370,7 @@ namespace ActiveUp.Net.Mail
             foreach (string str in input) if (str.IndexOf(pattern) != -1) return str;
             return "";
         }
-#if !PocketPC
-        protected override void DoSslHandShake(ActiveUp.Net.Security.SslHandShake sslHandShake)
-        {
-            this._sslStream = new System.Net.Security.SslStream(base.GetStream(), false, sslHandShake.ServerCertificateValidationCallback, sslHandShake.ClientCertificateSelectionCallback);
-            bool authenticationFailed = false;
-            try
-            {
-                this._sslStream.AuthenticateAsClient(sslHandShake.HostName, sslHandShake.ClientCertificates, sslHandShake.SslProtocol, sslHandShake.CheckRevocation);
-            }
-            catch (Exception)
-            {
-                authenticationFailed = true;
-            }
 
-            if (authenticationFailed)
-            {
-                //System.Net.ServicePointManager.CertificatePolicy' is obsolete: 'CertificatePolicy is obsoleted for this type, please use ServerCertificateValidationCallback instead.
-                //System.Net.ServicePointManager.CertificatePolicy = new ActiveUp.Net.Security.TrustAllCertificatePolicy();
-
-                System.Net.ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(CertValidation);
-
-                this._sslStream.AuthenticateAsClient(sslHandShake.HostName, sslHandShake.ClientCertificates, sslHandShake.SslProtocol, sslHandShake.CheckRevocation);
-            }
-
-        }
-
-        bool CertValidation(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslpolicyErrors)
-        { // Trust all certificate policy
-            return true;
-        }
-#endif
         private string ReadLine()
         {
             this.OnTcpReading();
@@ -463,7 +433,7 @@ namespace ActiveUp.Net.Mail
         /// </example>
         public string Connect(string host)
         {
-            return this.Connect(host, 143);
+            return this.ConnectPlain(host, 143);
         }
         /// <summary>
         /// Begins the connect.
@@ -473,8 +443,15 @@ namespace ActiveUp.Net.Mail
         /// <returns></returns>
         public IAsyncResult BeginConnect(string host, AsyncCallback callback)
         {
-            this._delegateConnect = this.Connect;
+            this._delegateConnect = this.ConnectPlain;
             return this._delegateConnect.BeginInvoke(host, 143, callback, this._delegateConnect);
+        }
+
+        public string ConnectTLS(string host, int port)
+        {
+            this.ConnectPlain(host, port);
+            //this.SendEhloHelo();
+            return this.StartTLS(host);
         }
 
         /// <summary>
@@ -504,22 +481,17 @@ namespace ActiveUp.Net.Mail
         /// ...
         /// </code>
         /// </example>
-        public new string Connect(string host, int port)
+        public override string ConnectPlain(string host, int port)
         {
             this.host = host;
             this.OnConnecting();
             base.Connect(host, port);
-            string response = this.ReadLine();
+            var response = this.ReadLine();
             this.ServerCapabilities = this.Command("capability");
             this.OnConnected(new ActiveUp.Net.Mail.ConnectedEventArgs(response));
             return response;
         }
-        public string ConnectTLS(string host, int port)
-        {
-            this.Connect(host, port);
-            //this.SendEhloHelo();
-            return this.StartTLS(host);
-        }
+
         /// <summary>
         /// Begins the connect.
         /// </summary>
@@ -527,9 +499,9 @@ namespace ActiveUp.Net.Mail
         /// <param name="port">The port.</param>
         /// <param name="callback">The callback.</param>
         /// <returns></returns>
-        public override IAsyncResult BeginConnect(string host, int port, AsyncCallback callback)
+        public override IAsyncResult BeginConnectPlain(string host, int port, AsyncCallback callback)
         {
-            this._delegateConnect = this.Connect;
+            this._delegateConnect = this.ConnectPlain;
             return this._delegateConnect.BeginInvoke(host, port, callback, this._delegateConnect);
         }
         public IAsyncResult BeginConnectTLS(string host, int port, AsyncCallback callback)
@@ -620,8 +592,8 @@ namespace ActiveUp.Net.Mail
         /// <returns></returns>
         public string Connect(string host, int port, string username, string password)
         {
-            this.Connect(host, port);
-            return this.LoginFast(username, password, host);
+            this.ConnectPlain(host, port);
+            return this.Login(username, password);
         }
         /// <summary>
         /// Begins the connect.
@@ -636,16 +608,6 @@ namespace ActiveUp.Net.Mail
         {
             this._delegateConnectAuth = this.Connect;
             return this._delegateConnectAuth.BeginInvoke(host, port, username, password, callback, this._delegateConnectAuth);
-        }
-
-        /// <summary>
-        /// Ends the connect.
-        /// </summary>
-        /// <param name="result">The result.</param>
-        /// <returns></returns>
-        public new string EndConnect(IAsyncResult result)
-        {
-            return (string)result.AsyncState.GetType().GetMethod("EndInvoke").Invoke(result.AsyncState, new object[] { result });
         }
 
         /// <summary>
@@ -685,7 +647,7 @@ namespace ActiveUp.Net.Mail
         {
             return this.BeginConnectSsl(host, 993, sslHandShake, callback);
         }
-        public string ConnectSsl(string host, int port)
+        public override string ConnectSsl(string host, int port)
         {
             return this.ConnectSsl(host, port, new ActiveUp.Net.Security.SslHandShake(host));
         }
@@ -697,6 +659,7 @@ namespace ActiveUp.Net.Mail
 #if !PocketPC
         public string ConnectSsl(string host, int port, ActiveUp.Net.Security.SslHandShake sslHandShake)
         {
+            this.host = host;
             this.OnConnecting();
             base.Connect(host, port);
             this.DoSslHandShake(sslHandShake);
@@ -743,10 +706,6 @@ namespace ActiveUp.Net.Mail
             return this._delegateConnectSslIPAddresses.BeginInvoke(addresses, port, sslHandShake, callback, this._delegateConnectSslIPAddresses);
         }
 
-        public override string EndConnectSsl(IAsyncResult result)
-        {
-            return (string)result.AsyncState.GetType().GetMethod("EndInvoke").Invoke(result.AsyncState, new object[] { result });
-        }
 #endif
         #endregion
 
@@ -785,19 +744,25 @@ namespace ActiveUp.Net.Mail
         /// </example>
         public override string Disconnect()
         {
-            string greeting = this.Command("logout");
-            base.Close();
-            return greeting;
+            this.OnDisconnecting();
+            try
+            {
+                var response = this.Command("logout");
+                this.OnDisconnected(new ActiveUp.Net.Mail.DisconnectedEventArgs(response));
+                return response;
+            }
+            finally 
+            {
+                if(base._sslStream != null)
+                    base._sslStream.Dispose();
+                base.Dispose(false);
+            }
+            
         }
-        public IAsyncResult BeginDisconnect(AsyncCallback callback)
+        public override IAsyncResult BeginDisconnect(AsyncCallback callback)
         {
             this._delegateDisconnect = this.Disconnect;
             return this._delegateDisconnect.BeginInvoke(callback, null);
-        }
-
-        public string EndDisconnect(IAsyncResult result)
-        {
-            return this._delegateDisconnect.EndInvoke(result);
         }
 
         #endregion
@@ -837,13 +802,20 @@ namespace ActiveUp.Net.Mail
         /// imap.Disconnect();
         /// </code>
         /// </example>
-        public override string Login(string username, string password, string _host)//Todo: remove reundant parameter
+        public override string Login(string username, string password)
         {
             this.OnAuthenticating(new ActiveUp.Net.Mail.AuthenticatingEventArgs(username, password, this.host));
             string response = this.Command("login " + username + " " + password);
             this.OnAuthenticated(new ActiveUp.Net.Mail.AuthenticatedEventArgs(username, password, this.host, response));
             return response;
         }
+
+        public override IAsyncResult BeginLogin(string username, string password, AsyncCallback callback)
+        {
+            this._delegateLogin = this.Login;
+            return this._delegateLogin.BeginInvoke(username, password, callback, this._delegateLogin);
+        }
+
         public string LoginOAuth2(string username, string accessToken)
         {
             this.OnAuthenticating(new ActiveUp.Net.Mail.AuthenticatingEventArgs(username, accessToken, this.host));
@@ -852,31 +824,6 @@ namespace ActiveUp.Net.Mail
             string response = this.Command("AUTHENTICATE XOAUTH2 " + authResponse);
             this.OnAuthenticated(new ActiveUp.Net.Mail.AuthenticatedEventArgs(username, accessToken, this.host, response));
             return response;
-        }
-        public IAsyncResult BeginLogin(string username, string password, AsyncCallback callback)
-        {
-            this._delegateLogin = this.Login;
-            return this._delegateLogin.BeginInvoke(username, password, this.host, callback, this._delegateLogin);
-        }
-
-
-        /// <summary>
-        /// Same as Login but doesn't load the AllMailboxes and Mailboxes properties of the Imap4Client object, ensuring faster operation.
-        /// </summary>
-        /// <param name="username">Username of the account.</param>
-        /// <param name="password">Password of the account.</param>
-        /// <returns>The server's response.</returns>
-        public string LoginFast(string username, string password, string host)
-        {
-            this.OnAuthenticating(new ActiveUp.Net.Mail.AuthenticatingEventArgs(username, password, this.host));
-            string response = this.Command("login " + username + " " + password);
-            this.OnAuthenticated(new ActiveUp.Net.Mail.AuthenticatedEventArgs(username, password, this.host, response));
-            return response;
-        }
-        public IAsyncResult BeginLoginFast(string username, string password, AsyncCallback callback)
-        {
-            this._delegateLogin = this.LoginFast;
-            return this._delegateLogin.BeginInvoke(username, password, this.host, callback, this._delegateLogin);
         }
 
         /// <summary>
@@ -910,7 +857,7 @@ namespace ActiveUp.Net.Mail
         /// imap.Disconnect();
         /// </code>
         /// </example>
-        public string Authenticate(string username, string password, ActiveUp.Net.Mail.SaslMechanism mechanism)
+        public override string Authenticate(string username, string password, ActiveUp.Net.Mail.SaslMechanism mechanism)
         {
             switch (mechanism)
             {
@@ -925,11 +872,6 @@ namespace ActiveUp.Net.Mail
         {
             this._delegateAuthenticate = this.Authenticate;
             return this._delegateAuthenticate.BeginInvoke(username, password, mechanism, callback, null);
-        }
-
-        public string EndAuthenticate(IAsyncResult result)
-        {
-            return this._delegateAuthenticate.EndInvoke(result);
         }
 
         #endregion
@@ -1741,10 +1683,10 @@ namespace ActiveUp.Net.Mail
         /// </example>
         public Mailbox SelectMailbox(string mailboxName)
         {
-            mailboxName = renderSafeParam(mailboxName);
-
+            var mailbox_name = renderSafeParam(mailboxName);
+            
             ActiveUp.Net.Mail.Mailbox mailbox = new ActiveUp.Net.Mail.Mailbox();
-            string response = this.Command("select \"" + mailboxName + "\"");
+            string response = this.Command("select \"" + mailbox_name + "\"");
             string[] lines = System.Text.RegularExpressions.Regex.Split(response, "\r\n");
 
             // message count.
@@ -1866,7 +1808,7 @@ namespace ActiveUp.Net.Mail
             mailbox.MessageCount = System.Convert.ToInt32(ActiveUp.Net.Mail.Imap4Client.FindLine(lines, "EXISTS").Split(' ')[1]);
             mailbox.Recent = System.Convert.ToInt32(ActiveUp.Net.Mail.Imap4Client.FindLine(lines, "RECENT").Split(' ')[1]);
             mailbox.FirstUnseen = (response.ToLower().IndexOf("[unseen") != -1) ? System.Convert.ToInt32(ActiveUp.Net.Mail.Imap4Client.FindLine(lines, "[UNSEEN ").Split(' ')[3].TrimEnd(']')) : 0;
-            mailbox.UidValidity = System.Convert.ToInt32(ActiveUp.Net.Mail.Imap4Client.FindLine(lines, "[UIDVALIDITY ").Split(' ')[3].TrimEnd(']'));
+            mailbox.UidValidity = System.Convert.ToInt64(ActiveUp.Net.Mail.Imap4Client.FindLine(lines, "[UIDVALIDITY ").Split(' ')[3].TrimEnd(']'));
             foreach (string str in ActiveUp.Net.Mail.Imap4Client.FindLine(lines, " FLAGS").Split(' ')) if (str.StartsWith("(\\") || str.StartsWith("\\")) mailbox.ApplicableFlags.Add(str.Trim(new char[] { ' ', '\\', ')', '(' }));
             if (response.ToLower().IndexOf("[permanentflags") != -1) foreach (string str in ActiveUp.Net.Mail.Imap4Client.FindLine(lines, "[PERMANENTFLAGS").Split(' ')) if (str.StartsWith("(\\") || str.StartsWith("\\")) mailbox.PermanentFlags.Add(str.Trim(new char[] { ' ', '\\', ')', '(' }));
             mailbox.Permission = ActiveUp.Net.Mail.MailboxPermission.ReadOnly;

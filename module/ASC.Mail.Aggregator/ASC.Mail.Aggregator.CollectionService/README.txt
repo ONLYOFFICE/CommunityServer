@@ -99,8 +99,8 @@ The configuration file for the aggregator consists of the following sections:
 		- "core.port" 			- a port setting for debugging GetApiRequestUrl on a local machine.
 		- "api.url" 			- a relative path to api.
 		- "core.base-domain" 		- a domain for api requests.
-		- "mail.googleClientID" 	- an identifier to access GMail via OAuth.
-		- "mail.googleClientSecret"     - a secret key to access GMail via OAuth.
+		- "googleClientId" 	- an identifier to access GMail via OAuth.
+		- "googleClientSecret"     - a secret key to access GMail via OAuth.
 		- "mail.SendTcpTimeout" 	- a send timeout for TcpClient in ActiveUp.
 		- "mail.RecieveTcpTimeout" 	- a recieve timeout for TcpClient in ActiveUp.
 		- "mail.OneUserMode" 		- parameters to download mail for a particular user only (the user id should be found in the database table)

@@ -4,6 +4,7 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Community.Wiki._Default"
     MasterPageFile="~/Products/Community/Modules/Wiki/Wiki.Master" %>
 
+<%@ Import Namespace="ASC.Web.Community.Product" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
 <%@ Import Namespace="ASC.Web.Community.Wiki" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki.Data" %>
@@ -15,7 +16,7 @@
 <%@ Register TagPrefix="scl" Namespace="ASC.Web.Studio.UserControls.Common.Comments" Assembly="ASC.Web.Studio" %>
 
 <asp:Content ContentPlaceHolderID="HeadContent" runat="Server">
-    <link href="<%=CommonLinkUtility.ToAbsolute("/products/community/modules/wiki/app_themes/default/css/wikicssprint.css")%>"
+    <link href="<%=VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/app_themes/default/css/wikicssprint.css")%>"
         rel="stylesheet" type="text/css" media="print" />
 
 </asp:Content>
@@ -24,9 +25,11 @@
    <asp:PlaceHolder ID="WikiSideHolder" runat="server">
   
     <div class="WikiHeaderBlock header-with-menu" style="margin-bottom: 16px;">
-            <span class="header"><%=HttpUtility.HtmlEncode(WikiPageName)%></span>
-            <asp:Literal ID="SubscribeLinkBlock" runat="server"></asp:Literal>
-            <span class="menu-small topic"></span>
+        <span class="header"><%=HttpUtility.HtmlEncode(WikiPageName)%></span>
+        <% if(!CommunitySecurity.IsOutsider()) { %>
+        <asp:Literal ID="SubscribeLinkBlock" runat="server"></asp:Literal>
+        <% } %>
+        <span class="menu-small topic"></span>
     </div>
     </asp:PlaceHolder>
     <%-- asp:LinkButton id="cmdInternal" Text="DoIt" runat="server" OnClick="cmdInternal_Click" /--%>

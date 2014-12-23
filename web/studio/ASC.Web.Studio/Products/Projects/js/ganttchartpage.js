@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 /*
@@ -161,7 +161,7 @@ ASC.Projects.GantChartPage = (function () {
             ]
         };
 
-        jq("#ganttCanvasContainer").append(jq.tmpl("projects_panelFrame", { panelId: "ganttCellChecker", cornerPosition: "none" }));
+        jq("#ganttCanvasContainer").append(jq.tmpl("projects_panelFrame", { panelId: "ganttCellChecker" }));
         ganttCellChecker = jq("#ganttCellChecker");
 
         // ganttCellChecker.addClass("gantt-context-menu").css("width", "200px");
@@ -169,9 +169,9 @@ ASC.Projects.GantChartPage = (function () {
 
         ganttCellChecker.find(".panel-content").empty().append(jq.tmpl("projects_linedListWithCheckbox", fields));
 
-        ganttCellChecker.append("<p><span id='showChoosedFields' class='button small'>" + ASC.Projects.Resources.ProjectsJSResource.ApplyBtn + "</span></p>");
+        ganttCellChecker.append("<span id='showChoosedFields' class='button small'>" + ASC.Projects.Resources.ProjectsJSResource.ApplyBtn + "</span>");
 
-        ganttCellChecker.css('padding', '10px 10px 0px 10px');
+        ganttCellChecker.css('padding', '4px 4px 0');
         ganttCellChecker.find('.dropdown-item').each(function () { jq(this).css('border', 'none'); });
         ganttCellChecker.find('.dropdown-content').each(function () { jq(this).css('margin-top', '0px'); });
 
@@ -390,6 +390,8 @@ ASC.Projects.GantChartPage = (function () {
         undoBtn = jq("#undoButton");
         redoBtn = jq("#reduButton");
         createNewMenu = jq("#createNewButton");
+		
+		helpActionsPanel.append ('<div id="btnCloseHelpActionsPanel" class="cancelButton" style="top:-1px" onclick="">×</div>');
 
         // default cursor at selection
         document.onselectstart = function () { return chart.isEditTitleMode(); };
@@ -556,7 +558,12 @@ ASC.Projects.GantChartPage = (function () {
             helpActionsPanel.addClass("display-none");
             localStorage.hideActionHelpPlag = true;
         });
-
+       
+		jq("#btnCloseHelpActionsPanel").click(function () {
+            helpActionsPanel.addClass("display-none");
+            localStorage.hideActionHelpPlag = true;
+        });
+		
         jq(document).keydown(function (e) {
             var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
 
@@ -1083,16 +1090,23 @@ ASC.Projects.GantChartPage = (function () {
 
     var checkUserRights = function () {
         if (firstLoad) return false;
-        ASC.Projects.Common.bind(ASC.Projects.Common.events.loadTeam, function () {
-            var userInTeam = ASC.Projects.Common.userInProjectTeam(Teamlab.profile.id);
-            if (currentProject.isPrivate && !userInTeam) {
-                document.location = ASC.Projects.Common.defaultPageURL;
-            }
-            if (userInTeam && (!userInTeam.canReadTasks || !userInTeam.canReadMilestones)) {
-                document.location = ASC.Projects.Common.defaultPageURL;
-            }
-        });
-        ASC.Projects.Common.updateProjectTeam();
+        
+        var prjId = jq.getURLParam("prjID");
+        if (prjId) {
+            Teamlab.getPrjTeam({}, prjId, {
+                success: function (params, team) {
+                    ASC.Projects.Master.TeamWithBlockedUsers = team;
+                    ASC.Projects.Master.Team = ASC.Projects.Common.removeBlockedUsersFromTeam(ASC.Projects.Master.TeamWithBlockedUsers);
+                    var userInTeam = ASC.Projects.Common.userInProjectTeam(Teamlab.profile.id);
+                    if (currentProject.isPrivate && !userInTeam) {
+                        document.location = ASC.Projects.Common.defaultPageURL;
+                    }
+                    if (userInTeam && (!userInTeam.canReadTasks || !userInTeam.canReadMilestones)) {
+                        document.location = ASC.Projects.Common.defaultPageURL;
+                    }
+                }
+            });
+        }
     };
 
     var getProjectData = function (projectId) {
@@ -2847,28 +2861,17 @@ ASC.Projects.GantChartPage = (function () {
         var pageWidth = window.innerWidth,
             pageHeight = window.innerHeight,
             menuWidth = menu.outerWidth(),
-            menuHeight = menu.outerHeight(),
-            corner = menu.find("div:first-child");
+            menuHeight = menu.outerHeight();
 
         // horizontal scroll
         if (pageWidth - left < menuWidth) {
             left = pageWidth - menuWidth - 14;
-            corner.removeClass("left");
-            corner.addClass("right");
-        } else {
-            corner.removeClass("right");
-            corner.addClass("left");
         }
 
         // vertical scroll
         if (pageHeight - top < menuHeight) {
             top = top - menuHeight - 16;
-            corner.removeClass("corner-top");
-            corner.addClass("corner-bottom");
-        } else {
-            corner.removeClass("corner-bottom");
-            corner.addClass("corner-top");
-        }
+        } 
 
         menu.css({ left: left, top: top });
     };

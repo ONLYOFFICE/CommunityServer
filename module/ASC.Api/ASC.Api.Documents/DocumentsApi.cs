@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -35,13 +35,11 @@ using System.Net;
 using System.Net.Mime;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web.Configuration;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Exceptions;
 using ASC.Api.Impl;
 using ASC.Api.Utils;
-using ASC.Common.Data;
 using ASC.Common.Web;
 using ASC.CRM.Core;
 using ASC.Files.Core;
@@ -51,8 +49,11 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Files.Utils;
+using ASC.Web.Studio.Core;
+using Newtonsoft.Json.Linq;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using SortedByType = ASC.Files.Core.SortedByType;
+using ASC.Core;
 
 namespace ASC.Api.Documents
 {
@@ -96,9 +97,9 @@ namespace ASC.Api.Documents
         /// <category>Folders</category>
         /// <returns>My folder contents</returns>
         [Read("@my")]
-        public FolderContentWrapper GetMyFolder()
+        public FolderContentWrapper GetMyFolder(Guid userIdOrGroupId, FilterType filterType)
         {
-            return ToFolderContentWrapper(Global.FolderMy);
+            return ToFolderContentWrapper(Global.FolderMy, userIdOrGroupId, filterType);
         }
 
         /// <summary>
@@ -110,9 +111,9 @@ namespace ASC.Api.Documents
         /// <category>Folders</category>
         /// <returns>Projects folder contents</returns>
         [Read("@projects")]
-        public FolderContentWrapper GetProjectsFolder()
+        public FolderContentWrapper GetProjectsFolder(Guid userIdOrGroupId, FilterType filterType)
         {
-            return ToFolderContentWrapper(Global.FolderProjects);
+            return ToFolderContentWrapper(Global.FolderProjects, userIdOrGroupId, filterType);
         }
 
 
@@ -122,11 +123,12 @@ namespace ASC.Api.Documents
         /// <short>
         /// Common folder
         /// </short>
+        /// <category>Folders</category>
         /// <returns>Common folder contents</returns>
         [Read("@common")]
-        public FolderContentWrapper GetCommonFolder()
+        public FolderContentWrapper GetCommonFolder(Guid userIdOrGroupId, FilterType filterType)
         {
-            return ToFolderContentWrapper(Global.FolderCommon);
+            return ToFolderContentWrapper(Global.FolderCommon, userIdOrGroupId, filterType);
         }
 
         /// <summary>
@@ -135,11 +137,12 @@ namespace ASC.Api.Documents
         /// <short>
         /// Shared folder
         /// </short>
+        /// <category>Folders</category>
         /// <returns>Shared folder contents</returns>
         [Read("@share")]
-        public FolderContentWrapper GetShareFolder()
+        public FolderContentWrapper GetShareFolder(Guid userIdOrGroupId, FilterType filterType)
         {
-            return ToFolderContentWrapper(Global.FolderShare);
+            return ToFolderContentWrapper(Global.FolderShare, userIdOrGroupId, filterType);
         }
 
         /// <summary>
@@ -151,9 +154,9 @@ namespace ASC.Api.Documents
         /// <category>Folders</category>
         /// <returns>Trash folder contents</returns>
         [Read("@trash")]
-        public FolderContentWrapper GetTrashFolder()
+        public FolderContentWrapper GetTrashFolder(Guid userIdOrGroupId, FilterType filterType)
         {
-            return ToFolderContentWrapper(Global.FolderTrash);
+            return ToFolderContentWrapper(Global.FolderTrash, userIdOrGroupId, filterType);
         }
 
         /// <summary>
@@ -255,10 +258,10 @@ namespace ASC.Api.Documents
                 {
                     //Only one file. return it
                     var postedFile = files.First();
-                    return SaveFile(folderid, postedFile.InputStream, postedFile.FileName, createNewIfExist);
+                    return InsertFile(folderid, postedFile.InputStream, postedFile.FileName, createNewIfExist);
                 }
                 //For case with multiple files
-                return files.Select(postedFile => SaveFile(folderid, postedFile.InputStream, postedFile.FileName, createNewIfExist)).ToList();
+                return files.Select(postedFile => InsertFile(folderid, postedFile.InputStream, postedFile.FileName, createNewIfExist)).ToList();
             }
             if (file != null)
             {
@@ -268,16 +271,26 @@ namespace ASC.Api.Documents
                     fileName = contentDisposition.FileName;
                 }
 
-                return SaveFile(folderid, file, fileName, createNewIfExist);
+                return InsertFile(folderid, file, fileName, createNewIfExist);
             }
             throw new InvalidOperationException("No input files");
         }
 
-        private static FileWrapper SaveFile(string folderid, Stream file, string fileName, bool createNewIfExist)
+        /// <summary>
+        /// Uploads the file specified with single file upload
+        /// </summary>
+        /// <param name="folderId">Folder ID to upload to</param>
+        /// <param name="file" visible="false">Request Input stream</param>
+        /// <param name="title">Name of file which has to be uploaded</param>
+        /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
+        /// <category>Uploads</category>
+        /// <returns></returns>
+        [Create("{folderid}/insert")]
+        public FileWrapper InsertFile(string folderId, Stream file, string title, bool createNewIfExist)
         {
             try
             {
-                var resultFile = FileUploader.Exec(folderid, fileName, file.Length, file, createNewIfExist);
+                var resultFile = FileUploader.Exec(folderId, title, file.Length, file, createNewIfExist);
                 return new FileWrapper(resultFile);
             }
             catch (FileNotFoundException e)
@@ -289,6 +302,54 @@ namespace ASC.Api.Documents
                 throw new ItemNotFoundException("Folder not found", e);
             }
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <param name="version"></param>
+        /// <param name="tabId"></param>
+        /// <param name="downloadUri"></param>
+        /// <param name="asNew"></param>
+        /// <param name="doc"></param>
+        [Update("file/{fileid}/saveediting")]
+        public FileWrapper SaveEditing(String fileId, int version, Guid tabId, string downloadUri, bool asNew, String doc)
+        {
+            return new FileWrapper(_fileStorageService.SaveEditing(fileId, version, tabId, downloadUri, asNew, doc));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileid"></param>
+        /// <param name="docKeyForTrack"></param>
+        /// <param name="asNew"></param>
+        /// <param name="editingAlone"></param>
+        /// <param name="doc"></param>
+        /// <returns></returns>
+        [Create("file/{fileid}/startedit")]
+        public string StartEdit(String fileid, String docKeyForTrack, bool asNew, bool editingAlone, String doc)
+        {
+            return _fileStorageService.StartEdit(fileid, docKeyForTrack, asNew, editingAlone, doc);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileId"></param>
+        /// <param name="tabId"></param>
+        /// <param name="docKeyForTrack"></param>
+        /// <param name="shareLinkKey"></param>
+        /// <param name="isFinish"></param>
+        /// <param name="fixedVersion"></param>
+        /// <returns></returns>
+        [Read("file/{fileid}/trackeditfile")]
+        public KeyValuePair<bool, String> TrackEditFile(String fileId, Guid tabId, String docKeyForTrack, String shareLinkKey, bool isFinish, bool fixedVersion)
+        {
+            return _fileStorageService.TrackEditFile(fileId, tabId, docKeyForTrack, shareLinkKey, isFinish, fixedVersion);
+        }
+
 
         /// <summary>
         /// Creates session to upload large files in multiple chunks.
@@ -329,6 +390,12 @@ namespace ASC.Api.Documents
             var request = (HttpWebRequest)WebRequest.Create(createSessionUrl);
             request.Method = "POST";
             request.ContentLength = 0;
+
+            // hack. http://ubuntuforums.org/showthread.php?t=1841740
+            if (Core.WorkContext.IsMono)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
+            }
 
             using (var response = request.GetResponse())
             using (var responseStream = response.GetResponseStream())
@@ -461,10 +528,10 @@ namespace ASC.Api.Documents
         /// <param name="folderid">Parent folder ID</param>
         /// <param name="title">Title of new folder</param>
         /// <returns>New folder contents</returns>
-        [Create("{folderid}")]
+        [Create("folder/{folderid}")]
         public FolderContentWrapper CreateFolder(string folderid, string title)
         {
-            var folder = _fileStorageService.CreateNewFolder(title, folderid);
+            var folder = _fileStorageService.CreateNewFolder(folderid, title);
             return ToFolderContentWrapper(folder.ID);
         }
 
@@ -494,7 +561,7 @@ namespace ASC.Api.Documents
         /// <param name="folderid">Folder ID</param>
         /// <param name="title">New title</param>
         /// <returns>Folder contents</returns>
-        [Update("{folderid}")]
+        [Update("folder/{folderid}")]
         public FolderContentWrapper RenameFolder(string folderid, string title)
         {
             _fileStorageService.FolderRename(folderid, title);
@@ -516,15 +583,27 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
+        /// Returns parent folders
+        /// </summary>
+        /// <param name="folderid"></param>
+        /// <category>Folders</category>
+        /// <returns>Parent folders</returns>
+        [Read("folder/{folderid}/path")]
+        public IEnumerable<FolderWrapper> GetFolderPath(string folderid)
+        {
+            return EntryManager.GetBreadCrumbs(folderid).Select(f => new FolderWrapper(f)).ToSmartList();
+        }
+
+        /// <summary>
         /// Returns a detailed information about the file with the ID specified in the request
         /// </summary>
         /// <short>File information</short>
-        /// <category>File information</category>
+        /// <category>Files</category>
         /// <returns>File info</returns>
         [Read("file/{fileid}")]
-        public FileWrapper GetFileInfo(string fileid)
+        public FileWrapper GetFileInfo(string fileid, int version = -1)
         {
-            var file = _fileStorageService.GetFile(fileid, -1).NotFoundIfNull("File not found");
+            var file = _fileStorageService.GetFile(fileid, version).NotFoundIfNull("File not found");
 
             return new FileWrapper(file);
         }
@@ -558,25 +637,94 @@ namespace ASC.Api.Documents
         /// <param name="fileid">File ID</param>
         /// <returns>Operation result</returns>
         [Delete("file/{fileid}")]
-        public IEnumerable<FileOperationResult> DeleteFile(String fileid)
+        public IEnumerable<FileOperationWraper> DeleteFile(String fileid)
         {
-            var result = _fileStorageService.DeleteItems(new Web.Files.Services.WCFService.ItemList<string> { "file_" + fileid.ToString(CultureInfo.InvariantCulture) });
-            return result.ToSmartList();
+            return DeleteBatchItems(null, new[] { fileid });
+        }
+
+        /// <summary>
+        ///  Start conversion
+        /// </summary>
+        /// <short>Convert</short>
+        /// <category>File operations</category>
+        /// <param name="fileid"></param>
+        /// <param name="start"></param>
+        /// <returns>Operation result</returns>
+        [Update("file/{fileid}/checkconversion")]
+        public IEnumerable<FileOperationResult> StartConversion(String fileid, bool start = true)
+        {
+            var conversion = _fileStorageService.CheckConversion(new Web.Files.Services.WCFService.ItemList<Web.Files.Services.WCFService.ItemList<string>>
+            {
+                new Web.Files.Services.WCFService.ItemList<string> { fileid, "0", start.ToString() }
+            });
+            conversion.ForEach(item =>
+                               {
+                                   if (string.IsNullOrEmpty(item.Result.ToString())) return;
+                                   var result = JObject.Parse(item.Result.ToString());
+                                   var file = result.Value<JObject>("file");
+                                   item.Result = GetFileInfo(file.Value<string>("id"), file.Value<int>("version"));
+                               });
+            return conversion.ToSmartList();
+        }
+
+        /// <summary>
+        ///  Check conversion status
+        /// </summary>
+        /// <short>Convert</short>
+        /// <category>File operations</category>
+        /// <param name="fileid"></param>
+        /// <returns>Operation result</returns>
+        [Read("file/{fileid}/checkconversion")]
+        public IEnumerable<FileOperationResult> CheckConversion(String fileid)
+        {
+            return StartConversion(fileid, false);
+        }
+
+        /// <summary>
+        /// Get presigned Uri
+        /// </summary>
+        /// <param name="fileid">File ID</param>
+        /// <returns>Url</returns>
+        [Read("file/{fileid}/presigned")]
+        public string GetPresignedUri(String fileid)
+        {
+            var file = _fileStorageService.GetFile(fileid, -1).NotFoundIfNull("File not found");
+            return PathProvider.GetFileStreamUrl(file);
         }
 
         /// <summary>
         /// Deletes the folder with the ID specified in the request
         /// </summary>
         /// <short>Delete folder</short>
-        /// <category>Files</category>
+        /// <category>Folders</category>
         /// <param name="folderid">Folder ID</param>
         /// <returns>Operation result</returns>
         [Delete("folder/{folderid}")]
-        public IEnumerable<FileOperationResult> DeleteFolder(String folderid)
+        public IEnumerable<FileOperationWraper> DeleteFolder(String folderid)
         {
-            var result = _fileStorageService.DeleteItems(new Web.Files.Services.WCFService.ItemList<string> { "folder_" + folderid.ToString(CultureInfo.InvariantCulture) });
+            return DeleteBatchItems(new[] { folderid }, null);
+        }
 
-            return result.ToSmartList();
+        /// <summary>
+        /// Checking for conflicts
+        /// </summary>
+        /// <category>File operations</category>
+        /// <param name="destFolderId">Destination folder ID</param>
+        /// <param name="folderIds">Folder ID list</param>
+        /// <param name="fileIds">File ID list</param>
+        /// <returns>Conflicts file ids</returns>
+        [Read("fileops/move")]
+        public IEnumerable<FileWrapper> MoveOrCopyBatchCheck(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileIds)
+        {
+            var itemList = new Web.Files.Services.WCFService.ItemList<String>();
+
+            itemList.AddRange((folderIds ?? new List<String>()).Select(x => "folder_" + x));
+            itemList.AddRange((fileIds ?? new List<String>()).Select(x => "file_" + x));
+
+            var ids = _fileStorageService.MoveOrCopyFilesCheck(itemList, destFolderId).Keys.Select(id => "file_" + id);
+
+            var entries = _fileStorageService.GetItems(new Web.Files.Services.WCFService.ItemList<string>(ids), FilterType.FilesOnly, "", "");
+            return entries.Select(x => new FileWrapper((Files.Core.File) x)).ToSmartList();
         }
 
         /// <summary>
@@ -586,18 +734,18 @@ namespace ASC.Api.Documents
         /// <category>File operations</category>
         /// <param name="destFolderId">Destination folder ID</param>
         /// <param name="folderIds">Folder ID list</param>
-        /// <param name="fileids">File ID list</param>
-        /// <param name="overwrite">Overwriting behavior: overwrite or skip</param>
+        /// <param name="fileIds">File ID list</param>
+        /// <param name="conflictResolveType">Overwriting behavior: skip(0), overwrite(1) or duplicate(2)</param>
         /// <returns>Operation result</returns>
         [Update("fileops/move")]
-        public IEnumerable<FileOperationResult> MoveBatchItems(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileids, bool overwrite)
+        public IEnumerable<FileOperationWraper> MoveBatchItems(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileIds, FileConflictResolveType conflictResolveType)
         {
             var itemList = new Web.Files.Services.WCFService.ItemList<String>();
 
-            itemList.AddRange(folderIds.Select(x => "folder_" + x));
-            itemList.AddRange(fileids.Select(x => "file_" + x));
+            itemList.AddRange((folderIds ?? new List<String>()).Select(x => "folder_" + x));
+            itemList.AddRange((fileIds ?? new List<String>()).Select(x => "file_" + x));
 
-            return _fileStorageService.MoveOrCopyItems(itemList, destFolderId, overwrite.ToString(CultureInfo.InvariantCulture), false.ToString(CultureInfo.InvariantCulture));
+            return _fileStorageService.MoveOrCopyItems(itemList, destFolderId, conflictResolveType, false).Select(o => new FileOperationWraper(o));
         }
 
         /// <summary>
@@ -607,30 +755,18 @@ namespace ASC.Api.Documents
         /// <category>File operations</category>
         /// <param name="destFolderId">Destination folder ID</param>
         /// <param name="folderIds">Folder ID list</param>
-        /// <param name="fileids">File ID list</param>
-        /// <param name="overwrite">Overwriting behavior: overwrite or skip</param>
+        /// <param name="fileIds">File ID list</param>
+        /// <param name="conflictResolveType">Overwriting behavior: skip(0), overwrite(1) or duplicate(2)</param>
         /// <returns>Operation result</returns>
         [Update("fileops/copy")]
-        public IEnumerable<FileOperationResult> CopyBatchItems(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileids, bool overwrite)
+        public IEnumerable<FileOperationWraper> CopyBatchItems(String destFolderId, IEnumerable<String> folderIds, IEnumerable<String> fileIds, FileConflictResolveType conflictResolveType)
         {
             var itemList = new Web.Files.Services.WCFService.ItemList<String>();
 
-            itemList.AddRange(folderIds.Select(x => "folder_" + x));
-            itemList.AddRange(fileids.Select(x => "file_" + x));
+            itemList.AddRange((folderIds ?? new List<String>()).Select(x => "folder_" + x));
+            itemList.AddRange((fileIds ?? new List<String>()).Select(x => "file_" + x));
 
-            return _fileStorageService.MoveOrCopyItems(itemList, destFolderId, overwrite.ToString(CultureInfo.InvariantCulture), true.ToString(CultureInfo.InvariantCulture));
-        }
-
-        /// <summary>
-        ///   Deletes all files and folders from the recycle bin
-        /// </summary>
-        /// <short>Clear recycle bin</short>
-        /// <category>File operations</category>
-        /// <returns>Operation result</returns>
-        [Update("fileops/emptytrash")]
-        public IEnumerable<FileOperationResult> EmptyTrash()
-        {
-            return _fileStorageService.EmptyTrash();
+            return _fileStorageService.MoveOrCopyItems(itemList, destFolderId, conflictResolveType, true).Select(o => new FileOperationWraper(o));
         }
 
         /// <summary>
@@ -640,14 +776,14 @@ namespace ASC.Api.Documents
         /// <category>File operations</category>
         /// <returns>Operation result</returns>
         [Update("fileops/markasread")]
-        public IEnumerable<FileOperationResult> MarkAsRead(IEnumerable<String> folderIds, IEnumerable<String> fileids)
+        public IEnumerable<FileOperationWraper> MarkAsRead(IEnumerable<String> folderIds, IEnumerable<String> fileIds)
         {
             var itemList = new Web.Files.Services.WCFService.ItemList<String>();
 
-            itemList.AddRange(folderIds.Select(x => "folder_" + x));
-            itemList.AddRange(fileids.Select(x => "file_" + x));
+            itemList.AddRange((folderIds ?? new List<String>()).Select(x => "folder_" + x));
+            itemList.AddRange((fileIds ?? new List<String>()).Select(x => "file_" + x));
 
-            return _fileStorageService.MarkAsRead(itemList);
+            return _fileStorageService.MarkAsRead(itemList).Select(o => new FileOperationWraper(o));
         }
 
         /// <summary>
@@ -657,75 +793,9 @@ namespace ASC.Api.Documents
         /// <category>File operations</category>
         /// <returns>Operation result</returns>
         [Update("fileops/terminate")]
-        public IEnumerable<FileOperationResult> TerminateTasks()
+        public IEnumerable<FileOperationWraper> TerminateTasks()
         {
-            return _fileStorageService.TerminateTasks(false);
-        }
-
-        /// <summary>
-        ///  Gets the files and folders for importing from Box.com, Google Drive or Zoho Docs
-        /// </summary>
-        /// <short>Get third party files</short>
-        /// <param name="source" remark="Allowed values: boxnet, google, zoho">Source name</param>
-        /// <param name="login" optional="true" remark="Necessary for Zoho Docs account authorization">Login</param>
-        /// <param name="password" optional="true" remark="Necessary for Zoho Docs account authorization">Password</param>
-        /// <param name="token" optional="true"  remark="Necessary for box.com, Google Drive account authorization (OAuth)">Authorization token</param>
-        /// <category>Files</category>
-        /// <returns>Data for importing</returns>
-        [Read("settings/import/{source:(boxnet|google|zoho)}/data")]
-        public IEnumerable<DataToImport> GetImportData(
-            String source,
-            String login,
-            String password,
-            String token)
-        {
-            return _fileStorageService.GetImportDocs(source, new AuthData(login, password, token));
-        }
-
-        /// <summary>
-        ///   Imports data from Box.com, Google Drive or Zoho Docs
-        /// </summary>
-        /// <short>Import from third party</short>
-        /// <param name="source" remark="Allowed values: boxnet, google, zoho">Source name</param>
-        /// <param name="login" optional="true" remark="Necessary for Zoho Docs account authorization">Login</param>
-        /// <param name="password" optional="true" remark="Necessary for Zoho Docs account authorization">Password</param>
-        /// <param name="token" optional="true"  remark="Necessary for box.com, Google Drive account authorization (OAuth)">Authorization token</param>
-        /// <param name="folderId">Folder ID form import</param>
-        /// <param name="ignoreCoincidenceFiles">Overwriting behavior: overwrite or ignore</param>
-        /// <param name="dataToImport">Data for importing</param>
-        /// <category>Files</category>
-        /// <returns>Operation result</returns>
-        [Update("settings/import/{source:(boxnet|google|zoho)}/data")]
-        public IEnumerable<FileOperationResult> ExecImportData(
-            String source,
-            String login,
-            String password,
-            String token,
-            String folderId,
-            bool ignoreCoincidenceFiles,
-            IEnumerable<DataToImport> dataToImport)
-        {
-            return _fileStorageService.ExecImportDocs(
-                login,
-                password,
-                token,
-                source,
-                folderId,
-                ignoreCoincidenceFiles,
-                dataToImport.ToList()
-                );
-        }
-
-        /// <summary>
-        ///  Finishes importing of the data
-        /// </summary>
-        /// <short>Finish importing</short>
-        /// <category>Files</category>
-        /// <returns>Operation result</returns>
-        [Update("settings/import/terminate")]
-        public IEnumerable<FileOperationResult> ImportDataTerminate()
-        {
-            return _fileStorageService.TerminateTasks(true);
+            return _fileStorageService.TerminateTasks().Select(o => new FileOperationWraper(o));
         }
 
 
@@ -736,17 +806,17 @@ namespace ASC.Api.Documents
         /// <category>File operations</category>
         /// <returns>Operation result</returns>
         [Read("fileops")]
-        public IEnumerable<FileOperationResult> GetOperationStatuses()
+        public IEnumerable<FileOperationWraper> GetOperationStatuses()
         {
-            return _fileStorageService.GetTasksStatuses();
+            return _fileStorageService.GetTasksStatuses().Select(o=> new FileOperationWraper(o));
         }
 
         /// <summary>
-        /// Zip files and folders
+        /// Start downlaod process of files and folders with ID
         /// </summary>
         /// <short>Finish file operations</short>
-        /// <param name="folderIds">Folder ID list</param>
         /// <param name="fileIds">File ID list</param>
+        /// <param name="folderIds">Folder ID list</param>
         /// <category>File operations</category>
         /// <returns>Operation result</returns>
         [Update("fileops/bulkdownload")]
@@ -754,9 +824,9 @@ namespace ASC.Api.Documents
             IEnumerable<ItemKeyValuePair<String, String>> fileIds,
             IEnumerable<String> folderIds)
         {
-            var itemList = new Web.Files.Services.WCFService.ItemDictionary<String, String>();
+            var itemList = new Dictionary<String, String>();
 
-            foreach (ItemKeyValuePair<String, String> fileid in fileIds)
+            foreach (var fileid in fileIds)
             {
                 if (!itemList.ContainsKey(fileid.Key))
                     itemList.Add(fileid.Key, fileid.Value);
@@ -775,26 +845,38 @@ namespace ASC.Api.Documents
         ///   Deletes the files and folders with the IDs specified in the request
         /// </summary>
         /// <param name="folderIds">Folder ID list</param>
-        /// <param name="fileids">File ID list</param>
+        /// <param name="fileIds">File ID list</param>
         /// <short>Delete files and folders</short>
         /// <category>File operations</category>
         /// <returns>Operation result</returns>
         [Update("fileops/delete")]
-        public IEnumerable<FileOperationResult> DeleteBatchItems(IEnumerable<String> folderIds, IEnumerable<String> fileids)
+        public IEnumerable<FileOperationWraper> DeleteBatchItems(IEnumerable<String> folderIds, IEnumerable<String> fileIds)
         {
             var itemList = new Web.Files.Services.WCFService.ItemList<String>();
 
-            itemList.AddRange(folderIds.Select(x => "folder_" + x));
-            itemList.AddRange(fileids.Select(x => "file_" + x));
+            itemList.AddRange((folderIds ?? new List<String>()).Select(x => "folder_" + x));
+            itemList.AddRange((fileIds ?? new List<String>()).Select(x => "file_" + x));
 
-            return _fileStorageService.DeleteItems(itemList);
+            return _fileStorageService.DeleteItems("delete", itemList).Select(o => new FileOperationWraper(o));
+        }
+
+        /// <summary>
+        ///   Deletes all files and folders from the recycle bin
+        /// </summary>
+        /// <short>Clear recycle bin</short>
+        /// <category>File operations</category>
+        /// <returns>Operation result</returns>
+        [Update("fileops/emptytrash")]
+        public IEnumerable<FileOperationWraper> EmptyTrash()
+        {
+            return _fileStorageService.EmptyTrash().Select(o => new FileOperationWraper(o));
         }
 
         /// <summary>
         /// Returns the detailed information about all the available file versions with the ID specified in the request
         /// </summary>
         /// <short>File versions</short>
-        /// <category>File information</category>
+        /// <category>Files</category>
         /// <param name="fileid">File ID</param>
         /// <returns>File information</returns>
         [Read("file/{fileid}/history")]
@@ -862,7 +944,6 @@ namespace ASC.Api.Documents
             return GetFileSecurityInfo(fileid);
         }
 
-
         /// <summary>
         /// Sets sharing settings for the folder with the ID specified in the request
         /// </summary>
@@ -894,44 +975,25 @@ namespace ASC.Api.Documents
             return GetFolderSecurityInfo(folderid);
         }
 
-
-        /// <summary>
-        ///   Removes sharing rights from the file with the ID specified in the request
-        /// </summary>
-        /// <param name="shareTo">Groups or users ID list</param>
-        /// <param name="fileid">File ID</param>
-        /// <short>Remove file sharing rights</short>
-        /// <category>Sharing</category>
-        /// <returns>Shared file information</returns>
-        [Delete("file/{fileid}/share")]
-        public IEnumerable<FileShareWrapper> RemoveFileSecurityInfo(String fileid, IEnumerable<Guid> shareTo)
-        {
-            //TODO: shareTo
-
-            var itemList = new Web.Files.Services.WCFService.ItemList<String> { "file_" + fileid };
-
-            _fileStorageService.RemoveAce(itemList);
-
-            return GetFileSecurityInfo(fileid);
-        }
-
-
         /// <summary>
         ///   Removes sharing rights for the group with the ID specified in the request
         /// </summary>
-        /// <param name="shareTo">Groups or users ID list</param>
-        /// <param name="folderid">Group ID</param>
+        /// <param name="folderIds">Folders ID</param>
+        /// <param name="fileIds">Files ID</param>
         /// <short>Remove group sharing rights</short>
         /// <category>Sharing</category>
         /// <returns>Shared file information</returns>
-        [Delete("folder/{folderid}/share")]
-        public IEnumerable<FileShareWrapper> RemoveFolderSecurityInfo(String folderid, IEnumerable<Guid> shareTo)
+        [Delete("share")]
+        public bool RemoveSecurityInfo(IEnumerable<String> folderIds, IEnumerable<String> fileIds)
         {
-            var itemList = new Web.Files.Services.WCFService.ItemList<String> { "folder_" + folderid };
+            var itemList = new Web.Files.Services.WCFService.ItemList<String>();
+
+            itemList.AddRange((folderIds ?? new List<String>()).Select(x => "folder_" + x));
+            itemList.AddRange((fileIds ?? new List<String>()).Select(x => "file_" + x));
 
             _fileStorageService.RemoveAce(itemList);
 
-            return GetFolderSecurityInfo(folderid);
+            return true;
         }
 
         /// <summary>
@@ -1059,16 +1121,54 @@ namespace ASC.Api.Documents
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="set"></param>
+        /// <returns></returns>
+        [Update(@"storeoriginal")]
+        public bool StoreOriginal(bool set)
+        {
+            return _fileStorageService.StoreOriginal(set);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="set"></param>
+        /// <returns></returns>
+        [Update(@"updateifexist")]
+        public bool UpdateIfExist(bool set)
+        {
+            return _fileStorageService.StoreOriginal(set);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="set"></param>
+        /// <returns></returns>
+        [Update(@"neweditors")]
+        public bool NewOnlineEditors(bool set)
+        {
+            if (!(SetupInfo.IsVisibleSettings<OnlineEditorsSettings>() && (CoreContext.Configuration.Personal || CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID))))
+                throw new MethodAccessException("Setting is not available");
+
+
+            OnlineEditorsSettings.NewScheme = set;
+            return OnlineEditorsSettings.NewScheme;
+        }
+
+
         private FolderContentWrapper ToFolderContentWrapper(object folderId, Guid userIdOrGroupId, FilterType filterType)
         {
-            return new FolderContentWrapper(
-                _fileStorageService.GetFolderItems(folderId.ToString(),
-                                                   _context.StartIndex.ToString(CultureInfo.InvariantCulture),
-                                                   _context.Count.ToString(CultureInfo.InvariantCulture),
-                                                   ((int)filterType).ToString(CultureInfo.InvariantCulture),
-                                                   new OrderBy(SortedByType.AZ, true),
-                                                   userIdOrGroupId.ToString(),
-                                                   _context.FilterValue));
+            return new FolderContentWrapper(_fileStorageService.GetFolderItems(folderId.ToString(),
+                                                                               Convert.ToInt32(_context.StartIndex),
+                                                                               Convert.ToInt32(_context.Count) - 1, //NOTE: in ApiContext +1
+                                                                               filterType,
+                                                                               new OrderBy(SortedByType.AZ, true),
+                                                                               userIdOrGroupId.ToString(),
+                                                                               _context.FilterValue));
         }
 
         private FolderContentWrapper ToFolderContentWrapper(object folderId)

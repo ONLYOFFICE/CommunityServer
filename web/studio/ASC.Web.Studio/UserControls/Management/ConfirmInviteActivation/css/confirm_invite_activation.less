@@ -1,46 +1,191 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 .confirmBlock {
     display: block;
-    width: 1000px;
+    width: 960px;
     margin: 0 auto;
-    
+
+    &.confirm-personal {
+        text-align: center;
+
+        .default-personal-popup_h {
+            font-size: 36px;
+            font-weight: normal;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .default-personal-popup_line {
+            background-color: #86d6f6;
+            display: inline-block;
+            height: 72px;
+            width: 1px;
+            margin-bottom: 18px;
+        }
+
+        .default-personal-popup_text {
+            font-size: 21px;
+            margin-bottom: 40px;
+        }
+
+        .rightPart {
+            float: none;
+            margin: 0 auto;
+            width: 550px;
+
+            .property {
+                margin-bottom: 36px;
+
+                .name {
+                    display: inline-block;
+                    width: 145px;
+                    text-align: right;
+                    color: #2d86ab;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                }
+
+                .value {
+                    display: inline-block;
+                    width: 350px;
+                    text-align: left;
+                }
+
+                .textEdit {
+                    border: 1px solid #86d6f6;
+                    width: 190px;
+                    padding: 8px 15px;
+                    margin: 0 16px;
+                    .borderRadius();
+
+                    &:focus {
+                        border-color: #2d86ab;
+                    }
+
+                    &.with-error {
+                        border-color: #c44747;
+                    }
+                }
+            }
+        }
+
+        .big-button-container {
+            margin: 40px auto 120px;
+            width: 220px;
+        }
+
+        .HelpCenterSwitcher {
+            display: none;
+        }
+
+        #buttonConfirmInvite {
+            background-color: #89ac35;
+            background-image: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 11px 42px;
+            margin: 0;
+            text-align: center;
+            text-transform: uppercase;
+            width: auto;
+            .borderRadius();
+
+            &:hover {
+                background-color: #95b840;
+            }
+
+            &:active {
+                background-color: #7c9e2a;
+            }
+        }
+
+        #social .account-links {
+            .info {
+                display: none;
+            }
+
+            & > .float-left {
+                float: none;
+            }
+
+            ul {
+                width: 130px;
+                height: 54px;
+
+                li {
+                    width: 54px;
+                    height: 54px;
+                    margin-right: 8px;
+
+                    .google {
+                        background: url("images/sprite_F_G.png") no-repeat -1px -1px transparent;
+
+                        &:hover {
+                            background-position: -61px -1px;
+                        }
+                    }
+
+                    .facebook {
+                        background: url("images/sprite_F_G.png") no-repeat -1px -61px transparent;
+
+                        &:hover {
+                            background-position: -61px -61px;
+                        }
+                    }
+
+                    .twitter, .linkedin {
+                        display: none;
+                    }
+
+                    a {
+                        width: 54px;
+                        height: 54px;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+
+        .auth-docs_social_text {
+            font-size: 21px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    }
 }
 
-.confirm-block-title .subTitle
-{
-    margin-top:10px;
-    font-size:16px;
+.confirm-block-title .subTitle {
+    margin-top: 10px;
+    font-size: 16px;
 }
 
 .confirmBlock .leftPart {
@@ -112,4 +257,11 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
     .button.huge {
         width: 198px;
     }
+}
+
+
+.borderRadius (@value: 3px) {
+    border-radius: @value;
+    -moz-border-radius: @value;
+    -webkit-border-radius: @value;
 }

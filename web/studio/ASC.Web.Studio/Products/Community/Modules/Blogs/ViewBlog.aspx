@@ -3,6 +3,7 @@
 <%@ Page Language="C#" MasterPageFile="~/Products/Community/Community.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="ViewBlog.aspx.cs" Inherits="ASC.Web.Community.Blogs.ViewBlog" Title="Untitled Page" %>
 
 <%@ Register Src="Views/ViewBlogView.ascx" TagPrefix="ctrl" TagName="ViewBlogView" %>
+<%@ Import Namespace="ASC.Web.Community.Product" %>
 <%@ Register TagPrefix="scl" Namespace="ASC.Web.Studio.UserControls.Common.Comments" Assembly="ASC.Web.Studio" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
@@ -10,8 +11,10 @@
     <div class="BlogsHeaderBlock header-with-menu" style="margin-bottom: 16px;">
         <span class="main-title-icon blogs"></span>
         <span class="header"><%=HttpUtility.HtmlEncode(BlogTitle)%></span>
+        <% if(!CommunitySecurity.IsOutsider()) { %>
         <asp:Literal ID="SubscribeLinkBlock" runat="server"></asp:Literal>
         <span class="menu-small"></span>
+        <% } %>
     </div>
     <div class="BlogsBodyBlock">
         <sc:Container id="mainContainer" runat="server">

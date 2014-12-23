@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Net.Sockets;
+using System.Threading;
+using System.Threading.Tasks;
 using ActiveUp.Net.Mail;
 
 
@@ -13,13 +13,13 @@ namespace ActiveUp.Net.Common
 #if !PocketPC
         protected System.Net.Security.SslStream _sslStream;
 #endif
-        virtual public string SendEhloHelo()
+        public virtual string SendEhloHelo()
         {
             var domain = System.Net.Dns.GetHostName();
             return SendEhloHelo(domain);
         }
 
-        virtual public string SendEhloHelo(string domain)
+        public virtual string SendEhloHelo(string domain)
         {
             try
             {
@@ -49,12 +49,13 @@ namespace ActiveUp.Net.Common
         public new System.IO.Stream GetStream()
         {
 #if !PocketPC
-            if (this._sslStream != null) return this._sslStream;
+            if (this._sslStream != null && this._sslStream.IsAuthenticated) 
+                return this._sslStream;
 #endif
             return base.GetStream();
         }
 
-        virtual public string Command(string command, int expectedResponseCode)
+        public virtual string Command(string command, int expectedResponseCode)
         {
             //this.OnTcpWriting(new ActiveUp.Net.Mail.TcpWritingEventArgs(command));
 
@@ -89,19 +90,18 @@ namespace ActiveUp.Net.Common
             return buffer.ToString();
         }
 
-        virtual public string Ehlo(string domain)
+        public virtual string Ehlo(string domain)
         {
             return this.Command("ehlo " + domain, 250);
         }
 
 
-        virtual public string Helo(string domain)
+        public virtual string Helo(string domain)
         {
             return this.Command("helo " + domain, 250);
         }
 
-
-        virtual public string StartTLS(string host)
+        public virtual string StartTLS(string host)
         {
             try
             {
@@ -122,18 +122,44 @@ namespace ActiveUp.Net.Common
             }
         }
 
-        virtual protected void DoSslHandShake(ActiveUp.Net.Security.SslHandShake sslHandShake)
+        protected virtual void DoSslHandShake(ActiveUp.Net.Security.SslHandShake sslHandShake)
         {
+            ActiveUp.Net.Mail.Logger.AddEntry("DoSslHandShake:Creating SslStream...", 2); 
             this._sslStream = new System.Net.Security.SslStream(base.GetStream(), false, sslHandShake.ServerCertificateValidationCallback, sslHandShake.ClientCertificateSelectionCallback);
-            this._sslStream.AuthenticateAsClient(sslHandShake.HostName, sslHandShake.ClientCertificates, sslHandShake.SslProtocol, sslHandShake.CheckRevocation);
+            ActiveUp.Net.Mail.Logger.AddEntry("DoSslHandShake:AuthenticateAsClient...", 2);
+            try
+            {
+                this._sslStream.AuthenticateAsClient(sslHandShake.HostName, sslHandShake.ClientCertificates, sslHandShake.SslProtocol, sslHandShake.CheckRevocation);
+            }
+            catch (Exception ex)
+            {
+                ActiveUp.Net.Mail.Logger.AddEntry(string.Format("DoSslHandShake:AuthenticateAsClient failed with Exception {0}", ex.ToString()), 2);
+                this._sslStream = null;
+                throw;
+            }
         }
 
-        public abstract IAsyncResult BeginConnect(string host, int port, AsyncCallback callback);
+        public abstract string ConnectPlain(string host, int port);
+        public abstract IAsyncResult BeginConnectPlain(string host, int port, AsyncCallback callback);
+
+        public abstract string ConnectSsl(string host, int port);
         public abstract IAsyncResult BeginConnectSsl(string host, int port, AsyncCallback callback);
-        public abstract string Login(string username, string password, string host);
+
+        public abstract string Login(string username, string password);
+        public abstract IAsyncResult BeginLogin(string username, string password, AsyncCallback callback);
+
+        public abstract string Authenticate(string username, string password, SaslMechanism mechanism);
         public abstract IAsyncResult BeginAuthenticate(string username, string password, SaslMechanism mechanism, AsyncCallback callback);
-        public abstract string EndConnectSsl(IAsyncResult result);
+
         public abstract bool IsConnected { get; }
+
         public abstract string Disconnect();
+        public abstract IAsyncResult BeginDisconnect(AsyncCallback callback);
+
+        public virtual string EndAsyncOperation(IAsyncResult result)
+        {
+            ActiveUp.Net.Mail.Logger.AddEntry("EndAsyncOperation...", 2);
+            return (string)result.AsyncState.GetType().GetMethod("EndInvoke").Invoke(result.AsyncState, new object[] { result });
+        }
     }
 }

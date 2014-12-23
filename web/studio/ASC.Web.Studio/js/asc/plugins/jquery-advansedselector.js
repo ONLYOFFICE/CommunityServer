@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 
@@ -74,7 +74,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         that.$advancedSelector.find(".advanced-selector-block-list .advanced-selector-all-select").on('click', $.proxy(showAllGroups, that));
 
         that.$advancedSelector.find(".advanced-selector-search-field").on('keyup', $.proxy(onSearchInputKeyup, that));
-        that.$advancedSelector.find(".advanced-selector-search-btn").on('click', $.proxy(onSearchItems, that));
+        that.$advancedSelector.find(".advanced-selector-search-btn").on('click', $.proxy(that.options.isTempLoad? that.onSearchItemsTempLoad : that.onSearchItems, that));
         that.$advancedSelector.find(".advanced-selector-reset-btn").on('click', $.proxy(onSearchReset, that));
 
         that.$advancedSelector.on("click", opts.onechosen ? ".advanced-selector-list-items li" : ".advanced-selector-btn-action", $.proxy(onClickSaveSelectedItems, that));
@@ -88,9 +88,6 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                 setPositionSelectorContainer.call(that);
             }, 500);
         };
-        that.$advancedSelector.on("click", ".advanced-selector-btn-cnt button", function (e) {
-            e.preventDefault();
-        });
 
         $(document).keyup(function (event) {
             if (!that.$advancedSelector.is(":visible"))
@@ -194,26 +191,14 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             itemList.show();
             $search.show();
             $reset.hide();
+            if (that.options.isTempLoad) {
+                that.initAdvSelectorDataTempLoad.call(that);
+            }
             if (!that.options.showGroups) allSelect.show();
         }
     }
 
-    function onSearchItems() {
-        var that = this,
-            $searchFld = that.$advancedSelector.find(".advanced-selector-search-field"),
-            searchQuery = ($searchFld.length !== 0) ? $.trim($searchFld.val()) : "",
-            itemList = that.$itemsListSelector.find("li:not(.disabled)"),
-            foundItemsList = itemList.filter(':icontains("' + searchQuery + '")'),
-            $noResult = that.$advancedSelector.find(".advanced-selector-no-results");
 
-        itemList.hide();
-        if (foundItemsList.length !== 0) {
-            $noResult.hide();
-            foundItemsList.show();
-        } else {
-            $noResult.show();
-        }
-    }
 
     function onSearchReset() {
         var that = this,
@@ -241,6 +226,10 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         $itemList.show();
         $resetBtn.hide();
         $searchBtn.show();
+
+        if (that.options.isTempLoad) {
+            that.initAdvSelectorDataTempLoad.call(that);
+        }
     }
 
     function showSelectorContainer() {
@@ -272,6 +261,9 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                 }
             }
         }
+        !that.$itemsListSelector.find(".advanced-selector-list li").filter(":visible").length ?
+            that.$advancedSelector.find(".advanced-selector-empty-list").show() :
+            that.$advancedSelector.find(".advanced-selector-empty-list").hide();
     }
 
     function setPositionSelectorContainer() {
@@ -283,7 +275,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             $elem = that.$element,
             elemPos = that.options.inPopup ? $elem.position() : $elem.offset(),
             elemPosLeft = elemPos.left,
-            elemPosTop = elemPos.top + $elem.outerHeight(),
+            elemPosTop = elemPos.top + $elem.outerHeight() + 4, // 4 - the top padding
             $w = $(window),
             docWidth = $(document).width(),
             scrHeight = $w.height(),
@@ -345,16 +337,6 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         onCheckItemsById.call(that, that.options.itemsSelectedIds);
     }
 
-    function disableDefaultItemsIds(disabledItemsIds) {
-        var that = this;
-        for (var i = 0, len = disabledItemsIds.length; i < len; i++) {
-            var disabledItem = that.$itemsListSelector.find("ul li[data-id=" + disabledItemsIds[i] + "]");
-            if ($(disabledItem).length) {
-                disabledItem.addClass("disabled");
-            }
-        }
-
-    }
 
     function checkAlreadySelectedItemsIds(selectedItemsIds) {
         var that = this;
@@ -518,7 +500,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             $this = $(event.target).closest(".advanced-selector-all-select"),
             allCheckBox = $this.find("input[type=checkbox]"),
             $itemList = $this.siblings("[class^=advanced-selector-list]").find("li:not(.disabled) input[type=checkbox]"),
-            flag = allCheckBox.is(":checked") ? false : true,
+            flag = !allCheckBox.is(":checked"),
             itemsList;
 
             if (that.options.onechosen) {
@@ -526,7 +508,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                 return;
             }
             if (!$(event.target).is("input")) {
-                flag = allCheckBox.is(":checked") ? true : false;
+                flag = allCheckBox.is(":checked");
             }
             allCheckBox.prop("checked", !flag).prop("indeterminate", false);
             $itemList.prop("checked", !flag).prop("indeterminate", false);
@@ -545,7 +527,8 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                 itemsList.find("input[type=checkbox]").prop('checked', !flag);
             }
             onSearchReset.call(that);
-            countSelectedItems(itemsList);
+            that.selectedItems = flag ? [] : itemsList.filter(".selected");
+            countSelectedItems.call(that,itemsList);
     }
 
     function showAllGroups(event) {
@@ -573,6 +556,9 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         $itemList = $itemList.filter(":not(.disabled)");
         var selectedCount = $itemList.find("input[type=checkbox]:checked").length,
             $countBox = $itemList.parents(".advanced-selector-block").find(".advanced-selector-selected-count");
+        if (this.options.isTempLoad) {
+            selectedCount = this.selectedItems.length;
+        }
         if (selectedCount > 0) {
             $countBox.text(selectedCount + " " + ASC.Resources.Master.Resource.SelectorSelectedItems).show();
         } else {
@@ -598,16 +584,25 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 
         if (that.options.onechosen) {
             that.$itemsListSelector.find("li.selected").removeClass("selected");
-            flag ? $this.removeClass("selected") : $this.addClass("selected");
+            $this.addClass("selected");
+            that.selectedItems = [];
+            that.selectedItems.push($this[0]);
         } else {
             if ($(event.target).is($this.find("input"))) {
                 flag = $checkBox.is(":checked") ? false : true;
             }
             $checkBox.prop("checked", !flag);
-            flag ? $this.removeClass("selected") : $this.addClass("selected");
+            if (flag) {
+                that.selectedItems.splice($.inArray($this[0], that.selectedItems), 1);
+                $this.removeClass("selected");
+            }
+            else {
+                $this.addClass("selected");
+                that.selectedItems.push($this[0]);
+            }
 
             onCheckSelectedAll.call(that, that.$itemsListSelector);
-            countSelectedItems(that.$itemsListSelector);
+            countSelectedItems.call(that, that.$itemsListSelector);
         }
         if (that.$groupsListSelector && that.$groupsListSelector.length) {
             onSelectGroupsByItem.call(that, [$this.attr("data-id")], !flag);
@@ -626,6 +621,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             if ($(checkedItem).length && !checkedItem.find("input").is(":checked")) {
                 checkedItem.addClass("selected");
                 checkedItem.find("input").prop("checked", true);
+                that.selectedItems.push(checkedItem);
             }
         }
 
@@ -657,7 +653,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         }
 
         onCheckSelectedAll.call(that, that.$itemsListSelector);
-        countSelectedItems(that.$itemsListSelector);
+        countSelectedItems.call(that, that.$itemsListSelector);
     }
 
     function onCheckSelectedAll(itemList) {
@@ -762,12 +758,13 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             var el = groupSelectedItems[i],
                 itEl = that.$itemsListSelector.find("li[data-id=" + el + "]").filter(":not(.disabled)");
             flag ? itEl.removeClass("selected") : itEl.addClass("selected");
+            flag ? that.selectedItems.splice(that.selectedItems.indexOf(itEl)) : that.selectedItems.push(itEl);
             itEl.find("input").prop("checked", !flag);
             itEl.show();
         };
         onSelectGroupsByItem.call(that, groupSelectedItems, !flag, that.$advancedSelector);
         onCheckSelectedAll.call(that, that.$itemsListSelector);
-        countSelectedItems(that.$itemsListSelector);
+        countSelectedItems.call(that, that.$itemsListSelector);
     }
 
 
@@ -798,13 +795,8 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             noItems.show();
         }
 
-        for (var i = 0, length = itemsList.length; i < length; i++) {
-            $item = $(itemsList[i]);
-            for (var j = 0, m = itemsGroupList.length; j < m; j++) {
-                if ($item.attr("data-id") == itemsGroupList[j]) {
-                    $item.show();
-                }
-            }
+        for (var j = 0, m = itemsGroupList.length; j < m; j++) {
+            that.$itemsListSelector.find("li[data-id='" + itemsGroupList[j] + "']").show();
         }
 
         if (!itemsList.filter(":visible").length) {
@@ -835,14 +827,17 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
     function onClickSaveSelectedItems(event) {
         var that = this,
             $this = $(event.target),
-            selectedItemsList = that.$itemsListSelector.find("li.selected"),
+            selectedItemsList = that.options.isTempLoad? that.selectedItems : that.$itemsListSelector.find("li.selected"),
             selectedItems = [],
             result;
         for (var i = 0, len = selectedItemsList.length; i < len; i++) {
             selectedItems.push(getItemById($(selectedItemsList[i]).attr("data-id"), that.items));
         }
+
+        
         if (that.options.onechosen && $this.hasClass("selected-before")) {
             $this.removeClass("selected-before");
+            hideSelectorContainer.call(that);
             return;
         }
         hideSelectorContainer.call(that);
@@ -971,6 +966,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             that.items = [];
             that.groups = [];
             that.nameSimpleSelectorGroup = "";
+            that.selectedItems = [];
 
 
             var $o = $.tmpl(that.options.templates.selectorContainer, { opts: that.options });
@@ -1066,19 +1062,54 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             }
             that.select.call(that, [newObj.id]);
             that.$advancedSelector.find(".advanced-selector-add-new-block input").val("");
-            that.$advancedSelector.find(".advanced-selector-no-results, .advanced-selector-no-items").hide();
+            that.$advancedSelector.find(".advanced-selector-no-results, .advanced-selector-no-items, .advanced-selector-empty-list").hide();
+            if (!that.options.onechosen) {
+                that.$advancedSelector.find(".advanced-selector-all-select").show();
+            }
             if (that.options.showGroups) {
                 showNewListItemsAfterCreateItem.call(that, ID);
             }
             that.$element.trigger("afterCreate", newObj);
             hideAddItemBlock.call(that);
         },
+        
+        disableDefaultItemsIds: function (disabledItemsIds) {
+            var that = this;
+            for (var i = 0, len = disabledItemsIds.length; i < len; i++) {
+                var disabledItem = that.$itemsListSelector.find("ul li[data-id=" + disabledItemsIds[i] + "]");
+                if ($(disabledItem).length) {
+                    disabledItem.addClass("disabled");
+                }
+            }
+        },
 
+        onSearchItems: function () {
+            var that = this;
+
+            if (that.$advancedSelector.find(".advanced-selector-loader-list").is(":visible")) {
+                setTimeout(function () { that.onSearchItems.call(that); }, 100);
+                return;
+            }
+
+            var $searchFld = that.$advancedSelector.find(".advanced-selector-search-field"),
+                searchQuery = ($searchFld.length !== 0) ? $.trim($searchFld.val()) : "",
+                itemList = that.$itemsListSelector.find("li:not(.disabled)"),
+                foundItemsList = itemList.filter(':icontains("' + searchQuery + '")'),
+                $noResult = that.$advancedSelector.find(".advanced-selector-no-results");
+
+            itemList.hide();
+            if (foundItemsList.length) {
+                $noResult.hide();
+                foundItemsList.show();
+            } else {
+                $noResult.show();
+            }
+        },
         initDataSimpleSelector: function (data) {
             var that = this,
                 objType = data.tag,
                 list = $.tmpl(that.options.templates.addNewItems, { Items: data.items }),
-                $field = this.$advancedSelector.find(".advanced-selector-field-wrapper." + objType);
+                $field = that.$advancedSelector.find(".advanced-selector-field-wrapper." + objType);
             that.nameSimpleSelectorGroup = objType;
             $field.find(".advanced-selector-field-list").html(list);
             initSimpleSelector.call(that, $field);
@@ -1162,28 +1193,31 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                 }
             }
 
-            var $items = $.tmpl(that.options.templates.itemList, { Items: itemsDisplay, isJustList: that.options.onechosen });
+            var $items = $.tmpl(that.options.templates.itemList, { Items: itemsDisplay, isJustList: that.options.onechosen }),
+                height;
 
-            if (!that.options.canadd && that.options.showGroups) {
-                that.$itemsListSelector.find(".advanced-selector-list").height(177); //height for the items container without the creation of the new item
+            if ((!that.options.canadd && that.options.showGroups) || that.options.isTempLoad) {
+                height = 177;//height for the items container without the creation of the new item
             }
+
             if (that.options.onechosen) {
-                var height = that.options.canadd ? that.heightListChooseOne : that.heightListWithoutCreate;
-                that.$itemsListSelector.height(height);
-                that.$itemsListSelector.find(".advanced-selector-list").height(height);
+                height = that.options.canadd ? that.heightListChooseOne : that.heightListWithoutCreate;
             }
 
             if (!that.options.onechosen && that.options.canadd && !that.options.showGroups) {
-                var height = 131;
+                height = 131;
+            }
+
+            if (height) {
                 that.$itemsListSelector.height(height);
                 that.$itemsListSelector.find(".advanced-selector-list").height(height);
             }
 
             that.$itemsListSelector.find(".advanced-selector-list").html($items);
-            that.$itemsListSelector.find("ul").on('click', 'li', $.proxy(onCheckItem, that));
-            disableDefaultItemsIds.call(that, that.options.itemsDisabledIds);
+            that.$itemsListSelector.find("ul").off('click').on('click', 'li', $.proxy(onCheckItem, that));
+            that.disableDefaultItemsIds.call(that, that.options.itemsDisabledIds);
 
-            if (!that.$itemsListSelector.find("li:not(.disabled)").length && !that.options.canadd) {
+            if (!that.$itemsListSelector.find("li:not(.disabled)").length ) {
                 that.$advancedSelector.find(".advanced-selector-empty-list").show();
                 that.$advancedSelector.find(".advanced-selector-all-select").hide();
             } else {
@@ -1241,7 +1275,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                 flag = onlySelected || false,
                 list = that.$itemsListSelector.find("ul li");
 
-            list.find(".selected").removeClass("selected selected-before");
+            list.filter(".selected").removeClass("selected selected-before");
             if (!flag) {
                 list.removeClass("disabled");
             }
@@ -1250,9 +1284,9 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
             if (that.options.showGroups) {
                 that.$advancedSelector.find(".advanced-selector-list-groups li").removeClass("selected");
             }
-
+            that.selectedItems = [];
             onSearchReset.call(that);
-            countSelectedItems(that.$itemsListSelector);
+            countSelectedItems.call(that, that.$itemsListSelector);
         },
         select: function (selectedItemsIds) {
             var that = this;
@@ -1273,6 +1307,9 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 
             for (var j = 0, len = itemsIds.length; j < len; j++) {
                 var unselectItem = that.$itemsListSelector.find("ul li[data-id=" + itemsIds[j] + "]");
+                if (that.options.onechosen) {
+                    unselectItem.removeClass("selected");
+                }
                 if ($(unselectItem).length && unselectItem.find("input").is(":checked")) {
                     unselectItem.trigger("click");
                 }
@@ -1365,6 +1402,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         showSearch: true,
         inPopup: false,
         isInitializeItems: false,
+        isTempLoad: false,
 
         templates : {
             selectorContainer: "template-selector-container",

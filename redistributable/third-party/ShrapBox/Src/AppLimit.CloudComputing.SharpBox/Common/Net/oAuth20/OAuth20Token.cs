@@ -4,7 +4,7 @@ using AppLimit.CloudComputing.SharpBox.Common.Net.Json;
 
 namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth20
 {
-    internal class OAuth20Token : ICloudStorageAccessToken
+    public class OAuth20Token : ICloudStorageAccessToken
     {
         public String AccessToken { get; set; }
 

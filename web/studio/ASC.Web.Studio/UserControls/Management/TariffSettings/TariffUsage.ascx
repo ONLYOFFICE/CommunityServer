@@ -53,6 +53,11 @@
     <br />
     <asp:PlaceHolder runat="server" ID="SmsBuyHolder"></asp:PlaceHolder>
     <% } %>
+    <% if (VoipEnable)
+       { %>
+    <br />
+    <asp:PlaceHolder runat="server" ID="VoipBuyHolder"></asp:PlaceHolder>
+    <% } %>
 </div>
 
 <table class="tariffs-panel" cols="3" cellspacing="0" cellpadding="0" frame="void">
@@ -106,6 +111,8 @@
                 </div>
             </td>
 
+            <% if (quotaMonth != null || !QuotasYear[i].Free)
+               { %>
             <td>
                 <% if (quotaMonth == null)
                    { %>
@@ -117,7 +124,7 @@
                 <% }
                    else
                    { %>
-                <label class="tariff-price-block <%= CurrentQuota.Equals(quotaMonth) ? " tariffs-current " : " " %> <%= QuotaForDisplay.Equals(quotaMonth) ? " tariffs-selected " : " " %>" data="<%= quotaMonth.Id %>">
+                <label class="tariff-price-block <%= CurrentQuota.Equals(quotaMonth) && !CurrentQuota.Free ? " tariffs-current " : " " %> <%= QuotaForDisplay.Equals(quotaMonth) ? " tariffs-selected " : " " %>" data="<%= quotaMonth.Id %>">
                     <span class="tariffs-block">
                         <input type="radio" name="tariff" <%= CurrentQuota.Equals(quotaMonth) ? "checked=\"checked\"" : " " %>
                             <%= MonthIsDisable() ? "disabled=\"disabled\"" : "" %> />
@@ -154,9 +161,10 @@
                 </label>
                 <% } %>
             </td>
+            <% } %>
 
             <td>
-                <label class="tariff-price-block <%= CurrentQuota.Equals(QuotasYear[i]) ? " tariffs-current " : " " %> <%= QuotaForDisplay.Equals(QuotasYear[i]) ? " tariffs-selected " : " " %>" data="<%= QuotasYear[i].Id %>">
+                <label class="tariff-price-block <%= CurrentQuota.Equals(QuotasYear[i]) && !CurrentQuota.Free ? " tariffs-current " : " " %> <%= QuotaForDisplay.Equals(QuotasYear[i]) ? " tariffs-selected " : " " %>" data="<%= QuotasYear[i].Id %>">
                     <span class="tariffs-block">
                         <input type="radio" name="tariff" <%= CurrentQuota.Equals(QuotasYear[i]) ? "checked=\"checked\"" : " " %> />
                         <input type="hidden" class="tariff-hidden-link tariff-hidden-<%= GetTypeLink(QuotasYear[i]) %>" value="<%= GetShoppingUri(QuotasYear[i]) %>" />
@@ -203,7 +211,7 @@
     
     <div class="button-block">
 
-    <% if (CurrentQuota.Trial || CoreContext.Configuration.Standalone && CurrentTariff.QuotaId.Equals(Tenant.DEFAULT_TENANT))
+    <% if (CurrentQuota.Trial || CurrentQuota.Free || CoreContext.Configuration.Standalone && CurrentTariff.QuotaId.Equals(Tenant.DEFAULT_TENANT))
        { %>
     <a class="tariff-buy-action tariff-buy-limit button huge blue" href="">
         <%= Resource.TariffButtonBuy %>
@@ -214,6 +222,9 @@
     <% }
        else
        { %>
+    <a class="tariff-buy-action tariff-buy-free button huge blue" href="">
+        <%= Resource.TariffButtonFree %>
+    </a>
     <a class="tariff-buy-action tariff-buy-limit button huge blue" href="">
         <%= Resource.TariffButtonUpgrade + WithFullRemarks() %>
     </a>

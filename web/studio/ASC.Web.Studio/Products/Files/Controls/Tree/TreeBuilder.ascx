@@ -12,7 +12,6 @@
 <% } %>
 
 <div id="treeViewPanelSelector" class="studio-action-panel webkit-scrollbar">
-    <div class="corner-top"></div>
     <div class="select-folder-header">
         <b><%= FilesUCResource.SelectFolder %></b>
     </div>

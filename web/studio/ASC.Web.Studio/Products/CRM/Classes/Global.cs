@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 #region Import
@@ -39,17 +39,21 @@ using ASC.Core.Users;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.Data.Storage;
+using ASC.Thrdparty.Configuration;
+using ASC.VoipService;
+using ASC.VoipService.Dao;
+using ASC.VoipService.Twilio;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using System.Web.Configuration;
 using Newtonsoft.Json.Linq;
-using ASC.Core.Common.Logging;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using ASC.Web.Core.Files;
 
 #endregion
 
@@ -67,6 +71,8 @@ namespace ASC.Web.CRM.Classes
         public static readonly int DefaultCustomFieldSize = 40;
         public static readonly int DefaultCustomFieldRows = 2;
         public static readonly int DefaultCustomFieldCols = 40;
+
+        public static readonly int MaxHistoryEventCharacters = 65000;
 
         public static DaoFactory DaoFactory
         {
@@ -105,7 +111,7 @@ namespace ASC.Web.CRM.Classes
                     canCreateProject = Convert.ToBoolean(responseApi["canCreateProject"].Value<String>());
                 else
                     canCreateProject = false;
-
+                HttpRuntime.Cache.Remove(cacheKey);
                 HttpRuntime.Cache.Insert(cacheKey, canCreateProject, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
                                   TimeSpan.FromMinutes(5));
 
@@ -114,7 +120,6 @@ namespace ASC.Web.CRM.Classes
             }
             catch 
             {
-
                 return false;
             }
 
@@ -124,9 +129,21 @@ namespace ASC.Web.CRM.Classes
         {
             get
             {
+                var canDownloadFiles = false;
+
                 var value = WebConfigurationManager.AppSettings["crm.invoice.download.enable"];
                 if (string.IsNullOrEmpty(value)) return false;
-                return Convert.ToBoolean(value);
+
+                canDownloadFiles = Convert.ToBoolean(value);
+
+                if (canDownloadFiles &&
+                    (string.IsNullOrEmpty(WebConfigurationManager.AppSettings["crm.invoice.url.storage"]) && string.IsNullOrEmpty(FilesLinkUtility.DocServiceStorageUrl) ||
+                    string.IsNullOrEmpty(WebConfigurationManager.AppSettings["crm.invoice.url.converter"]) && string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl)))
+                {
+                    canDownloadFiles = false;
+                }
+
+                return canDownloadFiles;
             }
         }
 
@@ -149,22 +166,14 @@ namespace ASC.Web.CRM.Classes
             };
 
             SettingsManager.Instance.SaveSettings(crmSettings, TenantProvider.CurrentTenantID);
-
-            AdminLog.PostAction("CRM Settings: saved crm smtp settings to {0}", crmSettings);
         }
 
-        public static void SaveChangeSettings(String defaultCurrency)
+        public static void SaveDefaultCurrencySettings(CurrencyInfo currency)
         {
-            if (!CRMSecurity.IsAdmin)
-                throw new Exception();
-
             var tenantSettings = Global.TenantSettings;
-
-            tenantSettings.DefaultCurrency = CurrencyProvider.Get(defaultCurrency);
+            tenantSettings.DefaultCurrency = currency;
 
             SettingsManager.Instance.SaveSettings(tenantSettings, TenantProvider.CurrentTenantID);
-
-            AdminLog.PostAction("CRM Settings: saved default currency settings to \"{0:Json}\"", defaultCurrency);
         }
 
         #endregion
@@ -228,7 +237,9 @@ namespace ASC.Web.CRM.Classes
                                             new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfMozambique", enUs)),
                                             new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfMalawi", enUs)),
                                             new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Benin", enUs)),
-                                            new KeyValuePair<int,string>(12300,CRMCommonResource.ResourceManager.GetString("Country_IvoryCoast", enUs))
+                                            new KeyValuePair<int,string>(12300,CRMCommonResource.ResourceManager.GetString("Country_IvoryCoast", enUs)),
+                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Bahamas", enUs)),
+                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Andorra", enUs))
                                         };
 
             var additionalCountriesCodes = additionalCountries.Select(s => s.Key).Where(s => s != 0).ToList();

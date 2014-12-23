@@ -28,7 +28,6 @@
 <ul id="listView">
 </ul>
 <div id="listItemActionMenu" class="studio-action-panel" listitemid="">
-    <div class="corner-top right"></div>
     <ul class="dropdown-content">
         <li class="editItem"><a class="dropdown-item" onclick="ASC.CRM.ListItemView.showEditItemPanel();"><%= EditText %></a></li>
         <li class="deleteItem"><a class="dropdown-item" onclick="ASC.CRM.ListItemView.deleteItem();"><%= DeleteText %></a></li>
@@ -38,7 +37,6 @@
 <% if (CurrentTypeValue == ListType.ContactStatus) %>
 <% { %>
 <div id="colorsPanel" class="studio-action-panel colorsPanelSettings">
-    <div class="corner-top left"></div>
     <span class="style1" colorstyle="1"></span><span class="style2" colorstyle="2"></span><span class="style3" colorstyle="3"></span><span class="style4" colorstyle="4"></span><span class="style5" colorstyle="5"></span><span class="style6" colorstyle="6"></span><span class="style7" colorstyle="7"></span><span class="style8" colorstyle="8"></span>
     <span class="style9" colorstyle="9"></span><span class="style10" colorstyle="10"></span><span class="style11" colorstyle="11"></span><span class="style12" colorstyle="12"></span><span class="style13" colorstyle="13"></span><span class="style14" colorstyle="14"></span><span class="style15" colorstyle="15"></span><span class="style16" colorstyle="16"></span>
 </div>
@@ -48,7 +46,6 @@
 <% if (CurrentTypeValue == ListType.TaskCategory) %>
 <% { %>
 <div id="iconsPanel_<%= (int)CurrentTypeValue %>" class="iconsPanelSettings studio-action-panel" style="width: 148px;height: 112px;">
-    <div class="corner-top left"></div>
     <label class="task_category task_category_call" alt="<%= CRMTaskResource.TaskCategory_Call %>" title="<%= CRMTaskResource.TaskCategory_Call %>" img_name="task_category_call.png"></label>
     <label class="task_category task_category_deal" alt="<%= CRMTaskResource.TaskCategory_Deal %>" title="<%= CRMTaskResource.TaskCategory_Deal %>" img_name="task_category_deal.png"></label>
     <label class="task_category task_category_demo" alt="<%= CRMTaskResource.TaskCategory_Demo %>" title="<%= CRMTaskResource.TaskCategory_Demo %>" img_name="task_category_demo.png"></label>
@@ -64,7 +61,6 @@
 </div>
 <% } else if (CurrentTypeValue == ListType.HistoryCategory) { %>
 <div id="iconsPanel_<%= (int)CurrentTypeValue %>" class="iconsPanelSettings studio-action-panel" style="width: 74px;height: 74px;">
-    <div class="corner-top left"></div>
     <label class="event_category event_category_note" alt="<%= CRMCommonResource.HistoryCategory_Note %>" title="<%= CRMCommonResource.HistoryCategory_Note %>" img_name="event_category_note.png"></label>
     <label class="event_category event_category_email" alt="<%= CRMCommonResource.HistoryCategory_Email %>" title="<%= CRMCommonResource.HistoryCategory_Email %>" img_name="event_category_email.png"></label>
     <label class="event_category event_category_call" alt="<%= CRMCommonResource.HistoryCategory_Call %>" title="<%= CRMCommonResource.HistoryCategory_Call %>" img_name="event_category_call.png"></label>

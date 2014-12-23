@@ -1,256 +1,838 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-html {
-    background: url("images/bg01_top-center.jpg") no-repeat center 0 transparent;    
-}
 body {
     background-color: transparent; 
 }
-#studioPageContent{
-    /*background: url("images/bg01_top-right.png") no-repeat right 0 transparent;*/
-    min-width: 1008px;
-    min-height: 600px;
+.mainPageLayout,
+.mainPageTable .mainPageContent {
+    padding: 0;
+}
+.mainPageTable {
+    background: url("images/1px_image_background.png") repeat-x right bottom #b3d7f2;
+}
+.mainPageContent {
+    min-width: 1px;
+    min-height: 378px;
+    background: url("images/image_background.png") left bottom no-repeat transparent;
+}
+
+@media all and (max-width: 1450px) {
+    .mainPageContent {
+        background-image:none;
+    }
+    .auth-form-with_sign-up {
+        display: none;
+    }
+
+    .ab-testing .auth-form-with_sign-up {
+        display: block;
+    }
 }
 
 .try-welcome-top {
-    background: transparent;
-    height: 65px;
+    background-color: #fff;
+    height: 75px;
+    margin: 0 auto;
+    width: 960px;
+    padding: 0 10px;
 }
 
-.mainPageLayout {
-    width: 960px;  
-}
 .try-welcome-top.studio-top-panel .studio-top-logo {
-   margin-top: 8px;
+   margin-top: 0;
+}
+
+#personalLogin {
+    float: right;
+    margin-top: 40px;
+
+    a {
+        background-color: #fff;
+        color: #2d86ab;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 12px 25px;
+        border: 1px solid #3db2e2;
+        .borderRadius();
+
+        &:hover {
+            border-color: #50c1ef;
+            text-decoration: none;
+        }
+
+        &:active {
+            border-color: #2b9dcc;
+        }
+    }
+}
+.auth-form-head_w {
+    width: 100%;
+    height: 426px;
+    background-color: #fff;    
+}
+.auth-form-head {
+    text-align: left;
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 20px 10px 0;
+    position: relative;
 }
 .auth-form-with {
     text-align: left;
-    margin-bottom: 55px;
+    margin: 0 auto;
+    min-height: 300px;
+    max-width: 960px;
+    padding: 0 10px 72px;
+    position: relative;
 }
 
-
-.auth-form-with_slogan {
-    background: url("images/bg_comp.png") no-repeat 0 -70px transparent;
-    color: #4e5d81;
-    min-height: 310px;
-    padding-left: 376px;
-    padding-top: 10px;
-}
-
-.auth-form-with_slogan_docs {
-    font-size: 48px;
+.auth-form-header {
+    color: #3db2e2;
+    font-size: 64px;
     font-weight: 300;
-    line-height: 48px;
-    margin-top: -14px;
-    padding-left: 1px;
+    line-height: 72px;
+    margin: 0 0 35px;
+    text-transform: uppercase;
+}
+.auth-form-with_lines {
+    height:25px;
+    width: 60px;
+    border-left:1px solid #86d6f6;
+    border-bottom: 1px solid #86d6f6;
 }
 
-.auth-form-with_slogan_less {
-    font-size: 86px;
-    font-weight: 800;
-    line-height: 110px;
-    .topless {
-        color: #627599;
-    }
-}
+/*---Try Block--*/
 
-.auth-form-with_slogan_action {
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 28px;
-    padding-left: 5px;
+.auth-form-with_try_desc {
+    color: #5c5d5c;
+    font-size: 16px;
     margin: 0 0 15px 0;
 }
-.auth-form-with_sevices {
-    float: left;
-    margin-top: 83px;
-    width: 382px;
+
+.auth-form-with_try_formats {
+    color: #5c5d5c;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 42px 0;
 }
-.auth-form-with_sevices_text {
+
+#chromebookText {
+    display: none;
+}
+.chromebook {
+    padding-left: 28px;
+    background: url(images/logo_chrombook.png) no-repeat 0 -2px transparent;
+}
+.auth-form-with_hint {
+    color: #2d86ab;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.auth-form-with_hint-add {
+    color: #969696;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.auth-form-with_try_formats-btn {
+    float: right;
+    position: relative;
+    margin-top: 32px;
+}
+.auth-form-with_try_formats-btn_hint {
+    position: absolute;
+    top: -30px;
+    left: -70px;
+
+    .auth-form-with_hint {
+        margin: 0 0 5px -35px;
+    }
+}
+.auth-form-with-btns {
+    display: inline-block;
+    margin-bottom: 36px;
+
+    .try-button {
+        &,
+        &:hover,
+        &:visited {
+            float: left;
+            margin-right: 20px;
+        }
+
+            &:last-child {
+                margin-right: 0;
+            }
+    }
+}
+.auth-form-with_sign-up {
+    position: absolute;
+    left: -61px;
+    margin-top: -25px;
+
+    .auth-form-with_hint,
+    .auth-form-with_hint-add {
+        margin-left: -110px;
+        width: 150px;
+        text-align: right;
+    }
+
+    .auth-form-with_hint-add {
+        margin-bottom: 5px;
+    }
+}
+input.auth-form-with_field {
+    padding: 18px 20px;
+    border: none;
+    .borderRadius();
+
+    &:hover,
+    &:active,
+    &:focus {
+        border: none;
+    }
+
+    &:focus {
+        box-shadow: inset 0px 0px 2px #d0d0d0;
+        background-color: #f5f5f5;
+    }
+
+    &.error {
+        color: #c44747;
+    }
+}
+
+.auth-form-with_form_w {
+    margin-bottom: 72px;
+}
+.auth-form-with_form {
+    background-color: #3dbee2;
+    padding: 16px 20px;
+    position: relative;
+    .borderRadius();
+
+    .auth-form-with_field,
+    .auth-form-with_form_btn,
+    .auth-form-with_form_or {
+        float: left;
+        margin-right: 20px;
+    }
+
+    .auth-form-with_field {
+        width: 280px;
+    }
+
+    .auth-form-with_form_or {
+        margin-top: 20px;
+    }
+}
+
+.auth-form-with_form_error {
+    color: #c44747;
+    font-size: 14px;
+    position: absolute;
+    left: 0;
+    top: -24px;
+}
+
+.auth-form-with_form_btn {
+    background-color: #76cef2;
+    border: none;
+    border-bottom: 1px solid #187bb9;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 19px 20px 18px;
+    text-transform: uppercase;
+    text-decoration: none;
+    .borderRadius();
+
+    &:hover {
+        background-color: #82d6f8;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    &:active {
+        background-color: #6bc4e8;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+
+.auth-form-with_form_or {
     color: #fff;
     font-size: 14px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-}
-
-.auth-form-with_sevices_list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-
-    li {
-        background: url("images/services_48.png") no-repeat -8px -8px transparent;
-        float: left;
-        height: 48px;
-        margin-right: 6px;
-        width: 48px;
-
-     &.dropbox {
-         background-position: -8px -8px;
-     }
-     &.googledrive {
-         background-position: -8px -64px;
-     }
-     &.boxcom {
-         background-position:-64px -64px;
-         width: 66px;
-     }
-     &.onedrive {
-         background-position: -64px -8px;
-     }
-   }
-}
-.auth-form-with_buttons {
-    float: left;
-    margin-top: -10px;
-    width: 560px;
-}
-
-.auth-form-with_buttons_text {
-    color: #fff;
-    float: left;
-    font-size: 15px;
-    line-height: 24px;
-    margin-right: 23px;
-    position: relative;
-    padding: 20px 0;
+    font-weight: bold;
     text-transform: uppercase;
     text-align: center;
-    width: 290px; 
-    white-space: nowrap;
-
-    filter:alpha(opacity=70);
-	-moz-opacity:0.7;
-	-khtml-opacity:0.7;
-    -webkit-opacity: 0.7;
-	opacity:0.7;
-
-    &:after {
-        border-left:15px solid transparent;
-        border-top: 32px solid transparent;
-        border-bottom: 32px solid transparent;
-        height: 0; 
-        width: 0;
-        content: "";
-        position: absolute;
-        top: 0;
-        right: -15px;
-    }
-
-    &.signup {
-        
-        background-color: #6c9333;        
-        &:after {            
-            border-left-color: #6c9333;
-        }
-    }
-    &.actions {
-        
-        background-color: #ee841b; 
-        &:after {
-           border-left-color: #ee841b;
-        } 
-        
-    }
-
 }
-
-.auth-form-with_buttons_social {
+.auth-form-with_btns_social {
     display: inline-block;
+}
+.auth-docs_btns_social {
     position: relative;
 
     .login-with-label {
         display: none;
     }
-    .social-login #accountLinks {
-        height: 64px;
-         li  {        
-            width: 64px;
-            height: 64px;
-            margin-right: 8px;
-   
-            .google {
-               background: url("images/btn_64.png") no-repeat -80px -8px transparent;
+
+    .social-login .account-links {
+        height: 54px;
+
+        ul {
+            width: 130px;
+            height: 54px;
+            li {
+                width: 54px;
+                height: 54px;
+                margin-right: 8px;
+
+                .google {
+                    background: url("images/sprite_F_G.png") no-repeat -1px -1px transparent;
+
+                    &:hover {
+                        background-position: -61px -1px;
+                    }
+                }
+
+                .facebook {
+                    background: url("images/sprite_F_G.png") no-repeat -1px -61px transparent;
+
+                    &:hover {
+                        background-position: -61px -61px;
+                    }
+                }
+
+                .twitter, .linkedin {
+                    display: none;
+                }
+
+                a {
+                    width: 54px;
+                    height: 54px;
+                    margin: 0;
+                }
             }
-            .facebook {
-               background: url("images/btn_64.png") no-repeat -80px -80px transparent;
-            }
-            a {
-                width: 64px;
-                height: 64px;
-                margin: 0;  
-            }
-         }
+        }
     }
+
     .errorBox {
         position: absolute;
         top: -54px;
     }
 }
 
-.auth-form-with_buttons_i {
-    margin-bottom: 25px;
-    .try-button {
-        &,
-        &:hover,
-        &:visited{
-            float: left;
-            margin-right: 8px;
-        }
+/*----Review Block-----*/
+
+.auth-form-with_review {
+    height: 293px;
+    padding: 43px 0;
+}
+
+.auth-form-with_review_h {
+    color: #5c5d5c;
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 3px 15px 0 0;
+}
+
+#cromeStoreRating {
+    background: url("images/starsraring.png");
+    display: inline-block;
+    height: 30px;
+    width: 140px;
+}
+#reviewsContainer {
+    margin-bottom: 18px;
+}
+.auth-form-with_review_i {
+    background-color: #f1f1f1;
+    color: #3b3b3b;
+    font-size: 12px;
+    padding: 12px 13px;
+    height: 70px;
+    margin-top: 20px;
+}
+
+.auth-form-with_review_author {
+    font-weight: bold;
+}
+.auth-form-with_review_photo {
+    float: left;
+}
+.auth-form-with_review_info,
+.auth-form-with_review_text {
+    margin: 5px 66px;
+}
+.auth-form-with_review_rating {
+    margin-left: 10px;
+}
+.auth-form-with_review_star {
+    background: url(images/small_stars.png) 0 0 no-repeat transparent;
+    display: inline-block;
+    height: 11px;
+    width: 11px;
+}
+
+.auth-form-with_read-other {
+    background-color: #fff;
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: rgba(255,255,255,0.4);
+    padding: 13px 25px;
+    text-decoration: none;
+    .borderRadius();
+
+    &:hover,
+    &:active {
+         color: #fff;
+         font-weight: bold;
+         text-decoration: none;
     }
 }
 
-.auth-form-with_slogan_carousel {
-    min-height:100px;
-    padding-left: 5px;
+/*----------------Style Placeholder------------------*/
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:   #969696;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:   #969696;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:   #969696;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:   #969696;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 
-    a.item {
-        color: #4e5d81;
-        display: none;
+/*------Popup-------*/
+.default-personal-popup {
+    display: none;
+    background-color: #fff;
+    background-color: rgba(255,255,255,0.95);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 500;
+}
+.default-personal-popup_cnt {
+    color: #373737;
+    position: relative;
+    margin:0 auto;
+    text-align: center;
+    width: 960px;
+    padding: 20px 0;
+    top: 20%;
+}
+
+.default-personal-popup_closer {
+    cursor: pointer;
+    font-size: 38px;
+    font-weight: 300;
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    right: 8px;
+}
+
+.default-personal-popup_text {
+    font-size: 21px;
+    margin-bottom: 40px;
+}
+.default-personal-popup_strong-text {
+    font-size: 34px;
+    font-weight: 500;
+}
+
+.default-personal-popup_h {
+    font-size: 36px;
+    font-weight: normal;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.default-personal-popup_line {
+    background-color: #86d6f6;
+    display: inline-block;
+    margin: 10px 0 18px;
+    height: 72px;
+    width: 1px;    
+}
+
+.default-personal-popup_label {
+    color: #2d86ab;
+    font-weight: bold;
+    display: inline-block;
+    width: 150px;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.default-personal-popup_field {
+    border: 1px solid #86d6f6;
+    width: 190px;
+    padding: 8px 15px;
+    .borderRadius();
+
+    &:focus {
+        border-color: #2d86ab;
+    }
+
+    &.error {
+        border-color: #c44747;
+    }
+}
+.default-personal-popup_form-i {
+    .default-personal-popup_field {
+        margin: 0 16px 36px;
+    }
+}
+.default-personal-popup_check {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+
+    input {
+        float: left;
+        margin-right: 8px;
+    }
+}
+
+.default-personal-popup_btn {
+    background-color: #89ac35;
+    background-image: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 11px 36px;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+
+    .borderRadius();
+
+    &:hover {
+        background-color: #95b840;
+    }
+
+    &:active {
+        background-color: #7c9e2a;
+    }
+}
+.default-personal-popup_error {
+    color: #c44747;
+    font-size: 12px;
+    position: absolute;
+    left: 20px;
+    top: 42px;
+}
+/*-------Login Popup-----*/
+.login_accept-btn-cnt {
+    width: 220px;
+    text-align: left;
+    margin: 0 auto 23px;
+}
+.login_forget-psw {
+    cursor: pointer;
+    float: right;
+    font-size: 12px;
+    margin-top: 8px;
+    text-decoration: underline;
+}
+.login_not-registered-cnt {
+    margin-bottom: 120px;
+}
+.login_field-cnt {
+    display: inline-block;
+    position: relative;
+}
+.login_signup-btn {
+    color: #2d86ab;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.auth-docs_social_text {
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+/*---------Popup----------*/
+
+.popup_social-nets{
+    text-align: center;
+
+    .social-login {
+        display: inline-block;
+    }
+}
+
+.popupContainerClass {
+    .containerHeaderBlock {
+        background-color: transparent;
+        padding: 50px 63px 15px;
+
+        .popupCancel .cancelButton {
+            font-size: 40px;
+            font-weight: 300;
+            position: absolute;
+            top: 18px;
+            right: 10px;
+        }
+    }
+
+    .containerBodyBlock {
+        padding: 5px 63px 52px;
+    }
+
+    #studio_emailPwdReminder {
+        .default-personal-popup_field;
+        margin-top: 30px;
+    }
+
+    .middle-button-container {
+
+        .button {
+            &.blue {
+                .default-personal-popup_btn;
+                background-image: none;
+            }
+
+            &.gray {
+                display: none;
+            }
+        }
+    }
+}
+/*----------Carousel--------------*/
+.carousel-wrapper {
+   max-height: 228px;
+   margin-bottom: 25px;
+   overflow: hidden; 
+   position:relative;
+}
+.carousel-items {
+   height: 10000px; 
+   position: relative; 
+}
+/*---------------------*/
+.borderRadius (@value: 3px) {
+    border-radius: @value;
+    -moz-border-radius: @value;
+    -webkit-border-radius: @value;
+}
+
+
+/*******************************************************************************
+    Other style
+*******************************************************************************/
+.ab-testing {
+
+    .mainPageTable {
+        background-image: none;
+        background-color: #8db7db;
+    }
+
+    .mainPageContent {
+        background-image: none;
+    }
+
+    .cloud-image {
+        background: url(images/formats.png) no-repeat 0 0 transparent;
+        position: absolute;
+        width: 471px;
+        height: 380px;
+        top: -76px;
+        right: 0;
+        z-index: 0;
+    }
+
+    #personalLogin a {
+        border-color: #4d94d0;
+        color: #4d94d0;
+        position: relative;
+        z-index: 50;
+    }
+
+    .auth-form-head_w {
+        border-bottom: 1px solid #90a6b8;
+        height: 500px;
+
+        &.de .auth-form-header {
+            font-size: 58px;
+        }
+    }
+
+    .auth-form-head {
+        padding-top: 43px;
+    }
+
+    .auth-form-header {
+        color: #4d94d0;
+        font-size: 62px;
+        position: relative;
+        z-index: 5;
+        margin-bottom: 22px;
+        width: 575px;
+    }
+
+    .auth-form-with_try {
+        width: 550px;
+    }
+
+    .auth-form-with_try_desc {
+        margin-bottom: 6px;
+    }
+
+    .auth-form-with_sign-up {
+        left: inherit;
+        right: 55px;
+        z-index: 100;
+    }
+
+    .auth-form-with_try_formats {
+        margin-bottom: 75px;
+    }
+
+    .auth-form-with_form_w {
+        background-color: #fff;
+        display: inline-block;
+        padding-right: 30px;
+        position: relative;
+        z-index: 200;
+    }
+
+    .auth-form-with_form {
+        background-color: #dee6ec;
+        box-shadow: inset 0px 0px 4px #d6d6d6;
+        display: inline-block;
+    }
+
+    .auth-form-with_field {
+        box-shadow: inset 0px 1px 2px #C0C0C0;
+    }
+
+    .auth-form-with_form_btn {
+        background-color: #4ec795;
+        border-color: #5fa58d;
+        font-size: 12px;
+
+        &:hover {
+            background-color: #59d09e;
+            font-size: 12px;
+        }
+
+        &:active {
+            font-size: 12px;
+        }
+    }
+
+    .auth-form-with_form_or {
+        color: #8796a0;
+        font-size: 12px;
+    }
+
+    .auth-docs_btns_social .social-login .account-links ul li a {
+        height: 56px;
+        width: 55px;
+        background-image: url(images/sprite_F_G_2.png);
+    }
+
+    .auth-form-with_hint {
+        color: #6b6b6b;
+    }
+
+    .auth-form-with_hint-add {
+        text-transform: lowercase;
         font-style: italic;
-        text-decoration: none;
+        font-weight: 600;
+    }
 
-        &.active {
-            display: block;
-        }
+    .auth-form-with_hint,
+    .auth-form-with_hint-add {
+        margin-left: 105px;
+        margin-right: -80px;
+        text-align: center;
+    }
 
-        .personal-quote {
-            font-size: 14px;
-        }
+    .auth-form-with_lines {
+        width: 180px;
+        border-top: none;
+        border-left: none;
+        border-bottom: 1px dotted #6b6b6b;
+        border-right: 1px dotted #6b6b6b;
+    }
+    /*----------------Style Placeholder------------------*/
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color: #8796a0;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
 
-        .personal-author {
-            font-size: 22px;
-        }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: #8796a0;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: #8796a0;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: #8796a0;
+        font-weight: bold;
+        text-transform: uppercase;
     }
 }

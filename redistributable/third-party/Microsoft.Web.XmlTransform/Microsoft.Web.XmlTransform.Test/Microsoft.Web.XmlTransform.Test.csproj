@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ExtensionsCommonTargets>..\WebPublish.Test.Settings.targets</ExtensionsCommonTargets>
+    <ExtensionsCommonTargetsExists>false</ExtensionsCommonTargetsExists>
+    <ExtensionsCommonTargetsExists Condition="Exists('$(ExtensionsCommonTargets)')">true</ExtensionsCommonTargetsExists>
+  </PropertyGroup>
+  <Import Project="$(ExtensionsCommonTargets)" Condition="$(ExtensionsCommonTargetsExists)" />
+  <PropertyGroup>
+    <AssemblyName>Microsoft.Web.XmlTransform.Test</AssemblyName>
+    <ProjectGuid>{22AC988D-26C0-43A9-8EB1-102DA31F0F8F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <BuildProjectReferences>true</BuildProjectReferences>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(ExtensionsCommonTargetsExists)">
+    <IntermediateOutputPath>$(IntermediateOutputPath)\Tests\XmlTransform</IntermediateOutputPath>
+    <OutputPath>$(TestOutputPath)</OutputPath>
+  </PropertyGroup>
+  <!--If we have no common settings file, let us set up each individual property here -->
+  <PropertyGroup Condition="!$(ExtensionsCommonTargetsExists)">
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU' AND !$(ExtensionsCommonTargetsExists)">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU' AND !$(ExtensionsCommonTargetsExists)">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!--End each individual property setup-->
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XmlTransform\Microsoft.Web.XmlTransform.csproj">
+      <Project>{0684ee2a-6f30-4bc7-b5e7-8cba15534e06}</Project>
+      <Name>Microsoft.Web.XmlTransform</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TestTransformationLogger.cs" />
+    <Compile Include="XmlTransformTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AttributeFormatting.Log" />
+    <None Include="Resources\AttributeFormatting_destination.bsl" />
+    <None Include="Resources\WarningsAndErrors.log" />
+    <None Include="Resources\EdgeCase.log" />
+    <None Include="Resources\EdgeCase_destination.bsl" />
+    <None Include="Resources\TagFormatting.log" />
+    <None Include="Resources\TagFormatting_destination.bsl" />
+    <None Include="Resources\Web.config" />
+    <None Include="Resources\Web.Release.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AttributeFormatting_source.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AttributeFormatting_transform.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\EdgeCase_source.xml" />
+    <Content Include="Resources\WarningsAndErrors_source.xml" />
+    <Content Include="Resources\TagFormatting_source.xml" />
+    <Content Include="Resources\TagFormatting_transform.xml" />
+    <Content Include="Resources\EdgeCase_transform.xml" />
+    <Content Include="Resources\WarningsAndErrors_transform.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <UsingTask TaskName="PolicheckTask" AssemblyFile="$(ExtensionsTools)\PoliCheck\Microsoft.Build.Tasks.Policheck.dll" />
+  <Target Name="AfterBuild" Condition="$(ExtensionsCommonTargetsExists)">
+    <!--The project will go open source, so running PoliCheck is mandatory-->
+    <PolicheckTask RootDirectory="$(ExtensionsRoot)" Directories="$(ProjectDir)" Severities="1|2" ContinueOnError="false" Condition="$(RunPoliCheckOnBuild)=='true'" />
+  </Target>
+</Project>

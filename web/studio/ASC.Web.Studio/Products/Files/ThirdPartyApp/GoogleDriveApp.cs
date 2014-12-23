@@ -1,39 +1,39 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using ASC.Core;
@@ -42,6 +42,7 @@ using ASC.Core.Users;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Helpers;
 using ASC.Files.Core;
+using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Thrdparty;
 using ASC.Thrdparty.Configuration;
@@ -123,10 +124,9 @@ namespace ASC.Web.Files.ThirdPartyApp
         {
             Global.Logger.Debug("GoogleDriveApp: refresh token");
 
-            var query = String.Format("client_id={0}&client_secret={1}&redirect_uri={2}&refresh_token={3}&grant_type=refresh_token",
+            var query = String.Format("client_id={0}&client_secret={1}&refresh_token={2}&grant_type=refresh_token",
                                       HttpUtility.UrlEncode(ClientId),
                                       HttpUtility.UrlEncode(SecretKey),
-                                      RedirectUrl,
                                       HttpUtility.UrlEncode(refreshToken));
 
             var jsonToken = RequestHelper.PerformRequest(GoogleUrlToken, "application/x-www-form-urlencoded", "POST", query);
@@ -316,11 +316,13 @@ namespace ASC.Web.Files.ThirdPartyApp
 
                 var cookiesKey = SecurityContext.AuthenticateMe(userInfo.ID);
                 CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
+                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSocialAccount);
 
                 if (isNew)
                 {
                     UserHelpTourHelper.IsNewUser = true;
                     PersonalSettings.IsNewUser = true;
+                    PersonalSettings.IsNotActivated = true;
                 }
 
                 if (!string.IsNullOrEmpty(googleUserId) && !CurrentUser(googleUserId))
@@ -477,7 +479,7 @@ namespace ASC.Web.Files.ThirdPartyApp
             var culture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
             var storeTemp = Global.GetStoreTemplate();
 
-            var path = FileConstant.NewDocPath + culture.TwoLetterISOLanguageName + "/";
+            var path = FileConstant.NewDocPath + culture + "/";
             if (!storeTemp.IsDirectory(path))
             {
                 path = FileConstant.NewDocPath + "default/";
@@ -520,22 +522,11 @@ namespace ASC.Web.Files.ThirdPartyApp
         private static bool CurrentUser(string googleId)
         {
             var linker = new AccountLinker("webstudio");
-            var accounts = linker.GetLinkedObjectsByHashId(HashHelper.MD5(string.Format("{0}/{1}", ProviderConstants.Google, googleId)));
-            accounts = accounts.Concat(linker.GetLinkedObjectsByHashId(HashHelper.MD5(string.Format("{0}/{1}", ProviderConstants.OpenId, googleId))));
+            var linkedProfiles = linker.GetLinkedObjectsByHashId(HashHelper.MD5(string.Format("{0}/{1}", ProviderConstants.Google, googleId)));
+            linkedProfiles = linkedProfiles.Concat(linker.GetLinkedObjectsByHashId(HashHelper.MD5(string.Format("{0}/{1}", ProviderConstants.OpenId, googleId))));
+            Guid tmp;
             return
-                accounts.Select(x =>
-                                    {
-                                        try
-                                        {
-                                            return new Guid(x);
-                                        }
-                                        catch
-                                        {
-                                            return Guid.Empty;
-                                        }
-                                    })
-                        .Any(account => account == SecurityContext.CurrentAccount.ID);
-
+                linkedProfiles.Any(profileId => Guid.TryParse(profileId, out tmp) && tmp == SecurityContext.CurrentAccount.ID);
         }
 
         private static void AddLinker(string googleUserId)
@@ -570,11 +561,9 @@ namespace ASC.Web.Files.ThirdPartyApp
             {
                 userInfo = new UserInfo
                     {
-                        Status = EmployeeStatus.Active,
                         FirstName = googleUserInfo.Value<string>("given_name"),
                         LastName = googleUserInfo.Value<string>("family_name"),
                         Email = email,
-                        WorkFromDate = TenantUtil.DateTimeNow(),
                     };
 
                 var gender = googleUserInfo.Value<string>("gender");
@@ -583,11 +572,18 @@ namespace ASC.Web.Files.ThirdPartyApp
                     userInfo.Sex = gender == "male";
                 }
 
-                var cultureName = googleUserInfo.Value<string>("locale") ?? CultureInfo.CurrentUICulture.Name;
-                var cultureInfo = SetupInfo.EnabledCultures.Find(c => String.Equals(c.TwoLetterISOLanguageName, cultureName, StringComparison.InvariantCultureIgnoreCase));
+                var cultureName = googleUserInfo.Value<string>("locale");
+                if(string.IsNullOrEmpty(cultureName))
+                    cultureName = Thread.CurrentThread.CurrentUICulture.Name;
+
+                var cultureInfo = SetupInfo.EnabledCultures.Find(c => String.Equals(c.Name, cultureName, StringComparison.InvariantCultureIgnoreCase));
                 if (cultureInfo != null)
                 {
                     userInfo.CultureName = cultureInfo.Name;
+                }
+                else
+                {
+                    Global.Logger.DebugFormat("From google app new personal user '{0}' without culture {1}", userInfo.Email, cultureName);
                 }
 
                 if (string.IsNullOrEmpty(userInfo.FirstName))
@@ -802,13 +798,12 @@ namespace ASC.Web.Files.ThirdPartyApp
                 request.Method = "GET";
                 request.Headers.Add("Authorization", "Bearer " + token.AccessToken);
 
+                Global.Logger.Debug("GoogleDriveApp: download exportLink - " + downloadUrl);
                 try
                 {
                     using (var response = request.GetResponse())
                     using (var fileStream = new ResponseStream(response))
                     {
-                        Global.Logger.Debug("GoogleDriveApp: download exportLink - " + downloadUrl);
-
                         driveFile = CreateFile(fileStream, fileName, folderId, token);
                     }
                 }

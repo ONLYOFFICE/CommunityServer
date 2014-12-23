@@ -349,7 +349,7 @@
     <value>TeamLab Cut</value>
   </data>
   <data name="TeamlabCutText" xml:space="preserve">
-    <value>Select the main part with the mouse and click {0} so that only a short snippet of the post was shown at the discussion list and feed pages.</value>
+    <value>Select the main part with the mouse and click "ONLYOFFICE Cut" so that only a short snippet of the post was shown at the discussion list and feed pages.</value>
   </data>
   <data name="CommentsAddButtonTitle" xml:space="preserve">
     <value>Write a comment</value>

@@ -9,7 +9,7 @@
       <div class="borderBase account-row">
         <xsl:attribute name="id">account_<xsl:value-of select="provider_key"/>_<xsl:value-of select="provider_id"/></xsl:attribute>
         <div class="account-header-container">
-          <xsl:if test="isNew='false'">
+          <xsl:if test="isNew = 'false'">
             <div class="menu-small">
               <xsl:attribute name="title">
                 <resource name="fres.TitleShowFolderActions" />
@@ -24,7 +24,7 @@
           <div class="account-provider-title">
             <xsl:value-of select="provider_title"/>
           </div>
-          <xsl:if test="isNew='false'">
+          <xsl:if test="isNew = 'false'">
             <div class="account-customer-title">
               <a class="link">
                 <xsl:attribute name="href">
@@ -37,7 +37,7 @@
               </a>
             </div>
           </xsl:if>
-          <xsl:if test="error">
+          <xsl:if test="error != ''">
             <div class="account-provider-error">
               <xsl:attribute name="title">
                 <xsl:value-of select="error"/>
@@ -87,10 +87,10 @@
                     <xsl:value-of select="customer_title"/>
                   </xsl:attribute>
                 </input>
-                <xsl:if test="canCorporate='true'">
+                <xsl:if test="canCorporate = 'true'">
                   <label>
                     <input type="checkbox" class="account-cbx-corporate checkbox">
-                      <xsl:if test="corporate='true'">
+                      <xsl:if test="corporate = 'true'">
                         <xsl:attribute name="checked">checked</xsl:attribute>
                       </xsl:if>
                     </input>

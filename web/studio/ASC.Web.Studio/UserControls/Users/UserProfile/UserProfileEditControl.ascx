@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserProfileEditControl.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Users.UserProfile.UserProfileEditControl" %>
+<%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.SMS" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
@@ -27,6 +28,7 @@
         </div>
         <table class="profile-action-userdata">
             <%--Type--%>
+            <% if(!isPersonal){ %>
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= Resource.UserType %>:</td>
                 <td class="userdata-value user-type">
@@ -102,6 +104,7 @@
                     </div>
                 </td>
             </tr>
+            <% } %>
             <%--FirstName--%>
             <tr class="userdata-field">
                 <td class="userdata-title describe-text requiredTitle"><%= Resource.FirstName %>:</td>
@@ -122,13 +125,12 @@
             <tr class="userdata-field">
                 <td class="userdata-title describe-text requiredTitle"><%= Resource.Email %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="email" id="profileEmail" value="<%= GetEmail() %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag ? "disabled" : "" %> />
+                    <input type="email" id="profileEmail" value="<%= GetEmail() %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag && !(CoreContext.Configuration.Personal && CoreContext.Configuration.Standalone) ? "disabled" : "" %> />
                     <span class="requiredErrorText"><%= Resource.ErrorNotCorrectEmail %></span>
                 </td>
             </tr>
             <%--Department--%>
-            <% if (IsAdmin() || Departments.Length != 0)
-               { %>
+            <% if ((IsAdmin() || Departments.Length != 0) && !isPersonal){ %>
             <tr class="userdata-field">
                 <td class="userdata-title describe-text">
                     <%= CustomNamingPeople.Substitute<Resource>("Department").HtmlEncode() %>:
@@ -153,13 +155,15 @@
             </tr>
             <% } %>
             <%--Position--%>
+            <% if(!isPersonal){ %>
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("UserPost").HtmlEncode() %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="text" id="profilePosition" class="textEdit" value="<%= GetPosition() %>" autocomplete="off" />
+                    <input type="text" id="profilePosition" <%= IsAdmin() ? "" : "disabled = 'disabled'"%> class="textEdit" value="<%= GetPosition() %>" autocomplete="off" />
                     <span class="requiredErrorText"><%= Resource.ErrorMessageLongField64 %></span>
                 </td>
             </tr>
+            <%} %>
             <%--Phone--%>
             <% if (StudioSmsNotificationSettings.IsVisibleSettings && IsPageEditProfileFlag && !String.IsNullOrEmpty(Phone))
                { %>
@@ -182,6 +186,7 @@
                 </td>
             </tr>
             <%--Registration Date--%>
+            <% if(!isPersonal){ %>
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("WorkFromDate").HtmlEncode() %>:</td>
                 <td class="userdata-value requiredField">
@@ -189,6 +194,7 @@
                     <span class="requiredErrorText"><%= Resource.ErrorNotCorrectDate %></span>
                 </td>
             </tr>
+            <%} %>
             <%--Birth Date--%>
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= Resource.Birthdate %>:</td>
@@ -208,6 +214,7 @@
         </table>
     </div>
     <%--Comment--%>
+     <% if(!isPersonal){ %>
     <div id="commentTab" class="tabs-section">
         <span class="header-base"><%= Resource.Comments %></span>
         <span id="switcherCommentButton" class="toggle-button" data-switcher="0"
@@ -218,6 +225,7 @@
     <div id="commentContainer" class="tabs-content">
         <textarea id="profileComment" class="textEdit" rows="4"><%= GetComment() %></textarea>
     </div>
+    <%} %>
     <%--Contacts--%>
     <div id="contactInfoTab" class="tabs-section">
         <span class="header-base"><%= Resource.ContactInformation %></span>

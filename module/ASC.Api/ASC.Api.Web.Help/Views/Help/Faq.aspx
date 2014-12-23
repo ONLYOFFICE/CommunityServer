@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Frequently Asked Questions</h2>
-    <h3>What is the date/time format used in the response to the requests?</h3>
+    <div class="header-gray">What is the date/time format used in the response to the requests?</div>
     <p>
         The response to the requests use the Roundtrip format: 2008-04-10T06:30:00.0000000-07:00.
         <br />Where '-07:00' is UTC offset which is set on the portal.
@@ -15,14 +15,14 @@
         2008-04-10T06:30:00.0000000Z.
 		  <br />As for the request, only date can be send in it: 2008-04-10
     </p>
-    <h3>How to get json or xml format?</h3>
+    <div class="header-gray">How to get json or xml format?</div>
     <p>
         You can get json or xml format adding '.json' or '.xml' to the request or pointing the request content-type in application/json or text/xml.
         <br />E.g.:
-        <a href="<%=Url.DocUrl("people", "get", "api/2.0/people")%>">api/2.0/people.json</a> 
+        <a class="underline" href="<%=Url.DocUrl("people", null, "get", "api/2.0/people", "portals")%>">api/2.0/people.json</a> 
     </p>
-    <h3>Is the response data pagination supported?</h3>
+    <div class="header-gray">Is the response data pagination supported?</div>
     <p>
-        Yes. see the <%=Html.ActionLink("Request Filtering", "Filters", "Help")%> section.
+        Yes. see the <%=Html.ActionLink("Request Filtering", "filters", "help", new {@class = "underline"})%> section.
     </p>
 </asp:Content>

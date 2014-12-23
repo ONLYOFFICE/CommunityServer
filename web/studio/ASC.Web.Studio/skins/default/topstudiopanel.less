@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 /*******************************************************************************
@@ -85,7 +85,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
     .studio-action-panel {
         .dropdown-item {
             display: block;
-            line-height: 28px;
+            line-height: 32px;
         }
     }
     /*******************************************************************************
@@ -220,6 +220,22 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                 background-position: -224px -32px;
             }
         }
+
+        &.voip .inner-text {
+            background-position: -256px 0;
+
+            &:hover {
+                background-position: -256px -32px;
+            }
+        }
+
+        &.signin {
+            margin: 8px 0 0 20px;
+
+            a {
+                color: inherit;
+            }
+        }
     }
 }
 /*******************************************************************************
@@ -311,6 +327,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 *******************************************************************************/
 #studio_searchPopupPanel {
     width: 290px;
+    padding: 8px 12px;
 
     .header-base.small {
         margin-bottom: 10px;
@@ -433,19 +450,20 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 /*******************************************************************************
    FeedReader
 *******************************************************************************/
-#drop-feeds-box {
+.drop-list-box {
     color: @textColor;
     line-height: 16px;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
-#studio_dropFeedsPopupPanel {
-    #drop-feeds-box {
+.studio-action-panel {
+    .drop-list-box {
+        padding: 0 12px;
         width: 405px;
         max-width: 405px;
         text-align: center;
-            
+
         .list {
             max-height: 350px;
             overflow-y: auto;
@@ -480,7 +498,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                     color: #333;
                     font-weight: bold;
                 }
-                
+
                 .title {
                     .limitedSingleText(330px);
                     color: #333;
@@ -490,14 +508,16 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                 }
             }
 
-            .description {               
+            .description {
                 .menu-item-icon {
                     margin-top: 0px;
                     margin-right: 2px;
                 }
+
                 .product {
                     font-weight: bold;
                 }
+
                 .location, .action {
                     color: @textColorGrayDark;
                 }
@@ -508,31 +528,30 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
 
                 .date {
                     .text-overflow();
-                    margin-top: 2px;                    
+                    margin-top: 2px;
 
                     span {
                         color: @textColorGrayDark;
                         display: inline-block;
                         margin-bottom: 5px;
                         margin-right: 3px;
-                        -ms-text-overflow: ellipsis;
-                        -o-text-overflow: ellipsis;
-                        text-overflow: ellipsis;
+                        .text-overflow();
                     }
                 }
             }
         }
 
-        .feeds-readed-msg {
+        .feeds-readed-msg,
+        .mail-readed-msg {
             display: none;
             margin-top: 5px;
-            text-align:left;
+            text-align: left;
         }
 
         .see-all-btn {
             color: @textColorGrayDark;
             display: none;
-            float:left;
+            float: left;
             font-size: 12px;
             font-weight: bold;
             margin-top: 13px;
@@ -543,18 +562,54 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
                 text-decoration: underline;
             }
         }
+
+        .mark-all-btn {
+            color: @textColorGrayDark;
+            cursor: pointer;
+            display: none;
+            float: right;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 13px;
+            margin-bottom: 7px;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &.mail {
+            .list {
+                display: none;
+            }
+
+            .content-box {
+                margin-left: 0;
+
+                .description {
+                    background: url("@{imagesBaseUrl}mail.png") -2px center no-repeat transparent;
+                    max-width: 380px;
+                    padding-left: 16px;
+                    .text-overflow();
+                }
+
+                .header .title {
+                    font-weight: bold;
+                    max-width: 380px;
+                }
+            }
+        }
     }
 }
 /*******************************************************************************
    For Retina
 *******************************************************************************/
 @media (-webkit-min-device-pixel-ratio: 2) {
-    .studio-top-panel  .top-item-box .inner-text {  background-image: url("@{img-change-url}top-studio-menu_retina.png"); background-size: 258px 64px;}
+    .studio-top-panel  .top-item-box .inner-text {  background-image: url("@{img-change-url}top-studio-menu_retina.png"); background-size: 290px 64px;}
     .product-menu .active-icon { background-image: url("@{img-change-url}dropdown-menu-icons_retina.png"); background-size: 16px 624px; }
-    .studio-action-panel.modules .dropdown-content li {  background-image: url("@{img-change-url}dropdown-menu-icons_retina.png"); background-size: 16px 624px; }
+    .studio-action-panel.modules li .dropdown-item {  background-image: url("@{img-change-url}dropdown-menu-icons_retina.png"); background-size: 16px 624px; }
 }
-
-
 /*******************************************************************************
    About Compamy Popup
 *******************************************************************************/
@@ -584,7 +639,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         content: "";
         height: 2px;        
         margin-top: 9px;
-        width: 40%;
+        width: 36%;
         float: left;
     }
 
@@ -593,7 +648,7 @@ International. See the License terms at http://creativecommons.org/licenses/by-s
         content: "";
         height: 2px;       
         margin-top: 9px;
-        width: 40%;
+        width: 36%;
         float: right;
     }
 }

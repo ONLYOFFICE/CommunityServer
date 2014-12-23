@@ -10,7 +10,7 @@
 
 <% if (ShowLink)
    { %>
-&nbsp;&nbsp;&nbsp;<a class="link gray underline" href="<%= CommonLinkUtility.GetAdministration(ManagementType.General) %>#sms-auth"><%= Resource.SmsAuthTurnOn %></a>
+&nbsp;&nbsp;&nbsp;<a class="link gray underline" href="<%= CommonLinkUtility.GetAdministration(ManagementType.PortalSecurity) %>#sms-auth"><%= Resource.SmsAuthTurnOn %></a>
 <% }
    else
    { %>
@@ -30,14 +30,14 @@
     <sc:Container ID="SmsBuyContainer" runat="server">
         <Header><%= Resource.SmsBuyHeader %></Header>
         <Body>
-            <asp:Repeater ID="SmsQuotas" runat="server" ItemType="ASC.Core.Tenants.TenantQuota">
+            <asp:Repeater ID="SmsQuotas" runat="server">
                 <ItemTemplate>
                     <label class="text">
                         <input type="radio" name="smsPackageOption" <%# Container.ItemIndex == 0 ? "checked" : "" %>
-                            data-quota-link="<%# CoreContext.PaymentManager.GetShoppingUri(TenantProvider.CurrentTenantID, Item.Id) %>" />
+                            data-quota-link="<%# CoreContext.PaymentManager.GetShoppingUri(TenantProvider.CurrentTenantID, ((ASC.Core.Tenants.TenantQuota)Container.DataItem).Id) %>" />
                         <%# string.Format(Resource.SmsPackage,
-                                "<span class=\"header-base medium bold\">" + Item.ActiveUsers + "</span>",
-                                "<span class=\"header-base medium\">" + (int) Item.Price + CurrencySymbol + "</span>") %>
+                                "<span class=\"header-base medium bold\">" + ((ASC.Core.Tenants.TenantQuota)Container.DataItem).ActiveUsers + "</span>",
+                                "<span class=\"header-base medium\">" + (int) ((ASC.Core.Tenants.TenantQuota)Container.DataItem).Price + CurrencySymbol + "</span>") %>
                     </label>
                 </ItemTemplate>
                 <SeparatorTemplate>

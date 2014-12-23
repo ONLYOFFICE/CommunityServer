@@ -18,12 +18,13 @@
         }
     </style>
     <div class="clearFix profile-title header-with-menu">
-        <span class="header text-overflow" title="<%= UserName %>"><%= UserName %></span>
+         <span class="header text-overflow" title="<%= UserName %>"><%= UserName %></span>
         <asp:PlaceHolder ID="actionsHolder" runat="server" />
     </div>
     <div class="profile-container">
         <asp:PlaceHolder runat="server" ID="_contentHolderForProfile"></asp:PlaceHolder>
-
+        <% if (!isPersonal)
+           { %>
         <div id="subscriptionBlockContainer" class="user-block">
             <div class="tabs-section">
                 <span class="header-base"><%= Resource.Subscriptions%></span>
@@ -36,6 +37,8 @@
                 <asp:PlaceHolder ID="_phSubscriptionView" runat="server" />
             </div>
         </div>
+        <asp:PlaceHolder ID="_phTipsSettingsView" runat="server" />
+        <%} %>
     </div>
     <%}
       else

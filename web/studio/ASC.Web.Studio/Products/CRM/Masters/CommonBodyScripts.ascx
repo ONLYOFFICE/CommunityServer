@@ -18,4 +18,3 @@
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("invoices.js") %>"></script>
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("socialmedia.js") %>"></script>
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("sender.js") %>"></script>
-<script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("XSS-core.js") %>"></script>

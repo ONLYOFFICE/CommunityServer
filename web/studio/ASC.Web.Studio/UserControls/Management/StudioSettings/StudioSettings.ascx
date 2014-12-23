@@ -2,9 +2,6 @@
 <%@ Import Namespace="Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
-<%--transfer portal--%>
-<asp:PlaceHolder ID="_transferPortalSettings" runat="server"></asp:PlaceHolder>
-
 <%--timezone & language--%>
 <div class="clearFix">
     <div id="studio_lngTimeSettings" class="settings-block">
@@ -15,12 +12,15 @@
     </div>
     <div class="settings-help-block">
         <p><%= String.Format(Resource.HelpAnswerLngTimeSettings, "<br />", "<b>", "</b>") %></p>
+        <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+           { %>
         <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+        <% } %>
     </div>
 </div>
 
-<%-- Promo code --%>
-<asp:PlaceHolder ID="promoCodeSettings" runat="server" />
+<%--greeting settings--%>
+<asp:PlaceHolder ID="_greetingSettings" runat="server"></asp:PlaceHolder>
 
 <%--DNS settings--%>
 <div class="clearFix <%= EnableDomain ? "" : "disable" %>">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
                 <div class="middle-button-container">
-                    <a id="studio_dnsNameBtn" class="button blue" onclick="<%= EnableDomain ? "StudioSettings.SaveDnsSettings(this);" : "" %>" href="javascript:void(0);">
+                    <a id="studio_dnsNameBtn" class="button blue" onclick="<%= EnableDomain ? "StudioSettings.SaveDnsSettings(this);" : "" %>">
                         <%= Resource.SaveButton %></a>
                 </div>
 
@@ -65,7 +65,10 @@
            else
            { %>
         <p><%= String.Format(Resource.HelpAnswerDNSSettings, "<br />", "<b>", "</b>") %></p>
-        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+        <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+           { %>
+        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#CustomizingPortal_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+        <% } %>
         <% } %>
     </div>
 </div>
@@ -73,24 +76,5 @@
 <%--version settings--%>
 <asp:PlaceHolder ID="_portalVersionSettings" runat="server"></asp:PlaceHolder>
 
-<%--trusted mail domain--%>
-<asp:PlaceHolder ID="_mailDomainSettings" runat="server"></asp:PlaceHolder>
-
-<%--strong security password--%>
-<asp:PlaceHolder ID="_strongPasswordSettings" runat="server"></asp:PlaceHolder>
-
-<%--invitational link--%>
-<asp:PlaceHolder ID="invLink" runat="server"></asp:PlaceHolder>
-
-<%--sms settings--%>
-<asp:PlaceHolder ID="_smsValidationSettings" runat="server"></asp:PlaceHolder>
-
-<%--admin message settings--%>
-<asp:PlaceHolder ID="_admMessSettings" runat="server"></asp:PlaceHolder>
-
-<%--default page settings--%>
-<asp:PlaceHolder ID="_defaultPageSeettings" runat="server"></asp:PlaceHolder>
-
-<%--upload https settings--%>
-<asp:PlaceHolder ID="_uploadHttpsSeettings" runat="server"></asp:PlaceHolder>
-
+<%-- Promo code --%>
+<asp:PlaceHolder ID="promoCodeSettings" runat="server" />

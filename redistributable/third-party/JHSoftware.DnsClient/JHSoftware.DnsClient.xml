@@ -1,0 +1,404 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+JHSoftware.DnsClient
+</name>
+</assembly>
+<members>
+<member name="M:DNSCharStr.TryParseMFString(System.String,DNSCharStr@)">
+	<summary>**** Not thread safe ****</summary>
+</member><member name="M:DomName.TryParseMFString(System.String,DomName,DomName@)">
+	<summary>**** Not thread safe ****</summary>
+</member><member name="P:JHSoftware.DnsClient.LibraryHomePage">
+	<summary>URL for the home page of this library in case it is found somewhere without its supporting documentation.</summary>
+	<value>http://www.simpledns.com/dns-client-lib.aspx</value>
+</member><member name="M:JHSoftware.DnsClient.LookupHost(System.String)">
+	<summary>Lookup the IP address(es) for a host.</summary>
+	<param name="hostName">The host name to look up. <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">IDN</a>s may be either in native or encoded form (xn--...).</param>
+	<returns>The host's IPv4 address(es).</returns>
+	<remarks>
+		<para>This overload queries the DNS servers found in the local computer's IP configuration 
+ using default DNS request options (see remarks in properties of the <see cref="T:JHSoftware.DnsClient.RequestOptions"/> object).</para>
+	</remarks>
+	<exception cref="T:System.ArgumentException">Invalid host name.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+</member><member name="M:JHSoftware.DnsClient.LookupHost(System.String,JHSoftware.DnsClient.IPVersion)">
+	<summary>Lookup the IP address(es) for a host.</summary>
+	<param name="hostName">The host name to look up. <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">IDN</a>s may be either in native or encoded form (xn--...).</param>
+	<param name="ipVersion">The IP version (IPv4 / IPv6) of the IP addresses to return.</param>
+	<returns>The host's IP address(es).</returns>
+	<remarks>
+		<para>This overload queries the DNS servers found in the local computer's IP configuration 
+ using default DNS request options (see remarks in properties of the <see cref="T:JHSoftware.DnsClient.RequestOptions"/> object).</para>
+	</remarks>
+	<exception cref="T:System.ArgumentException">Invalid host name or IP version.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookupHost(System.String,JHSoftware.DnsClient.IPVersion,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="M:JHSoftware.DnsClient.LookupHost(System.String,JHSoftware.DnsClient.IPVersion,JHSoftware.DnsClient.RequestOptions)">
+	<summary>Lookup the IP address(es) for a host.</summary>
+	<param name="hostName">The host name to look up. <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">IDN</a>s may be either in native or encoded form (xn--...).</param>
+	<param name="ipVersion">The IP version (IPv4 / IPv6) of the IP addresses to return.</param>
+	<param name="options">The <see cref="T:JHSoftware.DnsClient.RequestOptions">options</see> to use with the DNS request.</param>
+	<returns>The host's IP address(es)</returns>
+	<exception cref="T:System.ArgumentException">Invalid host name or IP version.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookupHost(System.String,JHSoftware.DnsClient.IPVersion,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="M:JHSoftware.DnsClient.BeginLookupHost(System.String,JHSoftware.DnsClient.IPVersion,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)">
+	<summary>Begins to asynchronously lookup the IP address(es) for a host.</summary>
+	<param name="hostName">The host name to look up. <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">IDN</a>s may be either in native or encoded form (xn--...).</param>
+	<param name="ipVersion">The IP version (IPv4 / IPv6) of the IP addresses to return.</param>
+	<param name="options">The <see cref="T:JHSoftware.DnsClient.RequestOptions">options</see> to use with the DNS request. Specify null/Nothing for default options.</param>
+	<param name="callback">The AsyncCallback delegate.</param>
+	<param name="state">An object that contains state information for this request.</param>
+	<returns>An <see cref="T:System.IAsyncResult"/> that references the asynchronous operation.</returns>
+	<exception cref="T:System.ArgumentException">Invalid host name or IP version.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<seealso cref="M:JHSoftware.DnsClient.EndLookupHost(System.IAsyncResult)"/>
+</member><member name="M:JHSoftware.DnsClient.EndLookupHost(System.IAsyncResult)">
+	<summary>Ends a pending asynchronous lookup of the IP address(es) for a host</summary>
+	<param name="asyncResult">An IAsyncResult that stores state information and any user defined data for this asynchronous operation.</param>
+	<returns>The host's IP address(es)</returns>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookupHost(System.String,JHSoftware.DnsClient.IPVersion,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="M:JHSoftware.DnsClient.LookupReverse(System.Net.IPAddress)">
+	<summary>Lookup the host name(s) for an IP address.</summary>
+	<param name="ipAddress">The IP address to look up reverse DNS for.</param>
+	<returns>Host name / aliases</returns>
+	<remarks>
+		<para>This overload queries the DNS servers found in the local computer's IP configuration 
+ using default DNS request options (see remarks in properties of the <see cref="T:JHSoftware.DnsClient.RequestOptions"/> object).</para>
+	</remarks>
+	<exception cref="T:System.ArgumentNullException">ipAddress is null/nothing.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookupReverse(System.Net.IPAddress,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="M:JHSoftware.DnsClient.LookupReverse(System.Net.IPAddress,JHSoftware.DnsClient.RequestOptions)">
+	<summary>Lookup the host name(s) for an IP address.</summary>
+	<param name="ipAddress">The IP address to look up reverse DNS for.</param>
+	<param name="options">The <see cref="T:JHSoftware.DnsClient.RequestOptions">options</see> to use with the DNS request.</param>
+	<returns>Host name / aliases</returns>
+	<exception cref="T:System.ArgumentNullException">ipAddress is null/nothing.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookupReverse(System.Net.IPAddress,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="M:JHSoftware.DnsClient.BeginLookupReverse(System.Net.IPAddress,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)">
+	<summary>Begins to asynchronously lookup the host name(s) for an IP address.</summary>
+	<param name="ipAddress">The IP address to look up reverse DNS for.</param>
+	<param name="options">The <see cref="T:JHSoftware.DnsClient.RequestOptions">options</see> to use with the DNS request. Specify null/Nothing for default options.</param>
+	<param name="callback">The AsyncCallback delegate.</param>
+	<param name="state">An object that contains state information for this request.</param>
+	<returns>An <see cref="T:System.IAsyncResult"/> that references the asynchronous operation.</returns>
+	<exception cref="T:System.ArgumentNullException">ipAddress is null/nothing.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<seealso cref="M:JHSoftware.DnsClient.EndLookupReverse(System.IAsyncResult)"/>
+</member><member name="M:JHSoftware.DnsClient.EndLookupReverse(System.IAsyncResult)">
+	<summary>Ends a pending asynchronous lookup of the host name(s) for an IP address.</summary>
+	<param name="asyncResult">An IAsyncResult that stores state information and any user defined data for this asynchronous operation.</param>
+	<returns>Host name / aliases</returns>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookupReverse(System.Net.IPAddress,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="M:JHSoftware.DnsClient.LookupMX(System.String)">
+	<summary>Lookup the mail exchanger (SMTP server) host names and preference for a domain name.</summary>
+	<param name="domainName">The domain name to look up. <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">IDN</a>s may be either in native or encoded form (xn--...).</param>
+	<returns>Mail Exchanger host names and preference - sorted by preference.</returns>
+	<remarks>
+		<para>This overload queries the DNS servers found in the local computer's IP configuration 
+ using default DNS request options (see remarks in properties of the <see cref="T:JHSoftware.DnsClient.RequestOptions"/> object).</para>
+	</remarks>
+	<exception cref="T:System.ArgumentException">Invalid domain name.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookupMX(System.String,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="M:JHSoftware.DnsClient.LookupMX(System.String,JHSoftware.DnsClient.RequestOptions)">
+	<summary>Lookup the mail exchanger (SMTP server) host names and preference for a domain name.</summary>
+	<param name="domainName">The domain name to look up. <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">IDN</a>s may be either in native or encoded form (xn--...).</param>
+	<param name="options">The <see cref="T:JHSoftware.DnsClient.RequestOptions">options</see> to use with the DNS request.</param>
+	<returns>Mail Exchanger host names and preference - sorted by preference.</returns>
+	<exception cref="T:System.ArgumentException">Invalid domain name.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookupMX(System.String,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="M:JHSoftware.DnsClient.BeginLookupMX(System.String,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)">
+	<summary>Begins to asynchronously lookup the mail exchanger (SMTP server) host names and preference for a domain name.</summary>
+	<param name="domainName">The domain name to look up. <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">IDN</a>s may be either in native or encoded form (xn--...).</param>
+	<param name="options">The <see cref="T:JHSoftware.DnsClient.RequestOptions">options</see> to use with the DNS request. Specify null/Nothing for default options.</param>
+	<param name="callback">The AsyncCallback delegate.</param>
+	<param name="state">An object that contains state information for this request.</param>
+	<returns>An <see cref="T:System.IAsyncResult"/> that references the asynchronous operation.</returns>
+	<exception cref="T:System.ArgumentException">Invalid domain name.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<seealso cref="M:JHSoftware.DnsClient.EndLookupMX(System.IAsyncResult)"/>
+</member><member name="M:JHSoftware.DnsClient.EndLookupMX(System.IAsyncResult)">
+	<summary>Ends a pending asynchronous lookup of the mail exchanger (SMTP server) host names and preference for a domain name.</summary>
+	<param name="asyncResult">An IAsyncResult that stores state information and any user defined data for this asynchronous operation.</param>
+	<returns>Mail Exchanger host names and preference - sorted by preference.</returns>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookupMX(System.String,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="P:JHSoftware.DnsClient.MXHost.HostName">
+	<summary>Host name of a mail exchanger (SMTP server)</summary>
+</member><member name="P:JHSoftware.DnsClient.MXHost.Preference">
+	<summary>Preference value of a mail exchanger (SMTP server) in relation to other MXHost items</summary>
+</member><member name="P:JHSoftware.DnsClient.MXHost.IPAddresses">
+	<summary>IP address(es) of mail exchanger (SMTP server) if provided by DNS server, otherwise null/Nothing.</summary>
+	<remarks>Note that the DNS server may or may not provide these IP addresses.
+ This is optional for the DNS server to do and typically depends on the data being available/cached at the time of the request.
+ If the DNS server did not provide any IP addresses (the value of this property is null/Nothing), 
+ you can use the <see cref="M:JHSoftware.DnsClient.LookupHost(System.String)"/> function on the <see cref="P:JHSoftware.DnsClient.MXHost.HostName"/> value to obtain the IP address(es).</remarks>
+</member><member name="T:JHSoftware.DnsClient.MXHost">
+	<summary>Represents a mail exhcanger's (SMTP server) host name, preference (in relation to other MXHosts), and IP addresses (if provided by DNS server).</summary>
+</member><member name="M:JHSoftware.DnsClient.Lookup(System.String,JHSoftware.DnsClient.RecordType)">
+	<summary>Lookup a domain name and DNS record type.</summary>
+	<param name="domainName">The domain name to look up. <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">IDN</a>s may be either in native or encoded form (xn--...).</param>
+	<param name="queryType">The record type to look up.</param>
+	<returns>A <see cref="T:JHSoftware.DnsClient.Response">Response</see> object containing DNS response records and properties.</returns>
+	<remarks>
+		<para>This overload queries the DNS servers found in the local computer's IP configuration 
+ using default DNS request options (see remarks in properties of the <see cref="T:JHSoftware.DnsClient.RequestOptions"/> object).</para>
+	</remarks>
+	<exception cref="T:System.ArgumentException">Invalid domain name or query type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookup(System.String,JHSoftware.DnsClient.RecordType,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="M:JHSoftware.DnsClient.Lookup(System.String,JHSoftware.DnsClient.RecordType,JHSoftware.DnsClient.RequestOptions)">
+	<summary>Lookup a domain name and DNS record type.</summary>
+	<param name="domainName">The domain name to look up. <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">IDN</a>s may be either in native or encoded form (xn--...).</param>
+	<param name="queryType">The record type to look up.</param>
+	<param name="options">The <see cref="T:JHSoftware.DnsClient.RequestOptions">options</see> to use with the DNS request.</param>
+	<returns>A <see cref="T:JHSoftware.DnsClient.Response">Response</see> object containing DNS response records and properties.</returns>
+	<exception cref="T:System.ArgumentException">Invalid domain name or query type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookup(System.String,JHSoftware.DnsClient.RecordType,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="M:JHSoftware.DnsClient.BeginLookup(System.String,JHSoftware.DnsClient.RecordType,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)">
+	<summary>Begins to asynchronously lookup for a domain name and DNS record type.</summary>
+	<param name="domainName">The domain name to look up. <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">IDN</a>s may be either in native or encoded form (xn--...).</param>
+	<param name="queryType">The record type to look up.</param>
+	<param name="options">The <see cref="T:JHSoftware.DnsClient.RequestOptions">options</see> to use with the DNS request. Specify null/Nothing for default options.</param>
+	<param name="callback">The AsyncCallback delegate.</param>
+	<param name="state">An object that contains state information for this request.</param>
+	<returns>An <see cref="T:System.IAsyncResult"/> that references the asynchronous operation.</returns>
+	<exception cref="T:System.ArgumentException">Invalid domain name or query type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDnsServersException">No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration</exception>
+	<seealso cref="M:JHSoftware.DnsClient.EndLookup(System.IAsyncResult)"/>
+</member><member name="M:JHSoftware.DnsClient.EndLookup(System.IAsyncResult)">
+	<summary>Ends a pending asynchronous lookup for a domain name and DNS record type.</summary>
+	<param name="asyncResult">An IAsyncResult that stores state information and any user defined data for this asynchronous operation.</param>
+	<returns>A <see cref="T:JHSoftware.DnsClient.Response">Response</see> object containing DNS response records and properties.</returns>
+	<exception cref="T:JHSoftware.DnsClient.NXDomainException">The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDataException">The requested domain name exists but has no records of the requested type.</exception>
+	<exception cref="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">None of the DNS servers returned a definitive answer.</exception>
+	<seealso cref="M:JHSoftware.DnsClient.BeginLookup(System.String,JHSoftware.DnsClient.RecordType,JHSoftware.DnsClient.RequestOptions,System.AsyncCallback,System.Object)"/>
+</member><member name="P:JHSoftware.DnsClient.RequestOptions.DnsServers">
+	<summary>IP addresses of the DNS servers to query.</summary>
+	<remarks>
+		<para>Default value: <c>null/Nothing</c></para>
+		<para>The DNS servers specified will be queried in the order listed.</para>
+		<para>When this is null/Nothing (default), the DNS servers from the local computer's IP configuration will be used.</para>
+	</remarks>
+</member><member name="P:JHSoftware.DnsClient.RequestOptions.ToPort">
+	<summary>The UDP/TCP port number to send request(s) to.</summary>
+	<remarks>Default value: <c>53</c></remarks>
+</member><member name="P:JHSoftware.DnsClient.RequestOptions.RequestRecursion">
+	<summary>Request that the DNS server performs recursion.</summary>
+	<remarks><para>Default value: <c>true</c></para>
+		<para>Sets (true) or clears (false) the "RD" (Recursion Desired) flag in the request sent to DNS servers.</para>
+	</remarks>
+</member><member name="P:JHSoftware.DnsClient.RequestOptions.UseEdns0">
+	<summary>Include EDNS0 option in request.</summary>
+	<remarks><para>Default value: <c>true</c></para>
+		<para>Primarily used to enable reponse packets larger than 512 bytes over UDP for efficiency.</para>
+	</remarks>
+	<seealso cref="P:JHSoftware.DnsClient.RequestOptions.Edns0Payload"/>
+</member><member name="P:JHSoftware.DnsClient.RequestOptions.Edns0Payload">
+	<summary>Informs the DNS server about the maximum response size (in bytes) that can be accepted over UDP.</summary>
+	<remarks><para>Default value: <c>1280</c></para>
+		<para>Only used when <see cref="P:JHSoftware.DnsClient.RequestOptions.UseEdns0"/> is <c>true</c>.</para>
+		<para>Must be in the range 512 to 65535.</para>
+	</remarks>
+</member><member name="P:JHSoftware.DnsClient.RequestOptions.RetryCount">
+	<summary>The number of times each DNS request should be resent if the DNS server does not respond with the <see cref="P:JHSoftware.DnsClient.RequestOptions.TimeOut"/> period.</summary>
+	<remarks>Default value: <c>1</c></remarks>
+	<seealso cref="P:JHSoftware.DnsClient.RequestOptions.TimeOut"/>
+</member><member name="P:JHSoftware.DnsClient.RequestOptions.TimeOut">
+	<summary>The time to wait for a response from a server before resending request or timing out.</summary>
+	<remarks>Default value: 2 seconds</remarks>
+	<seealso cref="P:JHSoftware.DnsClient.RequestOptions.RetryCount"/>
+</member><member name="P:JHSoftware.DnsClient.RequestOptions.Use0x20">
+	<summary>Use "DNS0x20" to protect against DNS spoofing.</summary>
+	<remarks><para>Default value: <c>false</c></para>
+		<para>When enabled, the letter casing in the domain name requested from the DNS server will be randomized and matched to response.
+ This improves transaction identity and thereby makes DNS spoofing harder - for details 
+ see <a href="http://tools.ietf.org/html/draft-vixie-dnsext-dns0x20-00" target="_blank">http://tools.ietf.org/html/draft-vixie-dnsext-dns0x20-00</a></para>
+		<note><para>This option is not enabled by default because it does not work with all older DNS servers.</para></note>
+	</remarks>
+</member><member name="T:JHSoftware.DnsClient.RequestOptions">
+	<summary>Represents various options for a DNS request.</summary>
+</member><member name="P:JHSoftware.DnsClient.Response.FromServer">
+	<summary>The IP address of the DNS server from which this <see cref="T:JHSoftware.DnsClient.Response"/> was received.</summary>
+</member><member name="P:JHSoftware.DnsClient.Response.RecursionAvailable">
+	<summary>Response "RA" flag.</summary>
+	<remarks>Indicates if server is willing to perform recursion.</remarks>
+</member><member name="P:JHSoftware.DnsClient.Response.AuthoritativeAnswer">
+	<summary>Response "AA" flag.</summary>
+	<remarks>If true, this server (<see cref="P:JHSoftware.DnsClient.Response.FromServer"/>) is hosting the DNS zone that the requested domain name belongs to.<br/>
+ If false, the response was obtained (through recursion) from another DNS server.</remarks>
+</member><member name="P:JHSoftware.DnsClient.Response.AnswerRecords">
+	<summary>DNS records in the Answer section of the response.</summary>
+	<remarks>A DNS response contains 3 sections, each containing a number of DNS records:<br/>
+ 1) The <see cref="P:JHSoftware.DnsClient.Response.AnswerRecords">Answer</see> section contains records corresponding to the requested domain name and type.<br/>
+ 2) The <see cref="P:JHSoftware.DnsClient.Response.AuthorityRecords">Authority</see> section may contain a SOA-record indicating which DNS zone the requested domain name belongs to,
+ and/or NS-records indicating the DNS servers responsible for the requested domain name.<br/>
+ 3) The <see cref="P:JHSoftware.DnsClient.Response.AdditionalRecords">Additional</see> section contains any records which the DNS server thought might help the client - for example host (A) records matching the host names pointed to by MX-records in the Answer section.
+ </remarks>
+</member><member name="P:JHSoftware.DnsClient.Response.AuthorityRecords">
+	<summary>DNS records in the Authority section of the response.</summary>
+	<remarks>A DNS response contains 3 sections, each containing a number of DNS records:<br/>
+ 1) The <see cref="P:JHSoftware.DnsClient.Response.AnswerRecords">Answer</see> section contains records corresponding to the requested domain name and type.<br/>
+ 2) The <see cref="P:JHSoftware.DnsClient.Response.AuthorityRecords">Authority</see> section may contain a SOA-record indicating which DNS zone the requested domain name belongs to,
+ and/or NS-records indicating the DNS servers responsible for the requested domain name.<br/>
+ 3) The <see cref="P:JHSoftware.DnsClient.Response.AdditionalRecords">Additional</see> section contains any records which the DNS server thought might help the client - for example host (A) records matching the host names pointed to by MX-records in the Answer section.
+ </remarks>
+</member><member name="P:JHSoftware.DnsClient.Response.AdditionalRecords">
+	<summary>DNS records in the Additional section of the response.</summary>
+	<remarks>A DNS response contains 3 sections, each containing a number of DNS records:<br/>
+ 1) The <see cref="P:JHSoftware.DnsClient.Response.AnswerRecords">Answer</see> section contains records corresponding to the requested domain name and type.<br/>
+ 2) The <see cref="P:JHSoftware.DnsClient.Response.AuthorityRecords">Authority</see> section may contain a SOA-record indicating which DNS zone the requested domain name belongs to,
+ and/or NS-records indicating the DNS servers responsible for the requested domain name.<br/>
+ 3) The <see cref="P:JHSoftware.DnsClient.Response.AdditionalRecords">Additional</see> section contains any records which the DNS server thought might help the client - for example host (A) records matching the host names pointed to by MX-records in the Answer section.
+ </remarks>
+</member><member name="P:JHSoftware.DnsClient.Response.HasEdns0">
+	<summary>Indicates if an EDNS0 option is included in the response.</summary>
+	<remarks>This is primarily used to indicate that the server accepts request packets larger than 512 bytes over UDP for efficiency.</remarks>
+	<seealso cref="P:JHSoftware.DnsClient.Response.Edns0PayLoad"/>
+</member><member name="P:JHSoftware.DnsClient.Response.Edns0PayLoad">
+	<summary>Indicates the maximum request size (in bytes) that the server can be accept over UDP.</summary>
+	<remarks>Only applicable when <see cref="P:JHSoftware.DnsClient.Response.HasEdns0"/> is <c>true</c>.</remarks>
+</member><member name="P:JHSoftware.DnsClient.Response.Record.Name">
+	<summary>The domain name of this DNS record.</summary>
+</member><member name="P:JHSoftware.DnsClient.Response.Record.Type">
+	<summary>The DNS record type</summary>
+</member><member name="P:JHSoftware.DnsClient.Response.Record.TTL">
+	<summary>The maximum time that this record may be cached (Time To Live).</summary>
+</member><member name="P:JHSoftware.DnsClient.Response.Record.Data">
+	<summary>The record data in master file format (RFC1035 section 5).</summary>
+</member><member name="T:JHSoftware.DnsClient.Response.Record">
+	<summary>Represents a DNS record received from a DNS server.</summary>
+</member><member name="T:JHSoftware.DnsClient.Response">
+	<summary>Represents a response received from a DNS server</summary>
+</member><member name="T:JHSoftware.DnsClient.RecordType">
+	<summary>Enumeration of DNS record types.</summary>
+	<remarks>See <a href="http://www.iana.org/assignments/dns-parameters" target="_blank">http://www.iana.org/assignments/dns-parameters</a></remarks>
+</member><member name="T:JHSoftware.DnsClient.IPVersion">
+	<summary>Enumeration of IP protocol versions</summary>
+</member><member name="T:JHSoftware.DnsClient.NoDnsServersException">
+	<summary>No DNS servers where specified, and no DNS servers could be found in this computer's IP configuration.</summary>
+</member><member name="P:JHSoftware.DnsClient.NoDefinitiveAnswerException.ServerProblems">
+	<summary>Problems encountered with individual DNS servers.</summary>
+	<remarks>Servers are in the same order as they were queried.</remarks>
+</member><member name="P:JHSoftware.DnsClient.NoDefinitiveAnswerException.ServerProblem.SocketException">
+	<summary>If <see cref="P:JHSoftware.DnsClient.NoDefinitiveAnswerException.ServerProblem.Problem"/> is <see cref="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.SocketException"/> this contains the Exception caused by a Socket method. Otherwise null/Nothing.</summary>
+</member><member name="P:JHSoftware.DnsClient.NoDefinitiveAnswerException.ServerProblem.Server">
+	<summary>IP address of the DNS server.</summary>
+</member><member name="P:JHSoftware.DnsClient.NoDefinitiveAnswerException.ServerProblem.Problem">
+	<summary>Type of problem ecountered.</summary>
+</member><member name="P:JHSoftware.DnsClient.NoDefinitiveAnswerException.ServerProblem.ProblemDescription">
+	<summary>Description of problem.</summary>
+</member><member name="T:JHSoftware.DnsClient.NoDefinitiveAnswerException.ServerProblem">
+	<summary>Represents a DNS server and how/why it failed to return a definitive answer.</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.RCode1FormErr">
+	<summary>Server returned RCode 1 - Format Error</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.RCode2ServFail">
+	<summary>Server returned RCode 2 - Server Failure</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.RCode4NotImp">
+	<summary>Server returned RCode 4 - Not Implemented</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.RCode5Refused">
+	<summary>Server returned RCode 5 - Refused</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.RCodeOther">
+	<summary>Server return an unsupported RCode</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.TimeOut">
+	<summary>Request timed out</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.ParseError">
+	<summary>Error parsing resonse from server</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.NoQNameInResponse">
+	<summary>No QName in response from server</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.QNameMisMatch">
+	<summary>QName in response from server does not match sent request</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.NoAnswer">
+	<summary>Response contained no answer</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.IPUnreachable">
+	<summary>Server IP address is not reachable (ICMP unreachable)</summary>
+</member><member name="F:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType.SocketException">
+	<summary>Socket method caused exception. See <see cref="P:JHSoftware.DnsClient.NoDefinitiveAnswerException.ServerProblem.SocketException"/> property for details</summary>
+</member><member name="T:JHSoftware.DnsClient.NoDefinitiveAnswerException.ProblemType">
+	<summary>Enumeration of reasons how/why a DNS server failed to return a definitive answer.</summary>
+</member><member name="T:JHSoftware.DnsClient.NoDefinitiveAnswerException">
+	<summary>None of the DNS servers returned a definitive answer. 
+ See the <see cref="P:JHSoftware.DnsClient.NoDefinitiveAnswerException.ServerProblems"/> property for individual DNS server problems.</summary>
+</member><member name="T:JHSoftware.DnsClient.NXDomainException">
+	<summary>The requested domain name does not exist (DNS server returned RCode 3 NXDomain).</summary>
+</member><member name="T:JHSoftware.DnsClient.NoDataException">
+	<summary>The requested domain name exists but has no records of the requested type.</summary>
+	<remarks>The DNS server returned a "No Data" response - no answer records and a matching SOA-record in the Authority section.</remarks>
+</member><member name="M:JHSoftware.DnsClient.IdnEncode(System.String)">
+	<summary>Punycodes a domain name.</summary>
+	<param name="domainName">The domain name (in native form) to be encoded.</param>
+	<returns>Encoded domain name.</returns>
+	<remarks>
+		<para>Labels (segment between dots in domain name) that contains non-english characters will by puny-encoded.
+ Resulting labels will begin with 'xn--' followed by encoded characters.</para>
+		<para>For more information about IDNs (Internationalized Domain Names) see <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">KB1032</a>.</para>
+	</remarks>
+</member><member name="M:JHSoftware.DnsClient.IdnDecode(System.String)">
+	<summary>De-punycodes a domain name.</summary>
+	<param name="domainName">The domain name (in encoded form) to be decoded.</param>
+	<returns>Decoded domain name (native characters).</returns>
+	<remarks>
+		<para>Encoded labels (segment between dots in domain name) starting with 'xn--' will be de-coded to the original non-english characters.</para>
+		<para>For more information about IDNs (Internationalized Domain Names) see <a href="http://www.simpledns.com/kb.aspx?kbid=1032" target="_blank">KB1032</a>.</para>
+	</remarks>
+</member><member name="T:JHSoftware.DnsClient">
+	<summary>Class containing static methods for various DNS client functions as well as supporting classes and enumerations.</summary>
+</member><member name="P:My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>

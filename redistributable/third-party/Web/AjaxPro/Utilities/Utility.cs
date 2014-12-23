@@ -668,7 +668,8 @@ namespace AjaxPro
             jsp.RenderClassBegin();
             jsp.RenderMethods(methods);
             jsp.RenderClassEnd();
-
+			
+            HttpRuntime.Cache.Remove(type.FullName);
             HttpRuntime.Cache.Insert(type.FullName, sb.ToString(), null, DateTime.UtcNow.AddDays(1), Cache.NoSlidingExpiration);
 
             return sb.ToString();

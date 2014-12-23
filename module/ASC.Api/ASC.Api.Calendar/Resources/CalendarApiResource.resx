@@ -169,6 +169,6 @@
     <value>Events shared with me</value>
   </data>
   <data name="WrongiCalFeedLink" xml:space="preserve">
-    <value>Wrong the iCal feed link</value>
+    <value>An invalid reference to iCal</value>
   </data>
 </root>

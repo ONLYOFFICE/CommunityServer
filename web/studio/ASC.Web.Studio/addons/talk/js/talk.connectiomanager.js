@@ -204,13 +204,17 @@ window.ASC.TMTalk.connectionManager = (function () {
               body.c("presence", {xmlns : Strophe.NS.CLIENT, type : "unavailable"});
           }
           var data = Strophe.serialize(body.tree());
-          if (window.opener) {
-              window.opener.ASC.Controls.JabberClient.terminate(data, connectionManager.service);
-          } else {
-              var xhr = getXHR();
-              xhr.onreadystatechange = function () {};
-              xhr.open("POST", connectionManager.service, true);
-              xhr.send(data);
+          try {
+              if (window.opener) {
+                  window.opener.ASC.Controls.JabberClient.terminate(data, connectionManager.service);
+              } else {
+                  var xhr = getXHR();
+                  xhr.onreadystatechange = function () {};
+                  xhr.open("POST", connectionManager.service, true);
+                  xhr.send(data);
+              }
+          } catch (e) {
+              console.error(e.message);
           }
       }
   };
@@ -771,9 +775,13 @@ window.ASC.TMTalk.connectionManager = (function () {
           .tree()
       );
     }
-    var opener = window.opener;
-    if (opener && opener.SmallChat) {
-        opener.SmallChat.openContacts();
+    try {
+        var opener = window.opener;
+        if (opener && opener.SmallChat) {
+            opener.SmallChat.openContacts();
+        }
+    } catch (e) {
+        console.error(e.message);
     }
     return true;
   };

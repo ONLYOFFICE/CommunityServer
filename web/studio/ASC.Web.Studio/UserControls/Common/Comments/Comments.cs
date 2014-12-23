@@ -1,41 +1,40 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ASC.Web.Core.Mobile;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Utility;
-using ASC.Web.Studio.Utility.HtmlUtility;
 using Resources;
 
 namespace ASC.Web.Studio.UserControls.Common.Comments
@@ -45,11 +44,8 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
     {
         public delegate string FCKBasePathRequestHandler();
 
-        public event FCKBasePathRequestHandler FCKBasePathRequest;
-
         public CommentsList()
         {
-            ProductId = Guid.Empty;
             var codeHighlighter = new CodeHighlighter();
             Controls.Add(codeHighlighter);
         }
@@ -115,13 +111,9 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
 
         public string RemoveAttachButton { get; set; }
 
-        public Guid ProductId { get; set; }
-
         public bool EnableAttachmets { get; set; }
 
         public string HandlerTypeName { get; set; }
-
-        public bool DisableCtrlEnter { get; set; }
 
         public string AdditionalSubmitText { get; set; }
 
@@ -149,91 +141,6 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
         {
             get { return _simple; }
             set { _simple = value; }
-        }
-
-        //FCKEditorsOprions
-        public string FCKBasePath
-        {
-            get
-            {
-                if (ViewState["FCKBasePath"] == null || ViewState["FCKBasePath"].ToString().Equals(string.Empty))
-                {
-                    if (FCKBasePathRequest != null)
-                    {
-                        var result = FCKBasePathRequest();
-                        if (!string.IsNullOrEmpty(result))
-                        {
-                            ViewState["FCKBasePath"] = result.TrimEnd('/') + "/";
-                            return result.TrimEnd('/') + "/";
-                        }
-                    }
-
-                    throw new HttpException("BasePath for FCKEditor is empty.");
-                }
-
-                return ViewState["FCKBasePath"].ToString();
-            }
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                    ViewState["FCKBasePath"] = value.TrimEnd('/') + "/";
-            }
-        }
-
-        public string FCKToolbar
-        {
-            get
-            {
-                if (ViewState["FCKToolbar"] == null || ViewState["FCKToolbar"].ToString().Equals(string.Empty))
-                {
-                    return "Mini";
-                }
-
-                return ViewState["FCKToolbar"].ToString();
-            }
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                    ViewState["FCKToolbar"] = value;
-            }
-        }
-
-        public int FCKHeight
-        {
-            get
-            {
-                var result = 0;
-                try
-                {
-                    result = Convert.ToInt32(ViewState["FCKHeight"]);
-                }
-                catch
-                {
-                }
-
-                return result > 0 ? result : 250;
-            }
-            set { ViewState["FCKHeight"] = value; }
-        }
-
-        public Unit FCKWidth
-        {
-            get
-            {
-                if (ViewState["FCKWidth"] == null || Unit.Parse(ViewState["FCKWidth"].ToString()).IsEmpty)
-                {
-                    return Unit.Parse("100%");
-                }
-
-                return Unit.Parse(ViewState["FCKWidth"].ToString());
-            }
-            set { ViewState["FCKWidth"] = value.ToString(); }
-        }
-
-        public string FCKEditorAreaCss
-        {
-            get { return ViewState["FCKEditorAreaCss"] == null ? string.Empty : ViewState["FCKEditorAreaCss"].ToString(); }
-            set { ViewState["FCKEditorAreaCss"] = value; }
         }
 
         public bool IsShowAddCommentBtn
@@ -393,8 +300,7 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
 
         private void RegisterClientScripts()
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/common/ckeditor/ckeditor.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/common/ckeditor/adapters/jquery.js"));
+            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/common/ckeditor/ckeditor-connector.js"));
             Page.RegisterBodyScripts(ResolveUrl("~/js/uploader/ajaxupload.js"));
             Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/comments/js/comments.js"));
 
@@ -409,18 +315,17 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
                     CommentsManagerObj.javaScriptPreviewCommentFunctionName = '{4}';
                     CommentsManagerObj.isSimple = {5};                    
                     CommentsManagerObj._jsObjName = '{6}';
-                    CommentsManagerObj.PID = '{7}';                    
-                    CommentsManagerObj.isDisableCtrlEnter = {8};
-                    CommentsManagerObj.inactiveMessage = '{9}';
-                    CommentsManagerObj.EnableAttachmets = {10};
-                    CommentsManagerObj.RemoveAttachButton = '{11}';
-                    CommentsManagerObj.FckUploadHandlerPath = '{12}';
-                    CommentsManagerObj.maxLevel = {13};
+                    CommentsManagerObj.PID = '{7}';
+                    CommentsManagerObj.inactiveMessage = '{8}';
+                    CommentsManagerObj.EnableAttachmets = {9};
+                    CommentsManagerObj.RemoveAttachButton = '{10}';
+                    CommentsManagerObj.CkUploadHandlerPath = '{11}';
+                    CommentsManagerObj.maxLevel = {12};
                     ",
                                              _javaScriptAddCommentFunctionName, _javaScriptLoadBBcodeCommentFunctionName,
                                              _javaScriptUpdateCommentFunctionName, _javaScriptCallBackAddComment,
                                              _javaScriptPreviewCommentFunctionName, _simple.ToString().ToLower(), JsObjName,
-                                             PID, DisableCtrlEnter.ToString().ToLower(), _inactiveMessage, EnableAttachmets.ToString().ToLower(),
+                                             PID, _inactiveMessage, EnableAttachmets.ToString().ToLower(),
                                              RemoveAttachButton, uploadPath, MaxDepthLevel);
 
             paramsScript += string.Format(@"
@@ -441,13 +346,12 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
 
             if (!Simple)
             {
-                paramsScript += string.Format(@"
-                        CommentsManagerObj.InitEditor('{1}', '{2}', '{3}', '{4}', '{5}');", "{", FCKBasePath, FCKToolbar, FCKHeight, FCKWidth, FCKEditorAreaCss, "}");
+                paramsScript += string.Format("CommentsManagerObj.InitEditor();");
             }
 
             Page.RegisterInlineScript(paramsScript);
 
-            if (Simple && !DisableCtrlEnter)
+            if (Simple)
             {
                 Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/comments/js/onReady.js"));
             }
@@ -457,17 +361,23 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
 
         #region Events
 
+        private Confirm confirm;
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            //_simple = MobileDetector.IsMobile;
 
             if (Visible)
             {
                 RegisterClientScripts();
                 _isClientScriptRegistered = true;
             }
+
+            confirm = (Confirm)Page.LoadControl(Confirm.Location);
+            confirm.Title = Resource.ConfirmRemoveCommentTitle;
+            confirm.SelectTitle = ConfirmRemoveCommentMessage;
+            confirm.SelectJSCallback = JavaScriptRemoveCommentFunctionName;
+            Controls.Add(confirm);
         }
 
         protected override void RenderContents(HtmlTextWriter writer)
@@ -485,6 +395,7 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
             {
                 sb.Append("<div id='commentsTitle' style=\"margin-left:5px;\" class=\"headerPanel\" >" + _commentsTitle + "</div>");
             }
+
             sb.Append("<a name=\"comments\"></a>");
 
             sb.Append("<div id=\"noComments\" style=\"" + (!isEmpty ? "display:none;" : "") + "\">" + UserControlsCommonResource.NoComments + "</div>");
@@ -503,8 +414,6 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
             sb.Append("<input type=\"hidden\" id=\"hdnAction\" value=\"\" />");
             sb.Append("<input type=\"hidden\" id=\"hdnCommentID\" value=\"\" />");
             sb.Append("<input type=\"hidden\" id=\"hdnObjectID\" value=\"" + _objectID + "\" />");
-            sb.AppendFormat("<input type='hidden' id='EmptyCommentErrorMessage' value='{0}' />", UserControlsCommonResource.EmptyCommentErrorMessage);
-            sb.AppendFormat("<input type='hidden' id='CancelNonEmptyCommentErrorMessage' value='{0}' />", UserControlsCommonResource.CancelNonEmptyCommentErrorMessage);
 
             sb.Append("<textarea id='commentEditor' name='commentEditor'></textarea>");
 
@@ -526,7 +435,7 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
                 sb.Append("<a href=\"javascript:void(0);\" id=\"comments_Uploader\" class=\"button\">" + AttachButton + "</a><span class=\"splitter-buttons\"></span>");
             }
 
-            sb.AppendFormat("<a href='javascript:void(0);' id='btnPreview' class='button' onclick='javascript:CommentsManagerObj.Preview_Click();return false;'>{0}</a><span class=\"splitter-buttons\"></span>", _previewButton);
+            sb.AppendFormat("<a href='javascript:void(0);' id='btnPreview' class='button disable' onclick='javascript:CommentsManagerObj.Preview_Click();return false;'>{0}</a><span class=\"splitter-buttons\"></span>", _previewButton);
             sb.AppendFormat("<a href='javascript:void(0);' id='btnCancel' class='button gray cancelFckEditorChangesButtonMarker' name='{1}' onclick='CommentsManagerObj.Cancel();' />{0}</a>", _cancelButton, "CommentsFckEditor_" + JsObjName);
 
             sb.Append("</div>");
@@ -543,6 +452,8 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
             sb.Append("</div>");
 
             writer.Write(sb.ToString());
+
+            confirm.RenderControl(writer);
         }
 
         #endregion
@@ -563,7 +474,6 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
             {
                 foreach (var comment in comments)
                 {
-                    comment.CommentBody = HtmlUtility.GetFull(comment.CommentBody, ProductId);
                     sb.Append(
                         CommentsHelper.GetOneCommentHtmlWithContainer(
                             this,

@@ -139,7 +139,7 @@
     <value>Chat rooms</value>
   </data>
   <data name="ExtendChatAltTitle" xml:space="preserve">
-    <value>Extend chat</value>
+    <value>Extend mini-chat</value>
   </data>
   <data name="GoTalk" xml:space="preserve">
     <value>Пожалуйста перейдите в Talk.</value>
@@ -196,7 +196,7 @@
     <value>Chat and multiple list </value>
   </data>
   <data name="ShowHideChatAltTitle" xml:space="preserve">
-    <value>Show/Hide chat</value>
+    <value>Show/Hide mini-chat</value>
   </data>
   <data name="ShowInvisibleWindows" xml:space="preserve">
     <value>Show invisible dialog windows</value>

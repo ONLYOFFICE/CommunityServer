@@ -33,8 +33,11 @@
         <p>
             <%= String.Format(Resource.HelpAnswerDefaultPageSettings, "<b>", "</b>") %>
         </p>
-        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank">
+      <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+           { %>
+        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ManagingPortalModules_block" %>" target="_blank">
             <%= Resource.LearnMore%>
         </a>
+       <% } %>
  </div>  
 </div>

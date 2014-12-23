@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru" dir="ltr">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <style>
+    html{height:100%; margin:0; padding:0;}
+    body{min-height:100%; margin:0; padding:0; font:normal 12px/16px Arial,Tahoma,sans-serif;}
+
+    iframe{border:0; margin:0; padding:0; width:60px; height:24px;}
+    span#label{display:inline-block; height:32px;}
+  </style>
+</head>
+
+<body>
+  <iframe id="provider" src="crossdomain/frame.html" frameborder="0"></iframe>
+  <br />
+  <br />
+  <span id="label"></span>
+  <br />
+  <br />
+  <a href="javascript:master.send()">send</a>
+  <script type="text/javascript">
+    window.master = {
+      init : function () {
+        if (window.addEventListener){
+          window.addEventListener('message', master.listener, false);
+        } else {
+          window.attachEvent('onmessage', master.listener);
+        }
+      },
+      listener : function (evt) {
+        var o = document.getElementById('label');
+        if (o) {
+          o.innerHTML = evt.data;
+        }
+      }
+    };
+    master.init();
+  </script>
+</body>
+</html>

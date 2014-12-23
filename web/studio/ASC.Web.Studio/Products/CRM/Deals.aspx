@@ -15,9 +15,9 @@
     <asp:PlaceHolder ID="_widgetContainer" runat="server"></asp:PlaceHolder>
 </asp:Content>
 <asp:Content ID="CommonContainer" ContentPlaceHolderID="BTPageContent" runat="server">
+    <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
     <asp:PlaceHolder ID="CommonContainerHolder" runat="server"></asp:PlaceHolder>
     <div id="files_hintStagesPanel" class="hintDescriptionPanel">
-        <div class="popup-corner"></div>
         <%=CRMDealResource.TooltipStages%>
         <a href="http://www.onlyoffice.com/help/tipstricks/opportunity-stages.aspx" target="_blank"><%=CRMCommonResource.ButtonLearnMore%></a>
     </div>

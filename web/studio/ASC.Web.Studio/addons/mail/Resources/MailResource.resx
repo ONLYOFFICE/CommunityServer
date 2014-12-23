@@ -689,9 +689,15 @@ All messages which were received before, will left in the CRM mailing history, b
     <value>Folder for Attachments</value>
   </data>
   <data name="SearchInToCcBccFieldsPlaceHolderLabel" xml:space="preserve">
-    <value>Find in CRM, Teamlab on inbox contacts</value>
+    <value>Find in Teamlab CRM, People or mail contacts</value>
   </data>
   <data name="FilesFolderUnlinkButton" xml:space="preserve">
     <value>Unlink folder</value>
+  </data>
+  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
+    <value>Open in new tab</value>
+  </data>
+  <data name="GroupNotificationText" xml:space="preserve">
+    <value>Mailgroup, edited in administration panel only</value>
   </data>
 </root>

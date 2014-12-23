@@ -1,35 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 window.ASC.Files.ServiceManager = (function () {
     var isInit = false;
     var servicePath;
@@ -57,7 +53,6 @@ window.ASC.Files.ServiceManager = (function () {
             ASC.Files.ServiceManager.events.GetFileHistory,
             ASC.Files.ServiceManager.events.GetNews,
             ASC.Files.ServiceManager.events.GetSiblingsImage,
-            ASC.Files.ServiceManager.events.GetImportData,
             ASC.Files.ServiceManager.events.GetThirdParty,
             ASC.Files.ServiceManager.events.GetHelpCenter
         ];
@@ -310,6 +305,10 @@ window.ASC.Files.ServiceManager = (function () {
             return;
         }
 
+        if (typeof params == "undefined") {
+            params = {};
+        }
+
         if (tryGetFromCache(eventType, params)) {
             return;
         }
@@ -320,7 +319,7 @@ window.ASC.Files.ServiceManager = (function () {
 
         var data = {},
             argsArray = [];
-        var contentType = (params.ajaxcontentType || "text/xml");
+        var contentType = (params.ajaxcontentType || "application/xml");
 
         if (typeof params !== "object") {
             params = {};
@@ -334,7 +333,11 @@ window.ASC.Files.ServiceManager = (function () {
                 }
                 break;
             case "post":
-                data = (contentType == "text/xml" ? ASC.Files.Common.jsonToXml(arguments[4]) : arguments[4]);
+                data = (contentType == "text/xml" || contentType == "application/xml"
+                    ? ASC.Files.Common.jsonToXml(arguments[4])
+                    : (contentType == "application/json"
+                        ? JSON.stringify(arguments[4])
+                        : arguments[4]));
 
                 for (i = 5, n = arguments.length; i < n; i++) {
                     argsArray.push(arguments[i]);
@@ -350,11 +353,20 @@ window.ASC.Files.ServiceManager = (function () {
             type: type,
             dataType: dataType,
             contentType: contentType,
-            mimeType: "text/xml",
             cache: true,
             url: getUrl.apply(this, argsArray),
             timeout: requestTimeout,
-            beforeSend: params.showLoading ? LoadingBanner.displayLoading() : null,
+            beforeSend: function () {
+                if (params.showLoading) {
+                    if (!ASC.Files.Folders || !ASC.Files.Folders.isFirstLoad) {
+                        LoadingBanner.displayLoading();
+                        jq(".files-filter").show();
+                        jq('.advansed-filter').advansedFilter("resize");
+                    }
+                } else {
+                    return null;
+                }
+            },
             complete: getCompleteCallbackMethod(eventType, params, dataType)
         };
 
@@ -389,8 +401,11 @@ window.ASC.Files.ServiceManager = (function () {
 
         GetTreeSubFolders: "gettreesubfolders",
         GetTreePath: "gettreepath",
+        GetThirdPartyTree: "getthirdpartytree",
         GetFolderInfo: "getfolderinfo",
         GetFolderItems: "getfolderitems",
+        GetItems: "getitems",
+        GetFolderItemsTree: "getfolderitemstree",
 
         GetSharedInfo: "getsharedinfo",
         GetSharedInfoShort: "getsharedinfoshort",
@@ -413,10 +428,6 @@ window.ASC.Files.ServiceManager = (function () {
         SetCurrentVersion: "setcurrentversion",
         UpdateComment: "updatecomment",
         CompleteVersion: "completeversion",
-
-        IsZohoAuthentificated: "iszohoauthentificated",
-        GetImportData: "getImportData",
-        ExecImportData: "execImportData",
 
         Download: "download",
         GetTasksStatuses: "getTasksStatuses",
@@ -450,12 +461,12 @@ window.ASC.Files.ServiceManager = (function () {
 
     var createFolder = function (eventType, params) {
         params.ajaxsync = true;
-        request("get", "xml", eventType, params, "folders", "create?parentId=" + encodeURIComponent(params.parentFolderID) + "&title=" + encodeURIComponent(params.title));
+        request("get", "xml", eventType, params, "folders-create?parentId=" + encodeURIComponent(params.parentFolderID) + "&title=" + encodeURIComponent(params.title));
     };
 
     var createNewFile = function (eventType, params) {
         params.ajaxsync = true;
-        request("get", "xml", eventType, params, "folders", "files", "createfile?parentId=" + encodeURIComponent(params.folderID) + "&title=" + encodeURIComponent(params.fileTitle));
+        request("get", "xml", eventType, params, "folders-files-createfile?parentId=" + encodeURIComponent(params.folderID) + "&title=" + encodeURIComponent(params.fileTitle));
     };
 
     var getFolderItems = function (eventType, params, data) {
@@ -464,56 +475,60 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var getTreeSubFolders = function (eventType, params) {
-        request("get", "xml", eventType, params, "folders", "subfolders?parentId=" + encodeURIComponent(params.folderId));
+        request("get", "xml", eventType, params, "folders-subfolders?parentId=" + encodeURIComponent(params.folderId));
     };
 
     var getTreePath = function (eventType, params) {
-        request("get", "json", eventType, params, "folders", "path?folderId=" + encodeURIComponent(params.folderId));
+        request("get", "json", eventType, params, "folders-path?folderId=" + encodeURIComponent(params.folderId));
+    };
+
+    var getItems = function (eventType, params, data) {
+        request("post", "json", eventType, params, data, "folders-intries?filter=" + params.filter + "&subjectID=" + params.subject + "&search=" + encodeURIComponent(params.text));
     };
 
     var getFile = function (eventType, params) {
         params.ajaxsync = true;
-        request("get", "xml", eventType, params, "folders", "files", "getversion?fileId=" + encodeURIComponent(params.fileId) + "&version=" + (params.version || -1));
+        request("get", "xml", eventType, params, "folders-files-getversion?fileId=" + encodeURIComponent(params.fileId) + "&version=" + (params.version || -1));
     };
 
     var getFileHistory = function (eventType, params) {
-        request("get", "xml", eventType, params, "folders", "files", "history?fileId=" + encodeURIComponent(params.fileId));
+        request("get", "xml", eventType, params, "folders-files-history?fileId=" + encodeURIComponent(params.fileId));
     };
 
     var setCurrentVersion = function (eventType, params) {
-        request("get", "json", eventType, params, "folders", "files", "updateToVersion?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version);
+        request("get", "json", eventType, params, "folders-files-updateToVersion?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version);
     };
 
     var updateComment = function (eventType, params) {
-        request("get", "json", eventType, params, "folders", "files", "updateComment?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version + "&comment=" + encodeURIComponent(params.comment));
+        request("get", "json", eventType, params, "folders-files-updateComment?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version + "&comment=" + encodeURIComponent(params.comment));
     };
 
     var completeVersion = function (eventType, params) {
-        request("get", "json", eventType, params, "folders", "files", "completeversion?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version + "&continueVersion=" + params.continueVersion);
+        request("get", "json", eventType, params, "folders-files-completeversion?fileId=" + encodeURIComponent(params.fileId) + "&version=" + params.version + "&continueVersion=" + params.continueVersion);
     };
 
     var getSiblingsImage = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "folders", "files", "siblings?fileID=" + encodeURIComponent(params.fileId) + "&filter=" + params.filter + "&subjectID=" + params.subjectId + "&search=" + encodeURIComponent(params.search));
+        request("post", "json", eventType, params, data, "folders-files-siblings?fileId=" + encodeURIComponent(params.fileId) + "&filter=" + params.filter + "&subjectID=" + params.subjectId + "&search=" + encodeURIComponent(params.search));
     };
 
     var renameFolder = function (eventType, params) {
-        request("get", "xml", eventType, params, "folders", "rename?folderId=" + encodeURIComponent(params.folderId) + "&title=" + encodeURIComponent(params.newname));
+        request("get", "xml", eventType, params, "folders-rename?folderId=" + encodeURIComponent(params.folderId) + "&title=" + encodeURIComponent(params.newname));
     };
 
     var renameFile = function (eventType, params) {
-        request("get", "xml", eventType, params, "folders", "files", "rename?fileId=" + encodeURIComponent(params.fileId) + "&title=" + encodeURIComponent(params.newname));
+        request("get", "xml", eventType, params, "folders-files-rename?fileId=" + encodeURIComponent(params.fileId) + "&title=" + encodeURIComponent(params.newname));
     };
 
     var moveFilesCheck = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "folders", "files", "moveOrCopyFilesCheck?destFolderId=" + encodeURIComponent(params.folderToId));
+        request("post", "json", eventType, params, data, "folders-files-moveOrCopyFilesCheck?destFolderId=" + encodeURIComponent(params.folderToId));
     };
 
     var moveItems = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "moveorcopy?destFolderId=" + encodeURIComponent(params.folderToId) + "&ow=" + (params.overwrite == true) + "&ic=" + (params.isCopyOperation == true));
+        request("post", "json", eventType, params, data, "moveorcopy?destFolderId=" + encodeURIComponent(params.folderToId) + "&resolve=" + params.resolve + "&ic=" + (params.isCopyOperation == true));
     };
 
     var deleteItem = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "folders", "files?action=delete");
+        request("post", "json", eventType, params, data, "folders-files?action=delete");
     };
 
     var emptyTrash = function (eventType, params) {
@@ -522,23 +537,16 @@ window.ASC.Files.ServiceManager = (function () {
 
     var download = function (eventType, params, data) {
         params.showLoading = true;
+        params.ajaxcontentType = "application/json";
         request("post", "json", eventType, params, data, "bulkdownload");
     };
 
-    var execImportData = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "import", "exec?" + "login=" + (params.authData.login || "") + "&password=" + (params.authData.password || "") + "&token=" + (params.authData.token || "") + "&source=" + params.source + "&tofolder=" + params.tofolder + "&ignoreCoincidenceFiles=" + (params.ignoreCoincidenceFiles === true));
-    };
-
-    var getImportData = function (eventType, params, data) {
-        request("post", "xml", eventType, params, data, "import?source=" + params.source);
-    };
-
     var getTasksStatuses = function (eventType, params) {
-        request("get", "json", eventType, params, "tasks", "statuses");
+        request("get", "json", eventType, params, "tasks-statuses");
     };
 
     var terminateTasks = function (eventType, params) {
-        request("get", "json", eventType, params, "tasks?terminate=" + params.isImport);
+        request("get", "json", eventType, params, "tasks");
     };
 
     var trackEditFile = function (eventType, params) {
@@ -598,15 +606,15 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var getThirdParty = function (eventType, params) {
-        request("get", "json", eventType, params, "thirdparty");
+        request("get", "json", eventType, params, "thirdparty-list" + "?folderType=" + (params.folderType || 0));
     };
 
     var saveThirdParty = function (eventType, params, data) {
-        request("post", "json", eventType, params, data, "thirdparty", "save");
+        request("post", "json", eventType, params, data, "thirdparty-save");
     };
 
     var deleteThirdParty = function (eventType, params) {
-        request("get", "json", eventType, params, "thirdparty", "delete?providerId=" + params.providerId);
+        request("get", "json", eventType, params, "thirdparty-delete?providerId=" + params.providerId);
     };
 
     var changeAccessToThirdparty = function (eventType, params) {
@@ -622,7 +630,7 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var lockFile = function (eventType, params) {
-        request("get", "xml", eventType, params, "folders", "files", "lock?fileId=" + encodeURIComponent(params.fileId) + "&lockfile=" + (params.lock === true));
+        request("get", "xml", eventType, params, "folders-files-lock?fileId=" + encodeURIComponent(params.fileId) + "&lockfile=" + (params.lock === true));
     };
 
     var getHelpCenter = function (eventType, params) {
@@ -642,6 +650,7 @@ window.ASC.Files.ServiceManager = (function () {
         getTreeSubFolders: getTreeSubFolders,
         getTreePath: getTreePath,
 
+        getItems: getItems,
         getFile: getFile,
         getFileHistory: getFileHistory,
         setCurrentVersion: setCurrentVersion,
@@ -657,8 +666,6 @@ window.ASC.Files.ServiceManager = (function () {
         deleteItem: deleteItem,
         emptyTrash: emptyTrash,
         download: download,
-        getImportData: getImportData,
-        execImportData: execImportData,
 
         getTasksStatuses: getTasksStatuses,
         terminateTasks: terminateTasks,

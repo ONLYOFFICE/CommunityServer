@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ServiceHealthChecker.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.ServiceHealthChecker" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="clearFix">
     <div id="serviceStatusContainer" class="settings-block">
@@ -19,7 +20,10 @@
     </div>
     <div class="settings-help-block">
         <p><%= MonitoringResource.ServicesHelpText %></p>
-        <a href="http://helpcenter.teamlab.com/gettingstarted/configuration.aspx" target="_blank"> <%= Resource.LearnMore %></a>
+         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+           { %>
+        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx" %>" target="_blank"> <%= Resource.LearnMore %></a>
+        <% } %>
     </div>
 </div>
 

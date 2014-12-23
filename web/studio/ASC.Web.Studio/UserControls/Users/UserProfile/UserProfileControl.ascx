@@ -62,13 +62,16 @@
                 <tr>
                     <td>
                         <div class="left-column">
+                            <% if(!isPersonal){ %>
                             <div class="field">
                                 <span class="field-title describe-text"><%= Resource.UserType %>:</span>
                                 <span id="typeUserProfile" class="field-value"><%= CustomNamingPeople.Substitute<Resource>(UserInfo.IsVisitor() ? "Guest" : "User").HtmlEncode() %></span>
                             </div>
+                            <%} %>
                             <asp:PlaceHolder ID="_phEmailControlsHolder" runat="server"></asp:PlaceHolder>
 
-                            <asp:Repeater ID="DepartmentsRepeater" runat="server" ItemType="ASC.Core.Users.GroupInfo">
+                             <% if(!isPersonal){ %>
+                            <asp:Repeater ID="DepartmentsRepeater" runat="server">
                                 <HeaderTemplate>
                                     <div class="field">
                                         <span class="field-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("Department").HtmlEncode() %>:</span>
@@ -77,11 +80,11 @@
                                 <ItemTemplate>
                                     <%if (IsVisitor)
                                       { %>
-                                    <span><%# Item.Name.HtmlEncode() %></span>
+                                    <span><%# ((ASC.Core.Users.GroupInfo)Container.DataItem).Name.HtmlEncode() %></span>
                                     <%}
                                       else
                                       { %>
-                                    <a class="link dotline" href="<%# CommonLinkUtility.GetDepartment(Item.ID) %>"><%# Item.Name.HtmlEncode() %></a>
+                                    <a class="link dotline" href="<%# CommonLinkUtility.GetDepartment(((ASC.Core.Users.GroupInfo)Container.DataItem).ID) %>"><%# ((ASC.Core.Users.GroupInfo)Container.DataItem).Name.HtmlEncode() %></a>
                                     <%} %>
                                 </ItemTemplate>
                                 <SeparatorTemplate>, </SeparatorTemplate>
@@ -90,14 +93,16 @@
                                     </div>
                                 </FooterTemplate>
                             </asp:Repeater>
+                            <%} %>
 
-                            <% if (!String.IsNullOrEmpty(UserInfo.Title))
+                            <% if (!String.IsNullOrEmpty(UserInfo.Title) && !isPersonal)
                                { %>
                             <div class="field">
                                 <span class="field-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("UserPost").HtmlEncode() %>:</span>
                                 <span id="titleUserProfile" class="field-value"><%= HttpUtility.HtmlEncode(UserInfo.Title) %></span>
                             </div>
                             <% } %>
+                            
                             <% if (Actions.AllowEdit && UserInfo.Status != EmployeeStatus.Terminated && UserInfo.ActivationStatus == EmployeeActivationStatus.Activated)
                                { %>
                             <div class="field">
@@ -118,7 +123,7 @@
                                 <span id="phoneUserProfile" class="field-value">
                                     <% if (!String.IsNullOrEmpty(UserInfo.MobilePhone))
                                        { %>
-                                    <span class="primarymobile">+<%= UserInfo.MobilePhone %></span>
+                                    <span class="primarymobile">+<%= ASC.Web.Studio.Core.SMS.SmsManager.GetPhoneValueDigits(UserInfo.MobilePhone) %></span>
                                     <% } %>
                                     <% if (UserInfo.IsMe() || Actions.AllowAddOrDelete)
                                        { %>
@@ -138,7 +143,7 @@
                                 <span id="sexUserProfile" class="field-value"><%= (UserInfo.Sex.HasValue ? UserInfo.Sex.Value ? Resource.MaleSexStatus : Resource.FemaleSexStatus : string.Empty) %></span>
                             </div>
                             <% } %>
-                            <% if (UserInfo.WorkFromDate.HasValue)
+                            <% if (UserInfo.WorkFromDate.HasValue && !isPersonal)
                                { %>
                             <div class="field">
                                 <span class="field-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("WorkFromDate").HtmlEncode() %>:</span>
@@ -170,8 +175,8 @@
                                 <span id="locationUserProfile" class="field-value"><%= HttpUtility.HtmlEncode(UserInfo.Location) %></span>
                             </div>
                             <% } %>
-                            <% if (AffiliateHelper.ButtonAvailable(UserInfo))
-                               { %>
+                            <% if (AffiliateHelper.ButtonAvailable(UserInfo) && !isPersonal){ %>
+
                             <div class="field">
                                 <span class="field-title describe-text"><%= Resource.AffilliateStatus %>:</span>
                                 <span id="affilliateStatusUserProfile" class="field-value">
@@ -190,7 +195,7 @@
                 </tr>
             </table>
         </div>
-        <% if (ShowSocialLogins && AccountLinkControl.IsNotEmpty)
+        <% if (ShowSocialLogins && AccountLinkControl.IsNotEmpty && !isPersonal)
            { %>
         <div class="user-block social-logins">
             <div class="tabs-section">
@@ -234,10 +239,10 @@
         <% if (UserProfileHelper.Phones.Count > 0)
            { %>
         <li class="contact">
-            <asp:Repeater ID="ContactPhones" ItemType="ASC.Web.Studio.Core.Users.MyContact" runat="server">
+            <asp:Repeater ID="ContactPhones" runat="server">
                 <ItemTemplate>
-                    <div class="profile-contact <%# Item.classname %>">
-                        <%# Item.link%>
+                    <div class="profile-contact <%# ((ASC.Web.Studio.Core.Users.MyContact)Container.DataItem).classname %>">
+                        <%# ((ASC.Web.Studio.Core.Users.MyContact)Container.DataItem).link%>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
@@ -246,10 +251,10 @@
         <% if (UserProfileHelper.Emails.Count > 0)
            { %>
         <li class="contact">
-            <asp:Repeater ID="ContactEmails" ItemType="ASC.Web.Studio.Core.Users.MyContact" runat="server">
+            <asp:Repeater ID="ContactEmails" runat="server">
                 <ItemTemplate>
-                    <div class="profile-contact <%# Item.classname %>">
-                        <%# Item.link %>
+                    <div class="profile-contact <%# ((ASC.Web.Studio.Core.Users.MyContact)Container.DataItem).classname %>">
+                        <%# ((ASC.Web.Studio.Core.Users.MyContact)Container.DataItem).link %>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
@@ -258,10 +263,10 @@
         <% if (UserProfileHelper.Messengers.Count > 0)
            { %>
         <li class="contact">
-            <asp:Repeater ID="ContactMessengers" ItemType="ASC.Web.Studio.Core.Users.MyContact" runat="server">
+            <asp:Repeater ID="ContactMessengers" runat="server">
                 <ItemTemplate>
-                    <div class="profile-contact <%# Item.classname %>">
-                        <%# Item.link %>
+                    <div class="profile-contact <%# ((ASC.Web.Studio.Core.Users.MyContact)Container.DataItem).classname %>">
+                        <%# ((ASC.Web.Studio.Core.Users.MyContact)Container.DataItem).link %>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
@@ -282,11 +287,11 @@
         </span>
     </div>
     <ul id="contactsSocialContainer" class="contacts">
-        <asp:Repeater ID="ContactSoccontacts" ItemType="ASC.Web.Studio.Core.Users.MyContact" runat="server">
+        <asp:Repeater ID="ContactSoccontacts" runat="server">
             <ItemTemplate>
                 <li class="contact">
-                    <div class="profile-contact <%# Item.classname %>">
-                        <%# Item.link %>
+                    <div class="profile-contact <%# ((ASC.Web.Studio.Core.Users.MyContact)Container.DataItem).classname %>">
+                        <%# ((ASC.Web.Studio.Core.Users.MyContact)Container.DataItem).link %>
                     </div>
                 </li>
             </ItemTemplate>

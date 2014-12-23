@@ -2,9 +2,10 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
-  <UsingTask TaskName="CssCompressorTask" AssemblyFile="..\..\..\..\..\redistributable\third-party\YUICompressor\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
-  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\..\..\..\..\redistributable\third-party\YUICompressor\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <UsingTask TaskName="CssCompressorTask" AssemblyFile="..\..\..\..\..\packages\YUICompressor.NET.MSBuild.2.2.0.0\lib\NET20\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\..\..\..\..\packages\YUICompressor.NET.MSBuild.2.2.0.0\lib\NET20\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,8 +18,6 @@
     <RootNamespace>ASC.Web.CRM</RootNamespace>
     <AssemblyName>ASC.Web.CRM</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TrunkDir>..\..\..\..\..\</TrunkDir>
-    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -30,12 +29,12 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <OutputPath>..\..\bin\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -44,101 +43,44 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2, Version=7.7.31.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+    <Reference Include="AjaxPro.2">
+      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\..\..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+    <Reference Include="Facebook">
+      <HintPath>..\..\..\..\..\packages\Facebook.5.0.26.0\lib\net40-client\Facebook.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Core.Common.dll</HintPath>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\..\..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="LinkedIn">
+      <HintPath>..\..\..\..\..\packages\LinkedIn.1.0.0.1\lib\net45\LinkedIn.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Data.Storage.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASC.FullTextIndex, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.FullTextIndex.dll</HintPath>
+    <Reference Include="LumenWorks.Framework.IO">
+      <HintPath>..\..\..\..\..\packages\LumenWorksCsvReader.3.8.2\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ASC.MessagingSystem">
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.MessagingSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Thrdparty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Thrdparty.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.Web.Files, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Files.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ASC.Web.Studio">
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.Studio.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Web.UserControls.SocialMedia, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\asc\ASC.Web.UserControls.SocialMedia.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DotNetOpenAuth, Version=4.0.0.11165, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Facebook, Version=5.0.26.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\FacebookSDK\Facebook.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\DotNotZip\Ionic.Zip.dll</HintPath>
-    </Reference>
-    <Reference Include="LinkedIn, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\LinkedIn\LinkedIn.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="LumenWorks.Framework.IO, Version=3.8.0.0, Culture=neutral, PublicKeyToken=5ad3ea2f85776344, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\CSVReader\LumenWorks.Framework.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\..\..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -166,9 +108,11 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Twitterizer2, Version=2.3.3.21964, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\Twitterizer2-2.3.3\Twitterizer2.dll</HintPath>
+    <Reference Include="Twilio.Api">
+      <HintPath>..\..\..\..\..\packages\Twilio.3.6.11\lib\3.5\Twilio.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Twitterizer2">
+      <HintPath>..\..\..\..\..\packages\twitterizer.2.4.0.22461\lib\net45\Twitterizer2.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -180,8 +124,10 @@
       <DependentUpon>Cases.aspx</DependentUpon>
     </Compile>
     <Compile Include="Classes\ContactPhotoManager.cs" />
+    <Compile Include="Classes\ImportFromCSVManager.cs" />
+    <Compile Include="Classes\InvoiceFileUpdateHelper.cs" />
+    <Compile Include="Classes\InvoiceFormattedData.cs" />
     <Compile Include="Classes\LocalizedEnumConverter.cs" />
-    <Compile Include="Classes\MailAggregatorManager.cs" />
     <Compile Include="Classes\OrganisationLogoManager.cs" />
     <Compile Include="Classes\RegisterClientScriptHelper.cs" />
     <Compile Include="Classes\SocialMedia\FacebookApiHelper.cs" />
@@ -317,6 +263,34 @@
     <Compile Include="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx.designer.cs">
       <DependentUpon>InvoiceTaxesView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Settings\VoipSettings\VoipCommon.ascx.cs">
+      <DependentUpon>VoipCommon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\VoipSettings\VoipCommon.ascx.designer.cs">
+      <DependentUpon>VoipCommon.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\VoipSettings\VoipNumbers.ascx.cs">
+      <DependentUpon>VoipNumbers.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\VoipSettings\VoipNumbers.ascx.designer.cs">
+      <DependentUpon>VoipNumbers.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\VoipSettings\VoipCalls.ascx.cs">
+      <DependentUpon>VoipCalls.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\VoipSettings\VoipCalls.ascx.designer.cs">
+      <DependentUpon>VoipCalls.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.cs">
+      <DependentUpon>VoipQuick.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Settings\VoipSettings\VoipQuick.ascx.designer.cs">
+      <DependentUpon>VoipQuick.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Settings\TagSettingsView.ascx.cs">
       <DependentUpon>TagSettingsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -331,13 +305,6 @@
     <Compile Include="Controls\Settings\TaskTemplateView.ascx.designer.cs">
       <DependentUpon>TaskTemplateView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SocialMedia\ContactsSearchView.ascx.cs">
-      <DependentUpon>ContactsSearchView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\SocialMedia\ContactsSearchView.ascx.designer.cs">
-      <DependentUpon>ContactsSearchView.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Tasks\ListTaskView.ascx.cs">
       <DependentUpon>ListTaskView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -350,6 +317,9 @@
     <Compile Include="Core\Entities\CurrencyRate.cs" />
     <Compile Include="Core\Entities\CurrencyInfo.cs" />
     <Compile Include="Core\Enums\ShareType.cs" />
+    <Compile Include="HttpHandlers\OrganisationLogoHandler.cs" />
+    <Compile Include="HttpHandlers\ContactPhotoHandler.cs" />
+    <Compile Include="HttpHandlers\ImportFileHandler.cs" />
     <Compile Include="MailViewer.aspx.cs">
       <DependentUpon>MailViewer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -386,10 +356,10 @@
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
     <Compile Include="HttpHandlers\FileHandler.ashx.cs">
-      <DependentUpon>FileHandler.ashx</DependentUpon>
+      <DependentUpon>filehandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="HttpHandlers\WebToLeadFromHandler.ashx.cs">
-      <DependentUpon>WebToLeadFromHandler.ashx</DependentUpon>
+      <DependentUpon>webtoleadfromhandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Invoices.aspx.cs">
       <DependentUpon>Invoices.aspx</DependentUpon>
@@ -402,6 +372,11 @@
     <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
     <Compile Include="Masters\ClientScripts\ControlsResources.cs" />
     <Compile Include="Masters\ClientScripts\CRMSettingsResources.cs" />
+    <Compile Include="Resources\CRMVoipResource.Designer.cs">
+      <DependentUpon>CRMVoipResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\CRMCasesResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -447,8 +422,6 @@
     <Compile Include="Utils\CurrencyProvider.cs" />
     <Compile Include="HttpHandlers\FileUploaderHandler.cs" />
     <Compile Include="Classes\Global.cs" />
-    <Compile Include="Classes\SocialMedia\ContactRelationTwitterSettings.cs" />
-    <Compile Include="Classes\SocialMedia\ContactRelationFacebookSettings.cs" />
     <Compile Include="Classes\SocialMedia\SocialMediaAccountNotFound.cs" />
     <Compile Include="Classes\SocialMedia\SocialMediaConstants.cs" />
     <Compile Include="Classes\SocialMedia\SocialMediaImageDescription.cs" />
@@ -562,41 +535,6 @@
     <Compile Include="Controls\Settings\ListItemView.ascx.designer.cs">
       <DependentUpon>ListItemView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SocialMedia\FacebookUserInfoView.ascx.cs">
-      <DependentUpon>FacebookUserInfoView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\SocialMedia\FacebookUserInfoView.ascx.designer.cs">
-      <DependentUpon>FacebookUserInfoView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SocialMedia\ListFacebookUserInfoView.ascx.cs">
-      <DependentUpon>ListFacebookUserInfoView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\SocialMedia\ListFacebookUserInfoView.ascx.designer.cs">
-      <DependentUpon>ListFacebookUserInfoView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SocialMedia\ListTwitterUserInfoView.ascx.cs">
-      <DependentUpon>ListTwitterUserInfoView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\SocialMedia\ListTwitterUserInfoView.ascx.designer.cs">
-      <DependentUpon>ListTwitterUserInfoView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SocialMedia\TwitterUserInfoView.ascx.cs">
-      <DependentUpon>TwitterUserInfoView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\SocialMedia\TwitterUserInfoView.ascx.designer.cs">
-      <DependentUpon>TwitterUserInfoView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SocialMedia\UserSearchView.ascx.cs">
-      <DependentUpon>UserSearchView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\SocialMedia\UserSearchView.ascx.designer.cs">
-      <DependentUpon>UserSearchView.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Core\CRMConstants.cs" />
     <Compile Include="Core\Dao\AbstractDao.cs" />
     <Compile Include="Core\Dao\CasesDao.cs" />
@@ -699,7 +637,10 @@
     <Compile Include="Utils\Import\CSV\ImportBase.cs" />
     <Compile Include="Utils\Import\CSV\ImportCases.cs" />
     <Compile Include="Utils\Import\CSV\ImportContacts.cs" />
+    <Compile Include="Utils\Import\CSV\ImportCSVSettings.cs" />
+    <Compile Include="Utils\Import\CSV\ImportDataOperation.cs" />
     <Compile Include="Utils\Import\CSV\ImportDeals.cs" />
+    <Compile Include="Utils\Import\CSV\ImportFromCSV.cs" />
     <Compile Include="Utils\Import\CSV\ImportTasks.cs" />
     <Compile Include="Utils\MailSender.cs" />
     <Compile Include="Utils\PdfCreator.cs" />
@@ -707,23 +648,38 @@
   <ItemGroup>
     <Content Include="App_Themes\Default\images\arrow_down.gif" />
     <Content Include="App_Themes\Default\images\combobox-bg-button.gif" />
+    <Content Include="App_Themes\Default\images\contacts.png" />
+    <Content Include="App_Themes\Default\images\customize.png" />
     <Content Include="App_Themes\Default\images\drag.png" />
     <Content Include="App_Themes\Default\images\drug-n-drop_items.png" />
+    <Content Include="App_Themes\Default\images\empty_company_logo_180_180.png" />
+    <Content Include="App_Themes\Default\images\empty_company_logo_200_200.png" />
+    <Content Include="App_Themes\Default\images\empty_people_logo_180_180.png" />
+    <Content Include="App_Themes\Default\images\empty_people_logo_200_200.png" />
     <Content Include="App_Themes\Default\images\empty_screen_invoices.png" />
     <Content Include="App_Themes\Default\images\empty_screen_products_services.png" />
     <Content Include="App_Themes\Default\images\empty_screen_taxes.png" />
     <Content Include="App_Themes\Default\images\event_categories.png" />
+    <Content Include="App_Themes\Default\images\flags_all.png" />
     <Content Include="App_Themes\Default\images\icons.png" />
     <Content Include="App_Themes\Default\images\edit_small.png" />
     <Content Include="App_Themes\Default\images\import.png" />
+    <Content Include="App_Themes\Default\images\integration.png" />
     <Content Include="App_Themes\Default\images\invoice.png" />
-    <Content Include="App_Themes\Default\images\loader_16.gif" />
+    <Content Include="App_Themes\Default\images\loader_16_static.png" />
+    <Content Include="App_Themes\Default\images\loader_24.gif" />
+    <Content Include="App_Themes\Default\images\loader_24_static.png" />
+    <Content Include="App_Themes\Default\images\twitter.png" />
+    <Content Include="App_Themes\Default\images\voip_call_icons_sprite.png" />
     <Content Include="App_Themes\Default\images\mail_icons.png" />
     <Content Include="App_Themes\Default\images\org_logo_default.png" />
+    <Content Include="App_Themes\Default\images\people_icon.png" />
     <Content Include="App_Themes\Default\images\product_logo.png" />
     <Content Include="App_Themes\Default\images\product_logolarge.png" />
     <Content Include="App_Themes\Default\images\remove.png" />
     <Content Include="App_Themes\Default\images\remove_12.png" />
+    <Content Include="App_Themes\Default\images\sales.png" />
+    <Content Include="App_Themes\Default\images\search_in_module.png" />
     <Content Include="App_Themes\Default\images\task_categories.png" />
     <Content Include="Cases.aspx" />
     <Content Include="Controls\Cases\CasesActionView.ascx" />
@@ -744,9 +700,16 @@
     <Content Include="Controls\Settings\InvoiceSettings\InvoiceItemActionView.ascx" />
     <Content Include="Controls\Settings\InvoiceSettings\InvoiceItemsView.ascx" />
     <Content Include="Controls\Settings\InvoiceSettings\InvoiceTaxesView.ascx" />
+    <Content Include="Controls\Settings\VoipSettings\VoipCommon.ascx" />
+    <Content Include="Controls\Settings\VoipSettings\VoipNumbers.ascx" />
+    <Content Include="Controls\Settings\VoipSettings\VoipCalls.ascx" />
+    <Content Include="js\voip.common.js" />
+    <Content Include="js\voip.numbers.js" />
+    <Content Include="js\voip.calls.js" />
+    <Content Include="js\voip.quick.js" />
+    <Content Include="Controls\Settings\VoipSettings\VoipQuick.ascx" />
     <Content Include="Controls\Settings\ListItemView.ascx" />
     <Content Include="js\navsidepanel.js" />
-    <Content Include="js\XSS-core.js" />
     <Content Include="MailViewer.aspx" />
     <Content Include="Deals.aspx" />
     <Content Include="Invoices.aspx" />
@@ -754,6 +717,11 @@
     <Content Include="js\sender.js" />
     <Content Include="js\settings.invoices.js" />
     <Content Include="Masters\BasicTemplate.Master" />
+    <EmbeddedResource Include="Resources\CRMVoipResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMVoipResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Services\NotifyService\patterns.xml" />
     <Content Include="Sender.aspx" />
     <Content Include="Settings.aspx" />
@@ -823,15 +791,7 @@
     <Content Include="Controls\Common\FileUploader.ascx" />
     <Content Include="Controls\Common\PrivatePanel.ascx" />
     <Content Include="Controls\Settings\CommonSettingsView.ascx" />
-    <Content Include="Controls\SocialMedia\FacebookUserInfoView.ascx" />
-    <Content Include="Controls\SocialMedia\ListFacebookUserInfoView.ascx" />
     <Content Include="Controls\Settings\WebToLeadFormView.ascx" />
-    <Content Include="Controls\SocialMedia\ListActivityMessageView.ascx" />
-    <Content Include="Controls\SocialMedia\ListTwitterUserInfoView.ascx" />
-    <Content Include="Controls\SocialMedia\TwitterUserInfoView.ascx" />
-    <Content Include="Controls\SocialMedia\UserActivityView.ascx" />
-    <Content Include="Controls\SocialMedia\UserSearchView.ascx" />
-    <Content Include="Controls\SocialMedia\UserWallView.ascx" />
     <EmbeddedResource Include="Resources\CRMCasesResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -895,15 +855,12 @@
     <Content Include="App_Themes\Default\images\empty_people_logo_82_82.png" />
     <Content Include="App_Themes\Default\images\export_data.png" />
     <Content Include="App_Themes\Default\images\import_contacts.png" />
-    <Content Include="App_Themes\Default\images\loader_12.gif" />
-    <Content Include="App_Themes\Default\images\loader_small.gif" />
     <Content Include="App_Themes\Default\images\mail_send.png" />
     <Content Include="App_Themes\Default\images\menu_button_bg.gif" />
     <Content Include="App_Themes\Default\images\empty_screen_cases.png" />
     <Content Include="App_Themes\Default\images\empty_screen_companies.png" />
     <Content Include="App_Themes\Default\images\empty_screen_deals.png" />
     <Content Include="App_Themes\Default\images\empty_screen_tasks.png" />
-    <Content Include="App_Themes\Default\images\progress.gif" />
     <Content Include="App_Themes\Default\images\task_category_call.png" />
     <Content Include="App_Themes\Default\images\task_category_deal.png" />
     <Content Include="App_Themes\Default\images\task_category_demo.png" />
@@ -930,10 +887,9 @@
     <Content Include="Controls\Settings\DealMilestoneView.ascx" />
     <Content Include="Controls\Settings\TagSettingsView.ascx" />
     <Content Include="Controls\Settings\TaskTemplateView.ascx" />
-    <Content Include="Controls\SocialMedia\ContactsSearchView.ascx" />
     <Content Include="Controls\Tasks\ListTaskView.ascx" />
     <Content Include="Help.aspx" />
-    <Content Include="HttpHandlers\WebToLeadFromHandler.ashx" />
+    <Content Include="HttpHandlers\webtoleadfromhandler.ashx" />
     <Content Include="js\cases.js" />
     <Content Include="js\common.js" />
     <Content Include="js\contacts.js" />
@@ -959,7 +915,7 @@
     <Content Include="Templates\TasksTemplates.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HttpHandlers\FileHandler.ashx" />
+    <Content Include="HttpHandlers\filehandler.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="InvoiceTemplates\template.docx" />
@@ -991,14 +947,72 @@
   <ItemGroup>
     <Content Include="App_Themes\Default\css\invoices.less" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\voip.quick.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\voip.calls.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\voip.numbers.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\voip.common.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
+      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
+      <Name>ASC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
+      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
+      <Name>ASC.Data.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
+      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
+      <Name>ASC.Api.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
+      <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
+      <Name>ASC.FullTextIndex</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
+      <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
+      <Name>ASC.MessagingSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
+      <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
+      <Name>ASC.Thrdparty</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.VoipService\ASC.VoipService.csproj">
+      <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>
+      <Name>ASC.VoipService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\controls\ASC.Web.UserControls.SocialMedia\ASC.Web.UserControls.SocialMedia.csproj">
+      <Project>{943ccb39-1944-4ac6-a094-da6f910bb33b}</Project>
+      <Name>ASC.Web.UserControls.SocialMedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
+      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
+      <Name>ASC.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
+      <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
+      <Name>ASC.Web.Studio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Files\ASC.Web.Files.csproj">
+      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
+      <Name>ASC.Web.Files</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Target Name="BeforeBuild">
-    <Exec Command="taskkill /F /IM w3wp.exe" IgnoreExitCode="true" ContinueOnError="true" Condition=" '$(KillAsp)' == '' " />
-  </Target>
   <Target Name="AfterBuild">
-    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile-&gt;'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
-    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath-&gt;'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
     <CreateItem Include="$(ProjectDir)**\*.css">
       <Output TaskParameter="Include" ItemName="CssFiles" />
     </CreateItem>
@@ -1026,4 +1040,5 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
 </Project>

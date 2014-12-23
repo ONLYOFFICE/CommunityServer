@@ -652,4 +652,46 @@
   <data name="DeliveryAddress" xml:space="preserve">
     <value>Delivery address</value>
   </data>
+  <data name="VoipCallAnsweredType" xml:space="preserve">
+    <value>Answered</value>
+  </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>Missed</value>
+  </data>
+  <data name="VoipCallOutgoingType" xml:space="preserve">
+    <value>Outgoing</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Current month</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Current week</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Custom period</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="VoipCallAgent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="VoipCallCaller" xml:space="preserve">
+    <value>Caller</value>
+  </data>
+  <data name="VoipCallContactRemoved" xml:space="preserve">
+    <value>contact removed</value>
+  </data>
+  <data name="VoipCallCost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="VoipCallDuration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="VoipCallType" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>

@@ -14,8 +14,6 @@
     <AssemblyName>ASC.Api.Web.Help</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>true</MvcBuildViews>
-    <TrunkDir>..\..\..\</TrunkDir>
-    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)recdistributable\asc\</RedDir>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -28,7 +26,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Info|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -37,6 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,180 +47,58 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=db0125e360716f7b, processorArchitecture=MSIL">
+    <Reference Include="HtmlAgilityPack, Version=1.3.9.2, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Web\AjaxPro.2.dll</HintPath>
+      <HintPath>..\..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="AppLimit.CloudComputing.SharpBox, Version=1.1.0.440, Culture=neutral, PublicKeyToken=ec6c83edb3a952dc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\ShrapBox\compiled\AppLimit.CloudComputing.SharpBox.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.Api.Calendar, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.Calendar.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.Api.Community, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.Community.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Api.CRM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.CRM.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Api.Documents, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.Documents.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Api.Employee, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.Employee.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Api.Feed, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.Feed.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Api.Mail, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.Mail.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Api.Projects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.Projects.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Api.Settings, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.Settings.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Mail.Aggregator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Mail.Aggregator.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Mail.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Mail.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Specific, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Specific.dll</HintPath>
-    </Reference>
-    <Reference Include="AjaxMin, Version=4.0.202.1, Culture=neutral, PublicKeyToken=24297a69a7eae424, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\AjaxMin.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Api.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK, Version=1.3.4.1, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Amazon\AWSSDK.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="Lucene.Net, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Lucene.Net\Lucene.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Database, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Caching.Database.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Security.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\entlib\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Interception.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\unity\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ServiceModel.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Microsoft\Microsoft.ServiceModel.Web.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.4.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\db\mysql\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\Web\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NVelocity, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\NVelocity\NVelocity.dll</HintPath>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 3\Packages\Microsoft.AspNet.Mvc.3.0.20105.1\lib\net40\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing">
@@ -229,15 +106,18 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Web.Mobile" />
+    <Reference Include="WebGrease, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheManifest.cs" />
     <Compile Include="Controllers\CacheManifestController.cs" />
-    <Compile Include="Controllers\DocumentationController.cs" />
+    <Compile Include="Controllers\PartnersController.cs" />
+    <Compile Include="Controllers\EditorsController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
+    <Compile Include="Controllers\PortalsController.cs" />
     <Compile Include="Documentation.cs" />
     <Compile Include="DocumentGenerator\IApiDocumentGenerator.cs" />
     <Compile Include="DocumentGenerator\MsDocDocumentGenerator.cs" />
@@ -246,18 +126,73 @@
     </Compile>
     <Compile Include="Helpers\BreadCrumbsBuilder.cs" />
     <Compile Include="Helpers\ClassNamePluralizer.cs" />
-    <Compile Include="Helpers\CombinedFileCollection.cs" />
+    <Compile Include="Helpers\SearchResult.cs" />
     <Compile Include="Helpers\Html.cs" />
-    <Compile Include="Helpers\HtmlExtension.cs" />
     <Compile Include="Helpers\HttpMethodOrderComarer.cs" />
     <Compile Include="Helpers\Highliter.cs" />
+    <Compile Include="Helpers\RedirectAttribute.cs" />
     <Compile Include="Helpers\Url.cs" />
-    <Compile Include="Models\SectionMethodViewModel.cs" />
+    <Compile Include="Models\SectionViewModel.cs" />
+    <Compile Include="Models\MethodViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="403.htm" />
+    <Content Include="404.htm" />
+    <Content Include="500.htm" />
+    <Content Include="Content\hightlight\default.css" />
+    <Content Include="Content\img\conversion.jpg" />
+    <Content Include="Content\img\editors.png" />
+    <Content Include="Content\img\export.jpg" />
+    <Content Include="Content\img\opening.jpg" />
+    <Content Include="Content\img\partners.png" />
+    <Content Include="Content\img\portals.png" />
+    <Content Include="Content\img\saving.jpg" />
+    <Content Include="Content\img\sprite.png" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\styles.css" />
+    <Content Include="Scripts\highlight\highlight.pack.js" />
+    <Content Include="Scripts\jquery\jquery.min.js" />
+    <Content Include="Scripts\modernizr\modernizr-1.7.min.js" />
+    <Content Include="Scripts\treeview\jquery.treeview.js" />
+    <Content Include="Scripts\zeroclipboard\zeroclipboard.js" />
+    <Content Include="Scripts\zeroclipboard\ZeroClipboard10.swf" />
+    <Content Include="Views\Editors\Conversion.aspx" />
+    <Content Include="Views\Editors\ConversionApi.aspx" />
+    <Content Include="Views\Editors\Hardware.aspx" />
+    <Content Include="Views\Editors\Save.aspx" />
+    <Content Include="Views\Editors\Open.aspx" />
+    <Content Include="Views\Editors\DocPermissions.aspx" />
+    <Content Include="Views\Editors\Config.aspx" />
+    <Content Include="Views\Editors\DocInfo.aspx" />
+    <Content Include="Views\Editors\Document.aspx" />
+    <Content Include="Views\Editors\Editor.aspx" />
+    <Content Include="Views\Editors\Events.aspx" />
+    <Content Include="Views\Editors\Basic.aspx" />
+    <Content Include="Views\Editors\HowItWorks.aspx" />
+    <Content Include="Views\Editors\Navigation.ascx" />
+    <Content Include="Views\Partners\ActivateKey.aspx" />
+    <Content Include="Views\Partners\Authentication.aspx" />
+    <Content Include="Views\Partners\Basic.aspx" />
+    <Content Include="Views\Partners\ChangeInvoiceStatus.aspx" />
+    <Content Include="Views\Partners\ChangePortalStatus.aspx" />
+    <Content Include="Views\Partners\GetPartnerTariffs.aspx" />
+    <Content Include="Views\Partners\GetPartnerInvoices.aspx" />
+    <Content Include="Views\Partners\GetPartner.aspx" />
+    <Content Include="Views\Partners\GetInvoiceKeys.aspx" />
+    <Content Include="Views\Partners\GetCurrentPartner.aspx" />
+    <Content Include="Views\Partners\GenerateKeysMin.aspx" />
+    <Content Include="Views\Partners\GenerateKeys.aspx" />
+    <Content Include="Views\Partners\CreateClient.aspx" />
+    <Content Include="Views\Partners\CreateButton.aspx" />
+    <Content Include="Views\Partners\RequestClientPayment.aspx" />
+    <Content Include="Views\Partners\RegisterPortal.aspx" />
+    <Content Include="Views\Partners\Index.aspx" />
+    <Content Include="Views\Partners\Navigation.ascx" />
+    <Content Include="Views\Portals\Basic.aspx" />
+    <Content Include="Views\Portals\Navigation.ascx" />
+    <Content Include="Views\Shared\TopNavigation.ascx" />
+    <Content Include="Views\Shared\SideNavigation.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -266,57 +201,27 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\img\logo.png" />
-    <Content Include="Scripts\libs\dd_belatedpng.js" />
-    <Content Include="Content\prettify.css" />
-    <Content Include="Scripts\libs\jsl.format.js" />
-    <Content Include="Scripts\libs\modernizr-1.7.min.js" />
-    <Content Include="Content\images\tree-closed.png" />
-    <Content Include="Content\images\tree-open.png" />
-    <Content Include="Content\jquery.treeview.css" />
-    <Content Include="Scripts\libs\treeview\jquery.treeview.js" />
-    <Content Include="Scripts\plugins.js" />
-    <Content Include="Scripts\script.js" />
-    <Content Include="Views\Documentation\Function.aspx" />
-    <Content Include="Views\Documentation\FunctionNotFound.aspx" />
-    <Content Include="Views\Documentation\MethodSummary.ascx" />
-    <Content Include="Views\Documentation\Section.aspx" />
-    <Content Include="Views\Documentation\SectionNotFound.aspx" />
-    <Content Include="Views\Documentation\SectionSummary.ascx" />
-    <Content Include="Views\Documentation\TocContorl.ascx" />
-    <Content Include="Views\Documentation\Toc.aspx" />
+    <Content Include="Content\treeview\jquery.treeview.css" />
+    <Content Include="Scripts\scripts.js" />
+    <Content Include="Views\Shared\Method.aspx" />
+    <Content Include="Views\Shared\MethodNotFound.aspx" />
+    <Content Include="Views\Shared\Section.aspx" />
+    <Content Include="Views\Shared\SectionNotFound.aspx" />
     <Content Include="Views\Help\Index.aspx" />
     <Content Include="Views\Shared\BreadCrumbs.ascx" />
     <Content Include="Views\Shared\Site.Master" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\class_descriptions.xml" />
-    <Content Include="Content\bootstrap\bootstrap.css" />
-    <Content Include="Content\bootstrap\bootstrap.min.css" />
-    <Content Include="Content\bootstrap\js\bootstrap-alerts.js" />
-    <Content Include="Content\bootstrap\js\bootstrap-dropdown.js" />
-    <Content Include="Content\bootstrap\js\bootstrap-modal.js" />
-    <Content Include="Content\bootstrap\js\bootstrap-popover.js" />
-    <Content Include="Content\bootstrap\js\bootstrap-scrollspy.js" />
-    <Content Include="Content\bootstrap\js\bootstrap-tabs.js" />
-    <Content Include="Content\bootstrap\js\bootstrap-twipsy.js" />
-    <Content Include="Content\img\locked.png" />
-    <Content Include="Scripts\function.js" />
-    <Content Include="Scripts\libs\highlite\prettify.js" />
+    <None Include="Properties\PublishProfiles\api.onlyoffice.com.pubxml" />
     <None Include="Properties\PublishProfiles\api.teamlab.com.pubxml" />
-    <Content Include="Views\Documentation\ParamTypeControl.ascx" />
-    <Content Include="Views\Documentation\Search.aspx" />
+    <None Include="Properties\PublishProfiles\api.teamlab.info.pubxml" />
+    <Content Include="Views\Shared\Search.aspx" />
     <Content Include="Views\Help\Batch.aspx" />
     <Content Include="Views\Help\Filters.aspx" />
-    <Content Include="Views\Shared\HomeSplash.ascx" />
-    <Content Include="Views\Shared\SearchControlForm.ascx" />
-    <Content Include="Views\Documentation\TopTocControl.ascx" />
-    <Content Include="Views\Help\Authentication.aspx" />
-    <Content Include="Views\Help\Basic.aspx" />
+    <Content Include="Views\Shared\SearchForm.ascx" />
+    <Content Include="Views\Portals\Auth.aspx" />
     <Content Include="Views\Help\Faq.aspx" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -325,31 +230,70 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\all.css" />
-    <Content Include="Content\img\betta.png" />
-    <Content Include="Content\img\bg_header.png" />
-    <Content Include="Content\img\find.png" />
-    <Content Include="Content\img\tm-dev.png" />
-    <Content Include="Content\sprite\sprite.png" />
     <Content Include="favicon.ico" />
-    <Content Include="Scripts\libs\jquery.min.js" />
     <Content Include="Views\Shared\Analytic.ascx" />
-    <Content Include="web.log4net.config">
-    </Content>
     <Content Include="web.unity.config">
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
+      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
+      <Name>ASC.Mail.Aggregator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail\ASC.Mail.Core\Net\ASC.Mail.csproj">
+      <Project>{7ab36ccf-5ffd-4780-a54e-a102eca028b5}</Project>
+      <Name>ASC.Mail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api.Calendar\ASC.Api.Calendar.csproj">
+      <Project>{5f7dc7bd-d831-449a-908d-5a419e4dfe71}</Project>
+      <Name>ASC.Api.Calendar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api.Community\ASC.Api.Community.csproj">
+      <Project>{f112a4a5-556f-4680-a7d5-8726803fd507}</Project>
+      <Name>ASC.Api.Community</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api.CRM\ASC.Api.CRM.csproj">
+      <Project>{cac3ddf1-bfbe-4309-80ba-726e504381c2}</Project>
+      <Name>ASC.Api.CRM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api.Documents\ASC.Api.Documents.csproj">
+      <Project>{991f00f2-71cb-4694-bb6a-4696071bd94d}</Project>
+      <Name>ASC.Api.Documents</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api.Feed\ASC.Api.Feed.csproj">
+      <Project>{3d4b5ed7-49b9-45f5-9daf-19d30520c877}</Project>
+      <Name>ASC.Api.Feed</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api.Mail\ASC.Api.Mail.csproj">
+      <Project>{5eec68a0-657c-45f3-8079-ebdb5cb9597a}</Project>
+      <Name>ASC.Api.Mail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api.Projects\ASC.Api.Projects.csproj">
+      <Project>{2d26fa73-f6a7-4154-b620-3e9d0433e3a6}</Project>
+      <Name>ASC.Api.Projects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api.Settings\ASC.Api.Settings.csproj">
+      <Project>{64368bdc-06cb-43d3-8537-3ba8705bcd25}</Project>
+      <Name>ASC.Api.Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
+      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
+      <Name>ASC.Api.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Employee\ASC.Api.Employee.csproj">
+      <Project>{32adbd01-6262-48d7-a69b-0515b03db90e}</Project>
+      <Name>ASC.Api.Employee</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Specific\ASC.Specific.csproj">
+      <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
+      <Name>ASC.Specific</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target> -->
-  <!--<Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
-    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)" />
-  </Target>-->
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
@@ -374,4 +318,5 @@
     </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
 </Project>

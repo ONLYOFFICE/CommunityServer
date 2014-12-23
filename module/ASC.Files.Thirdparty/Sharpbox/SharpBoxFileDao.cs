@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -49,32 +49,32 @@ namespace ASC.Files.Thirdparty.Sharpbox
             SharpBoxProviderInfo.InvalidateStorage();
         }
 
-        public Files.Core.File GetFile(object fileId)
+        public Core.File GetFile(object fileId)
         {
             return GetFile(fileId, 1);
         }
 
-        public Files.Core.File GetFile(object fileId, int fileVersion)
+        public Core.File GetFile(object fileId, int fileVersion)
         {
             return ToFile(GetFileById(fileId));
         }
 
-        public Files.Core.File GetFile(object parentId, string title)
+        public Core.File GetFile(object parentId, string title)
         {
             return ToFile(GetFolderFiles(parentId).FirstOrDefault(x => x.Name.Contains(title)));
         }
 
-        public List<Files.Core.File> GetFileHistory(object fileId)
+        public List<Core.File> GetFileHistory(object fileId)
         {
-            return new List<Files.Core.File> { GetFile(fileId) };
+            return new List<Core.File> { GetFile(fileId) };
         }
 
-        public List<Files.Core.File> GetFiles(object[] fileIds)
+        public List<Core.File> GetFiles(object[] fileIds)
         {
             return fileIds.Select(fileId => ToFile(GetFileById(fileId))).ToList();
         }
 
-        public Stream GetFileStream(Files.Core.File file, long offset)
+        public Stream GetFileStream(Core.File file, long offset)
         {
             //NOTE: id here is not converted!
             var fileToDownload = GetFileById(file.ID);
@@ -98,22 +98,22 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return fileStream;
         }
 
-        public Uri GetPreSignedUri(Files.Core.File file, TimeSpan expires)
+        public Uri GetPreSignedUri(Core.File file, TimeSpan expires)
         {
             throw new NotSupportedException();
         }
 
-        public bool IsSupportedPreSignedUri(Files.Core.File file)
+        public bool IsSupportedPreSignedUri(Core.File file)
         {
             return false;
         }
 
-        public Stream GetFileStream(Files.Core.File file)
+        public Stream GetFileStream(Core.File file)
         {
             return GetFileStream(file, 0);
         }
 
-        public Files.Core.File SaveFile(Files.Core.File file, Stream fileStream)
+        public Core.File SaveFile(Core.File file, Stream fileStream)
         {
             if (fileStream == null) throw new ArgumentNullException("fileStream");
             ICloudFileSystemEntry entry = null;
@@ -195,7 +195,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return newIdValue;
         }
 
-        public Files.Core.File CopyFile(object fileId, object toFolderId)
+        public Core.File CopyFile(object fileId, object toFolderId)
         {
             var file = GetFile(fileId);
             SharpBoxProviderInfo.Storage.CopyFileSystemEntry(MakePath(fileId), MakePath(toFolderId));
@@ -235,14 +235,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
         {
         }
 
-        public bool UseTrashForRemove(Files.Core.File file)
+        public bool UseTrashForRemove(Core.File file)
         {
             return false;
         }
 
         #region chunking
 
-        public ChunkedUploadSession CreateUploadSession(Files.Core.File file, long contentLength)
+        public ChunkedUploadSession CreateUploadSession(Core.File file, long contentLength)
         {
             if (SetupInfo.ChunkUploadSize > contentLength)
                 return new ChunkedUploadSession(MakeId(file), contentLength) { UseChunks = false };
@@ -312,7 +312,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
             }
         }
 
-        public Files.Core.File FinalizeUploadSession(ChunkedUploadSession uploadSession)
+        public Core.File FinalizeUploadSession(ChunkedUploadSession uploadSession)
         {
             if (uploadSession.Items.ContainsKey("SharpboxSession"))
             {
@@ -339,7 +339,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
             }
         }
 
-        private Files.Core.File MakeId(Files.Core.File file)
+        private Core.File MakeId(Core.File file)
         {
             if (file.ID != null)
                 file.ID = PathPrefix + "-" + file.ID;
@@ -354,7 +354,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         #region Only in TMFileDao
 
-        public IEnumerable<Files.Core.File> Search(string text, FolderType folderType)
+        public IEnumerable<Core.File> Search(string text, FolderType folderType)
         {
             return null;
         }
@@ -369,7 +369,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
             //Do nothing
         }
 
-        public bool IsExistOnStorage(Files.Core.File file)
+        public bool IsExistOnStorage(Core.File file)
         {
             return true;
         }

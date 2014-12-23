@@ -9,8 +9,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ASC.Common</RootNamespace>
     <AssemblyName>ASC.Common</AssemblyName>
-    <TrunkDir>..\..\</TrunkDir>
-    <RedDir Condition=" '$(RedDir)' == '' ">$(TrunkDir)redistributable\asc\</RedDir>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -18,12 +16,12 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
+    <OutputPath>..\..\web\studio\ASC.Web.Studio\bin\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,7 +31,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,37 +39,46 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-      <HintPath>..\..\redistributable\third-party\Microsoft\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Core">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Linq" />
+    <Reference Include="System.Linq">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Management" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.ServiceModel.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions">
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Web.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="AWSSDK">
-      <HintPath>..\..\redistributable\third-party\Amazon\AWSSDK.dll</HintPath>
+      <HintPath>..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\redistributable\third-party\HtmlAgilityPack\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="HtmlSanitizationLibrary">
-      <HintPath>..\..\redistributable\third-party\Microsoft\AntiXss\HtmlSanitizationLibrary.dll</HintPath>
+      <HintPath>..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\redistributable\third-party\log4net\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NVelocity">
-      <HintPath>..\..\redistributable\third-party\NVelocity\NVelocity.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\..\redistributable\third-party\db\sqlite\System.Data.SQLite.DLL</HintPath>
+      <HintPath>..\..\packages\NVelocity.1.0.3\lib\NVelocity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\CachedDictionaryBase.cs" />
@@ -92,20 +98,13 @@
     <Compile Include="Data\DbTransaction.cs" />
     <Compile Include="Data\IDbManager.cs" />
     <Compile Include="Data\MultiRegionalDbManager.cs" />
-    <Compile Include="Data\SQLite\ConcatFunction.cs" />
-    <Compile Include="Data\SQLite\SubstringIndexFunction.cs" />
-    <Compile Include="Data\SQLite\GroupConcatFunction.cs" />
-    <Compile Include="Data\SQLite\SubstringFunction.cs" />
-    <Compile Include="Data\SQLite\RegexpFunction.cs" />
     <Compile Include="Data\Sql\SqlDebugView.cs" />
     <Compile Include="Data\Sql\Dialects\SQLiteDialect.cs" />
     <Compile Include="Data\Sql\Dialects\MySQLDialect.cs" />
-    <Compile Include="Data\SQLite\LowerFunction.cs" />
-    <Compile Include="Data\SQLite\UpperFunction.cs" />
     <Compile Include="Data\Sql\Expressions\BetweenExp.cs" />
     <Compile Include="Data\Sql\Expressions\ExistsExp.cs" />
     <Compile Include="Data\Sql\Expressions\LGtExp.cs" />
-    <Compile Include="Data\Sql\Expressions\SubExp.cs" />
+    <Compile Include="Data\Sql\Expressions\AsExp.cs" />
     <Compile Include="Data\Sql\Expressions\EqColumnsExp.cs" />
     <Compile Include="Data\Sql\Expressions\EqExp.cs" />
     <Compile Include="Data\Sql\Expressions\Exp.cs" />
@@ -125,6 +124,8 @@
     <Compile Include="Data\Sql\SqlUpdate.cs" />
     <Compile Include="Geolocation\IPGeolocationInfo.cs" />
     <Compile Include="Geolocation\GeolocationHelper.cs" />
+    <Compile Include="Logging\Log4netTraceListener.cs" />
+    <Compile Include="Logging\SpecialFolderPathConverter.cs" />
     <Compile Include="Module\BaseWcfClient.cs" />
     <Compile Include="Module\IServiceController.cs" />
     <Compile Include="Notify\Channels\ISenderChannel.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Notify\Sinks\DispatchSink.cs" />
     <Compile Include="Notify\Sinks\ISink.cs" />
     <Compile Include="Notify\Sinks\Sink.cs" />
+    <Compile Include="Security\AscRandom.cs" />
     <Compile Include="Security\Authentication\SystemAccount.cs" />
     <Compile Include="Security\Authorizing\AzObjectIdHelper.cs" />
     <Compile Include="Security\Authorizing\AzObjectSecurityProviderHelper.cs" />
@@ -218,6 +220,7 @@
     <Compile Include="Tests\Data\DataTest.cs" />
     <Compile Include="Tests\Data\ExpTest.cs" />
     <Compile Include="Tests\Geolocation\GeolocationTest.cs" />
+    <Compile Include="Tests\Logging\SpecialFolderPathConverterTest.cs" />
     <Compile Include="Tests\Notify\XmlPatternProvider2Test.cs" />
     <Compile Include="Tests\Security\Authorizing\AzManagerTest.cs" />
     <Compile Include="Tests\Security\Authorizing\Class1.cs" />
@@ -234,6 +237,7 @@
     <Compile Include="Utils\HttpRequestExtensions.cs" />
     <Compile Include="Utils\MailAddressUtils.cs" />
     <Compile Include="Utils\MimeHeaderUtils.cs" />
+    <Compile Include="Utils\TimeZoneConverter\TimeZoneConverter.cs" />
     <Compile Include="Utils\Signature.cs" />
     <Compile Include="Utils\VelocityFormatter.cs" />
     <Compile Include="Utils\HtmlUtil.cs" />
@@ -249,11 +253,8 @@
   <ItemGroup>
     <None Include="Tests\App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Utils\TimeZoneConverter\windowsZones.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild">
-    <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(RedDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(DocFileItem)" DestinationFiles="@(FinalDocFile->'$(RedDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" Condition="'$(_DocumentationFileProduced)'=='true'" />
-    <Copy SourceFiles="@(IntermediateSatelliteAssembliesWithTargetPath)" DestinationFiles="@(IntermediateSatelliteAssembliesWithTargetPath->'$(RedDir)%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true" />
-  </Target>
 </Project>

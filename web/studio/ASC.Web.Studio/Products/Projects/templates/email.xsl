@@ -118,7 +118,7 @@
       </head>
       <body>
         <div style="background-color:#31a3d3; height:50px;">
-              <img style="float:left;" alt="TeamLab Office" src="{$logo}" />
+              <img style="float:left;" alt="ONLYOFFICE" src="{$logo}" />
         </div>
         <div style="margin:0px 40px;">
           <xsl:copy>

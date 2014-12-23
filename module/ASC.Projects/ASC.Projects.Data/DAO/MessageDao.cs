@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -133,7 +133,7 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
-        public List<Message> GetByFilter(TaskFilter filter, bool isAdmin)
+        public List<Message> GetByFilter(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
             using (var db = new DbManager(DatabaseId))
             {
@@ -144,6 +144,8 @@ namespace ASC.Projects.Data.DAO
                     query.SetFirstResult((int) filter.Offset);
                     query.SetMaxResults((int) filter.Max);
                 }
+
+                query.OrderBy("t.status", true);
 
                 if (!string.IsNullOrEmpty(filter.SortBy))
                 {
@@ -158,13 +160,13 @@ namespace ASC.Projects.Data.DAO
                     }
                 }
 
-                query = CreateQueryFilter(query, filter, isAdmin);
+                query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
 
                 return db.ExecuteList(query).ConvertAll(ToMessage);
             }
         }
 
-        public int GetByFilterCount(TaskFilter filter, bool isAdmin)
+        public int GetByFilterCount(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
             using (var db = new DbManager(DatabaseId))
             {
@@ -174,7 +176,7 @@ namespace ASC.Projects.Data.DAO
                     .GroupBy("t.id")
                     .Where("t.tenant_id", Tenant);
 
-                query = CreateQueryFilter(query, filter, isAdmin);
+                query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
 
                 var queryCount = new SqlQuery().SelectCount().From(query, "t1");
                 return db.ExecuteScalar<int>(queryCount);
@@ -208,6 +210,7 @@ namespace ASC.Projects.Data.DAO
                     .InColumnValue("id", msg.ID)
                     .InColumnValue("project_id", msg.Project != null ? msg.Project.ID : 0)
                     .InColumnValue("title", msg.Title)
+                    .InColumnValue("status", msg.Status)
                     .InColumnValue("create_by", msg.CreateBy.ToString())
                     .InColumnValue("create_on", TenantUtil.DateTimeToUtc(msg.CreateOn))
                     .InColumnValue("last_modified_by", msg.LastModifiedBy.ToString())
@@ -240,13 +243,13 @@ namespace ASC.Projects.Data.DAO
                 .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
                 .LeftOuterJoin(CommentsTable + " pc", Exp.EqColumns("pc.target_uniq_id", "concat('Message_', cast(t.id as char))") & Exp.EqColumns("t.tenant_id", "pc.tenant_id"))
                 .Select(ProjectDao.ProjectColumns.Select(c => "p." + c).ToArray())
-                .Select("t.id", "t.title", "t.create_by", "t.create_on", "t.last_modified_by", "t.last_modified_on", "t.content")
+                .Select("t.id", "t.title", "t.status", "t.create_by", "t.create_on", "t.last_modified_by", "t.last_modified_on", "t.content")
                 .Select("max(coalesce(pc.create_on, t.create_on)) comments")
                 .GroupBy("t.id")
                 .Where("t.tenant_id", Tenant);
         }
 
-        private SqlQuery CreateQueryFilter(SqlQuery query, TaskFilter filter, bool isAdmin)
+        private SqlQuery CreateQueryFilter(SqlQuery query, TaskFilter filter, bool isAdmin, bool checkAccess)
         {
             if (filter.Follow)
             {
@@ -296,12 +299,21 @@ namespace ASC.Projects.Data.DAO
                 query.Where(Exp.Between("t.create_on", filter.FromDate, filter.ToDate.AddDays(1)));
             }
 
+            if (filter.MessageStatus.HasValue)
+            {
+                query.Where("t.status", filter.MessageStatus.Value);
+            }
+
             if (!string.IsNullOrEmpty(filter.SearchText))
             {
                 query.Where(Exp.Like("t.title", filter.SearchText, SqlLike.AnyWhere));
             }
 
-            if (!isAdmin)
+            if (checkAccess)
+            {
+                query.Where(Exp.Eq("p.private", false));
+            }
+            else if (!isAdmin)
             {
                 var isInTeam = new SqlQuery(ParticipantTable).Select("security").Where(Exp.EqColumns("p.id", "project_id") & Exp.Eq("removed", false) & Exp.Eq("participant_id", CurrentUserID) & !Exp.Eq("security & " + (int)ProjectTeamSecurity.Messages, (int)ProjectTeamSecurity.Messages));
                 query.Where(Exp.Eq("p.private", false) | Exp.Eq("p.responsible_id", CurrentUserID) | (Exp.Eq("p.private", true) & Exp.Exists(isInTeam)));
@@ -326,11 +338,12 @@ namespace ASC.Projects.Data.DAO
                            Project = r[0] != null ? ProjectDao.ToProject(r) : null,
                            ID = Convert.ToInt32(r[0 + offset]),
                            Title = (string) r[1 + offset],
-                           CreateBy = ToGuid(r[2 + offset]),
-                           CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3 + offset])),
-                           LastModifiedBy = ToGuid(r[4 + offset]),
-                           LastModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5 + offset])),
-                           Content = (string) r[6 + offset]
+                           Status = (MessageStatus)Convert.ToInt32(r[2 + offset]),
+                           CreateBy = ToGuid(r[3 + offset]),
+                           CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[4 + offset])),
+                           LastModifiedBy = ToGuid(r[5 + offset]),
+                           LastModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[6 + offset])),
+                           Content = (string) r[7 + offset]
                        };
         }
 

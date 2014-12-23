@@ -1,0 +1,1 @@
+mysqldbschema --host=teamlab --database=test --user=dev --password=dev --nocase --tables="^account|^audit|^backup|^blogs|^bookmarking|^calendar|^core|^crm|^events|^feed|^files|^forum|^jabber|^login|^mail|^notify|^projects|^res|^sso|^tenants|^webstudio|^wiki" > onlyoffice.sql

@@ -1,33 +1,31 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
-using System.Web;
-using ASC.Data.Storage;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.DataStorage;
@@ -37,7 +35,6 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.FullTextIndex;
 using ASC.Mail.Aggregator.Common.Collection;
 using ASC.Mail.Aggregator.Dal;
 using ASC.Mail.Aggregator.Dal.DbSchema;
@@ -52,7 +49,6 @@ using System.Data.Common;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace ASC.Mail.Aggregator
 {
@@ -456,63 +452,6 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public void UpdateCrmMessages(int tenant, IEnumerable<string> emails, IEnumerable<string> users)
-        {
-            var emails_array = emails.Distinct().ToArray();
-            var users_array = users.Select(x => (object) x).ToArray();
-
-            if (emails_array.Length == 0) return;
-
-            var query = new SqlUpdate(MailTable.name)
-                .Where(MailTable.Columns.id_tenant, tenant)
-                .Where(MailTable.Columns.folder, 1)
-                .Where(MailTable.Columns.is_removed, false)
-                .Where(MailTable.Columns.is_from_crm, false);
-
-            if (users_array.Length != 0) query.Where(Exp.In(MailTable.Columns.id_user, users_array));
-
-            var exp = Exp.Like(MailTable.Columns.from, emails_array[0], SqlLike.AnyWhere);
-            for (var i = 1; i < emails_array.Length; i++)
-            {
-                exp = Exp.Or(exp, Exp.Like(MailTable.Columns.from, emails_array[i], SqlLike.AnyWhere));
-            }
-
-            using (var db = GetDb())
-            {
-                if (FullTextSearch.SupportModule(FullTextSearch.MailFromTextModule))
-                {
-                    var ids = new List<string>();
-                    ids = emails_array.Aggregate(ids, (current, t) =>
-                                                      current.Concat(
-                                                          FullTextSearch.Search(t, FullTextSearch.MailFromTextModule)
-                                                                        .GetIdentifiers()).Distinct().ToList());
-
-                    var last_ids = db.ExecuteList(
-                            new SqlQuery(MailTable.name)
-                              .Select(MailTable.Columns.id)
-                              .Where(MailTable.Columns.id_tenant, tenant)
-                              .Where(MailTable.Columns.folder, 1)
-                              .Where(MailTable.Columns.is_removed, false)
-                              .Where(MailTable.Columns.is_from_crm, false)
-                              .Where(Exp.Gt(MailTable.Columns.chain_date,
-                                            DateTime.Now.AddMinutes((-1)*time_check_minutes)
-                                                    .ToUniversalTime()))
-                              .Where(exp)).ConvertAll(x => (string) x[0]);
-
-                    ids = ids.Concat(last_ids).Distinct().ToList();
-
-                    query.Where(Exp.In(MailTable.Columns.id, ids));
-                }
-                else
-                {
-                    query.Where(exp);
-                }
-
-                query.Set(MailTable.Columns.is_from_crm, true);
-                db.ExecuteNonQuery(query);
-            }
-        }
-
         public void DeleteFoldersMessages(int id_tenant, string id_user, int folder)
         {
             long used_quota = 0;
@@ -649,8 +588,8 @@ namespace ASC.Mail.Aggregator
                                     .InColumnValue(MailTable.Columns.is_from_crm, mail.IsFromCRM)
                                     .InColumnValue(MailTable.Columns.is_from_tl, mail.IsFromTL)
                                     .InColumnValue(MailTable.Columns.spam, 0)
-                                    .InColumnValue(MailTable.Columns.mime_message_id, mail.MessageId)
-                                    .InColumnValue(MailTable.Columns.mime_in_reply_to, mail.InReplyTo)
+                                    .InColumnValue(MailTable.Columns.mime_message_id, mail.MimeMessageId)
+                                    .InColumnValue(MailTable.Columns.mime_in_reply_to, mail.MimeReplyToId)
                                     .InColumnValue(MailTable.Columns.chain_id, mail.ChainId)
                                     .InColumnValue(MailTable.Columns.introduction, mail.Introduction)
                                     .InColumnValue(MailTable.Columns.chain_date, mail.Date.ToUniversalTime())
@@ -694,13 +633,10 @@ namespace ASC.Mail.Aggregator
                                     .Set(MailTable.Columns.is_from_crm, mail.IsFromCRM)
                                     .Set(MailTable.Columns.is_from_tl, mail.IsFromTL)
                                     .Set(MailTable.Columns.is_text_body_only, mail.TextBodyOnly)
-                                    .Set(MailTable.Columns.spam, 0);
-
-                                if (!string.IsNullOrEmpty(mail.MessageId))
-                                    update.Set(MailTable.Columns.mime_message_id, mail.MessageId);
-                                if (!string.IsNullOrEmpty(mail.InReplyTo))
-                                    update.Set(MailTable.Columns.mime_in_reply_to, mail.InReplyTo);
-                                if (!string.IsNullOrEmpty(mail.ChainId)) update.Set(MailTable.Columns.chain_id, mail.ChainId);
+                                    .Set(MailTable.Columns.spam, 0)
+                                    .Set(MailTable.Columns.mime_message_id, mail.MimeMessageId)
+                                    .Set(MailTable.Columns.mime_in_reply_to, mail.MimeReplyToId)
+                                    .Set(MailTable.Columns.chain_id, mail.ChainId);
 
                                 db.ExecuteNonQuery(update);
                                 id_mail = mail_id;
@@ -753,7 +689,7 @@ namespace ASC.Mail.Aggregator
                                 }
                             }
 
-                            UpdateMessagesChains(db, mail_box, mail.MessageId, mail.ChainId, folder);
+                            UpdateMessagesChains(db, mail_box, mail.MimeMessageId, mail.ChainId, folder);
 
                             // ToDo: implement MailContactsSave as Message handler extension
                             // MailContactsSave(db, mail_box.TenantId, mail_box.UserId, mail);
@@ -827,7 +763,7 @@ namespace ASC.Mail.Aggregator
             if (message == null)
                 throw new ArgumentNullException("message");
 
-            _log.Debug("MailReceive() tenant='{0}', user_id='{1}', folder_id='{2}', uidl='{3}'",
+            _log.Info("MailReceive() tenant='{0}', user_id='{1}', folder_id='{2}', uidl='{3}'",
                 mail_box.TenantId, mail_box.UserId, folder_id, uidl);
 
             var skip_save_message = false;
@@ -907,6 +843,9 @@ namespace ASC.Mail.Aggregator
 
                     StoreMailBody(mail_box.TenantId, mail_box.UserId, message_item);
 
+                    if (SaveOriginalMessage) 
+                        StoreMailEml(mail_box.TenantId, mail_box.UserId, message_item.StreamId, message);
+
                     _log.Debug("MailSave(Account:{0})", mail_box.EMail);
 
                     message_item.IsNew = unread;
@@ -915,9 +854,10 @@ namespace ASC.Mail.Aggregator
                                              ? MailFolder.Ids.inbox
                                              : folder_id;
                     mail_id = MailSave(mail_box, message_item, 0, folder_id, folder_restore, uidl, md5, true);
-                    AddRelationshipEventForLinkedAccounts(mail_box, message_item, mail_id, _log);
+                    message_item.Id = mail_id;
+                    AddRelationshipEventForLinkedAccounts(mail_box, message_item, _log);
 
-                    _log.Debug("MailSave(Account:{0}) returned mailId = {1}\r\n", mail_box.EMail, mail_id);
+                    _log.Info("MailSave(Account:{0}) returned mailId = {1}\r\n", mail_box.EMail, mail_id);
                 }
                 catch (Exception)
                 {
@@ -978,33 +918,27 @@ namespace ASC.Mail.Aggregator
             return mail_id;
         }
 
-
-        public void AddRelationshipEventForLinkedAccounts(MailBox mail_box, MailMessageItem message_item)
-        {
-            AddRelationshipEventForLinkedAccounts(mail_box, message_item, message_item.Id, null);
-        }
-
-
-        private void AddRelationshipEventForLinkedAccounts(MailBox mail_box, MailMessageItem message_item, long mail_id, ILogger log)
+        public void AddRelationshipEventForLinkedAccounts(MailBox mail_box, MailMessageItem message_item, ILogger log)
         {
             try
             {
-                message_item.LinkedCrmEntityIds = GetLinkedCrmEntitiesId(message_item.ChainId, mail_box.MailBoxId,mail_box.TenantId);
+                message_item.LinkedCrmEntityIds = GetLinkedCrmEntitiesId(message_item.ChainId, mail_box.MailBoxId,
+                                                                         mail_box.TenantId);
                 var crm_dal = new CrmHistoryDal(this, mail_box.TenantId, mail_box.UserId);
-                message_item.Id = mail_id;
                 crm_dal.AddRelationshipEvents(message_item);
             }
             catch (Exception ex)
             {
                 if (log != null)
-                    log.WarnException(String.Format("Problem with adding history event to CRM. mailId={0}", mail_id), ex);
+                    log.WarnException(
+                        String.Format("Problem with adding history event to CRM. mailId={0}", message_item.Id), ex);
             }
         }
 
         /// <summary>
         /// Creates Rfc 2822 3.6.4 message-id. Syntax: '&lt;' id-left '@' id-right '&gt;'.
         /// </summary>
-        public string CreateMessageId()
+        public static string CreateMessageId()
         {
             return "<" + Guid.NewGuid().ToString().Replace("-", "").Substring(16) + "@" +
                    Guid.NewGuid().ToString().Replace("-", "").Substring(16) + ">";
@@ -1076,10 +1010,10 @@ namespace ASC.Mail.Aggregator
 
         public string DetectChainId(MailBox mailbox, MailMessageItem message_item)
         {
-            var chain_id = message_item.MessageId; //Chain id is equal to root conversataions message - messageId
-            if (!string.IsNullOrEmpty(message_item.MessageId) && !string.IsNullOrEmpty(message_item.InReplyTo))
+            var chain_id = message_item.MimeMessageId; //Chain id is equal to root conversataions message - MimeMessageId
+            if (!string.IsNullOrEmpty(message_item.MimeMessageId) && !string.IsNullOrEmpty(message_item.MimeReplyToId))
             {
-                chain_id = message_item.InReplyTo;
+                chain_id = message_item.MimeReplyToId;
                 try
                 {
                     using (var db = GetDb())
@@ -1098,12 +1032,12 @@ namespace ASC.Mail.Aggregator
                 catch (Exception ex)
                 {
                     _log.Warn("DetectChainId() params tenant={0}, user_id='{1}', mailbox_id={2}, mime_message_id='{3}' Exception:\r\n{4}",
-                        mailbox.TenantId, mailbox.UserId, message_item.MailboxId, message_item.MessageId,ex.ToString());
+                        mailbox.TenantId, mailbox.UserId, message_item.MailboxId, message_item.MimeMessageId,ex.ToString());
                 }
             }
 
             _log.Debug("DetectChainId() tenant='{0}', user_id='{1}', mailbox_id='{2}', mime_message_id='{3}' Result: {4}",
-                        mailbox.TenantId, mailbox.UserId, message_item.MailboxId, message_item.MessageId, chain_id);
+                        mailbox.TenantId, mailbox.UserId, message_item.MailboxId, message_item.MimeMessageId, chain_id);
 
             return chain_id;
         }
@@ -1111,7 +1045,7 @@ namespace ASC.Mail.Aggregator
         private static SqlQuery GetDetectChainByInReplyToIdQuery(SqlQuery base_query, MailMessageItem message_item)
         {
             return base_query
-                .Where(Exp.Eq(MailTable.Columns.mime_message_id, message_item.InReplyTo));
+                .Where(Exp.Eq(MailTable.Columns.mime_message_id, message_item.MimeReplyToId));
         }
 
         private SqlQuery GetDetectChainBaseQuery(MailBox mailbox)
@@ -1173,7 +1107,6 @@ namespace ASC.Mail.Aggregator
                         MailTable.Columns.subject,
                         MailTable.Columns.attach_count,
                         MailTable.Columns.size,
-                        MailTable.Columns.is_from_crm,
                         MailTable.Columns.is_from_tl,
                         MailTable.Columns.folder,
                         MailTable.Columns.unread,
@@ -1181,7 +1114,9 @@ namespace ASC.Mail.Aggregator
                         MailTable.Columns.is_text_body_only,
                         MailTable.Columns.id_mailbox,
                         MailTable.Columns.folder_restore,
-                        MailTable.Columns.has_parse_error
+                        MailTable.Columns.has_parse_error,
+                        MailTable.Columns.mime_message_id,
+                        MailTable.Columns.mime_in_reply_to
                     )
                     .Where(GetUserWhere(id_user, id_tenant))
                     .Where(MailTable.Columns.is_removed, false)
@@ -1204,15 +1139,16 @@ namespace ASC.Mail.Aggregator
                                 subject = (string)x[13],
                                 hasAttachments = Convert.ToBoolean(x[14]),
                                 size = Convert.ToInt64(x[15]),
-                                is_from_crm = Convert.ToBoolean(x[16]),
-                                is_from_tl = Convert.ToBoolean(x[17]),
-                                folder = Convert.ToInt32(x[18]),
-                                unread = Convert.ToBoolean(x[19]),
-                                introduction = (string)x[20],
-                                is_text_body_only = Convert.ToBoolean(x[21]),
-                                id_mailbox = Convert.ToInt32(x[22]),
-                                folder_restore = Convert.ToInt32(x[23]),
-                                has_parse_error = Convert.ToBoolean(x[24])
+                                is_from_tl = Convert.ToBoolean(x[16]),
+                                folder = Convert.ToInt32(x[17]),
+                                unread = Convert.ToBoolean(x[18]),
+                                introduction = (string)x[19],
+                                is_text_body_only = Convert.ToBoolean(x[20]),
+                                id_mailbox = Convert.ToInt32(x[21]),
+                                folder_restore = Convert.ToInt32(x[22]),
+                                has_parse_error = Convert.ToBoolean(x[23]),
+                                mime_message_id = (string)x[24],
+                                mime_in_reply_to = (string)x[25]
                             })
                             .SingleOrDefault();
 
@@ -1253,7 +1189,6 @@ namespace ASC.Mail.Aggregator
                     Subject = db_info.subject,
                     To = db_info.to,
                     StreamId = db_info.stream,
-                    IsFromCRM = db_info.is_from_crm,
                     IsFromTL = db_info.is_from_tl,
                     Folder = db_info.folder,
                     WasNew = db_info.unread,
@@ -1263,7 +1198,9 @@ namespace ASC.Mail.Aggregator
                     TextBodyOnly = db_info.is_text_body_only,
                     MailboxId = db_info.id_mailbox,
                     RestoreFolderId = db_info.folder_restore,
-                    HasParseError = db_info.has_parse_error
+                    HasParseError = db_info.has_parse_error,
+                    MimeMessageId = db_info.mime_message_id,
+                    MimeReplyToId = db_info.mime_in_reply_to
                 };
 
             //Reassemble paths
@@ -1322,6 +1259,17 @@ namespace ASC.Mail.Aggregator
             var attachments = GetMessageAttachments(db, id_tenant, id_user, id_mail);
 
             item.Attachments = attachments.Count != 0 ? attachments : new List<MailAttachment>();
+
+            Address from;
+            if (Parser.TryParseAddress(db_info.@from, out from))
+            {
+                var ids = GetCrmContactsId(id_tenant, id_user, from.Email);
+                if (ids.Count > 0)
+                {
+                    item.IsFromCRM = true;
+                    item.ParticipantsCrmContactsId = ids;
+                }
+            }
 
             return item;
         }
@@ -1900,7 +1848,7 @@ namespace ASC.Mail.Aggregator
                                 .Select(TagMailFields.id_tag.Prefix("mt"))
                                 .Where(MailTable.Columns.id_mailbox.Prefix("mm"), mail_box.MailBoxId)
                                 .Where(MailTable.Columns.folder.Prefix("mm"), MailFolder.Ids.sent)
-                                .Where(MailTable.Columns.mime_message_id.Prefix("mm"), message_item.MessageId)
+                                .Where(MailTable.Columns.mime_message_id.Prefix("mm"), message_item.MimeMessageId)
                             );
                     }
 
@@ -1942,8 +1890,8 @@ namespace ASC.Mail.Aggregator
 
             _log.Debug("DetectChain()");
 
-            if (string.IsNullOrEmpty(message_item.MessageId))
-                message_item.MessageId = CreateMessageId();
+            if (string.IsNullOrEmpty(message_item.MimeMessageId))
+                message_item.MimeMessageId = CreateMessageId();
 
             message_item.ChainId = DetectChainId(mail_box, message_item);
 

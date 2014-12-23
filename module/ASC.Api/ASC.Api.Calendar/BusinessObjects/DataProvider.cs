@@ -1,29 +1,29 @@
 /*
-(c) Copyright Ascensio System SIA 2010-2014
-
-This program is a free software product.
-You can redistribute it and/or modify it under the terms 
-of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
-Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
-to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of 
-any third-party rights.
-
-This program is distributed WITHOUT ANY WARRANTY; without even the implied warranty 
-of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see 
-the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
-
-You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
-
-The  interactive user interfaces in modified source and object code versions of the Program must 
-display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- 
-Pursuant to Section 7(b) of the License you must retain the original Product logo when 
-distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under 
-trademark law for use of our trademarks.
- 
-All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
-content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
-International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
+ * (c) Copyright Ascensio System SIA 2010-2014
+ * 
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
+ * (AGPL) version 3 as published by the Free Software Foundation. 
+ * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
+ * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ * 
+ * This program is distributed WITHOUT ANY WARRANTY; 
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * 
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * 
+ * The interactive user interfaces in modified source and object code versions of the Program 
+ * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * 
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
+ * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ * 
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
+ * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
+ * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * 
 */
 
 using System;
@@ -34,6 +34,7 @@ using ASC.Api.Calendar.ExternalCalendars;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Web.Core.Calendars;
 
@@ -57,11 +58,6 @@ namespace ASC.Api.Calendar.BusinessObjects
 
         public DataProvider()
         {
-
-            if (!DbRegistry.IsDatabaseRegistered(DBId))
-            {
-                DbRegistry.RegisterDatabase(DBId, ConfigurationManager.ConnectionStrings[DBId]);
-            }
             DbManager = DbManager.FromHttpContext(DBId);
         }
 
@@ -176,7 +172,7 @@ namespace ASC.Api.Calendar.BusinessObjects
 
             var data = DbManager.ExecuteList(q);
             if (data.Count > 0)
-                return data.Select(r => TimeZoneInfo.FindSystemTimeZoneById(Convert.ToString(r[0]))).First();
+                return data.Select(r => TimeZoneConverter.GetTimeZone(Convert.ToString(r[0]))).First();
 
             return CoreContext.TenantManager.GetCurrentTenant().TimeZone;
         }
@@ -186,7 +182,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             return DbManager.ExecuteList(new SqlQuery(_calendarTable).Select("cal.time_zone", "cal_usr.time_zone")
                                             .LeftOuterJoin(_calendarUserTable, Exp.EqColumns("cal.id", "cal_usr.calendar_id") & Exp.Eq("cal_usr.user_id", userId))
                                             .Where(Exp.Eq("cal.id", caledarId)))
-                                            .Select(r => (r[1] == null || r[1] == DBNull.Value) ? TimeZoneInfo.FindSystemTimeZoneById(Convert.ToString(r[0])) : TimeZoneInfo.FindSystemTimeZoneById(Convert.ToString(r[1]))).First();
+                                            .Select(r => (r[1] == null || r[1] == DBNull.Value) ? TimeZoneConverter.GetTimeZone(Convert.ToString(r[0])) : TimeZoneConverter.GetTimeZone(Convert.ToString(r[1]))).First();
         }
 
         public List<Calendar> GetCalendarsByIds(object[] calIds)
@@ -881,7 +877,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             var calendarData = DbManager.ExecuteList(new SqlQuery("calendar_calendars").Select("alert_type", "owner_id", "time_zone").Where(Exp.Eq("id", calendarId)));
             var calendarAlertType = calendarData.Select(r => (EventAlertType)Convert.ToInt32(r[0])).First();
             Guid calendarOwner = calendarData.Select(r => new Guid(Convert.ToString(r[1]))).First();
-            TimeZoneInfo calendarTimeZone = calendarData.Select(r => TimeZoneInfo.FindSystemTimeZoneById(Convert.ToString(r[2]))).First();
+            TimeZoneInfo calendarTimeZone = calendarData.Select(r => TimeZoneConverter.GetTimeZone(Convert.ToString(r[2]))).First();
 
             List<UserAlertType> eventUsers = new List<UserAlertType>();
 
@@ -939,7 +935,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                     eventUsers.ForEach(u =>
                     {
                         if (u.UserId.Equals(new Guid(Convert.ToString(r[0]))))
-                            u.TimeZone = ((r[3] == null || r[3] == DBNull.Value) ? calendarTimeZone : TimeZoneInfo.FindSystemTimeZoneById(Convert.ToString(r[3])));
+                            u.TimeZone = ((r[3] == null || r[3] == DBNull.Value) ? calendarTimeZone : TimeZoneConverter.GetTimeZone(Convert.ToString(r[3])));
 
                         if (u.AlertType == EventAlertType.Default && u.UserId.Equals(new Guid(Convert.ToString(r[0]))))
                             u.AlertType = (EventAlertType)Convert.ToInt32(r[1]);
@@ -1010,7 +1006,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                     calendarUsers.ForEach(u =>
                     {
                         if (u.UserId.Equals(new Guid(Convert.ToString(r[0]))))
-                            u.TimeZone = ((r[3] == null || r[3] == DBNull.Value) ? calendarTimeZone : TimeZoneInfo.FindSystemTimeZoneById(Convert.ToString(r[3])));
+                            u.TimeZone = ((r[3] == null || r[3] == DBNull.Value) ? calendarTimeZone : TimeZoneConverter.GetTimeZone(Convert.ToString(r[3])));
 
                         if (u.AlertType == EventAlertType.Default && u.UserId.Equals(new Guid(Convert.ToString(r[0]))))
                             u.AlertType = (EventAlertType)Convert.ToInt32(r[1]);
