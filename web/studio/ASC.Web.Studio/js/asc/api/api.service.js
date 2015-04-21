@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 ;
 window.ServiceManager = (function(helper) {
@@ -712,7 +710,6 @@ window.ServiceManager = (function(helper) {
             var filter = null, _id = null, _type = null, _status = null, _options = null;
             for (var i = 2, n = arguments.length; i < n; i++) {
                 switch (arguments[i]) {
-                    case '@all':
                     case '@self':
                         _type = _type || arguments[i];
                         break;
@@ -1815,13 +1812,57 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var setNewEditors = function (eventname, set, options) {
+    var getFileSecurityInfo = function(eventname, id, options) {
+        return helper.request(
+            eventname,
+            null,
+            GET,
+            'files/file/' + id + '/share.json',
+            null,
+            options
+        );
+    };
+
+    var generateSharedLink = function(eventname, id, data, options) {
         return helper.request(
             eventname,
             null,
             UPDATE,
-            'files/neweditors.json',
-            {set: set},
+            'files/' + id + '/sharedlink.json',
+            data,
+            options
+        );
+    };
+
+    var copyBatchItems = function(eventname, data, options) {
+        return helper.request(
+            eventname,
+            null,
+            UPDATE,
+            'files/fileops/copy.json',
+            data,
+            options
+        );
+    };
+
+    var getOperationStatuses = function(eventname, options) {
+        return helper.request(
+            eventname,
+            null,
+            GET,
+            'files/fileops.json',
+            null,
+            options
+        );
+    };
+
+    var getPresignedUri = function (eventname, id, options) {
+        return helper.request(
+            eventname,
+            null,
+            GET,
+            'files/file/' + id + '/presigned.json',
+            null,
             options
         );
     };
@@ -2776,17 +2817,6 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var getCrmContactTasks = function(eventname, params, data, options) {
-        return helper.request(
-            eventname,
-            params,
-            ADD,
-            'crm/contact/task/near.json',
-            typeof data === 'number' || typeof data === 'string' ? { contactid: [data] } : data,
-            options
-        );
-    };
-
     var getCrmCases = function(eventname, params, options) {
         return helper.request(
             eventname,
@@ -3148,6 +3178,49 @@ window.ServiceManager = (function(helper) {
         );
     };
 
+    var sendSMTPMailToContacts = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/contact/mailsmtp/send.json',
+            data,
+            options
+        );
+    };
+
+    var getPreviewSMTPMailToContacts = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/contact/mailsmtp/preview.json',
+            data,
+            options
+        );
+    };
+
+    var getStatusSMTPMailToContacts = function(eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/contact/mailsmtp/status.json',
+            null,
+            options
+        );
+    };
+
+    var cancelSMTPMailToContacts = function(eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/contact/mailsmtp/cancel.json',
+            null,
+            options
+        );
+    };
 
     var addCrmHistoryEvent = function(eventname, params, data, options) {
         helper.request(
@@ -3831,13 +3904,13 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var getCrmContactFacebookProfiles = function(eventname, params, searchText, options) {
+    var getCrmContactFacebookProfiles = function(eventname, params, searchText, isUser, options) {
         return helper.request(
             eventname,
             params,
             GET,
             'crm/contact/facebookprofile.json',
-            {searchText: searchText},
+            {searchText: searchText, isUser: isUser},
             options
         );
     };
@@ -3875,13 +3948,13 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var getCrmContactSocialMediaAvatar = function(eventname, params, contactid, options) {
+    var getCrmContactSocialMediaAvatar = function(eventname, params, data, options) {
         return helper.request(
             eventname,
             params,
-            GET,
-            'crm/contact/'+ contactid + '/socialmediaavatar.json',
-            null,
+            ADD,
+            'crm/contact/socialmediaavatar.json',
+            {socialNetworks: data},
             options
         );
     };
@@ -3940,6 +4013,40 @@ window.ServiceManager = (function(helper) {
             ADD,
             'crm/import/uploadfake.json',
             data,
+            options
+        );
+        return true;
+    };
+
+    var getStatusExportToCSV = function(eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            'crm/export/status.json',
+            null,
+            options
+        );
+    };
+
+    var cancelExportToCSV = function(eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'crm/export/cancel.json',
+            null,
+            options
+        );
+    };
+
+    var startCrmExportToCSV = function (eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'crm/export/start.json',
+            null,
             options
         );
         return true;
@@ -4357,13 +4464,13 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var getMailConversation = function(eventname, params, id, load_all_content, options) {
+    var getMailConversation = function (eventname, params, id, data, options) {
         return helper.request(
             eventname,
             params,
             GET,
             'mail/conversation/' + id + '.json',
-            { load_all_content: load_all_content },
+            data,
             options
         );
     };
@@ -4423,13 +4530,13 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var restoreMailMessages = function(eventname, params, ids, options) {
+    var restoreMailMessages = function (eventname, params, data, options) {
         return helper.request(
             eventname,
             params,
             UPDATE,
             'mail/messages/restore.json',
-            { ids: ids },
+            data,
             options
         );
     };
@@ -4463,17 +4570,6 @@ window.ServiceManager = (function(helper) {
             UPDATE,
             'mail/messages/mark.json',
             { ids: ids, status: status },
-            options
-        );
-    };
-
-    var updateCrmMessages = function(eventname, params, emails, userIds, options) {
-        return helper.request(
-            eventname,
-            params,
-            UPDATE,
-            'mail/messages/update_crm.json',
-            { emails: emails, userIds: userIds },
             options
         );
     };
@@ -4602,6 +4698,15 @@ window.ServiceManager = (function(helper) {
         );
     };
 
+    var setDefaultAccount = function (eventname, params, setDefault, email) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'mail/accounts/' + encodeURIComponent(email) + "/set-default/" + setDefault
+        );
+    };
+
     var createMailMailboxSimple = function(eventname, params, email, password, options) {
         return helper.request(
             eventname,
@@ -4711,7 +4816,7 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var sendMailMessage = function (eventname, params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options) {
+    var sendMailMessage = function (eventname, params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, fileLinksShareMode, options) {
         return helper.request(
             eventname,
             params,
@@ -4730,7 +4835,8 @@ window.ServiceManager = (function(helper) {
                 mimeMessageId: mimeMessageId,
                 mimeReplyToId: mimeReplyToId,
                 importance: importance,
-                tags: tags
+                tags: tags,
+                fileLinksShareMode: fileLinksShareMode
             },
             options
         );
@@ -4818,13 +4924,13 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var restoreMailConversations = function(eventname, params, ids, options) {
+    var restoreMailConversations = function(eventname, params, data, options) {
         return helper.request(
             eventname,
             params,
             UPDATE,
             'mail/conversations/restore.json',
-            { ids: ids },
+            data,
             options
         );
     };
@@ -4963,7 +5069,7 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
-
+    
     var exportAllAttachmentsToMyDocuments = function (eventname, params, message_id, options) {
         return helper.request(
             eventname,
@@ -5047,6 +5153,17 @@ window.ServiceManager = (function(helper) {
         );
     };
 
+    var getCommonMailDomain = function (eventname, params, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mailserver/domains/common.json',
+            null,
+            options
+        );
+    };
+
     var addMailDomain = function (eventname, params, domain_name, dns_id, options) {
         return helper.request(
             eventname,
@@ -5076,6 +5193,17 @@ window.ServiceManager = (function(helper) {
             ADD,
             'mailserver/mailboxes/add.json',
             { name: mailbox_name, domain_id: domain_id, user_id: user_id },
+            options
+        );
+    };
+
+    var addMyMailbox = function (eventname, params, mailbox_name, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'mailserver/mailboxes/addmy.json',
+            { name: mailbox_name },
             options
         );
     };
@@ -5290,17 +5418,6 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
-
-    var isMobileAppUser = function (eventname, params, data, options) {
-        return helper.request(
-            eventname,
-            params,
-            GET,
-            'push/isappuser.json',
-            data,
-            options
-        );
-    };
     
     var getIpRestrictions = function(options) {
         return helper.request(
@@ -5342,6 +5459,17 @@ window.ServiceManager = (function(helper) {
             UPDATE,
             'settings/tips.json',
             data,
+            options
+        );
+    };
+
+    var smsValidationSettings = function (enable, options) {
+        return helper.request(
+            null,
+            null,
+            UPDATE,
+            'settings/sms.json',
+            { enable: enable },
             options
         );
     };
@@ -5581,7 +5709,11 @@ window.ServiceManager = (function(helper) {
         removeDocFile: removeDocFile,
         createDocUploadSession: createDocUploadSession,
         getFolderPath: getFolderPath,
-        setNewEditors: setNewEditors,
+        getFileSecurityInfo: getFileSecurityInfo,
+        generateSharedLink: generateSharedLink,
+        copyBatchItems: copyBatchItems,
+        getOperationStatuses: getOperationStatuses,
+        getPresignedUri: getPresignedUri,
 
         createCrmUploadFile: createCrmUploadFile,
 
@@ -5660,7 +5792,6 @@ window.ServiceManager = (function(helper) {
         getCrmEntityTags: getCrmEntityTags,
         getCrmContactMembers: getCrmContactMembers,
         getCrmPersonMembers: getCrmPersonMembers,
-        getCrmContactTasks: getCrmContactTasks,
 
         getCrmCases: getCrmCases,
         getCrmCasesByPrefix: getCrmCasesByPrefix,
@@ -5691,6 +5822,10 @@ window.ServiceManager = (function(helper) {
         updateWebToLeadFormKey: updateWebToLeadFormKey,
         updateCRMSMTPSettings: updateCRMSMTPSettings,
         sendSMTPTestMail: sendSMTPTestMail,
+        sendSMTPMailToContacts: sendSMTPMailToContacts,
+        getPreviewSMTPMailToContacts: getPreviewSMTPMailToContacts,
+        getStatusSMTPMailToContacts: getStatusSMTPMailToContacts,
+        cancelSMTPMailToContacts: cancelSMTPMailToContacts,
         addCrmHistoryEvent: addCrmHistoryEvent,
         removeCrmHistoryEvent: removeCrmHistoryEvent,
         getCrmHistoryEvents: getCrmHistoryEvents,
@@ -5766,6 +5901,9 @@ window.ServiceManager = (function(helper) {
         getStatusCrmImportFromCSV: getStatusCrmImportFromCSV,
         getCrmImportFromCSVSampleRow: getCrmImportFromCSVSampleRow,
         uploadFakeCrmImportFromCSV: uploadFakeCrmImportFromCSV,
+        getStatusExportToCSV: getStatusExportToCSV,
+        cancelExportToCSV: cancelExportToCSV,
+        startCrmExportToCSV: startCrmExportToCSV,
 
         getCrmVoipAvailableNumbers: getCrmVoipAvailableNumbers,
         getCrmVoipExistingNumbers: getCrmVoipExistingNumbers,
@@ -5810,7 +5948,6 @@ window.ServiceManager = (function(helper) {
         moveMailMessages: moveMailMessages,
         removeMailMessages: removeMailMessages,
         markMailMessages: markMailMessages,
-        updateCrmMessages: updateCrmMessages,
         createMailTag: createMailTag,
         updateMailTag: updateMailTag,
         removeMailTag: removeMailTag,
@@ -5822,6 +5959,7 @@ window.ServiceManager = (function(helper) {
         removeMailMailbox: removeMailMailbox,
         getMailDefaultMailboxSettings: getMailDefaultMailboxSettings,
         getMailMailbox: getMailMailbox,
+        setDefaultAccount: setDefaultAccount,
         createMailMailboxSimple: createMailMailboxSimple,
         createMailMailboxOAuth: createMailMailboxOAuth,
         createMailMailbox: createMailMailbox,
@@ -5857,9 +5995,11 @@ window.ServiceManager = (function(helper) {
         getMailServerFullInfo: getMailServerFullInfo,
         getMailServerFreeDns: getMailServerFreeDns,
         getMailDomains: getMailDomains,
+        getCommonMailDomain: getCommonMailDomain,
         addMailDomain: addMailDomain,
         removeMailDomain: removeMailDomain,
         addMailbox: addMailbox,
+        addMyMailbox: addMyMailbox,
         getMailboxes: getMailboxes,
         removeMailbox: removeMailbox,
         addMailBoxAlias: addMailBoxAlias,
@@ -5873,7 +6013,6 @@ window.ServiceManager = (function(helper) {
         checkDomainOwnership: checkDomainOwnership,
         getDomainDnsSettings: getDomainDnsSettings,
 
-
         getWebItemSecurityInfo: getWebItemSecurityInfo,
         setWebItemSecurity: setWebItemSecurity,
         setAccessToWebItems: setAccessToWebItems,
@@ -5885,8 +6024,7 @@ window.ServiceManager = (function(helper) {
         saveIpRestrictions: saveIpRestrictions,
         updateIpRestrictionsSettings: updateIpRestrictionsSettings,
         updateTipsSettings: updateTipsSettings,
-
-        isMobileAppUser: isMobileAppUser,
+        smsValidationSettings: smsValidationSettings,
 
         getLoginEvents: getLoginEvents,
         getAuditEvents: getAuditEvents,
@@ -5894,6 +6032,6 @@ window.ServiceManager = (function(helper) {
         createAuditTrailReport: createAuditTrailReport,
 
         getTalkUnreadMessages: getTalkUnreadMessages,
-        registerUserOnPersonal: registerUserOnPersonal,
+        registerUserOnPersonal: registerUserOnPersonal
     };
 })(ServiceHelper);

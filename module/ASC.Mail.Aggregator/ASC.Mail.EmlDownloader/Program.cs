@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.IO;
@@ -34,86 +32,91 @@ using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
 using ActiveUp.Net.Mail;
+using log4net.Config;
 
 namespace ASC.Mail.EmlDownloader
 {
     partial class Program
     {
-        static readonly ILogger Logger = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Nlog, "EMLDownloader");
+        static ILogger _logger;
 
         private static void Main(string[] args)
         {
+            XmlConfigurator.Configure();
+
+            _logger = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "EMLDownloader");
+
             var options = new Options();
 
             if (CommandLine.Parser.Default.ParseArgumentsStrict(args, options,
-                                                                () => Logger.Info("Bad command line parameters.")))
+                                                                () => _logger.Info("Bad command line parameters.")))
             {
                 Imap4Client imap = null;
                 Pop3Client pop = null;
 
                 try
                 {
-                    Logger.Info("Searching account with id {0}", options.MailboxId);
+                    _logger.Info("Searching account with id {0}", options.MailboxId);
 
                     var mailbox = GetMailBox(options.MailboxId);
 
                     if (mailbox == null)
                     {
-                        Logger.Info("Account not found.");
+                        _logger.Info("Account not found.");
                         ShowAnyKey();
                         return;
                     }
 
-                    string message_eml;
+                    string messageEml;
 
                     if (mailbox.Imap)
                     {
-                        Logger.Info("ConnectionType is IMAP4");
+                        _logger.Info("ConnectionType is IMAP4");
 
                         imap = MailClientBuilder.Imap();
 
-                        imap.AuthenticateImap(mailbox, Logger);
+                        imap.AuthenticateImap(mailbox, _logger);
 
-                        Logger.Info(imap.ServerCapabilities);
+                        _logger.Info(imap.ServerCapabilities);
 
-                        var mailboxes_string = imap.GetImapMailboxes();
+                        var mailboxesString = imap.GetImapMailboxes();
 
-                        Logger.Info(mailboxes_string);
+                        _logger.Info(mailboxesString);
 
                         if (string.IsNullOrEmpty(options.MessageUid))
                         {
-                            Logger.Info("MessageUid not setup.");
+                            _logger.Info("MessageUid not setup.");
                             ShowAnyKey();
                             return;
                         }
 
-                        var uidl_stucture = ParserImapUidl(options.MessageUid);
+                        var uidlStucture = ParserImapUidl(options.MessageUid);
 
-                        if (uidl_stucture.folder_id != 1)
+                        if (uidlStucture.folderId != 1)
                             throw new FormatException("Only inbox messages are supported for downloading.");
 
                         var mb = imap.SelectMailbox("INBOX");
 
-                        var uid_list = mb.UidSearch("UID 1:*");
+                        var uidList = mb.UidSearch("UID 1:*");
 
-                        if (!uid_list.Any(uid => uid == uidl_stucture.uid))
+                        if (!uidList.Any(uid => uid == uidlStucture.uid))
                             throw new FileNotFoundException(string.Format("Message with uid {0} not found in inbox",
-                                                                          uidl_stucture.uid));
+                                                                          uidlStucture.uid));
 
-                        Logger.Info("Try Fetch.UidMessageStringPeek");
+                        _logger.Info("Try Fetch.UidMessageStringPeek");
 
-                        message_eml = mb.Fetch.UidMessageStringPeek(uidl_stucture.uid);
+                        messageEml = mb.Fetch.UidMessageStringPeek(uidlStucture.uid);
                     }
                     else
                     {
                         if (string.IsNullOrEmpty(options.MessageUid))
                         {
-                            Logger.Info("MessageUid not setup.");
+                            _logger.Info("MessageUid not setup.");
                             ShowAnyKey();
                             return;
                         }
 
-                        Logger.Info("ConnectionType is POP3");
+                        _logger.Info("ConnectionType is POP3");
 
                         pop = MailClientBuilder.Pop();
 
@@ -125,9 +128,9 @@ namespace ASC.Mail.EmlDownloader
                             EncryptionType = mailbox.IncomingEncryptionType,
                             Port = mailbox.Port,
                             Url = mailbox.Server
-                        }, mailbox.AuthorizeTimeoutInMilliseconds, Logger);
+                        }, mailbox.AuthorizeTimeoutInMilliseconds, _logger);
 
-                        Logger.Debug("UpdateStats()");
+                        _logger.Debug("UpdateStats()");
 
                         pop.UpdateStats();
 
@@ -137,22 +140,22 @@ namespace ASC.Mail.EmlDownloader
                             throw new FileNotFoundException(string.Format("Message with uid {0} not found in inbox",
                                                                           options.MessageUid));
 
-                        message_eml = pop.RetrieveMessageString(index);
+                        messageEml = pop.RetrieveMessageString(index);
                     }
 
-                    Logger.Info("Try StoreToFile");
+                    _logger.Info("Try StoreToFile");
                     var now = DateTime.Now;
                     var path = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Downloads"),
                                             string.Format("uid_{0}_{1}.eml", options.MessageUid,
                                                           now.ToString("dd_MM_yyyy_hh_mm")));
-                    var path_file = StoreToFile(message_eml, path, true);
+                    var pathFile = StoreToFile(messageEml, path, true);
 
-                    Logger.Info("[SUCCESS] File was stored into path \"{0}\"", path_file);
+                    _logger.Info("[SUCCESS] File was stored into path \"{0}\"", pathFile);
 
                 }
                 catch (Exception ex)
                 {
-                    Logger.Info(ex.ToString());
+                    _logger.Info(ex.ToString());
                 }
                 finally
                 {
@@ -177,44 +180,44 @@ namespace ASC.Mail.EmlDownloader
             Console.ReadKey();
         }
 
-        static string StoreToFile(string eml_string, string file_name, bool use_temp)
+        static string StoreToFile(string emlString, string fileName, bool useTemp)
         {
-            var temp_path = use_temp ? Path.GetTempFileName() : file_name;
-            var sw = File.CreateText(temp_path);
-            sw.Write(eml_string);
+            var tempPath = useTemp ? Path.GetTempFileName() : fileName;
+            var sw = File.CreateText(tempPath);
+            sw.Write(emlString);
             sw.Close();
 
-            if (use_temp)
+            if (useTemp)
             {
-                if (!string.IsNullOrEmpty(file_name))
+                if (!string.IsNullOrEmpty(fileName))
                 {
-                    var directory = Path.GetDirectoryName(file_name);
+                    var directory = Path.GetDirectoryName(fileName);
                     // Create the traget path iof it does not exist
                     if (directory != null && !Directory.Exists(directory))
                         Directory.CreateDirectory(directory);
 
-                    if (string.IsNullOrEmpty(Path.GetFileName(file_name)))
+                    if (string.IsNullOrEmpty(Path.GetFileName(fileName)))
                     {
-                        string save_path = Path.Combine(file_name, Path.GetFileNameWithoutExtension(temp_path) + ".eml");
-                        File.Move(temp_path, save_path);
-                        File.Delete(temp_path);
-                        return save_path;
+                        string savePath = Path.Combine(fileName, Path.GetFileNameWithoutExtension(tempPath) + ".eml");
+                        File.Move(tempPath, savePath);
+                        File.Delete(tempPath);
+                        return savePath;
                     }
 
-                    File.Move(temp_path, file_name);
-                    File.Delete(temp_path);
+                    File.Move(tempPath, fileName);
+                    File.Delete(tempPath);
 
-                    return file_name;
+                    return fileName;
                 }
 
-                return temp_path;
+                return tempPath;
             }
-            return temp_path;
+            return tempPath;
         } 
 
         private struct ImapUidl
         {
-            public int folder_id;
+            public int folderId;
             public int uid;
         }
 
@@ -225,14 +228,14 @@ namespace ASC.Mail.EmlDownloader
             return new ImapUidl
                 {
                     uid = Convert.ToInt32(elements[0]),
-                    folder_id = Convert.ToInt32(elements[1])
+                    folderId = Convert.ToInt32(elements[1])
                 };
         }
 
-        private static MailBox GetMailBox(int mailbox_id)
+        private static MailBox GetMailBox(int mailboxId)
         {
-            var manager = new MailBoxManager(25);
-            return manager.GetMailBox(mailbox_id);
+            var manager = new MailBoxManager();
+            return manager.GetMailBox(mailboxId);
         }
     }
 }

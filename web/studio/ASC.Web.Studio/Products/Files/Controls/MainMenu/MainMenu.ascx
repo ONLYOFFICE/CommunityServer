@@ -9,13 +9,13 @@
 
 <% if(!Global.IsOutsider) { %>
 <ul id="mainMenuHolder" class="menu-actions">
-    <li id="menuCreateNewButton" class="menu-main-button <%= CreateButtonClass %>" title="<%= FilesUCResource.ButtonCreate %>">
+    <li id="menuCreateNewButton" class="menu-main-button disable <%= CreateButtonClass %>" title="<%= FilesUCResource.ButtonCreate %>">
         <span class="main-button-text"><%= FilesUCResource.ButtonCreate %></span>
         <span class="white-combobox">&nbsp;</span>
     </li>
     <% if (!MobileDetector.IsMobile)
        {%>
-    <li id="buttonUpload" class="menu-upload-button" title="<%= FilesUCResource.ButtonUpload %>">
+    <li id="buttonUpload" class="menu-upload-button disable" title="<%= FilesUCResource.ButtonUpload %>">
         <span class="menu-upload-icon">&nbsp;</span>
     </li>
     <% } %>
@@ -25,16 +25,9 @@
 <asp:PlaceHolder runat="server" ID="ControlHolder"></asp:PlaceHolder>
 
 <ul id="treeSecondary" class="menu-list">
-    <% if (CoreContext.Configuration.Personal)
-       { %>
-    <li class="menu-item sub-list add-block">
-        <a href="#more" class="menu-item-label outer-text text-overflow" title="<%= FilesUCResource.MoreFeatures %>">
-            <span class="menu-item-icon morefeatures"></span>
-            <span class="menu-item-label inner-text"><%= FilesUCResource.MoreFeatures %></span>
-        </a>
-    </li>
-    <% }
-       else
+    <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
+
+    <% if (!CoreContext.Configuration.Personal)
        { %>
     <% if(!Global.IsOutsider) { %>
     <li id="treeSetting" class="menu-item sub-list add-block">
@@ -99,13 +92,13 @@
            { %>
         <li class="add-account-button SkyDrive" data-provider="SkyDrive" title="<%= FilesUCResource.ButtonAddSkyDrive %>" ></li>
         <% } %>
-        <% if (ImportConfiguration.SupportSharePointInclusion)
+        <% if (ImportConfiguration.SupportWebDavInclusion)
            { %>
-        <li class="add-account-button SharePoint" data-provider="SharePoint" title="<%= FilesUCResource.ButtonAddSharePoint %>" ></li>
+        <li class="add-account-button OwnCloud" data-provider="WebDav" title="<%= FilesUCResource.ButtonAddOwnCloud %>" ></li>
         <% } %>
-        <% if (ImportConfiguration.SupportYandexInclusion)
+        <% if (ImportConfiguration.SupportWebDavInclusion)
            { %>
-        <li class="add-account-button Yandex" data-provider="Yandex" title="<%= FilesUCResource.ButtonAddYandex %>" ></li>
+        <li class="account-connect add-account-button WebDav" title="<%= FilesUCResource.AddAccount %>" ></li>
         <% } %>
     </ul>
 </div>

@@ -1,39 +1,37 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Administration.ServerModel.Base;
 using ASC.Mail.Server.Dal;
-using ASC.Mail.Server.Utils;
 
 namespace ASC.Mail.Server.Administration.ServerModel
 {
@@ -94,59 +92,59 @@ namespace ASC.Mail.Server.Administration.ServerModel
             Server = server;
         }
 
-        public IMailAddress AddAlias(string alias_name, IWebDomain domain, IMailServerFactory factory)
+        public IMailAddress AddAlias(string aliasName, IWebDomain domain, IMailServerFactory factory)
         {
-            if (Aliases.Any(a => a.LocalPart == alias_name && a.Domain.Id == domain.Id))
+            if (Aliases.Any(a => a.LocalPart == aliasName && a.Domain.Id == domain.Id))
                 throw new DuplicateNameException("You want to add already existed alias");
 
-            var address_base = new MailAddressBase(alias_name, new WebDomainBase(domain))
+            var addressBase = new MailAddressBase(aliasName, new WebDomainBase(domain))
                 {
                     DateCreated = DateTime.UtcNow.ToDbStyle()
                 };
 
-            MailAddressDto alias_dto;
-            using (var db_context_with_tran = TeamlabMailboxDal.CreateMailDbContext(true))
+            MailAddressDto aliasDto;
+            using (var dbContextWithTran = TeamlabMailboxDal.CreateMailDbContext(true))
             {
-                if (TeamlabAddressDal.IsAddressAlreadyRegistered(alias_name, domain.Name, db_context_with_tran.DbManager))
+                if (TeamlabAddressDal.IsAddressAlreadyRegistered(aliasName, domain.Name, dbContextWithTran.DbManager))
                     throw new DuplicateNameException("You want to add already existed alias");
 
-                alias_dto = TeamlabAddressDal.AddMailboxAlias(Id, alias_name, address_base.DateCreated,
-                                                              domain.Id, domain.Name, domain.IsVerified, db_context_with_tran.DbManager);
-                _AddAlias(address_base);
+                aliasDto = TeamlabAddressDal.AddMailboxAlias(Id, aliasName, addressBase.DateCreated,
+                                                              domain.Id, domain.Name, domain.IsVerified, dbContextWithTran.DbManager);
+                _AddAlias(addressBase);
 
-                db_context_with_tran.CommitTransaction();
+                dbContextWithTran.CommitTransaction();
             }
 
-            var alias = factory.CreateMailAddress(alias_dto.id, alias_dto.tenant, address_base.LocalPart, domain);
+            var alias = factory.CreateMailAddress(aliasDto.id, aliasDto.tenant, addressBase.LocalPart, domain);
 
             Aliases.Add(alias);
 
             return alias;
         }
 
-        protected abstract void _AddAlias(MailAddressBase alias_to_add);
+        protected abstract void _AddAlias(MailAddressBase aliasToAdd);
 
-        public void RemoveAlias(int alias_id)
+        public void RemoveAlias(int aliasId)
         {
             if (Aliases.Count <= 0) 
                 return;
 
-            var alias_to_remove = Aliases.FirstOrDefault(a => a.Id == alias_id);
+            var aliasToRemove = Aliases.FirstOrDefault(a => a.Id == aliasId);
 
-            if (alias_to_remove == null) 
+            if (aliasToRemove == null) 
                 return;
 
-            using (var db_context_with_tran = TeamlabMailboxDal.CreateMailDbContext(true))
+            using (var dbContextWithTran = TeamlabMailboxDal.CreateMailDbContext(true))
             {
-                TeamlabAddressDal.RemoveMailboxAlias(alias_to_remove.Id, db_context_with_tran.DbManager);
-                _RemoveAlias(new MailAddressBase(alias_to_remove));
-                db_context_with_tran.CommitTransaction();
+                TeamlabAddressDal.RemoveMailboxAlias(aliasToRemove.Id, dbContextWithTran.DbManager);
+                _RemoveAlias(new MailAddressBase(aliasToRemove));
+                dbContextWithTran.CommitTransaction();
             }
 
-            Aliases.Remove(alias_to_remove);
+            Aliases.Remove(aliasToRemove);
         }
 
-        protected abstract void _RemoveAlias(MailAddressBase alias_to_remove);
+        protected abstract void _RemoveAlias(MailAddressBase aliasToRemove);
 
         // override object.Equals
         public override bool Equals(object obj)

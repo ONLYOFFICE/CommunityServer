@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -124,23 +122,41 @@ namespace ASC.Api.CRM
             if (deal == null) throw new ItemNotFoundException();
 
             if (!(CRMSecurity.IsAdmin || deal.CreateBy == SecurityContext.CurrentAccount.ID)) throw CRMSecurity.CreateSecurityException();
-            return SetAccessToDeal(deal, isPrivate, accessList);
+            return SetAccessToDeal(deal, isPrivate, accessList, false, true);
         }
 
-        private OpportunityWrapper SetAccessToDeal(Deal deal, bool isPrivate, IEnumerable<Guid> accessList)
+        private OpportunityWrapper SetAccessToDeal(Deal deal, bool isPrivate, IEnumerable<Guid> accessList, bool isNotify, bool isMessageServicSende)
         {
-            var accessListLocal = accessList != null ? accessList.ToList() : new List<Guid>();
+            var accessListLocal = accessList != null ? accessList.Distinct().ToList() : new List<Guid>();
             if (isPrivate && accessListLocal.Count > 0)
             {
+
+                if (isNotify)
+                {
+                    accessListLocal = accessListLocal.Where(u => u != SecurityContext.CurrentAccount.ID).ToList();
+                    ASC.Web.CRM.Services.NotifyService.NotifyClient.Instance.SendAboutSetAccess(EntityType.Opportunity, deal.ID, accessListLocal.ToArray());
+                }
+
+                if (!accessListLocal.Contains(SecurityContext.CurrentAccount.ID))
+                {
+                    accessListLocal.Add(SecurityContext.CurrentAccount.ID);
+                }
+
                 CRMSecurity.SetAccessTo(deal, accessListLocal);
 
-                var users = GetUsersByIdList(accessListLocal).Select(x => x.DisplayUserName(false));
-                MessageService.Send(Request, MessageAction.OpportunityRestrictedAccess, deal.Title, users);
+                if (isMessageServicSende)
+                {
+                    var users = GetUsersByIdList(accessListLocal).Select(x => x.DisplayUserName(false));
+                    MessageService.Send(Request, MessageAction.OpportunityRestrictedAccess, deal.Title, users);
+                }
             }
             else
             {
                 CRMSecurity.MakePublic(deal);
-                MessageService.Send(Request, MessageAction.OpportunityOpenedAccess, deal.Title);
+                if (isMessageServicSende)
+                {
+                    MessageService.Send(Request, MessageAction.OpportunityOpenedAccess, deal.Title);
+                }
             }
 
             return ToOpportunityWrapper(deal);
@@ -235,7 +251,7 @@ namespace ASC.Api.CRM
 
                 if (!(CRMSecurity.IsAdmin || d.CreateBy == SecurityContext.CurrentAccount.ID)) continue;
 
-                SetAccessToDeal(d, isPrivate, accessList);
+                SetAccessToDeal(d, isPrivate, accessList, false, true);
                 result.Add(d);
             }
 
@@ -468,6 +484,7 @@ namespace ASC.Api.CRM
         /// <param optional="true" name="customFieldList">User field list</param>
         /// <param name="isPrivate">Opportunity privacy: private or not</param>
         /// <param optional="true" name="accessList">List of users with access to the opportunity</param>
+        /// <param name="isNotify" optional="true">Notify users in accessList about the opportunity</param>
         /// <category>Opportunities</category>
         /// <returns>
         ///  Opportunity
@@ -490,7 +507,8 @@ namespace ASC.Api.CRM
             ApiDateTime expectedCloseDate,
             IEnumerable<ItemKeyValuePair<int, string>> customFieldList,
             bool isPrivate,
-            IEnumerable<Guid> accessList)
+            IEnumerable<Guid> accessList,
+            bool isNotify)
         {
             var deal = new Deal
                 {
@@ -515,15 +533,7 @@ namespace ASC.Api.CRM
             deal.CreateBy = SecurityContext.CurrentAccount.ID;
             deal.CreateOn = DateTime.UtcNow;
 
-            var accessListLocal = accessList != null ? accessList.ToList() : new List<Guid>();
-            if (isPrivate && accessListLocal.Any())
-            {
-                CRMSecurity.SetAccessTo(deal, accessListLocal);
-            }
-            else
-            {
-                CRMSecurity.MakePublic(deal);
-            }
+            SetAccessToDeal(deal, isPrivate, accessList, isNotify, false);
 
             var membersList = members != null ? members.ToList() : new List<int>();
             if (membersList.Any())
@@ -567,6 +577,7 @@ namespace ASC.Api.CRM
         /// <param optional="true" name="customFieldList">User field list</param>
         /// <param name="isPrivate">Opportunity privacy: private or not</param>
         /// <param optional="true" name="accessList">List of users with access to the opportunity</param>
+        /// <param name="isNotify" optional="true">Notify users in accessList about the opportunity</param>
         /// <category>Opportunities</category>
         /// <returns>
         ///  Opportunity
@@ -590,7 +601,8 @@ namespace ASC.Api.CRM
             ApiDateTime expectedCloseDate,
             IEnumerable<ItemKeyValuePair<int, string>> customFieldList,
             bool isPrivate,
-            IEnumerable<Guid> accessList)
+            IEnumerable<Guid> accessList,
+            bool isNotify)
         {
             var deal = DaoFactory.GetDealDao().GetByID(opportunityid);
             if (deal == null) throw new ItemNotFoundException();
@@ -626,15 +638,7 @@ namespace ASC.Api.CRM
 
             if (CRMSecurity.IsAdmin || deal.CreateBy == SecurityContext.CurrentAccount.ID)
             {
-                var accessListLocal = accessList != null ? accessList.ToList() : new List<Guid>();
-                if (isPrivate && accessListLocal.Any())
-                {
-                    CRMSecurity.SetAccessTo(deal, accessListLocal);
-                }
-                else
-                {
-                    CRMSecurity.MakePublic(deal);
-                }
+                SetAccessToDeal(deal, isPrivate, accessList, isNotify, false);
             }
 
             if (customFieldList != null)

@@ -23,8 +23,9 @@
                      window.attachEvent('onmessage', master.listener);
                  }
              },
-             callback: function(msg) {
-                 var obj = { "Tpr": "OAuthImporter", "Data": JSON.parse(msg) };
+             callback: function (msg) {
+                 var data = JSON.parse(msg);
+                 var obj = {"Tpr": "OAuthImporter", "Data": data.msg, "error": data.error};
                  window.parent.postMessage(JSON.stringify(obj), '<%=Request.UrlReferrer%>');
              },
 

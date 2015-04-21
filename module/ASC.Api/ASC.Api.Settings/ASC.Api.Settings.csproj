@@ -69,14 +69,6 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SecurityWrapper.cs" />
@@ -131,10 +123,6 @@
     <ProjectReference Include="..\ASC.Employee\ASC.Api.Employee.csproj">
       <Project>{32adbd01-6262-48d7-a69b-0515b03db90e}</Project>
       <Name>ASC.Api.Employee</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Specific\ASC.Specific.csproj">
-      <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
-      <Name>ASC.Specific</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

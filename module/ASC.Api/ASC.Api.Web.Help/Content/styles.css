@@ -1,35 +1,33 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-/*headers*/
-/* >> The Magnificent CLEARFIX << */
+
+/*clearfix*/
 .clearfix:after
 {
     content: ".";
@@ -38,22 +36,20 @@
     clear: both;
     visibility: hidden;
 }
-.clearfix
-{
-    display: inline-block;
-}
+
 * html .clearfix
 {
     height: 1%;
 }
-/* Hides from IE-mac \*/
+
 .clearfix
 {
     display: block;
 }
 
 /*global*/
-h1, h2, h3, p, pre, a, code, em, img, strong, dd, dl, dt, li, ul, ol, form, label, button, table, tbody, tfoot, thead, tr, th, td {
+h1, h2, h3, p, pre, a, code, em, img, strong, dd, dl, dt, li, ul, ol, form, label, button, table, tbody, tfoot, thead, tr, th, td
+{
     border: 0 none;
     font-family: inherit;
     font-size: 100%;
@@ -63,24 +59,36 @@ h1, h2, h3, p, pre, a, code, em, img, strong, dd, dl, dt, li, ul, ol, form, labe
     margin: 0;
     padding: 0;
 }
-ul {
+
+ul
+{
     list-style: disc outside none;
     margin: 8px 0 8px 24px;
 }
-li {
+
+li
+{
     margin: 0 0 10px;
 }
-ol {
+
+ol
+{
     margin: 8px 0 8px 24px;
 }
-table {
+
+table
+{
     border-collapse: collapse;
     border-spacing: 0;
 }
-b {
+
+b
+{
     font-weight: bold;
 }
-em {
+
+em
+{
     font-style: italic;
 }
 
@@ -88,10 +96,10 @@ em {
 .logo
 {
     background: url("img/sprite.png") no-repeat 0 -16px transparent;
-    height:50px;
+    height: 50px;
     width: 261px;
-    display:inline-block;
-    float:left;
+    display: inline-block;
+    float: left;
 }
 
 /*layout*/
@@ -107,36 +115,44 @@ body, html
     color: #333;
     background: #fff;
 }
-.layout-table {
+
+.layout-table
+{
     border: medium none;
     height: 100%;
     margin: 0;
     padding: 0;
     width: 100%;
 }
-.layout-table tr,
-.layout-table td {
-    border: medium none;
-    vertical-align: top;
-}
-.layout-table-header {
+
+    .layout-table tr,
+    .layout-table td
+    {
+        border: medium none;
+        vertical-align: top;
+    }
+
+.layout-table-header
+{
     background-color: #3d4a6b;
     height: 50px;
     margin: 0;
     padding: 0 24px;
 }
+
 .layout-header
 {
-    max-width: 1232px;
-    min-width: 976px;
-    width:100%;
+    width: 100%;
 }
-.layout-table-side {
+
+.layout-table-side
+{
     height: 100%;
     margin: 0;
     padding: 30px 0 30px 24px;
     width: 261px;
 }
+
 .layout-side
 {
     border-right: 1px solid #ccc;
@@ -146,56 +162,73 @@ body, html
     text-overflow: ellipsis;
     width: 236px;
 }
-.layout-table-content {
+
+.layout-table-content
+{
     margin: 0;
     padding: 30px 24px;
 }
+
 .layout-content
 {
     margin-top: 20px;
     max-width: 947px;
     min-width: 691px;
-    width:100%;
+    width: 100%;
 }
-  
+    .layout-content.center
+    {
+        margin: 20px auto 0;
+    }
+
 /*table*/
-.table 
+.table
 {
     border: medium none;
     border-collapse: collapse;
     margin: 20px 0;
     width: 100%;
 }
-.table td 
-{
-    border: medium none;
-    vertical-align: middle;
-    padding: 15px 16px 22px;
-    font-size: 12px;
-}
-.table td:first-child
-{
-    padding-left: 8px;
-}
-.table td:last-child
-{
-    padding-right: 8px;
-}
-.table .tablerow {
-    border-bottom: 1px solid #d7d8dc;
-}
-.table thead td {
-    font-weight: bold;
-    padding-top: 0;
-    padding-bottom:4px;
-}
-.table.hover tbody .tablerow:hover {
-    background-color: #e5e5e5;
-}
-.table .infotext
-{
-    color: #999;
-}
+
+    .table td
+    {
+        border: medium none;
+        vertical-align: middle;
+        padding: 15px 16px 22px;
+        font-size: 12px;
+    }
+
+        .table td:first-child
+        {
+            padding-left: 8px;
+        }
+
+        .table td:last-child
+        {
+            padding-right: 8px;
+        }
+
+    .table .tablerow
+    {
+        border-bottom: 1px solid #d7d8dc;
+    }
+
+    .table thead td
+    {
+        font-weight: bold;
+        padding-top: 0;
+        padding-bottom: 4px;
+    }
+
+    .table.hover tbody .tablerow:hover
+    {
+        background-color: #e5e5e5;
+    }
+
+    .table .infotext
+    {
+        color: #999;
+    }
 
 /*links*/
 a, a:hover, a:visited
@@ -203,26 +236,34 @@ a, a:hover, a:visited
     color: #333;
     text-decoration: none;
 }
+
 .dotted
 {
     border-bottom: 1px dotted;
 }
-.dotted:hover
-{
-    border-bottom: medium none;
-}
+
+    .dotted:hover
+    {
+        border-bottom: medium none;
+    }
+
 .underline, .fakelink
 {
     text-decoration: underline;
 }
-.underline:hover
+
+    .underline:hover
+    {
+        text-decoration: none;
+    }
+
+    .fakelink:hover
+    {
+        text-decoration: underline;
+    }
+
+.uppercase
 {
-    text-decoration: none;
-}
-.fakelink:hover {
-    text-decoration: underline;
-}
-.uppercase {
     text-transform: uppercase;
 }
 
@@ -235,46 +276,54 @@ h1
     margin-bottom: 24px;
     position: relative;
 }
-h1 .up, h1 .up:hover {
-    background-color: #dedede;
-    background-image: linear-gradient(to bottom, #f3f3f3 0, #dedede 100%);
-    background-repeat: repeat-x;
-    border: 1px solid #bfbfbf;
-    border-radius: 2px;
-    float: left;
-    margin: 0 8px 0 0;
-    padding: 4px;
-    text-decoration: none;
-}
-h1 .up:after {
-    background: url("img/sprite.png") no-repeat scroll -6px -180px transparent;
-    content: "";
-    display: block;
-    height: 12px;
-    width: 12px;
-}
-h1 .hdr
-{
-    text-transform: uppercase;
-}
-h1 .auth
-{
-    color: #666;
-    font-size: 12px;
-    left: 32px;
-    line-height: 12px;
-    position: absolute;
-    text-transform: none;
-    top: 28px;
-}
+
+    h1 .up, h1 .up:hover
+    {
+        background-color: #dedede;
+        background-image: linear-gradient(to bottom, #f3f3f3 0, #dedede 100%);
+        background-repeat: repeat-x;
+        border: 1px solid #bfbfbf;
+        border-radius: 2px;
+        float: left;
+        margin: 0 8px 0 0;
+        padding: 4px;
+        text-decoration: none;
+    }
+
+        h1 .up:after
+        {
+            background: url("img/sprite.png") no-repeat scroll -6px -180px transparent;
+            content: "";
+            display: block;
+            height: 12px;
+            width: 12px;
+        }
+
+    h1 .hdr
+    {
+        text-transform: uppercase;
+    }
+
+    h1 .auth
+    {
+        color: #666;
+        font-size: 12px;
+        left: 32px;
+        line-height: 12px;
+        position: absolute;
+        text-transform: none;
+        top: 28px;
+    }
+
 h2
-{   
+{
     color: #3d4a6b;
     font-size: 18px;
     line-height: 18px;
     margin-bottom: 12px;
     margin-top: 30px;
 }
+
 .header-gray
 {
     background-color: #ebebeb;
@@ -282,49 +331,64 @@ h2
     margin-top: 32px;
     padding: 6px 8px;
 }
-#clipLink {
+
+#clipLink
+{
     background: url("img/sprite.png") no-repeat scroll 0 -132px transparent;
     float: right;
     font-size: 12px;
     line-height: 20px;
     padding-left: 24px;
 }
-.list-header {
+
+.list-header
+{
     margin: 32px 0 16px;
 }
 
 /*paragrath*/
-p {
+p
+{
     font-size: 14px;
     margin: 9px 0 18px;
 }
 
 /*top navigation*/
-.top-nav {
+.top-nav
+{
     float: left;
     height: 50px;
     margin: 0;
 }
-.top-nav li {
-    display: block;
-    float: left;
-    padding: 0 20px;
-}
-.top-nav li.active {
-    background-color: #333f5b;
-}
-.top-nav a {
-    color: #cbcbcc;
-    font-size: 14px;
-    line-height: 50px;
-    text-decoration: none;
-}
-.top-nav a:hover {
-    color: #999999;
-}
+
+    .top-nav li
+    {
+        display: block;
+        float: left;
+        padding: 0 20px;
+    }
+
+        .top-nav li.active
+        {
+            background-color: #333f5b;
+        }
+
+    .top-nav a
+    {
+        color: #cbcbcc;
+        font-size: 14px;
+        line-height: 50px;
+        text-decoration: none;
+    }
+
+        .top-nav a:hover
+        {
+            color: #999999;
+        }
 
 /*search form*/
-.search-box {
+.search-box
+{
     display: block;
     height: 24px;
     margin-bottom: 18px;
@@ -332,7 +396,8 @@ p {
     width: 236px;
 }
 
-.search-input {
+.search-input
+{
     border: 1px solid #cccccc;
     display: inline-block;
     padding: 2px;
@@ -344,7 +409,8 @@ p {
 }
 
 .search-box input,
-.search-box input:focus {
+.search-box input:focus
+{
     border: medium none;
     border-radius: 0;
     box-shadow: none;
@@ -360,7 +426,8 @@ p {
     position: absolute;
 }
 
-.search-clear {
+.search-clear
+{
     display: inline-block;
     background: url("img/sprite.png") no-repeat scroll -4px -204px;
     width: 16px;
@@ -369,11 +436,14 @@ p {
     right: 4px;
     display: none;
 }
-.search-clear:hover {
-    background: url("img/sprite.png") no-repeat scroll -4px -220px;
-}
 
-.search-box .btn {
+    .search-clear:hover
+    {
+        background: url("img/sprite.png") no-repeat scroll -4px -220px;
+    }
+
+.search-box .btn
+{
     background: url("img/sprite.png") no-repeat scroll 8px -152px, #1a76a6;
     background: url("img/sprite.png") no-repeat scroll 8px -152px, linear-gradient(to bottom, #59b1e2, #1a76a6);
     border: medium none;
@@ -388,24 +458,33 @@ p {
     font-size: 13px;
     line-height: normal;
 }
-.search-box .btn:hover {
-    background: url("img/sprite.png") no-repeat scroll 8px -152px, #3f96c3;
-    background: url("img/sprite.png") no-repeat scroll 8px -152px, linear-gradient(to bottom, #78bfe8, #3f96c3);
-}
+
+    .search-box .btn:hover
+    {
+        background: url("img/sprite.png") no-repeat scroll 8px -152px, #3f96c3;
+        background: url("img/sprite.png") no-repeat scroll 8px -152px, linear-gradient(to bottom, #78bfe8, #3f96c3);
+    }
 
 /*start page*/
-.products {
-    width: 600px;
+.products
+{
     margin: 140px auto 0;
+    text-align: center;
 }
-.products-info {
+
+.products-info
+{
     padding: 0 10px;
 }
-.product-list .product:last-child {
+
+.product-list .product:last-child
+{
     margin-right: 0;
 }
-.product {
-    float: left;
+
+.product
+{
+    display: inline-block;
     font-size: 18px;
     width: 150px;
     margin-right: 75px;
@@ -431,50 +510,55 @@ pre
 /*note block*/
 .note
 {
-color: #808080;
-padding: 10px 30px 10px 50px;
-text-align: justify;
-display:block;
-background:#f4f4f4;
-margin: 16px 0;
-line-height: 1.3em;
-background: #F4F4F4;
-min-height: 22px;
-position: relative;
-font-size: 12px;
+    color: #808080;
+    padding: 10px 30px 10px 50px;
+    text-align: justify;
+    display: block;
+    background: #f4f4f4;
+    margin: 16px 0;
+    line-height: 1.3em;
+    background: #F4F4F4;
+    min-height: 22px;
+    position: relative;
+    font-size: 12px;
 }
-.note:before
-{
-content: 'N';
-font-size: 15px;
-font-weight: bold;
-position: absolute;
-left: 15px;
-color: #808080;
-top: 10px;
-}
-.note:after
-{
-content: 'B:';
-font-size: 15px;
-font-weight: bold;
-position: absolute;
-left: 22px;
-color: #808080;
-top: 10px;
-}
+
+    .note:before
+    {
+        content: 'N';
+        font-size: 15px;
+        font-weight: bold;
+        position: absolute;
+        left: 15px;
+        color: #808080;
+        top: 10px;
+    }
+
+    .note:after
+    {
+        content: 'B:';
+        font-size: 15px;
+        font-weight: bold;
+        position: absolute;
+        left: 22px;
+        color: #808080;
+        top: 10px;
+    }
 
 /*Highliter*/
 .bracket
 {
     color: #090;
 }
+
 .param-name
 {
     color: #36C;
 }
-.search-result {
-    color: #e34603
+
+.search-result
+{
+    color: #e34603;
 }
 
 /*treeview*/
@@ -482,16 +566,55 @@ top: 10px;
 {
     background: url("img/sprite.png") no-repeat -4px -92px transparent;
 }
+
 .treeview .expandable-hitarea
 {
     background: url("img/sprite.png") no-repeat -4px -72px transparent;
 }
+
 .forum, .forum:visited
 {
     background: url("img/sprite.png") no-repeat scroll -4px -113px;
     padding-left: 20px;
 }
-.forum:hover
+
+    .forum:hover
+    {
+        text-decoration: underline;
+    }
+
+#embeddedEditor
 {
-    text-decoration: underline;
+    min-height: 400px;
+    background: #f1f1f1;
+    border: 1px solid #cccccc;
+}
+
+.button:hover
+{
+    background-color: #ebebeb;
+    background-image: linear-gradient(to bottom, #f3f3f3 0, #ebebeb 100%);
+    border-color: #bfbfbf;
+    color: #666666;
+}
+
+.button, .button:visited, .button:active
+{
+    background-color: #dedede;
+    background-image: linear-gradient(to bottom, #f3f3f3, #dedede);
+    background-repeat: repeat-x;
+    border-color: #bfbfbf;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    color: #666666;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 8px;
+    padding: 2px 12px;
+}
+
+.demo-info-container
+{
+    margin: 16px 0 8px;
 }

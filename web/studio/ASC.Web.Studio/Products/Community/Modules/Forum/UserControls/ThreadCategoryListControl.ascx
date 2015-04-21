@@ -1,22 +1,21 @@
 ﻿
 <%@ Assembly Name="ASC.Web.Core"%>
-<%@ Assembly Name="ASC.Web.Community.Forum"%>
+<%@ Assembly Name="ASC.Web.Community"%>
 
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ThreadCategoryListControl.ascx.cs" Inherits="ASC.Web.UserControls.Forum.ThreadCategoryListControl" %>
 
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
-<%@ Import Namespace="ASC.Web.UserControls.Forum.Common" %>
-<%@ Import Namespace="ASC.Web.UserControls.Forum.Resources" %>
 
 
 <asp:Repeater ID="_categoryRepeater" runat="server">
     <ItemTemplate>
        <div class="clearFix">
-            <div class="header-base" style="padding: 25px 0px 15px 0px; max-width:600px; overflow: hidden;"
+            <div class="header-base" style="padding-top: 25px; max-width:600px; overflow: hidden;"
                 title="<%#HttpUtility.HtmlEncode((string)Eval("Title"))%>">
                 <%#HttpUtility.HtmlEncode((string)Eval("Title"))%>
             </div>
-            
+            <div class="describe-text" style="padding: 2px 0px 25px; width: 285px; word-wrap: break-word;"><%#HttpUtility.HtmlEncode((string)Eval("Description"))%></div>                
+
             <asp:Repeater ID="_threadRepeater" runat="server">
                 <ItemTemplate>                
                     <div class="clearFix borderBase forums-row" style="padding:5px 0px; margin-top:-1px; border-right:none; border-left:none;width: 100%;overflow:hidden;">

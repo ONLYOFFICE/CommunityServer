@@ -1,10 +1,9 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Wiki" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ListPages.aspx.cs" Inherits="ASC.Web.Community.Wiki.ListPages"
     MasterPageFile="~/Products/Community/Modules/Wiki/Wiki.Master" %>
 
-<%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
-<%@ Import Namespace="ASC.Web.UserControls.Wiki.Data" %>
+
 <%@ Import Namespace="ASC.Web.Community.Wiki" %>
 <asp:Content ContentPlaceHolderID="WikiContents" runat="Server">
     <div>

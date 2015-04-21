@@ -6,10 +6,16 @@
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<div id="fileSelectorDialog" class="popup-modal">
+<div id="fileSelectorDialog" <%= IsFlat ? "" : "class=\"popup-modal\"" %>>
     <sc:Container runat="server" ID="FileSelectorTemp">
-        <header><span id="fileSelectorTitle"><%= DialogTitle %></span></header>
-        <body>
+        <Header>
+            <% if (!IsFlat)
+               { %>
+            <span id="fileSelectorTitle"><%= DialogTitle %></span>
+            <% } %>
+        </Header>
+
+        <Body>
             <table cellspacing="0" cellpadding="0">
                 <tr>
                     <td class="file-selector-tree">
@@ -25,12 +31,12 @@
                     <%= FilesUCResource.ButtonOk %>
                 </a>
                 <span class="splitter-buttons"></span>
-                <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();return false;">
+                <a id="closeFileSelector" class="button gray middle">
                     <%= FilesUCResource.ButtonCancel %>
                 </a>
                 <span class="splitter-buttons"></span>
                 <span id="fileSelectorAdditionalButton"></span>
             </div>
-        </body>
+        </Body>
     </sc:Container>
 </div>

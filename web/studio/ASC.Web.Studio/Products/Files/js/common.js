@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 if (typeof jq === "undefined") {
     jq = jQuery.noConflict();
@@ -148,52 +146,16 @@ ASC.Files.Common = (function () {
         return e;
     };
 
-    var localStorageManager = function () {
-        var isAvailable;
-        try {
-            isAvailable = "localStorage" in window && window["localStorage"] !== null;
-        } catch (e) {
-            isAvailable = false;
-        }
-
-        var getItem = function (key) {
-            if (!key && !ASC.Files.Common.localStorageManager.isAvailable) {
-                return null;
-            }
-            return JSON.parse(localStorage.getItem(key));
-        };
-
-        var setItem = function (key, value) {
-            if (!key || !ASC.Files.Common.localStorageManager.isAvailable) {
-                return;
-            }
-            try {
-                localStorage.setItem(key, JSON.stringify(value));
-            } catch (e) {
-                if (typeof QUOTA_EXCEEDED_ERR != "undefined" && e == QUOTA_EXCEEDED_ERR) {
-                    //throw "Local storage is full";
-                }
-            }
-        };
-
-        return {
-            isAvailable: isAvailable,
-
-            getItem: getItem,
-            setItem: setItem
-        };
-    }();
-
     var characterString = "@#$%&*+:;\"'<>?|\/";
     var characterRegExp = new RegExp("[@#$%&*\+:;\"'<>?|\\\\/]", "gim");
 
     var replaceSpecCharacter = function (str) {
-        return str.trim().replace(ASC.Files.Common.characterRegExp, "_");
+        return (str || "").trim().replace(ASC.Files.Common.characterRegExp, "_");
     };
 
     var fixHash = function (hash) {
         if (!jq.browser.mobile && (jq.browser.mozilla || jq.browser.safari)) {
-            hash = encodeURIComponent(hash);
+            hash = encodeURIComponent(hash || "");
         }
         return hash;
     };
@@ -214,7 +176,6 @@ ASC.Files.Common = (function () {
         jsonToXml: jsonToXml,
 
         storeOriginal: storeOriginal,
-        localStorageManager: localStorageManager,
 
         fixHash: fixHash,
     };

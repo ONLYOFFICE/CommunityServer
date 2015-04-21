@@ -1,32 +1,4 @@
-/*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
-*/
-
-(function(){function p(a,k,o){if(!k.is||!k.getCustomData("block_processed"))k.is&&CKEDITOR.dom.element.setMarker(o,k,"block_processed",!0),a.push(k)}function n(a,k){function o(){this.foreach(function(d){if(/^(?!vbox|hbox)/.test(d.type)&&(d.setup||(d.setup=function(c){d.setValue(c.getAttribute(d.id)||"",1)}),!d.commit))d.commit=function(c){var a=this.getValue();"dir"==d.id&&c.getComputedStyle("direction")==a||(a?c.setAttribute(d.id,a):c.removeAttribute(d.id))}})}var n=function(){var d=CKEDITOR.tools.extend({},
+﻿(function(){function p(a,k,o){if(!k.is||!k.getCustomData("block_processed"))k.is&&CKEDITOR.dom.element.setMarker(o,k,"block_processed",!0),a.push(k)}function n(a,k){function o(){this.foreach(function(d){if(/^(?!vbox|hbox)/.test(d.type)&&(d.setup||(d.setup=function(c){d.setValue(c.getAttribute(d.id)||"",1)}),!d.commit))d.commit=function(c){var a=this.getValue();"dir"==d.id&&c.getComputedStyle("direction")==a||(a?c.setAttribute(d.id,a):c.removeAttribute(d.id))}})}var n=function(){var d=CKEDITOR.tools.extend({},
 CKEDITOR.dtd.$blockLimit);a.config.div_wrapTable&&(delete d.td,delete d.th);return d}(),q=CKEDITOR.dtd.div,l={},m=[];return{title:a.lang.div.title,minWidth:400,minHeight:165,contents:[{id:"info",label:a.lang.common.generalTab,title:a.lang.common.generalTab,elements:[{type:"hbox",widths:["50%","50%"],children:[{id:"elementStyle",type:"select",style:"width: 100%;",label:a.lang.div.styleSelectLabel,"default":"",items:[[a.lang.common.notSet,""]],onChange:function(){var d=["info:elementStyle","info:class",
 "advanced:dir","advanced:style"],c=this.getDialog(),h=c._element&&c._element.clone()||new CKEDITOR.dom.element("div",a.document);this.commit(h,!0);for(var d=[].concat(d),b=d.length,i,f=0;f<b;f++)(i=c.getContentElement.apply(c,d[f].split(":")))&&i.setup&&i.setup(h,!0)},setup:function(a){for(var c in l)l[c].checkElementRemovable(a,!0)&&this.setValue(c,1)},commit:function(a){var c;(c=this.getValue())?l[c].applyToObject(a):a.removeAttribute("style")}},{id:"class",type:"text",requiredContent:"div(cke-xyz)",
 label:a.lang.common.cssClass,"default":""}]}]},{id:"advanced",label:a.lang.common.advancedTab,title:a.lang.common.advancedTab,elements:[{type:"vbox",padding:1,children:[{type:"hbox",widths:["50%","50%"],children:[{type:"text",id:"id",requiredContent:"div[id]",label:a.lang.common.id,"default":""},{type:"text",id:"lang",requiredContent:"div[lang]",label:a.lang.common.langCode,"default":""}]},{type:"hbox",children:[{type:"text",id:"style",requiredContent:"div{cke-xyz}",style:"width: 100%;",label:a.lang.common.cssStyle,

@@ -31,14 +31,16 @@
                 }
             },
             listener: function(e) {
-                var data = JSON.parse(e.data);
-                master.callback(data.message, data.error);
+                var obj = JSON.parse(e.data);
+                master.callback(obj.Data, obj.error);
             },
 
             callback: function(data, error) {
                 var ap = $('#resp');
                 ap.empty();
-                if (data && data != undefined) {
+                if (error && error.length) {
+                    ap.append('<h1 class="error">' + error + '</h1>');
+                } else {
                     var tableStr = '<table><tr><th>Name</th><th>Family</th><th>Email</th></tr>';
                     var x;
                     for (x in data) {
@@ -46,9 +48,6 @@
                     }
                     tableStr += '</table>';
                     ap.append(tableStr);
-                }
-                else {
-                    ap.append('<h1 class="error">' + data.error + '</h1>');
                 }
             },
             open: function(addr) {

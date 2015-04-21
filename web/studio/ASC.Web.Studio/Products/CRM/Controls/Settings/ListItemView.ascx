@@ -3,8 +3,6 @@
 <%@ Assembly Name="ASC.Web.Core" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ListItemView.ascx.cs" Inherits="ASC.Web.CRM.Controls.Settings.ListItemView" %>
 <%@ Import Namespace="ASC.CRM.Core" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
-<%@ Import Namespace="ASC.Web.CRM.Configuration" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
 <p style="margin-bottom: 10px;"><%= DescriptionText %></p>

@@ -1,15 +1,24 @@
 ﻿<%@ Assembly Name="ASC.Web.Mail" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AccountsPage.ascx.cs" Inherits="ASC.Web.Mail.Controls.AccountsPage" %>
 
+<%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Web.Mail.Controls" %>
 <%@ Import Namespace="ASC.Web.Mail.Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 
 <div id="id_accounts_page" class="hidden page_content">
     <div class="containerBodyBlock">
         <div class="content-header">
+            <% if (SetupInfo.IsVisibleSettings<AdministrationPage>() && SetupInfo.IsVisibleSettings("MailCommonDomain") && !CoreContext.Configuration.Standalone) 
+               { %>
+            <a title="<%=MailResource.CreateMailboxBtn%>" href="#" class="button gray" id="createNewMailbox" style="margin-right: 4px;">
+                <div class="plus" style="background-position: -2px 1px;"><%=MailResource.CreateMailboxBtn%></div>
+            </a>
+            <% } %>
             <a title="<%=MailResource.CreateNewAccountBtn%>" href="#" class="button gray" id="createNewAccount">
-                <div class="plus" style="background-position: -2px 1px;"><%=ASC.Web.Mail.Resources.MailResource.CreateNewAccountBtn%></div>
+                <div class="plus" style="background-position: -2px 1px;"><%=MailResource.CreateNewAccountBtn%></div>
             </a>
             <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AccountsHelperBlock'});"></span>
         </div>

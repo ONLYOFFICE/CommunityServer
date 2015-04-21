@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using ASC.Common.Threading.Progress;
 using ASC.Core;
@@ -41,8 +39,8 @@ using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.NotifyService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
+using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Files.Utils;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -54,11 +52,11 @@ using System.Net.Http.Headers;
 using System.Security;
 using System.Web;
 using System.Web.Http;
-using System.Xml.Linq;
-using System.Xml.XPath;
+using ASC.Web.Studio.Utility;
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using SecurityContext = ASC.Core.SecurityContext;
+using ASC.Common.Utils;
 
 namespace ASC.Web.Files.Services.WCFService
 {
@@ -66,12 +64,12 @@ namespace ASC.Web.Files.Services.WCFService
     [FileExceptionFilter]
     public class FileStorageServiceController : ApiController, IFileStorageService
     {
-        private static readonly ILog log = LogManager.GetLogger("ASC.Web.Files");
         private static readonly ProgressQueue Tasks = new ProgressQueue(10, TimeSpan.FromMinutes(5), true);
         private static readonly FileEntrySerializer serializer = new FileEntrySerializer();
 
         #region Folder Manager
 
+        [ActionName("folders-folder"), HttpGet]
         public Folder GetFolder(String folderId)
         {
             using (var folderDao = GetFolderDao())
@@ -98,7 +96,6 @@ namespace ASC.Web.Files.Services.WCFService
                 }
                 catch (Exception e)
                 {
-                    Global.Logger.Error(e);
                     throw GenerateException(e);
                 }
             }
@@ -138,7 +135,9 @@ namespace ASC.Web.Files.Services.WCFService
                 ErrorIf(!FileSecurity.CanRead(parent), FilesCommonResource.ErrorMassage_SecurityException_ViewFolder);
                 ErrorIf(parent.RootFolderType == FolderType.TRASH && !Equals(parent.ID, Global.FolderTrash), FilesCommonResource.ErrorMassage_ViewTrashItem);
 
-                if (Equals(parent.ID, Global.FolderShare))
+                if (Equals(parent.ID, Global.FolderShare)
+                    || (parent.RootFolderType == FolderType.USER && !Equals(parent.RootFolderId, Global.FolderMy)
+                        && (!parent.ProviderEntry || parent.RootFolderCreator != SecurityContext.CurrentAccount.ID)))
                     orderBy = new OrderBy(SortedByType.New, false);
                 else if (orderBy.SortedBy == SortedByType.New)
                     orderBy = new OrderBy(SortedByType.DateAndTime, true);
@@ -369,6 +368,8 @@ namespace ASC.Web.Files.Services.WCFService
         [ActionName("folders-files-createfile"), HttpGet]
         public File CreateNewFile(String parentId, String title)
         {
+            if (string.IsNullOrEmpty(title) || String.IsNullOrEmpty(parentId)) throw new ArgumentException();
+
             using (var fileDao = GetFileDao())
             using (var folderDao = GetFolderDao())
             {
@@ -401,21 +402,21 @@ namespace ASC.Web.Files.Services.WCFService
                 }
 
                 var culture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
-                var storeTemp = GetStoreTemplate();
+                var storeTemplate = GetStoreTemplate();
 
                 var path = FileConstant.NewDocPath + culture + "/";
-                if (!storeTemp.IsDirectory(path))
+                if (!storeTemplate.IsDirectory(path))
                 {
                     path = FileConstant.NewDocPath + "default/";
                 }
 
                 path += "new" + fileExt;
 
-                file.ContentLength = storeTemp.GetFileSize(path);
+                file.ContentLength = storeTemplate.GetFileSize(path);
 
                 try
                 {
-                    using (var stream = storeTemp.IronReadStream("", path, 10))
+                    using (var stream = storeTemplate.IronReadStream("", path, 10))
                     {
                         file = fileDao.SaveFile(file, stream);
                     }
@@ -515,7 +516,6 @@ namespace ASC.Web.Files.Services.WCFService
             }
             catch (Exception ex)
             {
-                Global.Logger.Error(string.Format("Error on save. File id: {0}. DownloadUri: {1}", fileId, fileuri), ex);
                 throw GenerateException(ex);
             }
         }
@@ -525,12 +525,17 @@ namespace ASC.Web.Files.Services.WCFService
         {
             try
             {
-                ErrorIf(editingAlone && FileTracker.IsEditing(fileId), FilesCommonResource.ErrorMassage_SecurityException_EditFileTwice);
+                if (editingAlone)
+                {
+                    ErrorIf(FileTracker.IsEditing(fileId), FilesCommonResource.ErrorMassage_SecurityException_EditFileTwice);
 
-                //lonely editing only for old scheme
-                var tabId = editingAlone ? Guid.Empty : SecurityContext.CurrentAccount.ID;
+                    var app = ThirdPartySelector.GetAppByFileId(fileId);
+                    if (app == null)
+                    {
+                        EntryManager.TrackEditing(fileId, Guid.Empty, SecurityContext.CurrentAccount.ID, asNew, doc, true);
+                    }   
+                }
 
-                EntryManager.TrackEditing(fileId, tabId, SecurityContext.CurrentAccount.ID, asNew, doc, editingAlone);
                 if (!editingAlone && !DocumentServiceTracker.StartTrack(fileId, docKeyForTrack, asNew))
                 {
                     throw new Exception(FilesCommonResource.ErrorMassage_StartEditing);
@@ -682,6 +687,85 @@ namespace ASC.Web.Files.Services.WCFService
             }
         }
 
+        [ActionName("edit-history"), HttpGet, AllowAnonymous]
+        public ItemList<EditHistory> GetEditHistory(String fileId, String doc = null)
+        {
+            using (var fileDao = GetFileDao())
+            {
+                File file;
+                var readLink = FileShareLink.Check(doc, true, fileDao, out file);
+                if (file == null)
+                    file = fileDao.GetFile(fileId);
+
+                ErrorIf(file == null, FilesCommonResource.ErrorMassage_FileNotFound);
+                ErrorIf(!readLink && !FileSecurity.CanRead(file), FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
+                ErrorIf(file.ProviderEntry, FilesCommonResource.ErrorMassage_BadRequest);
+
+                return new ItemList<EditHistory>(fileDao.GetEditHistory(file.ID));
+            }
+        }
+
+        [ActionName("edit-diff-url"), HttpGet, AllowAnonymous]
+        public KeyValuePair<string, string> GetEditDiffUrl(String fileId, int version = 0, String doc = null)
+        {
+            using (var fileDao = GetFileDao())
+            {
+                File file;
+                var readLink = FileShareLink.Check(doc, true, fileDao, out file);
+
+                if (file != null)
+                {
+                    fileId = file.ID.ToString();
+                }
+
+                if (file == null
+                    || version > 0 && file.Version != version)
+                {
+                    file = version > 0
+                               ? fileDao.GetFile(fileId, version)
+                               : fileDao.GetFile(fileId);
+                }
+
+                ErrorIf(file == null, FilesCommonResource.ErrorMassage_FileNotFound);
+                ErrorIf(!readLink && !FileSecurity.CanRead(file), FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
+                ErrorIf(file.ProviderEntry, FilesCommonResource.ErrorMassage_BadRequest);
+
+                var historyItem = fileDao.GetEditHistory(file.ID, file.Version).FirstOrDefault();
+                ErrorIf(historyItem == null || string.IsNullOrEmpty(historyItem.Changes), FilesCommonResource.ErrorMassage_FileChangesNotFound);
+
+                string prevFileUrl;
+
+                if (file.Version > 1)
+                {
+                    var previousFile = fileDao.GetFile(file.ID, file.Version - 1);
+                    ErrorIf(previousFile == null, FilesCommonResource.ErrorMassage_FileNotFound);
+
+                    prevFileUrl = PathProvider.GetFileStreamUrl(previousFile);
+                }
+                else
+                {
+                    var culture = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
+                    var storeTemplate = GetStoreTemplate();
+
+                    var path = FileConstant.NewDocPath + culture + "/";
+                    if (!storeTemplate.IsDirectory(path))
+                    {
+                        path = FileConstant.NewDocPath + "default/";
+                    }
+
+                    var fileExt = FileUtility.GetFileExtension(file.Title);
+
+                    path += "new" + fileExt;
+
+                    prevFileUrl = storeTemplate.GetPreSignedUri("", path, TimeSpan.FromHours(1), null).ToString();
+                }
+
+                var diffUrl = fileDao.GetDifferenceUrl(file);
+
+                return new KeyValuePair<string, string>(CommonLinkUtility.GetFullAbsolutePath(prevFileUrl), CommonLinkUtility.GetFullAbsolutePath(diffUrl));
+            }
+        }
+
         #endregion
 
         #region News
@@ -713,7 +797,6 @@ namespace ASC.Web.Files.Services.WCFService
             }
             catch (Exception e)
             {
-                Global.Logger.Error(e);
                 throw GenerateException(e);
             }
         }
@@ -807,6 +890,10 @@ namespace ASC.Web.Files.Services.WCFService
                              && !CoreContext.Configuration.Personal
                              && !FilesSettings.EnableThirdParty)
                             , FilesCommonResource.ErrorMassage_SecurityException_Create);
+
+                    thirdPartyParams.CustomerTitle = Global.ReplaceInvalidCharsAndTruncate(thirdPartyParams.CustomerTitle);
+                    ErrorIf(string.IsNullOrEmpty(thirdPartyParams.CustomerTitle), FilesCommonResource.ErrorMassage_InvalidTitle);
+
                     try
                     {
                         curProviderId = providerDao.SaveProviderInfo(thirdPartyParams.ProviderKey, thirdPartyParams.CustomerTitle, thirdPartyParams.AuthData, folderType);
@@ -1303,23 +1390,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
             var shareLink = FileShareLink.GetLink(file);
 
-            var uri = new Uri(shareLink);
-
-            var bitly = string.Format(Global.BitlyUrl, Uri.EscapeDataString(uri.ToString()));
-            XDocument response;
-            try
-            {
-                response = XDocument.Load(bitly);
-            }
-            catch (Exception e)
-            {
-                throw GenerateException(e);
-            }
-
-            ErrorIf(response.XPathSelectElement("/response/status_code").Value != ((int)HttpStatusCode.OK).ToString(CultureInfo.InvariantCulture), FilesCommonResource.ErrorMassage_BadRequest);
-            var data = response.XPathSelectElement("/response/data/url");
-
-            return data.Value;
+            return LinkShorterUtil.GetShortenLink(shareLink, Global.Logger);
         }
 
         [ActionName("sendlinktoemail"), HttpPost]
@@ -1433,7 +1504,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         private Exception GenerateException(Exception error)
         {
-            log.Error(error);
+            Global.Logger.Error(error);
             return new InvalidOperationException(error.Message, error);
         }
 

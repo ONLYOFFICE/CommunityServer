@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -59,8 +57,8 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
         public MailServerBase Server { get; private set; }
 
-        protected MailGroupModel(int id, int tenant, IMailAddress address, List<IMailAddress> in_addresses, MailServerBase server)
-            : base(new MailAddressBase(address), (in_addresses.Select(a => new MailAddressBase(a)).ToList()))
+        protected MailGroupModel(int id, int tenant, IMailAddress address, List<IMailAddress> inAddresses, MailServerBase server)
+            : base(new MailAddressBase(address), (inAddresses.Select(a => new MailAddressBase(a)).ToList()))
         {
             if (id < 0)
                 throw new ArgumentException("Invalid domain id", "id");
@@ -71,8 +69,8 @@ namespace ASC.Mail.Server.Administration.ServerModel
             if (address == null)
                 throw new ArgumentException("Invalid address", "address");
 
-            if (in_addresses == null)
-                throw new ArgumentException("Invalid aliases", "in_addresses");
+            if (inAddresses == null)
+                throw new ArgumentException("Invalid aliases", "inAddresses");
 
             if (server == null)
                 throw new ArgumentException("Invalid server", "server");
@@ -80,43 +78,44 @@ namespace ASC.Mail.Server.Administration.ServerModel
             Id = id;
             Tenant = tenant;
             Address = address;
-            InAddresses = in_addresses;
+            InAddresses = inAddresses;
             Server = server;
         }
 
-        public void AddMember(int mailbox_address_id, IMailServerFactory factory)
+        public void AddMember(int mailboxAddressId, IMailServerFactory factory)
         {
-            if (mailbox_address_id < 0)
-                throw new ArgumentException("Negative parameter value", "mailbox_address_id");
+            if (mailboxAddressId < 0)
+                throw new ArgumentException("Negative parameter value", "mailboxAddressId");
 
             if (factory == null)
                 throw new ArgumentNullException("factory");
 
-            MailAddressDto address_dto;
-            using (var db_context_with_tran = TeamlabMailGroupDal.CreateMailDbContext(true))
+            MailAddressDto addressDto;
+            using (var dbContextWithTran = TeamlabMailGroupDal.CreateMailDbContext(true))
             {
-                address_dto = TeamlabAddressDal.GetMailAddress(mailbox_address_id, db_context_with_tran.DbManager);
+                addressDto = TeamlabAddressDal.GetMailAddress(mailboxAddressId, dbContextWithTran.DbManager);
 
-                if (address_dto == null)
+                if (addressDto == null)
                     throw new ArgumentException("Address not exists");
 
-                if (InAddresses.Any(addr => addr.Id == mailbox_address_id))
+                if(Address.Domain.Tenant != addressDto.domain.tenant)
+                    throw new ArgumentException("Address not belongs to this domain");
+
+                if (InAddresses.Any(addr => addr.Id == mailboxAddressId))
                     throw new ArgumentException("Address already exists");
 
-                var mailbox_address = new MailAddressBase(address_dto.name, new WebDomainBase(address_dto.domain.name));
+                var mailboxAddress = new MailAddressBase(addressDto.name, new WebDomainBase(addressDto.domain.name));
 
-
-                TeamlabMailGroupDal.AddAddressToMailGroup(Id, mailbox_address_id, db_context_with_tran.DbManager);
-                _AddMember(mailbox_address);
-                db_context_with_tran.CommitTransaction();
+                TeamlabMailGroupDal.AddAddressToMailGroup(Id, mailboxAddressId, dbContextWithTran.DbManager);
+                _AddMember(mailboxAddress);
+                dbContextWithTran.CommitTransaction();
             }
 
-
-            InAddresses.Add(factory.CreateMailAddress(address_dto.id, address_dto.tenant, address_dto.name,
-                                                      factory.CreateWebDomain(address_dto.domain.id,
-                                                                              address_dto.domain.tenant,
-                                                                              address_dto.domain.name,
-                                                                              address_dto.domain.is_virified,
+            InAddresses.Add(factory.CreateMailAddress(addressDto.id, addressDto.tenant, addressDto.name,
+                                                      factory.CreateWebDomain(addressDto.domain.id,
+                                                                              addressDto.domain.tenant,
+                                                                              addressDto.domain.name,
+                                                                              addressDto.domain.is_virified,
                                                                               Server)));
         }
 
@@ -127,38 +126,38 @@ namespace ASC.Mail.Server.Administration.ServerModel
             if(factory == null)
                 throw new ArgumentNullException("factory");
             
-            var server_addresses = _GetMembers();
-            var tl_addresses = TeamlabMailGroupDal.GetGroupAddresses(Id);
+            var serverAddresses = _GetMembers();
+            var tlAddresses = TeamlabMailGroupDal.GetGroupAddresses(Id);
 
-            return (from tl_address in tl_addresses
-                    let address_for_update = server_addresses.FirstOrDefault(a => a.ToString() == tl_address.ToString())
-                    where address_for_update != null
+            return (from tlAddress in tlAddresses
+                    let addressForUpdate = serverAddresses.FirstOrDefault(a => a.ToString() == tlAddress.ToString())
+                    where addressForUpdate != null
                     let domain =
-                        factory.CreateWebDomain(tl_address.domain.id, tl_address.domain.tenant, tl_address.domain.name, tl_address.domain.is_virified, Server)
-                    select factory.CreateMailAddress(tl_address.id, tl_address.tenant, tl_address.name, domain))
+                        factory.CreateWebDomain(tlAddress.domain.id, tlAddress.domain.tenant, tlAddress.domain.name, tlAddress.domain.is_virified, Server)
+                    select factory.CreateMailAddress(tlAddress.id, tlAddress.tenant, tlAddress.name, domain))
                 .ToList();
         }
 
         protected abstract ICollection<MailAddressBase> _GetMembers();
 
-        public void RemoveMember(int mailbox_address_id)
+        public void RemoveMember(int mailboxAddressId)
         {
-            if (mailbox_address_id < 0)
-                throw new ArgumentException("Negative parameter value", "mailbox_address_id");
+            if (mailboxAddressId < 0)
+                throw new ArgumentException("Negative parameter value", "mailboxAddressId");
 
-            using (var db_context_with_tran = TeamlabMailGroupDal.CreateMailDbContext(true))
+            using (var dbContextWithTran = TeamlabMailGroupDal.CreateMailDbContext(true))
             {
-                var address_dto = TeamlabAddressDal.GetMailAddress(mailbox_address_id, db_context_with_tran.DbManager);
+                var addressDto = TeamlabAddressDal.GetMailAddress(mailboxAddressId, dbContextWithTran.DbManager);
 
-                if (address_dto == null)
+                if (addressDto == null)
                     throw new ArgumentException("Address not exists");
 
-                var mailbox_address = new MailAddressBase(address_dto.name, new WebDomainBase(address_dto.domain.name));
+                var mailboxAddress = new MailAddressBase(addressDto.name, new WebDomainBase(addressDto.domain.name));
 
-                TeamlabMailGroupDal.DeleteAddressFromMailGroup(Id, mailbox_address_id, db_context_with_tran.DbManager);
-                _RemoveMember(mailbox_address);
+                TeamlabMailGroupDal.DeleteAddressFromMailGroup(Id, mailboxAddressId, dbContextWithTran.DbManager);
+                _RemoveMember(mailboxAddress);
 
-                db_context_with_tran.CommitTransaction();
+                dbContextWithTran.CommitTransaction();
             }
         }
 
@@ -171,9 +170,9 @@ namespace ASC.Mail.Server.Administration.ServerModel
                 return false;
             }
 
-            var other_group = (MailGroupModel)obj;
+            var otherGroup = (MailGroupModel)obj;
 
-            return Id == other_group.Id && Tenant == other_group.Tenant && Address.Equals(other_group.Address);
+            return Id == otherGroup.Id && Tenant == otherGroup.Tenant && Address.Equals(otherGroup.Address);
         }
 
         public override int GetHashCode()

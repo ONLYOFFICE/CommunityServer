@@ -280,3 +280,18 @@
         </div>
     </div>
 </script>
+
+<script id="imagesBlockedPopupTmpl" type="text/x-jquery-tmpl">
+    <div>
+        <div>
+            ${text}
+        </div>
+        <div class="buttons">
+            <button class="button middle blue print" type="button">
+                <%= MailScriptResource.OkBtnLabel %></button>
+            <button class="button middle gray cancel" type="button">
+                <%= MailScriptResource.CancelBtnLabel %>
+            </button>
+        </div>
+    </div>
+</script>

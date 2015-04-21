@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 @import "base.less";
 /*******************************************************************************
@@ -148,26 +146,12 @@ textarea {
     cursor: pointer;
 }
 
-.crm-withGrayPlus {
+.crm-headerHiddenToggledBlock {
     border-bottom: 1px dotted;
     clear: both;
     cursor: pointer;
     display: inline-block;
     float: left;
-    position: relative;
-
-    &:after {
-        background: url( "../images/icons.png" ) no-repeat scroll 0 -735px transparent;
-        content: " ";
-        cursor: pointer;
-        display: block;
-        height: 14px;
-        right: -18px;
-        margin-top: -7px;
-        position: absolute;
-        top: 50%;
-        width: 14px;
-    }
 }
 
 .crm-exportToCsvLink, .crm-exportToCsvLink:hover, .crm-exportToCsvLink:visited{
@@ -1033,123 +1017,10 @@ ContactSelector.ascx
 /*******************************************************************************
 AdvansedFilter.ascx
 *******************************************************************************/
-.colorFilterItem {
-    padding-left: 25px !important;
-    position: relative;
-
-    &:before {
-        border: 1px solid #8E908F;
-        .crm-img-pseudo-base(50%, 5px, 11px, 11px);
-        margin-top: -6px;
-        z-index: 0;
-    }
-}
 .custom-combobox.colorFilterItem {
     max-width: 140px !important;
 }
-.color_0:before {
-    background: none repeat scroll 0 0 #ffffff;
-}
-.color_e34603:before{
-    background: none repeat scroll 0 0 #e34603;
-}
-.color_f88e14:before{
-    background: none repeat scroll 0 0 #f88e14;
-}
-.color_ffb403:before{
-    background: none repeat scroll 0 0 #ffb403;
-}
-.color_9fbb4c:before{
-    background: none repeat scroll 0 0 #9fbb4c;
-}
-.color_288e31:before{
-    background: none repeat scroll 0 0 #288e31;
-}
-.color_4cbb78:before{
-    background: none repeat scroll 0 0 #4cbb78;
-}
-.color_0797ba:before{
-    background: none repeat scroll 0 0 #0797ba;
-}
-.color_1d5f99:before{
-    background: none repeat scroll 0 0 #1d5f99;
-}
-.color_4c76bb:before{
-    background: none repeat scroll 0 0 #4c76bb;
-}
-.color_3552d2:before{
-    background: none repeat scroll 0 0 #3552d2;
-}
-.color_473388:before{
-    background: none repeat scroll 0 0 #473388;
-}
-.color_884cbb:before{
-    background: none repeat scroll 0 0 #884cbb;
-}
-.color_cb59ba:before{
-    background: none repeat scroll 0 0 #cb59ba;
-}
-.color_ca3083:before{
-    background: none repeat scroll 0 0 #ca3083;
-}
-.color_e24e78:before{
-    background: none repeat scroll 0 0 #e24e78;
-}
-.color_bf0036:before{
-    background: none repeat scroll 0 0 #bf0036;
-}
 
-/*******************************************************************************
-new colors!!!
-*******************************************************************************/
-.color_f48454:before{
-    background: none repeat scroll 0 0 #f48454;
-}
-.color_ffb45e:before{
-    background: none repeat scroll 0 0 #ffb45e;
-}
-.color_ffd267:before{
-    background: none repeat scroll 0 0 #ffd267;
-}
-.color_b7d269:before{
-    background: none repeat scroll 0 0 #b7d269;
-}
-.color_6bbd72:before{
-    background: none repeat scroll 0 0 #6bbd72;
-}
-.color_77cf9a:before{
-    background: none repeat scroll 0 0 #77cf9a;
-}
-.color_6ac6dd:before{
-    background: none repeat scroll 0 0 #6ac6dd;
-}
-.color_4682b6:before{
-    background: none repeat scroll 0 0 #4682b6;
-}
-.color_6a9ad2:before{
-    background: none repeat scroll 0 0 #6a9ad2;
-}
-.color_8a98d8:before{
-    background: none repeat scroll 0 0 #8a98d8;
-}
-.color_7e6eb2:before{
-    background: none repeat scroll 0 0 #7e6eb2;
-}
-.color_b58fd6:before{
-    background: none repeat scroll 0 0 #b58fd6;
-}
-.color_d28cc8:before{
-    background: none repeat scroll 0 0 #d28cc8;
-}
-.color_e795c1:before{
-    background: none repeat scroll 0 0 #e795c1;
-}
-.color_f2a9be:before{
-    background: none repeat scroll 0 0 #f2a9be;
-}
-.color_df7895:before{
-    background: none repeat scroll 0 0 #df7895;
-}
 
 /*******************************************************************************
 HistoryView.ascx
@@ -1501,30 +1372,6 @@ Import From CSV
 
 #ignoreFirstRow {
     vertical-align: middle;
-}
-
-/*******************************************************************************
-   Dashboard for empty list contacts
-*******************************************************************************/
-.dashboard-center-box .content .module-block {
-    margin-left: 28px;
-    width: 214px;
-
-    .img.contacts {
-        background-image: url("../images/contacts.png");
-    }
-    .img.sales {
-        background-image: url("../images/sales.png");
-    }
-    .img.customize {
-        background-image: url("../images/customize.png");
-    }
-    .img.integration {
-        background-image: url("../images/integration.png");
-    }
-    .img.invoice {
-        background-image: url("../images/invoice.png");
-    }
 }
 
 /*******************************************************************************

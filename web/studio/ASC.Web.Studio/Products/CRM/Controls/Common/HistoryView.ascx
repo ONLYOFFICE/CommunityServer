@@ -3,10 +3,7 @@
 <%@ Assembly Name="ASC.Common" %>
 <%@ Assembly Name="ASC.Core.Common" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="HistoryView.ascx.cs" Inherits="ASC.Web.CRM.Controls.Common.HistoryView" %>
-<%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.CRM.Core" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
-<%@ Import Namespace="ASC.Web.CRM" %>
+
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
 <div id="historyBlock">

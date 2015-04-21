@@ -1,32 +1,31 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
+
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -35,68 +34,21 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Data;
 using ASC.CRM.Core;
 using ASC.Core;
-using System.Configuration;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
+using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Dal.DbSchema;
-using ASC.Mail.Aggregator.Extension;
 using ASC.Web.Core;
 
 namespace ASC.Mail.Aggregator
 {
     public partial class MailBoxManager
     {
-        #region db defines
-
-        public const string MAIL_TAG_ADDRESSES = "mail_tag_addresses";
-        public const string MAIL_TAG = "mail_tag";
-        public const string MAIL_TAG_MAIL = "mail_tag_mail";
-
-        public const string CRM_TAG = "crm_tag";
-
-        public struct TagMailFields
-        {
-            public static string id_mail = "id_mail";
-            public static string id_tag = "id_tag";
-            public static string time_created = "time_created";
-            public static string id_tenant = "tenant";
-            public static string id_user = "id_user";
-        };
-
-        public struct TagAddressFields
-        {
-            public static string id_tag = "id_tag";
-            public static string address = "address";
-            public static string id_tenant = "tenant";
-        };
-
-        public struct TagFields
-        {
-            public static string id = "id";
-            public static string id_user = "id_user";
-            public static string id_tenant = "tenant";
-            public static string name = "name";
-            public static string style = "style";
-            public static string addresses = "addresses";
-            public static string count = "count";
-            public static string crm_id = "crm_id";
-        };
-
-        public struct CrmTagFields
-        {
-            public static string id = "id";
-            public static string title = "title";
-            public static string tenant_id = "tenant_id";
-            public static string entity_type = "entity_type";
-        };
-
-        #endregion
-
         #region public methods
 
-        public void SetMessagesTag(int tenant, string user, int tag_id, IEnumerable<int> messages_ids)
+        public void SetMessagesTag(int tenant, string user, int tagId, IEnumerable<int> messagesIds)
         {
-            var ids = messages_ids as IList<int> ?? messages_ids.ToList();
+            var ids = messagesIds as IList<int> ?? messagesIds.ToList();
 
             if (!ids.Any()) return;
 
@@ -104,12 +56,12 @@ namespace ASC.Mail.Aggregator
             {
                 using (var tx = db.BeginTransaction())
                 {
-                    List<int> valid_ids;
+                    List<int> validIds;
                     List<ChainInfo> chains;
 
-                    GetValidForUserMessages(db, tenant, user, ids, out valid_ids, out chains);
+                    GetValidForUserMessages(db, tenant, user, ids, out validIds, out chains);
 
-                    SetMessagesTag(db, tenant, user, valid_ids, tag_id);
+                    SetMessagesTag(db, tenant, user, validIds, tagId);
 
                     foreach (var chain in chains)
                         UpdateChainTags(db, chain.id, chain.folder, chain.mailbox, tenant, user);
@@ -119,9 +71,9 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public void SetConversationsTag(int tenant, string user, int tag_id, IEnumerable<int> messages_ids)
+        public void SetConversationsTag(int tenant, string user, int tagId, IEnumerable<int> messagesIds)
         {
-            var ids = messages_ids as IList<int> ?? messages_ids.ToList();
+            var ids = messagesIds as IList<int> ?? messagesIds.ToList();
             
             if (!ids.Any()) return;
 
@@ -129,20 +81,20 @@ namespace ASC.Mail.Aggregator
             {
                 using (var tx = db.BeginTransaction())
                 {
-                    SetConversationsTag(db, tenant, user, tag_id, ids);
+                    SetConversationsTag(db, tenant, user, tagId, ids);
 
                     tx.Commit();
                 }
             }
         }
 
-        public void UnsetConversationsTag(int id_tenant, string id_user, int tag_id, IEnumerable<int> messages_ids)
+        public void UnsetConversationsTag(int tenant, string user, int tagId, IEnumerable<int> messagesIds)
         {
             using (var db = GetDb())
             {
                 using (var tx = db.BeginTransaction())
                 { 
-                    var list_objects = GetChainedMessagesInfo(db, id_tenant, id_user, (List<int>) messages_ids,
+                    var listObjects = GetChainedMessagesInfo(db, tenant, user, (List<int>) messagesIds,
                                                               new[]
                                                                   {
                                                                       MailTable.Columns.id, MailTable.Columns.chain_id,
@@ -150,10 +102,10 @@ namespace ASC.Mail.Aggregator
                                                                       MailTable.Columns.id_mailbox
                                                                   });
 
-                    var valid_ids = new List<int>();
+                    var validIds = new List<int>();
                     var chains = new List<ChainInfo>();
 
-                    list_objects.ForEach(
+                    listObjects.ForEach(
                         item =>
                             {
                                 chains.Add(
@@ -164,101 +116,110 @@ namespace ASC.Mail.Aggregator
                                             mailbox = Convert.ToInt32(item[3])
                                         });
 
-                                valid_ids.Add(Convert.ToInt32(item[0]));
+                                validIds.Add(Convert.ToInt32(item[0]));
                             });
 
-                    UnsetMessagesTag(db, id_tenant, id_user, tag_id, valid_ids, chains);
+                    UnsetMessagesTag(db, tenant, user, tagId, validIds, chains);
                     
                     tx.Commit();
                 }
             }
         }
 
-        public void UnsetMessagesTag(int id_tenant, string id_user, int tag_id, IEnumerable<int> messages_ids)
+        public void UnsetMessagesTag(int tenant, string user, int tagId, IEnumerable<int> messagesIds)
         {
             using (var db = GetDb()) 
             {
                 using (var tx = db.BeginTransaction())
                 {
-                    List<int> valid_ids;
+                    List<int> validIds;
                     List<ChainInfo> chains;
 
-                    GetValidForUserMessages(db, id_tenant, id_user, messages_ids, out valid_ids, out chains);
+                    GetValidForUserMessages(db, tenant, user, messagesIds, out validIds, out chains);
 
-                    UnsetMessagesTag(db, id_tenant, id_user, tag_id, valid_ids, chains);
+                    UnsetMessagesTag(db, tenant, user, tagId, validIds, chains);
                     
                     tx.Commit();
                 }
             }
         }
 
-        private void UnsetMessagesTag(DbManager db, int id_tenant, string id_user, int tag_id, 
-            List<int> valid_ids, IEnumerable<ChainInfo> chains)
+        private void UnsetMessagesTag(DbManager db, int tenant, string user, int tagId, 
+            ICollection validIds, IEnumerable<ChainInfo> chains)
         {
             db.ExecuteNonQuery(
-                new SqlDelete(MAIL_TAG_MAIL)
-                    .Where(TagMailFields.id_tag, tag_id)
-                    .Where(Exp.In(TagMailFields.id_mail, valid_ids)));
+                new SqlDelete(TagMailTable.name)
+                    .Where(TagMailTable.Columns.id_tag, tagId)
+                    .Where(Exp.In(TagMailTable.Columns.id_mail, validIds)));
 
-            UpdateTagCount(db, id_tenant, id_user, tag_id);
+            UpdateTagCount(db, tenant, user, tagId);
 
             foreach (var chain in chains)
-                UpdateChainTags(db, chain.id, chain.folder, chain.mailbox, id_tenant, id_user);
+                UpdateChainTags(db, chain.id, chain.folder, chain.mailbox, tenant, user);
         }
 
         private void GetValidForUserMessages(
-            DbManager db,
-            int id_tenant,
-            string id_user,
-            IEnumerable<int> messages_ids,
-            out List<int> valid_ids,
+            IDbManager db,
+            int tenant,
+            string user,
+            IEnumerable<int> messagesIds,
+            out List<int> validIds,
             out List<ChainInfo> chains)
         {
             var valids = db.ExecuteList(
                     new SqlQuery(MailTable.name)
                         .Select(MailTable.Columns.id, MailTable.Columns.chain_id, MailTable.Columns.folder, MailTable.Columns.id_mailbox)
-                        .Where(Exp.In(MailTable.Columns.id, messages_ids.ToArray()))
-                        .Where(GetUserWhere(id_user, id_tenant)))
+                        .Where(Exp.In(MailTable.Columns.id, messagesIds.ToArray()))
+                        .Where(GetUserWhere(user, tenant)))
                     .ConvertAll(x => new { 
                         id = Convert.ToInt32(x[0]),
                         chain_id = x[1].ToString(),
                         folder = Convert.ToInt32(x[2]),
                         mailbox = Convert.ToInt32(x[3])});
 
-            valid_ids = new List<int>();
+            validIds = new List<int>();
             chains = new List<ChainInfo>();
             foreach (var item in valids)
             {
-                valid_ids.Add(item.id);
+                validIds.Add(item.id);
                 chains.Add(new ChainInfo { id = item.chain_id, folder = item.folder, mailbox = item.mailbox });
             }
         }
 
-        public List<MailTag> GetTagsList(int id_tenant, string id_user, bool mail_only)
+        public List<MailTag> GetTagsList(int tenant, string user, bool mailOnly)
         {
             var tags = new Dictionary<int, MailTag>();
 
             using (var db = GetDb())
             {
-                db.ExecuteList(new SqlQuery(MAIL_TAG)
-                         .Select(TagFields.id, TagFields.name, TagFields.style, TagFields.addresses, TagFields.count, TagFields.crm_id)
-                         .Where(GetUserWhere(id_user, id_tenant)))
-                         .ForEach(r =>
-                             tags.Add(0 < Convert.ToInt32(r[5]) ? -Convert.ToInt32(r[5]) : Convert.ToInt32(r[0]),
-                             new MailTag( (0 < Convert.ToInt32(r[5]) && !mail_only) ? -Convert.ToInt32(r[5]) : Convert.ToInt32(r[0])
-                                 , (string)r[1]
-                                 , !string.IsNullOrEmpty(r[3].ToString()) ? r[3].ToString().Split(';').ToList() : new List<string>()
-                                 , ConvertToString(r[2])
-                                 , Convert.ToInt32(r[4])))
-                         );
+                db.ExecuteList(new SqlQuery(TagTable.name)
+                                   .Select(TagTable.Columns.id, TagTable.Columns.name, TagTable.Columns.style,
+                                           TagTable.Columns.addresses, TagTable.Columns.count, TagTable.Columns.crm_id)
+                                   .Where(GetUserWhere(user, tenant)))
+                  .ForEach(r =>
+                           tags.Add(0 < Convert.ToInt32(r[5]) ? -Convert.ToInt32(r[5]) : Convert.ToInt32(r[0]),
+                                    new MailTag(
+                                        (0 < Convert.ToInt32(r[5]) && !mailOnly)
+                                            ? -Convert.ToInt32(r[5])
+                                            : Convert.ToInt32(r[0])
+                                        , (string) r[1]
+                                        ,
+                                        !string.IsNullOrEmpty(r[3].ToString())
+                                            ? r[3].ToString().Split(';').ToList()
+                                            : new List<string>()
+                                        , ConvertToString(r[2])
+                                        , Convert.ToInt32(r[4])))
+                    );
             }
 
-            if (mail_only)
+            if (mailOnly)
                 return tags.Values.Where(p => p.Name != "").OrderByDescending(p => p.Id).ToList();
 
+            //TODO: Move to crm api
+
             #region Set up connection to CRM sequrity
-            CoreContext.TenantManager.SetCurrentTenant(id_tenant);
-            SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(new Guid(id_user)));
+            CoreContext.TenantManager.SetCurrentTenant(tenant);
+            SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(new Guid(user)));
 
             if (!WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(),
                                                     SecurityContext.CurrentAccount.ID))
@@ -266,14 +227,16 @@ namespace ASC.Mail.Aggregator
 
             #endregion
 
+            const string crm_tag_alias = "t";
+
             using (var db = new DbManager("crm"))
             {
-                var q = new SqlQuery(CRM_TAG + " t")
-                    .Select("t." + CrmTagFields.id, "t." + CrmTagFields.title)
-                    .Where(Exp.Eq("t." + CrmTagFields.tenant_id, id_tenant))
-                    .Where(Exp.Eq("t." + CrmTagFields.entity_type, CRM_CONTACT_ENTITY_TYPE));
+                var q = new SqlQuery(CrmTagTable.name.Alias(crm_tag_alias))
+                    .Select(CrmTagTable.Columns.id.Prefix(crm_tag_alias), CrmTagTable.Columns.title.Prefix(crm_tag_alias))
+                    .Where(CrmTagTable.Columns.tenant_id.Prefix(crm_tag_alias), tenant)
+                    .Where(CrmTagTable.Columns.entity_type.Prefix(crm_tag_alias), CRM_CONTACT_ENTITY_TYPE);
 
-                var crm_tags = db.ExecuteList(q)
+                var crmTags = db.ExecuteList(q)
                     .ConvertAll(r =>
                         new MailTag(-Convert.ToInt32(r[0])
                             ,(string)r[1]
@@ -281,7 +244,7 @@ namespace ASC.Mail.Aggregator
                             ,""
                             ,0));
 
-                foreach (var tag in crm_tags)
+                foreach (var tag in crmTags)
                 {
                     if (tags.ContainsKey(tag.Id))
                         tags[tag.Id].Name = tag.Name;
@@ -297,41 +260,41 @@ namespace ASC.Mail.Aggregator
         {
             using (var db = GetDb())
             {
-                var result = db.ExecuteScalar<int>(new SqlQuery(MAIL_TAG)
-                                                   .Select(TagFields.id)
+                var result = db.ExecuteScalar<int>(new SqlQuery(TagTable.name)
+                                                   .Select(TagTable.Columns.id)
                                                    .Where(GetUserWhere(user, tenant))
-                                                   .Where(TagFields.name, name));
+                                                   .Where(TagTable.Columns.name, name));
 
                 return Convert.ToInt32(result) > 0;
             }
         }
 
-        public MailTag GetMailTag(int tenant, string user, int tag_id)
+        public MailTag GetMailTag(int tenant, string user, int tagId)
         {
-            var tags = GetMailTags(tenant, user, new EqExp(TagFields.id, tag_id));
+            var tags = GetMailTags(tenant, user, new EqExp(TagTable.Columns.id, tagId));
             return tags.Any() ? tags[0] : null;
         }
 
         public MailTag GetMailTag(int tenant, string user, string name)
         {
-            var tags = GetMailTags(tenant, user, new EqExp(TagFields.name, name));
+            var tags = GetMailTags(tenant, user, new EqExp(TagTable.Columns.name, name));
             return tags.Any() ? tags[0] : null;
         }
 
-        private List<MailTag> GetMailTags(int id_tenant, string id_user, Exp exp)
+        private List<MailTag> GetMailTags(int tenant, string user, Exp exp)
         {
             using (var db = GetDb())
             {
-                return GetMailTags(db, id_tenant, id_user, exp);
+                return GetMailTags(db, tenant, user, exp);
             }
         }
 
-        private List<MailTag> GetMailTags(IDbManager db, int id_tenant, string id_user, Exp exp)
+        private List<MailTag> GetMailTags(IDbManager db, int tenant, string user, Exp exp)
         {
             return db.ExecuteList(
-                new SqlQuery(MAIL_TAG)
-                    .Select(TagFields.id, TagFields.name, TagFields.style, TagFields.addresses)
-                    .Where(GetUserWhere(id_user, id_tenant))
+                new SqlQuery(TagTable.name)
+                    .Select(TagTable.Columns.id, TagTable.Columns.name, TagTable.Columns.style, TagTable.Columns.addresses)
+                    .Where(GetUserWhere(user, tenant))
                     .Where(exp))
                 .ConvertAll(r =>
                     new MailTag(Convert.ToInt32(r[0]), (string)r[1],
@@ -340,24 +303,27 @@ namespace ASC.Mail.Aggregator
 
         public int[] GetOrCreateTags(int tenant, string user, string[] names)
         {
-            var exp = names.Aggregate(Exp.Empty, (current, name) => current | Exp.Eq(TagFields.name, name));
-            var existing_tags = GetMailTags(tenant, user, exp);
-            var existing_names = existing_tags.ConvertAll(t => t.Name.ToLower());
-            var res = existing_tags.ConvertAll(t => t.Id);
+            var exp = names.Aggregate(Exp.Empty, (current, name) => current | Exp.Eq(TagTable.Columns.name, name));
+            var existingTags = GetMailTags(tenant, user, exp);
+            var existingNames = existingTags.ConvertAll(t => t.Name.ToLower());
+            var res = existingTags.ConvertAll(t => t.Id);
             // ToDo: style from name
-            res.AddRange(from name in names where !existing_names.Contains(name.ToLower())
+            res.AddRange(from name in names
+                         where !existingNames.Contains(name.ToLower())
                          select SaveMailTag(tenant,
-                            user,
-                            new MailTag(0,
-                                name,
-                                new List<string>(),
-                                (Math.Abs(name.GetHashCode()%16)+1).ToString(CultureInfo.InvariantCulture), 0)
-                            ) into new_tag
-                         select new_tag.Id);
+                                            user,
+                                            new MailTag(0,
+                                                        name,
+                                                        new List<string>(),
+                                                        (Math.Abs(name.GetHashCode()%16) + 1).ToString(
+                                                            CultureInfo.InvariantCulture), 0)
+                             )
+                         into newTag
+                         select newTag.Id);
             return res.ToArray();
         }
 
-        public MailTag SaveMailTag(int id_tenant, string id_user, MailTag tag)
+        public MailTag SaveMailTag(int tenant, string user, MailTag tag)
         {
             using (var db = GetDb()) 
             {
@@ -366,43 +332,43 @@ namespace ASC.Mail.Aggregator
                     if (tag.Id == 0)
                     {
                         tag.Id = db.ExecuteScalar<int>(
-                            new SqlInsert(MAIL_TAG)
-                                .InColumnValue(TagFields.id, 0)
-                                .InColumnValue(TagFields.id_tenant, id_tenant)
-                                .InColumnValue(TagFields.id_user, id_user)
-                                .InColumnValue(TagFields.name, tag.Name)
-                                .InColumnValue(TagFields.style, tag.Style)
-                                .InColumnValue(TagFields.addresses, string.Join(";", tag.Addresses.ToArray()))
+                            new SqlInsert(TagTable.name)
+                                .InColumnValue(TagTable.Columns.id, 0)
+                                .InColumnValue(TagTable.Columns.id_tenant, tenant)
+                                .InColumnValue(TagTable.Columns.id_user, user)
+                                .InColumnValue(TagTable.Columns.name, tag.Name)
+                                .InColumnValue(TagTable.Columns.style, tag.Style)
+                                .InColumnValue(TagTable.Columns.addresses, string.Join(";", tag.Addresses.ToArray()))
                                 .Identity(0, 0, true));
                     }
                     else
                     {
                         db.ExecuteNonQuery(
-                            new SqlUpdate(MAIL_TAG)
-                                .Set(TagFields.name, tag.Name)
-                                .Set(TagFields.style, tag.Style)
-                                .Set(TagFields.addresses, string.Join(";", tag.Addresses.ToArray()))
-                                .Where(TagFields.id, tag.Id));
+                            new SqlUpdate(TagTable.name)
+                                .Set(TagTable.Columns.name, tag.Name)
+                                .Set(TagTable.Columns.style, tag.Style)
+                                .Set(TagTable.Columns.addresses, string.Join(";", tag.Addresses.ToArray()))
+                                .Where(TagTable.Columns.id, tag.Id));
 
                         db.ExecuteNonQuery(
-                                new SqlDelete(MAIL_TAG_ADDRESSES)
-                                    .Where(TagAddressFields.id_tag, tag.Id));
+                                new SqlDelete(TagAddressTable.name)
+                                    .Where(TagAddressTable.Columns.id_tag, tag.Id));
                     }
 
                     if (tag.Addresses.Any())
                     {
-                        var insert_query =
-                            new SqlInsert(MAIL_TAG_ADDRESSES)
-                                .InColumns(TagAddressFields.id_tag,
-                                           TagAddressFields.address,
-                                           TagAddressFields.id_tenant);
+                        var insertQuery =
+                            new SqlInsert(TagAddressTable.name)
+                                .InColumns(TagAddressTable.Columns.id_tag,
+                                           TagAddressTable.Columns.address,
+                                           TagAddressTable.Columns.id_tenant);
 
                         tag.Addresses
                            .ForEach(addr =>
-                                    insert_query
-                                        .Values(tag.Id, addr, id_tenant));
+                                    insertQuery
+                                        .Values(tag.Id, addr, tenant));
 
-                        db.ExecuteNonQuery(insert_query);
+                        db.ExecuteNonQuery(insertQuery);
                     }
 
                     tx.Commit();
@@ -412,23 +378,23 @@ namespace ASC.Mail.Aggregator
             return tag;
         }
 
-        public void DeleteTag(int id_tenant, string id_user, int tag_id)
+        public void DeleteTag(int tenant, string user, int tagId)
         {
             using (var db = GetDb()) 
             {
                 using (var tx = db.BeginTransaction())
                 {
                     var affected = db.ExecuteNonQuery(
-                        new SqlDelete(MAIL_TAG)
-                            .Where(TagFields.id, tag_id)
-                            .Where(GetUserWhere(id_user, id_tenant)));
+                        new SqlDelete(TagTable.name)
+                            .Where(TagTable.Columns.id, tagId)
+                            .Where(GetUserWhere(user, tenant)));
 
                     if (0 < affected)
                     {
                         db.ExecuteNonQuery(
-                            new SqlDelete(MAIL_TAG_MAIL)
-                                .Where(TagMailFields.id_tag, tag_id)
-                                .Where(GetUserWhere(id_user, id_tenant)));
+                            new SqlDelete(TagMailTable.name)
+                                .Where(TagMailTable.Columns.id_tag, tagId)
+                                .Where(GetUserWhere(user, tenant)));
                     }
 
                     tx.Commit();
@@ -440,75 +406,71 @@ namespace ASC.Mail.Aggregator
 
         #region private methods
 
-        private void SetMessageTags(DbManager db, int tenant, string user, int message_id, IEnumerable<int> tag_ids)
+        private void SetMessageTags(DbManager db, int tenant, string user, int messageId, IEnumerable<int> tagIds)
         {
-            var id_tags = tag_ids as IList<int> ?? tag_ids.ToList();
-            if (!id_tags.Any()) return;
+            var idTags = tagIds as IList<int> ?? tagIds.ToList();
+            if (!idTags.Any()) return;
 
-            CreateInsertDelegate create_insert_query = ()
-                => new SqlInsert(MAIL_TAG_MAIL)
+            CreateInsertDelegate createInsertQuery = ()
+                => new SqlInsert(TagMailTable.name)
                         .IgnoreExists(true)
-                        .InColumns(TagMailFields.id_mail,
-                                   TagMailFields.id_tag,
-                                   TagMailFields.id_tenant,
-                                   TagMailFields.id_user);
+                        .InColumns(TagMailTable.Columns.id_mail,
+                                   TagMailTable.Columns.id_tag,
+                                   TagMailTable.Columns.id_tenant,
+                                   TagMailTable.Columns.id_user);
 
-            var insert_query = create_insert_query();
+            var insertQuery = createInsertQuery();
 
-            int i, tags_len;
-            for (i = 0, tags_len = id_tags.Count; i < tags_len; i++)
+            int i, tagsLen;
+            for (i = 0, tagsLen = idTags.Count; i < tagsLen; i++)
             {
-                var tag_id = id_tags[i];
+                var tagId = idTags[i];
 
-                insert_query
-                    .Values(message_id, tag_id, tenant, user);
+                insertQuery
+                    .Values(messageId, tagId, tenant, user);
 
-                if (i % 100 == 0 && i != 0 || i + 1 == tags_len)
-                {
-                    db.ExecuteNonQuery(insert_query);
-                    insert_query = create_insert_query();
-                }
+                if ((i%100 != 0 || i == 0) && i + 1 != tagsLen) continue;
+                db.ExecuteNonQuery(insertQuery);
+                insertQuery = createInsertQuery();
             }
 
-            UpdateTagsCount(db, tenant, user, id_tags);
+            UpdateTagsCount(db, tenant, user, idTags);
         }
 
-        private void SetMessagesTag(DbManager db, int tenant, string user, IEnumerable<int> message_ids, int tag_id)
+        private void SetMessagesTag(DbManager db, int tenant, string user, IEnumerable<int> messageIds, int tagId)
         {
-            var id_messages = message_ids as IList<int> ?? message_ids.ToList();
-            if (!id_messages.Any()) return;
+            var idMessages = messageIds as IList<int> ?? messageIds.ToList();
+            if (!idMessages.Any()) return;
 
-            CreateInsertDelegate create_insert_query = ()
-                => new SqlInsert(MAIL_TAG_MAIL)
+            CreateInsertDelegate createInsertQuery = ()
+                => new SqlInsert(TagMailTable.name)
                         .IgnoreExists(true)
-                        .InColumns(TagMailFields.id_mail,
-                                   TagMailFields.id_tag,
-                                   TagMailFields.id_tenant,
-                                   TagMailFields.id_user);
+                        .InColumns(TagMailTable.Columns.id_mail,
+                                   TagMailTable.Columns.id_tag,
+                                   TagMailTable.Columns.id_tenant,
+                                   TagMailTable.Columns.id_user);
 
-            var insert_query = create_insert_query();
+            var insertQuery = createInsertQuery();
 
-            int i, messagess_len;
-            for (i = 0, messagess_len = id_messages.Count; i < messagess_len; i++)
+            int i, messagessLen;
+            for (i = 0, messagessLen = idMessages.Count; i < messagessLen; i++)
             {
-                var message_id = id_messages[i];
+                var messageId = idMessages[i];
 
-                insert_query
-                    .Values(message_id, tag_id, tenant, user);
+                insertQuery
+                    .Values(messageId, tagId, tenant, user);
 
-                if (i % 100 == 0 && i != 0 || i + 1 == messagess_len)
-                {
-                    db.ExecuteNonQuery(insert_query);
-                    insert_query = create_insert_query();
-                }
+                if ((i%100 != 0 || i == 0) && i + 1 != messagessLen) continue;
+                db.ExecuteNonQuery(insertQuery);
+                insertQuery = createInsertQuery();
             }
 
-            UpdateTagsCount(db, tenant, user, new[] { tag_id });
+            UpdateTagsCount(db, tenant, user, new[] { tagId });
         }
 
-        private void SetConversationsTag(DbManager db, int tenant, string user, int tag_id, IEnumerable<int> messages_ids)
+        private void SetConversationsTag(DbManager db, int tenant, string user, int tagId, IEnumerable<int> messagesIds)
         {
-            var founded_chains = GetChainedMessagesInfo(db, tenant, user, (List<int>)messages_ids,
+            var foundedChains = GetChainedMessagesInfo(db, tenant, user, (List<int>)messagesIds,
                        new[]
                             {
                                 MailTable.Columns.id, 
@@ -524,38 +486,40 @@ namespace ASC.Mail.Aggregator
                            id_mailbox = Convert.ToInt32(r[3])
                        });
 
-            if (!founded_chains.Any()) return;
+            if (!foundedChains.Any()) return;
 
-            SetMessagesTag(db, tenant, user, founded_chains.Select(r => r.mail_id), tag_id);
+            SetMessagesTag(db, tenant, user, foundedChains.Select(r => r.mail_id), tagId);
 
-            foreach (var chain in founded_chains.GroupBy(r => new { r.chain_id, r.folder, r.id_mailbox }))
+            foreach (var chain in foundedChains.GroupBy(r => new { r.chain_id, r.folder, r.id_mailbox }))
                 UpdateChainTags(db, chain.Key.chain_id, chain.Key.folder, chain.Key.id_mailbox, tenant, user);
         }
 
         // Add tags from Teamlab CRM to mail if needed.
-        private void SetCrmTags(MailMessageItem mail, int tenant_id, string user_id)
+        private void SetCrmTags(MailMessageItem mail, int tenant, string user)
         {
             try
             {
                 if (mail.ParticipantsCrmContactsId == null)
-                    mail.ParticipantsCrmContactsId = GetCrmContactsId(tenant_id, user_id, mail.FromEmail);
+                    mail.ParticipantsCrmContactsId = GetCrmContactsId(tenant, user, mail.FromEmail);
 
-                var allowed_contact_ids = mail.ParticipantsCrmContactsId;
+                var allowedContactIds = mail.ParticipantsCrmContactsId;
+
+                //Todo: Rewrite this to Api call
 
                 using (var db = new DbManager("crm"))
                 {
                     #region Extract CRM tags
 
-                    if (allowed_contact_ids.Count == 0) return;
-                    //Todo: Rewrite this to Api call
-                    var tag_ids = db.ExecuteList(new SqlQuery("crm_entity_tag")
+                    if (allowedContactIds.Count == 0) return;
+
+                    var tagIds = db.ExecuteList(new SqlQuery(CrmEntityTagTable.name)
                                                            .Distinct()
-                                                           .Select("tag_id")
-                                                           .Where("entity_type", (int)EntityType.Contact)
-                                                           .Where(Exp.In("entity_id", allowed_contact_ids)))
+                                                           .Select(CrmEntityTagTable.Columns.tag_id)
+                                                           .Where(CrmEntityTagTable.Columns.entity_type, (int)EntityType.Contact)
+                                                           .Where(Exp.In(CrmEntityTagTable.Columns.entity_id, allowedContactIds)))
                                           .ConvertAll(r => -Convert.ToInt32(r[0]));
 
-                    mail.TagIds = new ItemList<int>(tag_ids);
+                    mail.TagIds = new ItemList<int>(tagIds);
 
                     #endregion
                 }
@@ -566,37 +530,39 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        private void UpdateTagsCount(DbManager db, int tenant, string user, IEnumerable<int> tag_ids)
+        private void UpdateTagsCount(DbManager db, int tenant, string user, IEnumerable<int> tagIds)
         {
-            foreach (var tag_id in tag_ids)
-                UpdateTagCount(db, tenant, user, tag_id);
+            foreach (var tagId in tagIds)
+                UpdateTagCount(db, tenant, user, tagId);
         }
 
-        private void UpdateTagCount(DbManager db, int tenant, string user, int tad_id)
+        private void UpdateTagCount(DbManager db, int tenant, string user, int tadId)
         {
-            var count_query = new SqlQuery(MAIL_TAG_MAIL)
+            var countQuery = new SqlQuery(TagMailTable.name)
                 .SelectCount()
                 .Where(GetUserWhere(user, tenant))
-                .Where(TagMailFields.id_tag, tad_id);
+                .Where(TagMailTable.Columns.id_tag, tadId);
+
+            const string tag_alias = "mt";
 
             var res = db.ExecuteNonQuery(
-                new SqlUpdate(MAIL_TAG + " mt")
-                    .Set("mt." + TagFields.count, count_query)
-                    .Where(GetUserWhere(user, tenant, "mt"))
-                    .Where(tad_id >= 0
-                               ? Exp.Eq("mt." + TagFields.id, tad_id)
-                               : Exp.Eq("mt." + TagFields.crm_id, -tad_id)));
+                new SqlUpdate(TagTable.name.Alias(tag_alias))
+                    .Set(TagTable.Columns.count.Prefix(tag_alias), countQuery)
+                    .Where(GetUserWhere(user, tenant, tag_alias))
+                    .Where(tadId >= 0
+                               ? Exp.Eq(TagTable.Columns.id.Prefix(tag_alias), tadId)
+                               : Exp.Eq(TagTable.Columns.crm_id.Prefix(tag_alias), -tadId)));
 
-            if (tad_id >= 0 || 0 != res) return;
+            if (tadId >= 0 || 0 != res) return;
 
             db.ExecuteNonQuery(
-                new SqlInsert(MAIL_TAG, true)
-                    .InColumnValue(TagFields.id_tenant, tenant)
-                    .InColumnValue(TagFields.id_user, user)
-                    .InColumnValue(TagFields.name, "")
-                    .InColumnValue(TagFields.addresses, "")
-                    .InColumnValue(TagFields.crm_id, -tad_id)
-                    .InColumnValue(TagFields.count, db.ExecuteScalar<int>(count_query)));
+                new SqlInsert(TagTable.name, true)
+                    .InColumnValue(TagTable.Columns.id_tenant, tenant)
+                    .InColumnValue(TagTable.Columns.id_user, user)
+                    .InColumnValue(TagTable.Columns.name, "")
+                    .InColumnValue(TagTable.Columns.addresses, "")
+                    .InColumnValue(TagTable.Columns.crm_id, -tadId)
+                    .InColumnValue(TagTable.Columns.count, db.ExecuteScalar<int>(countQuery)));
         }
 
         #endregion

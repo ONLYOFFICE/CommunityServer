@@ -1,7 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CasesActionView.ascx.cs" Inherits="ASC.Web.CRM.Controls.Cases.CasesActionView" %>
 <%@ Import Namespace="ASC.CRM.Core" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
 <div id="crm_caseMakerDialog">
@@ -31,7 +30,7 @@
         </dl>
 
         <dl class="headerPanelSmall-splitter customFieldsContainer clearFix">
-            <dt class="bold crm-withGrayPlus"><%= CRMCommonResource.Tags %></dt>
+            <dt class="bold crm-headerHiddenToggledBlock"><%= CRMCommonResource.Tags %></dt>
             <dd id="tagsContainer">
                 <div class="display-none">
                     <input type="hidden" name="baseInfo_assignedTags" />

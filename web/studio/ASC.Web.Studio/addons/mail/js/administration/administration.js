@@ -1,42 +1,40 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-window.administrationManager = (function ($) {
-    var is_init = false,
+
+window.administrationManager = (function($) {
+    var isInit = false,
         domains = [],
         mailboxes = [],
         mailgroups = [],
-        server_info,
+        serverInfo,
         events = $({});
 
-    var init = function () {
-        if (is_init === false) {
-            is_init = true;
+    var init = function() {
+        if (isInit === false) {
+            isInit = true;
 
             serviceManager.bind(window.Teamlab.events.getMailServerFreeDns, onGetMailServerFreeDns);
             serviceManager.bind(window.Teamlab.events.addMailDomain, onAddMailDomain);
@@ -61,7 +59,7 @@ window.administrationManager = (function ($) {
         mailBox.hideContentDivs();
         mailBox.hideLoadingMask();
 
-        server_info = serverFullInfo.server;
+        serverInfo = serverFullInfo.server;
         domains = serverFullInfo.domains;
         mailboxes = $.map(serverFullInfo.mailboxes, convertServerMailbox);
         mailgroups = $.map(serverFullInfo.mailgroups, convertServerGroup);
@@ -71,7 +69,7 @@ window.administrationManager = (function ($) {
     }
 
     function onGetMailServerFreeDns(params, dns) {
-        server_info.dns = dns;
+        serverInfo.dns = dns;
     }
 
 
@@ -101,12 +99,12 @@ window.administrationManager = (function ($) {
         var group = {};
         group.id = serverGroup.id;
         group.address = serverGroup.address;
-        var group_mailboxes = [];
+        var groupMailboxes = [];
         for (var i = 0; i < serverGroup.addresses.length; i++) {
             var mailbox = getMailboxByEmail(serverGroup.addresses[i].email);
-            group_mailboxes.push(mailbox);
+            groupMailboxes.push(mailbox);
         }
-        group.mailboxes = group_mailboxes;
+        group.mailboxes = groupMailboxes;
 
         return group;
     }
@@ -144,7 +142,9 @@ window.administrationManager = (function ($) {
     }
 
     function removeMailboxFromGroups(mailbox) {
-        if (!mailbox) return;
+        if (!mailbox) {
+            return;
+        }
 
         for (var i = 0; i < mailgroups.length; i++) {
             var index = mailgroups[i].mailboxes.indexOf(mailbox);
@@ -157,10 +157,10 @@ window.administrationManager = (function ($) {
     }
 
     function clearEmptyGroups() {
-        var temp_collection = mailgroups.slice(); // clone array
-        var i, len = temp_collection.length;
+        var tempCollection = mailgroups.slice(); // clone array
+        var i, len = tempCollection.length;
         for (i = 0; i < len; i++) {
-            var mailgroup = temp_collection[i];
+            var mailgroup = tempCollection[i];
             if (mailgroup.mailboxes.length == 0) {
                 removeMailGroup(mailgroup, false);
             }
@@ -179,8 +179,9 @@ window.administrationManager = (function ($) {
     function onRemoveMailAlias(params, mailboxId) {
         var mailbox = getMailbox(mailboxId);
         var index = mailbox.aliases.indexOf(params.alias);
-        if (index > -1)
+        if (index > -1) {
             mailbox.aliases.splice(index, 1);
+        }
         events.trigger('onremovealias', { mailbox: mailbox, alias: params.alias });
         if (mailbox.user.id == window.Teamlab.profile.id) {
             serviceManager.getAccounts();
@@ -215,8 +216,10 @@ window.administrationManager = (function ($) {
     }
 
     function removeMailGroup(mailgroup, showToastr) {
-        if (!mailgroup) return;
-        
+        if (!mailgroup) {
+            return;
+        }
+
         var index = mailgroups.indexOf(mailgroup);
         if (index > -1) {
             mailgroups.splice(index, 1);
@@ -225,9 +228,9 @@ window.administrationManager = (function ($) {
     }
 
     function onAddMailgroupAddress(params, serverGroup) {
-        var new_group = convertServerGroup(serverGroup);
-        var mailgroup = getMailGroup(new_group.id);
-        mailgroup.mailboxes = new_group.mailboxes;
+        var newGroup = convertServerGroup(serverGroup);
+        var mailgroup = getMailGroup(newGroup.id);
+        mailgroup.mailboxes = newGroup.mailboxes;
         events.trigger('onaddgroupaddress', { group: mailgroup, address: params.address });
 
         var mailbox = getMailboxByEmail(params.address.email);
@@ -235,8 +238,8 @@ window.administrationManager = (function ($) {
             serviceManager.getAccounts();
         }
     }
-    
-    function onRemoveMailgroupAddress(params, addressId) {
+
+    function onRemoveMailgroupAddress(params) {
         var mailbox = getMailboxByEmail(params.address.email);
         var group = getMailGroup(params.group.id);
 
@@ -248,7 +251,9 @@ window.administrationManager = (function ($) {
     }
 
     function removeMailboxFromGroup(group, mailbox, showToastr) {
-        if (!group || !group.mailboxes) return;
+        if (!group || !group.mailboxes) {
+            return;
+        }
 
         var index = group.mailboxes.indexOf(mailbox);
         if (index > -1) {
@@ -273,7 +278,7 @@ window.administrationManager = (function ($) {
     function getMailDomains() {
         return domains;
     }
-    
+
     function getMailboxes() {
         return mailboxes;
     }
@@ -283,43 +288,44 @@ window.administrationManager = (function ($) {
     }
 
     function getServerInfo() {
-        return server_info;
+        return serverInfo;
     }
 
     function getMailboxesByDomain(domainId) {
-        var domain_mailboxes = $.map(mailboxes, function (mailbox) {
+        var domainMailboxes = $.map(mailboxes, function(mailbox) {
             return mailbox.address.domainId == domainId ? mailbox : null;
         });
-        return domain_mailboxes;
+        return domainMailboxes;
     }
 
     function getFreeMailboxesByDomain(domainId) {
         var groups = getMailGroupsByDomain(domainId);
-        var mailbox_array = getMailboxesByDomain(domainId);
+        var mailboxArray = getMailboxesByDomain(domainId);
 
         for (var k = 0; k < groups.length; k++) {
             for (var l = 0; l < groups[k].mailboxes.length; l++) {
-                var index = mailbox_array.indexOf(groups[k].mailboxes[l]);
-                if (index > -1)
-                    mailbox_array.splice(index, 1);
+                var index = mailboxArray.indexOf(groups[k].mailboxes[l]);
+                if (index > -1) {
+                    mailboxArray.splice(index, 1);
+                }
             }
         }
 
-        return mailbox_array;
+        return mailboxArray;
     }
 
     function getMailGroupsByDomain(domainId) {
-        var domain_mailgroups = $.map(mailgroups, function (mailgroup) {
+        var domainMailgroups = $.map(mailgroups, function(mailgroup) {
             return mailgroup.address.domainId == domainId ? mailgroup : null;
         });
-        return domain_mailgroups;
+        return domainMailgroups;
     }
 
     function getAddressesByDomain(domainId) {
-        var domain_addresses = $.map(mailboxes, function (mailbox) {
+        var domainAddresses = $.map(mailboxes, function(mailbox) {
             return mailbox.address.domainId == domainId ? mailbox.address : null;
         });
-        return domain_addresses;
+        return domainAddresses;
     }
 
     function getMailGroup(id) {
@@ -332,7 +338,7 @@ window.administrationManager = (function ($) {
         }
         return group;
     }
-    
+
     function getMailbox(id) {
         id = parseInt(id);
         var mailbox = undefined;
@@ -344,7 +350,7 @@ window.administrationManager = (function ($) {
         }
         return mailbox;
     }
-    
+
     function getMailboxByEmail(email) {
         var mailbox = undefined;
         for (var i = 0; i < mailboxes.length; i++) {
@@ -355,7 +361,7 @@ window.administrationManager = (function ($) {
         }
         return mailbox;
     }
-    
+
     function getDomain(id) {
         id = parseInt(id);
         var domain = undefined;
@@ -367,7 +373,7 @@ window.administrationManager = (function ($) {
         }
         return domain;
     }
-    
+
     function getMailgroupsByDomain(id) {
         id = parseInt(id);
         var groups = [];

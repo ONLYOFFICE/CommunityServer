@@ -1,141 +1,98 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
+
 using System;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.FederatedLogin;
 using ASC.Files.Core;
 using ASC.Security.Cryptography;
-using Newtonsoft.Json.Linq;
+using ASC.Web.Files.Classes;
 
 namespace ASC.Web.Files.ThirdPartyApp
 {
-    public class Token
+    [DebuggerDisplay("{App} - {AccessToken}")]
+    public class Token : OAuth20Token
     {
-        private String _app;
-        private String _accessToken;
+        public String App { get; private set; }
 
-        public String AccessToken
+        public Token(OAuth20Token oAuth20Token)
+            : base(oAuth20Token)
         {
-            get
+        }
+
+        public static Token FromJson(string app, string json)
+        {
+            var token = FromJson(json);
+            return token == null ? null : new Token(token) { App = app };
+        }
+
+        public override string ToString()
+        {
+            return GetRefreshedToken();
+        }
+
+        public String GetRefreshedToken()
+        {
+            if (IsExpired)
             {
-                if (IsExpired)
+                var app = ThirdPartySelector.GetApp(App);
+                try
                 {
-                    var app = ThirdPartySelector.GetApp(_app);
                     var refreshed = app.RefreshToken(RefreshToken);
 
                     if (refreshed != null)
                     {
-                        _accessToken = refreshed._accessToken;
+                        AccessToken = refreshed.AccessToken;
                         RefreshToken = refreshed.RefreshToken;
                         ExpiresIn = refreshed.ExpiresIn;
                         Timestamp = DateTime.UtcNow;
                     }
                 }
-                return _accessToken;
-            }
-            set { _accessToken = value; }
-        }
-
-        public String RefreshToken { get; set; }
-
-        public double ExpiresIn { get; set; }
-
-        public DateTime Timestamp { get; set; }
-
-        public bool IsExpired
-        {
-            get
-            {
-                return ExpiresIn.Equals(default(double))
-                    || DateTime.UtcNow > Timestamp + TimeSpan.FromSeconds(ExpiresIn);
-            }
-        }
-
-        public static Token FromJson(String json)
-        {
-            if (string.IsNullOrEmpty(json)) return null;
-            var parser = JObject.Parse(json);
-            if (parser == null) return null;
-
-            var accessToken = parser.Value<string>("access_token");
-
-            if (String.IsNullOrEmpty(accessToken))
-                return null;
-
-            var token = new Token
+                catch (Exception ex)
                 {
-                    _accessToken = accessToken,
-                    RefreshToken = parser.Value<string>("refresh_token"),
-                    Timestamp = DateTime.UtcNow,
-                };
-
-            double expiresIn;
-            if (double.TryParse(parser.Value<string>("expires_in"), out expiresIn))
-                token.ExpiresIn = expiresIn;
-
-            DateTime timestamp;
-            if (DateTime.TryParse(parser.Value<string>("timestamp"), out timestamp))
-                token.Timestamp = timestamp;
-
-            return token;
-        }
-
-        public String ToJson()
-        {
-            var sb = new StringBuilder();
-            sb.Append("{");
-            sb.AppendFormat(" \"access_token\": \"{0}\"", _accessToken);
-            sb.AppendFormat(", \"refresh_token\": \"{0}\"", RefreshToken);
-            sb.AppendFormat(", \"expires_in\": \"{0}\"", ExpiresIn);
-            sb.AppendFormat(", \"timestamp\": \"{0}\"", Timestamp);
-            sb.Append("}");
-            return sb.ToString();
-        }
-
-        public override string ToString()
-        {
+                    Global.Logger.Error("Refresh token for app: " + app, ex);
+                }
+            }
             return AccessToken;
         }
 
         private const string TableTitle = "files_thirdparty_app";
 
-        public static void SaveToken(string app, Token token)
+        public static void SaveToken(Token token)
         {
             using (var db = new DbManager(FileConstant.DatabaseId))
             {
                 var queryInsert = new SqlInsert(TableTitle, true)
                     .InColumnValue("user_id", SecurityContext.CurrentAccount.ID.ToString())
-                    .InColumnValue("app", app)
+                    .InColumnValue("app", token.App)
                     .InColumnValue("token", EncryptToken(token))
                     .InColumnValue("tenant_id", CoreContext.TenantManager.GetCurrentTenant().TenantId)
                     .InColumnValue("modified_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()));
@@ -159,22 +116,19 @@ namespace ASC.Web.Files.ThirdPartyApp
                     .Where("user_id", userId)
                     .Where("app", app);
 
-                var token = db.ExecuteList(querySelect).ConvertAll(r => DecryptToken(r[0] as string)).FirstOrDefault();
-                if (token != null)
-                {
-                    token._app = app;
-                }
-                return token;
+                var oAuth20Token = db.ExecuteList(querySelect).ConvertAll(r => DecryptToken(r[0] as string)).FirstOrDefault();
+
+                return new Token(oAuth20Token) {App = app};
             }
         }
 
-        private static string EncryptToken(Token token)
+        private static string EncryptToken(OAuth20Token token)
         {
             var t = token.ToJson();
             return string.IsNullOrEmpty(t) ? string.Empty : InstanceCrypto.Encrypt(t);
         }
 
-        private static Token DecryptToken(string token)
+        private static OAuth20Token DecryptToken(string token)
         {
             return string.IsNullOrEmpty(token) ? null : FromJson(InstanceCrypto.Decrypt(token));
         }

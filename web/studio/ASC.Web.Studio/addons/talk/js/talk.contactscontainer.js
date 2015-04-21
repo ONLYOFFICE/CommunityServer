@@ -2129,7 +2129,8 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
         currentRoomData = ASC.TMTalk.roomsManager.getRoomData(),
         listid = currentRoomData !== null ? currentRoomData.id : '';
       if (listid && contactjid) {
-        ASC.TMTalk.msManager.addContact(listid, contactjid);
+          ASC.TMTalk.msManager.addContact(listid, contactjid);
+          ASC.TMTalk.msManager.storeMailingLists();
       }
     }
   }
@@ -2162,6 +2163,9 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       if (fn && itemid && contacts.length > 0) {
         for (var i = 0, n = contacts.length; i < n; i++) {
           fn(itemid, contacts[i].jid);
+        }
+        if (itemtype === 'mailing') {
+            ASC.TMTalk.msManager.storeMailingLists();
         }
       }
     }
@@ -2438,7 +2442,8 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
               listid = currentRoomData !== null ? currentRoomData.id : '';
 
             if (listid && contactjid) {
-              ASC.TMTalk.msManager.addContact(listid, contactjid);
+                ASC.TMTalk.msManager.addContact(listid, contactjid);
+                ASC.TMTalk.msManager.storeMailingLists();
             }
           }
         }

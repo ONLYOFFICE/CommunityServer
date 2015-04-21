@@ -272,11 +272,6 @@
               <resource name="fres.IsNew" />
             </div>
           </xsl:if>
-          <xsl:if test="contains(file_status, 'IsOriginal')">
-            <div class="is-original">
-              <resource name="fres.IsOriginal" />
-            </div>
-          </xsl:if>
         </div>
         <div class="entry-descr">
 

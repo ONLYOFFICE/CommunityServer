@@ -1,8 +1,8 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Bookmarking" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CreateBookmarkUserControl.ascx.cs" Inherits="ASC.Web.UserControls.Bookmarking.CreateBookmarkUserControl" %>
 <%@ Import Namespace="ASC.Web.UserControls.Bookmarking.Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins"%>
-<%@ Register Assembly="ASC.Web.Community.Bookmarking" Namespace="ASC.Web.UserControls.Bookmarking.Common" TagPrefix="ascbc" %>
+<%@ Register Assembly="ASC.Web.Community" Namespace="ASC.Web.UserControls.Bookmarking.Common" TagPrefix="ascbc" %>
 <%--Create bookmark panel--%>
 <div id="AddBookmarkPanel" class="bookmarkingContentArea" style="display: none;">	
 	<%if (!IsNewBookmark)

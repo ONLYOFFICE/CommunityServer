@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru" dir="ltr">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="~/TenantLogo.ashx?logotype=3" type="image/x-icon" />
   <title>Migration Portal</title>
   <style type="text/css">
     html, body, div, span, p{margin:0; padding:0; border:0; vertical-align:baseline; background:transparent;}
@@ -16,18 +16,20 @@
     * html body{height:100%;}
 
     #wrapper{
-	background: url("http://cdn.teamlab.com/text_bg.png") center 0 no-repeat; 
+	background: url("http://cdn.teamlab.com/cloud.png") center 0 no-repeat; 
 	width:100%; height:310px; padding:315px 0 0; margin-top:-325px; position:absolute; left:0; top:50%; z-index:1;
     }
-    #container{width:410px; margin:0 auto; padding-left:38px; text-align:center; color:#275678;}
+    #container{width:410px; margin:0 auto; padding-left:38px; text-align:center; color:#275678;position:relative}
     #content {font:normal 24px/33px Tahoma; margin-bottom: 5px;}
     #comment {font:normal 16px/26px Tahoma;}
+    #portalLogo{position:absolute;top:-81px;left:127px;}
   </style>
 </head>
 
 <body>
   <div id="wrapper">
       <div id="container">
+          <img id="portalLogo" src="~/TenantLogo.ashx?logotype=2&defifnoco=true" alt="" />
           <div id="content">
               <p>Portal migration to another</p>  
               <p>region is underway.</p>
@@ -36,7 +38,7 @@
               <p>It might take some time depending</p>
               <p>on the portal data amount. For further</p>
               <p>information, please contact</p>
-              <p>the portal administrator.</p>        
+              <p>the portal administrator.</p>
           </div>
       </div>
   </div>

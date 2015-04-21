@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TariffLimitExceed.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TariffLimitExceed" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
@@ -59,6 +60,34 @@
         </Body>
     </sc:Container>
 </div>
+
+<% if (IsFreeTariff)
+   { %>
+<div id="tariffLimitExceedFileSizePanel" style="display: none">
+    <sc:Container runat="server" ID="tariffLimitExceedFileSizeDialog">
+        <Header><%= UserControlsCommonResource.TariffFileSizeLimitTitle %></Header>
+        <Body>
+            <div class="tariff-limitexceed-storage">
+                <span class="header-base-medium"><%= FileSizeComment.FileSizeExceptionString %></span>
+                <br />
+                <br />
+                <%= UserControlsCommonResource.TariffFileSizeLimitReason %>
+                <br />
+                <br />
+                <%= UserControlsCommonResource.TariffLimitDecision%>
+            </div>
+
+            <div class="middle-button-container">
+                <a class="blue button medium" href="<%= TenantExtra.GetTariffPageLink() %>">
+                    <%= UserControlsCommonResource.TariffLimitOkButton%></a>
+                <span class="splitter-buttons"></span>
+                <a class="gray button medium" onclick="PopupKeyUpActionProvider.CloseDialog(); return false;">
+                    <%= Resource.CancelButton %></a>
+            </div>
+        </Body>
+    </sc:Container>
+</div>
+<% } %>
 
 <div id="tariffLimitDocsEditionPanel" style="display: none">
     <sc:Container runat="server" ID="tariffLimitDocsEditionDialog">

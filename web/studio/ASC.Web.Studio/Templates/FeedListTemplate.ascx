@@ -21,9 +21,7 @@
 <script id="feedTmpl" type="text/x-jquery-tmpl">
     <div id="feed_${id}" class="item clearFix">
         <div class="avatar">
-            {{if isGuest}}
-            <img src="${author.avatarBig}" />
-            {{else}}
+            {{if !isGuest}}
             <a href="${author.profileUrl}" target="_blank"><img src="${author.avatarBig}"/></a>
             {{/if}}
         </div>
@@ -61,20 +59,18 @@
                 </div>
                 <div class="date">
                     {{if isToday}}
-                    <span><%= FeedResource.TodayAt + " " %>${displayCreatedTime}</span>
+                    <span><%= FeedResource.TodayAt + " " %>${displayModifiedTime}</span>
                     {{else isYesterday}}
-                    <span><%= FeedResource.YesterdayAt + " " %>${displayCreatedTime}</span>
+                    <span><%= FeedResource.YesterdayAt + " " %>${displayModifiedTime}</span>
                     {{else}}
-                    <span>${displayCreatedDate}</span>
-                    <span class="time">${displayCreatedTime}</span>
+                    <span>${displayModifiedDate}</span>
+                    <span class="time">${displayModifiedTime}</span>
                     {{/if}}
                 </div>
                 {{if author && !excludeAuthorBox}}
                 <div class="author">
                     <span class="label"><%= FeedResource.Author %>:</span>
-                    {{if isGuest}}
-                    <span class="guest">${author.displayName}</span>
-                    {{else}}
+                    {{if !isGuest}}
                     <a href="${author.profileUrl}" class="title" target="_blank">${author.displayName}</a>{{if author.title}},
                     <span class="author-title">
                         ${author.title}</span>

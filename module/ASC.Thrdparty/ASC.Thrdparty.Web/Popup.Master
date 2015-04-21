@@ -19,7 +19,7 @@
             },
             sendAndClose: function(msg, error) {
                 try {
-                    client.send(JSON.stringify(msg), error);
+                    client.send(JSON.stringify({"msg": msg, "error": error}), error);
                 }
                 catch (ex) {
                 }

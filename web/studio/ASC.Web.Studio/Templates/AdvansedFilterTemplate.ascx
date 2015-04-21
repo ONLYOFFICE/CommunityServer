@@ -58,7 +58,7 @@
                 </div>
                 <div class="advansed-filter-input">
                     <label class="advansed-filter-reset btn-reset-filter"></label>
-                    <input class="advansed-filter advansed-filter-input advansed-filter-complete" type="text" placeholder="<%= Resources.UserControlsCommonResource.LblFilterPlaceholder%>" />
+                    <input class="advansed-filter advansed-filter-input advansed-filter-complete" type="text" placeholder="<%= Resources.UserControlsCommonResource.LblFilterPlaceholder%>" maxlength="255"/>
                 </div>
             </div>
         {{if filtervalues.length > 0}}

@@ -18,7 +18,6 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\..\..\</TrunkDir>
-    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
     <OutputPath>$(TrunkDir)\web\studio\ASC.Web.Studio\bin\</OutputPath>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -49,8 +48,16 @@
       <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.19702, Culture=neutral, PublicKeyToken=4f86767c9b519a06, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\FredCK.FCKeditorV2.2.6.3.19702\lib\net20\FredCK.FCKeditorV2.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.3.9.2, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -68,33 +75,11 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Extensions.Design" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Web.Mobile" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Community.Master.cs">
-      <DependentUpon>Community.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Community.Master.designer.cs">
-      <DependentUpon>Community.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DashboardEmptyScreen.ascx.cs">
-      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\DashboardEmptyScreen.ascx.designer.cs">
-      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\NavigationSidePanel.ascx.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -116,6 +101,705 @@
     <Compile Include="Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Master\Community.Master.cs">
+      <DependentUpon>Community.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Master\Community.Master.designer.cs">
+      <DependentUpon>Community.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Birthdays\Classes\BirthdaysModule.cs" />
+    <Compile Include="Modules\Birthdays\Classes\BirthdaysNotifyClient.cs" />
+    <Compile Include="Modules\Birthdays\Classes\BirthdaysSubscriptionManager.cs" />
+    <Compile Include="Modules\Birthdays\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Birthdays\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Blogs\AddBlog.aspx.cs">
+      <DependentUpon>AddBlog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Blogs\AddBlog.aspx.designer.cs">
+      <DependentUpon>AddBlog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Blogs\Common\BlogsModule.cs" />
+    <Compile Include="Modules\Blogs\Common\BlogsSearchHandler.cs" />
+    <Compile Include="Modules\Blogs\Common\BlogsShortcutProvider.cs" />
+    <Compile Include="Modules\Blogs\Common\BlogsSubscriptionManager.cs" />
+    <Compile Include="Modules\Blogs\Common\ImageHTMLHelper.cs" />
+    <Compile Include="Modules\Blogs\Common\Subscriber.cs" />
+    <Compile Include="Modules\Blogs\Core\BlogsEngine.cs" />
+    <Compile Include="Modules\Blogs\Core\BlogsSettings.cs" />
+    <Compile Include="Modules\Blogs\Core\Constants.cs" />
+    <Compile Include="Modules\Blogs\Core\Data\BlogsStorage.cs" />
+    <Compile Include="Modules\Blogs\Core\Data\DbDao.cs" />
+    <Compile Include="Modules\Blogs\Core\Data\DbPostDao.cs" />
+    <Compile Include="Modules\Blogs\Core\Data\IBlogDao.cs" />
+    <Compile Include="Modules\Blogs\Core\Data\Map.cs" />
+    <Compile Include="Modules\Blogs\Core\Domain\Blog.cs" />
+    <Compile Include="Modules\Blogs\Core\Domain\BlogInfo.cs" />
+    <Compile Include="Modules\Blogs\Core\Domain\Comment.cs" />
+    <Compile Include="Modules\Blogs\Core\Domain\Post.cs" />
+    <Compile Include="Modules\Blogs\Core\Domain\Rating.cs" />
+    <Compile Include="Modules\Blogs\Core\Domain\ReviewPost.cs" />
+    <Compile Include="Modules\Blogs\Core\Domain\Settings.cs" />
+    <Compile Include="Modules\Blogs\Core\Domain\Tag.cs" />
+    <Compile Include="Modules\Blogs\Core\Helpers\SubscriptionNotitySenders.cs" />
+    <Compile Include="Modules\Blogs\Core\Security\CorporateBlogSecObject.cs" />
+    <Compile Include="Modules\Blogs\Core\Security\PersonalBlogSecObject.cs" />
+    <Compile Include="Modules\Blogs\Core\Service\BlogNotifySource.cs" />
+    <Compile Include="Modules\Blogs\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Blogs\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Blogs\EditBlog.aspx.cs">
+      <DependentUpon>EditBlog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Blogs\EditBlog.aspx.designer.cs">
+      <DependentUpon>EditBlog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Blogs\PageControllers\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Blogs\PageControllers\BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Blogs\ViewBlog.aspx.cs">
+      <DependentUpon>ViewBlog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Blogs\ViewBlog.aspx.designer.cs">
+      <DependentUpon>ViewBlog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Blogs\Views\ViewBlogView.ascx.cs">
+      <DependentUpon>ViewBlogView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Blogs\Views\ViewBlogView.ascx.designer.cs">
+      <DependentUpon>ViewBlogView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\BookmarkInfo.aspx.cs">
+      <DependentUpon>BookmarkInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\BookmarkInfo.aspx.designer.cs">
+      <DependentUpon>BookmarkInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\BookmarkingCommunityConstants.cs" />
+    <Compile Include="Modules\Bookmarking\BookmarkingModule.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Business\BookmarkingService.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Business\IBookmarkingService.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Business\Permissions\BookmarkingPermissionsCheck.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Business\Permissions\BookmarkPermissionSecurityObject.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Business\Subscriptions\BookmarkingNotifyClient.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Business\Subscriptions\BookmarkingNotifySource.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Business\Subscriptions\BookmarkingSubscriptionManager.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Business\Subscriptions\BookmarkSubscriptionConstants.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Common\BookmarkingBusinessConstants.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Common\BookmarkingBusinessFactory.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Common\BookmarkingSessionObject.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Common\Util\BookmarkingBusinessUtil.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Common\Util\Converters.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Dao\BookmarkingHibernateDao.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Dao\BookmarkingHibernateDaoHelper.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Pojo\Bookmark.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Pojo\BookmarkTag.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Pojo\Comment.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Pojo\Tag.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Pojo\UserBookmark.cs" />
+    <Compile Include="Modules\Bookmarking\Core\Pojo\UserBookmarkTag.cs" />
+    <Compile Include="Modules\Bookmarking\CreateBookmark.aspx.cs">
+      <DependentUpon>CreateBookmark.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\CreateBookmark.aspx.designer.cs">
+      <DependentUpon>CreateBookmark.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\FavouriteBookmarks.aspx.cs">
+      <DependentUpon>FavouriteBookmarks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\FavouriteBookmarks.aspx.designer.cs">
+      <DependentUpon>FavouriteBookmarks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\Core\Resources\BookmarkingSubscriptionPatterns.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookmarkingSubscriptionPatterns.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\Resources\BookmarkingResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserBookmarks.aspx.cs">
+      <DependentUpon>UserBookmarks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserBookmarks.aspx.designer.cs">
+      <DependentUpon>UserBookmarks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkAddedByUserContorl.ascx.cs">
+      <DependentUpon>BookmarkAddedByUserContorl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkAddedByUserContorl.ascx.designer.cs">
+      <DependentUpon>BookmarkAddedByUserContorl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkHeaderPageControl.ascx.cs">
+      <DependentUpon>BookmarkHeaderPageControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkHeaderPageControl.ascx.designer.cs">
+      <DependentUpon>BookmarkHeaderPageControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkInfoUserControl.ascx.cs">
+      <DependentUpon>BookmarkInfoUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkInfoUserControl.ascx.designer.cs">
+      <DependentUpon>BookmarkInfoUserControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingRemoverFromFavouritePopup.ascx.cs">
+      <DependentUpon>BookmarkingRemoverFromFavouritePopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingRemoverFromFavouritePopup.ascx.designer.cs">
+      <DependentUpon>BookmarkingRemoverFromFavouritePopup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingUserControl.ascx.cs">
+      <DependentUpon>BookmarkingUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkingUserControl.ascx.designer.cs">
+      <DependentUpon>BookmarkingUserControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkRaitingUserControl.ascx.cs">
+      <DependentUpon>BookmarkRaitingUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\BookmarkRaitingUserControl.ascx.designer.cs">
+      <DependentUpon>BookmarkRaitingUserControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\CommentsUserControl.ascx.cs">
+      <DependentUpon>CommentsUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\CommentsUserControl.ascx.designer.cs">
+      <DependentUpon>CommentsUserControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\Common\ActionButton\ActionButton.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\BookmarkingSettings.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\BookmarkUserControlPath.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\BookmarkInfoBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\BookmarkingRequestConstants.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\BookmarkingServiceHelper.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\SortParam.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\TagMenuItemControl.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Search\BookmarkingSearchHandler.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\BookmarkingConverter.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\BookmarkingSortUtil.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\BookmarkingThumbnailSize.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\IThumbnailHelper.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\SortByEnum.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Util\WebSiteThumbnailHelper.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx.cs">
+      <DependentUpon>CreateBookmarkUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx.designer.cs">
+      <DependentUpon>CreateBookmarkUserControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.Designer.cs">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx.cs">
+      <DependentUpon>SingleBookmarkUserControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx.designer.cs">
+      <DependentUpon>SingleBookmarkUserControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\Util\BookmarkingBasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Bookmarking\Util\BookmarkingNavigationItem.cs" />
+    <Compile Include="Modules\Forum\Common\ForumManager.cs" />
+    <Compile Include="Modules\Forum\Common\ForumModule.cs" />
+    <Compile Include="Modules\Forum\Common\ForumSearchHandler.cs" />
+    <Compile Include="Modules\Forum\Common\ForumShortcutProvider.cs" />
+    <Compile Include="Modules\Forum\Common\ForumSubscriptionManager.cs" />
+    <Compile Include="Modules\Forum\Common\Subscriber.cs" />
+    <Compile Include="Modules\Forum\Core\Dao\ForumDataProvider.cs" />
+    <Compile Include="Modules\Forum\Core\HelpClasses\ForumPresenterFactory.cs" />
+    <Compile Include="Modules\Forum\Core\HelpClasses\ForumPresenterSettings.cs" />
+    <Compile Include="Modules\Forum\Core\HelpClasses\Interfaces.cs" />
+    <Compile Include="Modules\Forum\Core\HelpClasses\PresenterTemplate.cs" />
+    <Compile Include="Modules\Forum\Core\HelpClasses\UserKeys.cs" />
+    <Compile Include="Modules\Forum\Core\Module\Constants.cs" />
+    <Compile Include="Modules\Forum\Core\Module\ForumNotifySource.cs" />
+    <Compile Include="Modules\Forum\Core\Presenters\NotifierPresenter.cs" />
+    <Compile Include="Modules\Forum\Core\Presenters\SecurityActionPresenter.cs" />
+    <Compile Include="Modules\Forum\Core\Presenters\SubscriberPresenter.cs" />
+    <Compile Include="Modules\Forum\Core\Presenters\SubscriptionGetcherPresenter.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\AnswerVariant.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\Attachment.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\ForumAction.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\NotFoundUser.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\Post.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\Question.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\SubscriptionConstants.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\Tag.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\Thread.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\ThreadCategory.cs" />
+    <Compile Include="Modules\Forum\Core\Shared\Topic.cs" />
+    <Compile Include="Modules\Forum\Core\Views\INotifierView.cs" />
+    <Compile Include="Modules\Forum\Core\Views\ISecurityActionView.cs" />
+    <Compile Include="Modules\Forum\Core\Views\ISubscriberView.cs" />
+    <Compile Include="Modules\Forum\Core\Views\ISubscriptionGetcherView.cs" />
+    <Compile Include="Modules\Forum\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\EditTopic.aspx.cs">
+      <DependentUpon>EditTopic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\EditTopic.aspx.designer.cs">
+      <DependentUpon>EditTopic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\Forum.Master.cs">
+      <DependentUpon>Forum.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\Forum.Master.designer.cs">
+      <DependentUpon>Forum.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\ManagementCenter.aspx.cs">
+      <DependentUpon>ManagementCenter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\ManagementCenter.aspx.designer.cs">
+      <DependentUpon>ManagementCenter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\NewForum.aspx.cs">
+      <DependentUpon>NewForum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\NewForum.aspx.designer.cs">
+      <DependentUpon>NewForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\NewPost.aspx.cs">
+      <DependentUpon>NewPost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\NewPost.aspx.designer.cs">
+      <DependentUpon>NewPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\Posts.aspx.cs">
+      <DependentUpon>Posts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\Posts.aspx.designer.cs">
+      <DependentUpon>Posts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\Topics.aspx.cs">
+      <DependentUpon>Topics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\Topics.aspx.designer.cs">
+      <DependentUpon>Topics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\Common\DateTimeService.cs" />
+    <Compile Include="Modules\Forum\UserControls\Common\ForumManager.cs" />
+    <Compile Include="Modules\Forum\UserControls\Common\ForumScriptProvider.cs" />
+    <Compile Include="Modules\Forum\UserControls\Common\LinkProvider.cs" />
+    <Compile Include="Modules\Forum\UserControls\Common\PageLocation.cs" />
+    <Compile Include="Modules\Forum\UserControls\Common\Settings.cs" />
+    <Compile Include="Modules\Forum\UserControls\Common\TagSuggest.cs" />
+    <Compile Include="Modules\Forum\UserControls\ForumEditor.ascx.cs">
+      <DependentUpon>ForumEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\ForumEditor.ascx.designer.cs">
+      <DependentUpon>ForumEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\ForumMaker.ascx.cs">
+      <DependentUpon>ForumMaker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\ForumMaker.ascx.designer.cs">
+      <DependentUpon>ForumMaker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\NewPostControl.ascx.cs">
+      <DependentUpon>NewPostControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\NewPostControl.ascx.designer.cs">
+      <DependentUpon>NewPostControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\PostControl.ascx.cs">
+      <DependentUpon>PostControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\PostControl.ascx.designer.cs">
+      <DependentUpon>PostControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\PostListControl.ascx.cs">
+      <DependentUpon>PostListControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\PostListControl.ascx.designer.cs">
+      <DependentUpon>PostListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\RecentActivityControl.cs" />
+    <Compile Include="Modules\Forum\UserControls\ThreadCategoryListControl.ascx.cs">
+      <DependentUpon>ThreadCategoryListControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\ThreadCategoryListControl.ascx.designer.cs">
+      <DependentUpon>ThreadCategoryListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\TopicControl.ascx.cs">
+      <DependentUpon>TopicControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\TopicControl.ascx.designer.cs">
+      <DependentUpon>TopicControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\TopicEditorControl.ascx.cs">
+      <DependentUpon>TopicEditorControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\TopicEditorControl.ascx.designer.cs">
+      <DependentUpon>TopicEditorControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\TopicListControl.ascx.cs">
+      <DependentUpon>TopicListControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\TopicListControl.ascx.designer.cs">
+      <DependentUpon>TopicListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\UserTopics.aspx.cs">
+      <DependentUpon>UserTopics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Forum\UserTopics.aspx.designer.cs">
+      <DependentUpon>UserTopics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Forum\Core\Module\ForumPatternResource.Designer.cs">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Modules\Forum\Core\Module\Patterns.Designer.cs">
+      <DependentUpon>Patterns.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Modules\Forum\Resources\ForumResource.Designer.cs">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Modules\Forum\UserControls\Resources\ForumUCResource.Designer.cs">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Modules\News\Code\DAO\DbFeedStorage.cs" />
+    <Compile Include="Modules\News\Code\DAO\FeedStorageFactory.cs" />
+    <Compile Include="Modules\News\Code\DAO\IFeedStorage.cs" />
+    <Compile Include="Modules\News\Code\DAO\Mappers.cs" />
+    <Compile Include="Modules\News\Code\Feed.cs" />
+    <Compile Include="Modules\News\Code\FeedComment.cs" />
+    <Compile Include="Modules\News\Code\FeedNews.cs" />
+    <Compile Include="Modules\News\Code\FeedPoll.cs" />
+    <Compile Include="Modules\News\Code\FeedPollAnswer.cs" />
+    <Compile Include="Modules\News\Code\FeedPollType.cs" />
+    <Compile Include="Modules\News\Code\FeedPollVariant.cs" />
+    <Compile Include="Modules\News\Code\FeedType.cs" />
+    <Compile Include="Modules\News\Code\FeedTypeInfo.cs" />
+    <Compile Include="Modules\News\Code\FeedUrls.cs" />
+    <Compile Include="Modules\News\Code\Module\NewsNotifySource.cs" />
+    <Compile Include="Modules\News\Code\Module\SearchHandler.cs" />
+    <Compile Include="Modules\News\Code\Module\ShortcutProvider.cs" />
+    <Compile Include="Modules\News\Code\Module\SubscriptionManager.cs" />
+    <Compile Include="Modules\News\Code\PollVoteHandler.cs" />
+    <Compile Include="Modules\News\Code\RequestInfo.cs" />
+    <Compile Include="Modules\News\Controls\FeedItem.ascx.cs">
+      <DependentUpon>FeedItem.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\News\Controls\FeedItem.ascx.designer.cs">
+      <DependentUpon>FeedItem.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\News\Controls\FeedView.ascx.cs">
+      <DependentUpon>FeedView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\News\Controls\FeedView.ascx.designer.cs">
+      <DependentUpon>FeedView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\News\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\News\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\News\editnews.aspx.cs">
+      <DependentUpon>editnews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\News\editnews.aspx.designer.cs">
+      <DependentUpon>editnews.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\News\editpoll.aspx.cs">
+      <DependentUpon>editpoll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\News\editpoll.aspx.designer.cs">
+      <DependentUpon>editpoll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\News\news.aspx.cs">
+      <DependentUpon>news.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\News\news.aspx.designer.cs">
+      <DependentUpon>news.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\News\news.Master.cs">
+      <DependentUpon>news.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\News\news.Master.designer.cs">
+      <DependentUpon>news.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\News\NewsConst.cs" />
+    <Compile Include="Modules\News\NewsModule.cs" />
+    <Compile Include="Modules\News\Resources\NewsPatternResource.Designer.cs">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Modules\News\Resources\NewsPatternsResource.Designer.cs">
+      <DependentUpon>NewsPatternsResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Modules\News\Resources\NewsResource.Designer.cs">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Modules\Wiki\Code\ActionHelper.cs" />
+    <Compile Include="Modules\Wiki\Code\BaseDao.cs" />
+    <Compile Include="Modules\Wiki\Code\BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\Code\Category.cs" />
+    <Compile Include="Modules\Wiki\Code\CategoryDao.cs" />
+    <Compile Include="Modules\Wiki\Code\Comment.cs" />
+    <Compile Include="Modules\Wiki\Code\CommentDao.cs" />
+    <Compile Include="Modules\Wiki\Code\Constants.cs" />
+    <Compile Include="Modules\Wiki\Code\Diff.cs" />
+    <Compile Include="Modules\Wiki\Code\File.cs" />
+    <Compile Include="Modules\Wiki\Code\FileDAO.cs" />
+    <Compile Include="Modules\Wiki\Code\HtmlWikiUtil.cs" />
+    <Compile Include="Modules\Wiki\Code\HtmlWikiUtil_Wiki2Html.cs.cs" />
+    <Compile Include="Modules\Wiki\Code\IVersioned.cs" />
+    <Compile Include="Modules\Wiki\Code\IWikiObjectOwner.cs" />
+    <Compile Include="Modules\Wiki\Code\Page.cs" />
+    <Compile Include="Modules\Wiki\Code\PageDAO.cs" />
+    <Compile Include="Modules\Wiki\Code\PageNameUtil.cs" />
+    <Compile Include="Modules\Wiki\Code\WikiEngine.cs" />
+    <Compile Include="Modules\Wiki\Code\WikiManager.cs" />
+    <Compile Include="Modules\Wiki\Code\WikiNotifySource.cs" />
+    <Compile Include="Modules\Wiki\Code\WikiStrExtentions.cs" />
+    <Compile Include="Modules\Wiki\Code\WikiSubscriptionManager.cs" />
+    <Compile Include="Modules\Wiki\Common\Constants.cs" />
+    <Compile Include="Modules\Wiki\Common\Extentions.cs" />
+    <Compile Include="Modules\Wiki\Common\PageDictionary.cs" />
+    <Compile Include="Modules\Wiki\Common\WikiBasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\Common\WikiModuleSettings.cs" />
+    <Compile Include="Modules\Wiki\Common\WikiObjectsSecurityObject.cs" />
+    <Compile Include="Modules\Wiki\Common\WikiSearchHandler.cs" />
+    <Compile Include="Modules\Wiki\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\Diff.aspx.cs">
+      <DependentUpon>Diff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\Diff.aspx.designer.cs">
+      <DependentUpon>Diff.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\Handlers\WikiFileHandler.cs" />
+    <Compile Include="Modules\Wiki\Handlers\WikiSection.cs" />
+    <Compile Include="Modules\Wiki\ListCategories.aspx.cs">
+      <DependentUpon>ListCategories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\ListCategories.aspx.designer.cs">
+      <DependentUpon>ListCategories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\ListFiles.aspx.cs">
+      <DependentUpon>ListFiles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\ListFiles.aspx.designer.cs">
+      <DependentUpon>ListFiles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\ListPages.aspx.cs">
+      <DependentUpon>ListPages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\ListPages.aspx.designer.cs">
+      <DependentUpon>ListPages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\PageHistoryList.aspx.cs">
+      <DependentUpon>PageHistoryList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\PageHistoryList.aspx.designer.cs">
+      <DependentUpon>PageHistoryList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\Code\Patterns\WikiPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\Code\Patterns\WikiPatternsResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WikiPatternsResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\Resources\WikiResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\Resources\WikiUCResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\Wiki.Master.cs">
+      <DependentUpon>Wiki.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\Wiki.Master.designer.cs">
+      <DependentUpon>Wiki.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiModule.cs" />
+    <Compile Include="Modules\Wiki\WikiUC\EditFile.ascx.cs">
+      <DependentUpon>EditFile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\EditFile.ascx.designer.cs">
+      <DependentUpon>EditFile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\EditPage.ascx.cs">
+      <DependentUpon>EditPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\EditPage.ascx.designer.cs">
+      <DependentUpon>EditPage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx.cs">
+      <DependentUpon>FileUploader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx.designer.cs">
+      <DependentUpon>FileUploader.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\ListFiles.ascx.cs">
+      <DependentUpon>ListFiles.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\ListFiles.ascx.designer.cs">
+      <DependentUpon>ListFiles.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\ListPages.ascx.cs">
+      <DependentUpon>ListPages.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\ListPages.ascx.designer.cs">
+      <DependentUpon>ListPages.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\MiniToolbar.ascx.cs">
+      <DependentUpon>MiniToolbar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\MiniToolbar.ascx.designer.cs">
+      <DependentUpon>MiniToolbar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\ViewFile.ascx.cs">
+      <DependentUpon>ViewFile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\ViewFile.ascx.designer.cs">
+      <DependentUpon>ViewFile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\ViewPage.ascx.cs">
+      <DependentUpon>ViewPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Wiki\WikiUC\ViewPage.ascx.designer.cs">
+      <DependentUpon>ViewPage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Photos.aspx.cs">
       <DependentUpon>Photos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -133,8 +817,159 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommunityResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Birthdays\Resources\BirthdayPatternResource.Designer.cs">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Modules\Birthdays\Resources\BirthdaysResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Blogs\Core\Resources\BlogsResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Blogs\Core\Service\BlogPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Blogs\Core\Service\BlogPatternsResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BlogPatternsResource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BirthdayPatternResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Web.Community.Birthdays.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BirthdaysResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Web.Community.Birthdays.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlogsResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Blogs.Core.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlogPatternResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Web.Community.Blogs.Core.Service</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternsResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlogPatternsResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Blogs.Core.Service</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BookmarkingPatternResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Web.Community.Bookmarking.Core.Patterns</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BookmarkingBusinessResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Bookmarking.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingSubscriptionPatterns.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BookmarkingSubscriptionPatterns.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Bookmarking.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BookmarkingResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Web.Community.Bookmarking.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BookmarkingUCResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Web.UserControls.Bookmarking.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ForumPatternResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Web.Community.Forum.Core.Module</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\Patterns.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Patterns.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Forum.Module</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ForumResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Web.Community.Forum.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ForumUCResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Web.UserControls.Forum.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NewsResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Web.Community.News.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternsResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NewsPatternsResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Web.Community.News.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NewsPatternResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Web.Community.News.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WikiUCResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Web.UserControls.Wiki.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WikiResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Web.UserControls.Wiki.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternsResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WikiPatternsResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Web.UserControls.Wiki.Patterns</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WikiPatternResource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ASC.Web.Community.Wiki.Code.Patterns</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -142,7 +977,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\community_common.css" />
     <Content Include="App_Themes\Default\Images\icon-blogs.png" />
     <Content Include="App_Themes\Default\Images\icon-bookmarks.png" />
     <Content Include="App_Themes\Default\Images\icon-employees.png" />
@@ -150,12 +984,613 @@
     <Content Include="App_Themes\Default\Images\product_disabled_logo.png" />
     <Content Include="App_Themes\Default\Images\product_logo.png" />
     <Content Include="App_Themes\Default\Images\product_logolarge.png" />
-    <Content Include="Community.Master" />
-    <Content Include="Controls\DashboardEmptyScreen.ascx" />
     <Content Include="Controls\NavigationSidePanel.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="Help.aspx" />
     <Content Include="js\common.js" />
+    <Content Include="Modules\Birthdays\App_Themes\Default\birthdays.css" />
+    <Content Include="Modules\Birthdays\App_Themes\Default\images\white_cross.png" />
+    <Content Include="Modules\Birthdays\Default.aspx" />
+    <Content Include="Modules\Birthdays\js\birthdays.js" />
+    <Content Include="Modules\Birthdays\Resources\patterns.xml" />
+    <Content Include="Modules\Blogs\AddBlog.aspx" />
+    <Content Include="Modules\Blogs\App_Themes\Default\BlogStyle.css" />
+    <Content Include="Modules\Blogs\App_Themes\Default\images\BlogIconWG.png" />
+    <Content Include="Modules\Blogs\App_Themes\Default\images\blogs.png" />
+    <Content Include="Modules\Blogs\App_Themes\Default\images\blog_add.png" />
+    <Content Include="Modules\Blogs\App_Themes\Default\images\blog_icon.png" />
+    <Content Include="Modules\Blogs\App_Themes\Default\images\comboarrow_bottom.png" />
+    <Content Include="Modules\Blogs\App_Themes\Default\images\tags.png" />
+    <Content Include="Modules\Blogs\Core\Service\blog_patterns.xml" />
+    <Content Include="Modules\Blogs\Default.aspx" />
+    <Content Include="Modules\Blogs\EditBlog.aspx" />
+    <Content Include="Modules\Blogs\js\blogs.js" />
+    <Content Include="Modules\Blogs\ViewBlog.aspx" />
+    <Content Include="Modules\Blogs\Views\ViewBlogView.ascx" />
+    <Content Include="Modules\Bookmarking\App_Data\IECapt.exe" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\bookmarkingstyle.css" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\16_edit.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\add_book.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\bookmarking_details.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\comboarrow_bottom.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\comment.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\goldStar.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\or01_bg.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\or02.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\plus_add.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\remove.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\star01.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\tag_16.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\wh-or_star.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\wh01.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\wh01_star.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\wh02_bg.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\wh02_bg.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\wh03_end.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\yel-or_star.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\yel01.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\yel02_bg.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\yell01_star.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\yell02_bg.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\css\ImagesCSS\yell03_end.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\Images\ajax_progress_loader.gif" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\Images\bookmarking_icon.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\Images\bookmarking_mini_icon.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\Images\bookmarks_icon.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\Images\goldstar.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\Images\greystar.png" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\Images\noimageavailable.jpg" />
+    <Content Include="Modules\Bookmarking\App_Themes\Default\Images\tags.png" />
+    <Content Include="Modules\Bookmarking\BookmarkInfo.aspx" />
+    <Content Include="Modules\Bookmarking\Core\Patterns\bookmarking_patterns.xml" />
+    <Content Include="Modules\Bookmarking\CreateBookmark.aspx" />
+    <Content Include="Modules\Bookmarking\Data\Images\tag_16.gif" />
+    <Content Include="Modules\Bookmarking\Default.aspx" />
+    <Content Include="Modules\Bookmarking\FavouriteBookmarks.aspx" />
+    <Content Include="Modules\Bookmarking\js\bookmarking.js" />
+    <Content Include="Modules\Bookmarking\UserBookmarks.aspx" />
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkAddedByUserContorl.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkHeaderPageControl.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkInfoUserControl.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkingRemoverFromFavouritePopup.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkingUserControl.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkRaitingUserControl.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\CommentsUserControl.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\Common\ActionButton\js\actionbutton.js" />
+    <Content Include="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\attach.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\back-progress.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\comboarrow_bottom.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\complete.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\down.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\forums_icon.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\forum_icon.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\forum_mini_icon.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\forum_read.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\forum_unread.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\goto.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\loader_small.gif" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\mail_edit.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\poll.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\poll_closed.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\poll_closed_sticky.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\poll_new.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\poll_new_closed.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\poll_new_closed_sticky.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\poll_new_sticky.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\poll_sticky.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\remove.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\tags.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\top.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\top_closed.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\top_closed_sticky.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\top_new.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\top_new_closed.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\top_new_closed_sticky.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\top_new_sticky.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\top_sticky.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\trash.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\images\upload.png" />
+    <Content Include="Modules\Forum\App_Themes\Default\style.css" />
+    <Content Include="Modules\Forum\Core\Module\forum_patterns.xml" />
+    <Content Include="Modules\Forum\Default.aspx" />
+    <Content Include="Modules\Forum\EditTopic.aspx" />
+    <Content Include="Modules\Forum\js\forum.js" />
+    <Content Include="Modules\Forum\js\forummaker.js" />
+    <Content Include="Modules\Forum\js\searchhelper.js" />
+    <Content Include="Modules\Forum\ManagementCenter.aspx" />
+    <Content Include="Modules\Forum\NewForum.aspx" />
+    <Content Include="Modules\Forum\NewPost.aspx" />
+    <Content Include="Modules\Forum\Posts.aspx" />
+    <Content Include="Modules\Forum\Search.aspx" />
+    <Content Include="Modules\Forum\Topics.aspx" />
+    <Content Include="Modules\Forum\UserControls\ForumEditor.ascx" />
+    <Content Include="Modules\Forum\UserControls\ForumMaker.ascx" />
+    <Content Include="Modules\Forum\UserControls\NewPostControl.ascx" />
+    <Content Include="Modules\Forum\UserControls\PostControl.ascx" />
+    <Content Include="Modules\Forum\UserControls\PostListControl.ascx" />
+    <Content Include="Modules\Forum\UserControls\ThreadCategoryListControl.ascx" />
+    <Content Include="Modules\Forum\UserControls\TopicControl.ascx" />
+    <Content Include="Modules\Forum\UserControls\TopicEditorControl.ascx" />
+    <Content Include="Modules\Forum\UserControls\TopicListControl.ascx" />
+    <Content Include="Modules\Forum\UserTopics.aspx" />
+    <Content Include="Modules\News\App_Themes\Default\images\150x_advert.png" />
+    <Content Include="Modules\News\App_Themes\Default\images\150x_news.png" />
+    <Content Include="Modules\News\App_Themes\Default\images\150x_newslogo.png" />
+    <Content Include="Modules\News\App_Themes\Default\images\150x_order.png" />
+    <Content Include="Modules\News\App_Themes\Default\images\150x_poll.png" />
+    <Content Include="Modules\News\App_Themes\Default\images\32x_advert.png" />
+    <Content Include="Modules\News\App_Themes\Default\images\32x_news.png" />
+    <Content Include="Modules\News\App_Themes\Default\images\32x_order.png" />
+    <Content Include="Modules\News\App_Themes\Default\images\32x_poll.png" />
+    <Content Include="Modules\News\App_Themes\Default\images\comboarrow_bottom.png" />
+    <Content Include="Modules\News\App_Themes\Default\images\newslogo.png" />
+    <Content Include="Modules\News\App_Themes\Default\NewsStylesheet.css" />
+    <Content Include="Modules\News\Controls\FeedItem.ascx" />
+    <Content Include="Modules\News\Controls\FeedView.ascx" />
+    <Content Include="Modules\News\default.aspx" />
+    <Content Include="Modules\News\editnews.aspx" />
+    <Content Include="Modules\News\editpoll.aspx" />
+    <Content Include="Modules\News\js\News.js" />
+    <Content Include="Modules\News\news.aspx" />
+    <Content Include="Modules\News\Resources\news_patterns.xml" />
+    <Content Include="Modules\Wiki\App_Themes\Default\Css\filetype_style.css" />
+    <Content Include="Modules\Wiki\App_Themes\Default\Css\wikicss.css" />
+    <Content Include="Modules\Wiki\App_Themes\Default\Css\wikicssprint.css" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\filetype\file_image.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\filetype\file_mpg.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\filetype\file_na.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\filetype\file_ppt.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\filetype\file_sound.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\filetype\file_txt.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\filetype\file_xls.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\filetype\file_zip.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\Page.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\WikiLogo150.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\WikiLogo16.png" />
+    <Content Include="Modules\Wiki\App_Themes\Default\images\WikiLogo32.png" />
+    <Content Include="Modules\Wiki\Code\Patterns\wiki_patterns.xml" />
+    <Content Include="Modules\Wiki\Content\Anchor.png" />
+    <Content Include="Modules\Wiki\Content\Bold.png" />
+    <Content Include="Modules\Wiki\Content\Box.png" />
+    <Content Include="Modules\Wiki\Content\BR.png" />
+    <Content Include="Modules\Wiki\Content\Code.png" />
+    <Content Include="Modules\Wiki\Content\Comment.png" />
+    <Content Include="Modules\Wiki\Content\enlarge.png" />
+    <Content Include="Modules\Wiki\Content\Escape.png" />
+    <Content Include="Modules\Wiki\Content\external.png" />
+    <Content Include="Modules\Wiki\Content\File.png" />
+    <Content Include="Modules\Wiki\Content\file_icon.gif" />
+    <Content Include="Modules\Wiki\Content\H1.png" />
+    <Content Include="Modules\Wiki\Content\H2.png" />
+    <Content Include="Modules\Wiki\Content\H3.png" />
+    <Content Include="Modules\Wiki\Content\H4.png" />
+    <Content Include="Modules\Wiki\Content\HR.png" />
+    <Content Include="Modules\Wiki\Content\Image.png" />
+    <Content Include="Modules\Wiki\Content\Italic.png" />
+    <Content Include="Modules\Wiki\Content\Link.png" />
+    <Content Include="Modules\Wiki\Content\lock_icon.gif" />
+    <Content Include="Modules\Wiki\Content\mail_icon.gif" />
+    <Content Include="Modules\Wiki\Content\main.css" />
+    <Content Include="Modules\Wiki\Content\NoBr.png" />
+    <Content Include="Modules\Wiki\Content\NoWiki.png" />
+    <Content Include="Modules\Wiki\Content\PageLink.png" />
+    <Content Include="Modules\Wiki\Content\Pre.png" />
+    <Content Include="Modules\Wiki\Content\SpecialTags.png" />
+    <Content Include="Modules\Wiki\Content\Striked.png" />
+    <Content Include="Modules\Wiki\Content\Subscript.png" />
+    <Content Include="Modules\Wiki\Content\Superscript.png" />
+    <Content Include="Modules\Wiki\Content\Symbol.png" />
+    <Content Include="Modules\Wiki\Content\Underlined.png" />
+    <Content Include="Modules\Wiki\Default.aspx" />
+    <Content Include="Modules\Wiki\Diff.aspx" />
+    <Content Include="Modules\Wiki\ListCategories.aspx" />
+    <Content Include="Modules\Wiki\ListFiles.aspx" />
+    <Content Include="Modules\Wiki\ListPages.aspx" />
+    <Content Include="Modules\Wiki\PageHistoryList.aspx" />
+    <Content Include="Modules\Wiki\Scripts\EditPage.js" />
+    <Content Include="Modules\Wiki\WikiUC\EditFile.ascx" />
+    <Content Include="Modules\Wiki\WikiUC\EditPage.ascx" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\behaviors\disablehandles.htc" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\behaviors\showtableborders.htc" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\fck_editorarea.css" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\fck_internal.css" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\fck_showtableborders_gecko.css" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_address.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_blockquote.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_div.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_h1.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_h2.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_h3.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_h4.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_h5.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_h6.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_p.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\block_pre.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\fck_anchor.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\fck_flashlogo.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\fck_flvlogo.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\fck_hiddenfield.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\fck_pagebreak.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\images\fck_plugin.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\common\fck_dialog_common.css" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\common\fck_dialog_common.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\common\images\locked.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\common\images\locked_old.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\common\images\reset.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\common\images\unlocked.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_about.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_about\logo_fckeditor.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_about\logo_fredck.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_about\sponsors\spellchecker_net.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_anchor.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_button.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_checkbox.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_colorselector.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_div.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_docprops.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_docprops\fck_document_preview.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_flash.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_flash\fck_flash.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_flash\fck_flash_preview.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_form.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_hiddenfield.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_image.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_image\fck_image.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_image\fck_image_preview.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_link.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_link\fck_link.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_listprop.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_paste.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_radiobutton.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_replace.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_select.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_select\fck_select.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_smiley.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_source.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_specialchar.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_spellerpages.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_spellerpages\spellerpages\blank.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_spellerpages\spellerpages\controls.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_spellerpages\spellerpages\controlWindow.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_spellerpages\spellerpages\spellchecker.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_spellerpages\spellerpages\spellChecker.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_spellerpages\spellerpages\spellerStyle.css" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_spellerpages\spellerpages\wordWindow.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_table.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_tablecell.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_template.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_template\images\template1.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_template\images\template2.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_template\images\template3.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_textarea.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_textfield.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dtd\fck_dtd_test.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dtd\fck_xhtml10strict.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\dtd\fck_xhtml10transitional.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\fckdebug.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\fckdialog.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\fckeditor.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\fckeditor.original.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\browser.css" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\browser.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\frmactualfolder.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\frmcreatefolder.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\frmfolders.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\frmresourceslist.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\frmresourcetype.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\frmupload.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\ButtonArrow.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\Folder.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\Folder32.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\FolderOpened.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\FolderOpened32.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\FolderUp.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\ai.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\avi.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\bmp.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\cs.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\default.icon.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\dll.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\doc.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\exe.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\fla.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\gif.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\htm.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\html.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\jpg.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\js.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\mdb.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\mp3.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\pdf.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\png.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\ppt.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\rdp.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\swf.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\swt.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\txt.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\vsd.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\xls.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\xml.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\32\zip.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\ai.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\avi.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\bmp.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\cs.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\default.icon.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\dll.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\doc.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\exe.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\fla.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\gif.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\htm.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\html.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\jpg.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\js.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\mdb.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\mp3.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\pdf.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\png.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\ppt.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\rdp.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\swf.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\swt.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\txt.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\vsd.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\xls.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\xml.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\icons\zip.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\images\spacer.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\js\common.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\browser\default\js\fckxml.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\aspx\config.ascx" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\aspx\connector.aspx" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\aspx\upload.aspx" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\asp\basexml.asp" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\asp\class_upload.asp" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\asp\commands.asp" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\asp\config.asp" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\asp\connector.asp" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\asp\io.asp" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\asp\upload.asp" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\asp\util.asp" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\test.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\uploadtest.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\anchor.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\arrow_ltr.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\arrow_rtl.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile1.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile10.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile11.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile12.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile13.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile14.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile15.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile16.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile17.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile18.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile19.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile2.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile20.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile21.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile3.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile4.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile5.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile6.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile7.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile8.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile9.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\bbcode\smile_common.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\angel_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\angry_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\broken_heart.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\cake.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\confused_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\cry_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\devil_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\embaressed_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\envelope.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\heart.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\kiss.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\lightbulb.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\omg_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\regular_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\sad_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\shades_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\teeth_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\thumbs_down.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\thumbs_up.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\tounge_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\whatchutalkingabout_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\smiley\msn\wink_smile.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\images\spacer.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\js\fckadobeair.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\js\fckeditorcode_gecko.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\js\fckeditorcode_ie.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\af.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\ar.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\bg.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\bn.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\bs.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\ca.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\cs.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\da.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\de.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\el.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\en-au.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\en-ca.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\en-uk.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\en.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\eo.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\es.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\et.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\eu.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\fa.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\fi.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\fo.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\fr-ca.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\fr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\gl.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\gu.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\he.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\hi.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\hr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\hu.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\is.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\it.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\ja.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\km.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\ko.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\lt.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\lv.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\mn.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\ms.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\nb.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\nl.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\no.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\pl.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\pt-br.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\pt.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\ro.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\ru.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\sk.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\sl.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\sr-latn.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\sr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\sv.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\th.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\tr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\uk.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\vi.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\zh-cn.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\lang\zh.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\asccut\AscCut.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\asccut\fckplugin.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\asccut\lang\de.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\asccut\lang\en.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\asccut\lang\es.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\asccut\lang\fr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\asccut\lang\it.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\asccut\lang\lv.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\asccut\lang\ru.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\ascuser\ascuser.aspx" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\ascuser\ascuser.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\ascuser\fckplugin.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\ascuser\lang\de.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\ascuser\lang\en.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\ascuser\lang\es.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\ascuser\lang\fr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\ascuser\lang\it.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\ascuser\lang\lv.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\ascuser\lang\ru.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\attach\attach.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\attach\fckplugin.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\attach\fck_attach.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\attach\lang\de.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\attach\lang\en.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\attach\lang\es.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\attach\lang\fr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\attach\lang\it.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\attach\lang\lv.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\attach\lang\ru.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\code.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\fckplugin.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\icons\asp_28.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\icons\cpp_28.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\icons\cs_28.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\icons\c_28.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\icons\html_28.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\icons\js_28.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\icons\sql_28.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\icons\vb_28.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\icons\xml_28.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\lang\de.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\lang\en.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\lang\es.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\lang\fr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\lang\it.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\lang\lv.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\code\lang\ru.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fckeditorresizer\fkceditorresizer.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\dialogs\button_bg.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\dialogs\button_over_bg.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\dialogs\file.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\dialogs\File.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\dialogs\image.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\dialogs\link.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\fckplugin.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\lang\de.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\lang\en.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\lang\es.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\lang\fr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\lang\it.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\lang\lv.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\lang\ru.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\wikiCommand.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\fck_wysiwyg\wikiContents.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\FileUploader.aspx" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\quote\fckplugin.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\quote\fck_quote.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\quote\lang\de.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\quote\lang\en.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\quote\lang\es.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\quote\lang\fr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\quote\lang\it.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\quote\lang\lv.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\quote\lang\ru.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\quote\quote.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\avs4you_player.swf" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\fckplugin.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\fck_flv.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\fck_flv\fck_flv.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\fck_flv\fck_flv_preview.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\lang\de.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\lang\en.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\lang\es.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\lang\fr.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\lang\it.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\lang\lv.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\lang\ru.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\plugins\video\video.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\fck_dialog.css" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\fck_dialog_ie6.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\fck_editor.css" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\fck_strip.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\button_bg.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\button_grey_bg.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\button_grey_over_bg.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\button_over_bg.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\cancelButton.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\cancelButton.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\dialog.sides.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\dialog.sides.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\dialog.sides.rtl.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\popupTitle.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\sprites.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\sprites.png" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\toolbar.arrowright.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\toolbar.buttonarrow.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\toolbar.collapse.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\toolbar.end.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\toolbar.expand.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\toolbar.separator.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\default\images\toolbar.start.gif" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\skins\_fckviewstrips.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\wsc\ciframe.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\wsc\tmpFrameset.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\wsc\w.html" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\fckconfig.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\fckeditor.asp" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\fckeditor.js" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\fckpackager.xml" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\fckstyles.xml" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\fcktemplates.xml" />
+    <Content Include="Modules\Wiki\WikiUC\ListFiles.ascx" />
+    <Content Include="Modules\Wiki\WikiUC\ListPages.ascx" />
+    <Content Include="Modules\Wiki\WikiUC\MiniToolbar.ascx" />
+    <Content Include="Modules\Wiki\WikiUC\ViewFile.ascx" />
+    <Content Include="Modules\Wiki\WikiUC\ViewPage.ascx" />
     <Content Include="Photos.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +1610,10 @@
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
       <Name>ASC.Api.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
+      <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
+      <Name>ASC.FullTextIndex</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
@@ -183,6 +1622,34 @@
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules\Blogs\Data\HtmlEditorFiles\" />
+    <Folder Include="Modules\Bookmarking\App_Data\screens\" />
+    <Folder Include="Modules\Bookmarking\Core\Dao\Comments\" />
+    <Folder Include="Modules\Forum\App_Themes\Default\ForumImages\" />
+    <Folder Include="Modules\News\App_Themes\Default\NewsImages\" />
+    <Folder Include="Modules\News\Data\HtmlEditorFiles\" />
+    <Folder Include="Modules\Wiki\Data\Files\" />
+    <Folder Include="Modules\Wiki\WikiUC\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\" />
+    <Folder Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\cfm\" />
+    <Folder Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\lasso\" />
+    <Folder Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\php\" />
+    <Folder Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\py\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Modules\Forum\Forum.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Modules\News\news.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Modules\Wiki\Wiki.Master" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\perl\connector.cgi" />
+    <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\filemanager\connectors\perl\upload.cgi" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Master\Community.Master" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -194,6 +1661,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
 </Project>

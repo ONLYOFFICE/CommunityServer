@@ -41,11 +41,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -56,14 +52,6 @@
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Wrappers\CommentWrapper.cs" />
@@ -114,10 +102,6 @@
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
@@ -137,18 +121,6 @@
     <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
       <Name>ASC.MessagingSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Projects\ASC.Projects.Core\ASC.Projects.Core.csproj">
-      <Project>{98330417-cf62-4624-94dc-271433945e27}</Project>
-      <Name>ASC.Projects.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Projects\ASC.Projects.Data\ASC.Projects.Data.csproj">
-      <Project>{10a65f6e-7c34-4eb7-bb9c-c3cc27d979e8}</Project>
-      <Name>ASC.Projects.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Projects\ASC.Projects.Engine\ASC.Projects.Engine.csproj">
-      <Project>{64c8b39d-5dcd-4eeb-a5dd-bfe7ca24fa6a}</Project>
-      <Name>ASC.Projects.Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Api.Documents\ASC.Api.Documents.csproj">
       <Project>{991f00f2-71cb-4694-bb6a-4696071bd94d}</Project>

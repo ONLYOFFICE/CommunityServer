@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Wiki" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditPage.ascx.cs" Inherits="ASC.Web.UserControls.Wiki.UC.EditPage" %>
 <%@ Register Src="MiniToolbar.ascx" TagPrefix="uc" TagName="ToolBar" %>
 <%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>

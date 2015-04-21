@@ -1,10 +1,9 @@
 ﻿<%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.Projects" %>
-<%@ Assembly Name="ASC.Projects.Core" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
-<%@ Import Namespace="ASC.Web.Projects.Classes" %>
+
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CommonList.ascx.cs" Inherits="ASC.Web.Projects.Controls.Common.CommonList" %>
-<%@ Import Namespace="ASC.Web.Projects.Resources" %>
+
 
 <div id="filterContainer">
     <div id="ProjectsAdvansedFilter"></div>

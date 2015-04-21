@@ -42,13 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CNameGeneratorTests.cs" />
+    <Compile Include="PasswordGeneratorTests.cs" />
     <Compile Include="DateTime.ToDbStyleTests.cs" />
     <Compile Include="String.PrefixTests.cs" />
     <Compile Include="Array.SubArrayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
+      <Project>{26222FC6-1F6D-44E9-A82B-36BB8355220E}</Project>
+      <Name>ASC.Mail.Aggregator.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MailServerUtils\MailServerUtils.csproj">
       <Project>{fb62491c-d153-45d0-a4f6-8c7ceadfa035}</Project>
       <Name>MailServerUtils</Name>

@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -67,15 +65,20 @@ namespace ASC.Web.CRM.SocialMedia
 
         #region - GetList user images -
 
-        public String GetContactSMImages(int contactID)
+        public List<SocialMediaImageDescription> GetContactSMImages(int contactID)
         {
             Contact contact = Global.DaoFactory.GetContactDao().GetByID(contactID);
 
             var images = new List<SocialMediaImageDescription>();
 
-            Func<Contact, Tenant, List<SocialMediaImageDescription>> dlgGetTwitterImageDescriptionList = GetTwitterImageDescriptionList;
-            Func<Contact, Tenant, List<SocialMediaImageDescription>> dlgGetFacebookImageDescriptionList = GetFacebookImageDescriptionList;
-            Func<Contact, Tenant, List<SocialMediaImageDescription>> dlgGetLinkedInImageDescriptionList = GetLinkedInImageDescriptionList;
+
+            var socialNetworks = Global.DaoFactory.GetContactInfoDao().GetList(contact.ID, null, null, null);
+
+            var twitterAccounts = socialNetworks.Where(sn => sn.InfoType == ContactInfoType.Twitter).Select(sn => sn.Data.Trim()).ToList();
+            var facebookAccounts = socialNetworks.Where(sn => sn.InfoType == ContactInfoType.Facebook).Select(sn => sn.Data.Trim()).ToList();
+
+            Func<List<String>, Tenant, List<SocialMediaImageDescription>> dlgGetTwitterImageDescriptionList = GetTwitterImageDescriptionList;
+            Func<List<String>, Tenant, List<SocialMediaImageDescription>> dlgGetFacebookImageDescriptionList = GetFacebookImageDescriptionList;
 
             // Parallelizing
             IAsyncResult arGetAvatarsFromTwitter;
@@ -86,14 +89,14 @@ namespace ASC.Web.CRM.SocialMedia
 
             Tenant currentTenant = CoreContext.TenantManager.GetCurrentTenant();
 
-            arGetAvatarsFromTwitter = dlgGetTwitterImageDescriptionList.BeginInvoke(contact, currentTenant, null, null);
+            arGetAvatarsFromTwitter = dlgGetTwitterImageDescriptionList.BeginInvoke(twitterAccounts, currentTenant, null, null);
             waitHandles.Add(arGetAvatarsFromTwitter.AsyncWaitHandle);
 
-            arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(contact, currentTenant, null, null);
+            arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(facebookAccounts, currentTenant, null, null);
             waitHandles.Add(arGetAvatarsFromFacebook.AsyncWaitHandle);
 
 
-            //arGetAvatarsFromLinkedIn = dlgGetLinkedInImageDescriptionList.BeginInvoke(contact, currentTenant, null, null);
+            //arGetAvatarsFromLinkedIn = dlgGetLinkedInImageDescriptionList.BeginInvoke(linkedinAccounts, currentTenant, null, null);
             //waitHandles.Add(arGetAvatarsFromLinkedIn.AsyncWaitHandle);
 
             WaitHandle.WaitAll(waitHandles.ToArray());
@@ -102,83 +105,137 @@ namespace ASC.Web.CRM.SocialMedia
             images.AddRange(dlgGetFacebookImageDescriptionList.EndInvoke(arGetAvatarsFromFacebook));
             //images.AddRange(dlgGetLinkedInImageDescriptionList.EndInvoke(arGetAvatarsFromLinkedIn));
 
-            return JsonConvert.SerializeObject(images);
+            return images;
         }
 
-        private List<SocialMediaImageDescription> GetLinkedInImageDescriptionList(Contact contact, Tenant tenant)
+        public List<SocialMediaImageDescription> GetContactSMImages(List<String> twitter, List<String> facebook, List<String> linkedin)
         {
-            CoreContext.TenantManager.SetCurrentTenant(tenant);
-
             var images = new List<SocialMediaImageDescription>();
 
-            var linkedInAccounts = Global.DaoFactory.GetContactInfoDao().GetListData(contact.ID, ContactInfoType.LinkedIn);
+            Func<List<String>, Tenant, List<SocialMediaImageDescription>> dlgGetTwitterImageDescriptionList = GetTwitterImageDescriptionList;
+            Func<List<String>, Tenant, List<SocialMediaImageDescription>> dlgGetFacebookImageDescriptionList = GetFacebookImageDescriptionList;
+
+            // Parallelizing
+            IAsyncResult arGetAvatarsFromTwitter;
+            IAsyncResult arGetAvatarsFromFacebook;
+            //IAsyncResult arGetAvatarsFromLinkedIn;
+
+            var waitHandles = new List<WaitHandle>();
+
+            Tenant currentTenant = CoreContext.TenantManager.GetCurrentTenant();
+
+            arGetAvatarsFromTwitter = dlgGetTwitterImageDescriptionList.BeginInvoke(twitter, currentTenant, null, null);
+            waitHandles.Add(arGetAvatarsFromTwitter.AsyncWaitHandle);
+
+            arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(facebook, currentTenant, null, null);
+            waitHandles.Add(arGetAvatarsFromFacebook.AsyncWaitHandle);
+
+            //arGetAvatarsFromLinkedIn = dlgGetLinkedInImageDescriptionList.BeginInvoke(linkedin, currentTenant, null, null);
+            //waitHandles.Add(arGetAvatarsFromLinkedIn.AsyncWaitHandle);
+
+            WaitHandle.WaitAll(waitHandles.ToArray());
+
+            images.AddRange(dlgGetTwitterImageDescriptionList.EndInvoke(arGetAvatarsFromTwitter));
+            images.AddRange(dlgGetFacebookImageDescriptionList.EndInvoke(arGetAvatarsFromFacebook));
+            //images.AddRange(dlgGetLinkedInImageDescriptionList.EndInvoke(arGetAvatarsFromLinkedIn));
+
+            return images;
+        }
+
+
+        private List<SocialMediaImageDescription> GetLinkedInImageDescriptionList(List<String> linkedInAccounts, Tenant tenant)
+        {
+            var images = new List<SocialMediaImageDescription>();
 
             if (linkedInAccounts.Count == 0)
                 return images;
 
-            var provider = LinkedInApiHelper.GetLinkedInDataProviderForCurrentUser();
+            try
+            {
+                CoreContext.TenantManager.SetCurrentTenant(tenant);
 
-            if (provider == null)
-                return images;
+                var provider = LinkedInApiHelper.GetLinkedInDataProviderForCurrentUser();
 
-            //images.AddRange(from linkedInAccount in linkedInAccounts
-            //                let imageUrl = provider.GetUrlOfUserImage(account.UserID)
-            //                select new SocialMediaImageDescription
-            //                           {
-            //                               Identity = account.UserID, ImageUrl = imageUrl, SocialNetwork = ASC.SocialMedia.Core.SocialNetworks.LinkedIn
-            //                           });
+                if (provider == null)
+                    return images;
+
+                linkedInAccounts = linkedInAccounts.Distinct().ToList();
+                //images.AddRange(from linkedInAccount in linkedInAccounts
+                //                let imageUrl = provider.GetUrlOfUserImage(account.UserID)
+                //                select new SocialMediaImageDescription
+                //                           {
+                //                               Identity = account.UserID, ImageUrl = imageUrl, SocialNetwork = ASC.SocialMedia.Core.SocialNetworks.LinkedIn
+                //                           });
+
+            }
+            catch (Exception ex) {
+                _logger.Error(ex);
+            }
 
             return images;
         }
 
-        private List<SocialMediaImageDescription> GetTwitterImageDescriptionList(Contact contact, Tenant tenant)
+        private List<SocialMediaImageDescription> GetTwitterImageDescriptionList(List<String> twitterAccounts, Tenant tenant)
         {
-            CoreContext.TenantManager.SetCurrentTenant(tenant);
-
             var images = new List<SocialMediaImageDescription>();
-
-            var twitterAccounts = Global.DaoFactory.GetContactInfoDao().GetListData(contact.ID, ContactInfoType.Twitter);
 
             if (twitterAccounts.Count == 0)
                 return images;
 
-            var provider = new TwitterDataProvider(TwitterApiHelper.GetTwitterApiInfoForCurrentUser());
+            try
+            {
+                CoreContext.TenantManager.SetCurrentTenant(tenant);
 
-            images.AddRange(from twitterAccount in twitterAccounts
-                            let imageUrl = provider.GetUrlOfUserImage(twitterAccount, TwitterDataProvider.ImageSize.Small)
-                            where imageUrl != null
-                            select new SocialMediaImageDescription
-                                       {
-                                           Identity = twitterAccount,
-                                           ImageUrl = imageUrl,
-                                           SocialNetwork = SocialNetworks.Twitter
-                                       });
+                var provider = new TwitterDataProvider(TwitterApiHelper.GetTwitterApiInfoForCurrentUser());
+
+                twitterAccounts = twitterAccounts.Distinct().ToList();
+                images.AddRange(from twitterAccount in twitterAccounts
+                                let imageUrl = provider.GetUrlOfUserImage(twitterAccount, TwitterDataProvider.ImageSize.Small)
+                                where imageUrl != null
+                                select new SocialMediaImageDescription
+                                {
+                                    Identity = twitterAccount,
+                                    ImageUrl = imageUrl,
+                                    SocialNetwork = SocialNetworks.Twitter
+                                });
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
 
             return images;
         }
 
-        private List<SocialMediaImageDescription> GetFacebookImageDescriptionList(Contact contact, Tenant tenant)
+        private List<SocialMediaImageDescription> GetFacebookImageDescriptionList(List<String> facebookAccounts, Tenant tenant)
         {
-            CoreContext.TenantManager.SetCurrentTenant(tenant);
-
             var images = new List<SocialMediaImageDescription>();
-
-            var facebookAccounts = Global.DaoFactory.GetContactInfoDao().GetListData(contact.ID, ContactInfoType.Facebook);
 
             if (facebookAccounts.Count == 0)
                 return images;
 
-            var provider = new FacebookDataProvider(FacebookApiHelper.GetFacebookApiInfoForCurrentUser());
+            try
+            {
+                CoreContext.TenantManager.SetCurrentTenant(tenant);
 
-            images.AddRange(from facebookAccount in facebookAccounts
-                            let imageUrl = provider.GetUrlOfUserImage(facebookAccount, FacebookDataProvider.ImageSize.Small)
-                            where imageUrl != null
-                            select new SocialMediaImageDescription
-                                       {
-                                           Identity = facebookAccount,
-                                           ImageUrl = imageUrl,
-                                           SocialNetwork = SocialNetworks.Facebook
-                                       });
+                var provider = new FacebookDataProvider(FacebookApiHelper.GetFacebookApiInfoForCurrentUser());
+                
+                facebookAccounts = facebookAccounts.Distinct().ToList();
+                images.AddRange(from facebookAccount in facebookAccounts
+                                let imageUrl = provider.GetUrlOfUserImage(facebookAccount, FacebookDataProvider.ImageSize.Small)
+                                where imageUrl != null
+                                select new SocialMediaImageDescription
+                                           {
+                                               Identity = facebookAccount,
+                                               ImageUrl = imageUrl,
+                                               SocialNetwork = SocialNetworks.Facebook
+                                           });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
 
             return images;
         }

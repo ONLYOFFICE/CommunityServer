@@ -15,7 +15,7 @@
 	<h1>
 	    <span class="hdr">Conversion API</span>
 	</h1>
-	<p class="dscr">For the interaction with the <b>document conversion service</b> the GET requests with the parameter set are used. The requests are sent to the <span class="fakelink">http(s)://computername/ConvertService.ashx</span> address where the <b>computername</b> is the name of the server with the Teamlab Office Apps installed. For the SaaS version these addresses are: <span class="fakelink">https://doc.teamlab.com/ConverrtService.ashx</span> (for the US region) and <span class="fakelink">https://doc.teamlab.eu.com/ConvertService.ashx</span> (for the EU region).</p>
+	<p class="dscr">For the interaction with the <b>document conversion service</b> the GET requests with the parameter set are used. The requests are sent to the <span class="fakelink">http(s)://computername/ConvertService.ashx</span> address where the <b>computername</b> is the name of the server with the ONLYOFFICE™ Document Server installed. For the SaaS version these addresses are: <span class="fakelink">https://doc.onlyoffice.com/ConverrtService.ashx</span> (for the US region) and <span class="fakelink">https://doc.onlyoffice.eu/ConvertService.ashx</span> (for the EU region).</p>
 	<h2>Request parameters and their description:</h2>
 	<table class="table">
 		<colgroup>

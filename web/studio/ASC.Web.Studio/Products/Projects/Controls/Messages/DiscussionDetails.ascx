@@ -1,15 +1,11 @@
 ﻿<%@ Assembly Name="ASC.Common" %>
-<%@ Assembly Name="ASC.Projects.Core" %>
-<%@ Assembly Name="ASC.Projects.Engine" %>
 <%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DiscussionDetails.ascx.cs"
     Inherits="ASC.Web.Projects.Controls.Messages.DiscussionDetails" %>
-<%@ Import Namespace="ASC.Notify.Recipients" %>
-<%@ Import Namespace="ASC.Projects.Engine" %>
+
 <%@ Import Namespace="ASC.Projects.Core.Domain"%>
-<%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Projects.Classes" %>
 <%@ Import Namespace="ASC.Web.Projects.Configuration" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>

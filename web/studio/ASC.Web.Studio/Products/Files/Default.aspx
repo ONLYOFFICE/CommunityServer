@@ -4,6 +4,7 @@
 
 <%@ Page Language="C#" MasterPageFile="~/Products/Files/Masters/BasicTemplate.Master" EnableViewState="false" EnableViewStateMac="false" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Files._Default" %>
 
+<%@ Import Namespace="System.Threading" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Import" %>
@@ -13,6 +14,17 @@
     <div class="page-menu">
         <asp:PlaceHolder ID="CommonSideHolder" runat="server"></asp:PlaceHolder>
     </div>
+
+    <% if (CoreContext.Configuration.Personal)
+       { %>
+    <a href="#more" class="morefeatures-link gray-text"><%= string.Format(FilesUCResource.MoreFeatures, "<br>", "<span>", "</span>") %></a>
+    <% } %>
+
+    <% if (DisplayAppsBanner)
+       { %>
+    <a class="mobile-app-banner <%= Thread.CurrentThread.CurrentUICulture.Name %>" target="_blank"
+        href="https://itunes.apple.com/us/app/onlyoffice-documents/id944896972"></a>
+    <% } %>
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="BTPageContent">
@@ -60,7 +72,7 @@
     <% if (AddCustomScript)
        { %>
 
-    <% if ((string) Session["campaign"] == "personal")
+    <% if ((string)Session["campaign"] == "personal")
        {
            Session["campaign"] = ""; %>
 

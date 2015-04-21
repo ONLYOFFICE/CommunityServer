@@ -17,7 +17,7 @@
             </a>
             <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
                { %>
-            <a class="linkAction baseLinkAction" onclick="EmailOperationManager.ShowEmailChangeWindow('<%=User.Email%>','<%=User.ID%>',<%= Viewer.IsAdmin().ToString().ToLower()%>);return false;">&nbsp;</a>
+            <a class="linkAction baseLinkAction" onclick="EmailOperationManager.ShowEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
             <% } %>
         </div>
       <% } else if (User.ActivationStatus == EmployeeActivationStatus.NotActivated) {%>
@@ -25,8 +25,12 @@
             <a class="mail" target="_blank" href="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + User.Email.ToLower())%>" title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
                 <%=HttpUtility.HtmlEncode(User.Email.ToLower())%>
             </a>
+            <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
+               { %>
+            <a class="linkAction baseLinkAction" onclick="EmailOperationManager.ShowEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
+            <% } %>
             <div class="caption emailWarning"><%=Resources.Resource.EmailIsNotConfirmed%>
-                <a href="javascript:void(0);" class="activate" onclick="EmailOperationManager.ShowEmailActivationWindow('<%=User.Email%>','<%=User.ID%>',true);return false;">
+                <a id="linkNotActivatedActivation" href="javascript:void(0);" class="activate">
                     <%=Resources.Resource.ActivateEmailAgain%>
                 </a>
             </div>
@@ -36,9 +40,13 @@
             <a class="mail" target="_blank" href="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + User.Email.ToLower())%>" title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
                 <%=HttpUtility.HtmlEncode(User.Email.ToLower())%>
             </a>
+            <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
+               { %>
+            <a class="linkAction baseLinkAction" onclick="EmailOperationManager.ShowEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
+            <% } %>
             <div class="caption emailWarning"><%=Resources.Resource.PendingTitle%> 
             <% if (User.Status != EmployeeStatus.Terminated) { %>
-                <a href="javascript:void(0);" class="activate" onclick="EmailOperationManager.ShowResendInviteWindow('<%=User.Email%>','<%=User.ID%>',true);return false;">
+                <a id="linkPendingActivation" href="javascript:void(0);" class="activate">
                     <%=Resources.Resource.SendInviteAgain%>
                 </a>
             <% } %>

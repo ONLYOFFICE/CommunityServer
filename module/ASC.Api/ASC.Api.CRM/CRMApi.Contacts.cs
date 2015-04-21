@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -52,6 +50,8 @@ using ASC.Web.UserControls.SocialMedia.Resources;
 using ASC.SocialMedia.Facebook;
 using ASC.Web.CRM.SocialMedia;
 using ASC.SocialMedia.LinkedIn;
+using ASC.Common.Threading.Progress;
+using ASC.Web.CRM.Resources;
 
 namespace ASC.Api.CRM
 {
@@ -1184,7 +1184,7 @@ namespace ASC.Api.CRM
             var companyInst = dao.GetByID(companyid);
             if (companyInst == null || !CRMSecurity.CanAccessTo(companyInst)) throw new ItemNotFoundException();
 
-            if (companyInst is Person) throw new Exception("It is not a company");
+            if (companyInst is Person) throw new Exception(CRMErrorsResource.ContactIsNotCompany);
 
             var forUpdateStatus = new List<int>();
             forUpdateStatus.Add(companyInst.ID);
@@ -1234,7 +1234,7 @@ namespace ASC.Api.CRM
             var personInst = dao.GetByID(personid);
             if (personInst == null || !CRMSecurity.CanAccessTo(personInst)) throw new ItemNotFoundException();
 
-            if (personInst is Company) throw new Exception("It is not a person");
+            if (personInst is Company) throw new Exception(CRMErrorsResource.ContactIsNotPerson);
 
             var forUpdateStatus = new List<int>();
 
@@ -1301,17 +1301,27 @@ namespace ASC.Api.CRM
 
             if (!CRMSecurity.CanEdit(contact)) throw CRMSecurity.CreateSecurityException();
 
-            SetAccessToContact(contact, isShared, managerList);
+            SetAccessToContact(contact, isShared, managerList, false);
 
             var wrapper = ToContactWrapper(contact);
             return wrapper;
         }
 
-        private void SetAccessToContact(Contact contact, bool isShared, IEnumerable<Guid> managerList)
+        private void SetAccessToContact(Contact contact, bool isShared, IEnumerable<Guid> managerList, bool isNotify)
         {
-            var managerListLocal = managerList != null ? managerList.ToList() : new List<Guid>();
+            var managerListLocal = managerList != null ? managerList.Distinct().ToList() : new List<Guid>();
             if (managerListLocal.Any())
             {
+                if (isNotify)
+                {
+                    var notifyUsers = managerListLocal.Where(n => n != ASC.Core.SecurityContext.CurrentAccount.ID).ToArray();
+                    if (contact is Person)
+                        ASC.Web.CRM.Services.NotifyService.NotifyClient.Instance.SendAboutSetAccess(EntityType.Person, contact.ID, notifyUsers);
+                    else
+                        ASC.Web.CRM.Services.NotifyService.NotifyClient.Instance.SendAboutSetAccess(EntityType.Company, contact.ID, notifyUsers);
+
+                }
+
                 CRMSecurity.SetAccessTo(contact, managerListLocal);
             }
             else
@@ -1405,7 +1415,7 @@ namespace ASC.Api.CRM
 
                 if (!CRMSecurity.CanEdit(contact)) continue;
 
-                SetAccessToContact(contact, isPrivate, managerList);
+                SetAccessToContact(contact, isPrivate, managerList, false);
 
                 result.Add(contact);
             }
@@ -1630,7 +1640,7 @@ namespace ASC.Api.CRM
         }
 
         [Read(@"contact/facebookprofile")]
-        public List<FacebookUserInfo> FindFacebookProfiles(string searchText)
+        public List<FacebookUserInfo> FindFacebookProfiles(string searchText, bool isUser)
         {
             try
             {
@@ -1640,8 +1650,8 @@ namespace ASC.Api.CRM
 
                 FacebookDataProvider facebookProvider = new FacebookDataProvider(apiInfo);
 
-                List<FacebookUserInfo> users = facebookProvider.FindUsers(searchText);
-                return users;
+
+                return facebookProvider.FindPages(searchText, isUser);
             }
             catch (Exception ex)
             {
@@ -1698,9 +1708,28 @@ namespace ASC.Api.CRM
         }
 
         [Read(@"contact/{contactid:[0-9]+}/socialmediaavatar")]
-        public String GetContactSMImages(int contactId)
+        public List<SocialMediaImageDescription> GetContactSMImages(int contactId)
         {
             return new SocialMediaUI().GetContactSMImages(contactId);
+        }
+
+        [Create(@"contact/socialmediaavatar")]
+        public List<SocialMediaImageDescription> GetContactSMImagesByNetworks(List<ContactInfoWrapper> socialNetworks)
+        {
+            if (socialNetworks == null || socialNetworks.Count == 0){
+                return new List<SocialMediaImageDescription>();
+            }
+            var twitter = new List<String>();
+            var facebook = new List<String>();
+            var linkedin = new List<String>();
+
+            foreach (var sn in socialNetworks) {
+                if (sn.InfoType == ContactInfoType.Twitter) twitter.Add(sn.Data);
+                if (sn.InfoType == ContactInfoType.Facebook) facebook.Add(sn.Data);
+                if (sn.InfoType == ContactInfoType.LinkedIn) linkedin.Add(sn.Data);
+            }
+
+            return new SocialMediaUI().GetContactSMImages(twitter, facebook, linkedin);
         }
 
         [Update(@"contact/{contactid:[0-9]+}/avatar")]
@@ -1738,6 +1767,45 @@ namespace ASC.Api.CRM
             return new SocialMediaUI().FindContactByName(searchUrl, contactNamespace);
         }
 
+        /// <visible>false</visible>
+        [Create(@"contact/mailsmtp/send")]
+        public IProgressItem SendMailSMTPToContacts(List<int> fileIDs, List<int> contactIds, String subject, String body, bool storeInHistory)
+        {
+            if (contactIds == null || contactIds.Count == 0 || String.IsNullOrEmpty(body)) throw new ArgumentException();
+
+            var contacts = DaoFactory.GetContactDao().GetContacts(contactIds.ToArray());
+            MessageService.Send(Request, MessageAction.CrmSmtpMailSent, contacts.Select(c => c.GetTitle()));
+
+            return MailSender.Start(fileIDs, contactIds, subject, body, storeInHistory);
+        }
+
+        /// <visible>false</visible>
+        [Create(@"contact/mailsmtp/preview")]
+        public string GetMailSMTPToContactsPreview(string template, int contactId)
+        {
+            if (contactId == 0 || String.IsNullOrEmpty(template)) throw new ArgumentException();
+
+            var manager = new MailTemplateManager();
+
+            return manager.Apply(template, contactId);
+        }
+
+        /// <visible>false</visible>
+        [Read(@"contact/mailsmtp/status")]
+        public IProgressItem GetMailSMTPToContactsStatus()
+        {
+            return MailSender.GetStatus();
+        }
+
+        /// <visible>false</visible>
+        [Update(@"contact/mailsmtp/cancel")]
+        public IProgressItem CancelMailSMTPToContacts()
+        {
+            var progressItem = MailSender.GetStatus();
+            MailSender.Cancel();
+            return progressItem;
+        }
+
 
         private string UploadAvatar(int contactID, string imageUrl, bool uploadOnly)
         {
@@ -1763,8 +1831,9 @@ namespace ASC.Api.CRM
             var contactIDs = new int[itemList.Count];
 
             var peopleCompanyIDs = new List<int>();
-
             var peopleCompanyList = new Dictionary<int, ContactBaseWrapper>();
+
+            var contactDao = DaoFactory.GetContactDao();
 
             for (var index = 0; index < itemList.Count; index++)
             {
@@ -1793,11 +1862,15 @@ namespace ASC.Api.CRM
 
             if (peopleCompanyIDs.Count > 0)
             {
-                peopleCompanyList = DaoFactory.GetContactDao()
-                                              .GetContacts(peopleCompanyIDs.ToArray())
-                                              .ToDictionary(item => item.ID, ToContactBaseWrapper);
-            }
+                var tmpList = contactDao.GetContacts(peopleCompanyIDs.ToArray()).ConvertAll(item => ToContactBaseWrapperQuick(item));
+                var tmpListCanDelete = contactDao.CanDelete(tmpList.Select(item => item.ID).ToArray());
 
+                foreach (var contactBaseWrapperQuick in tmpList)
+                {
+                    contactBaseWrapperQuick.CanDelete = contactBaseWrapperQuick.CanEdit && tmpListCanDelete[contactBaseWrapperQuick.ID];
+                    peopleCompanyList.Add(contactBaseWrapperQuick.ID, contactBaseWrapperQuick);
+                }
+            }
 
             var contactInfos = new Dictionary<int, List<ContactInfoWrapper>>();
 
@@ -1852,7 +1925,7 @@ namespace ASC.Api.CRM
                 {
                     var people = person;
 
-                    var peopleWrapper = new PersonWrapper(people);
+                    var peopleWrapper = PersonWrapper.ToPersonWrapperQuick(people);
 
                     if (people.CompanyID > 0 && peopleCompanyList.ContainsKey(people.CompanyID))
                     {
@@ -1866,7 +1939,7 @@ namespace ASC.Api.CRM
                     var company = contact as Company;
                     if (company != null)
                     {
-                        contactWrapper = new CompanyWrapper(company);
+                        contactWrapper = CompanyWrapper.ToCompanyWrapperQuick(company);
                     }
                     else
                     {
@@ -1896,6 +1969,20 @@ namespace ASC.Api.CRM
                     });
             }
 
+
+            #region CanDelete for main contacts
+
+            if (result.Count > 0)
+            {
+                var resultListCanDelete = contactDao.CanDelete(result.Select(item => item.Contact.ID).ToArray());
+                foreach (var contactBaseWrapperQuick in result)
+                {
+                    contactBaseWrapperQuick.Contact.CanDelete = contactBaseWrapperQuick.Contact.CanEdit && resultListCanDelete[contactBaseWrapperQuick.Contact.ID];
+                }
+            }
+
+            #endregion
+
             return result;
         }
 
@@ -1910,8 +1997,11 @@ namespace ASC.Api.CRM
             var contactIDs = new int[itemList.Count];
 
             var peopleCompanyIDs = new List<int>();
-
             var peopleCompanyList = new Dictionary<int, ContactBaseWrapper>();
+
+
+            var contactDao = DaoFactory.GetContactDao();
+
 
             for (var index = 0; index < itemList.Count; index++)
             {
@@ -1940,12 +2030,16 @@ namespace ASC.Api.CRM
 
             if (peopleCompanyIDs.Count > 0)
             {
-                peopleCompanyList = DaoFactory.GetContactDao()
-                                              .GetContacts(peopleCompanyIDs.ToArray())
-                                              .ToDictionary(item => item.ID, ToContactBaseWrapper);
+                var tmpList = contactDao.GetContacts(peopleCompanyIDs.ToArray()).ConvertAll(item => ToContactBaseWrapperQuick(item));
+                var tmpListCanDelete = contactDao.CanDelete(tmpList.Select(item => item.ID).ToArray());
+
+                foreach (var contactBaseWrapperQuick in tmpList) {
+                    contactBaseWrapperQuick.CanDelete = contactBaseWrapperQuick.CanEdit && tmpListCanDelete[contactBaseWrapperQuick.ID];
+                    peopleCompanyList.Add(contactBaseWrapperQuick.ID, contactBaseWrapperQuick);
+                }
             }
 
-            var companiesMembersCount = DaoFactory.GetContactDao().GetMembersCount(companyIDs.Distinct().ToArray());
+            var companiesMembersCount = contactDao.GetMembersCount(companyIDs.Distinct().ToArray());
 
             var contactStatusIDs = itemList.Select(item => item.StatusID).Distinct().ToArray();
             var contactInfos = new Dictionary<int, List<ContactInfoWrapper>>();
@@ -1955,11 +2049,8 @@ namespace ASC.Api.CRM
                                           .GetItems(contactStatusIDs)
                                           .ToDictionary(item => item.ID, item => new ContactStatusBaseWrapper(item));
 
-            var personsCustomFields = DaoFactory.GetCustomFieldDao()
-                                                .GetEnityFields(EntityType.Person, personsIDs.ToArray());
-
-            var companyCustomFields = DaoFactory.GetCustomFieldDao()
-                                                .GetEnityFields(EntityType.Company, companyIDs.ToArray());
+            var personsCustomFields = DaoFactory.GetCustomFieldDao().GetEnityFields(EntityType.Person, personsIDs.ToArray());
+            var companyCustomFields = DaoFactory.GetCustomFieldDao().GetEnityFields(EntityType.Company, companyIDs.ToArray());
 
             var customFields = personsCustomFields.Union(companyCustomFields)
                                                   .GroupBy(item => item.EntityID).ToDictionary(item => item.Key, item => item.Select(ToCustomFieldBaseWrapper));
@@ -1975,10 +2066,7 @@ namespace ASC.Api.CRM
                         if (item.InfoType == ContactInfoType.Address)
                         {
                             if (!addresses.ContainsKey(item.ContactID))
-                                addresses.Add(item.ContactID, new List<Address>
-                                    {
-                                        new Address(item)
-                                    });
+                                addresses.Add(item.ContactID, new List<Address> { new Address(item) });
                             else
                                 addresses[item.ContactID].Add(new Address(item));
                         }
@@ -1992,6 +2080,7 @@ namespace ASC.Api.CRM
                     }
                 );
 
+
             foreach (var contact in itemList)
             {
                 ContactWrapper contactWrapper;
@@ -2001,7 +2090,7 @@ namespace ASC.Api.CRM
                 {
                     var people = person;
 
-                    var peopleWrapper = new PersonWrapper(people);
+                    var peopleWrapper = PersonWrapper.ToPersonWrapperQuick(people);
 
                     if (people.CompanyID > 0 && peopleCompanyList.ContainsKey(people.CompanyID))
                     {
@@ -2015,7 +2104,7 @@ namespace ASC.Api.CRM
                     var company = contact as Company;
                     if (company != null)
                     {
-                        contactWrapper = new CompanyWrapper(company);
+                        contactWrapper = CompanyWrapper.ToCompanyWrapperQuick(company);
 
                         if (companiesMembersCount.ContainsKey(contactWrapper.ID))
                         {
@@ -2054,12 +2143,31 @@ namespace ASC.Api.CRM
                 result.Add(contactWrapper);
             }
 
+            #region CanDelete for main contacts
+
+            if (result.Count > 0)
+            {
+                var resultListCanDelete = contactDao.CanDelete(result.Select(item => item.ID).ToArray());
+                foreach (var contactBaseWrapperQuick in result)
+                {
+                    contactBaseWrapperQuick.CanDelete = contactBaseWrapperQuick.CanEdit && resultListCanDelete[contactBaseWrapperQuick.ID];
+                }
+            }
+
+            #endregion
+
             return result;
         }
+
 
         private static ContactBaseWrapper ToContactBaseWrapper(Contact contact)
         {
             return contact == null ? null : new ContactBaseWrapper(contact);
+        }
+
+        private static ContactBaseWrapper ToContactBaseWrapperQuick(Contact contact)
+        {
+            return contact == null ? null : ContactBaseWrapper.ToContactBaseWrapperQuick(contact);
         }
 
         private ContactWrapper ToContactWrapper(Contact contact)

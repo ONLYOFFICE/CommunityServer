@@ -56,21 +56,18 @@
       <HintPath>..\..\..\..\..\packages\BasecampRestAPI.1.0.0.0\lib\net35\BasecampRestAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FredCK.FCKeditorV2">
-      <HintPath>..\..\..\..\..\packages\FredCK.FCKeditorV2.2.6.3.19702\lib\net20\FredCK.FCKeditorV2.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="HtmlSanitizationLibrary">
+      <HintPath>..\..\..\..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -81,12 +78,6 @@
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Extensions.Design" />
-    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -105,6 +96,7 @@
     <Content Include="Controls\Common\CommonPopupContainer.ascx" />
     <Content Include="Controls\Projects\ProjectAction.ascx" />
     <Content Include="Controls\Templates\EditTemplate.ascx" />
+    <Content Include="Core\Model\Services\NotifyService\patterns.xml" />
     <Content Include="js\addmilestonecontainer.js" />
     <Content Include="js\common.js" />
   </ItemGroup>
@@ -165,13 +157,6 @@
     </Compile>
     <Compile Include="Controls\Common\NavigationSidePanel.ascx.designer.cs">
       <DependentUpon>NavigationSidePanel.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Dashboard\DashboardEmptyScreen.ascx.cs">
-      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Dashboard\DashboardEmptyScreen.ascx.designer.cs">
-      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Messages\DiscussionAction.ascx.cs">
       <DependentUpon>DiscussionAction.ascx</DependentUpon>
@@ -249,6 +234,104 @@
     </Compile>
     <Compile Include="Controls\Templates\EditTemplate.ascx.designer.cs">
       <DependentUpon>EditTemplate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Dao\BaseDao.cs" />
+    <Compile Include="Core\Dao\CommentDao.cs" />
+    <Compile Include="Core\Dao\DaoFactory.cs" />
+    <Compile Include="Core\Dao\MessageDao.cs" />
+    <Compile Include="Core\Dao\MilestoneDao.cs" />
+    <Compile Include="Core\Dao\ParticipantDao.cs" />
+    <Compile Include="Core\Dao\ProjectDao.cs" />
+    <Compile Include="Core\Dao\ReportDao.cs" />
+    <Compile Include="Core\Dao\SearchDao.cs" />
+    <Compile Include="Core\Dao\SubtaskDao.cs" />
+    <Compile Include="Core\Dao\TagDao.cs" />
+    <Compile Include="Core\Dao\TaskDao.cs" />
+    <Compile Include="Core\Dao\TemplateDao.cs" />
+    <Compile Include="Core\Dao\TimeSpendDao.cs" />
+    <Compile Include="Core\Engine\CachedProjectEngine.cs" />
+    <Compile Include="Core\Engine\CommentEngine.cs" />
+    <Compile Include="Core\Engine\EngineFactory.cs" />
+    <Compile Include="Core\Engine\FileEngine.cs" />
+    <Compile Include="Core\Engine\MessageEngine.cs" />
+    <Compile Include="Core\Engine\MilestoneEngine.cs" />
+    <Compile Include="Core\Engine\ParticipantEngine.cs" />
+    <Compile Include="Core\Engine\ProjectEngine.cs" />
+    <Compile Include="Core\Engine\ProjectEntityEngine.cs" />
+    <Compile Include="Core\Engine\ProjectSecurity.cs" />
+    <Compile Include="Core\Engine\ReportEngine.cs" />
+    <Compile Include="Core\Engine\SearchEngine.cs" />
+    <Compile Include="Core\Engine\SecurityAdapter.cs" />
+    <Compile Include="Core\Engine\SecurityAdapterProvider.cs" />
+    <Compile Include="Core\Engine\SubtaskEngine.cs" />
+    <Compile Include="Core\Engine\TagEngine.cs" />
+    <Compile Include="Core\Engine\TaskEngine.cs" />
+    <Compile Include="Core\Engine\TemplateEngine.cs" />
+    <Compile Include="Core\Engine\TimeTrackingEngine.cs" />
+    <Compile Include="Core\Model\DataInterfaces\ICommentDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\IDaoFactory.cs" />
+    <Compile Include="Core\Model\DataInterfaces\IMessageDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\IMilestoneDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\IParticipantDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\IProjectDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\IReportDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\ISearchDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\ISubtaskDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\ITagDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\ITaskDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\ITemplateDao.cs" />
+    <Compile Include="Core\Model\DataInterfaces\ITimeSpendDao.cs" />
+    <Compile Include="Core\Model\Domain\DomainObject.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Comment.cs" />
+    <Compile Include="Core\Model\Domain\Entities\CommentUpdates.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Enums\EntityTypeEnum.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Enums\LocalizedEnumConverter.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Enums\MilestoneStatusEnum.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Enums\ModuleTypeEnum.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Enums\PaymentStatusEnum.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Enums\ProjectStatusEnum.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Enums\ProjectTeamSecurity.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Enums\TaskLinkTypeEnum.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Enums\TaskPriorityEnum.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Enums\TaskStatusEnum.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Feed\CommentUpdates.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Message.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Milestone.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Participant.cs" />
+    <Compile Include="Core\Model\Domain\Entities\ParticipantFull.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Project.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Subtask.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Task.cs" />
+    <Compile Include="Core\Model\Domain\Entities\TaskLink.cs" />
+    <Compile Include="Core\Model\Domain\Entities\Template.cs" />
+    <Compile Include="Core\Model\Domain\Entities\TimeSpend.cs" />
+    <Compile Include="Core\Model\Domain\EntityList.cs" />
+    <Compile Include="Core\Model\Domain\FilterOperationResult.cs" />
+    <Compile Include="Core\Model\Domain\ProjectEntity.cs" />
+    <Compile Include="Core\Model\Domain\Reports\ReportFilter.cs" />
+    <Compile Include="Core\Model\Domain\Reports\ReportFilterSerializer.cs" />
+    <Compile Include="Core\Model\Domain\Reports\ReportTemplate.cs" />
+    <Compile Include="Core\Model\Domain\Reports\ReportTimeInterval.cs" />
+    <Compile Include="Core\Model\Domain\Reports\ReportType.cs" />
+    <Compile Include="Core\Model\Domain\Reports\ReportViewType.cs" />
+    <Compile Include="Core\Model\Domain\TaskFilter.cs" />
+    <Compile Include="Core\Model\Services\NotifyService\NotifyClient.cs" />
+    <Compile Include="Core\Model\Services\NotifyService\NotifyConstants.cs" />
+    <Compile Include="Core\Model\Services\NotifyService\NotifySource.cs" />
+    <Compile Include="Core\Model\Resources\ProjectsEnumResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectsEnumResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Model\Resources\ProjectsPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectsPatternResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Model\Services\NotifyService\PatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PatternResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -336,6 +419,11 @@
     </Compile>
     <Compile Include="Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Engine\EngineResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EngineResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\ImportResource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -470,7 +558,6 @@
     <Content Include="App_Themes\Default\css\reportsPrint.css" />
     <Content Include="Contacts.aspx" />
     <Content Include="Controls\Common\NavigationSidePanel.ascx" />
-    <Content Include="Controls\Dashboard\DashboardEmptyScreen.ascx" />
     <Content Include="Controls\Messages\DiscussionAction.ascx" />
     <Content Include="Controls\Messages\DiscussionDetails.ascx" />
     <Content Include="Controls\Milestones\MilestoneAction.ascx" />
@@ -568,6 +655,30 @@
     <EmbeddedResource Include="templates\TasksByUsers.html.xsl" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Core\Model\Resources\ProjectsEnumResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectsEnumResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Projects.Core.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Model\Resources\ProjectsPatternResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectsPatternResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Projects.Core.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Model\Services\NotifyService\PatternResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PatternResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Projects.Core.Services.NotifyService</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Engine\EngineResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EngineResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CustomToolNamespace>ASC.Projects.Engine</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ImportResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ImportResource.Designer.cs</LastGenOutput>
@@ -650,25 +761,13 @@
       <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
       <Name>ASC.Data.Storage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
-      <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
-      <Name>ASC.Api.Core</Name>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
+      <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
+      <Name>ASC.FullTextIndex</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
       <Name>ASC.MessagingSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Projects\ASC.Projects.Core\ASC.Projects.Core.csproj">
-      <Project>{98330417-cf62-4624-94dc-271433945e27}</Project>
-      <Name>ASC.Projects.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Projects\ASC.Projects.Data\ASC.Projects.Data.csproj">
-      <Project>{10a65f6e-7c34-4eb7-bb9c-c3cc27d979e8}</Project>
-      <Name>ASC.Projects.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Projects\ASC.Projects.Engine\ASC.Projects.Engine.csproj">
-      <Project>{64c8b39d-5dcd-4eeb-a5dd-bfe7ca24fa6a}</Project>
-      <Name>ASC.Projects.Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
@@ -702,6 +801,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
 </Project>

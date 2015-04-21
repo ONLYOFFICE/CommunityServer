@@ -1540,6 +1540,9 @@ Are you sure want to delete {!group} {0}?</value>
   <data name="SaveButton" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="TestButton" xml:space="preserve">
+    <value>Check the availability</value>
+  </data>
   <data name="SavedTitle" xml:space="preserve">
     <value>Saved</value>
   </data>
@@ -2197,7 +2200,7 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>What is the password strength settings?</value>
   </data>
   <data name="HelpAnswerGreetingSettings" xml:space="preserve">
-    <value>{1}Greeting Settings{2} is a way to change the default portal title and logo to be displayed on the {1}Welcome Page{2} of your portal.{0}Enter the name you like in the {1}Title{2} field. To replace the portal logo click the {1}Change Logo{2} link to the right and select the image stored on your computer to load it to your portal.{0}Please, keep in mind that you can upload an image not larger than {1}250x100 pixels{2}, otherwise resizing will take place. The maximum image size cannot exceed {1}1 MB{2}.</value>
+    <value>{1}Greeting Settings{2} is a way to change the default portal title to be displayed on the {1}Welcome Page{2} of your portal.{0}Enter the name you like in the {1}Title{2} field.</value>
   </data>
   <data name="HelpAnswerSkinSettings" xml:space="preserve">
     <value>{1}Skin Settings{2} is a way to customize the portal appearance.{0}Switch between the available skins to select the color scheme which suits you best.{0}To apply the selected skin use the {1}Save{2} button at the bottom of the section.</value>
@@ -2218,7 +2221,7 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>Delete profile</value>
   </data>
   <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
-    <value>{1}Invitation Link{2} is a way to invite people to join your portal.{0}You can either copy the whole link to clipboard or shorten the link to paste it into the email afterwards and send to the people you wish to invite to your portal so that they could join it.{0}{3}{1}Note:{2} the link is valid for {1}3{2} days.</value>
+    <value>Share the link to invite your colleagues to your portal.</value>
   </data>
   <data name="HelpQuestionLinkInviteSettings" xml:space="preserve">
     <value>What is the invitation link?</value>
@@ -2678,7 +2681,7 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
     <value>Storage space used: {0}</value>
   </data>
   <data name="TariffActiveEmployees" xml:space="preserve">
-    <value>active users</value>
+    <value>users</value>
   </data>
   <data name="TariffCanProlong" xml:space="preserve">
     <value>You can prolong the existing plan or change it using the table below.</value>
@@ -2697,9 +2700,6 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   </data>
   <data name="TariffTrialOverdue" xml:space="preserve">
     <value>Thank you for having checked out Teamlab Office!{2}{0}Free trial period is expired.{1}</value>
-  </data>
-  <data name="TariffDiskSize" xml:space="preserve">
-    <value>{0} of disc space</value>
   </data>
   <data name="TariffEnabledAutorenew" xml:space="preserve">
     <value>Recurring payments are on</value>
@@ -4219,21 +4219,6 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   <data name="BackupTempTeamlab" xml:space="preserve">
     <value>Temporary</value>
   </data>
-  <data name="OnlineEditorsSettings" xml:space="preserve">
-    <value>Online Editors</value>
-  </data>
-  <data name="OnlineEditorsSettingsInfo" xml:space="preserve">
-    <value>The new version of {1}Online Editors{2} contain a lot of changes compared to the previous version. The editors are currently at {1}BETA{1} stage and can be recommended for preview only. {0}Please do not use it if you have important documents on your portals critical to loss of data. We are not liable for all the risks of using beta versions.</value>
-  </data>
-  <data name="OnlineEditors25" xml:space="preserve">
-    <value>Current 2.5 version</value>
-  </data>
-  <data name="OnlineEditors30" xml:space="preserve">
-    <value>New 3.0 beta version</value>
-  </data>
-  <data name="OnlineEditorsSwitch" xml:space="preserve">
-    <value>Select version</value>
-  </data>
   <data name="BackupDownloadByLink" xml:space="preserve">
     <value>Download the backup</value>
   </data>
@@ -4252,53 +4237,35 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
   <data name="Migration" xml:space="preserve">
     <value>Migration</value>
   </data>
-  <data name="FilesBannerBtnCancel" xml:space="preserve">
-    <value>I will wait till the version is stable</value>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Build your CRM database</value>
   </data>
-  <data name="FilesBannerBtnOk" xml:space="preserve">
-    <value>Awesome! I want to be among beta-testers</value>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>Manage clients, track sales and make invoices</value>
   </data>
-  <data name="FilesBannerGoodNews" xml:space="preserve">
-    <value>Good News!</value>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>Work with .docx, .xlsx and .pptx online</value>
   </data>
-  <data name="FilesBannerHeader1" xml:space="preserve">
-    <value>We have released a beta version of new ONLYOFFICE. </value>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>Co-edit your documents with teammates</value>
   </data>
-  <data name="FilesBannerHeader2" xml:space="preserve">
-    <value>What to expect:</value>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>Invite your team members</value>
   </data>
-  <data name="FilesBannerItem1" xml:space="preserve">
-    <value>Modern flat UI design</value>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>Add users via email or import them from other services</value>
   </data>
-  <data name="FilesBannerItem2" xml:space="preserve">
-    <value>Document autosave</value>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>Start your project</value>
   </data>
-  <data name="FilesBannerItem3" xml:space="preserve">
-    <value>3X speed-up</value>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Control tasks and track perfomance with Gantt chart</value>
   </data>
-  <data name="FilesBannerItem4" xml:space="preserve">
-    <value>Workbook search and replace</value>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Here are a few steps to get started:</value>
   </data>
-  <data name="FilesBannerItemMore" xml:space="preserve">
-    <value>...and even more!</value>
-  </data>
-  <data name="FilesBannerNote" xml:space="preserve">
-    <value>if you change your mind later, just switch the version in Portal Settings (upper right corner)</value>
-  </data>
-  <data name="FilesBannerNotePersonal" xml:space="preserve">
-    <value>If you change your mind later just open the menu in the upper right corner and switch the version.</value>
-  </data>
-  <data name="FilesBannerText" xml:space="preserve">
-    <value>You can try the new version before it's officially released! How does it feel?</value>
-  </data>
-  <data name="Note" xml:space="preserve">
-    <value>Note</value>
-  </data>
-  <data name="ShowingTipsSettingMsg" xml:space="preserve">
-    <value>Включение и отключение всплывающих подсказок</value>
-  </data>
-  <data name="TariffsCurrencyRu" xml:space="preserve">
-    <value>Для вашего удобства при оплате в рублях расчет происходит по фиксированному курсу {0} рублей за 1 доллар.</value>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Welcome to ONLYOFFICE, {0}!</value>
   </data>
   <data name="BackupMakeWithMail" xml:space="preserve">
     <value>Make backup with mail</value>
@@ -4307,5 +4274,102 @@ To subscribe/unsubscribe from certain notifications click the {1}Subscribe/Unsub
     <value>If you delete any items from the list, their corresponding files will also be
 deleted. This action cannot be undone. To delete all the files use the link: {0}
 Clear the list{1}.</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Включение и отключение всплывающих подсказок</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>Для вашего удобства при оплате в рублях расчет происходит по фиксированному курсу {0} рублей за 1 доллар.</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>{1}Logo Settings{2} is a way to change the default logo to be displayed on the {1}Welcome Page{2} of your portal.{0} To replace the portal logo click the {1}Change Logo{2} link to the right and select the image stored on your computer to load it to your portal.{0}Please, keep in mind that you can upload an image not larger than {1}250x100 pixels{2}, otherwise resizing will take place. The maximum image size cannot exceed {1}1 MB{2}.</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Отключить</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Включить</value>
+  </data>
+  <data name="AutoBackupText" xml:space="preserve">
+    <value>Используйте эту опцию для автоматического создания резервных копий данных, содержащихся на портале.</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Автоматическое резервное копирование данных</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>Опция {0}Автоматическое резервное копирование данных{1} используется для автоматизации процесса создания резервных копий данных для последующего их восстановления на локальном сервере или SaaS-портале. Выберите хранилище для данных, период автоматического сохранения и максимальное число хранимых копий.{2}{0}Обратите внимание:{1} прежде чем Вы сможете сохранять резервные копии в стороннем аккаунте (DropBox, Box.com, OneDrive или Google Drive), потребуется подключить его к модулю Документы ONLYOFFICE.</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Document Service</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>Document Service Location</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>Document service location specifies the address of the server with the document services installed. Please change the '&amp;lt;editors-dns-name&amp;gt;' for the server address in the below lines leaving the rest ofthe line exactly as it is.</value>
+  </data>
+  <data name="DocServiceUrlHelp" xml:space="preserve">
+    <value>{1}Document Service{2} is the server service whichallows to perform the document viewing and editing.{0}{1}Command Service{2} is the server service used tonotify about the events when the document editing is being done.{0}{1}Storage Service{2} is the server service which isused to get the external link to the opened document.{0}{1}Storage Service{2} is the server service which allowsto convert the document file into the appropriate OfficeOpen XML format.</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>Document editing service Address</value>
+  </data>
+  <data name="DocServiceUrlConverter" xml:space="preserve">
+    <value>Document conversion service Address</value>
+  </data>
+  <data name="DocServiceUrlStorage" xml:space="preserve">
+    <value>Document storage service Address</value>
+  </data>
+  <data name="DocServiceUrlCommand" xml:space="preserve">
+    <value>Document command service Address</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>Example: {0}</value>
+  </data>
+  <data name="ProductCRMAndVoIP" xml:space="preserve">
+    <value>CRM + VoIP</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
+    <value>Password recovery operation is prohibited for an LDAP user</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>Первым необходимо указать IP или диапазон IP-адресов, в который входит ваш текущий IP, иначе после сохранения Вам будет
+заблокирован доступ к порталу.</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>Emails from this domain are not allowed for registration</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>Почта успешно изменена</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>Get shorten link</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Invite users to portal</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>Bad request</value>
+  </data>
+  <data name="FullTextSearchSettings" xml:space="preserve">
+    <value>Sphinx Settings</value>
+  </data>
+  <data name="FullTextSearchSettingsHelp" xml:space="preserve">
+    <value>Для работы полнотекстового поиска на сервере должен быть установлен sphinx.2.2.8.</value>
+  </data>
+  <data name="FullTextSearchSettingsText" xml:space="preserve">
+    <value>Настройки для работы со sphinx, запуска индексатора и поискового демона. Необходимо указать хост и порт, который прослушивает поисковый демон searchd. Эти настройки должны совпадать с конфигурацией sphinx, прописанной в файле sphinx.conf.in в разделе searchd.  </value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>Сервис полнотекстового поиска не запущен</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>Сервис полнотекстового поиска запущен</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="TitleGoogle" xml:space="preserve">
+    <value>Google</value>
   </data>
 </root>

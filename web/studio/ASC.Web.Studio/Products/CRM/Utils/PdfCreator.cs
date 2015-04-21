@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using ASC.CRM.Core.Entities;
 using ASC.Web.Core.Files;
@@ -40,6 +38,7 @@ using System.Text;
 using System.Web;
 using System.Web.Configuration;
 using System.Xml;
+using ASC.Web.CRM.Resources;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -68,7 +67,7 @@ namespace ASC.Web.CRM.Classes
                 var invoice = Global.DaoFactory.GetInvoiceDao().GetByID(invoiceId);
                 if (invoice == null)
                 {
-                    throw new Exception("Invoice not found " + invoiceId);
+                    throw new Exception(CRMErrorsResource.InvoiceNotFound + ". Invoice ID = " + invoiceId);
                 }
 
                 log.DebugFormat("PdfCreator. CreateAndSaveFile. Invoice ID = {0}. Convertation", invoiceId);
@@ -99,7 +98,7 @@ namespace ASC.Web.CRM.Classes
 
                 if (file == null)
                 {
-                    throw new Exception("file is null");
+                    throw new Exception(CRMErrorsResource.FileCreateError);
                 }
 
                 invoice.FileID = Int32.Parse(file.ID.ToString());
@@ -139,23 +138,11 @@ namespace ASC.Web.CRM.Classes
             var documentService = new DocumentService(StudioKeySettings.GetKey(), StudioKeySettings.GetSKey(), TenantStatisticsProvider.GetUsersCount());
             var revisionId = DocumentService.GenerateRevisionId(Guid.NewGuid().ToString());
 
-            var crmStorageUrl = WebConfigurationManager.AppSettings["crm.invoice.url.storage"];
-            if (string.IsNullOrEmpty(crmStorageUrl))
-            {
-                crmStorageUrl = FilesLinkUtility.DocServiceStorageUrl;
-            }
-
-            var crmConverterUrl = WebConfigurationManager.AppSettings["crm.invoice.url.converter"];
-            if (string.IsNullOrEmpty(crmConverterUrl))
-            {
-                crmConverterUrl = FilesLinkUtility.DocServiceConverterUrl;
-            }
-
-            var externalUri = documentService.GetExternalUri(crmStorageUrl, docxStream, "text/plain", revisionId);
+            var externalUri = documentService.GetExternalUri(FilesLinkUtility.DocServiceStorageUrl, docxStream, "text/plain", revisionId);
             log4net.LogManager.GetLogger("ASC.CRM").DebugFormat("PdfCreator. GetUrlToFile. externalUri = {0}", externalUri);
 
             string urlToFile;
-            documentService.GetConvertedUri(crmConverterUrl, externalUri, FormatDocx, FormatPdf, revisionId, false, out urlToFile);
+            documentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, externalUri, FormatDocx, FormatPdf, revisionId, false, out urlToFile);
 
             log4net.LogManager.GetLogger("ASC.CRM").DebugFormat("PdfCreator. GetUrlToFile. urlToFile = {0}", urlToFile);
             return urlToFile;
@@ -168,26 +155,14 @@ namespace ASC.Web.CRM.Classes
                 var documentService = new DocumentService(StudioKeySettings.GetKey(), StudioKeySettings.GetSKey(), TenantStatisticsProvider.GetUsersCount());
                 var revisionId = DocumentService.GenerateRevisionId(Guid.NewGuid().ToString());
 
-                var crmStorageUrl = WebConfigurationManager.AppSettings["crm.invoice.url.storage"];
-                if (string.IsNullOrEmpty(crmStorageUrl))
-                {
-                    crmStorageUrl = FilesLinkUtility.DocServiceStorageUrl;
-                }
-
-                var crmConverterUrl = WebConfigurationManager.AppSettings["crm.invoice.url.converter"];
-                if (string.IsNullOrEmpty(crmConverterUrl))
-                {
-                    crmConverterUrl = FilesLinkUtility.DocServiceConverterUrl;
-                }
-
-                var externalUri = documentService.GetExternalUri(crmStorageUrl, docxStream, "text/plain", revisionId);
+                var externalUri = documentService.GetExternalUri(FilesLinkUtility.DocServiceStorageUrl, docxStream, "text/plain", revisionId);
 
                 string urlToFile;
-                documentService.GetConvertedUri(crmConverterUrl, externalUri, FormatDocx, FormatPdf, revisionId, true, out urlToFile);
+                documentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, externalUri, FormatDocx, FormatPdf, revisionId, true, out urlToFile);
 
                 return new ConverterData
                     {
-                        ConverterUrl = crmConverterUrl,
+                        ConverterUrl = FilesLinkUtility.DocServiceConverterUrl,
                         StorageUrl = externalUri,
                         RevisionId = revisionId,
                         InvoiceId = data.ID,

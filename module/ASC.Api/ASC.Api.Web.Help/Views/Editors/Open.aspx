@@ -15,7 +15,7 @@
 	<h1>
 	    <span class="hdr">Opening File</span>
 	</h1>
-    <p class="dscr">The reference figure and the steps below explain the process of opening the document in Teamlab Editors.</p>
+    <p class="dscr">The reference figure and the steps below explain the process of opening the document in ONLYOFFICE™ Document Server.</p>
     <img alt="Opening File" src="<%= Url.Content("~/content/img/opening.jpg") %>" />
 	<p>1. The user uses the <b>document manager</b> (found in his/her browser) to open the document for viewing or editing.</p>
     <div class="note">The browser <b>document manager</b> receives the list of all documents available to the user from the <b>document storage service</b>.</div>

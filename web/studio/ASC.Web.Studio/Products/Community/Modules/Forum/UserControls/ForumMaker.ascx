@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Forum" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ForumMaker.ascx.cs" Inherits="ASC.Web.Community.Forum.ForumMaker" %>
 

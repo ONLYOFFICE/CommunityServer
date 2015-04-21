@@ -10,6 +10,20 @@
         <%=Html.MenuActionLink("Basic concepts", "basic", "editors", "selected")%>
     </li>
     <li>
+        <%= Html.ActionLink("Demo preview", "demopreview", "editors") %>
+        <ul class="treeview">
+            <li>
+                <%= Html.ActionLink("Document editor", "demopreview", "editors", null, null, "text", null, new { id = "textDemo" }) %>
+            </li>
+            <li>
+                <%= Html.ActionLink("Spreadsheet editor", "demopreview", "editors", null, null, "spreadsheet", null, new { id = "spreadsheetDemo" }) %>
+            </li>
+            <li>
+                <%= Html.ActionLink("Presentation editor", "demopreview", "editors", null, null, "presentation", null, new { id = "presentationDemo" }) %>
+            </li>
+        </ul>
+    </li>
+    <li>
         <%=Html.MenuActionLink("How It Works", "howitworks", "editors", "selected")%>
         <ul class="treeview">
             <li>
@@ -56,3 +70,5 @@
         </ul>
     </li>
 </ul>
+
+<a class="forum" href="http://dev.onlyoffice.org/" target="_blank">Forum</a>

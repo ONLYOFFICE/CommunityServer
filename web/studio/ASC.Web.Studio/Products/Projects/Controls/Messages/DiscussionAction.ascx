@@ -1,11 +1,8 @@
-﻿<%@ Assembly Name="ASC.Projects.Core" %>
-<%@ Assembly Name="ASC.Web.Core" %>
+﻿<%@ Assembly Name="ASC.Web.Core" %>
 <%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DiscussionAction.ascx.cs"     Inherits="ASC.Web.Projects.Controls.Messages.DiscussionAction" %>
-<%@ Import Namespace="ASC.Core" %>
+
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
-<%@ Import Namespace="ASC.Web.Projects.Classes" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 <div id="discussionActionPage">
     <div id="pageHeader">

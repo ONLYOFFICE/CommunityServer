@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Import Namespace="ASC.Web.CRM.Classes" %>
-<%@ Import Namespace="ASC.Web.CRM.Configuration" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 

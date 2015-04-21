@@ -309,4 +309,7 @@
   <data name="DomainWizardWaitDNSrefrashInfo" xml:space="preserve">
     <value>Please note: DNS record update can take from several minutes to several hours. Please wait some time, if you changed the record not long ago.</value>
   </data>
+  <data name="SharedDomainNotificationText" xml:space="preserve">
+    <value>You can not create mailbox aliases for shared domain</value>
+  </data>
 </root>

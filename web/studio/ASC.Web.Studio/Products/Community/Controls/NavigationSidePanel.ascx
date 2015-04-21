@@ -1,9 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Assembly Name="ASC.Core.Common" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NavigationSidePanel.ascx.cs" Inherits="ASC.Web.Community.Controls.NavigationSidePanel" %>
-<%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="ASC.Web.Community.Resources" %>
-<%@ Import Namespace="Resources" %>
 
 
 <div class="page-menu">
@@ -261,7 +259,8 @@
                 </li>
             <%} %>
 
-            <% if (IsAdmin) %>
+            <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
+            <% if (IsAdmin && (IsForumsAvailable || IsFullAdministrator)) %>
             <% { %>
             <li id="menuSettings" class="menu-item add-block sub-list<%if(IsInSettings){%> currentCategory<%}%>">
                 <div class="category-wrapper">
@@ -280,11 +279,14 @@
                         </a>
                     </li>
                     <% } %>
+                    <% if (IsFullAdministrator) %>
+                    <% { %>
                     <li id="menuAccessRights" class="menu-sub-item">
                         <a class="menu-item-label outer-text text-overflow" href="<%=VirtualPathUtility.ToAbsolute("~/management.aspx")+ "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights +"#community"%>">
                             <%= CommunityResource.AccessRightsSettings%>
                         </a>
                     </li>
+                    <% } %>
                 </ul>
             </li>
             <% } %>

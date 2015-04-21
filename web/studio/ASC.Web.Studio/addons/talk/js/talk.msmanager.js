@@ -271,7 +271,6 @@ window.ASC.TMTalk.msManager = (function () {
           jid   : jid,
           list  : list.name
         });
-        storeMailingLists();
         eventManager.call(customEvents.addContact, window, [list.id, jid]);
       }
     }
@@ -288,7 +287,7 @@ window.ASC.TMTalk.msManager = (function () {
       while (contactsInd--) {
         if (contacts[contactsInd].jid === jid) {
           contacts.splice(contactsInd, 1);
-          storeMailingLists();
+
           eventManager.call(customEvents.removeContact, window, [list.id, jid]);
           break;
         }
@@ -364,6 +363,8 @@ window.ASC.TMTalk.msManager = (function () {
 
     addContact    : addContact,
     removeContact : removeContact,
+
+    storeMailingLists : storeMailingLists,
 
     sendMessage : sendMessage,
 

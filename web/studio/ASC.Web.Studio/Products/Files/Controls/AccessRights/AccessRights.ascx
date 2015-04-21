@@ -44,7 +44,11 @@
         </div>
         <div id="sharingLinkDeny" class="describe-text"><%= FilesUCResource.ShareLinkDeny %></div>
         <div id="shareLinkPanel">
-            <%= FilesUCResource.Link %>
+            <span id="shareLinkCopy" class="baseLinkAction text-medium-describe"><%= FilesUCResource.CopyToClipboard %></span>
+             <% if (!String.IsNullOrEmpty(ASC.Common.Utils.LinkShorterUtil.BitlyUrl)) { %>
+            <span id="getShortenLink" class="baseLinkAction text-medium-describe"><%= FilesUCResource.GetShortenLink %></span>
+            <% } %>
+
             <div id="sharingAcePanel">
                 <label>
                     <input type="radio" class="link-share-opt" name="linkShareOpt" value="<%= (int) FileShare.Read %>" checked="checked"><%= FilesUCResource.AceStatusEnum_Read %>
@@ -54,15 +58,8 @@
                 </label>
             </div>
             <textarea id="shareLink" class="textEdit" cols="10" rows="2" readonly="readonly"></textarea>
-            <a id="shareLinkCopy" class="button middle gray"><span><%= FilesUCResource.CopyToClipboard %></span></a>
-            <% if (!string.IsNullOrEmpty(Global.BitlyUrl))
-               { %>
-            <span id="getShortenLink" class="baseLinkAction text-medium-describe"><%= FilesUCResource.GetShortenLink %></span>
-            <% } %>
-            <br />
-            <br />
 
-            <%= FilesUCResource.ShareLink %>
+            <br />
             <ul id="shareViaSocPanel" class="clearFix">
                 <li><a class="google" target="_blank" title="<%= FilesUCResource.ButtonViaGoogle %>"></a></li>
                 <li><a class="facebook" target="_blank" title="<%= FilesUCResource.ButtonViaFacebook %>"></a></li>

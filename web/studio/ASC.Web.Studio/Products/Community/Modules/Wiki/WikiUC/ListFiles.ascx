@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Wiki" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ListFiles.ascx.cs" Inherits="ASC.Web.UserControls.Wiki.UC.ListFiles" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki.Data" %>
 <div class="wikiList">

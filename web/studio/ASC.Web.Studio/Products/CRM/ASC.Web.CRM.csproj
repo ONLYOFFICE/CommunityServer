@@ -49,27 +49,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\..\..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Facebook">
-      <HintPath>..\..\..\..\..\packages\Facebook.5.0.26.0\lib\net40-client\Facebook.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\..\..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="LinkedIn">
-      <HintPath>..\..\..\..\..\packages\LinkedIn.1.0.0.1\lib\net45\LinkedIn.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="LumenWorks.Framework.IO">
@@ -79,38 +67,22 @@
       <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\..\..\..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Runtime.Serialization">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Twilio.Api">
-      <HintPath>..\..\..\..\..\packages\Twilio.3.6.11\lib\3.5\Twilio.Api.dll</HintPath>
-    </Reference>
     <Reference Include="Twitterizer2">
       <HintPath>..\..\..\..\..\packages\twitterizer.2.4.0.22461\lib\net45\Twitterizer2.dll</HintPath>
     </Reference>
@@ -142,13 +114,6 @@
     </Compile>
     <Compile Include="Controls\Cases\CasesFullCardView.ascx.designer.cs">
       <DependentUpon>CasesFullCardView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Common\DashboardEmptyScreen.ascx.cs">
-      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Common\DashboardEmptyScreen.ascx.designer.cs">
-      <DependentUpon>DashboardEmptyScreen.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Common\ListBaseView.ascx.cs">
       <DependentUpon>ListBaseView.ascx</DependentUpon>
@@ -372,6 +337,11 @@
     <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
     <Compile Include="Masters\ClientScripts\ControlsResources.cs" />
     <Compile Include="Masters\ClientScripts\CRMSettingsResources.cs" />
+    <Compile Include="Resources\CRMErrorsResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRMErrorsResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\CRMVoipResource.Designer.cs">
       <DependentUpon>CRMVoipResource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -705,6 +675,7 @@
     <Content Include="Controls\Settings\VoipSettings\VoipCalls.ascx" />
     <Content Include="js\voip.common.js" />
     <Content Include="js\voip.numbers.js" />
+    <Content Include="js\fileUploader.js" />
     <Content Include="js\voip.calls.js" />
     <Content Include="js\voip.quick.js" />
     <Content Include="Controls\Settings\VoipSettings\VoipQuick.ascx" />
@@ -717,6 +688,10 @@
     <Content Include="js\sender.js" />
     <Content Include="js\settings.invoices.js" />
     <Content Include="Masters\BasicTemplate.Master" />
+    <EmbeddedResource Include="Resources\CRMErrorsResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CRMErrorsResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\CRMVoipResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CRMVoipResource.Designer.cs</LastGenOutput>
@@ -877,7 +852,6 @@
     <Content Include="App_Themes\Default\images\tr_on.png" />
     <Content Include="App_Themes\Default\images\web_to_leads.png" />
     <Content Include="Controls\Cases\CasesFullCardView.ascx" />
-    <Content Include="Controls\Common\DashboardEmptyScreen.ascx" />
     <Content Include="Controls\Common\NavigationSidePanel.ascx" />
     <Content Include="Controls\Contacts\ContactFullCardView.ascx" />
     <Content Include="Controls\Contacts\ListContactView.ascx" />
@@ -894,7 +868,6 @@
     <Content Include="js\common.js" />
     <Content Include="js\contacts.js" />
     <Content Include="js\deals.js" />
-    <Content Include="js\fileUploader.js" />
     <Content Include="js\reports.js" />
     <Content Include="js\settings.js" />
     <Content Include="js\socialmedia.js" />
@@ -976,10 +949,9 @@
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
       <Name>ASC.Api.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
+    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
       <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
       <Name>ASC.FullTextIndex</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
@@ -1039,6 +1011,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
 </Project>

@@ -16,11 +16,13 @@
                 <span class="create_new_mailbox addUserLink">
                     <a class="gray link dotline"><%= MailAdministrationResource.AddMailboxLabel %></a>
                 </span>
-                <span class="create_new_mailgroup addUserLink" {{if mailboxes.length == 0 && mailgroups.length == 0}} style="display: none" {{/if}}>
-                    <a class="gray link dotline">
-                        <%= MailAdministrationResource.AddMailgroupLabel %>
-                    </a>
-                </span>
+                {{if !domain.isSharedDomain }}
+                    <span class="create_new_mailgroup addUserLink" {{if mailboxes.length == 0 && mailgroups.length == 0}} style="display: none" {{/if}}>
+                        <a class="gray link dotline">
+                            <%= MailAdministrationResource.AddMailgroupLabel %>
+                        </a>
+                    </span>
+                {{/if}}
             </div>
             {{tmpl(mailgroups) "groupTableTmpl"}}
             <div class="group_table_container free_mailboxes">
@@ -52,21 +54,32 @@
             <tr>
                 <td class="name_column"> 
                     <span class="name bold">${name}</span>
-                </td>
-                <td class="menu_column">
-                    <div class="menu" title="Actions" data_id="${id}"></div>
-                </td>
-                <td class="verify_dns_column">
-                    <div class = "verify_dns {{if dns.isVerified == true}} hidden {{/if}}">
-                        <span class="text">
-                            ${"<%: MailAdministrationResource.UnverifiedDomainRecordExplain %>".replace('%1', name)}
-                        </span>
-                        <a id="dns_settings_button" class="link dotline" href="#" onclick="return false;" data_id="${id}">
-                            <%: MailAdministrationResource.DNSSettingsLabel %>
-                        </a>
+                    {{if isSharedDomain }}
+                    <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'DomainHelperBlock'});" style="margin-bottom: -2px"></span>
+                    <div class="popup_helper" id="DomainHelperBlock">
+                        <p><%=MailResource.DomainHelperInformationText_1%></p>
+                        <p><%=MailResource.DomainHelperInformationText_2%></p>
+                        <div class="cornerHelpBlock pos_top"></div>
                     </div>
-            </td>
+                    {{/if}}
+                </td>
+                {{if !isSharedDomain }}
+                    <td class="menu_column">
+                        <div class="menu" title="Actions" data_id="${id}"></div>
+                    </td>
+                    <td class="verify_dns_column">
+                        <div class = "verify_dns {{if dns.isVerified == true}} hidden {{/if}}">
+                            <span class="text">
+                                ${"<%: MailAdministrationResource.UnverifiedDomainRecordExplain %>".replace('%1', name)}
+                            </span>
+                            <a id="dns_settings_button" class="link dotline" href="#" onclick="return false;" data_id="${id}">
+                                <%: MailAdministrationResource.DNSSettingsLabel %>
+                            </a>
+                        </div>
+                    </td>
+                {{/if}}
             </tr>
         </table>
+
     </div>
 </script>

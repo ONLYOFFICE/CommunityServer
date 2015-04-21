@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 ; if (typeof (ASC) === 'undefined')
     ASC = {};
@@ -231,14 +229,29 @@ ASC.People.PeopleController = (function() {
         for (var i = 0, n = _selectedItems.length; i < n; i++) {
             selectedIDs.push(_selectedItems[i].id);
         }
-
+        
+        var existsGroupManager = false;
+        var filteredByGroup = jq.getAnchorParam('group', ASC.Controls.AnchorController.getAnchor());
         for (var i = 0, n = data.length; i < n; i++) {
             var index = jq.inArray(data[i].id, selectedIDs);
             data[i].isChecked = index != -1;
+            data[i].isGroupManager = data[i].groups.some(function (group) {
+                if (filteredByGroup) {
+                    return filteredByGroup == group.id && group.manager == data[i].userName;
+                }
+
+                return group.manager == data[i].userName;
+            });
+            
+            existsGroupManager = existsGroupManager || data[i].isGroupManager;
         }
+
+        if (filteredByGroup && existsGroupManager)
+            data = data.sort(function(item) { return (-1) * item.isGroupManager; });
+
         _peopleList = data;
 
-        var $o = jq.tmpl("userListTemplate", { users: data, isAdmin: jq.profile.isAdmin });
+        var $o = jq.tmpl("userListTemplate", { users: data, isAdmin: Teamlab.profile.isAdmin });
         jq("#peopleData tbody").empty().append($o);
         bindEvents(jq($o));
         jq(window).trigger('people-render-profiles', [params, data]);
@@ -309,7 +322,7 @@ ASC.People.PeopleController = (function() {
     function onAnchChange() {
         var newAnchor = ASC.Controls.AnchorController.getAnchor();
 
-        //console.log("onAnchChange", currentAnchor, newAnchor)
+        //console.log("onAnchChange", currentAnchor, newAnchor);
         if (currentAnchor === newAnchor) {
             return undefined;
         } else {
@@ -320,8 +333,30 @@ ASC.People.PeopleController = (function() {
                     newAnchorObj["sortorder"] = currentAnchorObj["sortorder"];
                 } else {
                     newAnchorObj["sortorder"] = "ascending";
-                    if (currentAnchorObj == null && Teamlab.profile.isAdmin)
-                        newAnchorObj["status"] = "active";
+                    if (currentAnchorObj == null && Teamlab.profile.isAdmin) {
+                        //check if active users exist
+                        var needActiveFilterAsDefault = false;
+                        if (typeof (ASC) !== "undefined" &&
+                            ASC.hasOwnProperty("Resources") &&
+                            ASC.Resources.hasOwnProperty("Master") &&
+                            ASC.Resources.Master.hasOwnProperty("ApiResponses_Profiles") &&
+                            ASC.Resources.Master.ApiResponses_Profiles.hasOwnProperty("response") &&
+                            ASC.Resources.Master.ApiResponses_Profiles.response.length != 0) {
+                            var users = ASC.Resources.Master.ApiResponses_Profiles.response;
+                            for (var i = 0, n = users.length; i < n; i++) {
+                                if (users[i].isActivated === true && users[i].isOwner === false) {
+                                    needActiveFilterAsDefault = true;
+                                    break;
+                                }
+                            }
+                        } else {
+                            needActiveFilterAsDefault = true;
+                        }
+
+                        if (needActiveFilterAsDefault) {
+                            newAnchorObj["status"] = "active";
+                        }
+                    }
                 }
             }
 
@@ -429,10 +464,12 @@ ASC.People.PeopleController = (function() {
                 PasswordTool.ShowPwdReminderDialog("1", email);
             }
             else if (jq(this).hasClass("change-email")) {
-                EmailOperationManager.ShowEmailChangeWindow(email, personId, Teamlab.profile.isAdmin);
+                EmailOperationManager.ShowEmailChangeWindow(email, personId);
             }
             else if (jq(this).hasClass("email-activation")) {
-                EmailOperationManager.ShowEmailActivationWindow(email, personId, true);
+                EmailOperationManager.SendEmailActivationInstructions(email, personId, function (response) {
+                    $person.attr("data-email", response.request.args.email);
+                });
             }
             else if (jq(this).hasClass("block-profile")) {
                 changeUserStatusAction(personId, 2, isVisitor);
@@ -487,6 +524,7 @@ ASC.People.PeopleController = (function() {
    
     
     var init = function () {
+        
         if (isInit !== false) {
             return undefined;
         }
@@ -536,7 +574,7 @@ ASC.People.PeopleController = (function() {
 
     var setFilter = function (evt, $container, filter, filterparams, filters) {
         window.peoplePageNavigator.CurrentPageNumber = 1;
-        
+
         deselectAll();
         var 
             oldAnchor = ASC.Controls.AnchorController.getAnchor(),
@@ -574,7 +612,6 @@ ASC.People.PeopleController = (function() {
     };
 
     function searchQuery() {
-      //  console.log("searchQuery");
         var cookieCount = jq.cookies.get("countOfProfilesList");
         if (cookieCount) {
             window.peoplePageNavigator.EntryCountOnPage = cookieCount.key;
@@ -605,7 +642,7 @@ ASC.People.PeopleController = (function() {
             sortorder: sortorder,
             status: status
         });
-        
+
         Teamlab.getProfilesByFilter(params, {
             filter: filter,
             before: function () {
@@ -1552,6 +1589,7 @@ ASC.People.PeopleController = (function() {
             maxfilters: -1,
             anykey: false,
             store: false,
+            hintDefaultDisable: true,
             sorters:
             [
                 { id: "by-name", title: ASC.People.Resources.PeopleJSResource.LblByName, dsc: false, def: true }

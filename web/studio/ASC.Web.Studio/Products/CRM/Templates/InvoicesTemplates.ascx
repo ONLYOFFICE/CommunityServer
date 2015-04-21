@@ -2,9 +2,7 @@
 <%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Classes" %>
-<%@ Import Namespace="ASC.Web.CRM.Configuration" %>
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
 <%--Invoice List--%>
@@ -89,6 +87,7 @@
     <div id="invoiceActionMenu" class="studio-action-panel">
         <ul class="dropdown-content">
             <li><a class="showProfileLink dropdown-item"><%= CRMInvoiceResource.ShowInvoiceProfile %></a></li>
+            <li><a class="showProfileLinkNewTab dropdown-item"><%= CRMInvoiceResource.ShowInvoiceProfileNewTab %></a></li>
             <% if (Global.CanDownloadInvoices) { %>
             <li><a class="downloadLink dropdown-item"><%= CRMInvoiceResource.Download %></a></li>
             <% } %>

@@ -162,4 +162,7 @@
   <data name="ErrorDuplicateGroup" xml:space="preserve">
     <value>You want to create mailgroup with already existing address.</value>
   </data>
+  <data name="InvalidOpearationForSharedDomain" xml:space="preserve">
+    <value>Invalid opearation for shared domain</value>
+  </data>
 </root>

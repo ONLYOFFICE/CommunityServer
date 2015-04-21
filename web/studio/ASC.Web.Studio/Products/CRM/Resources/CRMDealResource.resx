@@ -450,4 +450,7 @@
   <data name="DealAccessRightsLimit" xml:space="preserve">
     <value>Права будут установлены только на те сделки, для которых вы являетесь автором</value>
   </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Открыть в новой вкладке</value>
+  </data>
 </root>

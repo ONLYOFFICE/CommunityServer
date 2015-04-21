@@ -3,11 +3,11 @@
 
   <!--New Post in Forum Topic-->
   <pattern id="new post in topic" sender="email.sender">
-    <subject resource="|subject_PostInTopicEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community.Forum" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_PostInTopicEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community.Forum" />
+    <subject resource="|subject_PostInTopicEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_PostInTopicEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community" />
   </pattern>
   <pattern id="new post in topic" sender="messanger.sender">
-    <subject resource="|subject_PostInTopicEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community.Forum" />
+    <subject resource="|subject_PostInTopicEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
 
 $PostText
@@ -24,11 +24,11 @@ $PostURL
 
   <!--New Topic in Forums-->
   <pattern id="new topic in forum" sender="email.sender">
-    <subject resource="|subject_TopicInForumEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community.Forum" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_TopicInForumEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community.Forum" />
+    <subject resource="|subject_TopicInForumEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_TopicInForumEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community" />
   </pattern>
   <pattern id="new topic in forum" sender="messanger.sender">
-    <subject resource="|subject_TopicInForumEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community.Forum" />
+    <subject resource="|subject_TopicInForumEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
 
 $PostText

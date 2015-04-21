@@ -6,7 +6,6 @@
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Assembly Name="ASC.Web.Core" %>
-<%@ Import Namespace="ASC.CRM.Core" %>
 
 
 <div id="invoiceItemsFilterContainer">

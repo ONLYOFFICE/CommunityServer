@@ -167,7 +167,7 @@
                     <p>
                         <%=string.Format(Resource.NoteForInviteCollaborator, "<b>","</b>")%>
                          <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
-                            { %>}
+                            { %>
                         <a href="<%= CommonLinkUtility.GetHelpLink(true) %>" target="_blank">
                             <%= Resource.LearnMore %></a>
                         <% } %>
@@ -177,9 +177,9 @@
 
             <div id="inviteLinkPanel" class="inputBox">
                 <a id="inviteLinkCopy" class="invite-copy-link link dotline small gray"><span><%= Resource.CopyToClipboard %></span></a>
-                <input id="inviteUserLink" type="text" <% if (!MobileDetector.IsMobile) { %> readonly="readonly" <%} %> class="textEdit" value="<%= EnableInviteLink ? InviteLink.GenerateLink(EmployeeType.User): InviteLink.GenerateLink(EmployeeType.Visitor) %>"
-                    <% if (EnableInviteLink) { %> data-invite-user-link="<%=InviteLink.GenerateLink(EmployeeType.User)%>"
-                    data-invite-visitor-link="<%=InviteLink.GenerateLink(EmployeeType.Visitor) %>"
+                <input id="inviteUserLink" type="text" <% if (!MobileDetector.IsMobile) { %> readonly="readonly" <%} %> class="textEdit" value="<%= EnableInviteLink ? InvitePanel.GenerateLink(EmployeeType.User): InvitePanel.GenerateLink(EmployeeType.Visitor) %>"
+                    <% if (EnableInviteLink) { %> data-invite-user-link="<%=InvitePanel.GenerateLink(EmployeeType.User)%>"
+                    data-invite-visitor-link="<%=InvitePanel.GenerateLink(EmployeeType.Visitor) %>"
                     <%} %> />
             </div>
         </div>

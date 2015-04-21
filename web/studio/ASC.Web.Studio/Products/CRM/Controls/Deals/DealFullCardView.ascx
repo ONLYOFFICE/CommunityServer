@@ -88,7 +88,7 @@
             <col/>
         </colgroup>
         <tbody>
-            <tr class="headerToggleBlock">
+            <tr class="headerToggleBlock" data-toggleId="-1">
                 <td colspan="3" style="white-space:nowrap;">
                     <span class="headerToggle header-base"><%= CRMDealResource.DescriptionDeal %></span>
                     <span class="openBlockLink"><%= CRMCommonResource.Show %></span>
@@ -111,7 +111,7 @@
             <col/>
         </colgroup>
         <tbody>
-            <tr class="headerToggleBlock open">
+            <tr class="headerToggleBlock" data-toggleId="-2">
                 <td colspan="3" style="white-space:nowrap;">
                     <span class="headerToggle header-base"><%= CRMCommonResource.History %></span>
                     <span class="openBlockLink"><%= CRMCommonResource.Show %></span>

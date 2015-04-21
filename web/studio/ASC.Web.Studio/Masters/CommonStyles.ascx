@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Core.Client.Bundling.ResourceBundleControl" %>
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 

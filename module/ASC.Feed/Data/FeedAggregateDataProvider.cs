@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -73,7 +71,6 @@ namespace ASC.Feed.Data
                 SaveFeedsPortion(feedsPortion, aggregatedDate);
                 feedsPortion.Clear();
             }
-
             if (feedsPortion.Any())
             {
                 SaveFeedsPortion(feedsPortion, aggregatedDate);
@@ -95,8 +92,10 @@ namespace ASC.Feed.Data
                         .InColumnValue("product", f.ProductId)
                         .InColumnValue("module", f.ModuleId)
                         .InColumnValue("author", f.AuthorId)
+                        .InColumnValue("modified_by", f.ModifiedById)
                         .InColumnValue("group_id", f.GroupId)
                         .InColumnValue("created_date", f.CreatedDate)
+                        .InColumnValue("modified_date", f.ModifiedDate)
                         .InColumnValue("json", f.Json)
                         .InColumnValue("keywords", f.Keywords)
                         .InColumnValue("aggregated_date", aggregatedDate);
@@ -136,10 +135,7 @@ namespace ASC.Feed.Data
                 var dialect = DbRegistry.GetSqlDialect(Constants.FeedDbId);
                 if (dialect.SupportMultiTableUpdate)
                 {
-                    command.CommandText = "delete from feed_aggregate, feed_users using feed_aggregate, feed_users where id = feed_id and aggregated_date < @date";
-                    command
-                        .AddParameter("date", fromTime)
-                        .ExecuteNonQuery();
+                    command.ExecuteNonQuery("delete from feed_aggregate, feed_users using feed_aggregate, feed_users where id = feed_id and aggregated_date < @date", new { date = fromTime });
                 }
                 else
                 {
@@ -170,7 +166,7 @@ namespace ASC.Feed.Data
                     }
                     else
                     {
-                        feeds[feed.GroupId] = new List<FeedResultItem> {feed};
+                        feeds[feed.GroupId] = new List<FeedResultItem> { feed };
                     }
                 }
                 filter.Offset += feedsIteration.Count;
@@ -186,13 +182,13 @@ namespace ASC.Feed.Data
         {
             var query = new SqlQuery("feed_aggregate a")
                 .InnerJoin("feed_users u", Exp.EqColumns("a.id", "u.feed_id"))
-                .Select("a.json, a.module, a.author, a.group_id, a.created_date, a.aggregated_date")
+                .Select("a.json, a.module, a.author, a.modified_by, a.group_id, a.created_date, a.modified_date, a.aggregated_date")
                 .Where("a.tenant", CoreContext.TenantManager.GetCurrentTenant().TenantId)
                 .Where(
-                    !Exp.Eq("a.author", SecurityContext.CurrentAccount.ID) &
+                    !Exp.Eq("a.modified_by", SecurityContext.CurrentAccount.ID) &
                     Exp.Eq("u.user_id", SecurityContext.CurrentAccount.ID)
                 )
-                .OrderBy("a.created_date", false)
+                .OrderBy("a.modified_date", false)
                 .SetFirstResult(filter.Offset)
                 .SetMaxResults(filter.Max);
 
@@ -204,11 +200,11 @@ namespace ASC.Feed.Data
             {
                 if (1 < filter.From.Year)
                 {
-                    query.Where(Exp.Ge("a.created_date", filter.From));
+                    query.Where(Exp.Ge("a.modified_date", filter.From));
                 }
                 if (filter.To.Year < 9999)
                 {
-                    query.Where(Exp.Le("a.created_date", filter.To));
+                    query.Where(Exp.Le("a.modified_date", filter.To));
                 }
             }
 
@@ -218,7 +214,7 @@ namespace ASC.Feed.Data
             }
             if (filter.Author != Guid.Empty)
             {
-                query.Where("a.author", filter.Author);
+                query.Where("a.modified_by", filter.Author);
             }
             if (filter.SearchKeys != null && filter.SearchKeys.Length > 0)
             {
@@ -237,9 +233,11 @@ namespace ASC.Feed.Data
                                          Convert.ToString(r[0]),
                                          Convert.ToString(r[1]),
                                          new Guid(Convert.ToString(r[2])),
-                                         Convert.ToString(r[3]),
-                                         TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[4])),
-                                         TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5]))));
+                                         new Guid(Convert.ToString(r[3])),
+                                         Convert.ToString(r[4]),
+                                         TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
+                                         TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[6])),
+                                         TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[7]))));
                 return news;
             }
         }
@@ -249,7 +247,7 @@ namespace ASC.Feed.Data
             var q = new SqlQuery("feed_aggregate a")
                 .Select("id")
                 .Where("a.tenant", CoreContext.TenantManager.GetCurrentTenant().TenantId)
-                .Where(!Exp.Eq("a.author", SecurityContext.CurrentAccount.ID))
+                .Where(!Exp.Eq("a.modified_by", SecurityContext.CurrentAccount.ID))
                 .InnerJoin("feed_users u", Exp.EqColumns("a.id", "u.feed_id"))
                 .Where("u.user_id", SecurityContext.CurrentAccount.ID)
                 .SetMaxResults(1001);
@@ -280,7 +278,7 @@ namespace ASC.Feed.Data
         public static FeedResultItem GetFeedItem(string id)
         {
             var query = new SqlQuery("feed_aggregate a")
-                .Select("a.json, a.module, a.author, a.group_id, a.created_date, a.aggregated_date")
+                .Select("a.json, a.module, a.author, a.modified_by, a.group_id, a.created_date, a.modified_date, a.aggregated_date")
                 .Where("a.id", id);
 
             using (var db = new DbManager(Constants.FeedDbId))
@@ -291,9 +289,11 @@ namespace ASC.Feed.Data
                                          Convert.ToString(r[0]),
                                          Convert.ToString(r[1]),
                                          new Guid(Convert.ToString(r[2])),
-                                         Convert.ToString(r[3]),
-                                         TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[4])),
-                                         TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5]))));
+                                         new Guid(Convert.ToString(r[3])),
+                                         Convert.ToString(r[4]),
+                                         TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
+                                         TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[6])),
+                                         TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[7]))));
 
                 return news.FirstOrDefault();
             }
@@ -321,25 +321,37 @@ namespace ASC.Feed.Data
 
     public class FeedResultItem
     {
-        public FeedResultItem(string json, string module, Guid lastModifiedBy, string groupId, DateTime createOn, DateTime aggregatedDate)
+        public FeedResultItem(
+            string json, 
+            string module, 
+            Guid authorId, 
+            Guid modifiedById,
+            string groupId, 
+            DateTime createdDate,
+            DateTime modifiedDate, 
+            DateTime aggregatedDate)
         {
             var now = TenantUtil.DateTimeFromUtc(DateTime.UtcNow);
 
             Json = json;
             Module = module;
-            LastModifiedBy = lastModifiedBy;
+
+            AuthorId = authorId;
+            ModifiedById = modifiedById;
+            
             GroupId = groupId;
 
-            if (now.Year == createOn.Year && now.Date == createOn.Date)
+            if (now.Year == createdDate.Year && now.Date == createdDate.Date)
             {
                 IsToday = true;
             }
-            else if (now.Year == createOn.Year && now.Date == createOn.Date.AddDays(1))
+            else if (now.Year == createdDate.Year && now.Date == createdDate.Date.AddDays(1))
             {
                 IsYesterday = true;
             }
 
-            CreateOn = createOn;
+            CreatedDate = createdDate;
+            ModifiedDate = modifiedDate;
             AggregatedDate = aggregatedDate;
         }
 
@@ -347,7 +359,9 @@ namespace ASC.Feed.Data
 
         public string Module { get; private set; }
 
-        public Guid LastModifiedBy { get; private set; }
+        public Guid AuthorId { get; private set; }
+
+        public Guid ModifiedById { get; private set; }
 
         public string GroupId { get; private set; }
 
@@ -355,20 +369,23 @@ namespace ASC.Feed.Data
 
         public bool IsYesterday { get; private set; }
 
-        public DateTime CreateOn { get; private set; }
+        public DateTime CreatedDate { get; private set; }
+
+        public DateTime ModifiedDate { get; private set; }
 
         public DateTime AggregatedDate { get; private set; }
 
         public FeedMin ToFeedMin()
         {
             var feedMin = JsonConvert.DeserializeObject<FeedMin>(Json);
-            feedMin.Author = new FeedMinUser {UserInfo = CoreContext.UserManager.GetUsers(feedMin.AuthorId)};
+            feedMin.Author = new FeedMinUser { UserInfo = CoreContext.UserManager.GetUsers(feedMin.AuthorId) };
+            feedMin.CreatedDate = CreatedDate;
 
             if (feedMin.Comments == null) return feedMin;
-            
+
             foreach (var comment in feedMin.Comments)
             {
-                comment.Author = new FeedMinUser { UserInfo = CoreContext.UserManager.GetUsers(feedMin.AuthorId) };
+                comment.Author = new FeedMinUser { UserInfo = CoreContext.UserManager.GetUsers(comment.AuthorId) };
             }
             return feedMin;
         }

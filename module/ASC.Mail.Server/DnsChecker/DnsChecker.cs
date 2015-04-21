@@ -1,39 +1,37 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using ARSoft.Tools.Net.Dns;
 using ASC.Mail.Aggregator.Common.Logging;
-using JHSoftware;
 
-namespace DnsChecker
+namespace ASC.Mail.Server.DnsChecker
 {
     public class DnsChecker
     {
@@ -42,198 +40,180 @@ namespace DnsChecker
         private static readonly byte[] RsaOid = { 0x30, 0xD, 0x6, 0x9, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0xD, 0x1, 0x1, 0x1, 0x5, 0x0 }; // Object ID for RSA
 
         // Corresponding ASN identification bytes
-        const byte Integer = 0x2;
-        const byte Sequence = 0x30;
-        const byte BitString = 0x3;
-        const byte OctetString = 0x4;
+        const byte INTEGER = 0x2;
+        const byte SEQUENCE = 0x30;
+        const byte BIT_STRING = 0x3;
+#pragma warning disable 169
+        const byte OCTET_STRING = 0x4;
+#pragma warning restore 169
 
         #endregion
 
         #region .Public
 
-        public static bool IsMxSettedUpCorrectForDomain(string domain_name, string mx_record, ILogger logger = null)
+        public static bool IsMxRecordCorrect(string domainName, string mxRecord, ILogger logger = null)
         {
             try
             {
-                var domain_mx_records = DnsClient.LookupMX(domain_name);
-
-                if (domain_mx_records == null)
-                    throw new ArgumentException("MX record on your domain is missing.");
-
-                return domain_mx_records.Any(re => re.HostName == mx_record);
+                var records = DnsResolve<MxRecord>(domainName, RecordType.Mx);
+                return records.Any(mx => mx.ExchangeDomainName == mxRecord);
             }
             catch (Exception ex)
             {
                 if (logger != null)
-                    logger.Debug("DnsClient.LookupMX: domain: '{0}' mx: '{1}'\r\nException: {2}",
-                                domain_name, mx_record, ex.ToString());
+                    logger.Error("IsMxRecordCorrect: domain: '{0}' mx: '{1}'\r\nException: {2}",
+                                domainName, mxRecord, ex.ToString());
 
                 return false;
             }
         }
 
-        public static bool IsCnameSettedUpCorrectForDomain(string domain_name, string cname, string alias_name, ILogger logger = null)
+        public static bool IsDkimRecordCorrect(string domainName, string selector, string dkimRecord, ILogger logger = null)
         {
+            var dkimRecordName = selector + "._domainkey." + domainName;
+
             try
             {
-                var domain_alias = String.Format("{0}.{1}", cname, domain_name);
-
-                var alias_host = DnsClient.LookupHost(domain_alias);
-                var needed_host = DnsClient.LookupHost(alias_name);
-
-                if (alias_host == null || needed_host == null)
-                    throw new ArgumentException("Can't find host. Wait for dns updating.");
-
-                return alias_host[0].Equals(needed_host[0]) && alias_host.Length == needed_host.Length;
+                var records = DnsResolve<TxtRecord>(dkimRecordName, RecordType.Txt);
+                return records.Any(dkim => dkim.TextData.Trim('\"') == dkimRecord);
             }
             catch (Exception ex)
             {
                 if (logger != null)
-                    logger.Debug("DnsClient.LookupHost: domain: '{0}' cname: '{1}' alias: '{2}'\r\nException: {3}",
-                                domain_name, cname, alias_name, ex.ToString());
+                    logger.Error("IsDkimRecordCorrect: '{0}' dkim_pk: '{1}'\r\nException: {2}",
+                                dkimRecordName, dkimRecord, ex.ToString());
                 return false;
             }
         }
 
-        public static bool IsDkimSettedUpCorrectForDomain(string domain_name, string selector, string dkim_record, ILogger logger = null)
+        public static bool IsTxtRecordCorrect(string domainName, string txtRecord, ILogger logger = null)
         {
             try
             {
-                var domain_txt_records = DnsClient.Lookup(selector + "._domainkey."+ domain_name, DnsClient.RecordType.TXT);
-
-                if (domain_txt_records == null)
-                    throw new ArgumentException("DKIM record on your domain is missing.");
-
-                return domain_txt_records.AnswerRecords.Any(re => re.Data.Trim('\"') == dkim_record);
+                var records = DnsResolve<TxtRecord>(domainName, RecordType.Txt);
+                return records.Any(mx => mx.TextData.Trim('\"') == txtRecord);
             }
             catch (Exception ex)
             {
                 if (logger != null)
-                    logger.Debug("DnsClient.Lookup: domain: '{0}' selector: '{1}._domainkey.' dkim_pk: '{2}'\r\nException: {3}",
-                                domain_name, selector, dkim_record, ex.ToString());
+                    logger.Error("IsTxtRecordCorrect: domain: '{0}' txt: '{1}'\r\nException: {2}",
+                                domainName, txtRecord, ex.ToString());
                 return false;
             }
         }
 
-        public static bool IsTxtRecordCorrect(string domain_name, string txt_record, ILogger logger = null)
-        {
-            try
-            {
-                var domain_txt_records = DnsClient.Lookup(domain_name, DnsClient.RecordType.TXT);
-
-                if (domain_txt_records == null)
-                    throw new ArgumentException("TXT record on your domain is missing.");
-
-                return domain_txt_records.AnswerRecords.Any(re => re.Data.Trim('\"') == txt_record);
-            }
-            catch (Exception ex)
-            {
-                if (logger != null)
-                    logger.Debug("DnsClient.LookupMX: domain: '{0}' txt: '{1}'\r\nException: {2}",
-                                domain_name, txt_record, ex.ToString());
-                return false;
-            }
-        }
-
-        public static void GenerateKeys(out string private_key, out string public_key)
+        public static void GenerateKeys(out string privateKey, out string publicKey)
         {
             var rsa = new RSACryptoServiceProvider();
-            var rsa_key_info = rsa.ExportParameters(true);
-            public_key = "k=rsa; p=" + ConvertPublicKey(rsa_key_info);
-            private_key = ConvertPrivateKey(rsa_key_info);
+            var rsaKeyInfo = rsa.ExportParameters(true);
+            publicKey = "k=rsa; p=" + ConvertPublicKey(rsaKeyInfo);
+            privateKey = ConvertPrivateKey(rsaKeyInfo);
         }
 
         #endregion
 
         #region .Private
 
+        private static List<T> DnsResolve<T>(string domainName, RecordType type)
+        {
+            var dnsMessage = DnsClient.Default.Resolve(domainName, type);
+
+            if ((dnsMessage == null) ||
+                ((dnsMessage.ReturnCode != ReturnCode.NoError) && (dnsMessage.ReturnCode != ReturnCode.NxDomain)))
+            {
+                throw new ArgumentException("DNS request failed");
+            }
+
+            return dnsMessage.AnswerRecords.Where(r => r.RecordType == type).Cast<T>().ToList();
+        }
+
         private static string ConvertPublicKey(RSAParameters param)
         {
-            var arr_binary_public_key = new List<byte>();
+            var arrBinaryPublicKey = new List<byte>();
 
-            arr_binary_public_key.InsertRange(0, param.Exponent);
-            arr_binary_public_key.Insert(0, (byte)arr_binary_public_key.Count);
-            arr_binary_public_key.Insert(0, Integer);
+            arrBinaryPublicKey.InsertRange(0, param.Exponent);
+            arrBinaryPublicKey.Insert(0, (byte)arrBinaryPublicKey.Count);
+            arrBinaryPublicKey.Insert(0, INTEGER);
 
-            arr_binary_public_key.InsertRange(0, param.Modulus);
-            AppendLength(ref arr_binary_public_key, param.Modulus.Length);
-            arr_binary_public_key.Insert(0, Integer);
+            arrBinaryPublicKey.InsertRange(0, param.Modulus);
+            AppendLength(ref arrBinaryPublicKey, param.Modulus.Length);
+            arrBinaryPublicKey.Insert(0, INTEGER);
 
-            AppendLength(ref arr_binary_public_key, arr_binary_public_key.Count);
-            arr_binary_public_key.Insert(0, Sequence);
+            AppendLength(ref arrBinaryPublicKey, arrBinaryPublicKey.Count);
+            arrBinaryPublicKey.Insert(0, SEQUENCE);
 
-            arr_binary_public_key.Insert(0, 0x0); // Add NULL value
+            arrBinaryPublicKey.Insert(0, 0x0); // Add NULL value
 
-            AppendLength(ref arr_binary_public_key, arr_binary_public_key.Count);
+            AppendLength(ref arrBinaryPublicKey, arrBinaryPublicKey.Count);
 
-            arr_binary_public_key.Insert(0, BitString);
-            arr_binary_public_key.InsertRange(0, RsaOid);
+            arrBinaryPublicKey.Insert(0, BIT_STRING);
+            arrBinaryPublicKey.InsertRange(0, RsaOid);
 
-            AppendLength(ref arr_binary_public_key, arr_binary_public_key.Count);
+            AppendLength(ref arrBinaryPublicKey, arrBinaryPublicKey.Count);
 
-            arr_binary_public_key.Insert(0, Sequence);
+            arrBinaryPublicKey.Insert(0, SEQUENCE);
 
-            return Convert.ToBase64String(arr_binary_public_key.ToArray());
+            return Convert.ToBase64String(arrBinaryPublicKey.ToArray());
         }
 
         private static string ConvertPrivateKey(RSAParameters param)
         {
-            var arr_binary_private_key = new List<byte>();
+            var arrBinaryPrivateKey = new List<byte>();
 
-            arr_binary_private_key.InsertRange(0, param.InverseQ);
-            AppendLength(ref arr_binary_private_key, param.InverseQ.Length);
-            arr_binary_private_key.Insert(0, Integer);
+            arrBinaryPrivateKey.InsertRange(0, param.InverseQ);
+            AppendLength(ref arrBinaryPrivateKey, param.InverseQ.Length);
+            arrBinaryPrivateKey.Insert(0, INTEGER);
 
-            arr_binary_private_key.InsertRange(0, param.DQ);
-            AppendLength(ref arr_binary_private_key, param.DQ.Length);
-            arr_binary_private_key.Insert(0, Integer);
+            arrBinaryPrivateKey.InsertRange(0, param.DQ);
+            AppendLength(ref arrBinaryPrivateKey, param.DQ.Length);
+            arrBinaryPrivateKey.Insert(0, INTEGER);
 
-            arr_binary_private_key.InsertRange(0, param.DP);
-            AppendLength(ref arr_binary_private_key, param.DP.Length);
-            arr_binary_private_key.Insert(0, Integer);
+            arrBinaryPrivateKey.InsertRange(0, param.DP);
+            AppendLength(ref arrBinaryPrivateKey, param.DP.Length);
+            arrBinaryPrivateKey.Insert(0, INTEGER);
 
-            arr_binary_private_key.InsertRange(0, param.Q);
-            AppendLength(ref arr_binary_private_key, param.Q.Length);
-            arr_binary_private_key.Insert(0, Integer);
+            arrBinaryPrivateKey.InsertRange(0, param.Q);
+            AppendLength(ref arrBinaryPrivateKey, param.Q.Length);
+            arrBinaryPrivateKey.Insert(0, INTEGER);
 
-            arr_binary_private_key.InsertRange(0, param.P);
-            AppendLength(ref arr_binary_private_key, param.P.Length);
-            arr_binary_private_key.Insert(0, Integer);
+            arrBinaryPrivateKey.InsertRange(0, param.P);
+            AppendLength(ref arrBinaryPrivateKey, param.P.Length);
+            arrBinaryPrivateKey.Insert(0, INTEGER);
 
-            arr_binary_private_key.InsertRange(0, param.D);
-            AppendLength(ref arr_binary_private_key, param.D.Length);
-            arr_binary_private_key.Insert(0, Integer);
+            arrBinaryPrivateKey.InsertRange(0, param.D);
+            AppendLength(ref arrBinaryPrivateKey, param.D.Length);
+            arrBinaryPrivateKey.Insert(0, INTEGER);
 
-            arr_binary_private_key.InsertRange(0, param.Exponent);
-            AppendLength(ref arr_binary_private_key, param.Exponent.Length);
-            arr_binary_private_key.Insert(0, Integer);
+            arrBinaryPrivateKey.InsertRange(0, param.Exponent);
+            AppendLength(ref arrBinaryPrivateKey, param.Exponent.Length);
+            arrBinaryPrivateKey.Insert(0, INTEGER);
 
-            arr_binary_private_key.InsertRange(0, param.Modulus);
-            AppendLength(ref arr_binary_private_key, param.Modulus.Length);
-            arr_binary_private_key.Insert(0, Integer);
+            arrBinaryPrivateKey.InsertRange(0, param.Modulus);
+            AppendLength(ref arrBinaryPrivateKey, param.Modulus.Length);
+            arrBinaryPrivateKey.Insert(0, INTEGER);
 
-            arr_binary_private_key.Insert(0, 0x00);
-            AppendLength(ref arr_binary_private_key, 1);
-            arr_binary_private_key.Insert(0, Integer);
+            arrBinaryPrivateKey.Insert(0, 0x00);
+            AppendLength(ref arrBinaryPrivateKey, 1);
+            arrBinaryPrivateKey.Insert(0, INTEGER);
 
-            AppendLength(ref arr_binary_private_key, arr_binary_private_key.Count);
-            arr_binary_private_key.Insert(0, Sequence);
+            AppendLength(ref arrBinaryPrivateKey, arrBinaryPrivateKey.Count);
+            arrBinaryPrivateKey.Insert(0, SEQUENCE);
 
-            return Convert.ToBase64String(arr_binary_private_key.ToArray());
+            return Convert.ToBase64String(arrBinaryPrivateKey.ToArray());
         }
 
-        private static void AppendLength(ref List<byte> arr_binary_data, int len)
+        private static void AppendLength(ref List<byte> arrBinaryData, int len)
         {
             if (len <= byte.MaxValue)
             {
-                arr_binary_data.Insert(0, Convert.ToByte(len));
-                arr_binary_data.Insert(0, 0x81);  //This byte means that the length fits in one byte
+                arrBinaryData.Insert(0, Convert.ToByte(len));
+                arrBinaryData.Insert(0, 0x81);  //This byte means that the length fits in one byte
             }
             else
             {
-                arr_binary_data.Insert(0, Convert.ToByte(len % (byte.MaxValue + 1)));
-                arr_binary_data.Insert(0, Convert.ToByte(len / (byte.MaxValue + 1)));
-                arr_binary_data.Insert(0, 0x82);  //This byte means that the length fits in two byte
+                arrBinaryData.Insert(0, Convert.ToByte(len % (byte.MaxValue + 1)));
+                arrBinaryData.Insert(0, Convert.ToByte(len / (byte.MaxValue + 1)));
+                arrBinaryData.Insert(0, 0x82);  //This byte means that the length fits in two byte
             }
 
         }

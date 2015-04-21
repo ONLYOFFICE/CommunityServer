@@ -45,11 +45,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="Twilio.Api">
       <HintPath>..\..\packages\Twilio.3.6.11\lib\3.5\Twilio.Api.dll</HintPath>
     </Reference>

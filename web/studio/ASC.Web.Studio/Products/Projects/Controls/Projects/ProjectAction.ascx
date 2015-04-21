@@ -1,24 +1,21 @@
-﻿<%@ Assembly Name="ASC.Projects.Core" %>
-<%@ Assembly Name="ASC.Web.Projects" %>
+﻿<%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.Core" %>
-<%@ Assembly Name="ASC.Projects.Engine" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProjectAction.ascx.cs" Inherits="ASC.Web.Projects.Controls.Projects.ProjectAction" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Projects.Core.Domain" %>
 <%@ Import Namespace="ASC.Projects.Engine" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
-<%@ Import Namespace="ASC.Web.Projects.Controls.Common" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 <div id="projectActionPage">
     <div id="pageHeader">
-        <div class="pageTitle"><%= GetPageTitle() %></div>
+        <div class="pageTitle"><%= PageTitle %></div>
         <div style="clear: both"></div>
     </div>
-    <% if (!IsEditingProjectAvailable() && GetTemplatesCount() > 0)
+    <% if (!IsEditingProjectAvailable && TemplatesCount > 0)
        { %>
     <div id="templateContainer" class="block-cnt-splitter">
         <div class="headerPanelSmall">
@@ -67,9 +64,12 @@
             <%} %>
         </div>
         <div class="notifyManagerContainer">
+            <%  if(!HideChooseTeam)
+                {%>
             <input id="notifyManagerCheckbox" type="checkbox" />
             <label for="notifyManagerCheckbox"><%= ProjectResource.NotifyProjectManager %></label>
-            <% if (IsEditingProjectAvailable())
+            <% }%>
+            <% if (IsEditingProjectAvailable)
                { %>
             <input type="hidden" value="<%= Project.Responsible %>" id="projectResponsible" />
             <% } %>
@@ -78,7 +78,7 @@
     </div>
 
 
-    <div id="projectTeamContainer" class="block-cnt-splitter">
+    <div id="projectTeamContainer" class="block-cnt-splitter <%if (HideChooseTeam) {%> display-none<%} %>">
         <div class="headerPanelSmall clearFix">
             <div class="float-left">
                 <%= ProjectResource.ProjectTeam %>
@@ -117,7 +117,7 @@
         </div>
     </div>
     <% } %>
-    <% if (IsEditingProjectAvailable())
+    <% if (IsEditingProjectAvailable)
        { %>
     <div id="projectStatusContainer">
         <div class="headerPanel clearFix">
@@ -152,10 +152,6 @@
     <% if (!ProjectSecurity.IsPrivateDisabled) { %>
     <div id="projectVisibilityContainer">
         <div class="headerPanelSmall clearFix">
-            <div class="float-left">
-                <%= ProjectResource.HiddenProject %>
-            </div>
-            <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AnswerForPrivateProject'});" title="<%=ProjectsCommonResource.HelpQuestionPrivateProject%>"></div>
             <div class="popup_helper" id="AnswerForPrivateProject">
                 <p>
                     <%=String.Format(ProjectsCommonResource.HelpAnswerPrivateProject, "<br />", "<b>", "</b>")%><br />
@@ -167,12 +163,13 @@
             </div>
         </div>
         <div class="checkboxPrivateProj">
-            <input id="projectPrivacyCkeckbox" type="checkbox" <%= RenderProjectPrivacyCheckboxValue() %> />
+            <input id="projectPrivacyCkeckbox" type="checkbox" <% if(RenderProjectPrivacyCheckboxValue) {%> <%="checked" %><%} %> />
             <label for="projectPrivacyCkeckbox"><%= ProjectResource.IUnerstandForEditHidden %></label>
+            <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AnswerForPrivateProject'});" title="<%=ProjectsCommonResource.HelpQuestionPrivateProject%>"></div>
         </div>
     </div>
     <% } %>
-    <% if (!IsEditingProjectAvailable())
+    <% if (!IsEditingProjectAvailable && !HideChooseTeam)
        { %>
     <div id="projectFollowContainer">
         <div class="followingCheckboxContainer">
@@ -185,10 +182,10 @@
 
     <div id="projectActionsContainer" class="big-button-container">
         <a id="projectActionButton" class="button blue big">
-            <%= GetProjectActionButtonTitle() %>
+            <%= ProjectActionButtonTitle %>
         </a>
         <span class="splitter-buttons"></span>
-        <% if (IsEditingProjectAvailable())
+        <% if (IsEditingProjectAvailable)
            { %>
         <a id="cancelEditProject" href="<%= UrlProject%>" class="button gray big">
             <%= ProjectsCommonResource.Cancel %>
@@ -230,7 +227,7 @@
         <body>
             <p><%= ProjectResource.NotClosePrjWithActiveTasks %></p>
             <div class="middle-button-container">
-                <a class="button blue middle" href="<%= GetActiveTasksUrl() %>"><%= ProjectResource.ViewActiveTasks %></a>
+                <a class="button blue middle" href="<%= ActiveTasksUrl %>"><%= ProjectResource.ViewActiveTasks %></a>
                 <span class="splitter-buttons"></span>
                 <a class="button gray middle cancel"><%= ProjectsCommonResource.Cancel %></a>
             </div>
@@ -246,7 +243,7 @@
         <body>
             <p><%= ProjectResource.NotClosedPrjWithActiveMilestone %></p>
             <div class="middle-button-container">
-                <a class="button blue middle" href="<%= GetActiveMilestonesUrl() %>"><%= ProjectResource.ViewActiveMilestones %></a>
+                <a class="button blue middle" href="<%= ActiveMilestonesUrl %>"><%= ProjectResource.ViewActiveMilestones %></a>
                 <span class="splitter-buttons"></span>
                 <a class="button gray middle cancel"><%= ProjectsCommonResource.Cancel %></a>
             </div>

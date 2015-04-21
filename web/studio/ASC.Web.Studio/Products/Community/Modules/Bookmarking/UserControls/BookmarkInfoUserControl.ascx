@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Bookmarking" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BookmarkInfoUserControl.ascx.cs" Inherits="ASC.Web.UserControls.Bookmarking.BookmarkInfoUserControl" %>
 
 <div id="BookmarkingInfoContainer" class="clearFix bookmarkingAreaWithMargin10">

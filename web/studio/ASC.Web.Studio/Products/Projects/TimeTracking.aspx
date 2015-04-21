@@ -1,4 +1,3 @@
-<%@ Assembly Name="ASC.Projects.Core" %>
 <%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Assembly Name="ASC.Web.Studio" %>
 

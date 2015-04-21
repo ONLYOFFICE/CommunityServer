@@ -1,6 +1,6 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Blogs" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 
-<%@ Page Language="C#" MasterPageFile="~/Products/Community/Community.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="ViewBlog.aspx.cs" Inherits="ASC.Web.Community.Blogs.ViewBlog" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/Products/Community/Master/Community.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="ViewBlog.aspx.cs" Inherits="ASC.Web.Community.Blogs.ViewBlog" Title="Untitled Page" %>
 
 <%@ Register Src="Views/ViewBlogView.ascx" TagPrefix="ctrl" TagName="ViewBlogView" %>
 <%@ Import Namespace="ASC.Web.Community.Product" %>

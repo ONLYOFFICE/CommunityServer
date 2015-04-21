@@ -14,9 +14,9 @@
                 <col/>
             </colgroup>
             <tbody>
-                <tr class="headerToggleBlock">
+                <tr class="headerToggleBlock" data-toggleId="0">
                     <td colspan="3" style="white-space:nowrap;">
-                        <span class="headerToggle header-base"><%= CRMContactResource.AdditionalContactInformation %></span>
+                        <span class="headerToggle header-base"><%= CRMCommonResource.AdditionalInformation %></span>
                         <span class="openBlockLink"><%= CRMCommonResource.Show %></span>
                         <span class="closeBlockLink"><%= CRMCommonResource.Hide %></span>
                     </td>
@@ -32,7 +32,7 @@
                 <col/>
             </colgroup>
             <tbody>
-                <tr class="headerToggleBlock">
+                <tr class="headerToggleBlock" data-toggleId="${labelid}">
                     <td colspan="3" style="white-space:nowrap;">
                         <span class="headerToggle header-base">${label}</span>
                         <span class="openBlockLink"><%= CRMCommonResource.Show %></span>
@@ -81,9 +81,9 @@
             <col/>
         </colgroup>
         <tbody>
-            <tr class="headerToggleBlock">
+            <tr class="headerToggleBlock" data-toggleId="0">
                 <td colspan="3" style="white-space:nowrap;">
-                    <span class="headerToggle header-base"><%= CRMContactResource.AdditionalContactInformation %></span>
+                    <span class="headerToggle header-base"><%= CRMCommonResource.AdditionalInformation %></span>
                     <span class="openBlockLink"><%= CRMCommonResource.Show %></span>
                     <span class="closeBlockLink"><%= CRMCommonResource.Hide %></span>
                 </td>

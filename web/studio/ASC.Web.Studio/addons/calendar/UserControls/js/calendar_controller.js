@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 if (typeof ASC === 'undefined')
     ASC = {};
@@ -54,7 +52,7 @@ ASC.Api.TypeConverter = new function() {
         var min = date.getMinutes();
 
         var str = date.getFullYear() + '-' + (m > 9 ? m : ('0' + m)) + '-' + (d > 9 ? d : ('0' + d))
-                    + 'T' + (h > 9 ? h : ('0' + h)) + '-' + (min > 9 ? min : ('0' + min)) + "-00.000Z";  
+                    + 'T' + (h > 9 ? h : ('0' + h)) + '-' + (min > 9 ? min : ('0' + min)) + "-00.000Z";
 
         return str;
     }
@@ -64,7 +62,7 @@ ASC.Api.TypeConverter = new function() {
         var str = serverTime.replace(/\..*/gi, '');
         var date = str.split('T')[0].split('-');
         var time = str.split('T')[1].split(':');
-        return new Date(date[0], date[1] - 1, date[2], time[0], time[1]);        
+        return new Date(date[0], date[1] - 1, date[2], time[0], time[1]);
     }
 }
 
@@ -100,11 +98,15 @@ ASC.CalendarController = new function() {
     var AlertError = function(message) {
             alert(message);
     };
-    
+
     this.init = function (timeZones, editorUrl) {
-        
+        var $icon = jq("link[rel*=icon][type^='image']:last");
+        if ($icon.attr('href').indexOf('logo_favicon_general.ico') !== -1) {//not default
+            $icon.attr('href', $icon.attr('href'));
+        }
+
         sharingManager = new SharingSettingsManager(undefined, null);
-        
+
         LoadingBanner.animateDelay = 500;
         jq(document).ajaxStart(function() {
             LoadingBanner.displayLoading(true);
@@ -117,14 +119,14 @@ ASC.CalendarController = new function() {
 
         var viewName = 'month';
         var today = new Date();
-        
+
         try{
             ASC.Controls.AnchorController.init();
 
             var currentAnchor = ASC.Controls.AnchorController.getAnchor();
             viewName = currentAnchor.split('/')[0];
             var date = currentAnchor.split('/')[1];
-       
+
             var today = (date == '' || date == undefined || isNaN(date)) ? new Date() : new Date(parseInt(date));
             if ('Invalid Date' == today || today == 'NaN')
                 today = new Date();
@@ -139,30 +141,41 @@ ASC.CalendarController = new function() {
 
         var calHeight = jq(window).height() -
             jq("#studioPageContent .mainContainer").outerHeight(true);
-                
-        var defTimeZone = null;        
-        var curDate = new Date();
-        var clientOffset = (-1)*curDate.getTimezoneOffset();
-        var neighbourTimeZones = new Array();
-        jq(timeZones).each(function(i, el)
-        {
-            if(el.offset == clientOffset)            
-                neighbourTimeZones.push(el);            
-        });
-        
-        jq(neighbourTimeZones).each(function(i, el)
-        {
-            if(curDate.toString().indexOf(el.id)>=0)            
-            {
-                defTimeZone = el;            
-                return false;
+
+        var defTimeZone = null;
+
+        jq(timeZones).each(function (i, el) {
+            if (el.id == ASC.Resources.Master.CurrentTenantUtcOffset.Id || el.name == ASC.Resources.Master.CurrentTenantUtcOffset.DisplayName) {
+                defTimeZone = el;
+                return;
             }
         });
-        
-        if(neighbourTimeZones.length>0 && defTimeZone == null)
-            defTimeZone = neighbourTimeZones[0];
-        else if(defTimeZone == null)
-            defTimeZone == {id:"UTC", name : "UTC", offset : 0};
+
+        if (defTimeZone == null) {
+
+            var curDate = new Date();
+            var clientOffset = (-1) * curDate.getTimezoneOffset();
+            var neighbourTimeZones = new Array();
+            
+            jq(timeZones).each(function (i, el) {
+                if (el.offset == clientOffset)
+                    neighbourTimeZones.push(el);
+            });
+
+            jq(neighbourTimeZones).each(function (i, el) {
+                if (curDate.toString().indexOf(el.id) >= 0) {
+                    defTimeZone = el;
+                    return false;
+                }
+            });
+
+            if (neighbourTimeZones.length > 0 && defTimeZone == null)
+                defTimeZone = neighbourTimeZones[0];
+        }
+
+        if (defTimeZone == null) {
+            defTimeZone = {id:"UTC", name : "UTC", offset : 0};
+        }
 
         jq("#asc_calendar").fullCalendar({
 
@@ -182,18 +195,18 @@ ASC.CalendarController = new function() {
             padding: 0,
             height: calHeight,
 
-            onHeightChange: function() {                
+            onHeightChange: function() {
                 var h = jq(window).height();
                 this.height = h - jq("#studioPageContent .studio-top-panel").outerHeight(true) - jq(".fc-header-outer").outerHeight(true);
             },
 
             loadEventSources: ASC.CalendarController.LoadCalendars,
             editCalendar: ASC.CalendarController.DoRequestToCalendar,
-            editEvent: ASC.CalendarController.DoRequestToEvent,            
+            editEvent: ASC.CalendarController.DoRequestToEvent,
             editPermissions: ASC.CalendarController.EditPermissions,
             removePermissions: ASC.CalendarController.RemovePermissions,
             loadSubscriptions: ASC.CalendarController.LoadSubscriptions,
-            manageSubscriptions: ASC.CalendarController.ManageSubscriptions,            
+            manageSubscriptions: ASC.CalendarController.ManageSubscriptions,
             viewChanged: ASC.CalendarController.ViewChangedHandler,
             getiCalUrl: ASC.CalendarController.GetiCalUrl,
             defaultTimeZone: defTimeZone,
@@ -201,7 +214,7 @@ ASC.CalendarController = new function() {
             getMonthEvents: ASC.CalendarController.GetEventDays
         });
     };
-    
+
     this.LoadCalendars = function(startDate, endDate, callback) {
 
         callbackFunc = callback;

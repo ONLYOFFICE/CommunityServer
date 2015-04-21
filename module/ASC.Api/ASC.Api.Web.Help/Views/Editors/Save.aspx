@@ -15,7 +15,7 @@
 	<h1>
 	    <span class="hdr">Saving File</span>
 	</h1>
-    <p class="dscr">The reference figure and the steps below explain the process of saving the document in Teamlab Editors.</p>
+    <p class="dscr">The reference figure and the steps below explain the process of saving the document in ONLYOFFICE™ Document Server.</p>
     <img alt="Opening File" src="<%= Url.Content("~/content/img/saving.jpg") %>" />
 	<p>1. The user clicks the <b>Save</b> button in the <b>document editor</b>.</p>
     <p>2. The <b>document editor</b> uploads the document with the current changes to the <b>document editing service</b>.</p>

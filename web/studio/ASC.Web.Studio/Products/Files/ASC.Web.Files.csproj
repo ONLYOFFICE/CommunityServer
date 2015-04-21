@@ -47,28 +47,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="AppLimit.CloudComputing.SharpBox">
       <HintPath>..\..\..\..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.440\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth">
-      <HintPath>..\..\..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Google.Apis">
-      <HintPath>..\..\..\..\..\packages\Google.Apis.1.8.1\lib\net40\Google.Apis.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth">
-      <HintPath>..\..\..\..\..\packages\Google.Apis.Auth.1.8.1\lib\net40\Google.Apis.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Core">
-      <HintPath>..\..\..\..\..\packages\Google.Apis.Core.1.8.1\lib\portable-net4+sl4+wp71+win8\Google.Apis.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Drive.v2">
-      <HintPath>..\..\..\..\..\packages\Google.Apis.Drive.v2.1.8.1.1270\lib\portable-net4+sl4+wp71+win8\Google.Apis.Drive.v2.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\..\..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
@@ -76,7 +56,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -88,19 +68,6 @@
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration">
       <HintPath>..\..\..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\Microsoft\SharePoint\Microsoft.SharePoint.Client.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\redistributable\third-party\Microsoft\SharePoint\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks">
-      <HintPath>..\..\..\..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -114,14 +81,10 @@
       <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Net.Http.Primitives">
-      <HintPath>..\..\..\..\..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
-    </Reference>
     <Reference Include="System.Runtime.Serialization">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
@@ -136,16 +99,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="UAParser">
-      <HintPath>..\..\..\..\..\packages\UAParser.1.0.2.0\lib\net40\UAParser.dll</HintPath>
-    </Reference>
-    <Reference Include="YamlDotNet">
-      <HintPath>..\..\..\..\..\packages\YamlDotNet.3.0.0\lib\net35\YamlDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="Zlib.Portable, Version=1.9.1.9000, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\packages\Zlib.Portable.1.9.1.2\lib\portable-net4+sl4+wp71+win8\Zlib.Portable.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\FilesSettings.cs" />
@@ -178,12 +131,18 @@
       <DependentUpon>MoreFeatures.ascx</DependentUpon>
     </Compile>
     <Compile Include="Core\ResponseStream.cs" />
+    <Compile Include="FileChoice.aspx.cs">
+      <DependentUpon>FileChoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FileChoice.aspx.designer.cs">
+      <DependentUpon>FileChoice.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\FilesMessageService.cs" />
     <Compile Include="Services\WCFService\FileExceptionFilterAttribute.cs" />
     <Compile Include="Services\WCFService\FileStorageServiceController.cs" />
     <Compile Include="ThirdPartyApp\BoxApp.cs" />
     <Compile Include="ThirdPartyApp\IThirdPartyApp.cs" />
-    <Compile Include="ThirdPartyApp\Request.cs" />
     <Compile Include="ThirdPartyApp\GoogleDriveApp.cs" />
     <Compile Include="ThirdPartyApp\Token.cs" />
     <Compile Include="HttpHandlers\ThirdPartyAppHandler.ashx.cs">
@@ -214,6 +173,7 @@
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Core\Entries\FileEntry.cs" />
     <Compile Include="Core\Entries\FileEntryTypeEnum.cs" />
+    <Compile Include="Core\Entries\EditHistory.cs" />
     <Compile Include="Core\FilterTypeEnum.cs" />
     <Compile Include="Core\Entries\Folder.cs" />
     <Compile Include="Core\Dao\Interfaces\IDaoFactory.cs" />
@@ -244,6 +204,12 @@
     </Compile>
     <Compile Include="Masters\ClientScripts\FilesLocalizationResources.cs" />
     <Compile Include="Masters\ClientScripts\FilesConstantsResources.cs" />
+    <Content Include="App_Themes\Default\Images\app\documents_appstore.png" />
+    <Content Include="App_Themes\Default\Images\app\documents_appstore_de.png" />
+    <Content Include="App_Themes\Default\Images\app\documents_appstore_es.png" />
+    <Content Include="App_Themes\Default\Images\app\documents_appstore_fr.png" />
+    <Content Include="App_Themes\Default\Images\app\documents_appstore_ru.png" />
+    <Content Include="Controls\ChunkUploadDialog\chunkuploadmanager.js" />
     <Content Include="Controls\ChunkUploadDialog\Images\mainmenu_upload.png" />
     <Content Include="Controls\ContentList\ContentList.ascx" />
     <Content Include="Controls\ContentList\contentlist.css" />
@@ -254,9 +220,11 @@
     <Content Include="Controls\FileSelector\FileSelector.ascx" />
     <Content Include="Controls\FileSelector\fileselector.css" />
     <Content Include="Controls\MoreFeatures\css\img\check.png" />
+    <Content Include="Controls\MoreFeatures\css\img\logo_flat.png" />
     <Content Include="Controls\MoreFeatures\css\morefeatures.css" />
-    <Content Include="Controls\MoreFeatures\morefeatures.css" />
     <Content Include="Controls\MoreFeatures\MoreFeatures.ascx" />
+    <Content Include="FileChoice.aspx" />
+    <Content Include="js\filechoice.js" />
     <Content Include="Masters\EditorScripts.ascx" />
     <Content Include="Masters\FilesScripts.ascx" />
     <Content Include="Masters\BasicTemplate.Master" />
@@ -287,12 +255,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Import\Document.cs" />
     <Compile Include="Import\ImportConfiguration.cs" />
     <Content Include="Import\DropBox\Dropbox.aspx" />
     <Content Include="Import\OneDrive\OneDriveOAuth.aspx" />
-    <Compile Include="Import\Utils.cs" />
-    <Compile Include="Import\IDocumentProvider.cs" />
     <Compile Include="Import\DropBox\Dropbox.aspx.cs">
       <DependentUpon>Dropbox.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -521,6 +486,7 @@
     <Content Include="Controls\ThirdParty\Images\thirdparty_dropbox.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_google.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_onedrivebusiness.png" />
+    <Content Include="Controls\ThirdParty\Images\thirdparty_owncloud.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_sharepoint.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_skydrive.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_webdav.png" />
@@ -543,7 +509,6 @@
     <Content Include="Controls\MainMenu\MainMenu.ascx" />
     <Content Include="Controls\ChunkUploadDialog\ChunkUploadDialog.ascx" />
     <Content Include="Controls\ChunkUploadDialog\chunkuploaddialog.css" />
-    <Content Include="Controls\ChunkUploadDialog\chunkuploadmanager.js" />
     <Content Include="Controls\ChunkUploadDialog\Images\uploader_progress.gif" />
   </ItemGroup>
   <ItemGroup>
@@ -573,7 +538,7 @@
   <ItemGroup>
     <Content Include="App_Themes\Default\app.css" />
     <Content Include="App_Themes\Default\common.css" />
-    <Content Include="App_Themes\Default\Images\ajax_progress_loader.gif" />
+    <Content Include="App_Themes\Default\filechoice.css" />
     <Content Include="App_Themes\Default\Images\corporatefiles_big.png" />
     <Content Include="App_Themes\Default\Images\empty_screen_corporate.png" />
     <Content Include="App_Themes\Default\Images\empty_screen_filter.png" />
@@ -601,19 +566,11 @@
       <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
       <Name>ASC.Data.Storage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api.Client\ASC.Api.Client.csproj">
-      <Project>{012b11ca-b298-404a-8923-978903cdfc25}</Project>
-      <Name>ASC.Api.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
       <Name>ASC.Api.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Specific\ASC.Specific.csproj">
-      <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
-      <Name>ASC.Specific</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
+    <ProjectReference Include="..\..\..\..\..\module\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
       <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
       <Name>ASC.FullTextIndex</Name>
     </ProjectReference>
@@ -628,10 +585,6 @@
     <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj">
       <Project>{592eac85-6cfc-4ad7-b653-3eadaa18327e}</Project>
       <Name>ASC.Thrdparty</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\DotNetOpenAuth.ApplicationBlock\DotNetOpenAuth.ApplicationBlock.csproj">
-      <Project>{aa78d112-d889-414b-a7d4-467b34c7b663}</Project>
-      <Name>DotNetOpenAuth.ApplicationBlock</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
@@ -661,5 +614,5 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
 </Project>

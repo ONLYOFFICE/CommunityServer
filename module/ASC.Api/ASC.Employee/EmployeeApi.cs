@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -50,6 +48,7 @@ using ASC.Web.Studio.Utility;
 using log4net;
 using ASC.Web.Core;
 using SecurityContext = ASC.Core.SecurityContext;
+using System.Net;
 
 namespace ASC.Api.Employee
 {
@@ -312,12 +311,9 @@ namespace ASC.Api.Employee
                 }
             }
 
-            if (isAdministrator.HasValue)
+            if (isAdministrator.HasValue && isAdministrator.Value)
             {
-                if (isAdministrator.Value)
-                {
-                    users = users.Where(x => x.IsAdmin());
-                }
+                users = users.Where(x => x.IsAdmin() || x.GetListAdminModules().Any());
             }
 
             _context.TotalCount = users.Count();
@@ -349,7 +345,7 @@ namespace ASC.Api.Employee
         /// <param name="worksfrom" optional="true">Works from date. If not specified - current will be set</param>
         /// <param name="comment" optional="true">Comment for user</param>
         /// <param name="contacts">List of contacts</param>
-        /// <param name="files">Avatar photo (string format of path url)</param>
+        /// <param name="files">Avatar photo url</param>
         /// <returns>Newly created user</returns>
         [Create("")]
         public EmployeeWraperFull AddMember(bool isVisitor, string email, string firstname, string lastname, Guid[] department, string title, string location, string sex, ApiDateTime birthday, ApiDateTime worksfrom, string comment, IEnumerable<Contact> contacts, string files)
@@ -409,7 +405,7 @@ namespace ASC.Api.Employee
         /// <param name="worksfrom" optional="true">Works from date. If not specified - current will be set</param>
         /// <param name="comment" optional="true">Comment for user</param>
         /// <param name="contacts">List of contacts</param>
-        /// <param name="files">Avatar photo (string format of path url)</param>
+        /// <param name="files">Avatar photo url</param>
         /// <param name="password">User Password</param>
         /// <returns>Newly created user</returns>
         /// <visible>false</visible>
@@ -489,7 +485,7 @@ namespace ASC.Api.Employee
             }
             foreach (var guid in department)
             {
-                var userDepartment = CoreContext.GroupManager.GetGroupInfo(guid);
+                var userDepartment = CoreContext.UserManager.GetGroupInfo(guid);
                 if (userDepartment != Core.Users.Constants.LostGroupInfo)
                 {
                     CoreContext.UserManager.AddUserIntoGroup(user.ID, guid);
@@ -530,14 +526,29 @@ namespace ASC.Api.Employee
             }
         }
 
-        private static void UpdatePhotoUrl(string files, UserInfo user)
+        private void UpdatePhotoUrl(string files, UserInfo user)
         {
-            SecurityContext.DemandPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser);
-            if (String.IsNullOrEmpty(files)) return;
+            if (string.IsNullOrEmpty(files))
+            {
+                return;
+            }
 
-            var fileName = Path.GetFileName(files);
-            var photoUpload = UserPhotoManager.GetTempPhotoData(fileName);
-            UserPhotoManager.SaveOrUpdatePhoto(user.ID, photoUpload);
+            SecurityContext.DemandPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser);
+            
+            if (!files.StartsWith("http://") && !files.StartsWith("https://"))
+            {
+                files = _context.RequestContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Scheme | UriPartial.Authority) + "/" + files.TrimStart('/');
+            }
+            var request = HttpWebRequest.Create(files);
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                using (var inputStream = response.GetResponseStream())
+                using (var br = new BinaryReader(inputStream))
+                {
+                    var imageByteArray = br.ReadBytes((int)response.ContentLength);
+                    UserPhotoManager.SaveOrUpdatePhoto(user.ID, imageByteArray);
+                }
+            }
         }
 
         /// <summary>
@@ -559,7 +570,7 @@ namespace ASC.Api.Employee
         /// <param name="birthday" optional="true">Birthday</param>
         /// <param name="worksfrom" optional="true">Works from date. If not specified - current will be set</param>
         /// <param name="contacts">List fo contacts</param>
-        /// <param name="files">Avatar photo (string format of path url)</param>
+        /// <param name="files">Avatar photo url</param>
         /// <param name="disable"></param>
         /// <returns>Newly created user</returns>
         [Update("{userid}")]
@@ -569,7 +580,7 @@ namespace ASC.Api.Employee
 
             var user = GetUserInfo(userid);
 
-            if(CoreContext.UserManager.IsSysytemUser(user.ID))
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
                 throw new SecurityException();
 
             var self = SecurityContext.CurrentAccount.ID.Equals(user.ID);
@@ -671,7 +682,7 @@ namespace ASC.Api.Employee
 
             var user = GetUserInfo(userid);
 
-            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
                 throw new SecurityException();
 
             if (user.Status != EmployeeStatus.Terminated)
@@ -701,7 +712,7 @@ namespace ASC.Api.Employee
         {
             var user = GetUserInfo(userid);
 
-            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
                 throw new SecurityException();
 
             UpdateContacts(contacts, user);
@@ -723,7 +734,7 @@ namespace ASC.Api.Employee
         {
             var user = GetUserInfo(userid);
 
-            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
                 throw new SecurityException();
 
             user.Contacts.Clear();
@@ -746,7 +757,7 @@ namespace ASC.Api.Employee
         {
             var user = GetUserInfo(userid);
 
-            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
                 throw new SecurityException();
 
             DeleteContacts(contacts, user);
@@ -761,14 +772,14 @@ namespace ASC.Api.Employee
         /// Update user photo
         /// </short>
         /// <param name="userid">User ID</param>
-        /// <param name="files">Avatar photo (string format of path url)</param>
+        /// <param name="files">Avatar photo url</param>
         /// <returns></returns>
         [Update("{userid}/photo")]
         public EmployeeWraperFull UpdateMemberPhoto(string userid, string files)
         {
             var user = GetUserInfo(userid);
 
-            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
                 throw new SecurityException();
 
             if (files != UserPhotoManager.GetPhotoAbsoluteWebPath(user.ID))
@@ -795,7 +806,7 @@ namespace ASC.Api.Employee
         {
             var user = GetUserInfo(userid);
 
-            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
                 throw new SecurityException();
 
             SecurityContext.DemandPermissions(new UserSecurityProvider(user.ID), Core.Users.Constants.Action_EditUser);
@@ -850,7 +861,7 @@ namespace ASC.Api.Employee
 
             var user = CoreContext.UserManager.GetUsers(userid);
 
-            if (CoreContext.UserManager.IsSysytemUser(user.ID))
+            if (CoreContext.UserManager.IsSystemUser(user.ID))
                 throw new SecurityException();
 
             if (!string.IsNullOrEmpty(email))
@@ -903,7 +914,7 @@ namespace ASC.Api.Employee
         public IEnumerable<EmployeeWraperFull> UpdateEmployeeActivationStatus(EmployeeActivationStatus activationstatus, IEnumerable<Guid> userIds)
         {
             var retuls = new List<EmployeeWraperFull>();
-            foreach (var id in userIds.Where(userId => !CoreContext.UserManager.IsSysytemUser(userId)))
+            foreach (var id in userIds.Where(userId => !CoreContext.UserManager.IsSystemUser(userId)))
             {
                 SecurityContext.DemandPermissions(new UserSecurityProvider(id), Core.Users.Constants.Action_EditUser);
                 var u = CoreContext.UserManager.GetUsers(id);
@@ -930,7 +941,7 @@ namespace ASC.Api.Employee
         public IEnumerable<EmployeeWraperFull> UpdateUserType(EmployeeType type, IEnumerable<Guid> userIds)
         {
             var users = userIds
-                .Where(userId => !CoreContext.UserManager.IsSysytemUser(userId))
+                .Where(userId => !CoreContext.UserManager.IsSystemUser(userId))
                 .Select(userId => CoreContext.UserManager.GetUsers(userId))
                 .ToList();
 
@@ -978,7 +989,7 @@ namespace ASC.Api.Employee
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
 
             var users = userIds
-                .Where(userId => !CoreContext.UserManager.IsSysytemUser(userId))
+                .Where(userId => !CoreContext.UserManager.IsSystemUser(userId))
                 .Select(userId => CoreContext.UserManager.GetUsers(userId))
                 .ToList();
 
@@ -1023,7 +1034,7 @@ namespace ASC.Api.Employee
         public IEnumerable<EmployeeWraperFull> ResendUserInvites(IEnumerable<Guid> userIds)
         {
             var users = userIds
-                .Where(userId => !CoreContext.UserManager.IsSysytemUser(userId))
+                .Where(userId => !CoreContext.UserManager.IsSystemUser(userId))
                 .Select(userId => CoreContext.UserManager.GetUsers(userId))
                 .ToList();
 
@@ -1067,7 +1078,7 @@ namespace ASC.Api.Employee
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_AddRemoveUser);
 
             var users = userIds
-                .Where(userId => !CoreContext.UserManager.IsSysytemUser(userId))
+                .Where(userId => !CoreContext.UserManager.IsSystemUser(userId))
                 .Select(userId => CoreContext.UserManager.GetUsers(userId))
                 .ToList();
 

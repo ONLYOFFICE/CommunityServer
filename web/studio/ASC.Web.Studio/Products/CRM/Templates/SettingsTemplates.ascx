@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Assembly Name="ASC.Web.Core" %>
-<%@ Import Namespace="ASC.Web.CRM" %>
 <%@ Import Namespace="ASC.Web.CRM.Classes" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
@@ -561,7 +560,7 @@
            <dt>
                {{if type == 3}}
                <label for="cb_${name}">${title}:</label>
-               {{else type == -1 && (isCompany == true && title == ASC.CRM.Resources.CRMContactResource.CompanyName || isCompany == false && (title == ASC.CRM.Resources.CRMContactResource.FirstName || title == ASC.CRM.Resources.CRMContactResource.LastName))}}
+               {{else type == -1 && (isCompany == true && title == ASC.CRM.Resources.CRMContactResource.CompanyName || isCompany == false && title == ASC.CRM.Resources.CRMContactResource.FirstName)}}
                <div class="requiredField">${title}:</div>
                {{else}}
                ${title}:
@@ -621,11 +620,6 @@
                                 if (firstName == ''){
                                     if(typeof (toastr) === 'object' && typeof (toastr.error) === 'function') toastr.error('<%= CRMContactResource.ErrorEmptyContactFirstName %>');
                                     else alert('<%= CRMContactResource.ErrorEmptyContactFirstName %>');
-                                    isValid = false;
-                                }
-                                else if (lastName == ''){
-                                    if(typeof (toastr) === 'object' && typeof (toastr.error) === 'function') toastr.error('<%= CRMContactResource.ErrorEmptyContactLastName %>');
-                                    else alert('<%= CRMContactResource.ErrorEmptyContactLastName %>');
                                     isValid = false;
                                 }
                             }

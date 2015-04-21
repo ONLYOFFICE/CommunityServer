@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 /*******************************************************************************
 JQuery Extension
@@ -521,6 +519,7 @@ ASC.CRM.Common = (function() {
             var sortedList = [],
                 subList = {
                     label: "",
+                    labelid: 0,
                     list: []
                 };
 
@@ -539,6 +538,7 @@ ASC.CRM.Common = (function() {
                     if (field.fieldType == 4) {
                         subList = {
                             label: field.label,
+                            labelid: field.id,
                             list: []
                         };
                     }
@@ -1074,7 +1074,7 @@ ASC.CRM.Common = (function() {
                     newTab.close();
                 }
                 if (jq("#noMailAccountsError").length == 0) {
-                    jq.tmpl("blockUIPanelTemplate", {
+                    jq.tmpl("template-blockUIPanel", {
                         id: "noMailAccountsError",
                         headerTest: ASC.CRM.Resources.CRMCommonResource.Alert,
                         questionText: "",
@@ -1367,7 +1367,7 @@ ASC.CRM.HistoryView = (function () {
     };
 
     var _initEmptyScreen = function(){
-        jq.tmpl("emptyScrTmpl",
+        jq.tmpl("template-emptyScreen",
             { ID: "emptyContentForEventsFilter",
                 ImgSrc: ASC.CRM.Data.EmptyScrImgs["empty_screen_filter"],
                 Header: ASC.CRM.Resources.CRMCommonResource.EmptyHistoryHeader,
@@ -1587,7 +1587,6 @@ ASC.CRM.HistoryView = (function () {
         historyCKEditor: historyCKEditor,
         CallbackMethods: {
             get_events_by_filter: function(params, events) {
-
                 if (typeof (params.__nextIndex) == "undefined") {
                     ASC.CRM.HistoryView.ShowMore = false;
                 }
@@ -1659,7 +1658,47 @@ ASC.CRM.HistoryView = (function () {
             },
 
             add_event: function(params, event) {
-                ASC.CRM.HistoryView.addEventToHistoryLayout(params, event);
+                ASC.CRM.HistoryView.eventItemFactory(event);
+
+                if (ASC.CRM.HistoryView.historyCKEditor) {
+                    ASC.CRM.HistoryView.historyCKEditor.setData("");
+                    ASC.CRM.HistoryView.historyCKEditor.focus();
+                } else {
+                    jq("#historyBlock textarea").val("");
+                    jq("#historyBlock textarea").focus();
+                }
+
+                jq("#contactSwitcherSelect").val(-2).change();
+                jq("#typeSwitcherSelect").val(-2).change();
+                ASC.CRM.HistoryView.changeType(-1, '');
+                ASC.CRM.HistoryView.changeContact(-1);
+
+                jq("#usrSrListViewAdvUsrSrContainer_HistoryUserSelector .addUserLink").useradvancedSelector("undisable", window.SelectedUsers_HistoryUserSelector.IDs);
+                window.SelectedUsers_HistoryUserSelector.IDs.clear();
+                window.SelectedUsers_HistoryUserSelector.Names.clear();
+                jq("#selectedUsers_HistoryUserSelector div").remove();
+
+                if (!jq.browser.mobile && !params.fromAttachmentsControl) {
+                    ASC.CRM.FileUploader.reinit();
+                    ASC.CRM.HistoryView.showAttachmentPanel(false);
+                }
+
+                if (jq("#eventsTable tbody tr").length == 0) {
+                    jq("#emptyContentForEventsFilter:not(.display-none)").addClass("display-none");
+                    jq("#eventsFilterContainer").show();
+                    jq("#eventsList").show();
+                    ASC.CRM.HistoryView.resizeFilter();
+                }
+                jq.tmpl("historyRowTmpl", event).prependTo("#eventsTable tbody");
+
+                if (event.files != null)
+                    jq.dropdownToggle({
+                        dropdownID: "eventAttach_" + event.id,
+                        switcherSelector: "#eventAttachSwither_" + event.id,
+                        addTop: 5,
+                        rightPos: true
+                    });
+
                 ASC.CRM.HistoryView.EventsList.unshift(event);
                 if (event.files != null) {
                     if (typeof (window.Attachments) != "undefined") {
@@ -1737,6 +1776,12 @@ ASC.CRM.HistoryView = (function () {
             _initEventCategorySelector();
 
             setInterval(function() {
+                if (jq("#historyBlock").is(":visible")) {
+                    ASC.CRM.HistoryView.activate();
+                }
+            }, 100);
+
+            setInterval(function () {
                 var text = jq.trim(jq("#historyCKEditor").val());
 
                 if (ASC.CRM.HistoryView.historyCKEditor) {
@@ -1772,16 +1817,21 @@ ASC.CRM.HistoryView = (function () {
         setFilter: function(evt, $container, filter, params, selectedfilters) { _renderContent(); },
         resetFilter: function(evt, $container, filter, selectedfilters) { _renderContent(); },
 
-        activate: function() {
+        activate: function () {
             if (ASC.CRM.HistoryView.isTabActive == false) {
                 ASC.CRM.HistoryView.isTabActive = true;
-                LoadingBanner.displayLoading();
-                if (ASC.CRM.HistoryView.ContactID > 0) {
-                    _fillEventToEntityItems();
-                } else {
-                    _fillEventToEntityContacts();
-                }
+
+                ASC.CRM.HistoryView.refreshToEntitySelectors();
                 _renderContent();
+            }
+        },
+
+        refreshToEntitySelectors: function () {
+            LoadingBanner.displayLoading();
+            if (ASC.CRM.HistoryView.ContactID > 0) {
+                _fillEventToEntityItems();
+            } else {
+                _fillEventToEntityContacts();
             }
         },
 
@@ -1942,48 +1992,6 @@ ASC.CRM.HistoryView = (function () {
             }
         },
 
-        addEventToHistoryLayout: function(params, event) {
-            ASC.CRM.HistoryView.eventItemFactory(event);
-
-            if (ASC.CRM.HistoryView.historyCKEditor) {
-                ASC.CRM.HistoryView.historyCKEditor.setData("");
-                ASC.CRM.HistoryView.historyCKEditor.focus();
-            } else {
-                jq("#historyBlock textarea").val("");
-                jq("#historyBlock textarea").focus();
-            }
-
-            jq("#contactSwitcherSelect").val(-2).change();
-            jq("#typeSwitcherSelect").val(-2).change();
-            ASC.CRM.HistoryView.changeType(-1, '');
-            ASC.CRM.HistoryView.changeContact(-1);
-
-            jq("#usrSrListViewAdvUsrSrContainer_HistoryUserSelector .addUserLink").useradvancedSelector("undisable", window.SelectedUsers_HistoryUserSelector.IDs);
-            window.SelectedUsers_HistoryUserSelector.IDs.clear();
-            window.SelectedUsers_HistoryUserSelector.Names.clear();
-            jq("#selectedUsers_HistoryUserSelector div").remove();
-
-            if (!jq.browser.mobile && !params.fromAttachmentsControl) {
-                ASC.CRM.FileUploader.reinit();
-                ASC.CRM.HistoryView.showAttachmentPanel(false);
-            }
-
-            if (jq("#eventsTable tbody tr").length == 0) {
-                jq("#emptyContentForEventsFilter:not(.display-none)").addClass("display-none");
-                jq("#eventsFilterContainer").show();
-                jq("#eventsList").show();
-                ASC.CRM.HistoryView.resizeFilter();
-            }
-            jq.tmpl("historyRowTmpl", event).prependTo("#eventsTable tbody");
-
-            if (event.files != null)
-                jq.dropdownToggle({
-                    dropdownID: "eventAttach_" + event.id,
-                    switcherSelector: "#eventAttachSwither_" + event.id,
-                    addTop: 5,
-                    rightPos: true
-                });
-        },
 
         deleteEvent: function(id) {
             Teamlab.removeCrmHistoryEvent({}, id,
@@ -2037,7 +2045,23 @@ ASC.CRM.HistoryView = (function () {
             }
         },
 
-        appendOption: function($select, option) {
+        appendOption: function (type, option) {
+            if (type != "contact" && type != "case" && type != "opportunity") return;
+
+            var entityTypeOpportunity = 1,
+                $select = jq('#contactSwitcherSelect');
+            if (type == "case") {
+                $select = jq('#casesSwitcherSelect');
+            } else if (type == "opportunity") {
+                $select = jq('#dealsSwitcherSelect');
+
+                var $hiddenOptDeal = jq("#typeSwitcherSelect>option[value='" + entityTypeOpportunity + "'].hidden");
+                if ($hiddenOptDeal.length == 1) {
+                    $hiddenOptDeal.removeClass("hidden");
+                    jq("#typeSwitcherSelect").tlCombobox();
+                }
+            }
+
             var $tlcombobox = $select.parents('span.tl-combobox:first');
             $tlcombobox = $tlcombobox.length > 0 ? $tlcombobox : $select;
             $tlcombobox.parent().removeClass('empty-select');
@@ -2046,7 +2070,16 @@ ASC.CRM.HistoryView = (function () {
             return $select;
         },
 
-        removeOption: function($select, value) {
+        removeOption: function (type, value) {
+            if (type != "contact" && type != "case" && type != "opportunity") return;
+
+            var $select = jq('#contactSwitcherSelect');
+            if (type == "case") {
+                $select = jq('#casesSwitcherSelect');
+            } else if (type == "opportunity") {
+                $select = jq('#dealsSwitcherSelect');
+            }
+
             $select.find('option[value="' + value + '"]').remove();
             $select.tlCombobox();
             var 
@@ -2066,14 +2099,6 @@ ASC.CRM.HistoryView = (function () {
                 $tlcombobox.parent().addClass('empty-select');
             }
             return $select;
-        },
-
-        appendOptionToContact: function(option) {
-            return ASC.CRM.HistoryView.appendOption(jq('#contactSwitcherSelect'), option);
-        },
-
-        removeOptionFromContact: function(value) {
-            return ASC.CRM.HistoryView.removeOption(jq('#contactSwitcherSelect'), value);
         }
     };
 })();
@@ -2283,7 +2308,7 @@ ASC.CRM.ContactSelector = new function() {
             focus: function (event, ui) {
                 event.preventDefault ? event.preventDefault() : (event.returnValue = false);
 
-                var autocomplete = jq(this).data("uiAutocomplete"),
+                var autocomplete = jq(this).data("ui-autocomplete"),
                     menu = autocomplete.menu,
 
                     scroll = menu.element.scrollTop(),
@@ -2356,7 +2381,7 @@ ASC.CRM.ContactSelector = new function() {
             }
         });
 
-        $input.data("uiAutocomplete")._renderMenu = function (ul, items) {
+        $input.data("ui-autocomplete")._renderMenu = function (ul, items) {
             var s = this;
             jq.each(items, function (jq, items) {
                 s._renderItemData(ul, items);
@@ -2370,7 +2395,7 @@ ASC.CRM.ContactSelector = new function() {
             }
         };
 
-        $input.data("uiAutocomplete")._renderItem = function(ul, item) {
+        $input.data("ui-autocomplete")._renderItem = function(ul, item) {
             jq("#noMatches_" + objName).hide();
             if (jq.inArray(item.id, obj.SelectedContacts) != -1) return;
             if (typeof (obj.ExcludedArrayIDs) != "undefined") {
@@ -2385,14 +2410,14 @@ ASC.CRM.ContactSelector = new function() {
                         .appendTo(ul);
         };
 
-        $input.data("uiAutocomplete")._resizeMenu = function() {
+        $input.data("ui-autocomplete")._resizeMenu = function() {
             var ul = this.menu.element,
                 $trObj = jq(advancedInput).children("tbody").children("tr"),
                 inputWidth = $trObj.width() - ($trObj.children("td").length - 3) * 18;
             ul.outerWidth(Math.max(inputWidth, this.element.outerWidth()));
         };
 
-        $input.data("uiAutocomplete")._suggest = function(a) {
+        $input.data("ui-autocomplete")._suggest = function(a) {
             var b = this.menu.element.empty().zIndex(this.element.zIndex() + 1);
             this._renderMenu(b, a);
             //this.menu.deactivate();
@@ -2837,13 +2862,6 @@ ASC.CRM.ContactSelector = new function() {
                 jq("#newContactFirstName_" + objID).removeClass("requiredInputError");
             }
 
-            if (!isCompany && lastName == "") {
-                jq("#newContactLastName_" + objID).addClass("requiredInputError");
-                isValid = false;
-            } else {
-                jq("#newContactLastName_" + objID).removeClass("requiredInputError");
-            }
-
             if (!isValid)
                 return false;
 
@@ -3224,7 +3242,6 @@ ASC.CRM.ImportFromCSVView = (function() {
                         var err = errors[0];
                         if (err != null) {
                             toastr.error(err);
-                            return;
                         }
                     }
                 });
@@ -3282,7 +3299,6 @@ ASC.CRM.ImportEntities = (function ($) {
                     var err = errors[0];
                     if (err != null) {
                         _showErrorPanel(err);
-                        return;
                     }
                 }
             });
@@ -3384,7 +3400,7 @@ ASC.CRM.ImportEntities = (function ($) {
     };
 
     var _initErrorPanel = function () {
-        jq.tmpl("blockUIPanelTemplate", {
+        jq.tmpl("template-blockUIPanel", {
             id: "importErrorPanel",
             headerTest: ASC.CRM.Resources.CRMCommonResource.Error,
             questionText: "",
@@ -3505,10 +3521,9 @@ ASC.CRM.ImportEntities = (function ($) {
                 case 0:  //  Contact
                     {
                         var firstNameOptions = columnMappingSelector.find("option[name=firstName]:selected"),
-                            lastNameOptions = columnMappingSelector.find("option[name=lastName]:selected"),
                             companyNameOptions = columnMappingSelector.find("option[name=companyName]:selected");
 
-                        if ((firstNameOptions.length == 0 || lastNameOptions.length == 0) && companyNameOptions.length == 0) {
+                        if (firstNameOptions.length == 0 && companyNameOptions.length == 0) {
                             _showErrorPanel(ASC.CRM.Resources.CRMJSResource.ErrorContactNotMappingBasicColumn);
                             return;
                         }
@@ -3605,7 +3620,6 @@ ASC.CRM.ImportEntities = (function ($) {
                         var err = errors[0];
                         if (err != null) {
                             _showErrorPanel(err);
-                            return;
                         }
                     }
 
@@ -3697,7 +3711,6 @@ ASC.CRM.ImportEntities = (function ($) {
                        var err = errors[0];
                        if (err != null) {
                            _showErrorPanel(err);
-                           return false;
                        }
                    }
                });

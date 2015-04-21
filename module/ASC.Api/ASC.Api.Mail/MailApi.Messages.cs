@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -34,11 +32,13 @@ using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Api.Mail.DAO;
 using ASC.Api.Mail.Extensions;
+using ASC.Files.Core.Security;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
 using ASC.Mail.Aggregator.Dal.DbSchema;
 using ASC.Mail.Aggregator.Filter;
+using ASC.Mail.Aggregator.Utils;
 using ASC.Specific;
 using ASC.Mail.Aggregator.Exceptions;
 using ASC.Api.Mail.Resources;
@@ -91,8 +91,8 @@ namespace ASC.Api.Mail
                 PrimaryFolder = folder.GetValueOrDefault(MailFolder.Ids.inbox),
                 Unread = unread,
                 Attachments = attachments.GetValueOrDefault(false),
-                Period_from = period_from.GetValueOrDefault(0),
-                Period_to = period_to.GetValueOrDefault(0),
+                PeriodFrom = period_from.GetValueOrDefault(0),
+                PeriodTo = period_to.GetValueOrDefault(0),
                 Important = important.GetValueOrDefault(false),
                 FindAddress = find_address,
                 MailboxId = mailbox_id,
@@ -102,52 +102,55 @@ namespace ASC.Api.Mail
                 SortOrder = sortorder
             };
 
-            MailBoxManager.UpdateUserActivity(TenantId, Username);
-
             if (null != last_check_date)
             {
-                var date_time = MailBoxManager.GetFolderModifyDate(TenantId, Username, filter.PrimaryFolder);
-                var api_date = new ApiDateTime(date_time);
+                var dateTime = MailBoxManager.GetFolderModifyDate(TenantId, Username, filter.PrimaryFolder);
+                var apiDate = new ApiDateTime(dateTime);
 
-                var compare_rez = api_date.CompareTo(last_check_date);
+                var compareRez = apiDate.CompareTo(last_check_date);
 
-                if (compare_rez == 0) // equals
+                if (compareRez == 0) // equals
                     return null;
-                if (compare_rez == -1) // less
+                if (compareRez == -1) // less
                     return new List<MailMessageItem>();
             }
 
-            long total_messages;
-            var messages = GetFilteredMessages(filter, filter.Page, filter.PageSize, out total_messages);
-            CorrectPageValue(filter, total_messages);
-            _context.SetTotalCount(total_messages);
+            long totalMessages;
+            var messages = GetFilteredMessages(filter, filter.Page, filter.PageSize, out totalMessages);
+            CorrectPageValue(filter, totalMessages);
+            _context.SetTotalCount(totalMessages);
             return messages;
         }
+
         /// <summary>
         ///    Returns the detailed information about message with the ID specified in the request
         /// </summary>
         /// <param name="id">Message ID</param>
         /// <param optional="true" name="unblocked">Unblock suspicious content or not</param>
         /// <param optional="true" name="is_need_to_sanitize_html">Flag specifies is needed to prepare html for FCKeditor</param>
+        /// <param optional="true" name="mark_read">Mark message as read</param>
         /// <returns>MailMessageItem</returns>
         /// <short>Get message</short>
         /// <category>Messages</category>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="ItemNotFoundException">Exception happens when message with specified id wasn't founded.</exception>
         [Read(@"messages/{id:[0-9]+}")]
-        public MailMessageItem GetMessage(int id, bool? unblocked, bool? is_need_to_sanitize_html)
+        public MailMessageItem GetMessage(int id, bool? unblocked, bool? is_need_to_sanitize_html, bool? mark_read)
         {
             if (id <= 0)
-                throw new ArgumentException("Invalid message id", "id");
+                throw new ArgumentException(@"Invalid message id", "id");
 
-            var unblocked_flag = unblocked.GetValueOrDefault(false);
-            var is_need_to_sanitize_html_f = is_need_to_sanitize_html.GetValueOrDefault(false);
+            var unblockedFlag = unblocked.GetValueOrDefault(false);
+            var needSanitizeHtml = is_need_to_sanitize_html.GetValueOrDefault(false);
 
-            var item = MailBoxManager.GetMailInfo(TenantId, Username, id, unblocked_flag, true);
+            var item = MailBoxManager.GetMailInfo(TenantId, Username, id, unblockedFlag, true);
             if (item == null)
                 throw new ItemNotFoundException(String.Format("Message with {0} wasn't founded.", id));
 
-            if (is_need_to_sanitize_html_f)
+            if (item.WasNew && mark_read.HasValue && mark_read.Value)
+                MailBoxManager.SetMessagesReadFlags(TenantId, Username, new List<int> {(int) item.Id}, true);
+
+            if (needSanitizeHtml)
                 item.HtmlBody = HtmlSanitizer.SanitizeHtmlForEditor(item.HtmlBody);
 
             return item;
@@ -198,8 +201,8 @@ namespace ASC.Api.Mail
                 PrimaryFolder = folder.GetValueOrDefault(MailFolder.Ids.inbox),
                 Unread = unread,
                 Attachments = attachments.GetValueOrDefault(false),
-                Period_from = period_from.GetValueOrDefault(0),
-                Period_to = period_to.GetValueOrDefault(0),
+                PeriodFrom = period_from.GetValueOrDefault(0),
+                PeriodTo = period_to.GetValueOrDefault(0),
                 Important = important.GetValueOrDefault(false),
                 FindAddress = find_address,
                 MailboxId = mailbox_id,
@@ -225,10 +228,10 @@ namespace ASC.Api.Mail
         public int DeleteMessageAttachment(int messageid, int attachmentid)
         {
             if (messageid <= 0)
-                throw new ArgumentException("Invalid message id. Message id must be positive integer", "messageid");
+                throw new ArgumentException(@"Invalid message id. Message id must be positive integer", "messageid");
 
             if (attachmentid <= 0)
-                throw new ArgumentException("Invalid attachment id. Attachment id must be positive integer", "attachmentid");
+                throw new ArgumentException(@"Invalid attachment id. Attachment id must be positive integer", "attachmentid");
 
             MailBoxManager.DeleteMessageAttachments(TenantId, Username, messageid, new List<int> { attachmentid });
 
@@ -244,47 +247,48 @@ namespace ASC.Api.Mail
         /// <short>Set message status</short> 
         /// <category>Messages</category>
         [Update(@"messages/mark")]
-        public IEnumerable<int> MarkMessages(IEnumerable<int> ids, string status)
+        public IEnumerable<int> MarkMessages(List<int> ids, string status)
         {
-            //todo: remove useless conversions
-            var mark_messages = ids as int[] ?? ids.ToArray();
-            var ids_list = new List<int>(mark_messages);
+            if (!ids.Any())
+                throw new ArgumentException(@"Empty ids collection", "ids");
 
             switch (status)
             {
                 case "read":
-                    MailBoxManager.SetMessagesReadFlags(TenantId, Username, ids_list, true);
+                    MailBoxManager.SetMessagesReadFlags(TenantId, Username, ids, true);
                     break;
 
                 case "unread":
-                    MailBoxManager.SetMessagesReadFlags(TenantId, Username, ids_list, false);
+                    MailBoxManager.SetMessagesReadFlags(TenantId, Username, ids, false);
                     break;
 
                 case "important":
-                    MailBoxManager.SetMessagesImportanceFlags(TenantId, Username, true, ids_list);
+                    MailBoxManager.SetMessagesImportanceFlags(TenantId, Username, true, ids);
                     break;
 
                 case "normal":
-                    MailBoxManager.SetMessagesImportanceFlags(TenantId, Username, false, ids_list);
+                    MailBoxManager.SetMessagesImportanceFlags(TenantId, Username, false, ids);
                     break;
             }
-            return mark_messages;
+            return ids;
         }
 
         /// <summary>
         ///    Restores the messages to their original folders
         /// </summary>
-        /// <returns>IEnumerable</returns>
-        /// <short>Restore message to folders</short> 
+        /// <param name="ids">List of conversation ids for restore.</param>
+        /// <returns>List of restored messages ids</returns>
+        /// <short>Restore messages to original folders</short>
         /// <category>Messages</category>
         [Update(@"messages/restore")]
-        public IEnumerable<int> RestoreMessages(IEnumerable<int> ids)
+        public IEnumerable<int> RestoreMessages(List<int> ids)
         {
-            //todo: remove useless conversions
-            var restore_messages = ids as int[] ?? ids.ToArray();
-            var ids_list = new List<int>(restore_messages);
-            MailBoxManager.RestoreMessages(TenantId, Username, ids_list);
-            return restore_messages;
+            if (!ids.Any())
+                throw new ArgumentException(@"Empty ids collection", "ids");
+
+            MailBoxManager.RestoreMessages(TenantId, Username, ids);
+
+            return ids;
         }
 
         /// <summary>
@@ -296,13 +300,13 @@ namespace ASC.Api.Mail
         /// <short>Move message to folder</short> 
         /// <category>Messages</category>
         [Update(@"messages/move")]
-        public IEnumerable<int> MoveMessages(IEnumerable<int> ids, int folder)
+        public IEnumerable<int> MoveMessages(List<int> ids, int folder)
         {
-            //todo: remove useless conversions
-            var messages_ids = ids as int[] ?? ids.ToArray();
-            var ids_list = new List<int>(messages_ids);
-            MailBoxManager.SetMessagesFolder(TenantId, Username, folder, ids_list);
-            return messages_ids;
+            if (!ids.Any())
+                throw new ArgumentException(@"Empty ids collection", "ids");
+
+            MailBoxManager.SetMessagesFolder(TenantId, Username, folder, ids);
+            return ids;
         }
 
         /// <summary>
@@ -321,11 +325,12 @@ namespace ASC.Api.Mail
         /// <param name="tags">List of tags id added to message</param>
         /// <param name="streamId">Stream id. Needed for correct attachment saving.</param>
         /// <param name="subject">Sended message subject.</param>
+        /// <param name="fileLinksShareMode">Share mode for attached file links</param>
         /// <returns>message id</returns>
         /// <short>Send message</short> 
         /// <category>Messages</category>
         [Update(@"messages/send")]
-        public int SendMessages(int id,
+        public int SendMessage(int id,
             IEnumerable<MailAttachment> attachments,
             IEnumerable<string> to,
             IEnumerable<string> bcc,
@@ -337,7 +342,9 @@ namespace ASC.Api.Mail
             bool importance,
             IEnumerable<int> tags,
             string streamId,
-            string subject)
+            string subject,
+            FileShare fileLinksShareMode
+            )
         {
             var item = new MailSendItem
                 {
@@ -352,15 +359,29 @@ namespace ASC.Api.Mail
                     Labels = new List<int>(tags),
                     StreamId = streamId,
                     Subject = subject,
-                    To = new List<string>(to)
+                    To = new List<string>(to),
+                    FileLinksShareMode = fileLinksShareMode
                 };
 
             var accounts = MailBoxManager.GetAccountInfo(TenantId, Username).ToAddressData();
-            var mail_address = new MailAddress(item.From);
-            var account = accounts.FirstOrDefault(a => a.Email.ToLower().Equals(mail_address.Address));
+            var mailAddress = new MailAddress(item.From);
+            var account = accounts.FirstOrDefault(a => a.Email.ToLower().Equals(mailAddress.Address));
 
             if (account == null)
-                throw new ArgumentException("no such mailbox");
+                throw new ArgumentException("Mailbox not found");
+
+            if(account.IsGroup)
+                throw new InvalidOperationException("Sending emails from a group address is forbidden");
+
+            if (id > 0)
+            {
+                var message = GetMessage(id, false, false, false);
+
+                if (message.Folder != MailFolder.Ids.drafts)
+                {
+                    throw new InvalidOperationException("Sending emails is permitted only in the Drafts folder");
+                }
+            }
 
             return SendQueue.Send(TenantId, Username, item, id, account.MailboxId);
         }
@@ -385,7 +406,7 @@ namespace ASC.Api.Mail
         /// <short>SaveToDraft message</short> 
         /// <category>Messages</category>
         [Update(@"messages/save")]
-        public MailMessageItem SaveMessages(int id,
+        public MailMessageItem SaveMessage(int id,
             IEnumerable<MailAttachment> attachments,
             IEnumerable<string> to,
             IEnumerable<string> bcc,
@@ -419,11 +440,24 @@ namespace ASC.Api.Mail
             };
 
             var accounts = MailBoxManager.GetAccountInfo(TenantId, Username).ToAddressData();
-            var mail_address = new MailAddress(item.From);
-            var account = accounts.FirstOrDefault(a => a.Email.ToLower().Equals(mail_address.Address));
+            var mailAddress = new MailAddress(item.From);
+            var account = accounts.FirstOrDefault(a => a.Email.ToLower().Equals(mailAddress.Address));
 
             if (account == null)
-                throw new ArgumentException("no such mailbox");
+                throw new ArgumentException("Mailbox not found");
+
+            if (account.IsGroup)
+                throw new InvalidOperationException("Saving emails from a group address is forbidden");
+
+            if (id > 0)
+            {
+                var message = GetMessage(id, false, false, false);
+
+                if (message.Folder != MailFolder.Ids.drafts)
+                {
+                    throw new InvalidOperationException("Saving emails is permitted only in the Drafts folder");
+                }
+            }
 
             return SendQueue.SaveToDraft(TenantId, Username, item, id, account.MailboxId);
         }
@@ -436,13 +470,13 @@ namespace ASC.Api.Mail
         /// <short>Remove messages</short> 
         /// <category>Messages</category>
         [Update(@"messages/remove")]
-        public IEnumerable<int> RemoveMessages(IEnumerable<int> ids)
+        public IEnumerable<int> RemoveMessages(List<int> ids)
         {
-            //todo: remove useless conversions
-            var messages_ids = ids as int[] ?? ids.ToArray();
-            var ids_list = new List<int>(messages_ids);
-            MailBoxManager.DeleteMessages(TenantId, Username, ids_list);
-            return messages_ids;
+            if (!ids.Any())
+                throw new ArgumentException(@"Empty ids collection", "ids");
+
+            MailBoxManager.DeleteMessages(TenantId, Username, ids);
+            return ids;
         }
 
         /// <summary>
@@ -454,7 +488,7 @@ namespace ASC.Api.Mail
         [Read(@"messages/template")]
         public MailMessageItem GetMessageTemplate()
         {
-            var send_template = new MailMessageItem
+            var sendTemplate = new MailMessageItem
             {
                 Attachments = new List<MailAttachment>(),
                 Bcc = "",
@@ -469,7 +503,7 @@ namespace ASC.Api.Mail
                 To = "",
                 StreamId = MailBoxManager.CreateNewStreamId()
             };
-            return send_template;
+            return sendTemplate;
         }
 
         /// <summary>
@@ -504,36 +538,34 @@ namespace ASC.Api.Mail
                 var attachment = MailBoxManager.AttachFileFromDocuments(TenantId, Username, id, fileId, version, shareLink, streamId);
                 return attachment;
             }
-                //todo: rewrite to typed exceptions
             catch (AttachmentsException e)
             {
-                string error_message;
-
+                string errorMessage;
                 switch (e.ErrorType)
                 {
-                    case AttachmentsException.Types.BAD_PARAMS:
-                        error_message = MailApiResource.AttachmentsBadInputParamsError;
+                    case AttachmentsException.Types.BadParams:
+                        errorMessage = MailApiResource.AttachmentsBadInputParamsError;
                         break;
-                    case AttachmentsException.Types.EMPTY_FILE:
-                        error_message = MailApiResource.AttachmentsEmptyFileNotSupportedError;
+                    case AttachmentsException.Types.EmptyFile:
+                        errorMessage = MailApiResource.AttachmentsEmptyFileNotSupportedError;
                         break;
-                    case AttachmentsException.Types.MESSAGE_NOT_FOUND:
-                        error_message = MailApiResource.AttachmentsMessageNotFoundError;
+                    case AttachmentsException.Types.MessageNotFound:
+                        errorMessage = MailApiResource.AttachmentsMessageNotFoundError;
                         break;
-                    case AttachmentsException.Types.TOTAL_SIZE_EXCEEDED:
-                        error_message = MailApiResource.AttachmentsTotalLimitError;
+                    case AttachmentsException.Types.TotalSizeExceeded:
+                        errorMessage = MailApiResource.AttachmentsTotalLimitError;
                         break;
-                    case AttachmentsException.Types.DOCUMENT_NOT_FOUND:
-                        error_message = MailApiResource.AttachmentsDocumentNotFoundError;
+                    case AttachmentsException.Types.DocumentNotFound:
+                        errorMessage = MailApiResource.AttachmentsDocumentNotFoundError;
                         break;
-                    case AttachmentsException.Types.DOCUMENT_ACCESS_DENIED:
-                        error_message = MailApiResource.AttachmentsDocumentAccessDeniedError;
+                    case AttachmentsException.Types.DocumentAccessDenied:
+                        errorMessage = MailApiResource.AttachmentsDocumentAccessDeniedError;
                         break;
                     default:
-                        error_message = MailApiResource.AttachmentsUnknownError;
+                        errorMessage = MailApiResource.AttachmentsUnknownError;
                         break;
                 }
-                throw new Exception(error_message);
+                throw new Exception(errorMessage);
             }
             catch (Exception)
             {
@@ -556,14 +588,14 @@ namespace ASC.Api.Mail
             try
             {
                 if (id_message < 0)
-                    throw new ArgumentException("Invalid message id", "id_message");
+                    throw new ArgumentException(@"Invalid message id", "id_message");
                 if (crm_contact_ids == null)
-                    throw new ArgumentException("Invalid contact ids list", "crm_contact_ids");
+                    throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
 
-                var message_item = MailBoxManager.GetMailInfo(TenantId, Username, id_message, true, true);
-                message_item.LinkedCrmEntityIds = crm_contact_ids.ToList();
-                var crm_dal = new ASC.Mail.Aggregator.Dal.CrmHistoryDal(MailBoxManager, TenantId, Username);
-                crm_dal.AddRelationshipEvents(message_item);
+                var messageItem = MailBoxManager.GetMailInfo(TenantId, Username, id_message, true, true);
+                messageItem.LinkedCrmEntityIds = crm_contact_ids.ToList();
+                var crmDal = new ASC.Mail.Aggregator.Dal.CrmHistoryDal(TenantId, Username);
+                crmDal.AddRelationshipEvents(messageItem);
             }
             catch (Exception ex)
             {
@@ -572,15 +604,15 @@ namespace ASC.Api.Mail
             }
         }
 
-        private List<MailMessageItem> GetFilteredMessages(MailFilter filter, int page, int page_size, out long total_messages_count)
+        private IEnumerable<MailMessageItem> GetFilteredMessages(MailFilter filter, int page, int pageSize, out long totalMessagesCount)
         {
-            return MailBoxManager.GetMailsFiltered(TenantId, Username, filter, page, page_size, out total_messages_count);
+            return MailBoxManager.GetMailsFiltered(TenantId, Username, filter, page, pageSize, out totalMessagesCount);
         }
 
-        private void CorrectPageValue(MailFilter filter, long total_messages)
+        private void CorrectPageValue(MailFilter filter, long totalMessages)
         {
-            var max_page = (int)Math.Ceiling((double)total_messages / filter.PageSize);
-            if (filter.Page > max_page) filter.Page = max_page;
+            var maxPage = (int)Math.Ceiling((double)totalMessages / filter.PageSize);
+            if (filter.Page > maxPage) filter.Page = maxPage;
             if (filter.Page < 1) filter.Page = 1;
         }
     }

@@ -1456,7 +1456,8 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
               } else if (ASC.TMTalk.dom.hasClass(room, 'mailing')) {
                 var listId = room.getAttribute('data-roomcid');
                 if (listId && jid) {
-                  ASC.TMTalk.msManager.removeContact(listId, jid);
+                    ASC.TMTalk.msManager.removeContact(listId, jid);
+                    ASC.TMTalk.msManager.storeMailingLists();
                 }
               }
             }

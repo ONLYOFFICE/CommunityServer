@@ -5,8 +5,14 @@
 </asp:Content>
 
 <asp:Content ID="PageContent" ContentPlaceHolderID="PageContent" runat="server">
-    <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
-    <asp:PlaceHolder ID="controlsHolder" runat="server">
-        <div id="feed-filter"></div>
-    </asp:PlaceHolder>
+    <div id="feed-view">
+        <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
+        <asp:PlaceHolder ID="controlsHolder" runat="server">
+            <div id="feed-filter"></div>
+        </asp:PlaceHolder>
+        
+        <div id="empty-screens-box">
+           <asp:PlaceHolder ID="emptyScreensHolder" runat="server"></asp:PlaceHolder> 
+        </div>
+    </div>
 </asp:Content>

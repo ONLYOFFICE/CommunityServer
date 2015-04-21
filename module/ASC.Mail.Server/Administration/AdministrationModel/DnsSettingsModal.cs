@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using ASC.Mail.Aggregator.Common.Logging;
@@ -53,76 +51,74 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
         public ILogger Logger { get; private set; }
 
-        public DnsSettingsModal(int id, int tenant, string user, string domain_name, string dkim_selector, string dkim_private_key,
-                                string dkim_public_key, string domain_check_name, string domain_check_record,
-                                string spf_name, string spf_record, string mx_host, int mx_priority, ILogger logger = null)
+        public DnsSettingsModal(int id, int tenant, string user, string domainName, string dkimSelector, string dkimPrivateKey,
+                                string dkimPublicKey, string domainCheckName, string domainCheckRecord,
+                                string spfName, string spfRecord, string mxHost, int mxPriority, ILogger logger = null)
         {
             if (id < 0)
                 throw new ArgumentException("Invalid domain id", "id");
 
-            if (tenant < 0)
-                throw new ArgumentException("Invalid tenant id", "tenant");
 
             if (string.IsNullOrEmpty(user))
                 throw new ArgumentException("Invalid user", "user");
 
-            if (string.IsNullOrEmpty(dkim_selector))
-                throw new ArgumentException("Invalid dkim selector", "dkim_selector");
+            if (string.IsNullOrEmpty(dkimSelector))
+                throw new ArgumentException("Invalid dkim selector", "dkimSelector");
 
-            if (string.IsNullOrEmpty(dkim_private_key))
-                throw new ArgumentException("Invalid dkim private key", "dkim_private_key");
+            if (string.IsNullOrEmpty(dkimPrivateKey))
+                throw new ArgumentException("Invalid dkim private key", "dkimPrivateKey");
 
-            if (string.IsNullOrEmpty(dkim_public_key))
-                throw new ArgumentException("Invalid dkim public key", "dkim_public_key");
+            if (string.IsNullOrEmpty(dkimPublicKey))
+                throw new ArgumentException("Invalid dkim public key", "dkimPublicKey");
 
-            if (string.IsNullOrEmpty(domain_check_name))
-                throw new ArgumentException("Invalid name of domain check record", "domain_check_name");
+            if (string.IsNullOrEmpty(domainCheckName))
+                throw new ArgumentException("Invalid name of domain check record", "domainCheckName");
 
-            if (string.IsNullOrEmpty(domain_check_record))
-                throw new ArgumentException("Invalid domain check record", "domain_check_record");
+            if (string.IsNullOrEmpty(domainCheckRecord))
+                throw new ArgumentException("Invalid domain check record", "domainCheckRecord");
 
-            if (string.IsNullOrEmpty(spf_name))
-                throw new ArgumentException("Invalid name of spf record", "spf_name");
+            if (string.IsNullOrEmpty(spfName))
+                throw new ArgumentException("Invalid name of spf record", "spfName");
 
-            if (string.IsNullOrEmpty(spf_record))
-                throw new ArgumentException("Invalid spf record", "spf_record");
+            if (string.IsNullOrEmpty(spfRecord))
+                throw new ArgumentException("Invalid spf record", "spfRecord");
 
-            if (string.IsNullOrEmpty(mx_host))
-                throw new ArgumentException("Invalid name of spf record", "spf_name");
+            if (string.IsNullOrEmpty(mxHost))
+                throw new ArgumentException("Invalid name of spf record", "spfName");
 
-            if (mx_priority < 0)
-                throw new ArgumentException("Invalid mx priority", "mx_priority");
+            if (mxPriority < 0)
+                throw new ArgumentException("Invalid mx priority", "mxPriority");
 
             Id = id;
             Tenant = tenant;
             User = user;
-            DomainName = domain_name.ToLowerInvariant();
-            DkimSelector = dkim_selector;
-            DkimPublicKey = dkim_public_key;
-            DkimPrivateKey = dkim_private_key;
-            DomainCheckRecordName = domain_check_name;
-            DomainCheckRecord = domain_check_record;
-            SpfRecordName = spf_name;
-            SpfRecord = spf_record;
-            MxHost = mx_host;
-            MxPriority = mx_priority;
+            DomainName = domainName.ToLowerInvariant();
+            DkimSelector = dkimSelector;
+            DkimPublicKey = dkimPublicKey;
+            DkimPrivateKey = dkimPrivateKey;
+            DomainCheckRecordName = domainCheckName;
+            DomainCheckRecord = domainCheckRecord;
+            SpfRecordName = spfName;
+            SpfRecord = spfRecord;
+            MxHost = mxHost;
+            MxPriority = mxPriority;
             Logger = logger ?? new NullLogger();
         }
 
-        public bool CheckDnsStatus(string domain_name = "")
+        public bool CheckDnsStatus(string domainName = "")
         {
-            var check_domain_name = string.IsNullOrEmpty(DomainName)
-                                 ? domain_name
+            var checkDomainName = string.IsNullOrEmpty(DomainName)
+                                 ? domainName
                                  : DomainName;
 
-            if (string.IsNullOrEmpty(check_domain_name))
+            if (string.IsNullOrEmpty(checkDomainName))
                 return false;
 
-            MxVerified = DnsChecker.DnsChecker.IsMxSettedUpCorrectForDomain(check_domain_name, MxHost, Logger);
+            MxVerified = DnsChecker.DnsChecker.IsMxRecordCorrect(checkDomainName, MxHost, Logger);
 
-            SpfVerified = DnsChecker.DnsChecker.IsTxtRecordCorrect(check_domain_name, SpfRecord, Logger);
+            SpfVerified = DnsChecker.DnsChecker.IsTxtRecordCorrect(checkDomainName, SpfRecord, Logger);
 
-            DkimVerified = DnsChecker.DnsChecker.IsDkimSettedUpCorrectForDomain(check_domain_name, DkimSelector, DkimPublicKey,
+            DkimVerified = DnsChecker.DnsChecker.IsDkimRecordCorrect(checkDomainName, DkimSelector, DkimPublicKey,
                                                                                 Logger);
             return MxVerified && SpfVerified && DkimVerified;
         }

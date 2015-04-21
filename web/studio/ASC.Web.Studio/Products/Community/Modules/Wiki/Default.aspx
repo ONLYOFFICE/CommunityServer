@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Wiki" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Community.Wiki._Default"
@@ -7,8 +7,7 @@
 <%@ Import Namespace="ASC.Web.Community.Product" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
 <%@ Import Namespace="ASC.Web.Community.Wiki" %>
-<%@ Import Namespace="ASC.Web.UserControls.Wiki.Data" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
+
 <%@ Register Src="WikiUC/ViewPage.ascx" TagName="ucViewPage" TagPrefix="wiki" %>
 <%@ Register Src="WikiUC/EditPage.ascx" TagName="ucEditPage" TagPrefix="wiki" %>
 <%@ Register Src="WikiUC/ViewFile.ascx" TagName="ucViewFile" TagPrefix="wiki" %>

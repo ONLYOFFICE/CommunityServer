@@ -58,7 +58,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -150,21 +150,9 @@
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Community\Modules\Blogs\ASC.Web.Community.Blogs.csproj">
-      <Project>{76e19a86-2240-4dd9-ab5a-37f5d617ef28}</Project>
-      <Name>ASC.Web.Community.Blogs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Community\Modules\Bookmarking\ASC.Web.Community.Bookmarking.csproj">
-      <Project>{97473091-fe47-4293-921a-3d4cc596d2f5}</Project>
-      <Name>ASC.Web.Community.Bookmarking</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Community\Modules\Forum\ASC.Web.Community.Forum.csproj">
-      <Project>{ac68a6f4-6153-42d0-b51c-1ed14698c3a6}</Project>
-      <Name>ASC.Web.Community.Forum</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Community\Modules\News\ASC.Web.Community.News.csproj">
-      <Project>{fb0eda9c-5535-46a6-bd69-ffcdddc2534d}</Project>
-      <Name>ASC.Web.Community.News</Name>
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Community\ASC.Web.Community.csproj">
+      <Project>{11ba9805-752f-4f6f-a876-6ba56f0eb9de}</Project>
+      <Name>ASC.Web.Community</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj">
       <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
@@ -174,6 +162,10 @@
       <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
       <Name>ASC.Web.Files</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\web\studio\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj">
+      <Project>{11acb4ca-a305-4caa-8546-392c6dafc7c4}</Project>
+      <Name>ASC.Web.Projects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ASC.Api\ASC.Api\ASC.Api.Core.csproj">
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>
       <Name>ASC.Api.Core</Name>
@@ -181,14 +173,6 @@
     <ProjectReference Include="..\ASC.Feed\ASC.Feed.csproj">
       <Project>{b0431ec9-21d8-4d96-b333-6dd430031c82}</Project>
       <Name>ASC.Feed</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Projects\ASC.Projects.Core\ASC.Projects.Core.csproj">
-      <Project>{98330417-cf62-4624-94dc-271433945e27}</Project>
-      <Name>ASC.Projects.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Projects\ASC.Projects.Engine\ASC.Projects.Engine.csproj">
-      <Project>{64c8b39d-5dcd-4eeb-a5dd-bfe7ca24fa6a}</Project>
-      <Name>ASC.Projects.Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

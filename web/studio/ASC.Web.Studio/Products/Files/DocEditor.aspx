@@ -16,7 +16,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-touch-fullscreen" content="yes" />
 
-    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
+   <%= string.Format("<link href='{0}' rel='icon' type='image/x-icon' id='docsEditorFavicon'/>", ASC.Web.Core.CoBranding.TenantLogoManager.GetFavicon(true, true)) %>
     <title>ONLYOFFICE™</title>
 
     <style type="text/css">

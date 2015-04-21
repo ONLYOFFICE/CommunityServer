@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -51,50 +49,50 @@ namespace ASC.Mail.Aggregator.Common.Extension
         }
 
         // gets mailboxes, messages from wich we should get
-        public static IEnumerable<ImapMailboxInfo> GetImapMailboxes(this Imap4Client client, string server, Dictionary<string, Dictionary<string, MailboxInfo>> special_domain_folders, string[] skip_imap_flags, Dictionary<string, int> imap_flags)
+        public static IEnumerable<ImapMailboxInfo> GetImapMailboxes(this Imap4Client client, string server, Dictionary<string, Dictionary<string, MailboxInfo>> specialDomainFolders, string[] skipImapFlags, Dictionary<string, int> imapFlags)
         {
             // get all mailboxes
             var response = client.GetImapMailboxes();
 
-            var mailboxes = ParseImapMailboxes(response, server, special_domain_folders, skip_imap_flags, imap_flags);
+            var mailboxes = ParseImapMailboxes(response, server, specialDomainFolders, skipImapFlags, imapFlags);
 
             return mailboxes;
         }
 
-        private static int GetParentFolderIndex(List<ImapMailboxInfo> mailboxes, ImapMailboxInfo new_mailbox, string separator)
+        private static int GetParentFolderIndex(List<ImapMailboxInfo> mailboxes, ImapMailboxInfo newMailbox, string separator)
         {
-            var potential_parent_indexes = new List<int>();
-            for (int ind = 0; ind < mailboxes.Count; ++ind)
+            var potentialParentIndexes = new List<int>();
+            for (var ind = 0; ind < mailboxes.Count; ++ind)
             {
-                if (new_mailbox.name.StartsWith(mailboxes[ind].name + separator))
+                if (newMailbox.name.StartsWith(mailboxes[ind].name + separator))
                 {
-                    potential_parent_indexes.Add(ind);
+                    potentialParentIndexes.Add(ind);
                 }
             }
 
-            var parent_index = -1;
-            if (potential_parent_indexes.Count > 0)
+            var parentIndex = -1;
+            if (potentialParentIndexes.Count > 0)
             {
-                parent_index = potential_parent_indexes.OrderByDescending(index => mailboxes[index].name.Length).First();
+                parentIndex = potentialParentIndexes.OrderByDescending(index => mailboxes[index].name.Length).First();
             }
-            return parent_index;
+            return parentIndex;
         }
 
-        public static IEnumerable<ImapMailboxInfo> ParseImapMailboxes(string imap_response, string server = "",
+        public static IEnumerable<ImapMailboxInfo> ParseImapMailboxes(string imapResponse, string server = "",
                                                                       Dictionary
                                                                           <string, Dictionary<string, MailboxInfo>>
-                                                                          special_domain_folders = null,
-                                                                      string[] skip_imap_flags = null,
-                                                                      Dictionary<string, int> imap_flags = null)
+                                                                          specialDomainFolders = null,
+                                                                      string[] skipImapFlags = null,
+                                                                      Dictionary<string, int> imapFlags = null)
         {
             var mailboxes = new List<ImapMailboxInfo>();
 
-            var domain_special_folders = new Dictionary<string, MailboxInfo>();
-            if (special_domain_folders != null && special_domain_folders.Keys.Contains(server))
-                domain_special_folders = special_domain_folders[server];
+            var domainSpecialFolders = new Dictionary<string, MailboxInfo>();
+            if (specialDomainFolders != null && specialDomainFolders.Keys.Contains(server))
+                domainSpecialFolders = specialDomainFolders[server];
 
 
-            var response = ListNewlineRegex.Replace(imap_response, m => "\" ");
+            var response = ListNewlineRegex.Replace(imapResponse, m => "\" ");
 
             var t = Regex.Split(response, "\r\n");
 
@@ -119,77 +117,77 @@ namespace ASC.Mail.Aggregator.Common.Extension
                     name = name.Replace("\\\"", "\"").Replace("\\\\", "\\");
                 }
 
-                var new_mailbox = new ImapMailboxInfo
+                var newMailbox = new ImapMailboxInfo
                     {
                         folder_id = MailFolder.Ids.inbox,
                         name = name,
                         tags = new string[] {}
                     };
 
-                if (new_mailbox.name.ToLower() != "inbox")
+                if (newMailbox.name.ToLower() != "inbox")
                 {
-                    var utf8_name = FolderNameDecodeHelper.Replace(new_mailbox.name, DecodeUtf7);
-                    if (domain_special_folders.ContainsKey(utf8_name.ToLower()))
+                    var utf8Name = FolderNameDecodeHelper.Replace(newMailbox.name, DecodeUtf7);
+                    if (domainSpecialFolders.ContainsKey(utf8Name.ToLower()))
                     {
-                        var info = domain_special_folders[utf8_name.ToLower()];
+                        var info = domainSpecialFolders[utf8Name.ToLower()];
                         if (info.skip)
                             continue;
 
-                        new_mailbox.folder_id = info.folder_id;
+                        newMailbox.folder_id = info.folder_id;
                     }
                     else
                     {
-                        var look_for_parent = false;
+                        var lookForParent = false;
 
-                        var flags_match = ImapFlagRegex.Matches(flags);
-                        if (flags_match.Count > 0)
+                        var flagsMatch = ImapFlagRegex.Matches(flags);
+                        if (flagsMatch.Count > 0)
                         {
                             var matches = new List<string>();
-                            for (var j = 0; j < flags_match.Count; j++)
+                            for (var j = 0; j < flagsMatch.Count; j++)
                             {
-                                matches.Add(flags_match[j].Groups[1].Value);
+                                matches.Add(flagsMatch[j].Groups[1].Value);
                             }
 
                             if (
                                 matches.Any(
                                     @group =>
-                                    skip_imap_flags != null && skip_imap_flags.Contains(
+                                    skipImapFlags != null && skipImapFlags.Contains(
                                         @group.ToString(CultureInfo.InvariantCulture).ToLowerInvariant())))
                                 continue;
 
-                            if (imap_flags != null)
+                            if (imapFlags != null)
                             {
-                                var flag = imap_flags.FirstOrDefault(f => matches.Contains(f.Key));
+                                var flag = imapFlags.FirstOrDefault(f => matches.Contains(f.Key));
                                 if (null != flag.Key)
                                 {
-                                    new_mailbox.folder_id = flag.Value;
+                                    newMailbox.folder_id = flag.Value;
                                     // special case for inbox - gmail l10n issue
-                                    if (MailFolder.Ids.inbox == flag.Value && new_mailbox.name.ToLower() != "inbox")
-                                        new_mailbox.name = "inbox";
+                                    if (MailFolder.Ids.inbox == flag.Value && newMailbox.name.ToLower() != "inbox")
+                                        newMailbox.name = "inbox";
                                 }
                                 else
                                 {
-                                    look_for_parent = true;
+                                    lookForParent = true;
                                 }
                             }
                         }
                         else
                         {
-                            look_for_parent = true;
+                            lookForParent = true;
                         }
 
-                        if (look_for_parent)
+                        if (lookForParent)
                         {
                             // if mailbox is potentialy child - add tag. Tags looks like Tag1/Tag2/Tag3
                             const string tag_for_store_separator = "/";
-                            var tag = utf8_name.Replace(separator, tag_for_store_separator);
+                            var tag = utf8Name.Replace(separator, tag_for_store_separator);
 
-                            var parent_index = GetParentFolderIndex(mailboxes, new_mailbox, separator);
+                            var parentIndex = GetParentFolderIndex(mailboxes, newMailbox, separator);
 
-                            if (parent_index >= 0)
+                            if (parentIndex >= 0)
                             {
-                                var parent = mailboxes[parent_index];
-                                new_mailbox.folder_id = parent.folder_id;
+                                var parent = mailboxes[parentIndex];
+                                newMailbox.folder_id = parent.folder_id;
 
                                 // if system mailbox - removes first tag
                                 // if not system mailbox child - removes same count of tags as in parent
@@ -197,11 +195,11 @@ namespace ASC.Mail.Aggregator.Common.Extension
                                     tag = tag.Substring(tag.IndexOf(tag_for_store_separator, StringComparison.Ordinal));
                             }
 
-                            new_mailbox.tags = new[] {tag};
+                            newMailbox.tags = new[] {tag};
                         }
                     }
                 }
-                mailboxes.Add(new_mailbox);
+                mailboxes.Add(newMailbox);
             }
 
             return mailboxes;
@@ -213,8 +211,8 @@ namespace ASC.Mail.Aggregator.Common.Extension
                 log = new NullLogger();
 
             var auth = new GoogleOAuth2Authorization(log);
-            var granted_access = auth.RequestAccessToken(account.RefreshToken);
-            if (granted_access == null)
+            var grantedAccess = auth.RequestAccessToken(account.RefreshToken);
+            if (grantedAccess == null)
                 throw new DotNetOpenAuth.Messaging.ProtocolException("Access denied");
             log.Info("IMAP SSL connecting to {0}", account.EMail);
             imap.ConnectSsl(account.Server, account.Port);
@@ -222,7 +220,7 @@ namespace ASC.Mail.Aggregator.Common.Extension
             log.Info("IMAP connecting OK {0}", account.EMail);
 
             log.Info("IMAP logging to {0} via OAuth 2.0", account.EMail);
-            imap.LoginOAuth2(account.Account, granted_access.AccessToken);
+            imap.LoginOAuth2(account.Account, grantedAccess.AccessToken);
             log.Info("IMAP logged to {0} via OAuth 2.0", account.EMail);
         }
 
@@ -233,9 +231,9 @@ namespace ASC.Mail.Aggregator.Common.Extension
 
             if (account.RefreshToken != null)
             {
-                var service_type = (AuthorizationServiceType)account.ServiceType;
+                var serviceType = (AuthorizationServiceType)account.ServiceType;
 
-                switch (service_type)
+                switch (serviceType)
                 {
                     case AuthorizationServiceType.Google:
                         imap.AuthenticateImapGoogleOAuth2(account, log);

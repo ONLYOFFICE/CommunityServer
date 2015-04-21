@@ -40,3 +40,18 @@
     <% } %>
 </ul>
 <% } %>
+
+<div class="treeheader">Help</div>
+<ul class="treeview root">
+    <li>
+        <%=Html.MenuActionLink("F.A.Q.", "faq", "portals", "selected")%>
+    </li>
+    <li>
+        <%=Html.MenuActionLink("Filtering", "filters", "portals", "selected")%>
+    </li>
+    <li>
+        <%=Html.MenuActionLink("Batching", "batch", "portals", "selected")%>
+    </li>
+</ul>
+
+<a class="forum" href="http://dev.onlyoffice.org/" target="_blank">Forum</a>

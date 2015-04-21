@@ -6,7 +6,6 @@
 <%@ Assembly Name="ASC.Core.Common" %>
 <%@ Import Namespace="ASC.CRM.Core" %>
 <%@ Import Namespace="ASC.CRM.Core.Entities" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.CRM" %>
 <%@ Import Namespace="ASC.Web.CRM.Classes" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
@@ -144,7 +143,7 @@
             <col/>
         </colgroup>
         <tbody>
-            <tr class="headerToggleBlock">
+            <tr class="headerToggleBlock" data-toggleId="-1">
                 <td colspan="3" style="white-space:nowrap;">
                     <span class="headerToggle header-base"><%= CRMContactResource.Overview %></span>
                     <span class="openBlockLink"><%= CRMCommonResource.Show %></span>
@@ -167,9 +166,9 @@
             <col/>
         </colgroup>
         <tbody>
-            <tr class="headerToggleBlock">
+            <tr class="headerToggleBlock" data-toggleId="0">
                 <td colspan="3" style="white-space:nowrap;">
-                    <span class="headerToggle header-base"><%= CRMContactResource.AdditionalContactInformation %></span>
+                    <span class="headerToggle header-base"><%= CRMCommonResource.AdditionalInformation %></span>
                     <span class="openBlockLink"><%= CRMCommonResource.Show %></span>
                     <span class="closeBlockLink"><%= CRMCommonResource.Hide %></span>
                 </td>
@@ -184,7 +183,7 @@
             <col/>
         </colgroup>
         <tbody>
-            <tr class="headerToggleBlock open">
+            <tr class="headerToggleBlock" data-toggleId="-2">
                 <td colspan="3" style="white-space:nowrap;">
                     <span class="headerToggle header-base"><%= CRMCommonResource.History %></span>
                     <span class="openBlockLink"><%= CRMCommonResource.Show %></span>

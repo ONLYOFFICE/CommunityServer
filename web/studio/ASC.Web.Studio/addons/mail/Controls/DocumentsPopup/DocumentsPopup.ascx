@@ -1,17 +1,19 @@
 ﻿<%@ Assembly Name="ASC.Web.Mail" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DocumentsPopup.ascx.cs" Inherits="ASC.Web.Mail.Controls.DocumentsPopup" %>
 <%@ Assembly Name="ASC.Web.Files" %>
+<%@ Import Namespace="ASC.Web.Mail.Resources" %>
+<%@ Import Namespace="Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <sc:Container id="_documentUploader" runat="server">
         <header>
-        <%= PopupName %>
+        <%= UserControlsCommonResource.AttachFromDocuments %>
         </header>
         <body>
             <table>
                 <tbody>
                     <tr>
-                        <td style="vertical-align: top; max-width: 220px;">
+                        <td style="vertical-align: top; max-width: 223px;">
                             <asp:PlaceHolder runat="server" ID="TreeHolder"></asp:PlaceHolder>
                         </td>
                         <td style="width:10px; border-left: solid 1px #D1D1D1;" />
@@ -30,10 +32,16 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="buttonContainer" style="padding-top: 20px;">
-                <button id="attach_btn" class="button middle blue disable" type="button"><%= AttachFilesButtonText %></button>
+            <div style="padding-top: 20px;">
+                <label for="attachFilesAsLinksSelector" class="checkbox">
+                    <input id="attachFilesAsLinksSelector" type="checkbox" checked="checked"/>
+                    <%= MailResource.AttachFilesAsLinksLabel %>
+                </label>
+            </div>
+            <div class="buttonContainer" style="padding-top: 20px">
+                <button id="attach_btn" class="button middle blue disable" type="button"><%= UserControlsCommonResource.AttachFiles %></button>
                 <span class="splitter-buttons"></span>
-                <button id="cancel_btn" class="button middle gray" type="button"><%= CancelButtonText %></button>
+                <button id="cancel_btn" class="button middle gray" type="button"><%= UserControlsCommonResource.CancelButton %></button>
             </div>
         </body>
 </sc:Container>

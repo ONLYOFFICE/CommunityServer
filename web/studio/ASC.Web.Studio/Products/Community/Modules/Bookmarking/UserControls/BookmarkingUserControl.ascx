@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Bookmarking" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BookmarkingUserControl.ascx.cs"
     Inherits="ASC.Web.UserControls.Bookmarking.BookmarkingUserControl" %>
 <%@ Import Namespace="ASC.Web.UserControls.Bookmarking.Resources" %>

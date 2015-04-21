@@ -270,4 +270,7 @@
   <data name="CasesAccessRightsLimit" xml:space="preserve">
     <value>Права будут установлены только на те мероприятия, для которых вы являетесь автором</value>
   </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>Открыть в новой вкладке</value>
+  </data>
 </root>

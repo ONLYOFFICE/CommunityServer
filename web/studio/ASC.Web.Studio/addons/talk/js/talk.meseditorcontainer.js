@@ -158,6 +158,11 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
               var attr = child.getAttribute('href');
               if (attr) {
                 content += attr;
+              } else {
+                var textContent = child.textContent;
+                if (textContent) {
+                  content += textContent;
+                }
               }
               break;
             case 'img' :

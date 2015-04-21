@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -66,38 +64,41 @@ namespace ASC.Mail.Server.MockAdministration
                 _serverData.Domains.Add(new WebDomainBase(domain.name));
             }
 
-            var mailboxes_dto = _mailboxDal.GetMailboxes();
-            foreach (var mailbox_dto in mailboxes_dto)
+            var mailboxesDto = _mailboxDal.GetMailboxes();
+            foreach (var mailboxDto in mailboxesDto)
             {
-                var alias_list =
-                    _mailaddressDal.GetMailboxAliases(mailbox_dto.mailbox.id)
+                var aliasList =
+                    _mailaddressDal.GetMailboxAliases(mailboxDto.mailbox.id)
                                    .Select(
-                                       alias_dto =>
-                                       new MailAddressBase(alias_dto.name, new WebDomainBase(alias_dto.domain.name)))
+                                       aliasDto =>
+                                       new MailAddressBase(aliasDto.name, new WebDomainBase(aliasDto.domain.name)))
                                    .ToList();
 
-                var result_mailbox = new MailboxBase(
-                    new MailAccountBase(mailbox_dto.mailbox.address),
+                var resultMailbox = new MailboxBase(
+                    new MailAccountBase(mailboxDto.mailbox.address),
                     //Its not login. It adress. Needed only for testing
-                    new MailAddressBase(mailbox_dto.mailbox_address.name,
-                                        new WebDomainBase(mailbox_dto.mailbox_address.domain.name)), alias_list);
+                    new MailAddressBase(mailboxDto.mailbox_address.name,
+                                        new WebDomainBase(mailboxDto.mailbox_address.domain.name)), aliasList);
 
-                _serverData.Mailboxes.Add(result_mailbox);
+                _serverData.Mailboxes.Add(resultMailbox);
             }
 
-            var groups_dto = _mailgroupDal.GetMailGroups();
-            foreach (var group_dto in groups_dto)
+            var groupsDto = _mailgroupDal.GetMailGroups();
+            foreach (var resultGroup in from groupDto in groupsDto
+                                        let groupAddresses = groupDto.addresses.Select(address =>
+                                                                                       new MailAddressBase(address.name,
+                                                                                                           new WebDomainBase
+                                                                                                               (
+                                                                                                               address
+                                                                                                                   .domain
+                                                                                                                   .name)))
+                                                                     .ToList()
+                                        select new MailGroupBase(
+                                            new MailAddressBase(groupDto.address.name,
+                                                                new WebDomainBase(groupDto.address.domain.name)),
+                                            groupAddresses))
             {
-                var group_addresses = group_dto.addresses.Select(address =>
-                                                                 new MailAddressBase(address.name,
-                                                                                     new WebDomainBase(
-                                                                                         address.domain.name))).ToList();
-
-                var result_group = new MailGroupBase(
-                    new MailAddressBase(group_dto.address.name,
-                                        new WebDomainBase(group_dto.address.domain.name)), group_addresses);
-
-                _serverData.Groups.Add(result_group);
+                _serverData.Groups.Add(resultGroup);
             }
         }
 
@@ -110,24 +111,24 @@ namespace ASC.Mail.Server.MockAdministration
                 throw new ArgumentException("Already added");
             }
 
-            var result_domain = new WebDomainBase (name);
-            _serverData.Domains.Add(result_domain);
-            return result_domain;
+            var resultDomain = new WebDomainBase (name);
+            _serverData.Domains.Add(resultDomain);
+            return resultDomain;
         }
 
-        protected override void _DeleteWebDomain(WebDomainBase web_domain)
+        protected override void _DeleteWebDomain(WebDomainBase webDomain)
         {
-            _serverData.Domains.Remove(web_domain);
+            _serverData.Domains.Remove(webDomain);
         }
 
-        protected override List<WebDomainBase> _GetWebDomains(ICollection<string> domain_names)
+        protected override List<WebDomainBase> _GetWebDomains(ICollection<string> domainNames)
         {
-            return _serverData.Domains.FindAll(d => domain_names.Contains(d.Name));
+            return _serverData.Domains.FindAll(d => domainNames.Contains(d.Name));
         }
 
-        protected override WebDomainBase _GetWebDomain(string domain_name)
+        protected override WebDomainBase _GetWebDomain(string domainName)
         {
-            return _serverData.Domains.FirstOrDefault(d => d.Name == domain_name);
+            return _serverData.Domains.FirstOrDefault(d => d.Name == domainName);
         }
 
         #endregion
@@ -136,27 +137,27 @@ namespace ASC.Mail.Server.MockAdministration
 
         protected override MailboxBase _CreateMailbox(string login, string password, string localpart, string domain)
         {
-            var result_mailbox = new MailboxBase(new MailAccountBase(login),
+            var resultMailbox = new MailboxBase(new MailAccountBase(login),
                                    new MailAddressBase(localpart, new WebDomainBase(domain)),
                                    new List<MailAddressBase>());
 
-            if (_serverData.Mailboxes.Any(r => r.Address.ToString().Equals(result_mailbox.Address.ToString())))
+            if (_serverData.Mailboxes.Any(r => r.Address.ToString().Equals(resultMailbox.Address.ToString())))
             {
                 throw new DuplicateNameException("You want to create mailbox with already existing address");
             }
 
-            _serverData.Mailboxes.Add(result_mailbox);
-            return result_mailbox;
+            _serverData.Mailboxes.Add(resultMailbox);
+            return resultMailbox;
         }
 
-        protected override List<MailboxBase> _GetMailboxes(ICollection<string> mailbox_names)
+        protected override List<MailboxBase> _GetMailboxes(ICollection<string> mailboxNames)
         {
-            return _serverData.Mailboxes.FindAll(m => mailbox_names.Contains(m.Address.ToString()));
+            return _serverData.Mailboxes.FindAll(m => mailboxNames.Contains(m.Address.ToString()));
         }
 
-        public override MailboxBase _GetMailbox(string mailbox_address)
+        public override MailboxBase _GetMailbox(string mailboxAddress)
         {
-            return _serverData.Mailboxes.FirstOrDefault(r => r.Address.ToString().Equals(mailbox_address));
+            return _serverData.Mailboxes.FirstOrDefault(r => r.Address.ToString().Equals(mailboxAddress));
         }
 
         protected override void _UpdateMailbox(MailboxBase mailbox)
@@ -173,12 +174,12 @@ namespace ASC.Mail.Server.MockAdministration
 
         #region .MailGroups
 
-        public override MailGroupBase _GetMailGroup(string mailgroup_address)
+        public override MailGroupBase _GetMailGroup(string mailgroupAddress)
         {
-            return _serverData.Groups.FirstOrDefault(g => g.Address.ToString().Equals(mailgroup_address));
+            return _serverData.Groups.FirstOrDefault(g => g.Address.ToString().Equals(mailgroupAddress));
         }
 
-        protected override MailGroupBase _CreateMailGroup(MailAddressBase address, List<MailAddressBase> in_addresses)
+        protected override MailGroupBase _CreateMailGroup(MailAddressBase address, List<MailAddressBase> mailboxAddressList)
         {
             if (address == null)
             {
@@ -190,20 +191,20 @@ namespace ASC.Mail.Server.MockAdministration
                 throw new ArgumentException();
             }
 
-            var result_group =  new MailGroupBase(address, in_addresses);
-            _serverData.Groups.Add(result_group);
-            return result_group;
+            var resultGroup =  new MailGroupBase(address, mailboxAddressList);
+            _serverData.Groups.Add(resultGroup);
+            return resultGroup;
         }
 
-        protected override MailGroupBase _DeleteMailGroup(MailGroupBase mail_group)
+        protected override MailGroupBase _DeleteMailGroup(MailGroupBase mailGroup)
         {
-            _serverData.Groups.Remove(mail_group);
-            return mail_group;
+            _serverData.Groups.Remove(mailGroup);
+            return mailGroup;
         }
 
-        protected override ICollection<MailGroupBase> _GetMailGroups(ICollection<string> mail_group_addresses)
+        protected override ICollection<MailGroupBase> _GetMailGroups(ICollection<string> mailgroupsAddresses)
         {
-            return _serverData.Groups.FindAll(g => mail_group_addresses.Contains(g.Address.ToString()));
+            return _serverData.Groups.FindAll(g => mailgroupsAddresses.Contains(g.Address.ToString()));
         }
 
         #endregion

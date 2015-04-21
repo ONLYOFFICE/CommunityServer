@@ -138,6 +138,7 @@
 <div id="contactActionMenu" class="studio-action-panel">
     <ul class="dropdown-content">
         <li><a class="showProfileLink dropdown-item"><%= CRMContactResource.ShowContactProfile%></a></li>
+        <li><a class="showProfileLinkNewTab dropdown-item"><%= CRMContactResource.ShowContactProfileNewTab%></a></li>
         <li><a class="addPhoneLink dropdown-item"><%= CRMJSResource.AddNewPhone%></a></li>
         <li><a class="addEmailLink dropdown-item"><%= CRMJSResource.AddNewEmail%></a></li>
         <li><a class="sendEmailLink dropdown-item" target="_blank"><%= CRMContactResource.WriteEmail%></a></li>
@@ -307,8 +308,8 @@
 </script>
 
 <script id="socialMediaAvatarTmpl" type="text/x-jquery-tmpl">
-    <div class="ImageHolderOuter" onclick="ASC.CRM.SocialMedia.UploadUserAvatar(event,'${SocialNetwork}','${Identity}');">
-        <img src="${ImageUrl}" alt="Avatar" class="AvatarImage" />
+    <div class="ImageHolderOuter" onclick="ASC.CRM.SocialMedia.UploadUserAvatar(event,'${socialNetwork}','${identity}');">
+        <img src="${imageUrl}" alt="Avatar" class="AvatarImage" />
     </div>
 </script>
 

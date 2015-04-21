@@ -8,7 +8,6 @@
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("fileUploader.js") %>"></script>
 <script type="text/javascript" src="<%= ResolveUrl("~/js/uploader/ajaxupload.js") %>"></script>
 
-<script type="text/javascript" src="<%= ResolveUrl("~/js/third-party/jquery/jquery.ui.slider.js") %>"></script>
 <script type="text/javascript" src="<%= ResolveUrl("~/js/third-party/jquery/jquery.autosize.js") %>"></script>
 
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("tasks.js") %>"></script>

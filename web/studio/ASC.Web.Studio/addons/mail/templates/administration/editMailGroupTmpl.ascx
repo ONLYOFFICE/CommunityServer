@@ -9,7 +9,7 @@
                 <tr>
                     <td>
                         <div class="block-cnt-splitter header-address">
-                            <div class="bold">Mailgroup address:</div>
+                            <div class="bold"><%= MailAdministrationResource.MailgroupAddressLabel %>:</div>
                             <div>${address.email}</div>
                         </div>
                     </td>

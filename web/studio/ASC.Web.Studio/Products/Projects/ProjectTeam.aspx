@@ -1,6 +1,4 @@
-﻿<%@ Assembly Name="ASC.Projects.Core" %>
-<%@ Assembly Name="ASC.Web.Studio" %>
-<%@ Assembly Name="ASC.Projects.Engine" %>
+﻿<%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Projects/Masters/BasicTemplate.Master"
     CodeBehind="projectTeam.aspx.cs" Inherits="ASC.Web.Projects.ProjectTeam" %>

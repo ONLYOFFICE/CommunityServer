@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.IO;
@@ -49,7 +47,7 @@ namespace ASC.Web.Core.Files
         private readonly string _secretKey;
         private readonly int _userCount;
         private const string RequestParams = "?url={0}&outputtype={1}&filetype={2}&title={3}&key={4}&vkey={5}";
-        private const string RequestTrackParams = "?c={0}&key={1}&vkey={2}&callback={3}&userid={4}&status={5}";
+        private const string RequestTrackParams = "?c={0}&key={1}&vkey={2}&callback={3}&users={4}&status={5}";
 
         /// <summary>
         /// Timeout to request conversion
@@ -81,7 +79,7 @@ namespace ASC.Web.Core.Files
         /// <returns>Supported key</returns>
         public static string GenerateRevisionId(string expectedKey)
         {
-            const int maxLength = 50;
+            const int maxLength = 20;
             if (expectedKey.Length > maxLength) expectedKey = Convert.ToBase64String(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(expectedKey)));
             var key = Regex.Replace(expectedKey, "[^0-9-.a-zA-Z_=]", "_");
             return key.Substring(key.Length - Math.Min(key.Length, maxLength));
@@ -183,6 +181,12 @@ namespace ASC.Web.Core.Files
                 request.GetRequestStream().Write(buffer, 0, readed);
             }
 
+            // hack. http://ubuntuforums.org/showthread.php?t=1841740
+            if (WorkContext.IsMono)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
+            }
+
             using (var response = request.GetResponse())
             using (var stream = response.GetResponseStream())
             {
@@ -195,13 +199,13 @@ namespace ASC.Web.Core.Files
         }
 
         /// <summary>
-        
+        /// Обращение к подписке на события с файлом в сервисе редактирования
         /// </summary>
         /// <param name="documentTrackerUrl">Url to the command service</param>
         /// <param name="method">Name of method</param>
         /// <param name="documentRevisionId">Key for caching on service, whose used in editor</param>
         /// <param name="callbackUrl">Url to the callback handler</param>
-        /// <param name="userId">user id for drop</param>
+        /// <param name="users">users id for drop</param>
         /// <param name="status">saving status</param>
         /// <returns>Response</returns>
         public string CommandRequest(
@@ -209,7 +213,7 @@ namespace ASC.Web.Core.Files
             string method,
             string documentRevisionId,
             string callbackUrl,
-            string userId,
+            string users,
             string status)
         {
             var validateKey = GenerateValidateKey(documentRevisionId, string.Empty);
@@ -220,7 +224,7 @@ namespace ASC.Web.Core.Files
                                            documentRevisionId,
                                            validateKey,
                                            HttpUtility.UrlEncode(callbackUrl ?? ""),
-                                           userId,
+                                           HttpUtility.UrlEncode(users ?? ""),
                                            status);
 
             var request = (HttpWebRequest)WebRequest.Create(urlToTrack);
@@ -289,6 +293,12 @@ namespace ASC.Web.Core.Files
 
             var req = (HttpWebRequest)WebRequest.Create(urlToConverter);
             req.Timeout = Timeout;
+
+            // hack. http://ubuntuforums.org/showthread.php?t=1841740
+            if (WorkContext.IsMono)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
+            }
 
             Stream stream = null;
             var countTry = 0;

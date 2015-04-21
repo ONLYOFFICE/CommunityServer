@@ -32,13 +32,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IdentityModel" Condition=" '$(OS)' != 'Unix' " />
-    <Reference Include="System.IdentityModel" Condition=" '$(OS)' == 'Unix' ">
-      <HintPath>..\..\redistributable\third-party\Microsoft\System.IdentityModel\System.IdentityModel.dll</HintPath>
+    <Reference Include="System.IdentityModel">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\redistributable\Microsoft\System.IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="System.IdentityModel.Tokens.Jwt">
       <SpecificVersion>False</SpecificVersion>
@@ -47,11 +47,6 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>

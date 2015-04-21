@@ -1,149 +1,148 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
+
 window.tagsDropdown = (function($) {
-    var _popup;
-    var popup_id = '#addTagsPanel';
+    var popup;
+    var popupId = '#addTagsPanel';
     var isInit = false;
-    var _arrow;
+    var arrow;
 
     var init = function() {
         if (isInit === false) {
             isInit = true;
 
-            _popup = $(popup_id);
+            popup = $(popupId);
 
-            _bind_inputs();
+            bindInputs();
 
-            tagsManager.events.bind('delete', _onDeleteTag);
-            tagsManager.events.bind('create', _onCreateTag);
-            tagsManager.events.bind('error', _onError);
+            tagsManager.events.bind('delete', onDeleteTag);
+            tagsManager.events.bind('create', onCreateTag);
+            tagsManager.events.bind('error', onError);
         }
     };
 
-    var _onDeleteTag = function() {
+    var onDeleteTag = function() {
         hide();
     };
 
-    var _onCreateTag = function(e, tag) {
-        if (_popup.is(":visible"))
-            _setTag(tag.id);
+    var onCreateTag = function(e, tag) {
+        if (popup.is(":visible")) {
+            setTag(tag.id);
+        }
         hide();
     };
 
     // shows add tags panel near obj element depending on current page
     var showAddTagsPanel = function(obj) {
-        if ($(popup_id + ':visible').length) {
+        if ($(popupId + ':visible').length) {
             hide();
             return;
         }
 
-        var tagContent = _getTagContent();
+        var tagContent = getTagContent();
 
         $('#tagsPanelContent .existsTags').html(tagContent);
 
-        var tag_name_input = $(popup_id + ' #createnewtag');
-        tag_name_input.val('');
-        tag_name_input.unbind('focus').bind('focus', function () {
+        var tagNameInput = $(popupId + ' #createnewtag');
+        tagNameInput.val('');
+        tagNameInput.unbind('focus').bind('focus', function() {
             TMMail.setRequiredError('addTagsPanel', false);
         });
 
-        var $tag = $(popup_id + ' .tag.inactive');
+        var $tag = $(popupId + ' .tag.inactive');
         $tag.bind('click', function() {
-            _setTag($(this).attr('tag_id'));
+            setTag($(this).attr('tag_id'));
         });
 
-        $tag = $(popup_id + ' .tag.tagArrow');
+        $tag = $(popupId + ' .tag.tagArrow');
         $tag.bind('click', function() {
             mailBox.unsetConversationsTag($(this).attr('tag_id'));
         });
 
         if ((TMMail.pageIs('message') || TMMail.pageIs('conversation')) &&
             messagePage.getMessageFolder(messagePage.getActualConversationLastMessageId()) != TMMail.sysfolders.trash.id) {
-            _showMarkRecipientsCheckbox();
+            showMarkRecipientsCheckbox();
         } else {
-            _hideMarkRecipientsCheckbox();
+            hideMarkRecipientsCheckbox();
         }
 
-        _setTagColor(undefined, tagsManager.getVacantStyle());
+        setTagColor(undefined, tagsManager.getVacantStyle());
 
-        _popup.find('.square').click(function(e) {
-            tagsColorsPopup.show(this, _setTagColor);
+        popup.find('.square').click(function() {
+            tagsColorsPopup.show(this, setTagColor);
         });
 
         TMMail.setRequiredError('addTagsPanel', false);
 
-        _arrow = $(obj).find('.down_arrow').offset() != null ? $(obj).find('.down_arrow') : $(obj).find('.arrow-down');
-        _popup.css({ left: $(obj).offset().left, top: _arrow.offset().top + 8 }).show();
+        arrow = $(obj).find('.down_arrow').offset() != null ? $(obj).find('.down_arrow') : $(obj).find('.arrow-down');
+        popup.css({ left: $(obj).offset().left, top: arrow.offset().top + 8 }).show();
 
-        $(popup_id).find('.popup-corner').removeClass('bottom');
+        $(popupId).find('.popup-corner').removeClass('bottom');
 
-        dropdown.regHide(_filteredHide);
-        dropdown.regScroll(_onScroll);
+        dropdown.regHide(filteredHide);
+        dropdown.regScroll(onScroll);
 
-        $(popup_id).find('input[placeholder]').placeholder();
+        $(popupId).find('input[placeholder]').placeholder();
 
-        tag_name_input.focus(function () {
+        tagNameInput.focus(function() {
             $(this).closest('.entertagname').css({ 'border-color': '#3186af' });
         });
-        
-        tag_name_input.blur(function () {
+
+        tagNameInput.blur(function() {
             $(this).closest('.entertagname').css({ 'border-color': '#c7c7c7' });
         });
-        
-        tag_name_input.focus();
+
+        tagNameInput.focus();
     };
 
-    var _onScroll = function () {
-        _popup.css({ top: _arrow.offset().top + 8 });
+    var onScroll = function() {
+        popup.css({ top: arrow.offset().top + 8 });
     };
 
-    var _showMarkRecipientsCheckbox = function() {
-        $(popup_id + ' #markallrecipients').prop('checked', false);
-        $(popup_id + ' #markallrecipients').show();
-        $(popup_id + ' #markallrecipientsLabel').show();
-        $(popup_id + ' #markallrecipients').unbind('click').bind('click', _manageCRMTags);
+    var showMarkRecipientsCheckbox = function() {
+        $(popupId + ' #markallrecipients').prop('checked', false);
+        $(popupId + ' #markallrecipients').show();
+        $(popupId + ' #markallrecipientsLabel').show();
+        $(popupId + ' #markallrecipients').unbind('click').bind('click', manageCrmTags);
         var fromAddress = messagePage.getFromAddress(messagePage.getActualConversationLastMessageId());
         fromAddress = TMMail.parseEmailFromFullAddress(fromAddress);
-        if (accountsManager.getAccountByAddress(fromAddress))
-            $(popup_id + ' #markallrecipientsLabel').text(MailScriptResource.MarkAllRecipientsLabel);
-        else $(popup_id + ' #markallrecipientsLabel').text(MailScriptResource.MarkAllSendersLabel);
+        if (accountsManager.getAccountByAddress(fromAddress)) {
+            $(popupId + ' #markallrecipientsLabel').text(MailScriptResource.MarkAllRecipientsLabel);
+        } else {
+            $(popupId + ' #markallrecipientsLabel').text(MailScriptResource.MarkAllSendersLabel);
+        }
     };
 
-
-    var _hideMarkRecipientsCheckbox = function() {
-        $(popup_id + ' #markallrecipients').prop('checked', false);
-        $(popup_id + ' #markallrecipients').hide();
-        $(popup_id + ' #markallrecipientsLabel').hide();
+    var hideMarkRecipientsCheckbox = function() {
+        $(popupId + ' #markallrecipients').prop('checked', false);
+        $(popupId + ' #markallrecipients').hide();
+        $(popupId + ' #markallrecipientsLabel').hide();
     };
 
-
-    var _manageCRMTags = function(e) {
+    var manageCrmTags = function(e) {
         if (e.target.checked) {
             $('#tagsPanelContent .tag').each(function() {
                 if ($(this).attr('tag_id') < 0) {
@@ -155,117 +154,122 @@ window.tagsDropdown = (function($) {
             $('#tagsPanelContent .tag').each(function() {
                 if ($(this).attr('tag_id') < 0) {
                     $(this).removeClass("disabled");
-                    var used_tags_ids = _getUsedTagsIds();
+                    var usedTagsIds = getUsedTagsIds();
                     var tagId = parseInt($(this).attr("tag_id"));
-                    if (-1 == $.inArray(tagId, used_tags_ids))
+                    if (-1 == $.inArray(tagId, usedTagsIds)) {
                         $(this).bind('click', function() {
-                            _setTag($(this).attr('tag_id'));
+                            setTag($(this).attr('tag_id'));
                         });
-                    else
+                    } else {
                         $(this).bind('click', function() {
                             mailBox.unsetConversationsTag($(this).attr('tag_id'));
                         });
+                    }
                 }
             });
         }
     };
 
-
-    var _getTagContent = function() {
-        var res = '';
+    var getTagContent = function() {
+        var res;
         var tags = tagsManager.getAllTags();
-        var used_tags_ids = _getUsedTagsIds();
+        var usedTagsIds = getUsedTagsIds();
         for (var i = 0; i < tags.length; i++) {
-            tags[i].used = ($.inArray(tags[i].id, used_tags_ids) > -1);
+            tags[i].used = ($.inArray(tags[i].id, usedTagsIds) > -1);
         }
         res = $.tmpl('tagInPanelTmpl', tags, { htmlEncode: TMMail.htmlEncode });
         return res;
     };
 
-    var _setTag = function(id) {
+    var setTag = function(id) {
         if (checked()) {
             var tag = tagsManager.getTag(id);
-            var addressesString = "";
+            var addressesString;
 
             addressesString = messagePage.getFromAddress(messagePage.getActualConversationLastMessageId());
             addressesString = TMMail.parseEmailFromFullAddress(addressesString);
-            if (accountsManager.getAccountByAddress(addressesString))
+            if (accountsManager.getAccountByAddress(addressesString)) {
                 addressesString = messagePage.getToAddresses(messagePage.getActualConversationLastMessageId());
+            }
 
             var addresses = addressesString.split(',');
 
             for (var i = 0; i < addresses.length; i++) {
                 var address = addresses[i];
                 address = TMMail.parseEmailFromFullAddress(address);
-                var tag_already_added = 0 < $.grep(tag.addresses, function(val) { return address.toLowerCase() == val.toLowerCase(); }).length;
-                if (!tag_already_added)
+                var tagAlreadyAdded = 0 < $.grep(tag.addresses, function(val) { return address.toLowerCase() == val.toLowerCase(); }).length;
+                if (!tagAlreadyAdded) {
                     tag.addresses.push(address);
+                }
             }
             tagsManager.updateTag(tag);
         }
 
         hide();
-
         mailBox.setTag(id);
     };
 
 
     // Get a list of tags that are set for all selected messages, or for a particular message.
-    var _getUsedTagsIds = function() {
-        if (TMMail.pageIs('sysfolders'))
+    var getUsedTagsIds = function() {
+        if (TMMail.pageIs('sysfolders')) {
             return mailBox.getSelectedMessagesUsedTags();
-        else
+        } else {
             return messagePage.getTags();
+        }
     };
 
-    var _setTagColor = function(obj, style) {
-        _popup.find('.entertagname .square').removeClass().addClass('square tag' + style);
-        _popup.find('.entertagname .square').attr('colorstyle', style);
+    var setTagColor = function(obj, style) {
+        popup.find('.entertagname .square').removeClass().addClass('square tag' + style);
+        popup.find('.entertagname .square').attr('colorstyle', style);
     };
 
     // Rerurns flag value. Flag: Is needed to set tag for all messages sended from that user.
     var checked = function() {
-        return $(popup_id + ' input#markallrecipients').prop('checked');
+        return $(popupId + ' input#markallrecipients').prop('checked');
     };
 
-    var _create_label = function() {
-        var tag_name = $.trim(TMMail.ltgt(_popup.find('input[type="text"]').val()));
-        if (tag_name.length == 0) {
+    var createLabel = function() {
+        var tagName = $.trim(TMMail.ltgt(popup.find('input[type="text"]').val()));
+        if (tagName.length == 0) {
             TMMail.setRequiredError('addTagsPanel', true);
             return false;
         }
 
         TMMail.setRequiredError('addTagsPanel', false);
 
-        var tag = { name: tag_name, style: _popup.find('.actionPanelSection .square').attr('colorstyle'), addresses: [] };
+        var tag = { name: tagName, style: popup.find('.actionPanelSection .square').attr('colorstyle'), addresses: [] };
         tagsManager.createTag(tag);
 
         return false;
     };
 
-    var _bind_inputs = function() {
-        _popup.find('.entertag_button').click(_create_label);
+    var bindInputs = function() {
+        popup.find('.entertag_button').click(createLabel);
 
-        _popup.find('input[type="text"]').keypress(function(e) {
-            if (e.which != 13) return;
-            return _create_label();
+        popup.find('input[type="text"]').keypress(function(e) {
+            if (e.which != 13) {
+                return;
+            }
+            return createLabel();
         });
     };
 
     var hide = function() {
-        _popup.hide();
+        popup.hide();
         tagsColorsPopup.hide();
-        dropdown.unregHide(_filteredHide);
-        dropdown.unregHide(_onScroll);
+        dropdown.unregHide(filteredHide);
+        dropdown.unregHide(onScroll);
     };
 
-    var _filteredHide = function(event) {
+    var filteredHide = function(event) {
         var elt = (event.target) ? event.target : event.srcElement;
-        if (!($(elt).is(popup_id + ' *') || $(elt).is(popup_id) || $(elt).is('div[colorstyle]')))
+        if (!($(elt).is(popupId + ' *') || $(elt).is(popupId) || $(elt).is('div[colorstyle]'))) {
             hide();
+        }
     };
 
-    var _onError = function(e, error) {
+    var onError = function(e, error) {
         window.toastr.error(error.message + (error.comment ? ': ' + error.comment : ''));
     };
 

@@ -64,6 +64,7 @@
                 <% } %>
             </ul>
         </li>
+        <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
         <asp:PlaceHolder ID="SupportHolder" runat="server"></asp:PlaceHolder>
         <asp:PlaceHolder ID="UserForumHolder" runat="server"></asp:PlaceHolder>
         <asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>

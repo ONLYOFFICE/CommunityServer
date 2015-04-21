@@ -35,6 +35,9 @@
                { %>
                 <div id="restrictions-list" class="<%= !RestrictionsSettings.Enable ? "none" : "" %> ">
                     <span id="add-restriction-btn" class="link dotline plus"><%= Resource.AddIPRestrictionBtn %></span>
+
+                    <div class="header-base red-text"><%= Resource.Warning %></div>
+                    <div><%= Resource.IpSecurityWarning %></div>
                 </div>
             <% } %>
 

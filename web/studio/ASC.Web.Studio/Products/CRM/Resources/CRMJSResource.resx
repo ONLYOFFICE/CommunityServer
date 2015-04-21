@@ -548,7 +548,7 @@
     <value>Не найдено соответствие полю  'Название мероприятия'</value>
   </data>
   <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
-    <value>The fields corresponding to the 'First Name', 'Last Name' or 'Company Name' could not be found</value>
+    <value>The fields corresponding to the 'First Name'' or 'Company Name' could not be found</value>
   </data>
   <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
     <value>Не найдено соответствие полям  'Название возможной сделки', 'Ответственный за возможную сделку'</value>

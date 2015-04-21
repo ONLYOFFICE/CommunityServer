@@ -1,208 +1,289 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
+using System.Threading;
 using System.Web;
 using System.Web.Optimization;
+
 using ASC.Common.Threading.Workers;
 using ASC.Core;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.Client;
 using ASC.Web.Studio.Utility;
+
 using log4net;
 
 namespace ASC.Web.Studio.Core
 {
+    enum WarmUpType
+    {
+        None,
+        Basic,
+        Full
+    }
+
     public class WarmUp
     {
-        private static readonly WorkerQueue<RequestItem> Requests = new WorkerQueue<RequestItem>(4, TimeSpan.FromSeconds(10), 10, true);
+        private readonly object obj = new object();
+        private readonly int tenantId;
 
-        public static StartupProgress Progress;
+        private readonly List<string> urls;
+        private WorkerQueue<string> requests;
 
-        public static void InitRequests()
+        private static WarmUp instance;
+
+        public bool Started { get; private set; }
+        public bool Completed { get { return Progress.Completed; } }
+        public StartupProgress Progress { get; private set; }
+        public static WarmUp Instance { get { return instance ?? (instance = new WarmUp()); } }
+
+        public WarmUp()
         {
-            var listUrls = new List<RequestItem>
-                {
-                    new RequestItem("~/auth.aspx"),
-                    new RequestItem("~/confirm.aspx"),
-                    new RequestItem("~/default.aspx"),
-                    new RequestItem("~/feed.aspx"),
-                    new RequestItem("~/management.aspx?type=1"),
-                    new RequestItem("~/management.aspx?type=2"),
-                    new RequestItem("~/management.aspx?type=3"),
-                    new RequestItem("~/management.aspx?type=4"),
-                    new RequestItem("~/management.aspx?type=5"),
-                    new RequestItem("~/management.aspx?type=6"),
-                    new RequestItem("~/management.aspx?type=7"),
-                    new RequestItem("~/management.aspx?type=10"),
-                    new RequestItem("~/management.aspx?type=11"),
-                    new RequestItem("~/management.aspx?type=15"),
-                    new RequestItem("~/my.aspx"),
-                    new RequestItem("~/preparationportal.aspx"),
-                    new RequestItem("~/search.aspx"),
-                    new RequestItem("~/servererror.aspx"),
-                    new RequestItem("~/startscriptsstyles.aspx"),
-                    new RequestItem("~/tariffs.aspx"),
-                    new RequestItem("~/products/files/default.aspx"),
-                    new RequestItem("~/products/files/doceditor.aspx"),
-                    new RequestItem("~/products/crm/cases.aspx"),
-                    new RequestItem("~/products/crm/deals.aspx"),
-                    new RequestItem("~/products/crm/default.aspx"),
-                    new RequestItem("~/products/crm/help.aspx"),
-                    new RequestItem("~/products/crm/invoices.aspx"),
-                    new RequestItem("~/products/crm/mailviewer.aspx"),
-                    new RequestItem("~/products/crm/sender.aspx"),
-                    new RequestItem("~/products/crm/settings.aspx"),
-                    new RequestItem("~/products/crm/tasks.aspx"),
-                    new RequestItem("~/products/projects/contacts.aspx"),
-                    new RequestItem("~/products/projects/default.aspx"),
-                    new RequestItem("~/products/projects/ganttchart.aspx"),
-                    new RequestItem("~/products/projects/GeneratedReport.aspx"),
-                    new RequestItem("~/products/projects/help.aspx"),
-                    new RequestItem("~/products/projects/import.aspx"),
-                    new RequestItem("~/products/projects/messages.aspx"),
-                    new RequestItem("~/products/projects/milestones.aspx"),
-                    new RequestItem("~/products/projects/projects.aspx"),
-                    //new RequestItem("~/products/projects/projectteam.aspx"),
-                    new RequestItem("~/products/projects/projecttemplates.aspx"),
-                    new RequestItem("~/products/projects/reports.aspx"),
-                    new RequestItem("~/products/projects/tasks.aspx"),
-                    new RequestItem("~/products/projects/timer.aspx"),
-                    new RequestItem("~/products/projects/timetracking.aspx"),
-                    new RequestItem("~/products/projects/tmdocs.aspx"),
-                    new RequestItem("~/products/people/default.aspx"),
-                    new RequestItem("~/products/people/help.aspx"),
-                    new RequestItem("~/products/people/profile.aspx"),
-                    new RequestItem("~/products/people/profileaction.aspx"),
-                    new RequestItem("~/addons/mail/default.aspx"),
-                    new RequestItem("~/products/community/default.aspx"),
-                    new RequestItem("~/products/community/help.aspx"),
-                    new RequestItem("~/products/community/modules/birthdays/default.aspx"),
-                    new RequestItem("~/products/community/modules/blogs/addblog.aspx"),
-                    new RequestItem("~/products/community/modules/blogs/default.aspx"),
-                    new RequestItem("~/products/community/modules/blogs/editblog.aspx"),
-                    new RequestItem("~/products/community/modules/blogs/viewblog.aspx"),
-                    new RequestItem("~/products/community/modules/bookmarking/default.aspx"),
-                    new RequestItem("~/products/community/modules/bookmarking/createbookmark.aspx"),
-                    new RequestItem("~/products/community/modules/bookmarking/bookmarkinfo.aspx"),
-                    new RequestItem("~/products/community/modules/bookmarking/favouritebookmarks.aspx"),
-                    new RequestItem("~/products/community/modules/bookmarking/userbookmarks.aspx"),
-                    new RequestItem("~/products/community/modules/forum/default.aspx"),
-                    new RequestItem("~/products/community/modules/forum/edittopic.aspx"),
-                    new RequestItem("~/products/community/modules/forum/managementcenter.aspx"),
-                    new RequestItem("~/products/community/modules/forum/newforum.aspx"),
-                    new RequestItem("~/products/community/modules/forum/newpost.aspx"),
-                    new RequestItem("~/products/community/modules/forum/posts.aspx"),
-                    new RequestItem("~/products/community/modules/forum/search.aspx"),
-                    new RequestItem("~/products/community/modules/forum/topics.aspx"),
-                    new RequestItem("~/products/community/modules/forum/usertopics.aspx"),
-                    new RequestItem("~/products/community/modules/news/default.aspx"),
-                    new RequestItem("~/products/community/modules/news/editnews.aspx"),
-                    new RequestItem("~/products/community/modules/news/editpoll.aspx"),
-                    new RequestItem("~/products/community/modules/news/news.aspx"),
-                    //new RequestItem("~/products/community/modules/wiki/default.aspx"),
-                    new RequestItem("~/products/community/modules/wiki/diff.aspx"),
-                    new RequestItem("~/products/community/modules/wiki/listcategories.aspx"),
-                    new RequestItem("~/products/community/modules/wiki/listfiles.aspx"),
-                    new RequestItem("~/products/community/modules/wiki/listpages.aspx"),
-                    //new RequestItem("~/products/community/modules/wiki/pagehistorylist.aspx"),
-                    new RequestItem("~/addons/calendar/default.aspx")
-                };
-            Progress = new StartupProgress { Total = listUrls.Count };
-            Requests.Stop();
-            Requests.Terminate();
-            Requests.AddRange(listUrls);
-            Requests.Start(LoaderPortalPages);
+            tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
+            
+            urls = GetUrlsForRequests();
+
+            Progress = new StartupProgress(urls.Count());
         }
 
-        private static void LoaderPortalPages(RequestItem requestItem)
+        private static List<string> GetUrlsForRequests()
         {
-            CoreContext.TenantManager.SetCurrentTenant(requestItem.TenantId);
+            var result = new List<string>();
+            var warmUpType = (WarmUpType)Enum.Parse(typeof(WarmUpType), ConfigurationManager.AppSettings["web.warmup.type"] ?? "none", true);
 
-            var authCookie = SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
-            var tenant = CoreContext.TenantManager.GetCurrentTenant().TenantDomain;
+            if (warmUpType >= WarmUpType.Basic)
+            {
+                result.AddRange(new List<string>
+                                  {
+                                      "~/auth.aspx",
+                                      "~/confirm.aspx",
+                                      "~/default.aspx",
+                                      "~/feed.aspx",
+                                      "~/my.aspx",
+                                      "~/preparationportal.aspx",
+                                      "~/search.aspx",
+                                      "~/servererror.aspx",
+                                      "~/startscriptsstyles.aspx",
+                                      "~/tariffs.aspx",
+                                      "~/products/files/default.aspx",
+                                      "~/products/files/doceditor.aspx",
+                                      "~/products/crm/cases.aspx",
+                                      "~/products/crm/deals.aspx",
+                                      "~/products/crm/default.aspx",
+                                      "~/products/crm/help.aspx",
+                                      "~/products/crm/invoices.aspx",
+                                      "~/products/crm/mailviewer.aspx",
+                                      "~/products/crm/sender.aspx",
+                                      "~/products/crm/settings.aspx",
+                                      "~/products/crm/tasks.aspx",
+                                      "~/products/projects/contacts.aspx",
+                                      "~/products/projects/default.aspx",
+                                      "~/products/projects/ganttchart.aspx",
+                                      "~/products/projects/GeneratedReport.aspx",
+                                      "~/products/projects/help.aspx",
+                                      "~/products/projects/import.aspx",
+                                      "~/products/projects/messages.aspx",
+                                      "~/products/projects/milestones.aspx",
+                                      "~/products/projects/projects.aspx",
+                                      //"~/products/projects/projectteam.aspx",
+                                      "~/products/projects/projecttemplates.aspx",
+                                      "~/products/projects/reports.aspx",
+                                      "~/products/projects/tasks.aspx",
+                                      "~/products/projects/timer.aspx",
+                                      "~/products/projects/timetracking.aspx",
+                                      "~/products/projects/tmdocs.aspx",
+                                      "~/products/people/default.aspx",
+                                      "~/products/people/help.aspx",
+                                      "~/products/people/profile.aspx",
+                                      "~/products/people/profileaction.aspx",
+                                      "~/addons/mail/default.aspx",
+                                      "~/addons/calendar/default.aspx"
+                                  });
+            }
 
+            if (warmUpType == WarmUpType.Full)
+            {
+                result.AddRange(new List<string>
+                                  {
+                                      "~/management.aspx?type=1",
+                                      "~/management.aspx?type=2",
+                                      "~/management.aspx?type=3",
+                                      "~/management.aspx?type=4",
+                                      "~/management.aspx?type=5",
+                                      "~/management.aspx?type=6",
+                                      "~/management.aspx?type=7",
+                                      "~/management.aspx?type=10",
+                                      "~/management.aspx?type=11",
+                                      "~/management.aspx?type=15",
+                                      "~/products/community/default.aspx",
+                                      "~/products/community/help.aspx",
+                                      "~/products/community/modules/birthdays/default.aspx",
+                                      "~/products/community/modules/blogs/addblog.aspx",
+                                      "~/products/community/modules/blogs/default.aspx",
+                                      "~/products/community/modules/blogs/editblog.aspx",
+                                      "~/products/community/modules/blogs/viewblog.aspx",
+                                      "~/products/community/modules/bookmarking/default.aspx",
+                                      "~/products/community/modules/bookmarking/createbookmark.aspx",
+                                      "~/products/community/modules/bookmarking/bookmarkinfo.aspx",
+                                      "~/products/community/modules/bookmarking/favouritebookmarks.aspx",
+                                      "~/products/community/modules/bookmarking/userbookmarks.aspx",
+                                      "~/products/community/modules/forum/default.aspx",
+                                      "~/products/community/modules/forum/edittopic.aspx",
+                                      "~/products/community/modules/forum/managementcenter.aspx",
+                                      "~/products/community/modules/forum/newforum.aspx",
+                                      "~/products/community/modules/forum/newpost.aspx",
+                                      "~/products/community/modules/forum/posts.aspx",
+                                      "~/products/community/modules/forum/search.aspx",
+                                      "~/products/community/modules/forum/topics.aspx",
+                                      "~/products/community/modules/forum/usertopics.aspx",
+                                      "~/products/community/modules/news/default.aspx",
+                                      "~/products/community/modules/news/editnews.aspx",
+                                      "~/products/community/modules/news/editpoll.aspx",
+                                      "~/products/community/modules/news/news.aspx",
+                                      //"~/products/community/modules/wiki/default.aspx",
+                                      "~/products/community/modules/wiki/diff.aspx",
+                                      "~/products/community/modules/wiki/listcategories.aspx",
+                                      "~/products/community/modules/wiki/listfiles.aspx",
+                                      "~/products/community/modules/wiki/listpages.aspx",
+                                      //"~/products/community/modules/wiki/pagehistorylist.aspx",
+                                  });
+            }
+
+            return result.Select(TransformUrl).ToList();
+        }
+
+        private static string TransformUrl(string url)
+        {
+            var result = CommonLinkUtility.GetFullAbsolutePath(url);
+            const string warmupParam = "warmup=true";
+
+            return url.Contains("?")
+                       ? string.Format("{0}&{1}", result, warmupParam)
+                       : string.Format("{0}?{1}", result, warmupParam);
+        }
+
+        public void Start()
+        {
+            if (!Started)
+            {
+                Started = true;
+                requests = new WorkerQueue<string>(4, TimeSpan.Zero, 10, true);
+                requests.AddRange(urls);
+                requests.Start(LoaderPortalPages);
+            }
+        }
+
+        public void StartSync()
+        {
+            if (!Started)
+            {
+                Started = true;
+                urls.ForEach(LoaderPortalPages);
+                Progress.Bundles.ForEach(r => MakeRequest(CommonLinkUtility.GetFullAbsolutePath(r)));
+            }
+        }
+
+        public void Terminate()
+        {
             try
             {
-                var httpWebRequest = (HttpWebRequest) WebRequest.Create(requestItem.Url);
-                httpWebRequest.Headers.Add("Authorization", authCookie);
-                httpWebRequest.Method = "GET";
-                httpWebRequest.CookieContainer = new CookieContainer();
-                httpWebRequest.CookieContainer.Add(new Cookie("asc_auth_key", authCookie, "/", tenant));
-                httpWebRequest.Timeout = 120000;
+                if (requests != null)
+                {
+                    requests.Terminate();
+                    requests = null;
+                }
+            }
+            catch (ThreadAbortException)
+            {
+            }
 
-                httpWebRequest.GetResponseAsync().ContinueWith(r=> Progress.Increment());
+        }
+
+        private void LoaderPortalPages(string requestUrl)
+        {
+            try
+            {
+                MakeRequest(requestUrl);
             }
             catch (Exception exception)
             {
+                lock (obj)
+                {
+                    Progress.Error.Add(exception.StackTrace);
+                }
+
                 LogManager.GetLogger("ASC.Web")
-                    .Error(string.Format("Page is not avaliable by url {0}", requestItem.Url), exception);
+                    .Error(string.Format("Page is not avaliable by url {0}", requestUrl), exception);
             }
             finally
             {
-                
+                lock (obj)
+                {
+                    Progress.Increment();
+                }
             }
         }
 
-        public static void Terminate()
+        private void MakeRequest(string requestUrl)
         {
-            Requests.Terminate();
-        }
-    }
+            CoreContext.TenantManager.SetCurrentTenant(tenantId);
+            if (WorkContext.IsMono)
+                ServicePointManager.ServerCertificateValidationCallback = (s, c, h, p) => true;
 
-    public class RequestItem
-    {
-        public string Url { get; set; }
-        public int TenantId { get; set; }
-
-        public RequestItem(string url)
-        {
-            Url = CommonLinkUtility.GetFullAbsolutePath(url);
-            TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
+            using (var webClient = new WebClient())
+            {
+                webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.4; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36");
+                webClient.Headers.Add("Authorization", SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID));
+                webClient.DownloadData(requestUrl);
+            }
         }
     }
 
     [DataContract]
     public class StartupProgress
     {
-        [DataMember]
-        public bool IsCompleted { get { return Progress == Total; } }
-
-        public int Progress { get; private set; }
+        private int progress;
+        private readonly int total;
 
         [DataMember]
-        public int ProgressPercent { get { return (Progress * 75) / Total; } }
+        public int Percentage { get { return ClientSettings.BundlingEnabled ? 50 : 100; } }
 
         [DataMember]
-        public string Error { get; set; }
+        public bool Completed { get { return progress == total; } }
+
+        [DataMember]
+        public int ProgressPercent { get { return (progress * Percentage) / total; } }
+
+        [DataMember]
+        public List<string> Error { get; set; }
 
         [DataMember]
         public string Link { get; set; }
@@ -210,39 +291,32 @@ namespace ASC.Web.Studio.Core
         [DataMember]
         public List<string> Bundles { get; set; }
 
-        public int Total { get; set; }
+        public StartupProgress(int total)
+        {
+            this.total = total;
+            Error = new List<string>();
+        }
 
         public void Increment()
         {
-            Progress += 1;
+            progress += 1;
 
-            if (IsCompleted)
+            if (Completed)
             {
-                Link = VirtualPathUtility.ToAbsolute("~/default.aspx");
-                Bundles = BundleTable.Bundles.Select(bundle => VirtualPathUtility.ToAbsolute(bundle.Path)).ToList();
+                LogManager.GetLogger("ASC").Debug("Complete");
 
-                WarmUp.Terminate();
-                log4net.LogManager.GetLogger("ASC").Debug("Complete");
+                Link = VirtualPathUtility.ToAbsolute("~/default.aspx");
+                Bundles = BundleTable.Bundles.Select(GetBundlePath).ToList();
+
+                WarmUp.Instance.Terminate();
             }
         }
-    }
 
-    [Serializable]
-    [DataContract]
-    public class StartupSettings : ISettings
-    {
-        [DataMember(Name = "Start")]
-        public bool Start { get; set; }
-
-        public Guid ID
+        private static string GetBundlePath(Bundle bundle)
         {
-            get { return new Guid("{098F4CB6-A7EF-4D79-9A0E-73F5846F6B2F}"); }
-        }
-
-
-        public ISettings GetDefault()
-        {
-            return new StartupSettings();
+            return !string.IsNullOrEmpty(bundle.CdnPath)
+                       ? bundle.CdnPath
+                       : VirtualPathUtility.ToAbsolute(bundle.Path);
         }
     }
 }

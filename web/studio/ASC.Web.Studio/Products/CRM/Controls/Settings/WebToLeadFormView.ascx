@@ -3,7 +3,7 @@
 <%@ Assembly Name="ASC.Web.Core" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="WebToLeadFormView.ascx.cs"
     Inherits="ASC.Web.CRM.Controls.Settings.WebToLeadFormView" %>
-<%@ Import Namespace="ASC.Security.Cryptography" %>
+
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.CRM.Configuration" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>

@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 window.ASC.Files.Folders = (function () {
     var tasksTimeout = null;
@@ -69,7 +67,7 @@ window.ASC.Files.Folders = (function () {
 
         ASC.Files.ServiceManager.getItems(ASC.Files.ServiceManager.events.GetItems,
             {
-                folderId: folderToId,
+                parentFolderID: folderToId,
                 filter: filterSettings.filter,
                 subject: filterSettings.subject,
                 text: filterSettings.text,
@@ -846,6 +844,7 @@ window.ASC.Files.Folders = (function () {
 
         var thirdParty = typeof ASC.Files.ThirdParty != "undefined";
         var takeThirdParty = thirdParty && (ASC.Files.Folders.isCopyTo == true || ASC.Files.ThirdParty.isThirdParty());
+        var moveAccessDeny = false;
 
         var data = {};
         data.entry = new Array();
@@ -858,27 +857,35 @@ window.ASC.Files.Folders = (function () {
             var entryId = entryData.entryId;
 
             if (ASC.Files.Folders.isCopyTo == true
-                || (ASC.Files.UI.accessDelete(entryObj) && !ASC.Files.UI.editingFile(entryObj) && !ASC.Files.UI.lockedForMe(entryObj))) {
+                || (!ASC.Files.UI.editingFile(entryObj) && !ASC.Files.UI.lockedForMe(entryObj))) {
 
-                if (jq.inArray(entryId, pathDest) != -1) {
-                    ASC.Files.UI.displayInfoPanel(((ASC.Files.Folders.isCopyTo == true) ? ASC.Files.FilesJSResources.InfoFolderCopyError : ASC.Files.FilesJSResources.InfoFolderMoveError), true);
+                if (ASC.Files.Folders.isCopyTo == false && !ASC.Files.UI.accessDelete(entryObj)) {
+                    moveAccessDeny = true;
                 } else {
-                    if (takeThirdParty
-                        || !thirdParty
-                        || !ASC.Files.ThirdParty.isThirdParty(entryObj)) {
-                        ASC.Files.UI.blockObject(entryObj,
-                            true,
-                            (ASC.Files.Folders.isCopyTo == true) ?
-                                ASC.Files.FilesJSResources.DescriptCopy :
-                                ASC.Files.FilesJSResources.DescriptMove,
-                            true);
+                    if (jq.inArray(entryId, pathDest) != -1) {
+                        ASC.Files.UI.displayInfoPanel(((ASC.Files.Folders.isCopyTo == true) ? ASC.Files.FilesJSResources.InfoFolderCopyError : ASC.Files.FilesJSResources.InfoFolderMoveError), true);
+                    } else {
+                        if (takeThirdParty
+                            || !thirdParty
+                            || !ASC.Files.ThirdParty.isThirdParty(entryData)) {
+                            ASC.Files.UI.blockObject(entryObj,
+                                true,
+                                (ASC.Files.Folders.isCopyTo == true) ?
+                                    ASC.Files.FilesJSResources.DescriptCopy :
+                                    ASC.Files.FilesJSResources.DescriptMove,
+                                true);
 
-                        data.entry.push(Encoder.htmlEncode(entryType + "_" + entryId));
+                            data.entry.push(Encoder.htmlEncode(entryType + "_" + entryId));
+                        }
                     }
                 }
             }
         });
         Encoder.EncodeType = "entity";
+
+        if (moveAccessDeny) {
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoMoveAccessError, true);
+        }
 
         ASC.Files.UI.updateMainContentHeader();
         ASC.Files.Actions.hideAllActionPanels();
@@ -972,7 +979,7 @@ window.ASC.Files.Folders = (function () {
                 var entryRowId = entryRowData.entryId;
 
                 if (ASC.Files.ThirdParty && !ASC.Files.ThirdParty.isThirdParty()
-                    && ASC.Files.ThirdParty.isThirdParty(entryRowData.entryObject)) {
+                    && ASC.Files.ThirdParty.isThirdParty(entryRowData)) {
                     return true;
                 }
                 if (ASC.Files.UI.accessDelete(entryRowObj)
@@ -1300,7 +1307,6 @@ window.ASC.Files.Folders = (function () {
             if (ASC.Files.Folders.isFirstLoad) {
                 ASC.Files.Folders.isFirstLoad = false;
                 if (!jq("#emptyContainer").is(":visible")) {
-                    jq(".files-filter").show();
                     jq('.advansed-filter').advansedFilter("resize");
                 }
             } else {

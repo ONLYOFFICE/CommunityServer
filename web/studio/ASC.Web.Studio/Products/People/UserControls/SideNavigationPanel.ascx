@@ -1,5 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.People" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SideNavigationPanel.ascx.cs" Inherits="ASC.Web.People.UserControls.SideNavigationPanel" %>
+<%@ Import Namespace="ASC.Web.People.Core" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
@@ -35,7 +36,7 @@
 
   <div id="otherActions" class="studio-action-panel">
     <ul class="dropdown-content">
-      <li><a class="dropdown-item invite-link"><%= PeopleResource.InviteLink %></a></li>
+      <li><a class="dropdown-item invite-link" id="sideNavInviteLink"><%= PeopleResource.InviteLink %></a></li>
       <li><a class="dropdown-item add-profiles"><%= PeopleResource.LblImportAccounts %></a></li>
       <% if (HasPendingProfiles)
          { %>
@@ -53,7 +54,7 @@
             {%>
           <span class="expander"></span>
           <% } %>
-          <a id="defaultLinkPeople" class="menu-item-label outer-text text-overflow" title="<%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("Departments").HtmlEncode() %>">
+          <a id="defaultLinkPeople" class="menu-item-label outer-text text-overflow" title="<%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("Departments").HtmlEncode() %>" href="#sortorder=ascending">
             <span class="menu-item-icon people"></span>
             <span class="menu-item-label inner-text"><%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("Departments").HtmlEncode()%></span>
           </a>
@@ -65,7 +66,7 @@
       </HeaderTemplate>
       <ItemTemplate>
         <li class="menu-sub-item" data-id="<%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Id%>">
-          <a class="menu-item-label outer-text text-overflow" title="<%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Title%>"><%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Title%></a>
+          <a class="menu-item-label outer-text text-overflow" title="<%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Title%>" href="#sortorder=ascending&group=<%# ((ASC.Web.People.Classes.MyGroup)Container.DataItem).Id%>"><%#((ASC.Web.People.Classes.MyGroup)Container.DataItem).Title%></a>
         </li>
       </ItemTemplate>
       <FooterTemplate>
@@ -94,25 +95,27 @@
       </div>
     </li>
     --%>
+
+    <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
     <% if (CurrentUserAdmin)
        { %>
-         <li id="menuSettings" class="menu-item sub-list add-block">
-                    <div class="category-wrapper">
-                        <span class="expander"></span>
-                        <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights)%>">
-                            <span class="menu-item-icon settings"></span>
-                            <span class="menu-item-label inner-text gray-text"><%= PeopleResource.Settings %></span>
+        <li id="menuSettings" class="menu-item sub-list add-block">
+            <div class="category-wrapper">
+                <span class="expander"></span>
+                <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights)%>">
+                    <span class="menu-item-icon settings"></span>
+                    <span class="menu-item-label inner-text gray-text"><%= PeopleResource.Settings %></span>
+                </a>
+            </div>
+            <ul class="menu-sub-list">
+                    <li id="menuAccessRights" class="menu-sub-item filter">
+                        <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) +"#people" %>">
+                            <%= PeopleResource.AccessRightsSettings %>
                         </a>
-                    </div>
-                    <ul class="menu-sub-list">
-                          <li id="menuAccessRights" class="menu-sub-item filter">
-                                <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) +"#people" %>">
-                                    <%= PeopleResource.AccessRightsSettings %>
-                                </a>
-                          </li>
-                    </ul>
-                </li>
-         <% } %>
+                    </li>
+            </ul>
+        </li>
+        <% } %>
          <asp:PlaceHolder ID="HelpHolder" runat="server"></asp:PlaceHolder>
          <asp:PlaceHolder ID="SupportHolder" runat="server"></asp:PlaceHolder>
          <asp:PlaceHolder ID="UserForumHolder" runat="server"></asp:PlaceHolder>

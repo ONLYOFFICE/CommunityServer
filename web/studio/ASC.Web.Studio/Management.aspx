@@ -16,18 +16,18 @@
             <% foreach (var category in Category)
                {%>
             <% 
-                   if ((category.Modules != null && DisplayModuleList(category)) || (category.ModuleUrl != null && GetNavigationList().Contains(category.ModuleUrl)))
+                   if ((category.Modules != null && DisplayModuleList(category)) || (GetNavigationList().Contains(category.ModuleUrl)))
                    { %>
             <li class="menu-item <%= category.Modules != null ? "" : "none-" %>sub-list 
                 <%= category.Modules != null && category.Modules.Contains(CurrentModule) ? "currentCategory" : "" %>
-                <%= (category.Modules == null && category.ModuleUrl != null && category.ModuleUrl == CurrentModule) ? "currentCategory active" : "" %> open">
+                <%= (category.Modules == null && category.ModuleUrl == CurrentModule) ? "currentCategory active" : "" %> open-by-default">
                 <%if (category.Modules != null && DisplayModuleList(category))
                   {%>
                 <div class="category-wrapper">
                     <span class="expander"></span>
                     <%} %>
                     <a class="menu-item-label outer-text text-overflow"
-                        href="<%= GetNavigationUrl((category.Modules == null && category.ModuleUrl != null) ? category.ModuleUrl : category.Modules.First(DisplayModule)) %>">
+                        href="<%= GetNavigationUrl((category.Modules == null) ? category.ModuleUrl : category.Modules.First(DisplayModule)) %>">
                         <span class="menu-item-icon  <%= category.ClassName %>"></span>
                         <span class="menu-item-label"><%= category.Title %></span>
                     </a>
@@ -53,6 +53,8 @@
             </li>
             <% } %>
             <% } %>
+
+            <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
 
             <% if (TenantExtra.EnableTarrifSettings && !CoreContext.Configuration.Standalone)
                { %>

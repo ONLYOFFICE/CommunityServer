@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -32,10 +30,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Web.UI;
 
 namespace ASC.Thrdparty.Web
 {
-    public class BaseImportPage : System.Web.UI.Page
+    public class BaseImportPage : Page
     {
         private readonly List<ContactInfo> _contacts = new List<ContactInfo>();
 
@@ -43,7 +42,7 @@ namespace ASC.Thrdparty.Web
         {
             var sb = new StringBuilder();
             sb.Append("\"");
-            foreach (char c in s)
+            foreach (var c in s)
             {
                 switch (c)
                 {
@@ -69,7 +68,7 @@ namespace ASC.Thrdparty.Web
                         sb.Append("\\t");
                         break;
                     default:
-                        int i = (int)c;
+                        var i = (int) c;
                         if (i < 32 || i > 127)
                         {
                             sb.AppendFormat("\\u{0:X04}", i);
@@ -88,8 +87,6 @@ namespace ASC.Thrdparty.Web
 
         private const string CallbackJavascript =
             @"function snd(){{client.sendAndClose({0},{1});}} window.onload = snd;";
-
-        protected string ErrorScope { get; set; }
 
         protected void AddContactInfo(string name, IEnumerable<string> emails)
         {
@@ -118,86 +115,51 @@ namespace ASC.Thrdparty.Web
                     lastname = _name[1];
                 }
             }
-            AddContactInfo(new ContactInfo { FirstName = String.IsNullOrEmpty(name) ? String.Empty : name, Email = String.IsNullOrEmpty(emails.FirstOrDefault()) ? String.Empty : emails.FirstOrDefault(), LastName = String.IsNullOrEmpty(lastname) ? String.Empty : lastname });
-        }
 
-        protected void AddContactInfo(string name, string email)
-        {
-            var _name = name.Split(' ');
-            if (_name.Length > 1)
-                AddContactInfo(_name[0], _name[1], email);
-            else
-                AddContactInfo(name, string.Empty, email);
-        }
-
-        protected void AddContactInfo(string name, string lastname, string email)
-        {
-            if (String.IsNullOrEmpty(name) && String.IsNullOrEmpty(lastname))
-            {
-                var _name = email.Contains("@") ? email.Substring(0, email.IndexOf("@")).Split('.') : email.Split('.');
-                if (_name.Length > 1)
+            var info = new ContactInfo
                 {
-                    name = _name[0];
-                    lastname = _name[1];
-                }                
-            }
-            AddContactInfo(new ContactInfo() { FirstName = name, Email = email, LastName = lastname });
-        }
+                    FirstName = String.IsNullOrEmpty(name) ? String.Empty : name,
+                    Email = String.IsNullOrEmpty(emails.FirstOrDefault()) ? String.Empty : emails.FirstOrDefault(),
+                    LastName = String.IsNullOrEmpty(lastname) ? String.Empty : lastname
+                };
 
-        protected void AddContactInfo(ContactInfo info)
-        {
             if (!string.IsNullOrEmpty(info.Email))
             {
                 _contacts.Add(info);
             }
         }
 
-        protected void AddContactInfo(IEnumerable<ContactInfo> contacts)
-        {
-            if (contacts != null)
-            {
-                _contacts.AddRange(contacts);
-            }
-        }
-
-        protected void SubmitData()
+        protected void SubmitData(string data, string errorMessage = null)
         {
             ClientScript.RegisterClientScriptBlock(GetType(), "posttoparent",
-                string.Format(CallbackJavascript, JsonContacts(), string.IsNullOrEmpty(ErrorScope) ? "null" : EncodeJsString(ErrorScope)),
-                true);
+                                                   string.Format(CallbackJavascript,
+                                                                 string.IsNullOrEmpty(data) ? "null" : data,
+                                                                 string.IsNullOrEmpty(errorMessage) ? "null" : EncodeJsString(errorMessage)),
+                                                   true);
+        }
+
+        protected void SubmitContacts()
+        {
+            SubmitData(ToJson(_contacts.Distinct().ToList()));
         }
 
         protected void SubmitEmailInfo(EmailAccessInfo emailInfo)
         {
-            ClientScript.RegisterClientScriptBlock(GetType(), "posttoparent",
-                string.Format(CallbackJavascript, JsonEmailAccess(emailInfo), string.IsNullOrEmpty(ErrorScope) ? "null" : EncodeJsString(ErrorScope)),
-                true);
+            SubmitData(ToJson(emailInfo));
         }
 
-        protected string JsonContacts()
+        protected void SubmitError(string message)
         {
-            return JsonContacts(_contacts.Distinct().ToList());
+            SubmitData(string.Empty, message);
         }
 
-        private static string JsonContacts(List<ContactInfo> contacts)
+        protected static string ToJson(object obj)
         {
-            /*var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-		    return serializer.Serialize(contacts);*/
-            var serializer = new DataContractJsonSerializer(contacts.GetType());
+            var serializer = new DataContractJsonSerializer(obj.GetType());
             using (var ms = new MemoryStream())
             {
-                serializer.WriteObject(ms, contacts);
-                return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
-            }
-        }
-
-        private static string JsonEmailAccess(EmailAccessInfo emailInfo)
-        {
-            var serializer = new DataContractJsonSerializer(emailInfo.GetType());
-            using (var ms = new MemoryStream())
-            {
-                serializer.WriteObject(ms, emailInfo);
-                return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
+                serializer.WriteObject(ms, obj);
+                return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int) ms.Length);
             }
         }
     }

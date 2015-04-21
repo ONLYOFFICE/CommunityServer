@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -34,6 +32,7 @@ using System.Text;
 using ASC.Data.Storage.S3;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
+using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Dal.DbSchema;
 using ASC.Mail.Aggregator.DataStorage;
 using ASC.Mail.Aggregator.Exceptions;
@@ -65,92 +64,99 @@ namespace ASC.Mail.Aggregator
 
         #region public methods
 
-        public MailAttachment AttachFileFromDocuments(int id_tenant, string id_user, int id_message, string id_file,
-                                                          string version, string share_link, string id_stream)
+        public MailAttachment AttachFileFromDocuments(int tenant, string user, int messageId, string fileId,
+                                                          string version, string shareLink, string streamId)
         {
             MailAttachment result;
 
-            using (var file_dao = FilesIntegration.GetFileDao())
+            using (var fileDao = FilesIntegration.GetFileDao())
             {
                 Files.Core.File file;
-                var check_link = FileShareLink.Check(share_link, true, file_dao, out file);
-                if (!check_link && file == null)
+                var checkLink = FileShareLink.Check(shareLink, true, fileDao, out file);
+                if (!checkLink && file == null)
                     file = String.IsNullOrEmpty(version)
-                               ? file_dao.GetFile(id_file)
-                               : file_dao.GetFile(id_file, Convert.ToInt32(version));
+                               ? fileDao.GetFile(fileId)
+                               : fileDao.GetFile(fileId, Convert.ToInt32(version));
 
                 if (file == null)
-                    throw new AttachmentsException(AttachmentsException.Types.DOCUMENT_NOT_FOUND, "File not found.");
+                    throw new AttachmentsException(AttachmentsException.Types.DocumentNotFound, "File not found.");
 
-                if (!check_link && !FilesIntegration.GetFileSecurity().CanRead(file))
-                    throw new AttachmentsException(AttachmentsException.Types.DOCUMENT_ACCESS_DENIED,
+                if (!checkLink && !FilesIntegration.GetFileSecurity().CanRead(file))
+                    throw new AttachmentsException(AttachmentsException.Types.DocumentAccessDenied,
                                                    "Access denied.");
 
-                if (!file_dao.IsExistOnStorage(file))
+                if (!fileDao.IsExistOnStorage(file))
                 {
-                    throw new AttachmentsException(AttachmentsException.Types.DOCUMENT_NOT_FOUND,
+                    throw new AttachmentsException(AttachmentsException.Types.DocumentNotFound,
                                                    "File not exists on storage.");
                 }
 
                 _log.Info("Original file id: {0}", file.ID);
                 _log.Info("Original file name: {0}", file.Title);
-                var file_ext = FileUtility.GetFileExtension(file.Title);
-                var cur_file_type = FileUtility.GetFileTypeByFileName(file.Title);
+                var fileExt = FileUtility.GetFileExtension(file.Title);
+                var curFileType = FileUtility.GetFileTypeByFileName(file.Title);
                 _log.Info("File converted type: {0}", file.ConvertedType);
 
                 if (file.ConvertedType != null)
                 {
-                    if (cur_file_type == FileType.Image)
-                        file_ext = file.ConvertedType == ".zip" ? ".pptt" : file.ConvertedType;
-                    else if (cur_file_type == FileType.Spreadsheet)
-                        file_ext = file.ConvertedType != ".xlsx" ? ".xlst" : file.ConvertedType;
-                    else if (file.ConvertedType == ".doct" || file.ConvertedType == ".xlst" || file.ConvertedType == ".pptt")
-                        file_ext = file.ConvertedType;
+                    switch (curFileType)
+                    {
+                        case FileType.Image:
+                            fileExt = file.ConvertedType == ".zip" ? ".pptt" : file.ConvertedType;
+                            break;
+                        case FileType.Spreadsheet:
+                            fileExt = file.ConvertedType != ".xlsx" ? ".xlst" : file.ConvertedType;
+                            break;
+                        default:
+                            if (file.ConvertedType == ".doct" || file.ConvertedType == ".xlst" || file.ConvertedType == ".pptt")
+                                fileExt = file.ConvertedType;
+                            break;
+                    }
                 }
 
-                var convert_to_ext = string.Empty;
-                switch (cur_file_type)
+                var convertToExt = string.Empty;
+                switch (curFileType)
                 {
                     case FileType.Document:
-                        if (file_ext == ".doct")
-                            convert_to_ext = ".docx";
+                        if (fileExt == ".doct")
+                            convertToExt = ".docx";
                         break;
                     case FileType.Spreadsheet:
-                        if (file_ext == ".xlst")
-                            convert_to_ext = ".xlsx";
+                        if (fileExt == ".xlst")
+                            convertToExt = ".xlsx";
                         break;
                     case FileType.Presentation:
-                        if (file_ext == ".pptt")
-                            convert_to_ext = ".pptx";
+                        if (fileExt == ".pptt")
+                            convertToExt = ".pptx";
                         break;
                 }
 
-                if (!string.IsNullOrEmpty(convert_to_ext) && file_ext != convert_to_ext)
+                if (!string.IsNullOrEmpty(convertToExt) && fileExt != convertToExt)
                 {
-                    var file_name = Path.ChangeExtension(file.Title, convert_to_ext);
-                    _log.Info("Changed file name - {0} for file {1}:", file_name, file.ID);
+                    var fileName = Path.ChangeExtension(file.Title, convertToExt);
+                    _log.Info("Changed file name - {0} for file {1}:", fileName, file.ID);
 
-                    using (var read_stream = FileConverter.Exec(file, convert_to_ext))
+                    using (var readStream = FileConverter.Exec(file, convertToExt))
                     {
-                        if (read_stream == null)
-                            throw new AttachmentsException(AttachmentsException.Types.DOCUMENT_ACCESS_DENIED, "Access denied.");
+                        if (readStream == null)
+                            throw new AttachmentsException(AttachmentsException.Types.DocumentAccessDenied, "Access denied.");
 
-                        using (var mem_stream = new MemoryStream())
+                        using (var memStream = new MemoryStream())
                         {
-                            read_stream.StreamCopyTo(mem_stream);
-                            result = AttachFile(id_tenant, id_user, id_message, file_name, mem_stream, id_stream);
+                            readStream.StreamCopyTo(memStream);
+                            result = AttachFile(tenant, user, messageId, fileName, memStream, streamId);
                             _log.Info("Attached attachment: ID - {0}, Name - {1}, StoredUrl - {2}", result.fileName,result.fileName, result.storedFileUrl);
                         }
                     }
                 }
                 else
                 {
-                    using (var read_stream = file_dao.GetFileStream(file))
+                    using (var readStream = fileDao.GetFileStream(file))
                     {
-                        if (read_stream == null)
-                            throw new AttachmentsException(AttachmentsException.Types.DOCUMENT_ACCESS_DENIED,"Access denied.");
+                        if (readStream == null)
+                            throw new AttachmentsException(AttachmentsException.Types.DocumentAccessDenied,"Access denied.");
 
-                        result = AttachFile(id_tenant, id_user, id_message, file.Title, read_stream, id_stream);
+                        result = AttachFile(tenant, user, messageId, file.Title, readStream, streamId);
                        _log.Info("Attached attachment: ID - {0}, Name - {1}, StoredUrl - {2}", result.fileName, result.fileName, result.storedFileUrl);
                     }
                 }
@@ -159,120 +165,117 @@ namespace ASC.Mail.Aggregator
             return result;
         }
 
-        public MailAttachment AttachFile(int id_tenant, string id_user, int id_message,
-            string name, Stream input_stream, string id_stream)
+        public MailAttachment AttachFile(int tenant, string user, int messageId,
+            string name, Stream inputStream, string streamId)
         {
-            if (id_message < 0)
-                throw new AttachmentsException(AttachmentsException.Types.BAD_PARAMS, "Field 'id_message' must have non-negative value.");
+            if (messageId < 0)
+                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_message' must have non-negative value.");
 
-            if (id_tenant < 0)
-                throw new AttachmentsException(AttachmentsException.Types.BAD_PARAMS, "Field 'id_tenant' must have non-negative value.");
+            if (tenant < 0)
+                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_tenant' must have non-negative value.");
 
-            if (String.IsNullOrEmpty(id_user))
-                throw new AttachmentsException(AttachmentsException.Types.BAD_PARAMS, "Field 'id_user' is empty.");
+            if (String.IsNullOrEmpty(user))
+                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_user' is empty.");
 
-            if (input_stream.Length == 0)
-                throw new AttachmentsException(AttachmentsException.Types.EMPTY_FILE, "Empty files not supported.");
+            if (inputStream.Length == 0)
+                throw new AttachmentsException(AttachmentsException.Types.EmptyFile, "Empty files not supported.");
 
+            if (string.IsNullOrEmpty(streamId))
+                throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not found.");
 
-            if (string.IsNullOrEmpty(id_stream))
-                throw new AttachmentsException(AttachmentsException.Types.MESSAGE_NOT_FOUND, "Message not found.");
+            var message = GetMailInfo(tenant, user, messageId, false, false);
 
-            var total_size = GetAttachmentsTotalSize(id_message) + input_stream.Length;
+            if(message == null || streamId != message.StreamId)
+                throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not found.");
 
-            if (total_size > ATTACHMENTS_TOTAL_SIZE_LIMIT)
-                throw new AttachmentsException(AttachmentsException.Types.TOTAL_SIZE_EXCEEDED, "Total size of all files exceeds limit!");
+            var totalSize = GetAttachmentsTotalSize(messageId) + inputStream.Length;
 
-            var file_number = GetMaxAttachmentNumber(id_message);
+            if (totalSize > ATTACHMENTS_TOTAL_SIZE_LIMIT)
+                throw new AttachmentsException(AttachmentsException.Types.TotalSizeExceeded, "Total size of all files exceeds limit!");
+
+            var fileNumber = GetMaxAttachmentNumber(messageId, tenant);
 
             var attachment = new MailAttachment
             {
                 fileName = name,
                 contentType = MimeMapping.GetMimeMapping(name),
-                fileNumber = file_number,
-                size = input_stream.Length,
-                data = input_stream.GetCorrectBuffer(),
-                streamId = id_stream,
-                tenant = id_tenant,
-                user = id_user
+                fileNumber = fileNumber,
+                size = inputStream.Length,
+                data = inputStream.GetCorrectBuffer(),
+                streamId = streamId,
+                tenant = tenant,
+                user = user,
+                mailboxId = message.MailboxId
             };
 
-            QuotaUsedAdd(id_tenant, input_stream.Length);
+            QuotaUsedAdd(tenant, inputStream.Length);
             try
             {
-                StoreAttachmentWithoutQuota(id_tenant, id_user, attachment);
+                StoreAttachmentWithoutQuota(tenant, user, attachment);
             }
             catch
             {
-                QuotaUsedDelete(id_tenant, input_stream.Length);
+                QuotaUsedDelete(tenant, inputStream.Length);
                 throw;
             }
 
-            try
+            using (var db = GetDb())
             {
-                using (var db = GetDb())
+                using (var tx = db.BeginTransaction())
                 {
-                    using (var tx = db.BeginTransaction())
-                    {
-                        attachment.fileId = SaveAttachment(db, id_tenant, id_message, attachment);
-                        UpdateMessageChainAttachmentsFlag(db, id_tenant, id_user, id_message);
+                    attachment.fileId = SaveAttachment(db, tenant, messageId, attachment);
+                    UpdateMessageChainAttachmentsFlag(db, tenant, user, messageId);
 
-                        tx.Commit();
-                    }
+                    tx.Commit();
                 }
-            }
-            catch
-            {
-                //TODO: If exception has happened, need to remove stored files from s3 and remove quota
-                throw;
             }
 
             return attachment;
         }
 
-        public int GetAttachmentId(int message_id, string content_id)
+        public int GetAttachmentId(int messageId, string contentId)
         {
             using (var db = GetDb())
             {
                 var query = new SqlQuery(AttachmentTable.name)
                                 .Select(AttachmentTable.Columns.id)
-                                .Where(AttachmentTable.Columns.id_mail, message_id)
+                                .Where(AttachmentTable.Columns.id_mail, messageId)
                                 .Where(AttachmentTable.Columns.need_remove, false)
-                    .Where(AttachmentTable.Columns.content_id, content_id);
+                    .Where(AttachmentTable.Columns.content_id, contentId);
 
-                var attach_id = db.ExecuteScalar<int>(query);
-                return attach_id;
+                var attachId = db.ExecuteScalar<int>(query);
+                return attachId;
             }
         }
 
-        public void StoreAttachmentCopy(int id_tenant, string id_user, MailAttachment attachment, string stream_id)
+        public void StoreAttachmentCopy(int tenant, string user, MailAttachment attachment, string streamId)
         {
             try
             {
-                if (attachment.streamId.Equals(stream_id)) return;
+                if (attachment.streamId.Equals(streamId)) return;
 
-                var s3_key = MailStoragePathCombiner.GerStoredFilePath(attachment);
+                var s3Key = MailStoragePathCombiner.GerStoredFilePath(attachment);
 
-                var data_client = MailDataStore.GetDataStore(id_tenant);
+                var dataClient = MailDataStore.GetDataStore(tenant);
 
-                if (!data_client.IsFile(s3_key)) return;
+                if (!dataClient.IsFile(s3Key)) return;
 
                 attachment.fileNumber =
                     !string.IsNullOrEmpty(attachment.contentId) //Upload hack: embedded attachment have to be saved in 0 folder
                         ? 0
                         : attachment.fileNumber;
 
-                var new_s3_key = MailStoragePathCombiner.GetFileKey(id_user, stream_id, attachment.fileNumber,
+                var newS3Key = MailStoragePathCombiner.GetFileKey(user, streamId, attachment.fileNumber,
                                                                     attachment.storedName);
 
-                var copy_s3_url = data_client.Copy(s3_key, string.Empty, new_s3_key);
+                var copyS3Url = dataClient.Copy(s3Key, string.Empty, newS3Key);
 
-                attachment.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(copy_s3_url);
+                attachment.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(copyS3Url);
 
-                attachment.streamId = stream_id;
+                attachment.streamId = streamId;
 
                 _log.Debug("StoreAttachmentCopy() tenant='{0}', user_id='{1}', stream_id='{2}', new_s3_key='{3}', copy_s3_url='{4}', storedFileUrl='{5}',  filename='{6}'",
-                    id_tenant, id_user, stream_id, new_s3_key, copy_s3_url, attachment.storedFileUrl, attachment.fileName);
+                    tenant, user, streamId, newS3Key, copyS3Url, attachment.storedFileUrl, attachment.fileName);
             }
             catch (Exception ex)
             {
@@ -285,12 +288,12 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public void StoreAttachmentWithoutQuota(int id_tenant, string id_user, MailAttachment attachment)
+        public void StoreAttachmentWithoutQuota(int tenant, string user, MailAttachment attachment)
         {
-            StoreAttachmentWithoutQuota(id_tenant, id_user, attachment, MailDataStore.GetDataStore(id_tenant));
+            StoreAttachmentWithoutQuota(tenant, user, attachment, MailDataStore.GetDataStore(tenant));
         }
 
-        public void StoreAttachmentWithoutQuota(int id_tenant, string id_user, MailAttachment attachment, IDataStore storage)
+        public void StoreAttachmentWithoutQuota(int tenant, string user, MailAttachment attachment, IDataStore storage)
         {
             try
             {
@@ -300,7 +303,7 @@ namespace ASC.Mail.Aggregator
                 if (string.IsNullOrEmpty(attachment.fileName))
                     attachment.fileName = "attachment.ext";
 
-                var content_disposition = MailStoragePathCombiner.PrepareAttachmentName(attachment.fileName);
+                var contentDisposition = MailStoragePathCombiner.PrepareAttachmentName(attachment.fileName);
 
                 var ext = Path.GetExtension(attachment.fileName);
 
@@ -314,12 +317,12 @@ namespace ASC.Mail.Aggregator
                         ? 0
                         : attachment.fileNumber;
 
-                var attachment_path = MailStoragePathCombiner.GerStoredFilePath(attachment);
+                var attachmentPath = MailStoragePathCombiner.GerStoredFilePath(attachment);
 
                 using (var reader = new MemoryStream(attachment.data))
                 {
-                    var upload_url = storage.UploadWithoutQuota(string.Empty, attachment_path, reader, attachment.contentType, content_disposition);
-                    attachment.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(upload_url);
+                    var uploadUrl = storage.UploadWithoutQuota(string.Empty, attachmentPath, reader, attachment.contentType, contentDisposition);
+                    attachment.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(uploadUrl);
                 }
             }
             catch (Exception e)
@@ -333,76 +336,77 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public string StoreCKeditorImageWithoutQuota(int id_tenant, string id_user, int id_mailbox, string file_name, byte[] image_data, IDataStore storage)
+        public string StoreCKeditorImageWithoutQuota(int tenant, string user, int mailboxId, string fileName, byte[] imageData, IDataStore storage)
         {
             try
             {
-                if (image_data == null || image_data.Length == 0)
-                    throw new ArgumentNullException("image_data");
+                if (imageData == null || imageData.Length == 0)
+                    throw new ArgumentNullException("imageData");
 
-                var ext = string.IsNullOrEmpty(file_name) ? ".jpg" : Path.GetExtension(file_name);
+                var ext = string.IsNullOrEmpty(fileName) ? ".jpg" : Path.GetExtension(fileName);
 
                 if (string.IsNullOrEmpty(ext))
                     ext = ".jpg";
 
-                var store_name = image_data.GetMd5();
-                store_name = Path.ChangeExtension(store_name, ext);
+                var storeName = imageData.GetMd5();
+                storeName = Path.ChangeExtension(storeName, ext);
 
-                var content_disposition = ContentDispositionUtil.GetHeaderValue(store_name);
-                var content_type = ActiveUp.Net.Mail.MimeTypesHelper.GetMimeqType(ext);
+                var contentDisposition = ContentDispositionUtil.GetHeaderValue(storeName);
+                var contentType = MimeTypesHelper.GetMimeqType(ext);
 
-                var signature_image_path = MailStoragePathCombiner.GerStoredSignatureImagePath(id_mailbox, store_name);
+                var signatureImagePath = MailStoragePathCombiner.GerStoredSignatureImagePath(mailboxId, storeName);
 
-                using (var reader = new MemoryStream(image_data))
+                using (var reader = new MemoryStream(imageData))
                 {
-                    var upload_url = storage.UploadWithoutQuota(id_user, signature_image_path, reader, content_type, content_disposition);
-                    return MailStoragePathCombiner.GetStoredUrl(upload_url);
+                    var uploadUrl = storage.UploadWithoutQuota(user, signatureImagePath, reader, contentType, contentDisposition);
+                    return MailStoragePathCombiner.GetStoredUrl(uploadUrl);
                 }
             }
             catch (Exception e)
             {
-                _log.Error("StoreCKeditorImageWithoutQuota(). filename: {0} Exception:\r\n{1}\r\n", file_name,
+                _log.Error("StoreCKeditorImageWithoutQuota(). filename: {0} Exception:\r\n{1}\r\n", fileName,
                            e.ToString());
 
                 throw;
             }
         }
 
-        public void DeleteMessageAttachments(int tenant, string id_user, int message_id, IEnumerable<int> attachment_ids)
+        public void DeleteMessageAttachments(int tenant, string user, int messageId, List<int> attachmentIds)
         {
-            var ids = attachment_ids.ToArray();
-            long used_quota;
+            var ids = attachmentIds.ToArray();
+            long usedQuota;
             using (var db = GetDb())
             {
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
-                    used_quota = MarkAttachmetsNeedRemove(db, tenant,
-                                                          Exp.And(Exp.Eq(AttachmentTable.Columns.id_mail, message_id),
+                    usedQuota = MarkAttachmetsNeedRemove(db, tenant,
+                                                          Exp.And(Exp.Eq(AttachmentTable.Columns.id_mail, messageId),
                                                                   Exp.In(AttachmentTable.Columns.id, ids)));
-                    ReCountAttachments(db, message_id);
-                    UpdateMessageChainAttachmentsFlag(db, tenant, id_user, message_id);
+                    ReCountAttachments(db, messageId);
+                    UpdateMessageChainAttachmentsFlag(db, tenant, user, messageId);
 
                     tx.Commit();
                 }
             }
 
-            if (used_quota > 0)
-                QuotaUsedDelete(tenant, used_quota);
+            if (usedQuota > 0)
+                QuotaUsedDelete(tenant, usedQuota);
         }
 
-        public MailAttachment GetMessageAttachment(int attach_id, int id_tenant, string id_user = null)
+        public MailAttachment GetMessageAttachment(int attachId, int tenant, string user = null)
         {
             using (var db = GetDb())
             {
                 var query = GetAttachmentsSelectQuery()
-                        .Where(AttachmentTable.Columns.id.Prefix(AttachmentTable.name), attach_id)
-                    .Where(AttachmentTable.Columns.need_remove.Prefix(AttachmentTable.name), false);
+                        .Where(AttachmentTable.Columns.id.Prefix(AttachmentTable.name), attachId)
+                    .Where(AttachmentTable.Columns.need_remove.Prefix(AttachmentTable.name), false)
+                    .Where(AttachmentTable.Columns.id_tenant.Prefix(AttachmentTable.name), tenant);
 
-                var where_exp = string.IsNullOrEmpty(id_user)
-                                    ? Exp.Eq(MailTable.Columns.id_tenant.Prefix(MailTable.name), id_tenant)
-                                    : GetUserWhere(id_user, id_tenant, MailTable.name);
+                var whereExp = string.IsNullOrEmpty(user)
+                                    ? Exp.Eq(MailTable.Columns.id_tenant.Prefix(MailTable.name), tenant)
+                                    : GetUserWhere(user, tenant, MailTable.name);
 
-                query.Where(where_exp);
+                query.Where(whereExp);
 
                 var attachment = db.ExecuteList(query)
                                    .ConvertAll(ToMailItemAttachment)
@@ -412,31 +416,32 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public long GetAttachmentsTotalSize(int id_mail)
+        public long GetAttachmentsTotalSize(int messageId)
         {
             using (var db = GetDb())
             {
-                long total_size = db.ExecuteList(
+                var totalSize = db.ExecuteList(
                     new SqlQuery(AttachmentTable.name)
                         .SelectSum(AttachmentTable.Columns.size)
-                        .Where(AttachmentTable.Columns.id_mail, id_mail)
+                        .Where(AttachmentTable.Columns.id_mail, messageId)
                         .Where(AttachmentTable.Columns.need_remove, false)
                         .Where(AttachmentTable.Columns.content_id, null))
                         .ConvertAll(r => Convert.ToInt64(r[0]))
                         .FirstOrDefault();
 
-                return total_size;
+                return totalSize;
             }
         }
 
-        public int GetMaxAttachmentNumber(int id_mail)
+        public int GetMaxAttachmentNumber(int messageId, int tenant)
         {
             using (var db = GetDb())
             {
                 var number = db.ExecuteList(
                     new SqlQuery(AttachmentTable.name)
                         .SelectMax(AttachmentTable.Columns.file_number)
-                        .Where(AttachmentTable.Columns.id_mail, id_mail))
+                        .Where(AttachmentTable.Columns.id_mail, messageId)
+                        .Where(AttachmentTable.Columns.id_tenant, tenant))
                         .ConvertAll(r => Convert.ToInt32(r[0]))
                         .FirstOrDefault();
 
@@ -446,14 +451,14 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public int SaveAttachmentInTransaction(int id_tenant, int id_mail, MailAttachment attachment)
+        public int SaveAttachmentInTransaction(int tenant, int messageId, MailAttachment attachment)
         {
             int id;
             using (var db = GetDb())
             {
                 using (var tx = db.BeginTransaction())
                 {
-                    id = SaveAttachment(db, id_tenant, id_mail, attachment);
+                    id = SaveAttachment(db, tenant, messageId, attachment);
 
                     tx.Commit();
                 }
@@ -461,107 +466,110 @@ namespace ASC.Mail.Aggregator
             return id;
         }
 
-        public string StoreMailBody(int id_tenant, string id_user, MailMessageItem mail)
+        public string StoreMailBody(int tenant, string user, MailMessageItem messageItem)
         {
-            if (string.IsNullOrEmpty(mail.HtmlBody))
+            if (string.IsNullOrEmpty(messageItem.HtmlBody))
             {
                 return string.Empty;
             }
 
             // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
-            var save_path = MailStoragePathCombiner.GetBodyKey(id_user, mail.StreamId);
-            var storage = MailDataStore.GetDataStore(id_tenant);
+            var savePath = MailStoragePathCombiner.GetBodyKey(user, messageItem.StreamId);
+            var storage = MailDataStore.GetDataStore(tenant);
 
             try
             {
-                var safe_body = ReplaceEmbeddedImages(mail);
+                var safeBody = ReplaceEmbeddedImages(messageItem, _log);
 
-                using (var reader = new MemoryStream(Encoding.UTF8.GetBytes(safe_body)))
+                using (var reader = new MemoryStream(Encoding.UTF8.GetBytes(safeBody)))
                 {
                     var res = storage
-                        .UploadWithoutQuota(string.Empty, save_path, reader, "text/html", string.Empty)
+                        .UploadWithoutQuota(string.Empty, savePath, reader, "text/html", string.Empty)
                         .ToString();
 
                     _log.Debug("StoreMailBody() tenant='{0}', user_id='{1}', save_body_path='{2}' Result: {3}",
-                        id_tenant, id_user, save_path, res);
+                        tenant, user, savePath, res);
 
                     return res;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                storage.Delete(string.Empty, save_path);
-                _log.Debug(String.Format("StoreMailBody() Problems with message saving in messageId={0}. Body was deleted.", mail.MimeMessageId));
+                _log.Debug(
+                    "StoreMailBody() Problems with message saving in messageId={0}. \r\n Exception: \r\n {0}\r\n",
+                    messageItem.MimeMessageId, ex.ToString());
+
+                storage.Delete(string.Empty, savePath);
                 throw;
             }
         }
 
-        public string GetMailEmlUrl(int id_tenant, string id_user, string stream_id)
+        public string GetMailEmlUrl(int tenant, string user, string streamId)
         {
             // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
-            var eml_path = MailStoragePathCombiner.GetEmlKey(id_user, stream_id);
-            var data_store = MailDataStore.GetDataStore(id_tenant);
+            var emlPath = MailStoragePathCombiner.GetEmlKey(user, streamId);
+            var dataStore = MailDataStore.GetDataStore(tenant);
 
             try
             {
-                var eml_uri = data_store.GetUri(string.Empty, eml_path);
-                var url = MailStoragePathCombiner.GetStoredUrl(eml_uri);
+                var emlUri = dataStore.GetUri(string.Empty, emlPath);
+                var url = MailStoragePathCombiner.GetStoredUrl(emlUri);
 
                 return url;
             }
             catch (Exception ex)
             {
                 _log.Error("GetMailEmlUrl() tenant='{0}', user_id='{1}', save_eml_path='{2}' Exception: {3}",
-                           id_tenant, id_user, eml_path, ex.ToString());
+                           tenant, user, emlPath, ex.ToString());
             }
 
             return "";
         }
 
-        public string StoreMailEml(int id_tenant, string id_user, string stream_id, Message message)
+        public string StoreMailEml(int tenant, string user, string streamId, Message message)
         {
             // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
-            var save_path = MailStoragePathCombiner.GetEmlKey(id_user, stream_id);
-            var storage = MailDataStore.GetDataStore(id_tenant);
+            var savePath = MailStoragePathCombiner.GetEmlKey(user, streamId);
+            var storage = MailDataStore.GetDataStore(tenant);
 
             try
             {
                 using (var reader = new MemoryStream(message.OriginalData))
                 {
                     var res = storage
-                        .UploadWithoutQuota(string.Empty, save_path, reader, "message/rfc822", string.Empty)
+                        .UploadWithoutQuota(string.Empty, savePath, reader, "message/rfc822", string.Empty)
                         .ToString();
 
                     _log.Debug("StoreMailEml() tenant='{0}', user_id='{1}', save_eml_path='{2}' Result: {3}",
-                        id_tenant, id_user, save_path, res);
+                        tenant, user, savePath, res);
 
                     return res;
                 }
             }
             catch (Exception)
             {
-                storage.Delete(string.Empty, save_path);
+                storage.Delete(string.Empty, savePath);
                 throw;
             }
         }
 
-        public void SaveAttachments(int id_tenant, int id_mail, List<MailAttachment> attachments)
+        public void SaveAttachments(int tenant, int messageId, List<MailAttachment> attachments)
         {
             using (var db = GetDb())
             {
                 using (var tx = db.BeginTransaction())
                 {
-                    SaveAttachments(db, id_tenant, id_mail, attachments);
+                    SaveAttachments(db, tenant, messageId, attachments);
                     tx.Commit();
                 }
             }
         }
 
-        public void SaveAttachments(DbManager db, int id_tenant, int id_mail, List<MailAttachment> attachments)
+        public void SaveAttachments(DbManager db, int tenant, int messageId, List<MailAttachment> attachments)
         {
             if (!attachments.Any()) return;
 
-            CreateInsertDelegate create_insert_query = () => new SqlInsert(AttachmentTable.name)
+            CreateInsertDelegate createInsertQuery = () => new SqlInsert(AttachmentTable.name)
                                                          .InColumns(AttachmentTable.Columns.id_mail,
                                                                     AttachmentTable.Columns.name,
                                                                     AttachmentTable.Columns.stored_name,
@@ -570,9 +578,10 @@ namespace ASC.Mail.Aggregator
                                                                     AttachmentTable.Columns.file_number,
                                                                     AttachmentTable.Columns.need_remove,
                                                                     AttachmentTable.Columns.content_id,
-                                                                    AttachmentTable.Columns.id_tenant);
+                                                                    AttachmentTable.Columns.id_tenant,
+                                                                    AttachmentTable.Columns.id_mailbox);
 
-            var insert_query = create_insert_query();
+            var insertQuery = createInsertQuery();
 
             int i, len;
 
@@ -580,39 +589,37 @@ namespace ASC.Mail.Aggregator
             {
                 var attachment = attachments[i];
 
-                insert_query
-                    .Values(id_mail, attachment.fileName, attachment.storedName, attachment.contentType, attachment.size,
-                            attachment.fileNumber, 0, attachment.contentId, id_tenant);
+                insertQuery
+                    .Values(messageId, attachment.fileName, attachment.storedName, attachment.contentType, attachment.size,
+                            attachment.fileNumber, 0, attachment.contentId, tenant, attachment.mailboxId);
 
-                if (i % 100 == 0 && i != 0 || i + 1 == len)
-                {
-                    db.ExecuteNonQuery(insert_query);
-                    insert_query = create_insert_query();
-                }
+                if ((i%100 != 0 || i == 0) && i + 1 != len) continue;
+                db.ExecuteNonQuery(insertQuery);
+                insertQuery = createInsertQuery();
             }
 
-            ReCountAttachments(db, id_mail);
+            ReCountAttachments(db, messageId);
         }
 
-        public int SaveAttachment(int id_tenant, int id_mail, MailAttachment attachment)
+        public int SaveAttachment(int tenant, int messageId, MailAttachment attachment)
         {
             using (var db = GetDb())
             {
-                return SaveAttachment(db, id_tenant, id_mail, attachment);
+                return SaveAttachment(db, tenant, messageId, attachment);
             }
         }
 
-        public int SaveAttachment(DbManager db, int id_tenant, int id_mail, MailAttachment attachment)
+        public int SaveAttachment(DbManager db, int tenant, int messageId, MailAttachment attachment)
         {
-            return SaveAttachment(db, id_tenant, id_mail, attachment, true);
+            return SaveAttachment(db, tenant, messageId, attachment, true);
         }
 
-        public int SaveAttachment(DbManager db, int id_tenant, int id_mail, MailAttachment attachment, bool need_recount)
+        public int SaveAttachment(DbManager db, int tenant, int messageId, MailAttachment attachment, bool needRecount)
         {
             var id = db.ExecuteScalar<int>(
                         new SqlInsert(AttachmentTable.name)
                             .InColumnValue(AttachmentTable.Columns.id, 0)
-                            .InColumnValue(AttachmentTable.Columns.id_mail, id_mail)
+                            .InColumnValue(AttachmentTable.Columns.id_mail, messageId)
                             .InColumnValue(AttachmentTable.Columns.name, attachment.fileName)
                             .InColumnValue(AttachmentTable.Columns.stored_name, attachment.storedName)
                             .InColumnValue(AttachmentTable.Columns.type, attachment.contentType)
@@ -620,11 +627,12 @@ namespace ASC.Mail.Aggregator
                             .InColumnValue(AttachmentTable.Columns.file_number, attachment.fileNumber)
                             .InColumnValue(AttachmentTable.Columns.need_remove, false)
                             .InColumnValue(AttachmentTable.Columns.content_id, attachment.contentId)
-                            .InColumnValue(AttachmentTable.Columns.id_tenant, id_tenant)
+                            .InColumnValue(AttachmentTable.Columns.id_tenant, tenant)
+                            .InColumnValue(AttachmentTable.Columns.id_mailbox, attachment.mailboxId)
                             .Identity(0, 0, true));
 
-            if (need_recount)
-                ReCountAttachments(db, id_mail);
+            if (needRecount)
+                ReCountAttachments(db, messageId);
 
             return id;
         }
@@ -632,98 +640,100 @@ namespace ASC.Mail.Aggregator
         #endregion
 
         #region private methods
-        public void StoreAttachments(int tenant, string user, List<MailAttachment> attachments, string stream_id)
+        public void StoreAttachments(int tenant, string user, List<MailAttachment> attachments, string streamId)
         {
-            StoreAttachments(tenant, user, attachments, stream_id, -1);
+            StoreAttachments(tenant, user, attachments, streamId, -1);
         }
 
-        public void StoreAttachments(int tenant, string user, List<MailAttachment> attachments, string stream_id, int id_mailbox)
+        public void StoreAttachments(int tenant, string user, List<MailAttachment> attachments, string streamId, int mailboxId)
         {
-            if (!attachments.Any() || string.IsNullOrEmpty(stream_id)) return;
+            if (!attachments.Any() || string.IsNullOrEmpty(streamId)) return;
 
             var storage = MailDataStore.GetDataStore(tenant);
 
             if(storage == null)
                 throw new NullReferenceException("GetDataStore has returned null reference.");
 
-            var quota_add_size = attachments.Sum(a => a.data.LongLength);
+            var quotaAddSize = attachments.Sum(a => a.data.LongLength);
 
-            QuotaUsedAdd(tenant, quota_add_size);
+            QuotaUsedAdd(tenant, quotaAddSize);
 
             try
             {
                 foreach (var attachment in attachments)
                 {
-                    bool is_attachment_name_has_bad_name = string.IsNullOrEmpty(attachment.fileName)
+                    var isAttachmentNameHasBadName = string.IsNullOrEmpty(attachment.fileName)
                                                          || attachment.fileName.IndexOfAny(Path.GetInvalidPathChars()) != -1
                                                          || attachment.fileName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1;
-                    if (is_attachment_name_has_bad_name)
+                    if (isAttachmentNameHasBadName)
                     {
                         attachment.fileName = string.Format("attacment{0}{1}", attachment.fileNumber,
                                                                                MimeMapping.GetExtention(attachment.contentType));
                     }
 
-                    attachment.streamId = stream_id;
+                    attachment.streamId = streamId;
                     attachment.tenant = tenant;
                     attachment.user = user;
                     StoreAttachmentWithoutQuota(tenant, user, attachment, storage);
 
                     //This is dirty hack needed for mailbox updating on attachment processing. If we doesn't update mailbox checktime, it will be reset.
-                    if (id_mailbox > 0)
+                    if (mailboxId > 0)
                     {
-                        LockMailbox(id_mailbox, DateTime.UtcNow.Ticks);
+                        LockMailbox(mailboxId);
                     }
                 }
             }
             catch
             {
-                var stored_attachments_keys = attachments
+                var storedAttachmentsKeys = attachments
                                             .Where(a => !string.IsNullOrEmpty(a.storedFileUrl))
-                                            .Select(a => MailStoragePathCombiner.GerStoredFilePath(a))
+                                            .Select(MailStoragePathCombiner.GerStoredFilePath)
                                             .ToList();
 
                 //Todo: Rewrite this ugly code
-                bool is_quota_cleaned = false;
-                if (stored_attachments_keys.Any())
+                var isQuotaCleaned = false;
+                if (storedAttachmentsKeys.Any())
                 {
-                    var s3_storage = storage as S3Storage;
-                    if (s3_storage != null)
+                    var s3Storage = storage as S3Storage;
+                    if (s3Storage != null)
                     {
                         // ToDo: Delete with quota argument needs to be moved to IDataStore!
-                        stored_attachments_keys
-                            .ForEach(key => s3_storage.Delete(string.Empty, key, false));
+                        storedAttachmentsKeys
+                            .ForEach(key => s3Storage.Delete(string.Empty, key, false));
                     }
                     else
                     {
-                        is_quota_cleaned = true;
-                        stored_attachments_keys.ForEach(key => storage.Delete(string.Empty, key));
+                        isQuotaCleaned = true;
+                        storedAttachmentsKeys.ForEach(key => storage.Delete(string.Empty, key));
                     }
                 }
 
-                if(!is_quota_cleaned)
-                    QuotaUsedDelete(tenant, quota_add_size);
+                if(!isQuotaCleaned)
+                    QuotaUsedDelete(tenant, quotaAddSize);
 
-                _log.Debug(String.Format("Problems with attachment saving in mailboxId={0}. All message attachments was deleted.", id_mailbox));
+                _log.Debug(String.Format("Problems with attachment saving in mailboxId={0}. All message attachments was deleted.", mailboxId));
                 throw;
             }
         }
 
-        public AttachmentStream GetAttachmentStream(int id_attachment, int tenant)
+        public AttachmentStream GetAttachmentStream(int attachId, int tenant)
         {
-            var attachment = GetMessageAttachment(id_attachment, tenant);
+            var attachment = GetMessageAttachment(attachId, tenant);
             return AttachmentManager.GetAttachmentStream(attachment);
         }
 
-        public AttachmentStream GetAttachmentStream(int id_attachment, int tenant, string id_user)
+        public AttachmentStream GetAttachmentStream(int attachId, int tenant, string user)
         {
-            var attachment = GetMessageAttachment(id_attachment, tenant, id_user);
+            var attachment = GetMessageAttachment(attachId, tenant, user);
             return AttachmentManager.GetAttachmentStream(attachment);
         }
 
-        public static string ReplaceEmbeddedImages(MailMessageItem m)
+        public static string ReplaceEmbeddedImages(MailMessageItem m, ILogger log = null)
         {
             try
             {
+                log = log ?? new NullLogger();
+
                 var doc = new HtmlDocument();
 
                 doc.LoadHtml(m.HtmlBody);
@@ -736,23 +746,23 @@ namespace ASC.Mail.Aggregator
                         if (string.IsNullOrEmpty(attach.contentId) &&
                             string.IsNullOrEmpty(attach.contentLocation)) continue;
 
-                        HtmlNodeCollection old_nodes = null;
+                        HtmlNodeCollection oldNodes = null;
 
                         if (!string.IsNullOrEmpty(attach.contentId))
                         {
-                            old_nodes =
+                            oldNodes =
                                 doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'cid:" +
                                                              attach.contentId.Trim('<').Trim('>') + "'))]");
                         }
 
-                        if (!string.IsNullOrEmpty(attach.contentLocation) && old_nodes == null)
+                        if (!string.IsNullOrEmpty(attach.contentLocation) && oldNodes == null)
                         {
-                            old_nodes =
+                            oldNodes =
                                doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'" +
                                                             attach.contentLocation + "'))]");
                         }
 
-                        if (old_nodes == null)
+                        if (oldNodes == null)
                         {
                             //This attachment is not embedded;
                             attach.contentId = null;
@@ -760,7 +770,7 @@ namespace ASC.Mail.Aggregator
                             continue;
                         }
 
-                        foreach (var node in old_nodes)
+                        foreach (var node in oldNodes)
                             node.SetAttributeValue("src", attach.storedFileUrl);
                     }
                 }
@@ -769,7 +779,21 @@ namespace ASC.Mail.Aggregator
             }
             catch (RecursionDepthException ex)
             {
-                throw new Exception(ex.Message);
+                var data = Encoding.UTF8.GetBytes(m.HtmlBody);
+
+                m.Attachments.Add(new MailAttachment
+                {
+                    size = data.Length,
+                    fileName = "original_message.html",
+                    contentType = "text/html; charset=utf-8",
+                    data = data
+                });
+
+                m.HtmlBody = "<div>The received email size is too big. The complete text was saved into a separate file and attached to this email.</div>";
+
+                log.Error("ReplaceEmbeddedImages() \r\n Exception: \r\n{0}\r\n", ex.ToString());
+
+                return m.HtmlBody;
             }
             catch (Exception)
             {
@@ -780,37 +804,37 @@ namespace ASC.Mail.Aggregator
         #endregion
 
         #region private methods
-        private static int GetCountAttachments(IDbManager db, int id_mail)
+        private static int GetCountAttachments(IDbManager db, int messageId)
         {
-            var count_attachments = db.ExecuteScalar<int>(
+            var countAttachments = db.ExecuteScalar<int>(
                         new SqlQuery(AttachmentTable.name)
                             .SelectCount(AttachmentTable.Columns.id)
-                            .Where(AttachmentTable.Columns.id_mail, id_mail)
+                            .Where(AttachmentTable.Columns.id_mail, messageId)
                             .Where(AttachmentTable.Columns.need_remove, false)
                             .Where(AttachmentTable.Columns.content_id, null));
-            return count_attachments;
+            return countAttachments;
         }
 
-        private void ReCountAttachments(DbManager db, int id_mail)
+        private void ReCountAttachments(DbManager db, int messageId)
         {
-            var count_attachments = GetCountAttachments(db, id_mail);
+            var countAttachments = GetCountAttachments(db, messageId);
 
             db.ExecuteNonQuery(
                   new SqlUpdate(MailTable.name)
-                  .Set(MailTable.Columns.attach_count, count_attachments)
-                  .Where(MailTable.Columns.id, id_mail));
+                  .Set(MailTable.Columns.attach_count, countAttachments)
+                  .Where(MailTable.Columns.id, messageId));
         }
 
         // Returns size of all tenant attachments. This size used in the quota calculation.
         private static long MarkAttachmetsNeedRemove(IDbManager db, int tenant, Exp condition)
         {
-            var query_for_attachment_size_calculation = new SqlQuery(AttachmentTable.name)
+            var queryForAttachmentSizeCalculation = new SqlQuery(AttachmentTable.name)
                                                                 .SelectSum(AttachmentTable.Columns.size)
                                                                 .Where(AttachmentTable.Columns.id_tenant, tenant)
                                                                 .Where(AttachmentTable.Columns.need_remove, false)
                                                                 .Where(condition);
 
-            var size = db.ExecuteScalar<long>(query_for_attachment_size_calculation);
+            var size = db.ExecuteScalar<long>(queryForAttachmentSizeCalculation);
 
             db.ExecuteNonQuery(
                 new SqlUpdate(AttachmentTable.name)
@@ -821,30 +845,30 @@ namespace ASC.Mail.Aggregator
             return size;
         }
 
-        private void QuotaUsedAdd(int tenant, long used_quota)
+        private void QuotaUsedAdd(int tenant, long usedQuota)
         {
             try
             {
-                var quota_controller = new TennantQuotaController(tenant);
-                quota_controller.QuotaUsedAdd(Defines.ModuleName, string.Empty, DATA_TAG, used_quota);
+                var quotaController = new TennantQuotaController(tenant);
+                quotaController.QuotaUsedAdd(Defines.MODULE_NAME, string.Empty, DATA_TAG, usedQuota);
             }
             catch (Exception ex)
             {
-                _log.Error(ex, "QuotaUsedAdd with params: tenant={0}, used_quota={1}", tenant, used_quota);
+                _log.Error(ex, "QuotaUsedAdd with params: tenant={0}, used_quota={1}", tenant, usedQuota);
                 throw;
             }
         }
 
-        public void QuotaUsedDelete(int tenant, long used_quota)
+        public void QuotaUsedDelete(int tenant, long usedQuota)
         {
             try
             {
-                var quota_controller = new TennantQuotaController(tenant);
-                quota_controller.QuotaUsedDelete(Defines.ModuleName, string.Empty, DATA_TAG, used_quota);
+                var quotaController = new TennantQuotaController(tenant);
+                quotaController.QuotaUsedDelete(Defines.MODULE_NAME, string.Empty, DATA_TAG, usedQuota);
             }
             catch (Exception ex)
             {
-                _log.Error(ex, "QuotaUsedDelete with params: tenant={0}, used_quota={1}", tenant, used_quota);
+                _log.Error(ex, "QuotaUsedDelete with params: tenant={0}, used_quota={1}", tenant, usedQuota);
                 throw;
             }
         }

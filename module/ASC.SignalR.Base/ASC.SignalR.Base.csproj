@@ -32,13 +32,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -66,6 +66,10 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=2.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -95,14 +99,15 @@
     <Compile Include="CustomUserIdProvider.cs" />
     <Compile Include="Hubs\Chat\Chat.cs" />
     <Compile Include="Hubs\Chat\ConnectionsMapping.cs" />
+    <Compile Include="Hubs\Counters\Counts.cs" />
     <Compile Include="Hubs\Chat\JabberServiceClient.cs" />
     <Compile Include="Hubs\Chat\ErrorHandlingPipelineModule.cs" />
-    <Compile Include="Hubs\Chat\ReverseJabberService.cs" />
+    <Compile Include="Hubs\Chat\SignalrService.cs" />
     <Compile Include="Hubs\Chat\UserClass.cs" />
     <Compile Include="CancelableTask.cs" />
+    <Compile Include="Hubs\Counters\CountersHub.cs" />
     <Compile Include="Hubs\Users\UsersHub.cs" />
     <Compile Include="Hubs\Voip\VoipHub.cs" />
-    <Compile Include="PresenceMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignalRLauncher.cs" />
     <Compile Include="Startup.cs" />
@@ -123,6 +128,18 @@
     <ProjectReference Include="..\ASC.Api\ASC.Api.Client\ASC.Api.Client.csproj">
       <Project>{012b11ca-b298-404a-8923-978903cdfc25}</Project>
       <Name>ASC.Api.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Feed\ASC.Feed.csproj">
+      <Project>{b0431ec9-21d8-4d96-b333-6dd430031c82}</Project>
+      <Name>ASC.Feed</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
+      <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
+      <Name>ASC.Mail.Aggregator.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
+      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
+      <Name>ASC.Mail.Aggregator</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>

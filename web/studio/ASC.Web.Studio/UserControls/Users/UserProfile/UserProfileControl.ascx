@@ -6,7 +6,7 @@
 <%@ Import Namespace="Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<div id="studio_userProfileCardInfo" data-id="<%= UserInfo.ID %>"></div>
+<div id="studio_userProfileCardInfo" data-id="<%= UserInfo.ID %>" data-email="<%= UserInfo.Email %>"></div>
 <div class="userProfileCard clearFix<%= (UserInfo.ActivationStatus == EmployeeActivationStatus.Pending) ? " pending" : "" %>">
     <div class="additionInfo">
         <div class="profile-user-photo">
@@ -36,13 +36,13 @@
             <div class="profile-status pending" data-visible="<%= UserInfo.Status == EmployeeStatus.Terminated ? "hidden" : "" %>">
                 <% if (UserInfo.ActivationStatus == EmployeeActivationStatus.Pending)
                    { %>
-                <div onclick="EmailOperationManager.ShowResendInviteWindow('<%= UserInfo.Email %>','<%= UserInfo.ID %>',<%= IsAdmin.ToString().ToLower() %>);return false;">
+                <div id="imagePendingActivation">
                     <%= Resource.PendingTitle %>
                 </div>
                 <% }
                    else if (UserInfo.ActivationStatus == EmployeeActivationStatus.NotActivated)
                    { %>
-                <div onclick="EmailOperationManager.ShowEmailActivationWindow('<%= UserInfo.Email %>','<%= UserInfo.ID %>', true);return false;">
+                <div id="imageNotActivatedActivation">
                     <%= Resource.PendingTitle %>
                 </div>
                 <% } %>

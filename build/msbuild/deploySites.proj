@@ -9,7 +9,8 @@
     <CRMdbSync Condition="'$(CRMdbSync)' == ''">1</CRMdbSync>
     <Thumb Condition="'$(Thumb)' == ''">1</Thumb>
     <Stats Condition="'$(Stats)' == ''">1</Stats>
-    <Registration Condition="'$(Registration)' == ''">1</Registration>
+    <ApiSystem Condition="'$(ApiSystem)' == ''">1</ApiSystem>
+    <Bar Condition="'$(Bar)' == ''">1</Bar>
 
     <ASCDir Condition=" '$(ASCDir)' == '' ">..\..\</ASCDir>
     <DeployTo Condition=" '$(DeployTo)' == '' ">localhost</DeployTo>
@@ -20,7 +21,8 @@
     <ThumbDir>$(ASCDir)web\Thumb\</ThumbDir>
     <StatsServiceDir>$(ASCDir)module\ASC.Statistics\</StatsServiceDir>
     <StatsWebDir>$(ASCDir)web\Statistics\ASC.Web.Stat\</StatsWebDir>
-    <RegistrationDir>$(ASCDir)module\ASC.TenantRegistrationService\ASC.TenantRegistrationService\</RegistrationDir>
+    <ApiSystemDir>$(ASCDir)web\services\ASC.ApiSystem\</ApiSystemDir>
+    <BarDir>$(ASCDir)web\services\ASC.Bar\</BarDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -79,21 +81,39 @@
   </ItemGroup>
 
   <ItemGroup>
-    <RegistrationIncludeFiles Include="$(RegistrationDir)**\*.*"/>
+    <ApiSystemIncludeFiles Include="$(ApiSystemDir)**\*.*"/>
 
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\Properties\**\*.*"/>
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\obj\**\*.*"/>
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\bin\*.pdb"/>
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\bin\*.xml"/>
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\*.resx"/>
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\*.cs"/>
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\*.csproj"/>
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\*.sln"/>
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\*.suo"/>
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\*.user"/>
-    <RegistrationExcludeFiles Include="$(RegistrationDir)**\Web.*.config"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\Properties\**\*.*"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\obj\**\*.*"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\bin\*.pdb"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\bin\*.xml"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\*.resx"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\*.cs"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\*.csproj"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\*.sln"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\*.suo"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\*.user"/>
+    <ApiSystemExcludeFiles Include="$(ApiSystemDir)**\Web.*.config"/>
 
-    <RegistrationFiles Include="@(RegistrationIncludeFiles)" Exclude="@(RegistrationExcludeFiles)" />
+    <ApiSystemFiles Include="@(ApiSystemIncludeFiles)" Exclude="@(ApiSystemExcludeFiles)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BarIncludeFiles Include="$(BarDir)**\*.*"/>
+
+    <BarExcludeFiles Include="$(BarDir)**\Properties\**\*.*"/>
+    <BarExcludeFiles Include="$(BarDir)**\obj\**\*.*"/>
+    <BarExcludeFiles Include="$(BarDir)**\bin\*.pdb"/>
+    <BarExcludeFiles Include="$(BarDir)**\bin\*.xml"/>
+    <BarExcludeFiles Include="$(BarDir)**\*.resx"/>
+    <BarExcludeFiles Include="$(BarDir)**\*.cs"/>
+    <BarExcludeFiles Include="$(BarDir)**\*.csproj"/>
+    <BarExcludeFiles Include="$(BarDir)**\*.sln"/>
+    <BarExcludeFiles Include="$(BarDir)**\*.suo"/>
+    <BarExcludeFiles Include="$(BarDir)**\*.user"/>
+    <BarExcludeFiles Include="$(BarDir)**\Web.*.config"/>
+
+    <BarFiles Include="@(BarIncludeFiles)" Exclude="@(BarExcludeFiles)" />
   </ItemGroup>
 
   <Target Name="Build">
@@ -132,12 +152,20 @@
       Source="$(StatsWebDir)Web.config" Destination="$(OutDir)Statistics\Web.config" Transform="$(StatsWebDir)Web.$(ConfigurationSites).config" />
 
   <Copy
-      Condition="$(Registration)==1"
-      SourceFiles="@(RegistrationFiles)"
-      DestinationFiles="@(RegistrationFiles->'$(OutDir)Registration\%(RecursiveDir)%(Filename)%(Extension)')"/>
+      Condition="$(ApiSystem)==1"
+      SourceFiles="@(ApiSystemFiles)"
+      DestinationFiles="@(ApiSystemFiles->'$(OutDir)ApiSystem\%(RecursiveDir)%(Filename)%(Extension)')"/>
     <TransformXml
-      Condition="$(Registration)==1"
-      Source="$(RegistrationDir)Web.config" Destination="$(OutDir)Registration\Web.config" Transform="$(RegistrationDir)Web.$(ConfigurationSites).config" />
+      Condition="$(ApiSystem)==1"
+      Source="$(ApiSystemDir)Web.config" Destination="$(OutDir)ApiSystem\Web.config" Transform="$(ApiSystemDir)Web.$(ConfigurationSites).config" />
+	  
+  <Copy
+      Condition="$(Bar)==1"
+      SourceFiles="@(BarFiles)"
+      DestinationFiles="@(BarFiles->'$(OutDir)Bar\%(RecursiveDir)%(Filename)%(Extension)')"/>
+    <TransformXml
+      Condition="$(Bar)==1"
+      Source="$(BarDir)Web.config" Destination="$(OutDir)Bar\Web.config" Transform="$(BarDir)Web.$(ConfigurationSites).config" />
 
   </Target>
 

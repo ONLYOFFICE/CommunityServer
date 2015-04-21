@@ -1,9 +1,9 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Forum"%>
+﻿<%@ Assembly Name="ASC.Web.Community"%>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TopicControl.ascx.cs" Inherits="ASC.Web.UserControls.Forum.TopicControl" %>
-<%@ Import Namespace="ASC.Forum" %>
+
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="ASC.Web.UserControls.Forum.Common" %>
+
+
 <div id="forum_topic_<%=Topic.ID%>" class="borderBase clearFix forums-row" style="padding:5px 0px; margin-top:-1px; border-right:none; border-left:none; overflow:hidden;">    
     <table cellpadding="0" cellspacing="0" style="width:100%;">
         <tr valign="top">

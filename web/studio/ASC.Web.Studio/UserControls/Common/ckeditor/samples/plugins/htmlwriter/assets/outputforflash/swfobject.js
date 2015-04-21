@@ -1,32 +1,4 @@
-/*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
-*/
-
-var swfobject=function(){function u(){if(!s){try{var a=d.getElementsByTagName("body")[0].appendChild(d.createElement("span"));a.parentNode.removeChild(a)}catch(b){return}s=!0;for(var a=x.length,c=0;c<a;c++)x[c]()}}function L(a){s?a():x[x.length]=a}function M(a){if(typeof m.addEventListener!=i)m.addEventListener("load",a,!1);else if(typeof d.addEventListener!=i)d.addEventListener("load",a,!1);else if(typeof m.attachEvent!=i)U(m,"onload",a);else if("function"==typeof m.onload){var b=m.onload;m.onload=
+﻿var swfobject=function(){function u(){if(!s){try{var a=d.getElementsByTagName("body")[0].appendChild(d.createElement("span"));a.parentNode.removeChild(a)}catch(b){return}s=!0;for(var a=x.length,c=0;c<a;c++)x[c]()}}function L(a){s?a():x[x.length]=a}function M(a){if(typeof m.addEventListener!=i)m.addEventListener("load",a,!1);else if(typeof d.addEventListener!=i)d.addEventListener("load",a,!1);else if(typeof m.attachEvent!=i)U(m,"onload",a);else if("function"==typeof m.onload){var b=m.onload;m.onload=
 function(){b();a()}}else m.onload=a}function V(){var a=d.getElementsByTagName("body")[0],b=d.createElement(r);b.setAttribute("type",y);var c=a.appendChild(b);if(c){var f=0;(function(){if(typeof c.GetVariable!=i){var g=c.GetVariable("$version");g&&(g=g.split(" ")[1].split(","),e.pv=[parseInt(g[0],10),parseInt(g[1],10),parseInt(g[2],10)])}else if(10>f){f++;setTimeout(arguments.callee,10);return}a.removeChild(b);c=null;D()})()}else D()}function D(){var a=p.length;if(0<a)for(var b=0;b<a;b++){var c=p[b].id,
 f=p[b].callbackFn,g={success:!1,id:c};if(0<e.pv[0]){var d=n(c);if(d)if(z(p[b].swfVersion)&&!(e.wk&&312>e.wk))t(c,!0),f&&(g.success=!0,g.ref=E(c),f(g));else if(p[b].expressInstall&&F()){g={};g.data=p[b].expressInstall;g.width=d.getAttribute("width")||"0";g.height=d.getAttribute("height")||"0";d.getAttribute("class")&&(g.styleclass=d.getAttribute("class"));d.getAttribute("align")&&(g.align=d.getAttribute("align"));for(var h={},d=d.getElementsByTagName("param"),j=d.length,k=0;k<j;k++)"movie"!=d[k].getAttribute("name").toLowerCase()&&
 (h[d[k].getAttribute("name")]=d[k].getAttribute("value"));G(g,h,c,f)}else W(d),f&&f(g)}else if(t(c,!0),f){if((c=E(c))&&typeof c.SetVariable!=i)g.success=!0,g.ref=c;f(g)}}}function E(a){var b=null;if((a=n(a))&&"OBJECT"==a.nodeName)typeof a.SetVariable!=i?b=a:(a=a.getElementsByTagName(r)[0])&&(b=a);return b}function F(){return!A&&z("6.0.65")&&(e.win||e.mac)&&!(e.wk&&312>e.wk)}function G(a,b,c,f){A=!0;H=f||null;N={success:!1,id:c};var g=n(c);if(g){"OBJECT"==g.nodeName?(w=I(g),B=null):(w=g,B=c);a.id=

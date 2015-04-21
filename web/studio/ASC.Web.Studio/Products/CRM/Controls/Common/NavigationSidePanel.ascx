@@ -5,7 +5,11 @@
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Files" %>
 <%@ Import Namespace="ASC.Web.Studio.Controls.Common" %>
+<%@ Import Namespace="ASC.Web.Studio.Core.Voip" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
+<%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Core.Users" %>
+
 
 <div class="page-menu">
     <ul class="menu-actions">
@@ -138,21 +142,21 @@
             </a>
             <span id="feed-new-cases-count" class="feed-new-count"></span>
         </li>
-        <% if (CRMSecurity.IsAdmin) %>
-        <%
-           { %>
-            <% if (VoipNavigation.VoipEnabled)
-               { %>
-        
-                <li id="nav-menu-voip-calls" class="menu-item  none-sub-list<% if (CurrentPage == "settings_voip.calls")
-                                                                               { %> active<% } %>">
-                    <a class="menu-item-label outer-text text-overflow" href="settings.aspx?type=voip.calls">
-                        <span class="menu-item-icon cases"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.VoIPCallsSettings %></span>
-                    </a>
-                    <span id="feed-new-voip-calls-count" class="feed-new-count"></span>
-                </li>
-            <% } %>
+        <% if (CRMSecurity.IsAdmin && VoipPaymentSettings.IsEnabled) %>
+        <% { %>
+            <li id="nav-menu-voip-calls" class="menu-item  none-sub-list<% if (CurrentPage == "settings_voip.calls")
+                                                                            { %> active<% } %>">
+                <a class="menu-item-label outer-text text-overflow" href="settings.aspx?type=voip.calls">
+                    <span class="menu-item-icon cases"></span><span class="menu-item-label inner-text"><%= CRMCommonResource.VoIPCallsSettings %></span>
+                </a>
+                <span id="feed-new-voip-calls-count" class="feed-new-count"></span>
+            </li>
+        <% } %>
 
+        <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
+
+        <% if (CRMSecurity.IsAdmin) %>
+        <% { %>
             <li id="menuSettings" class="menu-item add-block sub-list<% if (CurrentPage.IndexOf("settings_", StringComparison.Ordinal) > -1)
                                                                         { %> currentCategory<% } %>">
                 <div class="category-wrapper">
@@ -222,7 +226,7 @@
                         </ul>
                     </li>
 
-                    <% if (VoipNavigation.VoipEnabled)
+                    <% if (VoipPaymentSettings.IsEnabled)
                        { %>
 
                         <li class="menu-sub-item menu-item<% if (CurrentPage == "settings_voip.common" || CurrentPage == "settings_voip.numbers")
@@ -297,12 +301,14 @@
                         </a>
                     </li>
 
-
+                    <% if (CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin()) { %>
                     <li id="menuAccessRights" class="menu-sub-item">
                         <a class="menu-item-label outer-text text-overflow" href="<%= CommonLinkUtility.GetAdministration(ManagementType.AccessRights) + "#crm" %>">
                             <span class="menu-item-label inner-text"><%= CRMSettingResource.AccessRightsSettings %></span>
                         </a>
                     </li>
+                    <% } %>   
+
                 </ul>
             </li>
         <% } %> 

@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -236,8 +234,8 @@ namespace ASC.Files.Core.Data
                         RecalculateFilesCount(db, file.FolderID);
                     }
                 }
-                
             }
+
             if (fileStream != null)
             {
                 try
@@ -281,7 +279,7 @@ namespace ASC.Files.Core.Data
             }
         }
 
-        private void SaveFileStream(File file, Stream stream)
+        private static void SaveFileStream(File file, Stream stream)
         {
             Global.GetStore().Save(string.Empty, GetUniqFilePath(file), stream, file.Title);
         }
@@ -371,12 +369,9 @@ namespace ASC.Files.Core.Data
                         ConvertedType = file.ConvertedType,
                     };
 
-                copy = SaveFile(copy, null);
-
-                //Copy streams
                 using (var stream = GetFileStream(file))
                 {
-                    SaveFileStream(copy, stream);
+                    copy = SaveFile(copy, stream);
                 }
                 return copy;
             }
@@ -393,7 +388,8 @@ namespace ASC.Files.Core.Data
                         .Set("title", newTitle)
                         .Set("modified_on", DateTime.UtcNow)
                         .Set("modified_by", SecurityContext.CurrentAccount.ID.ToString())
-                        .Where("id", fileId));
+                        .Where("id", fileId)
+                        .Where("current_version", true));
             }
             return fileId;
         }
@@ -465,17 +461,24 @@ namespace ASC.Files.Core.Data
             }
         }
 
-        public String GetUniqFileDirectory(object fileIdObject)
+        private static String GetUniqFileDirectory(object fileIdObject)
         {
             if (fileIdObject == null) throw new ArgumentNullException("fileIdObject");
             var fileIdInt = Convert.ToInt32(Convert.ToString(fileIdObject));
             return string.Format("folder_{0}/file_{1}", (fileIdInt / 1000 + 1) * 1000, fileIdInt);
         }
 
-        public String GetUniqFilePath(File file)
+        private static String GetUniqFilePath(File file)
         {
             return file != null
-                       ? string.Format("{0}/v{1}/content{2}", GetUniqFileDirectory(file.ID), file.Version, FileUtility.GetFileExtension(file.PureTitle))
+                       ? GetUniqFilePath(file, "content" + FileUtility.GetFileExtension(file.PureTitle))
+                       : null;
+        }
+
+        private static String GetUniqFilePath(File file, string fileTitle)
+        {
+            return file != null
+                       ? string.Format("{0}/v{1}/{2}", GetUniqFileDirectory(file.ID), file.Version, fileTitle)
                        : null;
         }
 
@@ -491,8 +494,8 @@ namespace ASC.Files.Core.Data
             if (SetupInfo.ChunkUploadSize > contentLength)
                 return new ChunkedUploadSession(file, contentLength) { UseChunks = false };
 
-            var tempPath = Path.GetRandomFileName();
-            var uploadId = Global.GetStore().InitiateChunkedUpload(string.Empty, tempPath);
+            var tempPath = Guid.NewGuid().ToString();
+            var uploadId = Global.GetStore().InitiateChunkedUpload(FileConstant.StorageDomainTmp, tempPath);
 
             var uploadSession = new ChunkedUploadSession(file, contentLength);
             uploadSession.Items["TempPath"] = tempPath;
@@ -513,7 +516,7 @@ namespace ASC.Files.Core.Data
             var uploadId = uploadSession.GetItemOrDefault<string>("UploadId");
             var chunkNumber = uploadSession.GetItemOrDefault<int>("ChunksUploaded") + 1;
 
-            var eTag = Global.GetStore().UploadChunk(string.Empty, tempPath, uploadId, stream, chunkNumber, chunkLength);
+            var eTag = Global.GetStore().UploadChunk(FileConstant.StorageDomainTmp, tempPath, uploadId, stream, chunkNumber, chunkLength);
 
             var eTags = uploadSession.GetItemOrDefault<List<string>>("ETag") ?? new List<string>();
             eTags.Add(eTag);
@@ -570,11 +573,11 @@ namespace ASC.Files.Core.Data
                                      .Select((x, i) => new KeyValuePair<int, string>(i + 1, x))
                                      .ToDictionary(x => x.Key, x => x.Value);
 
-            Global.GetStore().FinalizeChunkedUpload(string.Empty, tempPath, uploadId, eTags);
+            Global.GetStore().FinalizeChunkedUpload(FileConstant.StorageDomainTmp, tempPath, uploadId, eTags);
 
             var file = GetFileForCommit(uploadSession);
             SaveFile(file, null);
-            Global.GetStore().Move(string.Empty, tempPath, string.Empty, GetUniqFilePath(file));
+            Global.GetStore().Move(FileConstant.StorageDomainTmp, tempPath, string.Empty, GetUniqFilePath(file));
 
             return file;
         }
@@ -585,7 +588,7 @@ namespace ASC.Files.Core.Data
             {
                 var tempPath = uploadSession.GetItemOrDefault<string>("TempPath");
                 var uploadId = uploadSession.GetItemOrDefault<string>("UploadId");
-                Global.GetStore().AbortChunkedUpload(string.Empty, tempPath, uploadId);
+                Global.GetStore().AbortChunkedUpload(FileConstant.StorageDomainTmp, tempPath, uploadId);
             }
             else if (uploadSession.Items.ContainsKey("ChunksBuffer"))
             {
@@ -615,10 +618,7 @@ namespace ASC.Files.Core.Data
         {
             if (FullTextSearch.SupportModule(FullTextSearch.FileModule))
             {
-                var indexResult = FullTextSearch.Search(searchText, FullTextSearch.FileModule);
-                var ids = indexResult.GetIdentifiers()
-                                     .Where(id => !string.IsNullOrEmpty(id) && id[0] != 'd')
-                                     .ToArray();
+                var ids = FullTextSearch.Search(FullTextSearch.FileModule.Match(searchText));
 
                 using (var dbManager = GetDb())
                 {
@@ -670,6 +670,65 @@ namespace ASC.Files.Core.Data
         public bool IsExistOnStorage(File file)
         {
             return Global.GetStore().IsFile(GetUniqFilePath(file));
+        }
+
+        private const string DiffTitle = "diff.zip";
+        public void SaveEditHistory(File file, string changes, Stream differenceStream)
+        {
+            if (file == null) throw new ArgumentNullException("file");
+            if (string.IsNullOrEmpty(changes)) throw new ArgumentNullException("changes");
+            if (differenceStream == null) throw new ArgumentNullException("differenceStream");
+
+            changes = changes.Trim();
+            using (var dbManager = GetDb())
+            {
+                dbManager.ExecuteNonQuery(
+                    Update("files_file")
+                        .Set("changes", changes)
+                        .Where("id", file.ID)
+                        .Where("version", file.Version));
+            }
+
+            Global.GetStore().Save(string.Empty, GetUniqFilePath(file, DiffTitle), differenceStream, DiffTitle);
+        }
+
+        public List<EditHistory> GetEditHistory(object fileId, int fileVersion = 0)
+        {
+            using (var dbManager = GetDb())
+            {
+                var query = Query("files_file")
+                    .Select("id")
+                    .Select("version")
+                    .Select("version_group")
+                    .Select("modified_on")
+                    .Select("modified_by")
+                    .Select("changes")
+                    .Where(Exp.Eq("id", fileId))
+                    .OrderBy("version", true);
+
+                if (fileVersion > 0)
+                {
+                    query.Where(Exp.Eq("version", fileVersion));
+                }
+
+                return
+                    dbManager
+                        .ExecuteList(query)
+                        .ConvertAll(r => new EditHistory
+                            {
+                                ID = Convert.ToInt32(r[0]),
+                                Version = Convert.ToInt32(r[1]),
+                                VersionGroup = Convert.ToInt32(r[2]),
+                                ModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3])),
+                                ModifiedBy = new Guid((string) r[4]),
+                                Changes = (string) (r[5]),
+                            });
+            }
+        }
+
+        public string GetDifferenceUrl(File file)
+        {
+            return Global.GetStore().GetPreSignedUri(string.Empty, GetUniqFilePath(file, DiffTitle), TimeSpan.FromHours(1), null).ToString();
         }
 
         #endregion

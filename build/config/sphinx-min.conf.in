@@ -1,0 +1,673 @@
+#
+# Minimal Sphinx configuration sample (clean, simple, functional)
+#
+
+source main
+{
+	type			= mysql
+    sql_host        = %SQL_HOST%
+    sql_user        = %SQL_USER%
+    sql_pass        = %SQL_PASS%
+    sql_db          = %SQL_DB%
+    sql_port        = %SQL_PORT%
+	
+	sql_query_pre = SET NAMES  utf8
+	sql_query_pre = SET SESSION query_cache_type=OFF
+}
+
+##################projects##################
+
+source projects_projects_main : main
+{
+	sql_query = select id, title, description, tenant_id from projects_projects
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('projects_projects_main')
+}
+
+source projects_projects_delta : main
+{	
+	sql_query = select id, title, description, tenant_id from projects_projects where last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_projects_delta' or index_name = 'projects_projects_main')
+	sql_attr_uint = tenant_id
+}
+
+
+source projects_milestones_main : main
+{
+	sql_query = select id, title, description, tenant_id from projects_milestones
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('projects_milestones_main')
+}
+
+source projects_milestones_delta : main
+{
+	sql_query = select id, title, description, tenant_id from projects_milestones where last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_milestones_delta' or index_name = 'projects_milestones_main')
+	sql_attr_uint = tenant_id
+}
+
+
+source projects_messages_main : main
+{
+	sql_query = select id, title, content, tenant_id from projects_messages
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('projects_messages_main')
+}
+
+source projects_messages_delta : main
+{
+	sql_query = select id, title, content, tenant_id from projects_messages where last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_messages_delta' or index_name = 'projects_messages_main')
+	sql_attr_uint = tenant_id
+}
+
+
+source projects_tasks_main : main
+{
+	sql_query = select id, title, description, tenant_id from projects_tasks
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('projects_tasks_main')
+}
+
+source projects_tasks_delta : main
+{
+	sql_query = select id, title, description, tenant_id from projects_tasks where last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_tasks_delta' or index_name = 'projects_tasks_main')
+	sql_attr_uint = tenant_id
+}
+
+source projects_comments_main : main
+{
+	sql_query = select comment_id, content, target_uniq_id, tenant_id from projects_comments where inactive = 0
+	sql_attr_uint = tenant_id
+	sql_field_string = target_uniq_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('projects_comments_main')
+}
+
+source projects_comments_delta : main
+{
+	sql_query = select comment_id, content, target_uniq_id, tenant_id from projects_comments where inactive = 0 and create_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_comments_delta' or index_name = 'projects_comments_main')
+	sql_attr_uint = tenant_id
+	sql_field_string = target_uniq_id
+}
+
+
+index projects_projects_main 
+{
+	source			= projects_projects_main
+	path			= %INDEX_PATH%/projects/projects/main
+    morphology  = stem_enru
+    min_word_len = 1
+    dict=keywords
+    min_infix_len = 1
+    html_strip = 1
+    index_exact_words = 1
+    mlock = 0
+    blend_chars = @,",(,),$,&
+}
+
+index projects_projects_delta : projects_projects_main
+{
+	source			= projects_projects_delta
+	path			= %INDEX_PATH%/projects/projects/delta
+}
+
+index projects_milestones_main : projects_projects_main
+{
+	source			= projects_milestones_main
+	path			= %INDEX_PATH%/projects/milestones/main
+}
+
+index projects_milestones_delta : projects_projects_main
+{
+	source			= projects_milestones_delta
+	path			= %INDEX_PATH%/projects/milestones/delta
+}
+
+index projects_messages_main : projects_projects_main
+{
+	source			= projects_messages_main
+	path			= %INDEX_PATH%/projects/messages/main
+}
+
+index projects_messages_delta : projects_projects_main
+{
+	source			= projects_messages_delta
+	path			= %INDEX_PATH%/projects/messages/delta
+}
+
+index projects_tasks_main : projects_projects_main
+{
+	source			= projects_tasks_main
+	path			= %INDEX_PATH%/projects/tasks/main
+}
+
+index projects_tasks_delta : projects_projects_main
+{
+	source			= projects_tasks_delta
+	path			= %INDEX_PATH%/projects/tasks/delta
+}
+
+index projects_comments_main : projects_projects_main
+{
+	source			= projects_comments_main
+	path			= %INDEX_PATH%/projects/comments/main
+}
+
+index projects_comments_delta : projects_projects_main
+{
+	source			= projects_comments_delta
+	path			= %INDEX_PATH%/projects/comments/delta
+}
+
+##################projects##################
+
+##################files##################
+
+source files_file_main : main
+{
+	sql_query = select id, replace(f.title, '.', ' '), tenant_id from files_file f where f.current_version = 1 
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('files_file_main')
+}
+
+source files_file_delta : main
+{	
+	sql_query = select id, replace(f.title, '.', ' '), tenant_id from files_file f where f.modified_on >= (select max(last_modified) from webstudio_index where index_name = 'files_file_delta' or index_name = 'files_file_main') and f.current_version = 1 
+	sql_attr_uint = tenant_id
+}
+
+source files_folder_main : main
+{
+	sql_query = select id, replace(title, '.', ' '), tenant_id from files_folder
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('files_folder_main')
+}
+
+source files_folder_delta : main
+{
+	sql_query = select id, replace(title, '.', ' '), tenant_id from files_folder where modified_on >= (select max(last_modified) from webstudio_index where index_name = 'files_folder_delta' or index_name = 'files_folder_main')
+	sql_attr_uint = tenant_id
+}
+
+index files_file_main
+{
+	source			= files_file_main
+	path			= %INDEX_PATH%/files/file/main
+	morphology  = stem_enru
+    min_word_len = 1
+    dict=keywords
+    min_infix_len = 1
+    html_strip = 1
+    index_exact_words = 1
+    mlock = 0
+	blend_chars = @,",(,),$,&
+}
+
+index files_file_delta : files_file_main
+{
+	source			= files_file_delta
+	path			= %INDEX_PATH%/files/file/delta
+}
+
+index files_folder_main : files_file_main
+{
+	source			= files_folder_main
+	path			= %INDEX_PATH%/files/folder/main
+}
+
+index files_folder_delta : files_file_main
+{
+	source			= files_folder_delta
+	path			= %INDEX_PATH%/files/folder/delta
+}
+
+##################files##################
+
+##################crm##################
+
+source crm_contacts_main : main
+{
+	sql_query = 	select  id, first_name, last_name, company_name, title, notes, industry, tenant_id from crm_contact
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('crm_contacts_main')
+}
+source crm_contacts_delta : main
+{
+	sql_query = 	select  id, first_name, last_name, company_name, title, notes, industry, tenant_id from crm_contact where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_contacts_delta' or index_name = 'crm_contacts_main')
+	sql_attr_uint = tenant_id
+}
+
+source crm_info_main : main
+{
+	sql_query = 	select id, contact_id, data, tenant_id from crm_contact_info
+	sql_attr_uint = tenant_id
+	sql_attr_uint = contact_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('crm_info_main')
+}
+source crm_info_delta : main
+{
+	sql_query = 	select id, contact_id, data, tenant_id from crm_contact_info where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_info_delta' or index_name = 'crm_info_main')
+	sql_attr_uint = tenant_id
+	sql_attr_uint = contact_id
+}
+
+source crm_events_main : main
+{
+	sql_query = 	select id, contact_id, entity_id, entity_type, tenant_id, content from crm_relationship_event
+	sql_attr_uint = tenant_id
+	sql_attr_bigint = contact_id
+	sql_attr_uint = entity_id
+	sql_attr_bigint = entity_type
+	sql_query_post_index = replace into webstudio_index (index_name) values ('crm_events_main')
+}
+source crm_events_delta : main
+{
+	sql_query 	  = select id, contact_id, entity_id, entity_type, tenant_id, content from crm_relationship_event \
+	where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_events_delta' or index_name = 'crm_events_main')
+	sql_attr_uint = tenant_id
+	sql_attr_bigint = contact_id
+	sql_attr_uint = entity_id
+	sql_attr_bigint = entity_type
+}
+
+source crm_deal_main : main
+{
+	sql_query     = select id, title, tenant_id, description from crm_deal
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('crm_deal_main')
+}
+source crm_deal_delta : main
+{
+	sql_query 	  = select id, title, tenant_id, description from crm_deal where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_deal_delta' or index_name = 'crm_deal_main')
+	sql_attr_uint = tenant_id
+}
+
+source crm_task_main : main
+{
+	sql_query     = select id, title, tenant_id, description from crm_task
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('crm_task_main')
+}
+source crm_task_delta : main
+{
+	sql_query 	  = select id, title, tenant_id, description from crm_task where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_task_delta' or index_name = 'crm_task_main')
+	sql_attr_uint = tenant_id
+}
+
+source crm_cases_main : main
+{
+	sql_query     = select id, title, tenant_id from crm_case
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('crm_cases_main')
+}
+source crm_cases_delta : main
+{
+	sql_query 	  = select id, title, tenant_id from crm_case where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_cases_delta' or index_name = 'crm_cases_main')
+	sql_attr_uint = tenant_id
+}
+
+source crm_field_main : main
+{
+	sql_query     = select id, field_id, entity_id, entity_type, tenant_id, value from crm_field_value
+	sql_attr_uint = tenant_id
+	sql_attr_uint = field_id
+	sql_attr_uint = entity_id
+	sql_attr_uint = entity_type
+	sql_query_post_index = replace into webstudio_index (index_name) values ('crm_field_main')
+}
+source crm_field_delta : main
+{
+	sql_query 	  = select id, field_id, entity_id, entity_type, tenant_id, value from crm_field_value where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_field_delta' or index_name = 'crm_field_main')
+	sql_attr_uint = tenant_id
+	sql_attr_uint = field_id
+	sql_attr_uint = entity_id
+	sql_attr_uint = entity_type
+}
+
+source crm_email_main : main
+{
+	sql_query     = select  i.id, c.first_name, c.last_name, c.company_name, i.data, c.tenant_id tenant_id \
+        from crm_contact c \
+		inner join crm_contact_info i on c.tenant_id=i.tenant_id and c.id=i.contact_id \
+        where i.type=1 
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('crm_email_main')
+}
+source crm_email_delta : main
+{
+	sql_query 	  = select  i.id, c.first_name, c.last_name, c.company_name, i.data, c.tenant_id tenant_id \
+        from crm_contact c \
+		inner join crm_contact_info i on c.tenant_id=i.tenant_id and c.id=i.contact_id \
+        where i.type=1 and i.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_email_delta' or index_name = 'crm_email_main')
+	sql_attr_uint = tenant_id
+}
+
+index crm_contacts_main
+{
+	source			= crm_contacts_main
+	path			= %INDEX_PATH%/crm/contacts/main
+	morphology  = stem_enru
+    min_word_len = 1
+    dict=keywords
+    min_infix_len = 1
+    html_strip = 1
+    index_exact_words = 1
+    mlock = 0
+    blend_chars = @,",(,),$,&
+}
+index crm_contacts_delta : crm_contacts_main
+{
+	source			= crm_contacts_delta
+	path			= %INDEX_PATH%/crm/contacts/delta
+}
+
+index crm_info_main : crm_contacts_main
+{
+	source			= crm_info_main
+	path			= %INDEX_PATH%/crm/info/main
+}
+index crm_info_delta : crm_contacts_main
+{
+	source			= crm_info_delta
+	path			= %INDEX_PATH%/crm/info/delta
+}
+
+index crm_events_main : crm_contacts_main
+{
+	source			= crm_events_main
+	path			= %INDEX_PATH%/crm/events/main
+}
+index crm_events_delta : crm_contacts_main
+{
+	source			= crm_events_delta
+	path			= %INDEX_PATH%/crm/events/delta
+}
+
+index crm_deal_main : crm_contacts_main
+{
+	source			= crm_deal_main
+	path			= %INDEX_PATH%/crm/deal/main
+}
+index crm_deal_delta : crm_contacts_main
+{
+	source			= crm_deal_delta
+	path			= %INDEX_PATH%/crm/deal/delta
+}
+
+index crm_task_main : crm_contacts_main
+{
+	source			= crm_task_main
+	path			= %INDEX_PATH%/crm/task/main
+}
+index crm_task_delta : crm_contacts_main
+{
+	source			= crm_task_delta
+	path			= %INDEX_PATH%/crm/task/delta
+}
+
+index crm_cases_main : crm_contacts_main
+{
+	source			= crm_cases_main
+	path			= %INDEX_PATH%/crm/cases/main
+}
+index crm_cases_delta : crm_contacts_main
+{
+	source			= crm_cases_delta
+	path			= %INDEX_PATH%/crm/cases/delta
+}
+
+
+index crm_field_main : crm_contacts_main
+{
+	source			= crm_field_main
+	path			= %INDEX_PATH%/crm/field/main
+}
+index crm_field_delta : crm_contacts_main
+{
+	source			= crm_field_delta
+	path			= %INDEX_PATH%/crm/field/delta
+}
+
+
+index crm_email_main : crm_contacts_main
+{
+	source			= crm_email_main
+	path			= %INDEX_PATH%/crm/email/main
+}
+index crm_email_delta : crm_contacts_main
+{
+	source			= crm_email_delta
+	path			= %INDEX_PATH%/crm/email/delta
+}
+
+##################crm##################
+
+##################mail##################
+
+source mail_mail_main : main
+{
+	sql_query = 	select id, from_text, to_text, cc, bcc, subject, tenant as tenant_id from mail_mail where is_removed = 0
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('mail_mail_main')
+}
+source mail_mail_delta : main
+{
+	sql_query = 	select id, from_text, to_text, cc, bcc, subject, tenant as tenant_id from mail_mail where is_removed = 0 and time_modified >= (select max(last_modified) from webstudio_index where index_name = 'mail_mail_delta' or index_name = 'mail_mail_main')
+	sql_attr_uint = tenant_id
+}
+
+source mail_contacts_main : main
+{
+	sql_query = 	select id, name, substring_index(address, '@', 1), address, tenant as tenant_id from mail_contacts
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('mail_contacts_main')
+}
+source mail_contacts_delta : main
+{
+	sql_query = 	select id, name, substring_index(address, '@', 1), address, tenant as tenant_id from mail_contacts where last_modified >= (select max(last_modified) from webstudio_index where index_name = 'mail_contacts_delta' or index_name = 'mail_contacts_main')
+	sql_attr_uint = tenant_id
+}
+
+index mail_mail_main
+{
+	source			= mail_mail_main
+	path			= %INDEX_PATH%/mail/mail/main
+	morphology  	= stem_enru
+    min_word_len 	= 1
+    dict			= keywords
+    min_infix_len 	= 1
+    html_strip 		= 1
+    index_exact_words = 1
+    mlock 			= 0
+	blend_chars = @,",(,),$,&
+}
+index mail_mail_delta : mail_mail_main
+{
+	source			= mail_mail_delta
+	path			= %INDEX_PATH%/mail/mail/delta
+}
+
+index mail_contacts_main : mail_mail_main
+{
+	source			= mail_contacts_main
+	path			= %INDEX_PATH%/mail/contacts/main
+}
+index mail_contacts_delta : mail_mail_main
+{
+	source			= mail_contacts_delta
+	path			= %INDEX_PATH%/mail/contacts/delta
+}
+
+
+##################mail##################
+
+##################community##################
+
+source community_blogs_main : main
+{
+	sql_query = 	select post_id, title, content, (select group_concat(t.name) from blogs_tags t where t.tenant = p.tenant and t.post_id = p.id), Tenant as tenant_id from blogs_posts p 
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('community_blogs_main')
+}
+source community_blogs_delta : main
+{
+	sql_query = 	select post_id, title, content, (select group_concat(t.name) from blogs_tags t where t.tenant = p.tenant and t.post_id = p.id), Tenant as tenant_id from blogs_posts p where LastModified >= (select max(last_modified) from webstudio_index where index_name = 'community_blogs_delta' or index_name = 'community_blogs_main')
+	sql_attr_uint = tenant_id
+}
+
+source community_news_main : main
+{
+	sql_query = 	select id, caption, text, (select group_concat(v.name) from events_pollvariant v where v.tenant = f.tenant and v.poll = f.id), Tenant as tenant_id from events_feed f 
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('community_news_main')
+}
+source community_news_delta : main
+{
+	sql_query = 	select id, caption, text, (select group_concat(v.name) from events_pollvariant v where v.tenant = f.tenant and v.poll = f.id), Tenant as tenant_id from events_feed f where LastModified >= (select max(last_modified) from webstudio_index where index_name = 'community_news_delta' or index_name = 'community_news_main')
+	sql_attr_uint = tenant_id
+}
+
+source community_bookmarks_main : main
+{
+	sql_query = 	select UserBookmarkID, BookmarkID, (select k.URL from bookmarking_bookmark k where k.ID = b.BookmarkID), Name, Description, (select group_concat(t.Name) from bookmarking_userbookmarktag bt, bookmarking_tag t where bt.TagID = t.TagID and bt.UserBookmarkID = b.UserBookmarkID), Tenant as tenant_id from bookmarking_userbookmark b 
+	sql_attr_uint = tenant_id
+	sql_attr_uint = BookmarkID
+	sql_query_post_index = replace into webstudio_index (index_name) values ('community_bookmarks_main')
+}
+source community_bookmarks_delta : main
+{
+	sql_query = 	select UserBookmarkID, BookmarkID, (select k.URL from bookmarking_bookmark k where k.ID = b.BookmarkID), Name, Description, (select group_concat(t.Name) from bookmarking_userbookmarktag bt, bookmarking_tag t where bt.TagID = t.TagID and bt.UserBookmarkID = b.UserBookmarkID), Tenant as tenant_id from bookmarking_userbookmark b where LastModified >= (select max(last_modified) from webstudio_index where index_name = 'community_bookmarks_delta' or index_name = 'community_bookmarks_main')
+	sql_attr_uint = tenant_id
+	sql_attr_uint = BookmarkID
+}
+
+source community_wiki_main : main
+{
+	sql_query = 	select id, pagename,(select h.body from wiki_pages_history h where h.pagename = p.pagename and h.tenant = p.tenant and h.version = p.version), Tenant as tenant_id from wiki_pages p 
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('community_wiki_main')
+}
+source community_wiki_delta : main
+{
+	sql_query = 	select id, pagename,(select h.body from wiki_pages_history h where h.pagename = p.pagename and h.tenant = p.tenant and h.version = p.version), Tenant as tenant_id from wiki_pages p where p.modified_on >= (select max(last_modified) from webstudio_index where index_name = 'community_wiki_delta' or index_name = 'community_wiki_main')
+	sql_attr_uint = tenant_id
+}
+
+source community_topic_main : main
+{
+	sql_query = 	select id, title, (select group_concat(q.name) from forum_question q where q.tenantid = t.tenantid and q.topic_id = t.id), (select group_concat(tag.name) from forum_tag tag, forum_topic_tag tt where tag.id = tt.tag_id and tt.topic_id = t.id), Tenantid as tenant_id from forum_topic t 
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('community_topic_main')
+}
+source community_topic_delta : main
+{
+	sql_query = 	select id, title, (select group_concat(q.name) from forum_question q where q.tenantid = t.tenantid and q.topic_id = t.id), (select group_concat(tag.name) from forum_tag tag, forum_topic_tag tt where tag.id = tt.tag_id and tt.topic_id = t.id), Tenantid as tenant_id from forum_topic t where LastModified >= (select max(last_modified) from webstudio_index where index_name = 'community_topic_delta' or index_name = 'community_topic_main')
+	sql_attr_uint = tenant_id
+}
+
+source community_post_main : main
+{
+	sql_query = 	select id, topic_id, text, tenantid as tenant_id from forum_post
+	sql_attr_uint = tenant_id
+	sql_query_post_index = replace into webstudio_index (index_name) values ('community_post_main')
+}
+source community_post_delta : main
+{
+	sql_query = 	select id, topic_id, text, tenantid as tenant_id from forum_post where LastModified >= (select max(last_modified) from webstudio_index where index_name = 'community_post_delta' or index_name = 'community_post_main')
+	sql_attr_uint = tenant_id
+}
+
+
+index community_blogs_main 
+{
+	source			= community_blogs_main
+	path			= %INDEX_PATH%/community/blogs/main
+    morphology  	= stem_enru
+    min_word_len 	= 1
+    dict			= keywords
+    min_infix_len 	= 1
+    html_strip 		= 1
+    index_exact_words = 1
+    mlock 			= 0
+	blend_chars = @,",(,),$,&
+}
+index community_blogs_delta : community_blogs_main
+{
+	source			= community_blogs_delta
+	path			= %INDEX_PATH%/community/blogs/delta
+}
+
+index community_news_main : community_blogs_main
+{
+	source			= community_news_main
+	path			= %INDEX_PATH%/community/news/main
+}
+index community_news_delta : community_blogs_main
+{
+	source			= community_news_delta
+	path			= %INDEX_PATH%/community/news/delta
+}
+
+index community_bookmarks_main : community_blogs_main
+{
+	source			= community_bookmarks_main
+	path			= %INDEX_PATH%/community/bookmarks/main
+}
+index community_bookmarks_delta : community_blogs_main
+{
+	source			= community_bookmarks_delta
+	path			= %INDEX_PATH%/community/bookmarks/delta
+}
+
+index community_wiki_main : community_blogs_main
+{
+	source			= community_wiki_main
+	path			= %INDEX_PATH%/community/wiki/main
+}
+index community_wiki_delta : community_blogs_main
+{
+	source			= community_wiki_delta
+	path			= %INDEX_PATH%/community/wiki/delta
+}
+
+index community_topic_main : community_blogs_main
+{
+	source			= community_topic_main
+	path			= %INDEX_PATH%/community/topic/main
+}
+index community_topic_delta : community_blogs_main
+{
+	source			= community_topic_delta
+	path			= %INDEX_PATH%/community/topic/delta
+}
+
+index community_post_main : community_blogs_main
+{
+	source			= community_post_main
+	path			= %INDEX_PATH%/community/post/main
+}
+index community_post_delta : community_blogs_main
+{
+	source			= community_post_delta
+	path			= %INDEX_PATH%/community/post/delta
+}
+
+##################community##################
+
+indexer
+{
+	mem_limit		= 128M
+}
+
+
+searchd
+{
+	mysql_version_string = 5.0.0
+	log				= %LOG_PATH%/svcIndex.searchd.log
+	query_log		= %LOG_PATH%/svcIndex.query.log
+	read_timeout	= 5
+	max_children	= 30
+	pid_file		= searchd.pid
+	seamless_rotate	= 1
+	preopen_indexes	= 1
+	unlink_old		= 1
+	workers			= threads # for RT to work
+	binlog_path		= %INDEX_PATH%
+}

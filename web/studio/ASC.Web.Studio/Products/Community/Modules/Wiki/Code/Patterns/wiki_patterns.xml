@@ -3,12 +3,12 @@
   <formatter type="ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common" />
 
   <pattern id="new wiki page" sender="email.sender">
-    <subject resource="|subject_1|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_1|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki" />
+    <subject resource="|subject_1|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_1|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
   </pattern>
 
   <pattern id="new wiki page" sender="messanger.sender">
-    <subject resource="|subject_1|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki" />
+    <subject resource="|subject_1|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
 
 $PagePreview
@@ -17,13 +17,13 @@ $URL
     </body>
   </pattern>
   <pattern id="edit wiki page" sender="email.sender">
-    <subject resource="|subject_2|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_2|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki" />
+    <subject resource="|subject_2|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_2|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
   </pattern>
 
 
   <pattern id="edit wiki page" sender="messanger.sender">
-    <subject resource="|subject_2|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki" />
+    <subject resource="|subject_2|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
 
 $PagePreview
@@ -32,12 +32,12 @@ $URL
     </body>
   </pattern>
   <pattern id="new wiki page comment" sender="email.sender">
-    <subject resource="|subject_3|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_3|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki" />
+    <subject resource="|subject_3|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_3|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
   </pattern>
 
   <pattern id="new wiki page comment" sender="messanger.sender">
-    <subject resource="|subject_3|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki" />
+    <subject resource="|subject_3|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
 
 $CommentBody

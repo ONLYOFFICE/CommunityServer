@@ -1,7 +1,7 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Forum" %>
-<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Community/Community.master" CodeBehind="Forum.master.cs" Inherits="ASC.Web.Community.Forum.ForumMasterPage" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
+<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Community/Master/Community.master" CodeBehind="Forum.master.cs" Inherits="ASC.Web.Community.Forum.ForumMasterPage" %>
 
-<%@ Register Assembly="ASC.Web.Community.Forum" Namespace="ASC.Web.UserControls.Forum.Common" TagPrefix="ascwc" %>
+<%@ Register Assembly="ASC.Web.Community" Namespace="ASC.Web.UserControls.Forum.Common" TagPrefix="ascwc" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <asp:Content ID="HeaderContent" ContentPlaceHolderID="CommunityPageHeader" runat="server">

@@ -5,7 +5,6 @@
 
 <%@ Import Namespace="ASC.Web.Community.News.Resources" %>
 <%@ Import Namespace="ASC.Web.Community.News.Code" %>
-<%@ Import Namespace="ASC.Web.Community.News.Code.DAO" %>
 
 <%@ Register Src="Controls/FeedItem.ascx" TagName="FeedItem" TagPrefix="fc" %>
 <%@ Register Src="Controls/FeedView.ascx" TagName="FeedView" TagPrefix="fc" %>

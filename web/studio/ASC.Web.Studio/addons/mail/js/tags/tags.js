@@ -1,34 +1,31 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
+
 window.tagsManager = (function($) {
-    var 
-        isInit = false,
+    var isInit = false,
         tags = [],
         events = $({});
 
@@ -36,10 +33,10 @@ window.tagsManager = (function($) {
         if (isInit === false) {
             isInit = true;
 
-            serviceManager.bind(Teamlab.events.removeMailTag, _onDeleteMailTag);
-            serviceManager.bind(Teamlab.events.updateMailTag, _onUpdateMailTag);
-            serviceManager.bind(Teamlab.events.createMailTag, _onCreateMailTag);
-            serviceManager.bind(Teamlab.events.getMailTags, _onGetMailTags);
+            serviceManager.bind(Teamlab.events.removeMailTag, onDeleteMailTag);
+            serviceManager.bind(Teamlab.events.updateMailTag, onUpdateMailTag);
+            serviceManager.bind(Teamlab.events.createMailTag, onCreateMailTag);
+            serviceManager.bind(Teamlab.events.getMailTags, onGetMailTags);
 
             tagsPanel.init();
             tagsColorsPopup.init();
@@ -49,25 +46,26 @@ window.tagsManager = (function($) {
         }
     };
 
-    function convertServerTag(server_tag) {
+    function convertServerTag(serverTag) {
         var tag = {};
-        tag.id = server_tag.id;
-        tag.name = server_tag.name;
+        tag.id = serverTag.id;
+        tag.name = serverTag.name;
         tag.short_name = cutTagName(tag.name);
-        tag.style = server_tag.style;
-        if (0 > tag.id)
+        tag.style = serverTag.style;
+        if (0 > tag.id) {
             tag.style = Math.abs(tag.id) % 16 + 1;
-        tag.addresses = server_tag.addresses;
-        tag.lettersCount = server_tag.lettersCount;
+        }
+        tag.addresses = serverTag.addresses;
+        tag.lettersCount = serverTag.lettersCount;
         return tag;
     }
 
-    function _onGetMailTags(params, tags_arr) {
-        tags = $.map(tags_arr, convertServerTag);
+    function onGetMailTags(params, tagsArr) {
+        tags = $.map(tagsArr, convertServerTag);
         events.trigger('refresh', [tags]);
     }
 
-    var _onUpdateMailTag = function (params, tag) {
+    var onUpdateMailTag = function(params, tag) {
         tag = convertServerTag(tag);
         $.each(tags, function(i) {
             if (tag.id == tags[i].id) {
@@ -78,19 +76,19 @@ window.tagsManager = (function($) {
         });
     };
 
-    var _onCreateMailTag = function (params, tag) {
+    var onCreateMailTag = function(params, tag) {
         tag = convertServerTag(tag);
-        var mail_tags = $.grep(tags, function(item) { return item.id > 0 ? true : false; });
-        tags.splice(mail_tags.length, 0, tag);
-        var prev_tag_id = mail_tags.length > 0 ? mail_tags[mail_tags.length - 1].id : undefined;
-        events.trigger('create', [tag, prev_tag_id]);
+        var mailTags = $.grep(tags, function(item) { return item.id > 0 ? true : false; });
+        tags.splice(mailTags.length, 0, tag);
+        var prevTagId = mailTags.length > 0 ? mailTags[mailTags.length - 1].id : undefined;
+        events.trigger('create', [tag, prevTagId]);
     };
 
-    var _onErrorCreateMailTag = function(params, errors) {
+    var onErrorCreateMailTag = function(params, errors) {
         events.trigger('error', { message: errors[0], comment: '' });
     };
 
-    var _onDeleteMailTag = function(params, id) {
+    var onDeleteMailTag = function(params, id) {
         tags = $.grep(tags, function(tag) {
             return tag.id != id;
         });
@@ -131,20 +129,21 @@ window.tagsManager = (function($) {
             return;
         }
 
-        if (!tag.addresses)
+        if (!tag.addresses) {
             tag.addresses = [];
+        }
 
-        serviceManager.createTag(tag.name, tag.style, tag.addresses, {}, { error: _onErrorCreateMailTag });
+        serviceManager.createTag(tag.name, tag.style, tag.addresses, {}, { error: onErrorCreateMailTag });
     };
 
     var updateTag = function(tag) {
-        var found_tag = getTagByName(tag.name);
-        if (found_tag && tag.id != found_tag.id) {
+        var foundTag = getTagByName(tag.name);
+        if (foundTag && tag.id != foundTag.id) {
             raiseAlreadyExistsError(tag.name);
             return;
         }
 
-        serviceManager.updateTag(tag.id, tag.name, tag.style, tag.addresses, {}, { error: _onErrorCreateMailTag });
+        serviceManager.updateTag(tag.id, tag.name, tag.style, tag.addresses, {}, { error: onErrorCreateMailTag });
     };
 
     var deleteTag = function(id) {
@@ -152,9 +151,10 @@ window.tagsManager = (function($) {
     };
 
     var getVacantStyle = function() {
-        var mail_tags = $.grep(tags, function(item) { return item.id > 0 ? true : false; });
-        if (mail_tags.length > 0)
-            return (parseInt(mail_tags[mail_tags.length - 1].style)) % 16 + 1;
+        var mailTags = $.grep(tags, function(item) { return item.id > 0 ? true : false; });
+        if (mailTags.length > 0) {
+            return (parseInt(mailTags[mailTags.length - 1].style)) % 16 + 1;
+        }
         return 1;
     };
 
@@ -169,25 +169,26 @@ window.tagsManager = (function($) {
     var decrement = function(id) {
         var tag = getTag(id);
         if (tag) {
-            if (tag.lettersCount > 0)
+            if (tag.lettersCount > 0) {
                 tag.lettersCount -= 1;
+            }
             events.trigger('decrement', [tag]);
         }
     };
 
     var cutTagName = function(tagName) {
-        var hardcoded_tag_name_for_view_length = 25
-        var last_slash_index = tagName.lastIndexOf('/');
-        var resultName = '';
-        if (-1 == last_slash_index || tagName.length < hardcoded_tag_name_for_view_length) {
+        var hardcodedTagNameForViewLength = 25;
+        var lastSlashIndex = tagName.lastIndexOf('/');
+        var resultName;
+        if (-1 == lastSlashIndex || tagName.length < hardcodedTagNameForViewLength) {
             resultName = tagName;
         } else {
-            if ((tagName.length - last_slash_index) < hardcoded_tag_name_for_view_length) {
-                var length_of_befin = hardcoded_tag_name_for_view_length - (tagName.length - last_slash_index) - 3;
-                resultName = tagName.substr(0, length_of_befin) + '...' + tagName.substr(last_slash_index);
+            if ((tagName.length - lastSlashIndex) < hardcodedTagNameForViewLength) {
+                var lengthOfBefin = hardcodedTagNameForViewLength - (tagName.length - lastSlashIndex) - 3;
+                resultName = tagName.substr(0, lengthOfBefin) + '...' + tagName.substr(lastSlashIndex);
             } else {
-                var length_of_tag_end = hardcoded_tag_name_for_view_length - 3;
-                resultName = '...' + tagName.substr(tagName.length - length_of_tag_end, length_of_tag_end);
+                var lengthOfTagEnd = hardcodedTagNameForViewLength - 3;
+                resultName = '...' + tagName.substr(tagName.length - lengthOfTagEnd, lengthOfTagEnd);
             }
         }
         return resultName;

@@ -5,6 +5,7 @@
 * Released under the MIT, BSD, and GPL Licenses.
 */
 (function($) {
+
     function Placeholder(input) {
         this.input = input;
         if (input.attr('type') == 'password') {
@@ -17,37 +18,40 @@
             }
         });
     }
+
     Placeholder.prototype = {
-        show : function(loading) {
+        show: function(loading) {
             if (this.input[0].value === '' || (loading && this.valueIsPlaceholder())) {
                 if (this.isPassword) {
                     try {
                         this.input[0].setAttribute('type', 'text');
-                    } catch (e) {
+                    } catch(e) {
                         this.input.before(this.fakePassword.show()).hide();
                     }
                 }
                 this.input.addClass('placeholder');
                 this.input[0].value = this.input.attr('placeholder');
+            } else {
+                this.input.removeClass('placeholder');
             }
-            else  this.input.removeClass('placeholder');
 
         },
-        hide : function() {
+        hide: function() {
             if (this.valueIsPlaceholder() && this.input.hasClass('placeholder')) {
                 this.input.removeClass('placeholder');
                 this.input[0].value = '';
                 if (this.isPassword) {
                     try {
                         this.input[0].setAttribute('type', 'password');
-                    } catch (e) { }
+                    } catch(e) {
+                    }
                     // Restore focus for Opera and IE
                     this.input.show();
                     this.input[0].focus();
                 }
             }
         },
-        valueIsPlaceholder : function() {
+        valueIsPlaceholder: function() {
             return this.input[0].value == this.input.attr('placeholder');
         },
         handlePassword: function() {
@@ -55,21 +59,22 @@
             input.attr('realType', 'password');
             this.isPassword = true;
             if ($.browser.msie && input[0].outerHTML) {
-                var fakeHTML = $(input[0].outerHTML.replace(/type=(['"])?password\1/gi, 'type=$1text$1'));
-                this.fakePassword = fakeHTML.val(input.attr('placeholder')).addClass('placeholder').focus(function() {
+                var fakeHtml = $(input[0].outerHTML.replace(/type=(['"])?password\1/gi, 'type=$1text$1'));
+                this.fakePassword = fakeHtml.val(input.attr('placeholder')).addClass('placeholder').focus(function() {
                     input.trigger('focus');
                     $(this).hide();
                 });
                 $(input[0].form).submit(function() {
-                    fakeHTML.remove();
+                    fakeHtml.remove();
                     input.show();
                 });
             }
         }
     };
-    var NATIVE_SUPPORT = !!("placeholder" in document.createElement( "input" ));
+
+    var nativeSupport = !!("placeholder" in document.createElement("input"));
     $.fn.placeholder = function() {
-        return NATIVE_SUPPORT ? this : this.each(function() {
+        return nativeSupport ? this : this.each(function() {
             var input = $(this);
             var placeholder = new Placeholder(input);
             placeholder.show(false);

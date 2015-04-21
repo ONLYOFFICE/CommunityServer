@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Wiki" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ListCategories.aspx.cs"
     Inherits="ASC.Web.Community.Wiki.ListCategories" MasterPageFile="~/Products/Community/Modules/Wiki/Wiki.Master" %>

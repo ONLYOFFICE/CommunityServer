@@ -1,407 +1,437 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 window.MailFilter = (function($) {
     var isInit = false;
 
-    var _attachments,
-        _tags,
-        _from,
-        _importance,
-        _page_size,
-        _period_from,
-        _period_to,
-        _folder,
-        _search,
-        _sort,
-        _sort_order,
-        _to,
-        _unread,
-        _from_date,
-        _from_message,
-        _prev_flag;
+    var attachments,
+        tags,
+        from,
+        importance,
+        pageSize,
+        periodFrom,
+        periodTo,
+        withinPeriod,
+        folder,
+        search,
+        sort,
+        sortOrder,
+        to,
+        unread,
+        fromDate,
+        fromMessage,
+        prevFlag;
 
     var init = function() {
         if (isInit === false) {
             isInit = true;
 
-            _attachments = false;
-            _tags = new Array();
-            _from = undefined;
-            _importance = false;
-            _page_size = TMMail.option('MessagesPageSize');
-            _period_from = 0;
-            _period_to = 0;
-            _folder = '1';
-            _search = '';
-            _sort = 'date';
-            _sort_order = 'descending';
-            _to = undefined;
-            _unread = undefined;
-            _from_date = undefined;
-            _from_message = undefined;
-            _prev_flag = false;
+            attachments = false;
+            tags = new Array();
+            from = undefined;
+            importance = false;
+            pageSize = TMMail.option('MessagesPageSize');
+            periodFrom = 0;
+            withinPeriod = '';
+            periodTo = 0;
+            folder = '1';
+            search = '';
+            sort = 'date';
+            sortOrder = 'descending';
+            to = undefined;
+            unread = undefined;
+            fromDate = undefined;
+            fromMessage = undefined;
+            prevFlag = false;
 
             reset();
         }
     };
 
     var reset = function() {
-        _resetFolder();
-        _resetSearch();
-        _resetTags();
-        _resetFrom();
-        _resetTo();
+        resetFolder();
+        resetSearch();
+        resetTags();
+        resetFrom();
+        resetTo();
     };
 
 
     /*to*/
     var setTo = function(mailbox) {
-        _to = mailbox;
+        to = mailbox;
     };
 
     var getTo = function() {
-        return _to;
+        return to;
     };
 
-    var _resetTo = function() {
-        _to = undefined;
+    var resetTo = function() {
+        to = undefined;
     };
 
     /*from*/
     var setFrom = function(mailbox) {
-        _from = mailbox;
+        from = mailbox;
     };
 
     var getFrom = function() {
-        return _from;
+        return from;
     };
 
-    var _resetFrom = function() {
-        _from = undefined;
+    var resetFrom = function() {
+        from = undefined;
     };
 
 
     /*tags*/
     var addTag = function(tagid) {
-        if (-1 == $.inArray(tagid, _tags))
-            _tags.push(tagid);
+        if (-1 == $.inArray(tagid, tags)) {
+            tags.push(tagid);
+        }
     };
 
     var removeTag = function(tagid) {
-        _tags = $.grep(_tags, function(value) {
+        tags = $.grep(tags, function(value) {
             return value != tagid;
         });
     };
 
     var removeAllTags = function() {
-        _resetTags();
+        resetTags();
     };
 
     // toggles tag selection state
     // returns new state: true - selected, false - not selected
-    var toggleTag = function (tagid) {
-        var res = -1 == $.inArray(tagid, _tags);
-        if (res)
+    var toggleTag = function(tagid) {
+        var res = -1 == $.inArray(tagid, tags);
+        if (res) {
             addTag(tagid);
-        else
+        } else {
             removeTag(tagid);
+        }
         return res;
     };
 
     var getTags = function() {
-        var res = _tags;
+        var res = tags;
         return res;
     };
 
-    var _parseTags = function(tags) {
-        var arr = tags.split(',');
+    var parseTags = function(tagsParam) {
+        var arr = tagsParam.split(',');
         $.each(arr, function(index, value) {
             addTag(value);
         });
     };
 
-    var _resetTags = function() {
-        _tags = new Array();
+    var resetTags = function() {
+        tags = new Array();
     };
 
 
     /*unread*/
-    var setUnread = function(unread) {
-        _unread = unread;
+    var setUnread = function(unreadParam) {
+        unread = unreadParam;
     };
 
     var getUnread = function() {
-        return _unread;
+        return unread;
     };
 
 
     /*attachments*/
     var getAttachments = function() {
-        return _attachments;
+        return attachments;
     };
 
-    var setAttachments = function(attachments) {
-        _attachments = attachments;
+    var setAttachments = function(attachmentsParam) {
+        attachments = attachmentsParam;
     };
 
 
     /*period*/
     var getPeriod = function() {
-        return { from: _period_from,
-            to: _period_to
+        return {
+            from: periodFrom,
+            to: periodTo
         };
     };
 
     var setPeriod = function(period) {
-        _period_from = period.from;
-        _period_to = period.to;
+        periodFrom = period.from;
+        periodTo = period.to;
+    };
+
+    var getPeriodWithin = function() {
+        return withinPeriod;
+    };
+
+    var setPeriodWithin = function(withinPeriodParam) {
+        withinPeriod = withinPeriodParam;
     };
 
     /*importance*/
-    var setImportance = function(importance) {
-        _importance = importance;
+    var setImportance = function(importanceParam) {
+        importance = importanceParam;
     };
 
     var getImportance = function() {
-        return _importance;
+        return importance;
     };
 
 
     /*primary folder*/
-    var setFolder = function(folder) {
-        _folder = folder;
+    var setFolder = function(folderParam) {
+        folder = folderParam;
     };
 
-    var _resetFolder = function() {
-        _folder = '1';
+    var resetFolder = function() {
+        folder = '1';
     };
 
     var getFolder = function() {
-        return _folder;
+        return folder;
     };
 
     /* from date*/
-    var setFromDate = function(new_from_date) {
-        _from_date = new_from_date;
+    var setFromDate = function(newFromDate) {
+        fromDate = newFromDate;
     };
 
     var getFromDate = function() {
-        return _from_date;
+        return fromDate;
     };
 
     /* from message*/
-    var setFromMessage = function(new_from_message) {
-        _from_message = new_from_message;
+    var setFromMessage = function(newFromMessage) {
+        fromMessage = newFromMessage;
     };
 
     var getFromMessage = function() {
-        return _from_message;
+        return fromMessage;
     };
 
     /* prev flag*/
-    var setPrevFlag = function(new_val) {
-        _prev_flag = new_val;
+    var setPrevFlag = function(newVal) {
+        prevFlag = newVal;
     };
 
     var getPrevFlag = function() {
-        return _prev_flag;
+        return prevFlag;
     };
 
     /*search*/
     var setSearch = function(searchfilter) {
-        _search = searchfilter;
+        search = searchfilter;
     };
 
     var getSearch = function() {
-        return _search;
+        return search;
     };
 
-    var _resetSearch = function() {
-        _search = '';
+    var resetSearch = function() {
+        search = '';
     };
 
     /*sort*/
-    var setSort = function(sort) {
-        _sort = sort;
+    var setSort = function(sortParam) {
+        sort = sortParam;
     };
 
     var getSort = function() {
-        return _sort;
+        return sort;
     };
 
-    var _resetSort = function() {
-        _sort = 'date';
+    var resetSort = function() {
+        sort = 'date';
     };
 
     var setSortOrder = function(order) {
-        _sort_order = order;
+        sortOrder = order;
     };
 
     var getSortOrder = function() {
-        return _sort_order;
+        return sortOrder;
     };
 
-    var _resetSortOrder = function() {
-        _sort_order = 'descending';
+    var resetSortOrder = function() {
+        sortOrder = 'descending';
     };
 
 
     /*page & page size*/
-    var setPageSize = function(new_size) {
-        _page_size = parseInt(new_size);
+    var setPageSize = function(newSize) {
+        pageSize = parseInt(newSize);
     };
 
-    var getPageSize = function(new_page) {
-        return _page_size;
+    var getPageSize = function() {
+        return pageSize;
     };
 
     /*anchor*/
-    var fromAnchor = function(folder, params) {
+    var fromAnchor = function(folderParam, params) {
         reset();
 
-        var to,
-            tags,
-            importance,
-            unread,
-            from,
-            search,
-            attachments,
+        var toParam,
+            tagsParam,
+            importanceParam,
+            unreadParam,
+            fromParam,
+            searchParam,
+            attachmentsParam,
             period,
-            sort,
+            periodWithin,
+            sortParam,
             sortorder,
-            page_size,
-            from_date,
-            from_message,
-            prev_flag;
+            pageSizeParam,
+            fromDateParam,
+            fromMessageParam,
+            prevFlagParam;
 
         if (typeof params !== 'undefined') {
-            to = TMMail.getParamsValue(params, /to=([^\/]+)/);
-            tags = TMMail.getParamsValue(params, /tag=([^\/]+)/);
-            importance = TMMail.getParamsValue(params, /(importance)/);
-            unread = TMMail.getParamsValue(params, /unread=([^\/]+)/);
-            attachments = TMMail.getParamsValue(params, /(attachments)/);
-            from = TMMail.getParamsValue(params, /from=([^\/]+)/);
-            page_size = TMMail.getParamsValue(params, /page_size=(\d+)/);
+            toParam = TMMail.getParamsValue(params, /to=([^\/]+)/);
+            tagsParam = TMMail.getParamsValue(params, /tag=([^\/]+)/);
+            importanceParam = TMMail.getParamsValue(params, /(importance)/);
+            unreadParam = TMMail.getParamsValue(params, /unread=([^\/]+)/);
+            attachmentsParam = TMMail.getParamsValue(params, /(attachments)/);
+            fromParam = TMMail.getParamsValue(params, /from=([^\/]+)/);
+            pageSizeParam = TMMail.getParamsValue(params, /page_size=(\d+)/);
             period = TMMail.getParamsValue(params, /period=([^\/]+)/);
-            search = TMMail.getParamsValue(params, /search=([^\/]+)/);
-            sort = TMMail.getParamsValue(params, /sort=([^\/]+)/);
+            periodWithin = TMMail.getParamsValue(params, /within=([^\/]+)/);
+            searchParam = TMMail.getParamsValue(params, /search=([^\/]+)/);
+            sortParam = TMMail.getParamsValue(params, /sort=([^\/]+)/);
             sortorder = TMMail.getParamsValue(params, /sortorder=([^\/]+)/);
-            from_date = TMMail.getParamsValue(params, /from_date=([^\/]+)/);
-            from_message = TMMail.getParamsValue(params, /from_message=([^\/]+)/);
-            prev_flag = TMMail.getParamsValue(params, /prev=([^\/]+)/);
+            fromDateParam = TMMail.getParamsValue(params, /from_date=([^\/]+)/);
+            fromMessageParam = TMMail.getParamsValue(params, /from_message=([^\/]+)/);
+            prevFlagParam = TMMail.getParamsValue(params, /prev=([^\/]+)/);
         }
 
-        var itemId = TMMail.GetSysFolderIdByName(folder, TMMail.sysfolders.inbox.id);
+        var itemId = TMMail.GetSysFolderIdByName(folderParam, TMMail.sysfolders.inbox.id);
         setFolder(itemId);
 
-        if (to)
-            setTo(decodeURIComponent(to));
-        else
-            _resetTo();
-
-        if (from)
-            setFrom(decodeURIComponent(from));
-        else
-            _resetFrom();
-
-        if (tags)
-            _parseTags(tags);
-
-        if (importance)
-            setImportance(true);
-        else
-            setImportance(false);
-
-        if (attachments)
-            setAttachments(true);
-        else
-            setAttachments(false);
-
-        if (unread) {
-            if ('true' == unread)
-                setUnread(true);
-            else
-                setUnread(false);
+        if (toParam) {
+            setTo(decodeURIComponent(toParam));
+        } else {
+            resetTo();
         }
-        else
+
+        if (fromParam) {
+            setFrom(decodeURIComponent(fromParam));
+        } else {
+            resetFrom();
+        }
+
+        if (tagsParam) {
+            parseTags(tagsParam);
+        }
+
+        if (importanceParam) {
+            setImportance(true);
+        } else {
+            setImportance(false);
+        }
+
+        if (attachmentsParam) {
+            setAttachments(true);
+        } else {
+            setAttachments(false);
+        }
+
+        if (unreadParam) {
+            if ('true' == unreadParam) {
+                setUnread(true);
+            } else {
+                setUnread(false);
+            }
+        } else {
             setUnread(undefined);
+        }
 
-        if (search)
-            setSearch(decodeURIComponent(search));
-        else
-            _resetSearch();
+        if (searchParam) {
+            setSearch(decodeURIComponent(searchParam));
+        } else {
+            resetSearch();
+        }
 
-        if (sort)
-            setSort(sort);
-        else
-            _resetSort();
+        if (sortParam) {
+            setSort(sortParam);
+        } else {
+            resetSort();
+        }
 
-        if (sortorder)
+        if (sortorder) {
             setSortOrder(sortorder);
-        else
-            _resetSortOrder();
+        } else {
+            resetSortOrder();
+        }
 
         if (period) {
-            from = parseInt(period.split(',')[0]);
-            to = parseInt(period.split(',')[1]);
-            setPeriod({ from: from, to: to });
-        }
-        else {
+            fromParam = parseInt(period.split(',')[0]);
+            toParam = parseInt(period.split(',')[1]);
+            setPeriod({ from: fromParam, to: toParam });
+            setPeriodWithin('');
+        } else if (periodWithin) {
+            setPeriodWithin(periodWithin);
             setPeriod({ from: 0, to: 0 });
+        } else {
+            setPeriod({ from: 0, to: 0 });
+            setPeriodWithin('');
         }
 
-        if (from_date)
-            _from_date = new Date(from_date);
-        else
-            _from_date = undefined;
+        if (fromDateParam) {
+            setFromDate(new Date(fromDateParam));
+        } else {
+            setFromDate(undefined);
+        }
 
-        if (from_message)
-            _from_message = +from_message;
-        else
-            _from_message = undefined;
+        if (fromMessageParam) {
+            setFromMessage(+fromMessageParam);
+        } else {
+            setFromMessage(undefined);
+        }
 
-        if ('true' == prev_flag)
-            _prev_flag = true;
-        else
-            _prev_flag = false;
+        if ('true' == prevFlagParam) {
+            setPrevFlag(true);
+        } else {
+            setPrevFlag(false);
+        }
 
-        if (page_size)
-            setPageSize(page_size);
-        else
+        if (pageSizeParam) {
+            setPageSize(pageSizeParam);
+        } else {
             setPageSize(TMMail.option('MessagesPageSize'));
+        }
     };
 
-    var toAnchor = function(include_paging_info, data, skip_prev_next) {
+    var toAnchor = function(includePagingInfo, data, skipPrevNext) {
         var res = '/';
 
         var f = {};
-        f.tags = _tags;
+        f.tags = tags;
         f.unread = getUnread();
         f.importance = getImportance();
         f.attachments = getAttachments();
@@ -409,11 +439,12 @@ window.MailFilter = (function($) {
         f.from = getFrom();
         f.sort_order = getSortOrder();
         f.period = getPeriod();
+        f.period_within = getPeriodWithin();
         f.search = getSearch();
-        f.page_size = _page_size;
-        f.from_date = _from_date;
-        f.from_message = _from_message;
-        f.prev_flag = _prev_flag;
+        f.page_size = pageSize;
+        f.from_date = fromDate;
+        f.from_message = fromMessage;
+        f.prev_flag = prevFlag;
 
         $.extend(f, data);
 
@@ -421,62 +452,79 @@ window.MailFilter = (function($) {
             res += 'tag=';
             $.each(f.tags, function(index, value) {
                 res += value;
-                if (index != f.tags.length - 1)
+                if (index != f.tags.length - 1) {
                     res += ',';
+                }
             });
             res += '/';
         }
 
         if (undefined !== f.unread) {
-            if (f.unread)
+            if (f.unread) {
                 res += 'unread=true/';
-            else
+            } else {
                 res += 'unread=false/';
+            }
         }
 
-        if (f.importance)
+        if (f.importance) {
             res += 'importance/';
+        }
 
-        if (f.attachments)
+        if (f.attachments) {
             res += 'attachments/';
+        }
 
-        if (f.to)
+        if (f.to) {
             res += 'to=' + encodeURIComponent(f.to) + '/';
+        }
 
-        if (f.from)
+        if (f.from) {
             res += 'from=' + encodeURIComponent(f.from) + '/';
+        }
 
         // skip sort order if it has default value
-        if (f.sort_order && f.sort_order != 'descending')
+        if (f.sort_order && f.sort_order != 'descending') {
             res += 'sortorder=' + f.sort_order + '/';
+        }
 
-        if (f.period.to > 0)
+        if (f.period.to > 0) {
             res += 'period=' + f.period.from + ',' + f.period.to + '/';
+        } else if ('' != f.period_within) {
+            res += 'within=' + encodeURIComponent(f.period_within) + '/';
+        }
 
-        if ('' != f.search)
+        if ('' != f.search) {
             res += 'search=' + encodeURIComponent(f.search) + '/';
+        }
 
-        if (include_paging_info === true) {
+        if (includePagingInfo === true) {
             res += 'page_size=' + f.page_size + '/';
         }
 
-        if (true === skip_prev_next)
+        if (true === skipPrevNext) {
             return res;
+        }
 
-        if (f.from_date)
+        if (f.from_date) {
             res += 'from_date=' + f.from_date + '/';
+        }
 
-        if (f.from_message)
+        if (f.from_message) {
             res += 'from_message=' + f.from_message + '/';
+        }
 
-        if (true === f.prev_flag)
+        if (true === f.prev_flag) {
             res += 'prev=true/';
+        }
 
         return res;
     };
 
     var anchorHasMarkStatus = function(status, anchor) {
-        if (!anchor) anchor = ASC.Controls.AnchorController.getAnchor();
+        if (!anchor) {
+            anchor = ASC.Controls.AnchorController.getAnchor();
+        }
         if (status == 'read' || status == 'unread') {
             return undefined !== TMMail.getParamsValue(anchor, /\/unread=([^\/]+)/);
         }
@@ -487,56 +535,89 @@ window.MailFilter = (function($) {
     };
 
     var isBlank = function() {
-        if (0 < _tags.length ||
-            _to != undefined && 0 < _to.length ||
-            _from != undefined && 0 < _from.length ||
-            _attachments != false ||
-            _importance != false ||
-            _period_from != 0 ||
-            _period_to != 0 ||
-            _search != '' ||
-            _unread != undefined)
+        if (0 < tags.length ||
+            to != undefined && 0 < to.length ||
+            from != undefined && 0 < from.length ||
+            attachments != false ||
+            importance != false ||
+            periodFrom != 0 ||
+            withinPeriod != '' ||
+            periodTo != 0 ||
+            search != '' ||
+            unread != undefined) {
             return false;
+        }
 
         return true;
     };
 
     function toData() {
         var res = {};
-        res.folder = _folder;
-        res.page_size = _page_size;
-        if (getUnread() != undefined)
+        res.folder = folder;
+        res.page_size = pageSize;
+        if (getUnread() != undefined) {
             res.unread = getUnread();
-        if (getAttachments())
+        }
+        if (getAttachments()) {
             res.attachments = true;
-        if (getImportance())
+        }
+        if (getImportance()) {
             res.important = true;
-        if (0 != _period_from && 0 != _period_to) {
-            res.period_from = _period_from;
-            res.period_to = _period_to;
+        }
+        if (0 != periodFrom && 0 != periodTo) {
+            res.period_from = periodFrom;
+            res.period_to = periodTo;
+        }
+        if (getPeriodWithin() != '') {
+            var within = getPeriodWithin();
+            var now = new Date(),
+                today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0),
+                yesterday = new Date(new Date(today).setDate(now.getDate() - 1)),
+                lastweek = new Date(new Date(today).setDate(today.getDate() - 7));
+
+            if ('today' == within) {
+                res.period_from = today.getTime();
+                res.period_to = today.getTime();
+            } else if ('yesterday' == within) {
+                res.period_from = yesterday.getTime();
+                res.period_to = yesterday.getTime();
+            } else if ('lastweek') {
+                res.period_from = lastweek.getTime();
+                res.period_to = today.getTime();
+            } else {
+                setPeriodWithin('');
+            }
         }
 
-        if (getFrom()) res.find_address = _from;
+        if (getFrom()) {
+            res.find_address = from;
+        }
         if (getTo()) {
-            var mail_box = accountsManager.getAccountByAddress(_to);
-            if (mail_box)
-                res.mailbox_id = mail_box.mailbox_id;
+            var account = accountsManager.getAccountByAddress(to);
+            if (account) {
+                res.mailbox_id = account.mailbox_id;
+            }
         }
 
-        if (getTags().length > 0)
+        if (getTags().length > 0) {
             res.tags = getTags();
-        if (getSearch() != '')
+        }
+        if (getSearch() != '') {
             res.search = getSearch();
+        }
         if (getSort()) {
             res.sort = getSort();
             res.sortorder = getSortOrder();
         }
-        if (undefined != _from_date)
-            res.from_date = _from_date;
-        if (undefined != _from_message)
-            res.from_message = _from_message;
-        if (true === _prev_flag)
+        if (undefined != fromDate) {
+            res.from_date = fromDate;
+        }
+        if (undefined != fromMessage) {
+            res.from_message = fromMessage;
+        }
+        if (true === prevFlag) {
             res.prev_flag = true;
+        }
         return res;
     }
 
@@ -552,12 +633,14 @@ window.MailFilter = (function($) {
         getPeriod: getPeriod,
         setPeriod: setPeriod,
 
+        getPeriodWithin: getPeriodWithin,
+        setPeriodWithin: setPeriodWithin,
+
         addTag: addTag,
         removeTag: removeTag,
         removeAllTags: removeAllTags,
         toggleTag: toggleTag,
         getTags: getTags,
-
 
         getImportance: getImportance,
         setImportance: setImportance,

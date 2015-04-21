@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.News" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FeedView.ascx.cs" Inherits="ASC.Web.Community.News.Controls.FeedView" %>
 <%@ Import Namespace="ASC.Web.Community.News.Resources" %>
 <div id="feedPrevDiv">

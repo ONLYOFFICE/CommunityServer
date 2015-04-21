@@ -45,7 +45,7 @@ namespace ActiveUp.Console.Test
 
                 imap.ConnectSsl(sHostImap, 993);
 
-                imap.Login(sUserName, sPasword, "");
+                imap.Login(sUserName, sPasword);
 
                 Mailbox inbox = imap.SelectMailbox("inbox");
                 

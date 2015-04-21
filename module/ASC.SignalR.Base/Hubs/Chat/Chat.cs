@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using ASC.Common.Security.Authentication;
 using ASC.Core;
@@ -42,7 +40,6 @@ using System.Runtime.CompilerServices;
 using System.Security;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace ASC.SignalR.Base.Hubs.Chat
 {
@@ -51,9 +48,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
     public class Chat : Hub
     {
         public readonly static ConnectionMapping Connections = new ConnectionMapping();
-        public readonly static JabberServiceClient JabberServiceClient = new JabberServiceClient();
+        private readonly static JabberServiceClient jabberServiceClient = new JabberServiceClient();
         private readonly static ILog log = LogManager.GetLogger(typeof(Chat));
-        private readonly static object FirstChatLoadingSyncRoot = new object();
         private volatile static int allConnectionsCount;
         private const string websockets = "webSockets";
         private const string transport = "transport";
@@ -62,7 +58,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
         public const byte TraceError = 0;
         public const byte TraceDebug = 1;
 
-        
+        // общие методы
 
         public override Task OnDisconnected(bool stopCalled)
         {
@@ -75,7 +71,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 }
                 DisconnectUser();
             }
-            catch (Exception)
+            catch
             {
                 
             }
@@ -113,12 +109,12 @@ namespace ASC.SignalR.Base.Hubs.Chat
                     Clients.OthersInGroup(currentUser.Tenant + callerUserName).s(message, calleeUserName);
                 }
 
-                 JabberServiceClient.SendMessage(currentUser.Tenant, callerUserName, calleeUserName, messageText);
+                 jabberServiceClient.SendMessage(currentUser.Tenant, callerUserName, calleeUserName, messageText);
             }
             catch (Exception e)
             {
                 TraceMessage(TraceError, String.Format("Error on sending message to Jabber service. {0} {1} {2}",
-                  e, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                  e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
                 // error
                 Clients.Caller.e();
             }
@@ -135,12 +131,12 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 var currentUserName = currentUserInfo.UserName.ToLowerInvariant();
                 TraceMessage(TraceDebug, String.Format("Get States currentUserName={0}", currentUserName));
                 // statesRetrieved
-                Clients.Caller.sr(JabberServiceClient.GetAllStates(user.Tenant, currentUserName));
+                Clients.Caller.sr(jabberServiceClient.GetAllStates(user.Tenant, currentUserName));
             }
             catch (Exception e)
             {
                 TraceMessage(TraceError, String.Format("Error on GetStates to Jabber service. {0} {1} {2}",
-                    e, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
                 // error
                 Clients.Caller.e();
             }
@@ -162,12 +158,12 @@ namespace ASC.SignalR.Base.Hubs.Chat
                     throw new HubException();
                 }
 
-                return Tuple.Create(user.DisplayUserName(), JabberServiceClient.GetState(user.Tenant, userName));
+                return Tuple.Create(user.DisplayUserName(), jabberServiceClient.GetState(user.Tenant, userName));
             }
             catch (Exception e)
             {
                 TraceMessage(TraceError, String.Format("Error on GetContactInfo to Jabber service. {0} {1} {2}",
-                    e, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
                 // error
                 Clients.Caller.e();
             }
@@ -185,13 +181,13 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 TraceMessage(TraceDebug, String.Format("Get Init Data userName={0}", currentUserInfo.UserName));
                 // initDataRetrieved
                 Clients.Caller.idr(currentUserInfo.UserName.ToLowerInvariant(), currentUserInfo.DisplayUserName(),
-                    GetUsers(JabberServiceClient.GetAllStates(currentUserInfo.Tenant, currentUserInfo.UserName.ToLowerInvariant())),
+                    GetUsers(jabberServiceClient.GetAllStates(currentUserInfo.Tenant, currentUserInfo.UserName.ToLowerInvariant())),
                     currentUserInfo.Tenant, CoreContext.TenantManager.GetCurrentTenant().GetTenantDomain());
             }
             catch (Exception e)
             {
                 TraceMessage(TraceError, String.Format("Error on GetInitData to Jabber service. {0} {1} {2}",
-                    e, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
                 // error
                 Clients.Caller.e();
             }
@@ -217,7 +213,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
             catch (Exception e)
             {
                 TraceMessage(TraceError, String.Format("Error on sending typing to Jabber service. {0} {1} {2}",
-                    e, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
                 // error
                 Clients.Caller.e();
             }
@@ -233,14 +229,14 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 var currentUser = CoreContext.UserManager.GetUsers(user.ID);
                 var userName = currentUser.UserName.ToLowerInvariant();
                 TraceMessage(TraceDebug, String.Format("Send State To Tenant userName={0}, state={1}", userName, state));
-                state = JabberServiceClient.SendState(currentUser.Tenant, userName, state);
+                state = jabberServiceClient.SendState(currentUser.Tenant, userName, state);
                 // setState
                 Clients.OthersInGroup(currentUser.Tenant.ToString(CultureInfo.InvariantCulture)).ss(userName, state, false);
             }
             catch (Exception e)
             {
                 TraceMessage(TraceError, String.Format("Error on SendStateToTenant to Jabber. {0} {1} {2}",
-                    e, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
                 // error
                 Clients.Caller.e();
             }
@@ -264,7 +260,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 
                 var callerUserName = currentUser.UserName.ToLowerInvariant();
                 TraceMessage(TraceDebug, String.Format("Get Recent Messages calleeUserName={0}, callerUserName={1}, id={2}", calleeUserName, callerUserName, id));
-                recentMessages = JabberServiceClient.GetRecentMessages(currentUser.Tenant,
+                recentMessages = jabberServiceClient.GetRecentMessages(currentUser.Tenant,
                     callerUserName, calleeUserName == string.Empty ? null : calleeUserName, id);
                 if (recentMessages != null)
                 {
@@ -286,7 +282,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
             catch (Exception e)
             {
                 TraceMessage(TraceError, String.Format("Error on receiving recent messages from Jabber service. {0}, {1}, {2}",
-                    e, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
                 // error
                 Clients.Caller.e();
             }
@@ -302,12 +298,12 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 CoreContext.TenantManager.SetCurrentTenant(user.Tenant);
                 var userInfo = CoreContext.UserManager.GetUsers(user.ID);
                 TraceMessage(TraceDebug, String.Format("Ping from JS client: {0}", userInfo.ID));
-                JabberServiceClient.Ping(userInfo.ID.ToString(), userInfo.Tenant, userInfo.UserName, state);
+                jabberServiceClient.Ping(userInfo.ID.ToString(), userInfo.Tenant, userInfo.UserName, state);
             }
             catch (Exception e)
             {
                 TraceMessage(TraceError, String.Format("Error on Ping to Jabber. {0} {1} {2}",
-                    e, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
             }
         }
 
@@ -317,7 +313,6 @@ namespace ASC.SignalR.Base.Hubs.Chat
             try
             {
                 var user = Context.Request.Environment["server.User"] as GenericPrincipal;
-                var tr = Context.QueryString[transport];
                 if (user != null)
                 {
                     var userAccount = user.Identity as IUserAccount;
@@ -350,15 +345,15 @@ namespace ASC.SignalR.Base.Hubs.Chat
 
                         if (connectionsCount == 1)
                         {
-                            state = JabberServiceClient.AddXmppConnection(currentUser.ID.ToString(), currentUserName, state, currentUser.Tenant);
+                            state = jabberServiceClient.AddXmppConnection(currentUser.ID.ToString(), currentUserName, state, currentUser.Tenant);
                         }
                         else
                         {
-                            state = JabberServiceClient.SendState(currentUser.Tenant, currentUserName, state);
+                            state = jabberServiceClient.SendState(currentUser.Tenant, currentUserName, state);
                             if (state != UserOffline)
                             {
                                 // setStatus
-                                Clients.OthersInGroup(currentUser.Tenant + currentUser.UserName).sst(state);
+                                Clients.OthersInGroup(currentUser.Tenant + currentUserName).sst(state);
                             }
                         }
                         // setState
@@ -379,7 +374,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
             catch (Exception e)
             {
                 TraceMessage(TraceError, String.Format("Error on ConnectUser to Jabber. {0} {1} {2}",
-                    e, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
                 // error
                 Clients.Caller.e();
             }
@@ -419,15 +414,15 @@ namespace ASC.SignalR.Base.Hubs.Chat
                             TraceMessage(TraceDebug, String.Format("Remove Connection. {0}. Count: {1}", currentUserName, --allConnectionsCount));
                             if (connectionsCount == 0)
                             {
-                                state = JabberServiceClient.RemoveXmppConnection(currentUser.ID.ToString(), currentUserName, currentUser.Tenant);
+                                state = jabberServiceClient.RemoveXmppConnection(currentUser.ID.ToString(), currentUserName, currentUser.Tenant);
                             }
                             else
                             {
-                                state = JabberServiceClient.GetState(currentUser.Tenant, currentUserName);
+                                state = jabberServiceClient.GetState(currentUser.Tenant, currentUserName);
                                 if (state != UserOffline)
                                 {
                                     // setStatus
-                                    Clients.OthersInGroup(currentUser.Tenant + currentUser.UserName).sst(state);
+                                    Clients.OthersInGroup(currentUser.Tenant + currentUserName).sst(state);
                                 }
                             }
 
@@ -450,7 +445,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
             catch (Exception e)
             {
                 TraceMessage(TraceError, String.Format("Error on DisconnectUser to Jabber. {0} {1} {2}",
-                    e, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
                 // error
                 Clients.Caller.e();
             }

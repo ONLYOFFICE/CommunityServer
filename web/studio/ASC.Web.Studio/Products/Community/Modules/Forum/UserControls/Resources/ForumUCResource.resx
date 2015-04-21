@@ -153,6 +153,9 @@
   <data name="Edited" xml:space="preserve">
     <value>Edited</value>
   </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Empty file</value>
+  </data>
   <data name="ErrorAccessDenied" xml:space="preserve">
     <value>No permissions to perform this action</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="ExistsReferencesChildPosts" xml:space="preserve">
     <value>The post cannot be deleted as there are other posts linking to this one</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>The maximum file size is exceeded</value>
   </data>
   <data name="FileUploadAddButton" xml:space="preserve">
     <value>Attach file</value>

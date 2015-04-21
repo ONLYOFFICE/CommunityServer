@@ -2,10 +2,8 @@
 <%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DealMilestoneView.ascx.cs" Inherits="ASC.Web.CRM.Controls.Settings.DealMilestoneView" %>
-<%@ Import Namespace="ASC.CRM.Core" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
+
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
-<%@ Import Namespace="ASC.Web.CRM.Classes" %>
 
 <p style="margin-bottom: 10px;"><%= CRMSettingResource.DescriptionTextDealMilestone %></p>
 <p style="margin-bottom: 20px;"><%= CRMSettingResource.DescriptionTextDealMilestoneEditDelete %></p>

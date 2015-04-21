@@ -1,5 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Blogs" %>
-<%@ Import Namespace="ASC.Web.Community.Blogs" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewBlogView.ascx.cs"
     Inherits="ASC.Web.Community.Blogs.Views.ViewBlogView" %>

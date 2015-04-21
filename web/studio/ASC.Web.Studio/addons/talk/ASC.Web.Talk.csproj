@@ -53,22 +53,12 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +67,7 @@
     <Content Include="css\default\talk.messagearea.css" />
     <Content Include="css\default\talk.text-overflow.css" />
     <Content Include="css\default\talk.text-overflow.xml" />
+    <Content Include="js\talk.default.js" />
     <Content Include="js\jlib\flxhr\checkplayer.js" />
     <Content Include="js\jlib\flxhr\flensed.js" />
     <Content Include="js\jlib\flxhr\flxhr.js" />
@@ -188,7 +179,6 @@
     <Content Include="js\talk.roomsmanager.js" />
     <Content Include="js\talk.connectiomanager.js" />
     <Content Include="js\talk.contactscontainer.js" />
-    <Content Include="js\talk.default.js" />
     <Content Include="notification.html" />
     <Content Include="UserControls\ContactsContainer.ascx" />
     <Content Include="UserControls\MeseditorContainer.ascx" />
@@ -211,11 +201,11 @@
   <ItemGroup>
     <Content Include="App_Themes\Default\Images\product_logo.png" />
     <Content Include="App_Themes\Default\Images\product_logo_disabled.png" />
-    <Content Include="http-poll\Default.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="css\default\imagescss\" />
     <Folder Include="Data\upload\" />
+    <Folder Include="http-poll\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
@@ -258,6 +248,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
 </Project>

@@ -8,7 +8,6 @@
         </tr>
     </table>
     
-    
     <div id="show-next-feeds-btn"><%= UserControlsCommonResource.ShowNextNews %></div>
     <div id="show-next-feeds-loader"></div>
 

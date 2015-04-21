@@ -1,0 +1,381 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+label .checkbox {
+    margin: 0 5px 3px 0;
+    vertical-align: sub;
+}
+/****************************************\
+    Top of page
+\****************************************/
+.tariff-page {
+    width: 983px;
+    margin: 0 auto 10px;
+}
+.current-tariff-desc {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 40px;
+}
+.current-tariff-desc .tariff-marked {
+    color: #e85e12;
+}
+a.link-black-14 {
+    color: #333;
+    font-size: 14px;
+}
+a.link-black-12 {
+    color: #333;
+    font-size: 12px;
+}
+
+/****************************************\
+    Tarifs panel
+\****************************************/
+.tariffs-panel {
+    width: 100%;
+}
+.sale-ticket {
+    background-color: #e85e11;
+    color: #fff;
+    display: inline-block;
+    height: 17px;
+    line-height: 16px;
+    margin-right: 16px;
+    padding: 0 5px 0 10px;
+    position: relative;
+    top: -2px;
+
+    border-bottom-left-radius: 3px;
+    -moz-border-bottom-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    -moz-border-top-left-radius: 3px;
+    -webkit-border-top-left-radius: 3px;
+}
+.sale-ticket:after {
+    border-bottom: 9px solid transparent;
+    border-left: 8px solid #e85e11;
+    border-top: 8px solid transparent;
+    content: "";
+    position: absolute;
+    right: -8px;
+    top: 0;
+}
+.sale-baloon {
+    background-color: #e85e11;
+    color: #fff;
+    float: right;
+    font-size: 12px;
+    line-height: 14px;
+    margin: -5px 0;
+    padding: 13px 20px;
+    position: relative;
+    right: -5px;
+    text-align: center;
+    top: -15px;
+
+    border-bottom-right-radius: 14px;
+    -moz-border-bottom-right-radius: 14px;
+    -webkit-border-bottom-right-radius: 14px;
+    border-top-left-radius: 14px;
+    -moz-border-top-left-radius: 14px;
+    -webkit-border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    -moz-border-top-right-radius: 14px;
+    -webkit-border-top-right-radius: 14px;
+}
+.sale-baloon::before {
+    border-color: transparent #e85e11;
+    border-style: solid;
+    border-width: 0 0 10px 20px;
+    bottom: -6px;
+    content: "";
+    left: 0;
+    position: absolute;
+}
+.tariffs-header {
+    border-bottom: 1px solid #d1d1d1;
+    color: #666;
+    display: block;
+    font-size: 18px;
+    font-weight: normal;
+    height: 36px;
+    margin-left: 24px;
+    position: relative;
+    text-align: center;
+}
+.tariffs-header-descr {
+    margin-left: 0;
+}
+.tariffs-block {
+    left: 95px;
+    position: absolute;
+    text-align: left;
+    white-space: nowrap;
+}
+.tariffs-block-center {
+    position: static;
+}
+.tariff-item {
+    margin: 0 24px;
+    padding: 10px 0;
+}
+.tariff-descr,
+.tariff-price-block,
+.tariff-price-empty {
+    border-bottom: 1px solid #d1d1d1;
+}
+.tariff-descr {
+    height: 36px;
+    padding-left: 90px;
+    padding-top: 12px;
+}
+.tariff-descr.tariff-descr-standalone {
+    height: 34px;
+    padding-top: 14px;
+}
+.tariff-price-block,
+.tariff-price-empty {
+    cursor: pointer;
+    display: block;
+    height: 36px;
+    margin-left: 24px;
+    padding-top: 11px;
+    position: relative;
+    text-align: center;
+}
+.tariff-price-block:hover {
+    border: 2px solid #77B5D7;
+    margin: -2px 0 -1px 22px;
+}
+.tariff-price-block.tariffs-selected {
+    border: 2px solid #3D96C6;
+    margin: -2px 0 -1px 22px;
+}
+.tariff-price-block.tariffs-current .tariff-price {
+    color: #E85E12;
+}
+.tariff-descr .tariff-users {
+    font-size: 16px;
+    font-weight: bold;
+}
+.tariffs-header,
+.tariff-descr,
+.tariff-price-empty {
+    cursor: default;
+}
+.tariff-price-empty .tariff-price {
+    line-height: 25px;
+}
+.tariff-price-empty .tariff-price,
+.tariff-price-lost  {
+    color: #666;
+    font-size: 13px;
+}
+.tariff-price,
+.tariff-price-sale {
+    font-size: 18px;
+    font-weight: 600;
+}
+.tariff-price-lost {
+    margin-right: 2px;
+    position: relative;
+}
+.tariff-price-lost .price-line {
+    border-top: 1px solid #E85E11;
+    height: 0;
+    left: -2px;
+    position: absolute;
+    top: 50%;
+    width: 115%;
+}
+.tariff-price-lost .tariff-price-cur {
+    display: none;
+}
+.tariff-price-sale-box {
+    background-color: #e85e11;
+    border: 1px solid #e85e11;
+
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+.tariff-price-sale-box:after {
+    color: #e85e11;
+    content: "";
+    font-size: 12px;
+    padding: 0 1px;
+    position: absolute;
+    right: -18px;
+    text-align: right;
+    top: 0;
+    width: 100%;
+}
+.tariff-price-sale {
+    background-color: #fff;
+    padding: 0 8px;
+}
+.tariff-price-sale .tariff-price-cur {
+    display: none;
+}
+.tariff-price-sale-percent {
+    background-color: #e85e11;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 0 5px 0 3px;
+    position: relative;
+    top: -2px;
+
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+.tariff-price-block .tariff-price-cur {
+    margin-left: 1px;
+}
+.tariffs-button-block {
+    margin: 32px 0;
+}
+.button-block {
+    float: left;
+    margin-top: 10px;
+}
+.support-block {
+    float: right;
+}
+.support-photo {
+    background: url('../../../../skins/default/images/support.png') no-repeat scroll left center transparent;
+    float: left;
+    height: 61px;
+    width: 59px;
+}
+.support-actions {
+    margin: 0 22px 0 76px;
+}
+.support-title {
+    white-space: nowrap;
+    font-size: 18px;
+    padding: 4px 0;
+}
+.support-mail-btn {
+    background: url('../../../../skins/default/images/mail_user.png') no-repeat scroll left center transparent;
+    padding: 0 0 0 22px;
+}
+.support-chat-btn {
+    background: url('../../../../skins/default/images/chat.png') no-repeat scroll left center transparent;
+    padding: 0 0 0 22px;
+    margin-left: 34px;
+    display: none;
+}
+.tariff-buy-action {
+    display: none;
+}
+/*Remark*/
+.tariff-remark {
+    color: #667;
+    font-size: 12px;
+    line-height: 14px;
+    margin-top: 24px;
+}
+.tariff-remark-highlight {
+    color: #E85E11;
+}
+
+/*****************************\
+    Help
+\*****************************/
+#buyRecommendationDisplay {
+    margin-left: 0;
+}
+#livechat-compact-container {
+    display: none !important;
+}
+
+/*****************************\
+    Annual recomendation
+\*****************************/
+.annual-box {
+    margin-top: 32px;
+}
+.annual-descr,
+.annual-value {
+    float: left;
+    height: 80px;
+    padding: 10px 20px;
+}
+.annual-descr {
+    background-color: #e85e11;
+    border: 1px solid #e85e11;
+    color: #fff;
+    line-height: 14px;
+    width: 180px;
+
+    border-top-left-radius: 3px;
+    -moz-border-top-left-radius: 3px;
+    -webkit-border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    -moz-border-bottom-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+}
+.annual-descr-bold {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 30px;
+}
+.annual-descr-bold span {
+    font-size: 30px;
+}
+.annual-value {
+    border: 1px solid #d1d1d1;
+    border-left: none;
+    line-height: 20px;
+    width: 250px;
+
+    border-top-right-radius: 3px;
+    -moz-border-top-right-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    -moz-border-bottom-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+}
+.annual-arrow {
+    float: left;
+    height: 100px;
+    border-top: 1px solid #d1d1d1;
+    border-bottom: 1px solid #d1d1d1;
+    line-height: 100px;
+    width: 20px;
+}
+.annual-arrow span {
+    border-bottom: 50px solid transparent;
+    border-left: 20px solid #e85e11;
+    border-top: 50px solid transparent;
+    display: inline-block;
+    font-size: 0;
+}

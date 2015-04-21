@@ -6,7 +6,6 @@
     Inherits="ASC.Web.CRM.Controls.Common.ImportFromCSVView" %>
 
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 
 
 <br />

@@ -1,49 +1,40 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 window.folderFilter = (function($) {
     var isInit = false,
         filter,
-        skip_tags_hide = false, // skip tags filter hide, if user removed all tags from filter control
+        skipTagsHide = false, // skip tags filter hide, if user removed all tags from filter control
         events = $({}),
-        prev_search = '',
+        prevSearch = '',
         options = {};
 
     var init = function() {
         if (!isInit) {
             isInit = true;
-
-            var now = new Date();
-            var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
-            var yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
-            yesterday.setDate(today.getDate() - 1);
-            var lastweek = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
-            lastweek.setDate(today.getDate() - 7);
 
             options = {
                 anykey: true,
@@ -107,7 +98,8 @@ window.folderFilter = (function($) {
                         id: 'to',
                         title: MailScriptResource.FilterToMailAddress,
                         group: MailScriptResource.FilterAnotherGroup,
-                        options: []
+                        options: [],
+                        defaulttitle: MailScriptResource.FilterChoose
                     },
                     {
                         type: 'combobox',
@@ -119,74 +111,99 @@ window.folderFilter = (function($) {
                         defaulttitle: MailScriptResource.ChooseTag
                     },
                     {
-                        type: 'daterange',
-                        id: 'today',
-                        title: MailScriptResource.FilterPeriodToday,
-                        filtertitle: " ",
-                        group: MailScriptResource.FilterPeriodGroup,
-                        bydefault: { from: today.getTime(), to: today.getTime() }
-                    },
-                    {
-                        type: 'daterange',
-                        id: 'yesterday',
-                        title: MailScriptResource.FilterPeriodYesterday,
-                        filtertitle: " ",
-                        group: MailScriptResource.FilterPeriodGroup,
-                        bydefault: { from: yesterday.getTime(), to: yesterday.getTime() }
-                    },
-                    {
-                        type: 'daterange',
+                        type: 'combobox',
                         id: 'lastweek',
                         title: MailScriptResource.FilterPeriodLastWeek,
-                        filtertitle: " ",
+                        filtertitle: MailScriptResource.FilterByPeriod,
                         group: MailScriptResource.FilterPeriodGroup,
-                        bydefault: { from: lastweek.getTime(), to: today.getTime() }
+                        groupby: "byDate",
+                        options:
+                        [
+                            { value: "lastweek", classname: '', title: MailScriptResource.FilterPeriodLastWeek, def: true },
+                            { value: "yesterday", classname: '', title: MailScriptResource.FilterPeriodYesterday },
+                            { value: "today", classname: '', title: MailScriptResource.FilterPeriodToday }
+                        ]
+                    },
+                    {
+                        type: 'combobox',
+                        id: 'yesterday',
+                        title: MailScriptResource.FilterPeriodYesterday,
+                        filtertitle: MailScriptResource.FilterByPeriod,
+                        group: MailScriptResource.FilterPeriodGroup,
+                        groupby: "byDate",
+                        options:
+                        [
+                            { value: "lastweek", classname: '', title: MailScriptResource.FilterPeriodLastWeek },
+                            { value: "yesterday", classname: '', title: MailScriptResource.FilterPeriodYesterday, def: true },
+                            { value: "today", classname: '', title: MailScriptResource.FilterPeriodToday }
+                        ]
+                    },
+                    {
+                        type: 'combobox',
+                        id: 'today',
+                        title: MailScriptResource.FilterPeriodToday,
+                        filtertitle: MailScriptResource.FilterByPeriod,
+                        group: MailScriptResource.FilterPeriodGroup,
+                        groupby: "byDate",
+                        options:
+                        [
+                            { value: "lastweek", classname: '', title: MailScriptResource.FilterPeriodLastWeek },
+                            { value: "yesterday", classname: '', title: MailScriptResource.FilterPeriodYesterday },
+                            { value: "today", classname: '', title: MailScriptResource.FilterPeriodToday, def: true }
+                        ]
                     },
                     {
                         type: 'daterange',
                         id: 'period',
                         title: MailScriptResource.FilterPeriodCustom,
-                        filtertitle: " ",
+                        filtertitle: MailScriptResource.FilterPeriodCustom,
                         group: MailScriptResource.FilterPeriodGroup
                     }
                 ]
             };
 
-            $('#FolderFilter').advansedFilter(options).bind('setfilter', _onSetFilter).bind('resetfilter', _onResetFilter).bind('resetallfilters', _onResetAllFilters);
+            $('#FolderFilter').advansedFilter(options).bind('setfilter', onSetFilter).bind('resetfilter', onResetFilter).bind('resetallfilters', onResetAllFilters);
 
             // filter object initialization should follow after advansed filter plugin call - because
             // its replace target element with new markup
             filter = $('#FolderFilter');
 
-            filter.find('div.btn-show-filters:first').bind('click', _onShowFilters);
+            filter.find('div.btn-show-filters:first').bind('click', onShowFilters);
         }
     };
 
-    function _onShowFilters() {
-        var with_tags_filter_link = filter.find('li.filter-item[data-id="tag"]');
-        if (with_tags_filter_link) {
+    function onShowFilters() {
+        var withTagsFilterLink = filter.find('li.filter-item[data-id="tag"]');
+        if (withTagsFilterLink) {
             if ($('#id_tags_panel_content .tag').length > 0) {
-                with_tags_filter_link.show();
+                withTagsFilterLink.show();
             } else {
-                with_tags_filter_link.hide();
+                withTagsFilterLink.hide();
             }
         }
     }
 
-    var _sort_first_time = true; //initialization raises onSetFilter event with default sorter - it's a workaround
+    var sortFirstTime = true; //initialization raises onSetFilter event with default sorter - it's a workaround
 
-    function _setPeriodFilter($container, value) {
-        MailFilter.setPeriod({ from: value.from, to: value.to });
-        var to_date_container = $container.find('span.to-daterange-selector:first span.datepicker-container:first');
-        if (to_date_container) 
-            to_date_container.datepicker("option", "maxDate", new Date()); // not select future dates
+    function setPeriodWithinFilter($container, value) {
+        MailFilter.setPeriod({ from: 0, to: 0 });
+        MailFilter.setPeriodWithin(value.value);
     }
 
-    var _onSetFilter = function(evt, $container, filter_item, value, selectedfilters) {
-        switch (filter_item.id) {
+    function setPeriodFilter($container, value) {
+        MailFilter.setPeriodWithin('');
+        MailFilter.setPeriod({ from: value.from, to: value.to });
+        var toDateContainer = $container.find('span.to-daterange-selector:first span.datepicker-container:first');
+        if (toDateContainer) {
+            toDateContainer.datepicker("option", "maxDate", new Date());
+        } // not select future dates
+    }
+
+    var onSetFilter = function(evt, $container, filterItem, value) {
+        switch (filterItem.id) {
             case 'unread':
             case 'read':
-                _toggleUnread(value.value === "unread");
+                toggleUnread(value.value === "unread");
                 break;
             case 'important':
                 MailFilter.setImportance(true);
@@ -201,63 +218,65 @@ window.folderFilter = (function($) {
                 MailFilter.setFrom(value.value);
                 break;
             case 'today':
-                _hideItem('yesterday');
-                _hideItem('lastweek');
-                _hideItem('period');
-                _setPeriodFilter($container, value);
+                hideItem('yesterday');
+                hideItem('lastweek');
+                hideItem('period');
+                setPeriodWithinFilter($container, value);
                 break;
             case 'yesterday':
-                _hideItem('today');
-                _hideItem('lastweek');
-                _hideItem('period');
-                _setPeriodFilter($container, value);
+                hideItem('today');
+                hideItem('lastweek');
+                hideItem('period');
+                setPeriodWithinFilter($container, value);
                 break;
             case 'lastweek':
-                _hideItem('today');
-                _hideItem('yesterday');
-                _hideItem('period');
-                _setPeriodFilter($container, value);
+                hideItem('today');
+                hideItem('yesterday');
+                hideItem('period');
+                setPeriodWithinFilter($container, value);
                 break;
             case 'period':
-                _hideItem('today');
-                _hideItem('yesterday');
-                _hideItem('lastweek');
-                _setPeriodFilter($container, value);
+                hideItem('today');
+                hideItem('yesterday');
+                hideItem('lastweek');
+                setPeriodFilter($container, value);
                 break;
             case 'text':
                 MailFilter.setSearch(value.value);
-                prev_search = value.value;
+                prevSearch = value.value;
                 break;
-
             case 'tag':
                 if (null == value.value) {
                     MailFilter.removeAllTags();
-                    skip_tags_hide = true;
+                    skipTagsHide = true;
                     break;
                 }
 
-                $.each(value.value, function (i, v_new) {
-                    MailFilter.addTag(v_new);
+                $.each(value.value, function(i, vNew) {
+                    MailFilter.addTag(vNew);
                 });
 
-                $.each(MailFilter.getTags(), function (i, v) {
-                    var is_set = false;
-                    $.each(value.value, function(j, v_new) {
-                        if (v == v_new)
-                            is_set = true;
+                $.each(MailFilter.getTags(), function(i, v) {
+                    var isSet = false;
+                    $.each(value.value, function(j, vNew) {
+                        if (v == vNew) {
+                            isSet = true;
+                        }
                     });
-                    if (!is_set)
+                    if (!isSet) {
                         MailFilter.removeTag(v);
+                    }
                 });
                 break;
-
-            case 'sorter': //ToDo refactore
-                if (_sort_first_time) {
-                    _sort_first_time = false;
+            case 'sorter':
+                //ToDo refactore
+                if (sortFirstTime) {
+                    sortFirstTime = false;
                     return;
                 }
-                if (MailFilter.getSort() == value.id && MailFilter.getSortOrder() == value.sortOrder)
+                if (MailFilter.getSort() == value.id && MailFilter.getSortOrder() == value.sortOrder) {
                     return;
+                }
                 MailFilter.setSort(value.id);
                 MailFilter.setSortOrder(value.sortOrder);
                 //reset paging
@@ -269,16 +288,16 @@ window.folderFilter = (function($) {
                 return;
         }
 
-        window.ASC.Mail.ga_track(ga_Categories.folder, ga_Actions.filterClick, filter_item.id);
+        window.ASC.Mail.ga_track(ga_Categories.folder, ga_Actions.filterClick, filterItem.id);
 
         mailBox.updateAnchor();
     };
 
-    var _onResetFilter = function(evt, $container, filter_item, selectedfilters) {
-        switch (filter_item.id) {
+    var onResetFilter = function(evt, $container, filterItem) {
+        switch (filterItem.id) {
             case 'unread':
             case 'read':
-                _toggleUnread(undefined);
+                toggleUnread(undefined);
                 break;
             case 'important':
                 MailFilter.setImportance(false);
@@ -295,6 +314,8 @@ window.folderFilter = (function($) {
             case 'today':
             case 'yesterday':
             case 'lastweek':
+                MailFilter.setPeriodWithin('');
+                break;
             case 'period':
                 MailFilter.setPeriod({ from: 0, to: 0 });
                 break;
@@ -304,7 +325,8 @@ window.folderFilter = (function($) {
             case 'tag':
                 MailFilter.removeAllTags();
                 break;
-            case 'sorter': //ToDo refactore
+            case 'sorter':
+                //ToDo refactore
                 return undefined;
             default:
                 return;
@@ -318,115 +340,156 @@ window.folderFilter = (function($) {
         MailFilter.setTo('');
         MailFilter.setFrom('');
         MailFilter.setPeriod({ from: 0, to: 0 });
+        MailFilter.setPeriodWithin('');
         MailFilter.setSearch('');
         MailFilter.removeAllTags();
-        _toggleUnread(undefined);
+        toggleUnread(undefined);
         mailBox.updateAnchor();
     };
 
-    var _onResetAllFilters = function(evt, $container, filterid, selectedfilters) {
+    var onResetAllFilters = function() {
         reset();
     };
 
-    var _toggleUnread = function(flag) {
+    var toggleUnread = function(flag) {
         MailFilter.setUnread(flag);
     };
 
-    var _showItem = function (id, params) {
-        if (!params) params = {};
+    var showItem = function(id, params) {
+        if (!params) {
+            params = {};
+        }
         filter.advansedFilter({ filters: [{ id: id, params: params }] });
     };
 
-    var _hideItem = function(id) {
-        filter.advansedFilter({ filters: [{ id: id, reset: true}] });
+    var hideItem = function(id) {
+        filter.advansedFilter({ filters: [{ id: id, reset: true }] });
     };
 
     var setUnread = function(flag) {
         if (undefined !== flag) {
             if (flag) {
-                _showItem('unread', {value:"unread"});
+                showItem('unread', { value: "unread" });
+            } else {
+                showItem('read', { value: "read" });
             }
-            else {
-                _showItem('read', { value: "read" });
-            }
-        }
-        else {
-            _hideItem('read');
-            _hideItem('unread');
+        } else {
+            hideItem('read');
+            hideItem('unread');
         }
     };
 
     var setImportance = function(importance) {
-        if (importance)
-            _showItem('important');
-        else
-            _hideItem('important');
+        if (importance) {
+            showItem('important');
+        } else {
+            hideItem('important');
+        }
     };
 
     var setAttachments = function(attachments) {
-        if (attachments)
-            _showItem('attachments');
-        else
-            _hideItem('attachments');
+        if (attachments) {
+            showItem('attachments');
+        } else {
+            hideItem('attachments');
+        }
     };
 
     var setTo = function(to) {
-        if (undefined === to)
-            _hideItem('to');
-        else
-            filter.advansedFilter({ filters: [{ type: 'combobox', id: 'to', params: { value: to}}] });
+        if (undefined === to) {
+
+            var selected = false;
+            $.each(filter.advansedFilter(), function (index, value) {
+                if ('to' == value.id) {
+                    selected = true;
+                    return;
+                }
+            });
+
+            if (selected) {
+                hideItem('to');
+            } else {
+                var visible = filter.find('.advansed-filter-filters .filter-item[data-id="to"]').length > 0;
+                if (!visible) {
+                    hideItem('to');
+                }
+            }
+
+        } else {
+            filter.advansedFilter({ filters: [{ type: 'combobox', id: 'to', params: { value: to } }] });
+        }
         events.trigger('to', [to]); //ToDo: Remove it if it isn't necessary
     };
 
     var setFrom = function(from) {
         if (undefined === from) {
-            _hideItem('from');
-        } else
+
+            var selected = false;
+            $.each(filter.advansedFilter(), function (index, value) {
+                if ('from' == value.id) {
+                    selected = true;
+                    return;
+                }
+            });
+
+            if (selected) {
+                hideItem('from');
+            } else {
+                var visible = filter.find('.advansed-filter-filters .filter-item[data-id="from"]').length > 0;
+                if (!visible) {
+                    hideItem('from');
+                }
+            }
+
+        } else {
             filter.advansedFilter({ filters: [{ type: fromSenderFilter.type, id: 'from', params: { value: from } }] });
+        }
     };
 
     var setPeriod = function(period) {
-        if (period.to > 0) {
-            //search through seleted filter items
-            var selected_filters = filter.advansedFilter();
-            for(var i=0; i<selected_filters.length; i++) {
-                var val = selected_filters[i];
-                if ('today' === val.id || 'yesterday' === val.id || 'lastweek' === val.id)
-                    return;
-            };
-            filter.advansedFilter({ filters: [{ type: 'daterange', id: 'period', params: { to: period.to, from: period.from } }] });
+        if (period.period.to > 0) {
+            hideItem('today');
+            hideItem('yesterday');
+            hideItem('lastweek');
+            filter.advansedFilter({ filters: [{ type: 'daterange', id: 'period', params: { to: period.period.to, from: period.period.from } }] });
+        } else if (period.period_within != '') {
+            hideItem('period');
+            filter.advansedFilter({ filters: [{ type: 'combobox', id: period.period_within, params: { value: period.period_within } }] });
         } else {
-            _hideItem('today');
-            _hideItem('yesterday');
-            _hideItem('lastweek');
-            _hideItem('period');
+            hideItem('today');
+            hideItem('yesterday');
+            hideItem('lastweek');
+            hideItem('period');
         }
     };
 
     var setSearch = function(text) {
-        if(prev_search == text)
+        if (prevSearch == text) {
             return;
-        filter.advansedFilter({ filters: [{ type: 'text', id: 'text', params: { value: text}}] });
+        }
+        filter.advansedFilter({ filters: [{ type: 'text', id: 'text', params: { value: text } }] });
     };
 
     var setSort = function(sort, order) {
         if (undefined !== sort && undefined !== order) {
-            filter.advansedFilter({ sorters: [{ id: sort, selected: true, dsc: 'descending' == order}] });
+            filter.advansedFilter({ sorters: [{ id: sort, selected: true, dsc: 'descending' == order }] });
         } else {
-            filter.advansedFilter({ sorters: [{ id: 'date', selected: true, dsc: true}] });
+            filter.advansedFilter({ sorters: [{ id: 'date', selected: true, dsc: true }] });
         }
     };
 
     var setTags = function(tags) {
         if (tags.length) {
-            filter.advansedFilter({ filters: [{ type: 'combobox', id: 'tag', params: { value: tags}}] });
+            filter.advansedFilter({ filters: [{ type: 'combobox', id: 'tag', params: { value: tags } }] });
         } else {
-            if (true === skip_tags_hide) {
-                skip_tags_hide = false;
+            if (true === skipTagsHide) {
+                skipTagsHide = false;
                 return;
             }
-            $.each(filter.advansedFilter(), function (index, value) {
-                if ('tag' == value.id) _hideItem('tag');
+            $.each(filter.advansedFilter(), function(index, value) {
+                if ('tag' == value.id) {
+                    hideItem('tag');
+                }
             });
         }
     };
@@ -440,49 +503,51 @@ window.folderFilter = (function($) {
         $.each(accountsManager.getAccountList(), function(index, value) {
             toOptions.push({ value: value.email, classname: 'to', title: value.email });
         });
-        filter.advansedFilter({ filters: [{ type: 'combobox', id: 'to', options: toOptions}] });
+        filter.advansedFilter({ filters: [{ type: 'combobox', id: 'to', options: toOptions }] });
 
         var tags = [];
         $.each(tagsManager.getAllTags(), function(index, value) {
-            if (value.lettersCount > 0)
+            if (value.lettersCount > 0) {
                 tags.push({ value: value.id, classname: 'to', title: value.name });
+            }
         });
-        filter.advansedFilter({ filters: [{ type: 'combobox', id: 'tag', options: tags}] });
+        filter.advansedFilter({ filters: [{ type: 'combobox', id: 'tag', options: tags }] });
 
         filter.advansedFilter('resize');
     };
 
     // updates to & from filter titles depending on current page
+
     function updateToFromFilterTitles() {
-        var from_index = 4;
-        var to_index = 5;
-            var from_id = 'from';
-            var to_id = 'to';
+        var fromIndex = 4;
+        var toIndex = 5;
+        var fromId = 'from';
+        var toId = 'to';
         if (TMMail.pageIs('sent') || TMMail.pageIs('drafts')) {
-            from_index = 5;
-            to_index = 4;
-            from_id = 'to';
-            to_id = 'from';
+            fromIndex = 5;
+            toIndex = 4;
+            fromId = 'to';
+            toId = 'from';
         }
-        options.filters[from_index].filtertitle = MailScriptResource.FilterFromSender;
-        options.filters[to_index].filtertitle = MailScriptResource.FilterToMailAddress;
-        _setFilterTitle(from_id, MailScriptResource.FilterFromSender);
-        _setFilterTitle(to_id, MailScriptResource.FilterToMailAddress);
+        options.filters[fromIndex].filtertitle = MailScriptResource.FilterFromSender;
+        options.filters[toIndex].filtertitle = MailScriptResource.FilterToMailAddress;
+        setFilterTitle(fromId, MailScriptResource.FilterFromSender);
+        setFilterTitle(toId, MailScriptResource.FilterToMailAddress);
     }
 
-    var _setFilterTitle = function (id, title) {
-        var menu_item = filter.find('.advansed-filter-list .filter-item[data-id="' + id + '"]');
-        menu_item.attr('title', title);
-        menu_item.find('.inner-text').html(title);
+    var setFilterTitle = function(id, title) {
+        var menuItem = filter.find('.advansed-filter-list .filter-item[data-id="' + id + '"]');
+        menuItem.attr('title', title);
+        menuItem.find('.inner-text').html(title);
         filter.find('.advansed-filter-filters .filter-item[data-id="' + id + '"] .title').html(title);
     };
 
-    var show = function () {
+    var show = function() {
         updateToFromFilterTitles();
         filter.parent().show();
     };
 
-    var hide = function () {
+    var hide = function() {
         filter.parent().hide();
     };
 

@@ -13,7 +13,6 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TrunkDir>..\..\..\</TrunkDir>
-    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>false</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <FileUpgradeFlags>
@@ -57,7 +56,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -65,18 +64,11 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.Protocols" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\AuthHandler.cs" />
@@ -97,8 +89,7 @@
     <Compile Include="Gateway\SignalRXmppListener.cs" />
     <Compile Include="Gateway\TcpSslXmppConnection.cs" />
     <Compile Include="JabberException.cs" />
-    <Compile Include="ReverseJabberServiceClient.cs" />
-    <Compile Include="ReverseJabberServiceClientWcf.cs" />
+    <Compile Include="SignalrServiceClient.cs" />
     <Compile Include="Services\Jabber\CommandHandler.cs" />
     <Compile Include="Services\Jabber\TransferHandler.cs" />
     <Compile Include="Services\Jabber\MessageArchiveHandler.cs" />
@@ -247,10 +238,6 @@
     <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.IPSecurity\ASC.IPSecurity.csproj">
-      <Project>{2ff2177f-2d1a-4396-84eb-51f14fd99385}</Project>
-      <Name>ASC.IPSecurity</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Xmpp.Core\ASC.Xmpp.Core.csproj">
       <Project>{91ea0d0b-d3ba-497f-afeb-2cad59deba0e}</Project>

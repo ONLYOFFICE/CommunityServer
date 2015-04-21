@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Products/Community/Modules/Forum/Forum.Master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Search.aspx.cs" Inherits="ASC.Web.Community.Forum.Search" Title="Untitled Page" %>
-<%@ Import Namespace="ASC.Web.Community.Forum" %>
+
 <%@ Import Namespace="ASC.Web.Community.Forum.Resources" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ForumPageContent" runat="server">

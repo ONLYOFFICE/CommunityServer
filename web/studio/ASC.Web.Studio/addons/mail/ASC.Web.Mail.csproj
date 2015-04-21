@@ -51,6 +51,30 @@
       <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\ASC.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\ASC.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\ASC.Data.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\ASC.Web.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.CRM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\ASC.Web.CRM.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Files, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\ASC.Web.Files.dll</HintPath>
+    </Reference>
     <Reference Include="FredCK.FCKeditorV2">
       <HintPath>..\..\..\..\..\packages\FredCK.FCKeditorV2.2.6.3.19702\lib\net20</HintPath>
       <Private>False</Private>
@@ -65,47 +89,29 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting">
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Http">
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost">
-      <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Web.Mobile" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\Default\Images\background_sprite.png" />
     <Content Include="App_Themes\Default\Images\base_sprite.png" />
     <Content Include="App_Themes\Default\Images\blank_modal_sprite.png" />
     <Content Include="App_Themes\Default\Images\blank_sprite.png" />
+    <Content Include="App_Themes\Default\Images\dns_sprite.png" />
+    <Content Include="App_Themes\Default\Images\icon_group.png" />
     <Content Include="App_Themes\Default\Images\Loader\loader32.gif" />
     <Content Include="App_Themes\Default\Images\Loader\loader_16.gif" />
     <Content Include="App_Themes\Default\Images\Loader\loader_16_dark.gif" />
-    <Content Include="App_Themes\Default\Images\Loader\loading-logo.gif" />
     <Content Include="App_Themes\Default\Images\mail.png" />
     <Content Include="App_Themes\Default\Images\mail_disabled.png" />
     <Content Include="App_Themes\Default\iframe_content.css" />
+    <Content Include="App_Themes\Default\Images\mark_sprite.png" />
+    <Content Include="App_Themes\Default\Images\product_logolarge.png" />
+    <Content Include="Controls\DocumentsPopup\css\images\warning.png" />
     <Content Include="Controls\AccountsPage\AccountsPage.ascx" />
     <Content Include="Controls\AdministrationPage\AdministrationPage.ascx" />
     <Content Include="Controls\BlankModal\BlankModal.ascx" />
@@ -134,6 +140,8 @@
     <Content Include="js\administration\plugin\jquery-domainadvansedselector.js" />
     <Content Include="js\administration\plugin\jquery-mailboxadvansedselector.js" />
     <Content Include="js\alerts.js" />
+    <Content Include="js\mail.printpage.js" />
+    <Content Include="js\mail.attachmentmanager.js" />
     <Content Include="js\dropdown.js" />
     <Content Include="js\filterCache.js" />
     <Content Include="js\blankpage.js" />
@@ -155,7 +163,6 @@
     <Content Include="js\mail.accounts.js" />
     <Content Include="js\mail.accountsmodal.js" />
     <Content Include="js\mail.accountspage.js" />
-    <Content Include="js\mail.attachmentmanager.js" />
     <Content Include="js\mail.common.js" />
     <Content Include="js\mail.crmLinkPopup.js" />
     <Content Include="js\mail.folderpanel.js" />
@@ -178,7 +185,6 @@
     <Content Include="js\tags\page.js" />
     <Content Include="js\tags\panel.js" />
     <Content Include="js\trustedAddresses.js" />
-    <Content Include="js\watchdog.js" />
     <Content Include="js\wysiwyg.js" />
     <Content Include="Masters\BodyScripts.ascx" />
     <Content Include="Masters\Styles.ascx" />
@@ -199,6 +205,8 @@
     <Content Include="templates\administration\groupTableTmpl.ascx" />
     <Content Include="templates\administration\mailboxTableTmpl.ascx" />
     <Content Include="templates\contactsTmpl.ascx" />
+    <Content Include="templates\docAttachmentsTmpl.ascx" />
+    <Content Include="templates\messagePrintTmpl.ascx" />
     <Content Include="templates\crmIntegrationPopupTmpl.ascx" />
     <Content Include="templates\emptyScrTmpl.ascx" />
     <Content Include="templates\signatureTmpl.ascx" />
@@ -366,8 +374,8 @@
     <None Include="App_Themes\Default\less\common.less" />
     <Content Include="App_Themes\Default\less\contacts.less" />
     <Content Include="App_Themes\Default\less\crm_integration.less" />
+    <Content Include="App_Themes\Default\less\print.less" />
     <None Include="App_Themes\Default\less\icons.less" />
-    <None Include="App_Themes\Default\less\loading.less" />
     <None Include="App_Themes\Default\less\mail.less" />
     <None Include="App_Themes\Default\less\message.less" />
     <None Include="App_Themes\Default\less\messages.less" />
@@ -381,17 +389,9 @@
     <Content Include="HttpHandlers\Download.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api.Mail\ASC.Api.Mail.csproj">
+      <Project>{5eec68a0-657c-45f3-8079-ebdb5cb9597a}</Project>
+      <Name>ASC.Api.Mail</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
       <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
@@ -402,24 +402,12 @@
       <Name>ASC.Mail.Aggregator.DataStorage</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
-      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
+      <Project>{7080343D-FBE7-423A-9405-4F883F6E235B}</Project>
       <Name>ASC.Mail.Aggregator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Products\CRM\ASC.Web.CRM.csproj">
-      <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
-      <Name>ASC.Web.CRM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Products\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -449,6 +437,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
 </Project>

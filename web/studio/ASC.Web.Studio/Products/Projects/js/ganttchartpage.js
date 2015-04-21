@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 /*
  Copyright (c) Ascensio System SIA 2013. All rights reserved.
@@ -198,27 +196,27 @@ ASC.Projects.GantChartPage = (function () {
     };
 
     var saveCheckedProjectToStorage = function () {
-        localStorage.ganttProjects = currentFilteredProjectsIds.join(',');
+        localStorageManager.setItem("ganttProjects", currentFilteredProjectsIds.join(','));
     };
     var setProjectsFilterFromStorage = function () {
-        
+        // project in url - не забыть, что закрытых проектов в списке нет!
         var prjId = currentProjectId, prjCount = 0;
 
-        if (localStorage.ganttProjects && null === currentProjectId) {
-            currentFilteredProjectsIds = localStorage.ganttProjects.split(',');
-            listProjectsOnReceive = localStorage.ganttProjects.split(',');
+        if (localStorageManager.getItem("ganttProjects") && null === currentProjectId) {
+            currentFilteredProjectsIds = localStorageManager.getItem("ganttProjects").split(",");
+            listProjectsOnReceive = localStorageManager.getItem("ganttProjects").split(",");
         }
         if (prjId && jq.inArray(prjId, currentFilteredProjectsIds) == -1) {
             currentFilteredProjectsIds.push(prjId);
             listProjectsOnReceive.push(prjId);
         }
-        localStorage.ganttProjects = currentFilteredProjectsIds.join(',');
+        localStorageManager.setItem("ganttProjects", currentFilteredProjectsIds.join(','));
 
         for (var k = currentFilteredProjectsIds.length - 1; k >= 0; --k) {
             currentFilteredProjectsIds[k] = parseInt(currentFilteredProjectsIds[k]);
         }
 
-        
+        // проект может быть удален или стать недоступен, поэтому надо проверить
 
         var i, j, project;
 
@@ -237,8 +235,8 @@ ASC.Projects.GantChartPage = (function () {
         }
 
 
-        
-        
+        // Отсекаем закрытые или запауженные проекты на просмотр
+        // Отсекаем приватные проекты в которых юзер не в команде проекта
 
         if (showOnlyActiveProjects) {
 
@@ -483,7 +481,7 @@ ASC.Projects.GantChartPage = (function () {
                 return false;
             }
             setZoomScale();
-            localStorage.ganttZoomScale = jq(this).val();
+            localStorageManager.set("ganttZoomScale", jq(this).val());
         });
 
         jq("#todayPreset").click(function () {
@@ -556,12 +554,12 @@ ASC.Projects.GantChartPage = (function () {
 
         jq("#hideActionsButton").click(function () {
             helpActionsPanel.addClass("display-none");
-            localStorage.hideActionHelpPlag = true;
+            localStorageManager.setItem("hideActionHelpPlag", true);
         });
        
 		jq("#btnCloseHelpActionsPanel").click(function () {
             helpActionsPanel.addClass("display-none");
-            localStorage.hideActionHelpPlag = true;
+            localStorageManager.setItem("hideActionHelpPlag", true);
         });
 		
         jq(document).keydown(function (e) {
@@ -584,10 +582,10 @@ ASC.Projects.GantChartPage = (function () {
                 }
                 if (keyCode == 72 && !readMode) {
                     if (helpActionsPanel.hasClass("display-none")) {
-                        localStorage.hideActionHelpPlag = false;
+                        localStorageManager.setItem("hideActionHelpPlag", false);
                         helpActionsPanel.removeClass("display-none").addClass("display-block");
                     } else {
-                        localStorage.hideActionHelpPlag = true;
+                        localStorageManager.setItem("hideActionHelpPlag", true);
                         helpActionsPanel.removeClass("display-block").addClass("display-none");
                     }
                 }
@@ -608,9 +606,9 @@ ASC.Projects.GantChartPage = (function () {
             filterChartData();
 
             if (openTaskOnly.is(":checked")) {
-                localStorage.openTaskOnlyFilter = true;
+                localStorageManager.setItem("openTaskOnlyFilter", true);
             } else {
-                localStorage.openTaskOnlyFilter = false;
+                localStorageManager.setItem("openTaskOnlyFilter", false);
             }
         });
 
@@ -784,16 +782,16 @@ ASC.Projects.GantChartPage = (function () {
         });
     };
     var initLeftPanelCells = function () {
-        if (localStorage.checkedCells) {
-            var cellNames = localStorage.checkedCells.split(",");
+        if (localStorageManager.getItem("checkedCells")) {
+            var cellNames = localStorageManager.getItem("checkedCells").split(",");
             for (var i = 0; i < cellNames.length; i++) {
                 ganttCellChecker.find("input[id=" + cellNames[i] + "]").prop("checked", true);
             }
 
             chart.leftPanelController().addRowsAvailable(cellNames);
 
-            if (localStorage.visibleCells) {
-                var visibleCellsNames = localStorage.visibleCells.split(",");
+            if (localStorageManager.getItem("visibleCells")) {
+                var visibleCellsNames = localStorageManager.getItem("visibleCells").split(",");
                 chart.leftPanelController().showHiddenRows(visibleCellsNames);
             } else {
                 chart.leftPanelController().showHiddenRows([]);
@@ -857,14 +855,14 @@ ASC.Projects.GantChartPage = (function () {
     var checkFullScreen = function () {
         fullScreenMode.addClass("active");
         leftPanelMode.removeClass("active");
-        localStorage.ganttFullScreen = true;
+        localStorageManager.setItem("ganttFullScreen", true);
         chart.viewController().fullscreen(true);
         fakeBackground.removeClass("gray");
     };
     var checkLeftPanel = function () {
         leftPanelMode.addClass("active");
         fullScreenMode.removeClass("active");
-        localStorage.ganttFullScreen = false;
+        localStorageManager.setItem("ganttFullScreen", false);
         chart.viewController().fullscreen(false);
         fakeBackground.addClass("gray");
     };
@@ -933,7 +931,7 @@ ASC.Projects.GantChartPage = (function () {
             currentUserProjects = [],
             otherProjects = [];
 
-        for (var i = 0; i < projectsCount; i++) {               
+        for (var i = 0; i < projectsCount; i++) {               // добавить проверки на доступ к задачам и вехам
             allProjectsHash[projects[i].id] = projects[i];
 
             if (showOnlyActiveProjects) {
@@ -1030,8 +1028,8 @@ ASC.Projects.GantChartPage = (function () {
         chart = new Gantt.TimeLine(layers[BASE_LAYER], layers[OVERLAY_LAYER]);
 
         // zoom
-        if (localStorage.ganttZoomScale)
-            zoomScale.val(localStorage.ganttZoomScale);
+        if (localStorageManager.getItem("ganttZoomScale"))
+            zoomScale.val(localStorageManager.getItem("ganttZoomScale"));
 
         zoomScale.tlcombobox();
         setZoomScale();
@@ -1041,10 +1039,10 @@ ASC.Projects.GantChartPage = (function () {
         renderGanttChart();
     };
     var firstLoadSettings = function () {
-        if (localStorage.hideActionHelpPlag != "true" && !readMode) {
+        if (!localStorageManager.getItem("hideActionHelpPlag") && !readMode) {
             helpActionsPanel.removeClass("display-none").addClass("display-block");
         }
-        
+        //checkLeftPanel(); // может быть уже можно удалить эту настройку
 
         setReadMode();
         chart.userDefaults().setFontFamily(jq("body").css("fontFamily"));
@@ -1055,7 +1053,7 @@ ASC.Projects.GantChartPage = (function () {
         renderChartEventHandlers();
         registerChartHandlers();
 
-        if (localStorage.openTaskOnlyFilter == "true") {
+        if (localStorageManager.getItem("openTaskOnlyFilter")) {
             openTaskOnly.prop("checked", true);
         } else {
             openTaskOnly.prop("checked", false);
@@ -1432,7 +1430,7 @@ ASC.Projects.GantChartPage = (function () {
             id = project.id,
             description = "", // need?
             respName = "",
-            createdDate = project.created ? new Date(project.created) : new Date(), 
+            createdDate = project.created ? new Date(project.created) : new Date(), // нужна ли эта дата вообще?
             ganttIndex = project.ganttIndex;
 
         var respUser = ASC.Projects.Common.getUserById(project.responsibleId);
@@ -1446,9 +1444,9 @@ ASC.Projects.GantChartPage = (function () {
             respName = project.responsible;
         }
 
-        
-        
-        
+        // NOTE: проект может редактировать админ портала, админ проекта, обычный пользователь пока только просматривать проекты
+        //       посетитель может только просматривать публичные проекты и приватные если он в них включен
+        // TODO: сделать возможность редактирования для пользователя (входит в команду проекта) тех задач и вех что им созданы
 
         var canEdit = false;
         if (ASC.Projects.Common.currentUserIsModuleAdmin() || project.responsible.id == Teamlab.profile.id) {
@@ -1618,7 +1616,7 @@ ASC.Projects.GantChartPage = (function () {
     };
 
     var readTeamLabTasks = function (project) {
-        if (0 !== project.status)   
+        if (0 !== project.status)   // только открытые или readonly проекты могут иметь задачи на отображение
             return;
 
         var task;      // loop iterator
@@ -1633,7 +1631,7 @@ ASC.Projects.GantChartPage = (function () {
         }
     };
     var readTeamLabMilestones = function (project) {
-        if (0 !== project.status)   
+        if (0 !== project.status)   // только открытые или readonly проекты могут иметь вехи на отображение
             return;
 
         var milestone;      // loop iterator
@@ -2512,27 +2510,27 @@ ASC.Projects.GantChartPage = (function () {
                 if (e.currentTarget) domElement = e.currentTarget;
                 var elementId = domElement.id;
 
-                var cells = localStorage.checkedCells.split(',');
+                var cells = localStorageManager.getItem("checkedCells").split(",");
                 cells.splice(cells.indexOf(elementId), 1);
                 if (domElement.checked)
                     cells.splice(0, 0, elementId);
                 else
                     cells.push(elementId);
 
-                localStorage.checkedCells = cells.join(",");
+                localStorageManager.setItem("checkedCells", cells.join(','));
 
                 var choosedFields = [], checkedInputs = ganttCellChecker.find("input:checked");
                 for (var i = 0; i < checkedInputs.length; i++) {
                     choosedFields.push(jq(checkedInputs[i]).attr("id"));
                 }
 
-                if (localStorage.visibleCells && 0 !== localStorage.visibleCells.length)
-                    choosedFields.push.apply(choosedFields, localStorage.visibleCells.split(','));
+                if (localStorageManager.getItem("visibleCells") && 0 !== localStorageManager.getItem("visibleCells").length)
+                    choosedFields.push.apply(choosedFields, localStorageManager.getItem("visibleCells").split(","));
 
                 chart.leftPanelController().addRowsAvailable(cells);
                 chart.leftPanelController().showHiddenRows(choosedFields);
 
-                localStorage.visibleCells = choosedFields.join(',') + ',' + localStorage.visibleCells;
+                localStorageManager.setItem("visibleCells", choosedFields.join(',') + ',' + localStorageManager.getItem("visibleCells"));
 
                 ganttCellChecker.hide();
             }
@@ -2545,10 +2543,10 @@ ASC.Projects.GantChartPage = (function () {
                 var availableCells = [];
                 var visibleCells = [];
 
-                if (localStorage.checkedCells && 0 !== localStorage.checkedCells.length)
-                    availableCells = localStorage.checkedCells.split(',');
-                if (localStorage.visibleCells && 0 !== localStorage.visibleCells.length)
-                    visibleCells = localStorage.visibleCells.split(',');
+                if (localStorageManager.getItem("checkedCells") && 0 !== localStorageManager.getItem("visibleCells").length)
+                    availableCells = localStorageManager.getItem("checkedCells").split(",");
+                if (localStorageManager.getItem("visibleCells") && 0 !== localStorageManager.getItem("visibleCells").length)
+                    visibleCells = localStorageManager.getItem("visibleCells").split(",");
 
                 var checkedInputs = ganttCellChecker.find("input:checked");
 
@@ -2586,11 +2584,11 @@ ASC.Projects.GantChartPage = (function () {
                 chart.leftPanelController().addRowsAvailable(availableCells);
                 chart.leftPanelController().showHiddenRows(visibleCells);
 
-                localStorage.checkedCells = availableCells.join(',');
-                localStorage.visibleCells = visibleCells.join(',');
+                localStorageManager.setItem("checkedCells", availableCells.join(','));
+                localStorageManager.setItem("visibleCells", visibleCells.join(','));
 
-                //console.log('checkedCells: ' + localStorage.checkedCells);
-                //console.log('visibleCells: ' + localStorage.visibleCells);
+                //console.log('checkedCells: ' + localStorageManager.getItem("checkedCells"));
+                //console.log('visibleCells: ' + localStorageManager.getItem("visibleCells"));
 
                 ganttCellChecker.hide();
             }
@@ -2646,12 +2644,12 @@ ASC.Projects.GantChartPage = (function () {
 
         chart.leftPanelController().onfieldsfilter = function (e, save, left, top, cells) {
 
-            localStorage.checkedCells = cells.join(",");
+            localStorageManager.setItem("checkedCells", cells.join(','));
 
             if (save) {
                 var visibleCells = [];
-                if (localStorage.visibleCells && 0 !== localStorage.visibleCells.length)
-                    visibleCells = localStorage.visibleCells.split(',');
+                if (localStorageManager.getItem("visibleCells") && 0 !== localStorageManager.getItem("visibleCells").length)
+                    visibleCells = localStorageManager.getItem("visibleCells").split(",");
 
                 if (visibleCells.length) {
                     for (var j = visibleCells.length - 1; j >= 0; --j) {
@@ -2660,11 +2658,11 @@ ASC.Projects.GantChartPage = (function () {
                         }
                     }
 
-                    localStorage.visibleCells = visibleCells.join(',');
+                    localStorageManager.setItem("visibleCells", visibleCells.join(','));
                 }
 
-                //console.log('checkedCells: ' + localStorage.checkedCells);
-                //console.log('visibleCells: ' + localStorage.visibleCells);
+                //console.log('checkedCells: ' + localStorageManager.getItem("checkedCells"));
+                //console.log('visibleCells: ' + localStorageManager.getItem("visibleCells"));
 
                 return;
             }
@@ -2700,7 +2698,7 @@ ASC.Projects.GantChartPage = (function () {
         };
         chart.leftPanelController().onhiddenfieldsfilter = function (e, save, left, top, cells, visibleCells) {
 
-            localStorage.visibleCells = visibleCells.join(",");
+            localStorageManager.setItem("visibleCells", visibleCells.join(','));
             if (save) return;
 
             if (ganttCellChecker.is(":visible") && hiddenModeFieldsPanel) {
@@ -2743,7 +2741,7 @@ ASC.Projects.GantChartPage = (function () {
         if (currentScale != value) {
             autoScaleFlag = true;
             zoomScale.val(value).change();
-            localStorage.ganttZoomScale = value;
+            localStorageManager.setItem("ganttZoomScale", value);
         }
     };
     var showHint = function (type, coords) {

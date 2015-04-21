@@ -700,8 +700,8 @@ namespace ActiveUp.Net.Mail
             //}
 
             StringBuilder sb = new StringBuilder();
-            sb.Append(string.Concat(((Header)this).ToHeaderString(removeBlindCopies).TrimEnd('\r', '\n'), Tokenizer.NewLine));
-            sb.Append(Tokenizer.NewLine);
+            sb.Append(string.Concat(((Header)this).ToHeaderString(removeBlindCopies).TrimEnd('\r', '\n'), "\r\n"));
+            sb.Append("\r\n");
             string messageAsPart = this.PartTreeRoot.ToMimeString();
             int bodyStart = Regex.Match(messageAsPart, @"(?<=\r?\n\r?\n).").Index;
             sb.Append(messageAsPart.Substring(bodyStart).TrimStart('\r', '\n'));
@@ -1543,11 +1543,11 @@ Disposition: manual-action/MDN-sent-manually; displayed", "domain", this.To[0].E
 
         public void AddAttachmentFromString(string filename, string body, Encoding encoding)
         {
-            var decoded_bytes = encoding.GetBytes(body);
+            var decodedBytes = encoding.GetBytes(body);
 
-            var text_attach = new MimePart(decoded_bytes, filename);
+            var textAttach = new MimePart(decodedBytes, filename, encoding.BodyName);
 
-            Attachments.Add(text_attach);
+            Attachments.Add(textAttach);
         }
 
 

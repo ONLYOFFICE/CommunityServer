@@ -1,6 +1,4 @@
-﻿<%@ Assembly Name="ASC.Projects.Engine" %>
-<%@ Assembly Name="ASC.Projects.Core" %>
-<%@ Assembly Name="ASC.Web.Projects" %>
+﻿<%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Assembly Name="ASC.Data.Storage" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 

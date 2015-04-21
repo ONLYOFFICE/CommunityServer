@@ -19,6 +19,14 @@
                         <input class="textEdit" style="width: 100%;" type="text" id="forum_fmCategoryName" value="" />
                     </div>
                 </div>
+                <div class="headerPanel-splitter" id="forum_fmCaregoryDescriptionBox">
+                    <div class="headerPanelSmall-splitter">
+                        <b><%=ASC.Web.Community.Forum.Resources.ForumResource.ThreadCategoryDescription%>:</b>
+                    </div>
+                    <div>
+                        <textarea style="width: 100%; height: 100px;" id="forum_fmCategoryDescription"></textarea>
+                    </div>
+                </div>
                 <div class="headerPanel-splitter requiredField">
                     <span class="requiredErrorText"></span>
                     <div class="headerPanelSmall-splitter headerPanelSmall">

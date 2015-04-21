@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Wiki" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MiniToolbar.ascx.cs"
     Inherits="ASC.Web.UserControls.Wiki.UC.MiniToolbar" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>

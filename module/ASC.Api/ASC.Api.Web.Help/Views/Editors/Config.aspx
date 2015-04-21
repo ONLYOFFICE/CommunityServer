@@ -79,7 +79,7 @@
        type: 'desktop',
        width: '100%',
        height: '100%',
-       documentType: 'spreadsheet'
+       documentType: 'text'
     });
     </pre>
 

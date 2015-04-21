@@ -1,8 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Assembly Name="ASC.Web.Core" %>
-<%@ Import Namespace="ASC.Web.CRM.Configuration" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
 <%--Cases List--%>
@@ -100,6 +98,7 @@
     <div id="caseActionMenu" class="studio-action-panel">
         <ul class="dropdown-content">
             <li><a class="showProfileLink dropdown-item"><%= CRMCasesResource.ShowCaseProfile%></a></li>
+            <li><a class="showProfileLinkNewTab dropdown-item"><%= CRMCasesResource.ShowCaseProfileNewTab%></a></li>
             <li><a class="setPermissionsLink dropdown-item"><%= CRMCommonResource.SetPermissions%></a></li>
             <li><a class="editCaseLink dropdown-item"><%= CRMCasesResource.EditCase %></a></li>
             <li><a class="deleteCaseLink dropdown-item"><%= CRMCasesResource.DeleteThisCase %></a></li>

@@ -49,8 +49,8 @@
 
             <li class="staff-profile-box" >
                 <span class="userLink">
-                    <span class="usr-prof" title="<%= ASC.Core.Users.UserInfoExtension.DisplayUserName(CurrentUser) %>">
-                        <%= ASC.Core.Users.UserInfoExtension.DisplayUserName(CurrentUser) %>
+                    <span class="usr-prof" title="<%= UserInfoExtension.DisplayUserName(CurrentUser) %>">
+                        <%= UserInfoExtension.DisplayUserName(CurrentUser) %>
                     </span>
                 </span>
             </li>
@@ -93,7 +93,7 @@
 
         <li class="clear"></li>
     </ul>
-    
+
     <asp:PlaceHolder runat="server" ID="_productListHolder">
         <% if (DisplayModuleList)
            { %>
@@ -101,10 +101,10 @@
                 <ul class="dropdown-content">
                     <asp:Repeater runat="server" ID="_productRepeater">
                         <ItemTemplate>
-                            <li class="<%# ((ASC.Web.Core.IWebItem)Container.DataItem).ProductClassName + (((ASC.Web.Core.IWebItem)Container.DataItem).IsDisabled() ? " display-none" : string.Empty) %>">
-                                <a href="<%# VirtualPathUtility.ToAbsolute(((ASC.Web.Core.IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item 
-                                    <%# ((ASC.Web.Core.IWebItem)Container.DataItem).ProductClassName == CurrentProductClassName ? "active" : "" %>">
-                                    <%# (((ASC.Web.Core.IWebItem)Container.DataItem).Name).HtmlEncode() %>
+                            <li class="<%# ((IWebItem)Container.DataItem).ProductClassName + (((IWebItem)Container.DataItem).IsDisabled() ? " display-none" : string.Empty) %>">
+                                <a href="<%# VirtualPathUtility.ToAbsolute(((IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item 
+                                    <%# ((IWebItem)Container.DataItem).ProductClassName == CurrentProductClassName ? "active" : "" %>">
+                                    <%# (((IWebItem)Container.DataItem).Name).HtmlEncode() %>
                                 </a>
                             </li>
                         </ItemTemplate>
@@ -115,9 +115,9 @@
                     <li class="dropdown-item-seporator"></li>
                     <asp:Repeater runat="server" ID="_addonRepeater">
                         <ItemTemplate>
-                            <li class="<%# ((ASC.Web.Core.IWebItem)Container.DataItem).ProductClassName + (((ASC.Web.Core.IWebItem)Container.DataItem).IsDisabled() ? " display-none" : string.Empty) %>">
-                                <a href="<%# VirtualPathUtility.ToAbsolute(((ASC.Web.Core.IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item">
-                                    <%# (((ASC.Web.Core.IWebItem)Container.DataItem).Name).HtmlEncode() %>
+                            <li class="<%# ((IWebItem)Container.DataItem).ProductClassName + (((IWebItem)Container.DataItem).IsDisabled() ? " display-none" : string.Empty) %>">
+                                <a href="<%# VirtualPathUtility.ToAbsolute(((IWebItem)Container.DataItem).StartURL) %>" class="dropdown-item menu-products-item">
+                                    <%# (((IWebItem)Container.DataItem).Name).HtmlEncode() %>
                                 </a>
                             </li>
                         </ItemTemplate>
@@ -174,27 +174,16 @@
                             <%= Resource.Profile %>
                         </a>
                     </li>
-            
-                    <%--Logout--%>
-                <% } %>
-
-                <% if (DisplayEditorsSwitch)
-                   { %>
-                <li>
-                    <span id="onlineEditorsSwitchButton" class="dropdown-item">
-                        <%= Resource.OnlineEditorsSwitch %>
-                    </span>
-                </li>
                 <% } %>
 
                 <li>
-                    <span class="dropdown-item" onclick=" StudioBlockUIManager.blockUI('#aboutCompanyPopup', 680, 600);jq('.studio-action-panel').hide() "><%= Resource.AboutCompanyTitle %> </span>
+                    <span class="dropdown-item" onclick=" StudioBlockUIManager.blockUI('#aboutCompanyPopup', 680, 600);jq('.studio-action-panel').hide(); "><%= Resource.AboutCompanyTitle %> </span>
                     <div id="aboutCompanyPopup" class="confirmation-popup" style="display: none;">
                         <sc:Container ID="aboutCompanyPopupContainer" runat="server">
                             <Header>
-                                <span><%= Resource.ConfirmationTitle %></span>
+                                <span><%= Resource.AboutCompanyTitle %></span>
                             </Header>
-                            <Body>                                
+                            <Body>
                                 <img class="confirmation-popup_logo" src="<%= ConfirmationLogo %>" />                                                               
                                 <div class="confirmation-popup_version gray-text">
                                     <%= string.IsNullOrEmpty(VersionNumber) ? "" : Resource.AboutCompanyVersion + " " + VersionNumber %>
@@ -244,7 +233,7 @@
                                     </ul>
                                 <% } %>
 
-                                <% if (CoreContext.Configuration.Standalone)
+                                <% if (CoreContext.Configuration.Standalone && false)
                                    { %>
                                     <br />
                                     <div class="confirmation-popup_licensor"><%= Resource.AboutCompanyLicensee %></div>
@@ -319,9 +308,9 @@
                 <%
                    { %>
                     <li>
-                        <a class="dropdown-item" href="javascript:void(0);" onclick=" StudioBlockUIManager.blockUI('#debugInfoPopUp', 1000, 300, -300);jq('.studio-action-panel').hide() ">
+                        <span class="dropdown-item" onclick=" StudioBlockUIManager.blockUI('#debugInfoPopUp', 1000, 300, -300);jq('.studio-action-panel').hide(); ">
                             Debug Info
-                        </a>
+                        </span>
                         <div id="debugInfoPopUp" style="display: none">
                             <sc:Container ID="debugInfoPopUpContainer" runat="server">
                                 <Header>
@@ -339,6 +328,8 @@
                         </div>
                     </li>
                 <% } %>
+
+                <%--Logout--%>
                 <% if (!(CoreContext.Configuration.Personal && CoreContext.Configuration.Standalone)) { %>
                 <li><a class="dropdown-item" href="<%= CommonLinkUtility.Logout %>">
                         <%= UserControlsCommonResource.LogoutButton %></a></li>
@@ -375,17 +366,10 @@
             <span class="mark-all-btn"><%= Resource.MarkAllAsRead %></span>
         </div>
     </div>
-    
+
     <div id="studio_dropVoipPopupPanel" class="studio-action-panel">
         <asp:PlaceHolder runat="server" ID="_voipPhonePlaceholder"></asp:PlaceHolder>
     </div>
 
     <asp:PlaceHolder runat="server" ID="_customNavControls"></asp:PlaceHolder>
 </div>
-
-<% if (DisplayEditorsSwitch)
-   { %>
-<div id="editorsSwitchPanel" style="display: none" data-requested="<%= OnlineEditorsSettings.RequestedScheme %>">
-    <asp:PlaceHolder runat="server" ID="EditorSwitchHolder"></asp:PlaceHolder>
-</div>
-<% } %>

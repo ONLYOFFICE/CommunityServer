@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 /*	
  
@@ -121,10 +119,10 @@ for(h=0;h<b.ea.length;++h)d.push(b.ea[h].name);d[g.index]=e;d[c]=g.name;g.index=
 a.appendChild(d);var h=document.createElement("div");if(h){h.id="gantt-filter-fields";h.className="filter-fields";h.style.top="26px";a.appendChild(h);h.onclick=function(a){b.Pb();if(!b.mi){var c=b.Fa.getBoundingClientRect();if(b.ub.onfieldsfilter)b.ub.onfieldsfilter(a,!1,c.left+c.width,c.top+c.height,b.qg())}return!0};var u=document.createElement("div");u&&(u.className="filter-fields",u.style.top="26px",c.appendChild(u));this.fl=d.offsetLeft+d.offsetWidth+this.h.d.canvas.offsetLeft;this.gl=d.offsetTop+
 d.offsetHeight+this.h.d.canvas.offsetTop;this.Pf=h.offsetLeft+h.offsetWidth+this.h.d.canvas.offsetLeft;this.Qf=h.offsetTop+h.offsetHeight+this.h.d.canvas.offsetTop}var q=document.createElement("div");q&&(q.id="gantt-filter-hidden-fields",q.className="filter-hidden-fields",q.style.top="26px",q.style.display="none",a.appendChild(q),q.onclick=function(a){b.Pb();if(b.ub.onhiddenfieldsfilter)b.ub.onhiddenfieldsfilter(a,!1,b.Bg,b.Cg,b.rg(),b.Ve());return!0},this.$l=d.offsetLeft+2*d.offsetWidth+this.h.d.canvas.offsetLeft,
 this.am=d.offsetTop+d.offsetHeight+this.h.d.canvas.offsetTop,this.Bg=h.offsetLeft+h.offsetWidth+this.h.d.canvas.offsetLeft,this.Cg=h.offsetTop+h.offsetHeight+this.h.d.canvas.offsetTop)}this.We=c;this.Ij=d;this.Fa=h;this.wf=u;this.Hb=q}},Jj:function(){for(var a=this,b=null,c=0;c<this.kh;++c)if(b=document.createElement("div"))b.style.top=(30*c|0)+"px",b.style.height="29px",b.className="line-element",this.Bj(c,b),this.yj(c,b),this.Dj(c,b),this.wj(c,b),this.Aj(c,b),this.Ej(c,b),this.Cj(c,b),this.xj(c,
-b),this.zj(c,b),this.Jc.appendChild(b),this.F.elements.push(b),b.onmouseover=function(){var b=c;return function(c){return a.ca(c,a,b)}}(c),b.onmouseout=function(){return function(b){if(a.g.enable)return!0;b=S(b);"line-element"!==b.className&&(b=b.parentNode);b.style.background="#F3F3F3";a.Ia=void 0;return!0}}(c),b.onclick=function(){return a.g.enable?(a.Pb(),!0):!1},b.onmouseup=function(){var d=c,e=b;return function(b){2===b.button&&(N(b),a.h.g.enable||(a.Pb(),a.select={b:a.F.ra[d].b,c:a.F.ra[d].c,
-a:a.F.ra[d].a,oc:d},a.ub.Bl(b,a.select,e)))}}(c)},Lj:function(a){var b=document.createElement("div");if(b){b.className="gantt-splitter-fake";a.appendChild(b);var c=document.createElement("div");if(c){c.className="gantt-splitter";a.appendChild(c);var d=this.h,e=this,f=!1,g=!1,k=!1,m=0,h=0;c.onmousemove=function(){e.zf()};c.onmousedown=function(a){0!==e.ea.length&&(h=a.clientX,f=!0,m=h-c.getBoundingClientRect().left,N(a),0!==e.ea.length&&(document.onmousemove=function(a){if(h!=a.clientX){h=a.clientX;
-if(!g){e.zf();a=e.rows[0].minWidth;for(var b=0;b<e.ea.length;++b)e.Xe(e.ea[b].name,!0),a+=e.ea[b].width+e.yc;e.wf.style.left=a-4+"px";e.Hb.style.display="none";e.Bc(void 0);g=!0}k=!0;a=Math.min(Math.max(h-m-8,e.rows[0].minWidth),e.maxWidth);c.style.left=a-250-50+"px";c.style.width="584px";e.wa.style.width=a+"px";e.We.style.width=a+"px";e.width=a;e.Fa.style.display="none";e.zf();d.$=!0}},document.onmouseup=function(a){if(f){if(k){for(var b=e.rows[0].minWidth,h=Math.min(Math.max(a.clientX,b),e.maxWidth),
-m=b,u=0,l=0,p=!0;u<e.ea.length;++u){b=m;m+=e.ea[u].width+e.yc;if(h>=b&&h<m){h=b;p=!1;break}u+1===e.ea.length&&h>m-e.yc&&(h=e.maxWidth)}for(;l<e.ea.length;++l)e.Xe(e.ea[l].name,l<u);p||(h+=e.Li,e.Hb.style.display="",e.Hb.style.left=h-e.Fa.offsetWidth-59+"px");c.style.left=h-250+"px";c.style.width="584px";e.wa.style.width=h+"px";e.We.style.width=h+"px";e.width=h;e.Fa.style.left=e.width-e.Fa.offsetWidth-34+"px";e.wf.style.left=e.Fa.style.left;e.Pf=e.Fa.offsetLeft+e.Fa.offsetWidth+e.h.d.canvas.offsetLeft;
+b),this.zj(c,b),this.Jc.appendChild(b),this.F.elements.push(b),b.onmouseover=function(){var b=c;return function(c){return a.ca(c,a,b)}}(c),b.onmouseout=function(){return function(b){if(a.g.enable)return!0;b=S(b);"line-element"!==b.className&&(b=b.parentNode);b.style.background="#F3F3F3";a.Ia=void 0;return!0}}(c),b.onclick=function(){return a.g.enable?(a.Pb(),!0):!1},b.onmouseup=function(){var d=c,e=b;return function(b){2===b.button&&(N(b),a.h.g.enable&&a.h.g.cancel(),a.Pb(),a.select={b:a.F.ra[d].b,
+c:a.F.ra[d].c,a:a.F.ra[d].a,oc:d},a.ub.Bl(b,a.select,e))}}(c)},Lj:function(a){var b=document.createElement("div");if(b){b.className="gantt-splitter-fake";a.appendChild(b);var c=document.createElement("div");if(c){c.className="gantt-splitter";a.appendChild(c);var d=this.h,e=this,f=!1,g=!1,k=!1,m=0,h=0;c.onmousemove=function(){e.zf()};c.onmousedown=function(a){0!==e.ea.length&&(h=a.clientX,f=!0,m=h-c.getBoundingClientRect().left,N(a),0!==e.ea.length&&(document.onmousemove=function(a){if(h!=a.clientX){h=
+a.clientX;if(!g){e.zf();a=e.rows[0].minWidth;for(var b=0;b<e.ea.length;++b)e.Xe(e.ea[b].name,!0),a+=e.ea[b].width+e.yc;e.wf.style.left=a-4+"px";e.Hb.style.display="none";e.Bc(void 0);g=!0}k=!0;a=Math.min(Math.max(h-m-8,e.rows[0].minWidth),e.maxWidth);c.style.left=a-250-50+"px";c.style.width="584px";e.wa.style.width=a+"px";e.We.style.width=a+"px";e.width=a;e.Fa.style.display="none";e.zf();d.$=!0}},document.onmouseup=function(a){if(f){if(k){for(var b=e.rows[0].minWidth,h=Math.min(Math.max(a.clientX,
+b),e.maxWidth),m=b,u=0,l=0,p=!0;u<e.ea.length;++u){b=m;m+=e.ea[u].width+e.yc;if(h>=b&&h<m){h=b;p=!1;break}u+1===e.ea.length&&h>m-e.yc&&(h=e.maxWidth)}for(;l<e.ea.length;++l)e.Xe(e.ea[l].name,l<u);p||(h+=e.Li,e.Hb.style.display="",e.Hb.style.left=h-e.Fa.offsetWidth-59+"px");c.style.left=h-250+"px";c.style.width="584px";e.wa.style.width=h+"px";e.We.style.width=h+"px";e.width=h;e.Fa.style.left=e.width-e.Fa.offsetWidth-34+"px";e.wf.style.left=e.Fa.style.left;e.Pf=e.Fa.offsetLeft+e.Fa.offsetWidth+e.h.d.canvas.offsetLeft;
 e.Qf=e.Fa.offsetTop+e.Fa.offsetHeight+e.h.d.canvas.offsetTop;e.Bg=e.Hb.offsetLeft+e.Hb.offsetWidth+e.h.d.canvas.offsetLeft;e.Cg=e.Hb.offsetTop+e.Hb.offsetHeight+e.h.d.canvas.offsetTop;d.$=!0;c.style.left.replace("px","");c.style.width.replace("px","");c.style.left=h-16+"px";c.style.width="16px";e.Bc(void 0);if(e.ub.onhiddenfieldsfilter)e.ub.onhiddenfieldsfilter(a,!0,0,0,e.rg(),e.Ve());e.Fa.style.display="";f=g=!1}k=!1;document.onmousemove=function(a){d.onmousemove(a)};document.onmouseup=function(a){d.onmouseup(a)}}}))};
 c.onmouseup=function(a){if(f){if(k){for(var b=e.rows[0].minWidth,h=Math.min(Math.max(a.clientX-0,b),e.maxWidth),m=b,r=0,n=0,l=!0;r<e.ea.length;++r){b=m;m+=e.ea[r].width+e.yc;if(h>=b&&h<m){h=b;l=!1;break}r+1===e.ea.length&&h>m-e.yc&&(h=e.maxWidth)}for(;n<e.ea.length;++n)e.Xe(e.ea[n].name,n<r);l||(h+=e.Li,e.Hb.style.display="",e.Hb.style.left=h-e.Fa.offsetWidth-59+"px");c.style.left=h-250+"px";c.style.width="584px";e.wa.style.width=h+"px";e.We.style.width=h+"px";e.width=h;e.Fa.style.left=e.width-e.Fa.offsetWidth-
 34+"px";e.wf.style.left=e.width-e.Fa.offsetWidth-34+"px";e.Pf=e.Fa.offsetLeft+e.Fa.offsetWidth+e.h.d.canvas.offsetLeft;e.Qf=e.Fa.offsetTop+e.Fa.offsetHeight+e.h.d.canvas.offsetTop;e.Bg=e.Hb.offsetLeft+e.Hb.offsetWidth+e.h.d.canvas.offsetLeft;e.Cg=e.Hb.offsetTop+e.Hb.offsetHeight+e.h.d.canvas.offsetTop;d.$=!0;c.style.left.replace("px","");c.style.width.replace("px","");c.style.left=h-16+"px";c.style.width="16px";e.Bc(void 0);if(e.ub.onhiddenfieldsfilter)e.ub.onhiddenfieldsfilter(a,!0,0,0,e.rg(),e.Ve());

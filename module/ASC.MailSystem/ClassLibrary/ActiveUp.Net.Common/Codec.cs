@@ -142,7 +142,11 @@ namespace ActiveUp.Net.Mail
         /// <returns></returns>
         public static System.Text.Encoding GetEncoding(string encodingName)
         {
-            System.Text.Encoding encoding = null;
+            var encoding = System.Text.Encoding.GetEncoding("iso-8859-1");
+
+            if (string.IsNullOrEmpty(encodingName))
+                return encoding;
+
             try
             {
                 encoding = System.Text.Encoding.GetEncoding(encodingName);
@@ -152,22 +156,20 @@ namespace ActiveUp.Net.Mail
                 encoding = EncodingTools.GetEncodingByCodepageName(encodingName);
 
                 if (encoding == null)
-                    encoding = System.Text.Encoding.GetEncoding("iso-8859-1");
-            }
-            if (encoding == null)
-            {
-                try
                 {
-                    if (encodingName.ToUpper() == "UTF8")
-                        encodingName = "UTF-8";
-                    else if (encodingName.StartsWith("ISO") && char.IsDigit(encodingName, 3))
-                        encodingName = encodingName.Insert(3, "-");
-                    encodingName = encodingName.Replace("_", "-").ToUpper();
-                    encoding = System.Text.Encoding.GetEncoding(encodingName);
-                }
-                catch
-                {
-                    encoding = System.Text.Encoding.GetEncoding("iso-8859-1");
+                    try
+                    {
+                        if (encodingName.ToUpper() == "UTF8")
+                            encodingName = "UTF-8";
+                        else if (encodingName.StartsWith("ISO") && char.IsDigit(encodingName, 3))
+                            encodingName = encodingName.Insert(3, "-");
+                        encodingName = encodingName.Replace("_", "-").ToUpper();
+                        encoding = System.Text.Encoding.GetEncoding(encodingName);
+                    }
+                    catch
+                    {
+                        encoding = System.Text.Encoding.GetEncoding("iso-8859-1");
+                    }
                 }
             }
 
@@ -319,7 +321,7 @@ namespace ActiveUp.Net.Mail
                 i++;
             }
 
-            return (decoded_bytes.Count > 0 && !decoded_result.Contains("?=") && !decoded_result.Contains("=?")) ? decoded_result.Replace("=", "").Replace("_", " ") : decoded_result;
+            return decoded_result;
         }
         /// <summary>
         /// Combine same encoded parts of string in one
@@ -398,9 +400,30 @@ namespace ActiveUp.Net.Mail
         private static byte[] String2DecodedArray(string input, string encoding)
         {
             input = input.Replace(" ", "");
-            var tmpArray = encoding == "b" ?
-                Convert.FromBase64String(input) :
-                ConvertFromQuotedPrintableString(input);
+
+            if(string.IsNullOrEmpty(input))
+                return new byte[0];
+
+            byte[] tmpArray;
+
+            if (encoding == "b")
+            {
+                tmpArray = Convert.FromBase64String(input);
+            }
+            else
+            {
+                var preparedInput = input.Replace("_", "=20"); // Replace underscore
+
+                preparedInput = preparedInput[preparedInput.Length - 1] == '=' // Remove soft line break
+                                     ? preparedInput.Remove(preparedInput.Length - 1, 1)
+                                     : preparedInput;
+
+                if (string.IsNullOrEmpty(input))
+                    return new byte[0];
+
+                tmpArray = ConvertFromQuotedPrintableString(preparedInput);
+            }
+                
             return tmpArray;
         }
         /// <summary>

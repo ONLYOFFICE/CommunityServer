@@ -1,7 +1,5 @@
-﻿<%@ Assembly Name="ASC.Web.Community.News" %>
-<%@ Master Language="C#" MasterPageFile="~/Products/Community/Community.master" AutoEventWireup="true" CodeBehind="news.master.cs" Inherits="ASC.Web.Community.News.NewsMaster" %>
-
-<%@ Import Namespace="ASC.Data.Storage" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
+<%@ Master Language="C#" MasterPageFile="~/Products/Community/Master/Community.master" AutoEventWireup="true" CodeBehind="news.master.cs" Inherits="ASC.Web.Community.News.NewsMaster" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
    

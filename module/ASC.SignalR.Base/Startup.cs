@@ -1,39 +1,41 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using ASC.SignalR.Base;
 using ASC.SignalR.Base.Hubs.Chat;
+using log4net;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
-using Microsoft.Owin.Diagnostics;
+using Microsoft.Owin.Hosting;
 using Owin;
 using System;
+using System.Configuration;
+using System.ServiceModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -41,18 +43,66 @@ namespace ASC.SignalR.Base
 {
     public class Startup
     {
+        private static CancellationTokenSource cancellationTokenSource;
+        private static ServiceHost host;
+        private static IDisposable signalrHost;
+        private static readonly ILog log = LogManager.GetLogger(typeof(Startup));
+        private static readonly string url = ConfigurationManager.AppSettings["web.hub"] ?? "http://localhost:9899/";
+
+        public static void RunSignalrService(object task)
+        {
+            log.DebugFormat("RunSignalrService: start");
+            host = new ServiceHost(new SignalrService());
+            host.Open();
+            log.DebugFormat("RunSignalrService: host.Open");
+            signalrHost = WebApp.Start<Startup>(url);
+            log.DebugFormat("SignalRServer running on {0}", url);
+        }
+
+        public static void StartService()
+        {
+            cancellationTokenSource = new CancellationTokenSource();
+            Task.Factory.StartNew(RunSignalrService, TaskCreationOptions.LongRunning, cancellationTokenSource.Token);
+        }
+
+        public static void StopService()
+        {
+            try
+            {
+                log.DebugFormat("StopService: cancellationTokenSource.Cancel");
+                cancellationTokenSource.Cancel();
+            }
+            catch (Exception ex)
+            {
+                log.ErrorFormat("Exception on cancellationTokenSource.Cancel ex.Message = {0}, ex.StackTrace = {1), ex.InnerException {2}", 
+                    ex.Message, ex.StackTrace, ex.InnerException != null ? ex.InnerException.Message : string.Empty);
+            }
+
+            try
+            {
+                if (host != null)
+                {
+                    log.DebugFormat("StopService: host.Close");
+                    host.Close();
+                    host = null;
+                }
+                if (signalrHost != null)
+                {
+                    signalrHost.Dispose();
+                    log.DebugFormat("StopService: signalrHost.Dispose");
+                    signalrHost = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.ErrorFormat("Exception on stop Service ex.Message = {0}, ex.StackTrace = {1), ex.InnerException {2}",
+                    ex.Message, ex.StackTrace, ex.InnerException != null ? ex.InnerException.Message : string.Empty);
+            }
+        }
+
         public void Configuration(IAppBuilder app)
         {
-            // GlobalHost.HubPipeline.AddModule(new ErrorHandlingPipelineModule());
-            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new CustomUserIdProvider());
-
-            // for connections tracking
-            // var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
-            // var monitor = new PresenceMonitor(heartBeat);
-            // monitor.StartMonitoring();
-           
-            app.Properties["host.AppMode"] = "development";
-            app.UseErrorPage(ErrorPageOptions.ShowAll);
+            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new CustomUserIdProvider());          
 
             app.Map("/signalr", map =>
             {

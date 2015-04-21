@@ -1,6 +1,6 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Bookmarking" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserBookmarks.aspx.cs" Inherits="ASC.Web.Community.Bookmarking.UserBookmarks" MasterPageFile="~/Products/Community/Community.master" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UserBookmarks.aspx.cs" Inherits="ASC.Web.Community.Bookmarking.UserBookmarks" MasterPageFile="~/Products/Community/Master/Community.master" %>
 
 <asp:Content ID="BookmarkingPageContent" ContentPlaceHolderID="CommunityPageContent" runat="server">
     <asp:PlaceHolder ID="BookmarkingPageContent" runat="server"></asp:PlaceHolder>

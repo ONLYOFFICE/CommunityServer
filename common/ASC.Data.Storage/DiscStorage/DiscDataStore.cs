@@ -1,165 +1,61 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Web;
+
+using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Data.Storage.Configuration;
-using ASC.Core;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web.Hosting;
+using System.Web.Routing;
 
 namespace ASC.Data.Storage.DiscStorage
 {
-    internal class MappedPath : ICloneable
-    {
-        public MappedPath(HttpContext context, string tenant, bool appendTenant, string physicalPath, string virtualPath, string basedir, long maxquota, bool overwrite)
-        {
-            Overwrite = overwrite;
-
-            virtualPath = virtualPath.TrimEnd('/');
-            physicalPath = physicalPath.TrimEnd(System.IO.Path.DirectorySeparatorChar);
-
-            if (physicalPath.IndexOf('{') == -1 && appendTenant)
-                Path = PathUtils.Normalize(System.IO.Path.Combine(physicalPath, tenant), true);
-            else
-                Path = PathUtils.Normalize(string.Format(physicalPath, tenant), true);
-
-            string vpath;
-
-            if (virtualPath.IndexOf('{') == -1 && appendTenant)
-                vpath = string.Format("{0}/{1}/", virtualPath, tenant).TrimEnd('/');
-            else
-                vpath = (string.Format("{0}/", string.Format(virtualPath, tenant))).TrimEnd('/');
-
-            if (vpath.StartsWith("~", StringComparison.OrdinalIgnoreCase) && !Uri.IsWellFormedUriString(vpath, UriKind.Absolute))
-            {
-                if (context != null && vpath.IndexOfAny(new[] { '?', '=', '&' }) == -1)
-                {
-                    vpath = VirtualPathUtility.ToAbsolute(vpath);
-                }
-                else
-                {
-                    //Combine from current domain
-                    vpath = vpath.Substring(1); //Remove ~
-                }
-            }
-
-            VirtualPath = new Uri(vpath + "/", UriKind.RelativeOrAbsolute);
-
-            //Fix abs path
-            if (Path.StartsWith("~"))
-            {
-                Path = Path.Substring(1); //Remove ~
-            }
-            if (!System.IO.Path.IsPathRooted(Path))
-            {
-                Path = System.IO.Path.GetFullPath(System.IO.Path.Combine(basedir, Path.TrimStart(System.IO.Path.DirectorySeparatorChar)));
-            }
-            MaxQuotaSize = maxquota;
-        }
-
-        public bool Overwrite { get; private set; }
-
-        public long MaxQuotaSize { get; set; }
-        public string Path { get; set; }
-        public Uri VirtualPath { get; set; }
-
-        #region ICloneable Members
-
-        public object Clone()
-        {
-            return MemberwiseClone();
-        }
-
-        #endregion
-
-        public MappedPath AppendDomain(string domain)
-        {
-            //Domain prep. Remove dots
-            domain = domain.Replace('.', '_');
-
-            var path = (MappedPath)Clone();
-            if (VirtualPath.IsAbsoluteUri)
-            {
-                path.VirtualPath = new Uri(VirtualPath, domain);
-            }
-            else
-            {
-                path.VirtualPath = new Uri(VirtualPath + domain, UriKind.Relative);
-            }
-            path.Path = System.IO.Path.Combine(Path, PathUtils.Normalize(domain, true));
-            return path;
-        }
-    }
-
     public class DiscDataStore : BaseStorage
     {
         private const int BufferSize = 4096;
+
+        private readonly string _modulename;
         private readonly DataList _dataList;
         private readonly Dictionary<string, MappedPath> _mappedPaths = new Dictionary<string, MappedPath>();
-        private readonly string _modulename;
 
 
-        public DiscDataStore(string tenant, ModuleConfigurationElement moduleConfig, HttpContext context)
+        public DiscDataStore(string tenant, HandlerConfigurationElement handlerConfig, ModuleConfigurationElement moduleConfig)
         {
             //Fill map path
             _modulename = moduleConfig.Name;
             _dataList = new DataList(moduleConfig);
             foreach (DomainConfigurationElement domain in moduleConfig.Domains)
             {
-                _mappedPaths.Add(
-                    domain.Name,
-                    new MappedPath(context, tenant, moduleConfig.AppendTenant, domain.Path, domain.VirtualPath, SelectDirectory(moduleConfig), domain.Quota, domain.Overwrite));
+                _mappedPaths.Add(domain.Name, new MappedPath(tenant, moduleConfig.AppendTenant, domain.Path, domain.VirtualPath, handlerConfig.GetProperties()));
             }
             //Add default
-            _mappedPaths.Add(
-                string.Empty,
-                new MappedPath(context, tenant, moduleConfig.AppendTenant, PathUtils.Normalize(moduleConfig.Path), moduleConfig.VirtualPath, SelectDirectory(moduleConfig), moduleConfig.Quota, moduleConfig.Overwrite));
-        }
-
-        private static string SelectDirectory(ModuleConfigurationElement moduleConfig)
-        {
-            if (string.IsNullOrEmpty(moduleConfig.BaseDir))
-            {
-                if (HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Server.MapPath(VirtualPathUtility.ToAbsolute("~/"))))
-                {
-                    return HttpContext.Current.Server.MapPath(VirtualPathUtility.ToAbsolute("~/"));
-                }
-                if (AppDomain.CurrentDomain.GetData(Constants.CustomDataDirectory) != null)
-                {
-                    return (string)AppDomain.CurrentDomain.GetData(Constants.CustomDataDirectory);
-                }
-                return AppDomain.CurrentDomain.BaseDirectory;
-            }
-            return moduleConfig.BaseDir;
+            _mappedPaths.Add(string.Empty, new MappedPath(tenant, moduleConfig.AppendTenant, PathUtils.Normalize(moduleConfig.Path), moduleConfig.VirtualPath, handlerConfig.GetProperties()));
         }
 
         public override Uri GetPreSignedUri(string domain, string path, TimeSpan expire, IEnumerable<string> headers)
@@ -185,7 +81,7 @@ namespace ASC.Data.Storage.DiscStorage
         public override Stream GetReadStream(string domain, string path)
         {
             if (path == null) throw new ArgumentNullException("path");
-            string target = GetTarget(path, domain);
+            var target = GetTarget(domain, path);
 
             if (File.Exists(target))
             {
@@ -198,7 +94,7 @@ namespace ASC.Data.Storage.DiscStorage
         public override Stream GetReadStream(string domain, string path, int offset)
         {
             if (path == null) throw new ArgumentNullException("path");
-            string target = GetTarget(path, domain);
+            var target = GetTarget(domain, path);
 
             if (File.Exists(target))
             {
@@ -237,7 +133,7 @@ namespace ASC.Data.Storage.DiscStorage
             }
 
             //Lookup domain
-            var target = GetTarget(path, domain, true);
+            var target = GetTarget(domain, path);
             CreateDirectory(target);
             //Copy stream
             using (var fs = File.Open(target, FileMode.Create))
@@ -254,7 +150,7 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override Uri Save(string domain, string path, Stream stream)
         {
-            bool postWriteCheck = false;
+            var postWriteCheck = false;
             if (QuotaController != null)
             {
                 try
@@ -283,7 +179,7 @@ namespace ASC.Data.Storage.DiscStorage
                 stream.Seek(0, SeekOrigin.Begin);
             }
             //Lookup domain
-            string target = GetTarget(path, domain, true);
+            var target = GetTarget(domain, path);
             CreateDirectory(target);
             //Copy stream
 
@@ -313,14 +209,14 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override string InitiateChunkedUpload(string domain, string path)
         {
-            var target = GetTarget(domain, path, true);
+            var target = GetTarget(domain, path);
             CreateDirectory(target);
             return target;
         }
 
         public override string UploadChunk(string domain, string path, string uploadId, Stream stream, int chunkNumber, long chunkLength)
         {
-            var target = GetTarget(path, domain);
+            var target = GetTarget(domain, path);
             var mode = chunkNumber == 0 ? FileMode.Create : FileMode.Append;
             using (var fs = new FileStream(target, mode))
             {
@@ -346,7 +242,7 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override void AbortChunkedUpload(string domain, string path, string uploadId)
         {
-            var target = GetTarget(path, domain);
+            var target = GetTarget(domain, path);
             if (File.Exists(target))
             {
                 File.Delete(target);
@@ -363,7 +259,7 @@ namespace ASC.Data.Storage.DiscStorage
         public override void Delete(string domain, string path)
         {
             if (path == null) throw new ArgumentNullException("path");
-            string target = GetTarget(path, domain);
+            var target = GetTarget(domain, path);
 
             if (File.Exists(target))
             {
@@ -384,11 +280,11 @@ namespace ASC.Data.Storage.DiscStorage
             if (folderPath == null) throw new ArgumentNullException("folderPath");
 
             //Return dirs
-            var targetDir = GetTarget(folderPath, domain);
+            var targetDir = GetTarget(domain, folderPath);
             if (Directory.Exists(targetDir))
             {
                 var entries = Directory.GetFiles(targetDir, pattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-                foreach (string entry in entries)
+                foreach (var entry in entries)
                 {
                     if (QuotaController != null)
                     {
@@ -405,8 +301,8 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override void MoveDirectory(string srcdomain, string srcdir, string newdomain, string newdir)
         {
-            var target = GetTarget(srcdir, srcdomain);
-            var newtarget = GetTarget(newdir, newdomain, true);
+            var target = GetTarget(srcdomain, srcdir);
+            var newtarget = GetTarget(newdomain, newdir);
             var newtargetSub = newtarget.Remove(newtarget.LastIndexOf(Path.DirectorySeparatorChar));
 
             if (!Directory.Exists(newtargetSub))
@@ -420,8 +316,8 @@ namespace ASC.Data.Storage.DiscStorage
         {
             if (srcpath == null) throw new ArgumentNullException("srcpath");
             if (newpath == null) throw new ArgumentNullException("srcpath");
-            string target = GetTarget(srcpath, srcdomain);
-            string newtarget = GetTarget(newpath, newdomain);
+            var target = GetTarget(srcdomain, srcpath);
+            var newtarget = GetTarget(newdomain, newpath);
 
             if (File.Exists(target))
             {
@@ -431,7 +327,7 @@ namespace ASC.Data.Storage.DiscStorage
                 }
                 if (QuotaController != null)
                 {
-                    long flength = new FileInfo(target).Length;
+                    var flength = new FileInfo(target).Length;
                     QuotaController.QuotaUsedDelete(_modulename, srcdomain, _dataList.GetData(srcdomain), flength);
                     QuotaController.QuotaUsedAdd(_modulename, newdomain, _dataList.GetData(newdomain), flength);
                 }
@@ -454,7 +350,7 @@ namespace ASC.Data.Storage.DiscStorage
             if (path == null) throw new ArgumentNullException("path");
 
             //Return dirs
-            var targetDir = GetTarget(path, domain);
+            var targetDir = GetTarget(domain, path);
             if (!string.IsNullOrEmpty(targetDir) && !targetDir.EndsWith(Path.DirectorySeparatorChar.ToString()))
             {
                 targetDir += Path.DirectorySeparatorChar;
@@ -467,7 +363,7 @@ namespace ASC.Data.Storage.DiscStorage
             if (path == null) throw new ArgumentNullException("path");
 
             //Return dirs
-            var targetDir = GetTarget(path, domain);
+            var targetDir = GetTarget(domain, path);
 
             if (string.IsNullOrEmpty(targetDir)) throw new Exception("targetDir is null");
 
@@ -476,12 +372,10 @@ namespace ASC.Data.Storage.DiscStorage
                 targetDir += Path.DirectorySeparatorChar;
             }
 
-            long size = 0;
-
             if (!Directory.Exists(targetDir)) return;
 
             var entries = Directory.GetFiles(targetDir, "*.*", SearchOption.AllDirectories);
-            size = entries.Select(entry => new FileInfo(entry)).Select(info => info.Length).Sum();
+            var size = entries.Select(entry => new FileInfo(entry)).Select(info => info.Length).Sum();
 
             var subDirs = Directory.GetDirectories(targetDir, "*", SearchOption.AllDirectories).ToList();
             subDirs.Reverse();
@@ -497,7 +391,7 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override long GetFileSize(string domain, string path)
         {
-            string target = GetTarget(path, domain);
+            var target = GetTarget(domain, path);
 
             if (File.Exists(target))
             {
@@ -524,14 +418,14 @@ namespace ASC.Data.Storage.DiscStorage
             if (folderPath == null) throw new ArgumentNullException("folderPath");
 
             //Return dirs
-            string targetDir = GetTarget(folderPath, domain);
+            var targetDir = GetTarget(domain, folderPath);
             if (!Directory.Exists(targetDir))
             {
                 return;
             }
 
             var entries = Directory.GetFiles(targetDir, "*.*", SearchOption.TopDirectoryOnly);
-            foreach (string entry in entries)
+            foreach (var entry in entries)
             {
                 var finfo = new FileInfo(entry);
                 if ((DateTime.UtcNow - finfo.CreationTimeUtc) > oldThreshold)
@@ -572,14 +466,14 @@ namespace ASC.Data.Storage.DiscStorage
             if (path == null) throw new ArgumentNullException("path");
 
             //Return dirs
-            string targetDir = GetTarget(path, domain);
+            var targetDir = GetTarget(domain, path);
             if (!string.IsNullOrEmpty(targetDir) && !targetDir.EndsWith(Path.DirectorySeparatorChar.ToString())) targetDir += Path.DirectorySeparatorChar;
             if (Directory.Exists(targetDir))
             {
                 var entries = Directory.GetDirectories(targetDir, "*", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
                 return Array.ConvertAll(
                     entries,
-                    (x) => GetUri(domain, Path.Combine(path != null ? PathUtils.Normalize(path) : string.Empty, x.Substring(targetDir.Length))));
+                    x => GetUri(domain, Path.Combine(path != null ? PathUtils.Normalize(path) : string.Empty, x.Substring(targetDir.Length))));
             }
             return new Uri[0];
         }
@@ -589,14 +483,14 @@ namespace ASC.Data.Storage.DiscStorage
             if (path == null) throw new ArgumentNullException("path");
 
             //Return dirs
-            string targetDir = GetTarget(path, domain);
+            var targetDir = GetTarget(domain, path);
             if (!string.IsNullOrEmpty(targetDir) && !targetDir.EndsWith(Path.DirectorySeparatorChar.ToString())) targetDir += Path.DirectorySeparatorChar;
             if (Directory.Exists(targetDir))
             {
                 var entries = Directory.GetFiles(targetDir, pattern, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
                 return Array.ConvertAll(
                     entries,
-                    (x) => GetUri(domain, Path.Combine(path != null ? PathUtils.Normalize(path) : string.Empty, x.Substring(targetDir.Length))));
+                    x => GetUri(domain, Path.Combine(PathUtils.Normalize(path), x.Substring(targetDir.Length))));
             }
             return new Uri[0];
         }
@@ -604,7 +498,7 @@ namespace ASC.Data.Storage.DiscStorage
         public override string[] ListFilesRelative(string domain, string path, string pattern, bool recursive)
         {
             var dirPath = GetUri(domain, path).ToString();
-            return ListFiles(domain, path, pattern, /*true*/recursive).Select((x) => x.ToString().Substring(dirPath.Length).TrimStart('/')).ToArray();
+            return ListFiles(domain, path, pattern, /*true*/recursive).Select(x => x.ToString().Substring(dirPath.Length).TrimStart('/')).ToArray();
         }
 
         public override bool IsFile(string domain, string path)
@@ -612,8 +506,8 @@ namespace ASC.Data.Storage.DiscStorage
             if (path == null) throw new ArgumentNullException("path");
 
             //Return dirs
-            string target = GetTarget(path, domain);
-            bool result = File.Exists(target);
+            var target = GetTarget(domain, path);
+            var result = File.Exists(target);
             return result;
         }
 
@@ -621,7 +515,7 @@ namespace ASC.Data.Storage.DiscStorage
         {
             if (QuotaController != null)
             {
-                long size = GetUsedQuota(domain);
+                var size = GetUsedQuota(domain);
                 QuotaController.QuotaUsedSet(_modulename, domain, _dataList.GetData(domain), size);
             }
             return 0;
@@ -629,11 +523,11 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override long GetUsedQuota(string domain)
         {
-            string target = GetTarget("", domain);
+            var target = GetTarget(domain, "");
             long size = 0;
             if (Directory.Exists(target))
             {
-                string[] entries = Directory.GetFiles(target, "*.*", SearchOption.AllDirectories);
+                var entries = Directory.GetFiles(target, "*.*", SearchOption.AllDirectories);
                 size = entries.Select(entry => new FileInfo(entry)).Select(info => info.Length).Sum();
             }
             return size;
@@ -643,8 +537,8 @@ namespace ASC.Data.Storage.DiscStorage
         {
             if (srcpath == null) throw new ArgumentNullException("srcpath");
             if (newpath == null) throw new ArgumentNullException("srcpath");
-            string target = GetTarget(srcpath, srcdomain);
-            string newtarget = GetTarget(newpath, newdomain);
+            var target = GetTarget(srcdomain, srcpath);
+            var newtarget = GetTarget(newdomain, newpath);
 
             if (File.Exists(target))
             {
@@ -654,7 +548,7 @@ namespace ASC.Data.Storage.DiscStorage
                 }
                 if (QuotaController != null)
                 {
-                    long flength = new FileInfo(target).Length;
+                    var flength = new FileInfo(target).Length;
                     QuotaController.QuotaUsedAdd(_modulename, newdomain, _dataList.GetData(newdomain), flength);
                 }
                 File.Copy(target, newtarget, true);
@@ -668,8 +562,8 @@ namespace ASC.Data.Storage.DiscStorage
 
         public override void CopyDirectory(string srcdomain, string srcdir, string newdomain, string newdir)
         {
-            string target = GetTarget(srcdir, srcdomain);
-            string newtarget = GetTarget(newdir, newdomain, true);
+            var target = GetTarget(srcdomain, srcdir);
+            var newtarget = GetTarget(newdomain, newdir);
 
             var diSource = new DirectoryInfo(target);
             var diTarget = new DirectoryInfo(newtarget);
@@ -696,9 +590,9 @@ namespace ASC.Data.Storage.DiscStorage
             }
 
             // Copy each subdirectory using recursion.
-            foreach (DirectoryInfo diSourceSubDir in source.GetDirectories())
+            foreach (var diSourceSubDir in source.GetDirectories())
             {
-                DirectoryInfo nextTargetSubDir =
+                var nextTargetSubDir =
                     target.CreateSubdirectory(diSourceSubDir.Name);
                 CopyAll(diSourceSubDir, nextTargetSubDir, newdomain);
             }
@@ -709,12 +603,7 @@ namespace ASC.Data.Storage.DiscStorage
             return GetUri(string.Empty, path);
         }
 
-
-        public override IDataStore Configure(IDictionary<string, string> props)
-        {
-            return this; //No config for now
-        }
-
+        
         private MappedPath GetPath(string domain)
         {
             if (domain != null)
@@ -728,7 +617,7 @@ namespace ASC.Data.Storage.DiscStorage
         public Stream GetWriteStream(string domain, string path)
         {
             if (path == null) throw new ArgumentNullException("path");
-            string target = GetTarget(path, domain, true);
+            var target = GetTarget(domain, path);
             CreateDirectory(target);
             return File.Open(target, FileMode.Create);
         }
@@ -742,25 +631,12 @@ namespace ASC.Data.Storage.DiscStorage
             }
         }
 
-        private string GetTarget(string path, string domain)
+        private string GetTarget(string domain, string path)
         {
-            return GetTarget(path, domain, false);
-        }
-
-        private string GetTarget(string path, string domain, bool bOverwriteCheck)
-        {
-            MappedPath pathMap = GetPath(domain);
+            var pathMap = GetPath(domain);
             //Build Dir
-            string target = pathMap.Path + PathUtils.Normalize(path);
+            var target = Path.Combine(pathMap.PhysicalPath, PathUtils.Normalize(path));
             ValidatePath(target);
-            if (!pathMap.Overwrite && bOverwriteCheck)
-            {
-                //Check existing file
-                if (File.Exists(target))
-                {
-                    throw new ArgumentException("can't overwrite existing file");
-                }
-            }
             return target;
         }
 
@@ -790,7 +666,7 @@ namespace ASC.Data.Storage.DiscStorage
             public override string ToString()
             {
                 var s = base.ToString();
-                if (WorkContext.IsMono && s.StartsWith(Uri.UriSchemeFile + Uri.SchemeDelimiter))
+                if (WorkContext.IsMono && s.StartsWith(UriSchemeFile + SchemeDelimiter))
                 {
                     return s.Substring(7);
                 }

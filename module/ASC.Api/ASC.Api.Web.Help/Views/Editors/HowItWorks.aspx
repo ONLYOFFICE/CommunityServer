@@ -18,7 +18,7 @@
 	</h1>
 
 	<p class="dscr">
-	    The work with document files in ONLYOFFICE™ Document Editors is quite a simple process but it requires some understanding of what is going on when you click your document link to <a href="<%= Url.Action("open") %>" class="underline">open</a> it in the browser, or <a href="<%= Url.Action("save") %>" class="underline">save</a> the document or <a href="<%= Url.Action("conversion") %>" class="underline">upload</a> it from your computer to the document server.
+	    The work with document files in ONLYOFFICE™ Document Server is quite a simple process but it requires some understanding of what is going on when you click your document link to <a href="<%= Url.Action("open") %>" class="underline">open</a> it in the browser, or <a href="<%= Url.Action("save") %>" class="underline">save</a> the document or <a href="<%= Url.Action("conversion") %>" class="underline">upload</a> it from your computer to the document server.
 	</p>
 	<p>The user-document interaction is done both at the client side and at the server side.</p>
 	<p>Below the main notions used throughout the current documentation are explained.</p>

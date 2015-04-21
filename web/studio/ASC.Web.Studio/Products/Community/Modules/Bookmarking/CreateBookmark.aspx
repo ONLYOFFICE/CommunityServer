@@ -1,6 +1,6 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Bookmarking" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CreateBookmark.aspx.cs" Inherits="ASC.Web.Community.Bookmarking.CreateBookmark" MasterPageFile="~/Products/Community/Community.master" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CreateBookmark.aspx.cs" Inherits="ASC.Web.Community.Bookmarking.CreateBookmark" MasterPageFile="~/Products/Community/Master/Community.master" %>
 <%@ Import Namespace="ASC.Web.UserControls.Bookmarking.Resources" %>
 
 <asp:Content ID="BookmarkingPageContent" ContentPlaceHolderID="CommunityPageContent" runat="server">

@@ -15,7 +15,7 @@
 	<h1>
 	    <span class="hdr">Hardware Requirements</span>
 	</h1>
-	<p class="dscr">See the table below for the minimal hardware configuration requirements to the server necessary for the Teamlab Office Apps installation.</p>
+	<p class="dscr">See the table below for the minimal hardware configuration requirements to the server necessary for the ONLYOFFICE™ Document Server installation.</p>
 	<table class="table">
 		<colgroup>
 		    <col style="width: 200px;"/>

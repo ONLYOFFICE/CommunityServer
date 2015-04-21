@@ -250,7 +250,7 @@
     <value>Set up the first account</value>
   </data>
   <data name="EmptyScrAccountsDescription" xml:space="preserve">
-    <value>Set up account to send, receive and keep your imails in order right on the portal. Get access to message history, contacts and files through any browser anytime, anywhere. Sort messages by your own tags.</value>
+    <value>Set up an account to send, receive and keep your messages in order right on the portal. Get access to message history, contacts and files through any browser anytime, anywhere. Sort messages using your own tags. Create mailbox for the ready-made free default domain.</value>
   </data>
   <data name="EmptyScrAccountsHeader" xml:space="preserve">
     <value>No account is set up yet</value>
@@ -427,7 +427,7 @@
     <value>MB</value>
   </data>
   <data name="MessageNotSent" xml:space="preserve">
-    <value>Письмо не было отправлено. Удалить его?</value>
+    <value>The message has not been sent. Are you sure you want to delete it?</value>
   </data>
   <data name="More" xml:space="preserve">
     <value>%1 more</value>
@@ -469,10 +469,10 @@
     <value>Reply</value>
   </data>
   <data name="QuotaPopupBody" xml:space="preserve">
-    <value>На Вашем портале исчерпана квота на дисковое пространство. В связи с этим не все письма могут быть зыгружены, и невозможна отправка новых писем. Пожалуйста очистите список входящих писем или удалите часть файлов из модулся документы, либо перейдите на более высокий тарифный план.</value>
+    <value>The available disk storage space is exceeded on your portal. Not all messages can be loaded and no new messages can be sent. Please delete some messages from the Inbox or delete some files from the Documents module. You can also change the pricing plan to have more available disk space.</value>
   </data>
   <data name="QuotaPopupHeader" xml:space="preserve">
-    <value>Квота на дисковое пространство исчерпана</value>
+    <value>The available disk storage is exceeded</value>
   </data>
   <data name="ReadLabel" xml:space="preserve">
     <value>Mark as read</value>
@@ -694,7 +694,7 @@
     <value>Our apologies for the inconveniences but the mail message failed to load to Teamlab Mail. Use the copy of the original message added as an attachment to open it using any available mail client software or {0}contact our support team.{1}</value>
   </data>
   <data name="AdministrationLabel" xml:space="preserve">
-    <value>Administration</value>
+    <value>Mail Server</value>
   </data>
   <data name="TeamlabAccountNotificationText" xml:space="preserve">
     <value>This is TeamLab account. You can't edit or delete this account.</value>
@@ -780,6 +780,12 @@
   <data name="ManageAccountsLabel" xml:space="preserve">
     <value>Manage accounts</value>
   </data>
+  <data name="ErrorSendMessage" xml:space="preserve">
+    <value>A problem has occurred while trying to send this message.</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
   <data name="AliasLabel" xml:space="preserve">
     <value>(Alias)</value>
   </data>
@@ -788,5 +794,65 @@
   </data>
   <data name="ServerMailboxNotificationText" xml:space="preserve">
     <value>Server mailbox, edited in administration panel only</value>
+  </data>
+  <data name="MessageImagesBlockedPopupBody" xml:space="preserve">
+    <value>This message contains images that cannot be displayed at the moment. Do you want to print it?</value>
+  </data>
+  <data name="ImagesBlockedPopupHeader" xml:space="preserve">
+    <value>Confirm Printing without Images</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="ConversationImagesBlockedPopupBody" xml:space="preserve">
+    <value>This conversation contains images that cannot be displayed at the moment. Do you want to print it?</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="SharingSettingForFiles" xml:space="preserve">
+    <value>Sharing setting for files</value>
+  </data>
+  <data name="CopyFileToMyDocumentsFolderErrorMsg" xml:space="preserve">
+    <value>Error occured while copying file</value>
+  </data>
+  <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
+    <value>Copying to "My Documents" folder</value>
+  </data>
+  <data name="InsertedViaLink" xml:space="preserve">
+    <value>Inserted via link</value>
+  </data>
+  <data name="AliasNotificationText" xml:space="preserve">
+    <value>Alias of mailbox %mailbox_address%, edited in administration panel only</value>
+  </data>
+  <data name="DefaultAccountText" xml:space="preserve">
+    <value>This account used to send the mail by default</value>
+  </data>
+  <data name="SetAsDefaultAccountText" xml:space="preserve">
+    <value>Set as default and use to send the mail</value>
+  </data>
+  <data name="GroupCouldNotSetAsDefault" xml:space="preserve">
+    <value>Group cannot be set as default mailbox</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Create mailbox</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_1" xml:space="preserve">
+    <value>We provide you with a ready-made free default domain so that you could create your new mailbox right away.</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_2" xml:space="preserve">
+    <value>This domain is common for all portals, so it is recommended that your corporate domain was used for corporate email correspondence.</value>
+  </data>
+  <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
+    <value>Create Mailbox</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>Print all</value>
+  </data>
+  <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
+    <value>Confirm printing without images</value>
+  </data>
+  <data name="ConversationCollapsedBlockedPopupBody" xml:space="preserve">
+    <value>This conversation contains collapsed messages which may include hidden images. Do you want to print it?</value>
   </data>
 </root>

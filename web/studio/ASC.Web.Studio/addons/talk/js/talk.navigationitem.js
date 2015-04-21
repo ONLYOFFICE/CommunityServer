@@ -106,8 +106,13 @@ if (!ASC.Controls.JabberClient) {
             }
 
             try {
-                ASC.Controls.TalkNavigationItem.updateValue(0)
-            } catch (err) {
+                ASC.Controls.TalkNavigationItem.updateValue(0);
+                if (ASC.Resources.Master.Hub.Url) {
+                    // SendMessagesCount
+                    jq.connection.ch.server.smec(0);
+                }
+            } catch (e) {
+                console.error(e.message);
             }
 
             if (typeof jid === 'string' && jid.length > 0) {

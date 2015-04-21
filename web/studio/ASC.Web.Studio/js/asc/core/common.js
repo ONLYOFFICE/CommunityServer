@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 if (typeof jq == "undefined")
     var jq = jQuery.noConflict();
@@ -144,7 +142,7 @@ jQuery.extend({
     registerHeaderToggleClick: function(parentSelector, toggleLineSelector) {
         if (typeof (parentSelector) != "string")
             return;
-        jq(parentSelector).find(".headerToggle, .openBlockLink, .closeBlockLink").bind("click", function() {
+        jq(parentSelector).on("click", ".headerToggle, .openBlockLink, .closeBlockLink", function () {
             var $lineElt = jq(this).parents(toggleLineSelector + ":first");
             $lineElt.nextUntil(toggleLineSelector).toggle();
             $lineElt.toggleClass("open");
@@ -276,9 +274,11 @@ jQuery.extend({
             }
         });
     },
-    confirmBeforeUnload: function(){
+
+    confirmBeforeUnload: function(check){
         window.onbeforeunload = function (e) {
-            return ASC.Resources.Master.Resource.WarningMessageBeforeUnload;
+            if (typeof (check) != "function" || check())
+                return ASC.Resources.Master.Resource.WarningMessageBeforeUnload;
         };
     }
 });
@@ -294,7 +294,7 @@ String.prototype.format = function() {
 };
 
 StudioBlockUIManager = {
-    blockUI: function (obj, width, height, top, position) {
+    blockUI: function (obj, width, height, top, position, opts) {
         try {
             width = width | 0;
             height = height | 0;
@@ -302,8 +302,9 @@ StudioBlockUIManager = {
             top = ((top || -height / 2) | 0) + (position ? jq(window).scrollTop() : 0);
             top = -Math.min(-top, jq(window).height() / 2);
             position = position ? position : "fixed";
+            opts = opts || {};
 
-            jq.blockUI({
+            var defaultOptions = {
                 message: jq(obj),
                 css: {
                     backgroundColor: "transparent",
@@ -333,7 +334,9 @@ StudioBlockUIManager = {
 
                 fadeIn: 0,
                 fadeOut: 0
-            });
+            };
+
+            jq.blockUI(jq.extend(true, defaultOptions, opts));
         } catch (e) {
         }
     }
@@ -716,7 +719,8 @@ function SortData(a, b) {
  * EmailOperationManager
  */
 var EmailOperationManager = new function () {
-    this.SendEmailActivationInstructions = function (userEmail, userID) {
+    var self = this;
+    this.SendEmailActivationInstructions = function (userEmail, userID, responseAction) {
         AjaxPro.onLoading = function (b) {
             if (b) {
                 LoadingBanner.showLoaderBtn("#studio_emailChangeDialog");
@@ -725,11 +729,14 @@ var EmailOperationManager = new function () {
             }
         };
         EmailOperationService.SendEmailActivationInstructions(userID, userEmail, function (response) {
-            EmailOperationManager._EmailOperationInstructionsServerResponse(response);
+            if (responseAction) {
+                responseAction(response);
+            }
+            EmailOperationManager._EmailOperationInstructionsServerResponse(response, false);
         });
     };
 
-    this.SendEmailChangeInstructions = function (userEmail, userID) {
+    this.SendEmailChangeInstructions = function (userEmail, userID, responseAction) {
         AjaxPro.onLoading = function (b) {
             if (b) {
                 LoadingBanner.showLoaderBtn("#studio_emailChangeDialog");
@@ -738,39 +745,32 @@ var EmailOperationManager = new function () {
             }
         };
         EmailOperationService.SendEmailChangeInstructions(userID, userEmail, function (response) {
-            EmailOperationManager._EmailOperationInstructionsServerResponse(response);
+            if (responseAction) {
+                responseAction(response);
+            }
+            EmailOperationManager._EmailOperationInstructionsServerResponse(response, Teamlab.profile.isAdmin);
         });
     };
 
-    this._EmailOperationInstructionsServerResponse = function (response) {
+    this._EmailOperationInstructionsServerResponse = function (response, reload) {
         if (response.error != null) {
             toastr.error(response.error.Message);
         } else {
             PopupKeyUpActionProvider.ClearActions();
             jq.unblockUI();
             toastr.success(response.value);
-            setTimeout(function () { document.location.reload(true); }, 3000);
+            if (reload)
+                setTimeout(function() { document.location.reload(true); }, 3000);
         }
     };
 
-    this.ShowEmailChangeWindow = function (userEmail, userID, adminMode) {
+    this.ShowEmailChangeWindow = function (userEmail, userID, responseAction) {
         jq("#divEmailOperationError").html("").hide();
         jq("#studio_emailOperationResult").hide();
 
-        if (adminMode == true) {
             jq("#emailInputContainer").removeClass("display-none");
             jq("#emailMessageContainer").addClass("display-none");
             jq("#btEmailOperationSend").addClass("disable");
-        } else {
-            jq("#emailInputContainer").addClass("display-none");
-            jq("#emailMessageContainer").removeClass("display-none");
-
-            jq("#resendInviteText").addClass("display-none");
-            jq("#emailActivationText").addClass("display-none");
-            jq("#emailChangeText").removeClass("display-none");
-
-            jq("#emailMessageContainer [name='userEmail']").attr("href", "../../addons/mail/#composeto/email=" + userEmail).html(userEmail);
-        }
 
         jq("#resendInviteDialogPopupHeader").addClass("display-none");
         jq("#emailActivationDialogPopupHeader").addClass("display-none");
@@ -784,30 +784,38 @@ var EmailOperationManager = new function () {
 
         jq("#emailOperation_email").val(userEmail);
         
-        this.OpenPopupDialog();
+        self.OpenPopupDialog();
         
         jq("#btEmailOperationSend").unbind("click");
 
         jq("#btEmailOperationSend").click(function () {
             if (jq(this).hasClass("disable")) return false;
             var newEmail = jq("#emailOperation_email").val();
-            EmailOperationManager.SendEmailChangeInstructions(newEmail, userID);
+            EmailOperationManager.SendEmailChangeInstructions(newEmail, userID, responseAction);
             return false;
         });
         
         jq("#emailOperation_email").unbind("onkeyup");
         
-        jq("#emailOperation_email").keyup(function () {
+        jq("#emailOperation_email").keyup(function (key) {
             if (jq(this).val() != userEmail) {
-                jq("#btEmailOperationSend").removeClass("disable");
+                var sendButton = jq("#btEmailOperationSend");
+                sendButton.removeClass("disable");
+                if (getKeyCode(key) == 13) {
+                    sendButton.click();
+                }
             } else {
                 jq("#btEmailOperationSend").addClass("disable");
             }
             return false;
         });
+        
+        var getKeyCode = function (key) {
+            return key.keyCode || key.which;
+        };
     };
 
-    this.ShowEmailActivationWindow = function (userEmail, userID, adminMode) {
+    this.ShowEmailActivationWindow = function (userEmail, userID, adminMode, responseAction) {
         jq("#divEmailOperationError").html("").hide();
         jq("#studio_emailOperationResult").hide();
 
@@ -839,19 +847,19 @@ var EmailOperationManager = new function () {
         jq("#btEmailOperationSend").removeClass("disable");
         jq("#emailOperation_email").unbind("onkeyup");
         
-        this.OpenPopupDialog();
+        self.OpenPopupDialog();
 
         jq("#btEmailOperationSend").unbind("click");
 
         jq("#btEmailOperationSend").click(function () {
             var newEmail = jq("#emailOperation_email").val();
-            EmailOperationManager.SendEmailActivationInstructions(newEmail, userID);
+            EmailOperationManager.SendEmailActivationInstructions(newEmail, userID, responseAction);
             return false;
         });
 
     };
 
-    this.ShowResendInviteWindow = function (userEmail, userID, adminMode) {
+    this.ShowResendInviteWindow = function (userEmail, userID, adminMode, responseAction) {
         jq("#divEmailOperationError").html("").hide();
         jq("#studio_emailOperationResult").hide();
 
@@ -883,13 +891,13 @@ var EmailOperationManager = new function () {
         jq("#btEmailOperationSend").removeClass("disable");
         jq("#emailOperation_email").unbind("onkeyup");
         
-        this.OpenPopupDialog();
+        self.OpenPopupDialog();
 
         jq("#btEmailOperationSend").unbind("click");
 
         jq("#btEmailOperationSend").click(function () {
             var newEmail = jq("#emailOperation_email").val();
-            EmailOperationManager.SendEmailActivationInstructions(newEmail, userID);
+            EmailOperationManager.SendEmailActivationInstructions(newEmail, userID, responseAction);
             return false;
         });
 
@@ -1085,8 +1093,11 @@ var LeftMenuManager = new function () {
 
     var restoreLeftMenu = function () {
         var menuObjStates = jq.cookies.get(LeftMenuManager.cookieKey);
+
         if (menuObjStates != null) {
             if (menuObjStates.length == LeftMenuManager.menuObjs.length) {
+                jq(LeftMenuManager.menuObjs).filter(".open-by-default").removeClass("open-by-default");
+
                 for (var i = 0, n = menuObjStates.length; i < n; i++) {
                     var $menu = jq(LeftMenuManager.menuObjs[i]);
                     if ($menu.hasClass("currentCategory") && !$menu.hasClass("active") && !$menu.hasClass("open")) {
@@ -1102,10 +1113,11 @@ var LeftMenuManager = new function () {
         } else {
             for (var i = 0, n = LeftMenuManager.menuObjs.length; i < n; i++) {
                 var $menu = jq(LeftMenuManager.menuObjs[i]);
-                if ($menu.hasClass("currentCategory") && !$menu.hasClass("active") && !$menu.hasClass("open")) {
+                if (($menu.hasClass("currentCategory") || $menu.hasClass("open-by-default")) && !$menu.hasClass("active") && !$menu.hasClass("open")) {
                     $menu.addClass("open");
                 }
             }
+            jq(LeftMenuManager.menuObjs).filter(".open-by-default").removeClass("open-by-default");
         }
         updateCookies();
     };
@@ -1158,7 +1170,10 @@ var LeftMenuManager = new function () {
             dropdownID: "otherActions",
             position: "absolute",
             addTop: 4,
-            addLeft: 0
+            addLeft: 0,
+            afterShowFunction: function (switcherObj, dropdownItem) {
+                jq(window).trigger("onOpenSideNavOtherActions", switcherObj, dropdownItem);
+            }
         });
     };
 
@@ -1301,7 +1316,7 @@ var FileSizeManager = new function () {
         var sizeNames = ASC.Resources.Master.FileSizePostfix ? ASC.Resources.Master.FileSizePostfix.split(',') : ["bytes", "KB", "MB", "GB", "TB"];
         var power = 0;
 
-        var resultSize = size;
+        var resultSize = size || 0;
         if (1024 <= resultSize) {
             power = parseInt(Math.log(resultSize) / Math.log(1024));
             power = power < sizeNames.length ? power : sizeNames.length - 1;

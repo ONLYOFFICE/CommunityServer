@@ -504,4 +504,13 @@
   <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
     <value>Settings have been successfully updated</value>
   </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>Empty file</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>Link has been copied to the clipboard</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>I created my own web-office. Join me here: {0} #ONLYOFFICE #WebOffice</value>
+  </data>
 </root>

@@ -35,5 +35,15 @@
 </script>
 
 <script id="emptyScrButtonTmpl" type="text/x-jquery-tmpl">
-    <a {{if typeof(ButtonHref)!="undefined" && ButtonHref != null && ButtonHref != ""}}href="${ButtonHref}" {{/if}} class="${ButtonClass} link dotline">${ButtonText}</a>
+    {{each(index, button) buttons}}
+        {{if index > 0 }}
+        <div style="height:8px;"></div>
+        {{/if}}
+
+        {{if button.href != null }}
+        <a href="${button.href}" class="${button.cssClass} link dotline">${button.text}</a>
+        {{else}}
+        <a class="${button.cssClass} link dotline">${button.text}</a>
+        {{/if}}
+    {{/each}}
 </script>

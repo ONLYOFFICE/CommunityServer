@@ -1,35 +1,32 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using ASC.Api.Attributes;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
@@ -88,8 +85,8 @@ namespace ASC.Api.Mail
                 PrimaryFolder = folder.GetValueOrDefault(MailFolder.Ids.inbox),
                 Unread = unread,
                 Attachments = attachments.GetValueOrDefault(false),
-                Period_from = period_from.GetValueOrDefault(0),
-                Period_to = period_to.GetValueOrDefault(0),
+                PeriodFrom = period_from.GetValueOrDefault(0),
+                PeriodTo = period_to.GetValueOrDefault(0),
                 Important = important.GetValueOrDefault(false),
                 FindAddress = find_address,
                 MailboxId = mailbox_id,
@@ -99,16 +96,14 @@ namespace ASC.Api.Mail
                 SortOrder = sortorder
             };
 
-            MailBoxManager.UpdateUserActivity(TenantId, Username);
-
             if (null != last_check_date)
             {
-                var date_time = MailBoxManager.GetFolderModifyDate(TenantId, Username, filter.PrimaryFolder);
-                var api_date = new ApiDateTime(date_time);
+                var dateTime = MailBoxManager.GetFolderModifyDate(TenantId, Username, filter.PrimaryFolder);
+                var apiDate = new ApiDateTime(dateTime);
 
-                var compare_res = api_date.CompareTo(last_check_date);
+                var compareRes = apiDate.CompareTo(last_check_date);
 
-                switch (compare_res)
+                switch (compareRes)
                 {
                     case 0:
                         return null;
@@ -117,7 +112,7 @@ namespace ASC.Api.Mail
                 }
             }
 
-            bool has_more;
+            bool hasMore;
             var conversations = MailBoxManager.GetConversations(
                 TenantId,
                 Username,
@@ -125,8 +120,8 @@ namespace ASC.Api.Mail
                 from_date,
                 from_message.GetValueOrDefault(0),
                 prev_flag,
-                out has_more);
-            if (has_more)
+                out hasMore);
+            if (hasMore)
                 _context.SetTotalCount(filter.PageSize + 1);
             else
                 _context.SetTotalCount(conversations.Count);
@@ -138,16 +133,18 @@ namespace ASC.Api.Mail
         /// </summary>
         /// <param name="id">ID of any message in the chain</param>
         /// <param name="load_all_content">Load content of all messages</param>
+        /// <param optional="true" name="mark_read">Mark conversation as read</param>
         /// <returns>List messages linked in one chain</returns>
         /// <category>Conversations</category>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Read(@"conversation/{id:[0-9]+}")]
-        public IEnumerable<MailMessageItem> GetConversation(int id, bool load_all_content)
+        public IEnumerable<MailMessageItem> GetConversation(int id, bool? load_all_content, bool? mark_read)
         {
             if (id <= 0)
-                throw new ArgumentException("id must be positive integer", "id");
+                throw new ArgumentException(@"id must be positive integer", "id");
 
-            return MailBoxManager.GetConversationMessages(TenantId, Username, id, load_all_content);
+            return MailBoxManager.GetConversationMessages(TenantId, Username, id, load_all_content.GetValueOrDefault(false),
+                                                          mark_read.GetValueOrDefault(false));
         }
 
         /// <summary>
@@ -170,7 +167,7 @@ namespace ASC.Api.Mail
         /// <returns>Head message id of previous or next conversation.</returns>
         /// <category>Conversations</category>
         [Read(@"conversation/{id:[0-9]+}/{direction:(next|prev)}")]
-        public long GetPrevNextConversationId( int id,
+        public long GetPrevNextConversationId(int id,
             string direction,
             int? folder,
             bool? unread,
@@ -194,8 +191,8 @@ namespace ASC.Api.Mail
                 PrimaryFolder = folder.GetValueOrDefault(MailFolder.Ids.inbox),
                 Unread = unread,
                 Attachments = attachments.GetValueOrDefault(false),
-                Period_from = period_from.GetValueOrDefault(0),
-                Period_to = period_to.GetValueOrDefault(0),
+                PeriodFrom = period_from.GetValueOrDefault(0),
+                PeriodTo = period_to.GetValueOrDefault(0),
                 Important = important.GetValueOrDefault(false),
                 FindAddress = find_address,
                 MailboxId = mailbox_id,
@@ -217,35 +214,39 @@ namespace ASC.Api.Mail
         /// <short>Move conversations to folder</short>
         /// <category>Conversations</category>
         [Update(@"conversations/move")]
-        public IEnumerable<int> MoveConversations(IEnumerable<int> ids, int folder)
+        public IEnumerable<int> MoveConversations(List<int> ids, int folder)
         {
-            //Todo: remove useless transformations
-            var conversations = ids as int[] ?? ids.ToArray();
-            var ids_list = new List<int>(conversations);
-            MailBoxManager.SetConversationsFolder(TenantId, Username, folder, ids_list);
+            if (!ids.Any())
+                throw new ArgumentException(@"Empty ids collection", "ids");
+
+            MailBoxManager.SetConversationsFolder(TenantId, Username, folder, ids);
 
             if(folder == MailFolder.Ids.spam)
-                MailBoxManager.SendConversationsToSpamTrainer(TenantId, Username, ids_list, true);
+                MailBoxManager.SendConversationsToSpamTrainer(TenantId, Username, ids, true);
 
-            return conversations;
+            return ids;
         }
 
         /// <summary>
         ///    Restores all the conversations previously moved to specific folders to their original folders.
         /// </summary>
         /// <param name="ids">List of conversation ids for restore.</param>
+        /// <param optional="true" name="learnSpamTrainer">send messages tp spam training</param>
         /// <returns>List of restored conversations ids</returns>
         /// <short>Restore conversations to original folders</short>
         /// <category>Conversations</category>
         [Update(@"conversations/restore")]
-        public IEnumerable<int> RestoreConversations(IEnumerable<int> ids)
+        public IEnumerable<int> RestoreConversations(List<int> ids, bool learnSpamTrainer = false)
         {
-            //Todo: remove useless transformations
-            var conversations = ids as int[] ?? ids.ToArray();
-            var ids_list = new List<int>(conversations);
-            MailBoxManager.RestoreConversations(TenantId, Username, ids_list);
-            MailBoxManager.SendConversationsToSpamTrainer(TenantId, Username, ids_list, false);
-            return conversations;
+            if (!ids.Any())
+                throw new ArgumentException(@"Empty ids collection", "ids");
+
+            MailBoxManager.RestoreConversations(TenantId, Username, ids);
+
+            if (learnSpamTrainer)
+                MailBoxManager.SendConversationsToSpamTrainer(TenantId, Username, ids, false);
+
+            return ids;
         }
 
         /// <summary>
@@ -256,13 +257,13 @@ namespace ASC.Api.Mail
         /// <short>Remove conversations</short>
         /// <category>Conversations</category>
         [Update(@"conversations/remove")]
-        public IEnumerable<int> RemoveConversations(IEnumerable<int> ids)
+        public IEnumerable<int> RemoveConversations(List<int> ids)
         {
-            //Todo: remove useless transformations
-            var conversations = ids as int[] ?? ids.ToArray();
-            var ids_list = new List<int>(conversations);
-            MailBoxManager.DeleteConversations(TenantId, Username, ids_list);
-            return conversations;
+            if (!ids.Any())
+                throw new ArgumentException(@"Empty ids collection", "ids");
+
+            MailBoxManager.DeleteConversations(TenantId, Username, ids);
+            return ids;
         }
 
         /// <summary>
@@ -274,31 +275,30 @@ namespace ASC.Api.Mail
         /// <short>Set conversations status</short>
         /// <category>Conversations</category>
         [Update(@"conversations/mark")]
-        public IEnumerable<int> MarkConversations(IEnumerable<int> ids, string status)
+        public IEnumerable<int> MarkConversations(List<int> ids, string status)
         {
-            //Todo: remove useless transformations
-            var conversations = ids as int[] ?? ids.ToArray();
-            var ids_list = new List<int>(conversations);
-
+            if (!ids.Any())
+                throw new ArgumentException(@"Empty ids collection", "ids");
+            
             switch (status)
             {
                 case "read":
-                    MailBoxManager.SetConversationsReadFlags(TenantId, Username, ids_list, true);
+                    MailBoxManager.SetConversationsReadFlags(TenantId, Username, ids, true);
                     break;
 
                 case "unread":
-                    MailBoxManager.SetConversationsReadFlags(TenantId, Username, ids_list, false);
+                    MailBoxManager.SetConversationsReadFlags(TenantId, Username, ids, false);
                     break;
 
                 case "important":
-                    MailBoxManager.SetConversationsImportanceFlags(TenantId, Username, true, ids_list);
+                    MailBoxManager.SetConversationsImportanceFlags(TenantId, Username, true, ids);
                     break;
 
                 case "normal":
-                    MailBoxManager.SetConversationsImportanceFlags(TenantId, Username, false, ids_list);
+                    MailBoxManager.SetConversationsImportanceFlags(TenantId, Username, false, ids);
                     break;
             }
-            return conversations;
+            return ids;
         }
 
         /// <summary>
@@ -311,13 +311,12 @@ namespace ASC.Api.Mail
         /// <category>Conversations</category>
         ///<exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Update(@"conversations/tag/{tag_id}/set")]
-        public int SetConversationsTag(int tag_id, IEnumerable<int> messages)
+        public int SetConversationsTag(int tag_id, List<int> messages)
         {
-            var messages_ids = messages as IList<int> ?? messages.ToList();
-            if (!messages_ids.Any())
-                throw new ArgumentException("Message ids are empty", "messages_ids");
+            if (!messages.Any())
+                throw new ArgumentException(@"Message ids are empty", "messages");
 
-            MailBoxManager.SetConversationsTag(TenantId, Username, tag_id, messages_ids);
+            MailBoxManager.SetConversationsTag(TenantId, Username, tag_id, messages);
             return tag_id;
         }
 
@@ -331,13 +330,12 @@ namespace ASC.Api.Mail
         /// <category>Conversations</category>
         ///<exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Update(@"conversations/tag/{tag_id}/unset")]
-        public int UnsetConversationsTag(int tag_id, IEnumerable<int> messages)
+        public int UnsetConversationsTag(int tag_id, List<int> messages)
         {
-            var messages_ids = messages as IList<int> ?? messages.ToList();
-            if (!messages_ids.Any())
-                throw new ArgumentException();
+            if (!messages.Any())
+                throw new ArgumentException(@"Message ids are empty", "messages");
 
-            MailBoxManager.UnsetConversationsTag(TenantId, Username, tag_id, messages_ids);
+            MailBoxManager.UnsetConversationsTag(TenantId, Username, tag_id, messages);
             return tag_id;
         }
 
@@ -357,9 +355,9 @@ namespace ASC.Api.Mail
             try
             {
                 if (id_message < 0)
-                    throw new ArgumentException("Invalid message id", "id_message");
+                    throw new ArgumentException(@"Invalid message id", "id_message");
                 if (crm_contact_ids == null)
-                    throw new ArgumentException("Invalid contact ids list", "crm_contact_ids");
+                    throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
 
                 MailBoxManager.LinkChainToCrm(id_message, TenantId, Username, crm_contact_ids.ToList());
             }
@@ -386,9 +384,9 @@ namespace ASC.Api.Mail
             try
             {
                 if (id_message < 0)
-                    throw new ArgumentException("Invalid message id", "id_message");
+                    throw new ArgumentException(@"Invalid message id", "id_message");
                 if (crm_contact_ids == null)
-                    throw new ArgumentException("Invalid contact ids list", "crm_contact_ids");
+                    throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
 
                 MailBoxManager.MarkChainAsCrmLinked(id_message, TenantId, Username, crm_contact_ids.ToList());
             }
@@ -413,9 +411,9 @@ namespace ASC.Api.Mail
         public void UnmarkConversationAsCrmLinked(int id_message, IEnumerable<CrmContactEntity> crm_contact_ids)
         {
             if (id_message < 0)
-                throw new ArgumentException("Invalid message id", "id_message");
+                throw new ArgumentException(@"Invalid message id", "id_message");
             if(crm_contact_ids == null)
-                throw new ArgumentException("Invalid contact ids list", "crm_contact_ids");
+                throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
 
             MailBoxManager.UnmarkChainAsCrmLinked(id_message, TenantId, Username, crm_contact_ids);
         }
@@ -431,11 +429,9 @@ namespace ASC.Api.Mail
         public bool IsConversationLinkedWithCrm(int message_id)
         {
             if(message_id < 0)
-                throw new ArgumentException("Invalid message id", "message_id");
+                throw new ArgumentException(@"Invalid message id", "message_id");
 
             return MailBoxManager.GetLinkedCrmEntitiesId(message_id, TenantId, Username).Count > 0;
         }
-
-
     }
 }

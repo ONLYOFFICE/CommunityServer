@@ -1,85 +1,83 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
+
+using ASC.Core;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Web;
-using ASC.Core;
 using UAParser;
-using log4net;
 
 namespace ASC.MessagingSystem
 {
-    internal static class MessageFactory
+    static class MessageFactory
     {
+        private static readonly ILog log = LogManager.GetLogger("ASC.Messaging");
         private const string userAgentHeader = "User-Agent";
         private const string forwardedHeader = "X-Forwarded-For";
         private const string hostHeader = "Host";
         private const string refererHeader = "Referer";
 
-        private static readonly ILog log = LogManager.GetLogger("ASC.Messaging");
 
         public static EventMessage Create(HttpRequest request, string initiator, MessageAction action, params string[] description)
         {
             try
             {
-                var uaParser = Parser.GetDefault();
-                var userAgent = request.Headers[userAgentHeader];
-
-                ClientInfo clientInfo;
-                try
+                var clientInfo = (ClientInfo)null;
+                if (request != null)
                 {
-                    clientInfo = userAgent != null ? uaParser.Parse(userAgent) : null;
-                }
-                catch (Exception)
-                {
-                    clientInfo = null;
+                    try
+                    {
+                        var uaParser = Parser.GetDefault();
+                        var userAgent = request.Headers[userAgentHeader];
+                        clientInfo = userAgent != null ? uaParser.Parse(userAgent) : null;
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
                 }
 
                 return new EventMessage
                     {
-                        IP = request.Headers[forwardedHeader] ?? request.UserHostAddress,
+                        IP = request != null ? request.Headers[forwardedHeader] ?? request.UserHostAddress : null,
                         Initiator = initiator,
                         Browser = GetBrowser(clientInfo),
                         Platform = GetPlatform(clientInfo),
                         Date = DateTime.UtcNow,
                         TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
                         UserId = SecurityContext.CurrentAccount.ID,
-                        Page = request.UrlReferrer == null
-                                   ? null :
-                                   request.UrlReferrer.ToString(),
+                        Page = request != null && request.UrlReferrer != null ? request.UrlReferrer.ToString() : null,
                         Action = action,
                         Description = description
                     };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                log.Error(string.Format("Error while parse Http Request for \"{0}\" type of event: {1}", action, ex));
+                log.ErrorFormat("Error while parse Http Request for {0} type of event: {1}", action, ex);
                 return null;
             }
         }
@@ -111,7 +109,7 @@ namespace ASC.MessagingSystem
                     {
                         clientInfo = userAgent != null ? uaParser.Parse(userAgent) : null;
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         clientInfo = null;
                     }
@@ -124,7 +122,7 @@ namespace ASC.MessagingSystem
 
                 return message;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Error(string.Format("Error while parse Http Message for \"{0}\" type of event: {1}", action, ex));
                 return null;
@@ -144,7 +142,7 @@ namespace ASC.MessagingSystem
                         Description = description
                     };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Error(string.Format("Error while parse Initiator Message for \"{0}\" type of event: {1}", action, ex));
                 return null;

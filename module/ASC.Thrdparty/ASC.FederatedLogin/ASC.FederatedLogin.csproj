@@ -60,7 +60,6 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="DotNetOpenAuth">
@@ -69,11 +68,11 @@
     </Reference>
     <Reference Include="Hammock">
       <HintPath>..\..\..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\Hammock.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Contracts">
       <HintPath>..\..\..\packages\Code.Contract.1.0.0\lib\net35\Microsoft.Contracts.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -99,13 +98,12 @@
     <Reference Include="System.Xml" />
     <Reference Include="TweetSharp">
       <HintPath>..\..\..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\TweetSharp.dll</HintPath>
-      <Private>False</Private>
-     </Reference>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountLinker.cs" />
     <Compile Include="Helpers\DictionaryExtensions.cs" />
-    <Compile Include="Helpers\EncodeHelper.cs" />
     <Compile Include="Helpers\OAuth20TokenHelper.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Helpers\XmlExtensions.cs" />
@@ -133,9 +131,6 @@
     <EmbeddedResource Include="callback.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SqlScripts\Create.MySql.sql" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

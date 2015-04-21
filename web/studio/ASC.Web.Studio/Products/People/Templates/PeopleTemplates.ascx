@@ -52,7 +52,7 @@
     {{/if}}
     <td class="icon-list">
       <a class="ava" href="${user.link}">
-        <img src="${user.avatarSmall}" alt="${user.displayName}" /> 
+        <img src="${user.avatarSmall}" title="${user.displayName}" /> 
         
         {{if ($data.isAdmin === true && user.isVisitor)}}<span class="role collaborator" title="<%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("Guest").HtmlEncode() %>"></span>{{/if}}
         {{if (user.isAdmin || listAdminModules.length) && (!user.isPortalOwner)}}<span class="role admin" title="<%= Resources.Resource.Administrator %>"></span>{{/if}}
@@ -73,7 +73,11 @@
         </div>
       {{/if}}
         <div class="title">
+            {{if user.isGroupManager && user.title.length}}
+            <span class="inner-text manager">${user.title}</span>
+            {{else}}
             <span class="inner-text">${user.title}</span>
+            {{/if}}
         </div>
     </td>
     <td class="group">

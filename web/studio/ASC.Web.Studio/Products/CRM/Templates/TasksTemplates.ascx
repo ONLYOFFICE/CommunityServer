@@ -2,9 +2,7 @@
 <%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 
-<%@ Import Namespace="ASC.Web.CRM.Configuration" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 
 <%--Tasks List--%>
 <script id="tasksListBaseTmpl" type="text/x-jquery-tmpl">
@@ -185,17 +183,7 @@
         <td class="borderBase">
         {{if canEdit == true}}
             <div id="taskMenu_${id}" class="entity-menu" title="<%= CRMCommonResource.Actions %>"
-                 onclick="ASC.CRM.ListTaskView.showActionMenu(${id},
-                         {{if contact != null}}${contact.id}{{else}}0{{/if}}
-                            ,
-                         {{if contact != null}}'${jq.base64.encode(contact.displayName)}'{{else}}''{{/if}}
-                            ,
-                         {{if entity != null}}'${entity.entityType}', ${entity.entityId}{{else}}'', 0{{/if}}
-                            ,
-                            ${category.imagePath.indexOf('task_category_email') != -1}
-                            ,
-                         {{if contact != null && contact.email != null}}'${contact.email.data}'{{else}}''{{/if}}
-                            );" ></div>
+                 onclick="ASC.CRM.ListTaskView.showActionMenu(${id});" ></div>
         {{/if}}
         </td>
     </tr>

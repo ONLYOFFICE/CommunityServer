@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 /*
  Copyright (c) Ascensio System SIA 2014. All rights reserved.
@@ -141,7 +139,7 @@
 
         kEditBoxSettings = { backgroundColor: '#FAFAFA', dash: [1, 2], dashColor: '#4FA7D1', fontColor: '#333333', fontSelColor: '#FFFFFF', backgroundSelTextColor: '#3399FF', fontHeight: 9, caretColor: '#000000', placeHolderColor: '#999999', marginWidth: 10, minBoxW: 100 },
 
-        kMaxTitleSymbolsCount = 250,    
+        kMaxTitleSymbolsCount = 250,    // максимальная длина названия для вех и задав
 
         kUIScrollBarThumbColor = 'rgba(0, 0, 0, 0.25)',
         kUIScrollBarThumbPressedColor = 'rgba(0, 0, 0, 0.5)',
@@ -246,15 +244,15 @@
 
         kUIDateScaleUpMargin = 8,          //   px
 
-        kMilestoneMinDurationInHours = 168,        
+        kMilestoneMinDurationInHours = 168,        //  в часах 7 дней
 
-        kEnableQueryTaskWithLinksMove = true,       
+        kEnableQueryTaskWithLinksMove = true,       //  двигаем связные задачи со связью End-Begin
 
         kAnimationScaleFactor = 0.15,
         kAnimationScrollFactor = 0.2,        //  0.2;    // 0.0002;// test value
 
         kTaskDateCaption = { width: 63, height: 15, offX: 13, bkcolor: '#FFFFFF', color: '#999999' },
-        kHitLightLink = true,       
+        kHitLightLink = true,       //  подсветка связи для виджета
 
         kMenuSettings = { backgroundColor: '#888d92', borderColor: '#fafafa', icoSize: 16, elementsWidth2X: 36, elementsWidth3X: 56, elementsWidth4X: 76, elementsWidth5X: 96, elementsWidth6X: 116, borderSz: 7 },
         kLinksWidgetSettings = { w: 36, h: 24, trx: 11, titleFx: 18, titleFy: 10 },
@@ -264,12 +262,12 @@
 
         kHitSidePixels = 5,
 
-        kEditModeNoUse = 100,        
-        kEditModeElementDrag = 200,        
-        kEditModeAddLink = 300,        
-        kEditElementTitle = 400,        
+        kEditModeNoUse = 100,        //  обычный режим в котором overlay используется только для popup элементов
+        kEditModeElementDrag = 200,        //  режим переноса задачи
+        kEditModeAddLink = 300,        //  режим добавления связей
+        kEditElementTitle = 400,        //  режим редактирование названия элемента (задача, веха)
 
-        kEndBeginLinksEditMode = true,       
+        kEndBeginLinksEditMode = true,       //  можем только работать со связами End-Begin
 
         kTimeLineItemHeight = 18,
         kTimeLineItemMargin = 30,
@@ -318,7 +316,7 @@
                     // depending what you would like here,
                     // just keep the reference, or create new object
 
-                    
+                    // NOTE: закоментил, потому что ругается минимизатор
 
                     //                    if (false && obj.constructor) {
                     //                        // would not advice to do that, reason? Read below
@@ -790,7 +788,7 @@
 
         roundRect: function (ctx, x, y, w, h, r) {
 
-            
+            //              в IE10+ не работает
 
             //            if (w < 2 * r) r = w / 2;
             //            if (h < 2 * r) r = h / 2;
@@ -982,14 +980,14 @@
             this.screenAddX = 0;
             this.clampBound = { left: 0, right: 0 };
 
-            
+            // позиция каретки, автоматически устанавливается на конец текста
 
             this.carriage = 0;
             this.carriageFrame = 0;
             this.carriageWidth = 0;
             this.clickCarriage = 0;
 
-            
+            // смещение при отрисовке текста, что бы была видна корректка
 
             this.carriageLeft = 0;
             this.carriageLeftBuild = true;
@@ -1106,12 +1104,12 @@
 
             var ctx = this.ctx;
 
-            
+            // белый фон заднего фона
 
             ctx.fillStyle = kEditBoxSettings.backgroundColor;
             ctx.fillRect(this.clampBound.left, this.bound.y, this.clampBound.right - this.clampBound.left + 2, this.bound.h);
 
-            
+            // пунктирная обводка вокруг текстового поля
 
             ctx.fillStyle = kEditBoxSettings.dashColor;
             ctx.lineWidth = 1;
@@ -1175,7 +1173,7 @@
                     spaceLeft >= this.parent.ctxWidth - kUIScrollBarWidth * 3 || spaceW < 0)
                     return;
 
-                
+                // выделенный текст
 
                 this.ctx.fillStyle = kEditBoxSettings.backgroundSelTextColor;
                 this.ctx.fillRect(spaceLeft, Math.floor(this.bound.y + 2), spaceW, this.bound.h - 3);
@@ -1236,7 +1234,7 @@
                     this.carriageLeft = 0;
                 }
 
-                
+                // обрезка
 
                 this.clampBound.left = this.bound.x - this.screenAddX;
                 this.clampBound.right = this.clampBound.left + this.screenBound.w + this.screenAddX;
@@ -1594,7 +1592,7 @@
                             this.setCarriage(this.findWord(this.text, this.carriage));
                         } else if (e.shiftKey) {
 
-                            
+                            // выделение текста
 
                             if (-1 === this.mouseSelectDirection) {
 
@@ -1651,7 +1649,7 @@
                                 this.setCarriage(this.findWord(this.text, this.carriage, true));
                         } else if (e.shiftKey) {
 
-                            
+                            // выделение текста
 
                             if (-1 === this.mouseSelectDirection) {
 
@@ -2126,7 +2124,7 @@
             if (length) {
                 if (direction) {
 
-                    
+                    // нормальный символ
 
                     if (-1 === separators.indexOf(s[ind])) {
                         for (i = ind; i < length; ++i) {
@@ -2603,7 +2601,7 @@
 
             this.ctxWidth = width - kUIScrollBarWidth * 2;
             this.ctxHeight = height;
-            this.leftX = this.delegate.visibleLeft + 2; 
+            this.leftX = this.delegate.visibleLeft + 2; // +2 px что бы ползунок не плотно прилигал если его сдвинуть влево до упора
         },
 
         refresh: function () {
@@ -2611,7 +2609,7 @@
 
             if (this.begin < this.end) {
 
-                
+                // фон
 
                 this.ctx.fillStyle = kUIScrollBarBackgroundColor;
                 this.ctx.fillRect(0, this.ctxHeight - (kUIScrollBarWidth + kUIScrollBarIndentWidth), this.ctxWidth, kUIScrollBarWidth);
@@ -2631,7 +2629,7 @@
                     // if (this.isLBMDown) {this.ctx.fillStyle = '#FF0000';} else {this.ctx.fillStyle = '#0000FF';}   // debug
                 }
 
-                
+                // ползунок с закругленными углами
 
                 this.delegate.painter.roundRect(this.ctx, thumbX, this.ctxHeight - (kUIScrollBarWidth + kUIScrollBarIndentWidth), thumbW, kUIScrollBarWidth, 2);
                 this.ctx.fill();
@@ -2839,7 +2837,7 @@
                             } else {
                                 if (t.baseText === text) {
 
-                                    
+                                    // текст не изменился, поэтому выкидываем операцию из стека undo
 
                                     t.delegate._undoManager.flushPop(0);
 
@@ -2912,7 +2910,7 @@
                                 } else {
                                     if (t.baseText === text) {
 
-                                        
+                                        // текст не изменился, поэтому выкидываем операцию из стека undo
 
                                         t.delegate._undoManager.flushPop(0);
 
@@ -2982,7 +2980,7 @@
                     this.element.style.zIndex = 1000;
                     this.element.style.display = '';
 
-                    
+                    // устанавливаем текст после того как уже все метрики выставлены. (что бы не было моргания)
 
                     this.updateInnerValue();
                 }
@@ -3314,7 +3312,7 @@
                     clsBtn.className = 'cell-close-button';
                     this.rows[i].el.appendChild(clsBtn);
 
-                    
+                    // перемещение колонок
 
                     txtBtn.onmousedown = (function (e) {
                         var index = i;
@@ -3436,7 +3434,7 @@
                         }
                     })(i);
 
-                    
+                    // удаление
 
                     clsBtn.onclick = (function (e) {
                         var index = i;
@@ -3566,7 +3564,7 @@
 
                         return function (e) {
 
-                            
+                            // в режиме редактирование не отрабатываем эвент
                             if (inner.editBox.isEnable()) {
                                 return true;
                             }
@@ -3583,7 +3581,7 @@
                         }
                     })(i);
                     line.onclick = function (e) {
-                        
+                        // уже находимся в режиме редактирование
                         if (inner.editBox.isEnable()) {
                             inner.closeEditing();
                             return true;
@@ -3601,7 +3599,7 @@
                                 stopSystemEvent(e);
 
                                 if (inner.timeline.editBox.isEnable()) {
-                                    return;
+                                    inner.timeline.editBox.cancel();
                                 }
 
                                 inner.closeEditing();
@@ -4221,7 +4219,7 @@
                                     t.viewController().collapseProjects(false);
                                     t.viewController().collapse(true);
 
-                                    
+                                    // Прямое обновление
 
                                     t.updateData();
                                     t.needUpdateContent = true;
@@ -4339,7 +4337,7 @@
                 t.dragIndex = undefined;
             }
 
-            
+            // в режиме редактирование не отрабатываем эвент
 
             if (t.editBox.isEnable()) {
                 return true;
@@ -4409,7 +4407,7 @@
 
             // var start = performance.now();
 
-            
+            // TODO: двигать контент, без изменения содержимого
             if (this.OK) {
                 this.elInner.style.top = -this.timeline.rightScroll.value() + 'px';
                 return;
@@ -5572,7 +5570,7 @@
                             project.setFullCollapse(false);
                             project.m[i].setCollapse(false);
 
-                            
+                            // сначала отрисуем все объекты с изменениям схлопывания, а затем выполним центрирование
 
                             t.updateData();
                             t.needUpdateContent = true;
@@ -5590,7 +5588,7 @@
                         project.setCollapse(false);
                         project.setFullCollapse(false);
 
-                        
+                        // сначала отрисуем все объекты с изменениям схлопывания, а затем выполним центрирование
 
                         t.updateData();
                         t.needUpdateContent = true;
@@ -5985,7 +5983,7 @@
         },
         addTempOperation: function (id, arg) {
 
-            
+            // храним undo-операцию отдельно и в случае надобности добавим в стек undo
 
             this.tempOperation = { id: id, arg: deepCopy(arg) };
         },
@@ -5995,7 +5993,7 @@
         },
         applyTempOperation: function () {
 
-            
+            // добавим временную операцию в стек undo
 
             if (this.tempOperation) {
                 this.add(this.tempOperation.id, this.tempOperation.arg);
@@ -6204,7 +6202,7 @@
                         }
                     }
 
-                    
+                    // если связные задачи изменились нет смысла дальше проводить валидацию
 
                     if (validate && !isQueryChange) {
                         beginTime = storage.getTask(cur.arg.p, cur.arg.m, cur.arg.index).beginTime;
@@ -6448,7 +6446,7 @@
                     this.timeline.rightScroll.save();
                     storage.addTaskWithIndex(cur.arg.t, cur.arg.index);
 
-                    
+                    // восстановим связи для которых текущая задача главная ( из нее идет связь )
 
                     length = cur.arg.linksToRemove.length;
 
@@ -6566,7 +6564,7 @@
                         storage.addTaskWithIndex(copy_m, cur.arg.index);
                     }
 
-                    
+                    // восстановим связи для которых текущая задача главная ( из нее идет связь )
 
                     if (cur.arg.linksToRemove) {
                         length = cur.arg.linksToRemove.length;
@@ -6593,7 +6591,7 @@
                 case kOperationMoveGroupTasks:
                     var tasksNeedMove = cur.arg.group;
 
-                    
+                    // в веху из свободной зоны
 
                     if ('MtoF' === cur.arg.type) {
 
@@ -6611,7 +6609,7 @@
                     }
 
 
-                    
+                    // из вехи в веху
 
                     if ('MtoM' === cur.arg.type) {
 
@@ -6630,7 +6628,7 @@
                         storage.p[cur.arg.toProject]._calcTimes();
                     }
 
-                    
+                    // из свободной зоны в веху
 
                     if ('FtoM' === cur.arg.type) {
 
@@ -6688,7 +6686,7 @@
 
             this.perform(this.ind, true, undefined, reference);
 
-            
+            // скрываем все всплывающие элементы
 
             this.timeline.offMenus();
             this.timeline.offWidgets();
@@ -6725,7 +6723,7 @@
                 case kOperationDeleteTask:
                     this.timeline.rightScroll.save();
 
-                    
+                    // удалим связи для которых текущая задача главная ( из нее идет связь )
 
                     length = cur.arg.linksToRemove.length;
                     if (undefined !== cur.arg.m) {
@@ -6750,7 +6748,7 @@
                         }
                     }
 
-                    
+                    // удаляем саму задачу
 
                     storage.projects()[cur.arg.p].removeTask(cur.arg.index, cur.arg.m);
 
@@ -6841,7 +6839,7 @@
 
                 case kOperationMoveTask:
 
-                    
+                    // удалим связи для которых текущая задача главная ( из нее идет связь )
 
                     if (cur.arg.linksToRemove) {
                         length = cur.arg.linksToRemove.length;
@@ -6884,7 +6882,7 @@
                 case kOperationMoveGroupTasks:
                     var tasksNeedMove = cur.arg.group;
 
-                    
+                    // из свободной зоны в веху
 
                     if ('MtoF' === cur.arg.type) {
 
@@ -6901,7 +6899,7 @@
                         storage.p[cur.arg.fromProject]._calcTimes();
                     }
 
-                    
+                    //  из вехи в веху
 
                     if ('MtoM' === cur.arg.type) {
 
@@ -6918,7 +6916,7 @@
                         storage.p[cur.arg.toProject].m[cur.arg.toMilestone].updateTimes();
                     }
 
-                    
+                    // из свободной зоны в веху
 
                     if ('FtoM' === cur.arg.type) {
 
@@ -6982,7 +6980,7 @@
 
             this.perform(this.ind, undefined, undefined, reference);
 
-            
+            // скрываем все всплывающие элементы
 
             this.timeline.offMenus();
             this.timeline.offWidgets();
@@ -7021,7 +7019,7 @@
             }
         },
         _updateDebug: function () {
-            
+            //  NOTE: отдельно переопределять
         }
     };
 
@@ -7165,7 +7163,7 @@
                             this.ctx.fillRect(this.thumbX + 0.5 - 1, 2, 1, this.ctxHeight - 4);
                             this.ctx.fillRect(Math.floor(this.thumbX + this.thumbW), 2, 1, this.ctxHeight - 4);
 
-                            
+                            // боковые треугольники
 
                             this.ctx.beginPath();
                             this.ctx.moveTo(this.thumbX + 0.5, this.ctxHeight * 0.5 - this.indent);
@@ -7188,7 +7186,7 @@
 
                         this.renderMilestoneLines();
 
-                        
+                        // линия текущего дня
 
                         this.ctx.fillStyle = kZoomBarCurDayLineColor;
                         this.ctx.fillRect(this.dX, 0, 1, this.ctxHeight);
@@ -7280,8 +7278,8 @@
 
             if (timeLeft) {
 
-                
-                
+                // + один полный месяц дополнительно что бы было место для маневров
+                // на максимальной шкале месяцев будет хотть один полный видимый месяц
 
                 var timeMargin = (31 + 31 + 1) * 24 * 3600000,
 
@@ -7364,7 +7362,7 @@
 
             if (this.thumbW === kZoomBarThumbMinWidth) {
 
-                
+                // в режиме 'узкого ползунка'
 
                 return (this.mouse.x > this.thumbX && this.mouse.x < this.thumbX + this.thumbW);
             }
@@ -7377,7 +7375,7 @@
 
             if (this.thumbW === kZoomBarThumbMinWidth) {
 
-                
+                // в режиме 'узкого ползунка'
 
                 if (this.mouse.x > this.thumbX && this.mouse.x < this.thumbX + this.thumbW)
                     this.handler = 0;
@@ -7546,7 +7544,7 @@
 
                 } else if (-1 === this.handler) {
 
-                    
+                    // двигаем за левую часть ползунка
 
                     t.animator.stop();
 
@@ -7596,7 +7594,7 @@
 
                 } else if (1 === this.handler) {
 
-                    
+                    // двигаем за правую часть ползунка
 
                     t.animator.stop();
 
@@ -7741,14 +7739,14 @@
         this.zoom = 1;
 
         this.textDateLineHeight = 15 * this.zoom;
-        this.hourInPixels = 35 * this.zoom;                             
+        this.hourInPixels = 35 * this.zoom;                             //  при максимальной развертке величина деления для часа (TODO: сделать до минут)
         this.fontHeight = 9 * this.zoom;
         this.font = this.fontHeight + 'pt ' + kDefaultFontName;
         //
         this.ctx = delegate.ctx;
         this.ctxWidth = this.ctx.canvas.width;
         this.ctxHeight = this.ctx.canvas.height;
-        this.scaleX = factor;                                     
+        this.scaleX = factor;                                     //  единичный фактор, соотвествует максимальной развертки шкалы до часа
 
         this.dayUTC = 0;
         this.weekDay = 0;
@@ -7757,10 +7755,10 @@
 
         this._fX = 0.0;
 
-        
-        this.scaleType = 0;                                          
-        this.divisionInOneHours = 1;                                          
-        this.divisionInDays = 7;                                          
+        // внутренние данные
+        this.scaleType = 0;                                          //   тип шкалы
+        this.divisionInOneHours = 1;                                          //   кол-во часов в одном делении
+        this.divisionInDays = 7;                                          //   кол-во дней видимых на шкале ( если меньше 7, то числами )
 
         this.lineSize = this.delegate.itemMargin;
         this.headTextPosY = this.lineSize * 0.55 + 1;
@@ -8774,8 +8772,8 @@
         },
 
         calculateTime: function (date) {
-            
-            
+            // переводит дату в вид понятный для контрола ( в часы от текущей даты )
+            // учет на данный момент идет по дням
             if (undefined == Task.curDate) {
                 Task.curDate = new Date();
                 Task.curDate.setHours(0);
@@ -8972,7 +8970,7 @@
 
         // for second view mode
 
-        this.collapse = false;          
+        this.collapse = false;          // если в вехе нету задач то она всегда раскрыта
 
         this.isInEditMode = false;
     }
@@ -8997,7 +8995,7 @@
 
         add: function (t) {
 
-            
+            // сортировка
 
             //if (this.sortedByDates) {
             //    var up = false;
@@ -9098,8 +9096,8 @@
         },
 
         calculateTime: function (date) {
-            
-            
+            // переводит дату в вид понятный для контрола ( в часы от текущей даты )
+            // учет на данный момент идет по дням
             if (undefined == Task.curDate) {
                 Task.curDate = new Date();
                 Task.curDate.setHours(0);
@@ -9796,7 +9794,7 @@
                             }
                         }
 
-                        
+                        // есть вехи не имеющие индексов (добавляем в конец)
 
                         if (this.p[i].m.length > milestones.length) {
 
@@ -9839,7 +9837,7 @@
                                     }
                                 }
 
-                                
+                                // есть задачи не имеющие индексов (добавляем в конец)
 
                                 if (length > tasks.length) {
 
@@ -9878,7 +9876,7 @@
                                 }
                             }
 
-                            
+                            // есть задачи не имеющие индексов (добавляем в конец)
 
                             if (length > tasks.length) {
 
@@ -10099,7 +10097,7 @@
 
                         // undo
 
-                        
+                        // NOTE: отключено временно
 
                         //t._undoManager.add(kOperationDeleteTask,
                         //    {p: element.p, m: undefined, t: ref, index: element.t,
@@ -10128,7 +10126,7 @@
 
                         // undo
 
-                        
+                        // NOTE: отключено временно
 
                         //t._undoManager.add(kOperationDeleteTask,
                         //    {p: element.p, m: element.m, t: ref, index: element.t,
@@ -10265,7 +10263,7 @@
         },
         checkStatus: function (element) {
 
-            
+            // только для задач в вехе
 
             var t = this.delegate, task = null, milestone = null;
             if (t) {
@@ -10614,7 +10612,7 @@
             var t = this.delegate, addInd = 0, scrollY = 0, milestoneRef = null;
             if (t) {
 
-                
+                // из вехи в зону свободных задач
 
                 if ('MtoF' === data.type) {
 
@@ -10631,7 +10629,7 @@
                     data.place = addInd - 1;
                 }
 
-                
+                //  из вехи в веху
 
                 if ('MtoM' === data.type) {
 
@@ -10643,7 +10641,7 @@
                     t.storage.p[data.toProject].m[data.toMilestone].updateTimes();
                 }
 
-                
+                // из свободной зоны в веху
 
                 if ('FtoM' === data.type) {
 
@@ -10690,7 +10688,7 @@
                 data.group = tasksNeedMove;
                 data.tasksIds = ids;
 
-                
+                // из вехи в зону свободных задач
 
                 if ('MtoF' === data.type) {
 
@@ -10715,7 +10713,7 @@
                     t.animator.moveToY(Math.min(Math.max(0, scrollY - t.ctxHeight * 0.5), t.rightScroll._maxValue - t.rightScroll.viewWidth));
                 }
 
-                
+                //  из вехи в веху
 
                 if ('MtoM' === data.type) {
 
@@ -10735,7 +10733,7 @@
                     t.storage.p[data.toProject].m[data.toMilestone].updateTimes();
                 }
 
-                
+                // из свободной зоны в веху
 
                 if ('FtoM' === data.type) {
 
@@ -10862,7 +10860,7 @@
                             // t.hitLink = undefined;
                             // }
 
-                            
+                            // undo только для открытых задач
 
                             //var fromT = t.storage.taskWithId(par);
                             //if (kElementCompleted !== task.ref.status() && kElementCompleted !== fromT.ref.status()) {
@@ -11002,7 +11000,7 @@
                     return items;
                 }
 
-                
+                // разобьем на элементы в которых есть однозначное соотвествение с элементов его вся связи
 
                 for (i = tasks.length - 1; i >= 0; --i) {
                     for (linkInd = tasks[i].links.length - 1; linkInd >= 0; --linkInd) {
@@ -11055,11 +11053,11 @@
 
                 subItems = [], internal = [];
 
-                
+                // добавляем текущий индекс (основной элемент)
                 items.push(id);
                 subItems.push(id);
 
-                
+                // вся связи с основным элементом
                 for (i = cur.links.length - 1; i >= 0; --i) {
                     subItems.push(cur.links[i]);
                     items.push(cur.links[i]);
@@ -11120,7 +11118,7 @@
 
         collectBeginEndItems: function (p, m, id) {
 
-            
+            // собираем все элементы для данной задачи с связью Begin-End
 
             var i = 0,
                 j = 0,
@@ -11137,7 +11135,7 @@
                 curTask = this.delegate.storage.taskWithId(id).ref,
                 tasks = this.getTasks(p, m),
 
-                
+                // все элементы в виде дерева справа
 
                 rightTree = new TreeNode(),
                 leftTree = new TreeNode();
@@ -11153,7 +11151,7 @@
                 return cn;
             }
 
-            
+            // NOTE: разбить рекурсию на блоки
 
             function walkInternalRight(tree, _id) {
                 ++curDepth;
@@ -11208,7 +11206,7 @@
             hash = this.collectBeginEndLinksRight(p, m, id);
             if (hash.length) {
                 rightTree.root = curTask;
-                maxDepth = countOfTasksWithLinks(tasks); 
+                maxDepth = countOfTasksWithLinks(tasks); // TODO: еще больше оптимизации, максимальная глубина это размер звена   //  hash.length + 1;
                 curDepth = 0;
 
                 for (k = 0; k < tasks.length; ++k) {
@@ -11289,7 +11287,7 @@
             if (cycleExist) { return null; }
 
             leftTree.root = curTask;
-            maxDepth = countOfTasksWithLinks(tasks); 
+            maxDepth = countOfTasksWithLinks(tasks); // TODO: еще больше оптимизации, максимальная глубина это размер звена // curTask.links.length;
             curDepth = 0;
 
             for (k = 0; k < curTask.links.length; ++k) {
@@ -11312,7 +11310,7 @@
                                 if (tasks[j].links.length) {
                                     walkInternalLeft(nextNode, tasks[j]._id);
                                 } else {
-                                    
+                                    //  nextNode.data   =   null;   // NOTE ! понять почему раньше это было выставлено, а сейчас взял да закоментил Bug 20521
                                 }
 
                                 break;
@@ -11353,7 +11351,7 @@
                     return items;
                 }
 
-                
+                // разобьем на элементы в которых есть однозначное соотвествение с элементов его вся связи
 
                 for (i = tasks.length - 1; i >= 0; --i) {
                     for (linkInd = tasks[i].links.length - 1; linkInd >= 0; --linkInd) {
@@ -11431,11 +11429,11 @@
 
                 subItems = [], internal = [];
 
-                
+                // добавляем текущий индекс (основной элемент)
                 items.push(id);
                 subItems.push(id);
 
-                
+                // вся связи с основным элементом
                 for (i = cur.links.length - 1; i >= 0; --i) {
                     subItems.push(cur.links[i]);
                     items.push(cur.links[i]);
@@ -11503,9 +11501,9 @@
                     }
                 }
 
-                
-                
-                
+                // только для задач
+                // каждый элемент который имеет связи и попал под фильтр надо проверить
+                // на полный путь от данного элемента до элемента без фильтра в связных с этим элементом
 
                 for (p = projects.length - 1; p >= 0; --p) {
                     for (i = projects[p].m.length - 1; i >= 0; --i) {
@@ -11553,7 +11551,7 @@
         },
         clearFilter: function (repaint) {
 
-            
+            // убираем метки фильтра у всех элементов
 
             var i, j, p, length, projects = this.delegate.storage.p;
 
@@ -11675,7 +11673,7 @@
 
                             if (data['direction']) {
 
-                                
+                                // изменяем конечную дату
 
                                 checkDate = this.statusElement.ref.endDate();
 
@@ -11694,7 +11692,7 @@
                                 }
                             } else {
 
-                                
+                                // изменяем начальную дату
 
                                 checkDate = this.statusElement.ref.beginDate();
 
@@ -11798,7 +11796,7 @@
             var t = this.delegate;
             if (t) {
 
-                
+                //  отключаем отсылку сообщение об изменении масштаба
                 this.disableScaleEvents = (undefined !== disableEvents);
 
                 if (forse) {
@@ -11927,7 +11925,7 @@
 
                     if ((to - from) < (endTime - beginTime)) {
 
-                        
+                        // включаем отсылку сообщение об изменении масштаба
                         this.disableScaleEvents = false;
 
                         mul = t.timeScale.scaleX * ((endTime - beginTime) / (to - from) * 1.05);
@@ -12150,7 +12148,7 @@
                     if (t._leftPanelController) { t._leftPanelController.scrollContent(t.rightScroll.value()); }
                 }
 
-                
+                // Плавное масштабирование
 
                 if (0 != this.scaleOffset) {
 
@@ -12182,7 +12180,7 @@
                         var pixelsMove = -t.offsetX * t.timeScale.hourInPixels + t.centerScreen;
                         t.offsetX = (t.centerScreen - pixelsMove * mul) / t.timeScale.hourInPixels;
 
-                        
+                        // корректируем положение таким образом что бы не вышли из зоны доступного просмотра
                         //console.log('from : ' + t.offsetX);
                         if (this.boundView.from !== this.boundView.to) {
 
@@ -12375,7 +12373,7 @@
                 return;
             }
 
-            
+            // позиция значка 'бесконечность' у задач без конечной даты
 
             if (task.endFail && i === -1) {
 
@@ -12389,7 +12387,7 @@
                 // this.te     =   (Math.floor ( (this.te / this.worldToScreen) / 24 ) * 24) * this.worldToScreen;
             }
 
-            
+            // настроки цветов
 
             var showDates = false;
             var taskInLinkEditMode = false;
@@ -12484,7 +12482,7 @@
                 }
             }
 
-            
+            // иконка для быстрого перемещения к задачке
 
             if (this.tx > this.t.ctxWidth - 24) {                    // right
                 if (this.t.visibleUp < this.rel) {
@@ -12505,7 +12503,7 @@
                 return;
             }
 
-            
+            // устанавливаем bounds для окна редактирование
 
             if (this.t.editBox.enable) {
                 if (p == this.t.editBox.p && i == this.t.editBox.m && j === this.t.editBox.t) {
@@ -12553,12 +12551,12 @@
             var bound = { x: floor2(this.tx) + 0.5, y: floor2(this.rel) + 0.5, w: floor2(this.te), h: floor2(tH) };
 
             if (this.t.animator.status()) {
-                bound = { x: (this.tx) + 0.5, y: (this.rel) + 0.5, w: (this.te) + 0.5, h: (tH) + 0.5 }; 
+                bound = { x: (this.tx) + 0.5, y: (this.rel) + 0.5, w: (this.te) + 0.5, h: (tH) + 0.5 }; // дрожание рамки
             }
 
-            
+            // отрисовка самой задачи
 
-            
+            // если задача имеет свойство фильтр-связь, то делаем ее прозрачной
 
             if (task.linkFilter) {
                 this.t.ctx.fillStyle = 'rgba(0, 0, 0, 0)';  //  this.t.ctx.globalAlpha = 0.50;   this.t.ctx.fillStyle    =   taskColor;
@@ -12566,7 +12564,7 @@
                 this.t.ctx.fillStyle = taskColor;
             }
 
-            
+            // отрисовка самой задачи (прямоугольник задачи)
 
             this.t.ctx.fillRect(bound.x, bound.y, bound.w, bound.h);
 
@@ -12574,11 +12572,11 @@
             //  this.t.ctx.globalAlpha = 1.0;
             //}
 
-            
+            // рисуем рамку вокруг задачи
 
             var isBorder = (task.links.length > 0);
             if (!isBorder) {
-                
+                // TODO: обязательно оптимизировать
                 for (var ind = tasks.length - 1; ind >= 0; --ind) {
                     for (var linkInd = tasks[ind].links.length - 1; linkInd >= 0; --linkInd) {
                         if (task._id === (tasks[ind].links[linkInd].parentTaskId || tasks[ind].links[linkInd]['parentTaskId'])) {   // minimizator fix
@@ -12591,7 +12589,7 @@
 
             if (isBorder || taskInLinkEditMode) {
 
-                
+                // пунктирная рамка вокруг задач со связями
 
                 var dash = kTaskWithLinkBorderSettings.dash;
                 var margin = 0;
@@ -12615,7 +12613,7 @@
                 }
 
                 if (this.t.animator.status()) {
-                    bound = { x: floor2(this.tx) + 0.5, y: floor2(this.rel) + 0.5, w: floor2(this.te) + 0.5, h: floor2(tH) };   
+                    bound = { x: floor2(this.tx) + 0.5, y: floor2(this.rel) + 0.5, w: floor2(this.te) + 0.5, h: floor2(tH) };   // дрожание рамки
                 }
 
                 this.t.painter.drawDashedLineH(this.t.ctx, bound.x, bound.y, bound.x + bound.w, bound.y, dash);
@@ -12629,7 +12627,7 @@
 
             var lockProject = (kOpenProject !== this.t.storage.getProject(p).status());
 
-            
+            // квадратики вне задача на связываемых задачах
 
             var main = false;
             if (active && !this.t.readMode && !lockProject) {
@@ -12680,7 +12678,7 @@
                 }
             }
 
-            
+            // рисуем стрелку (приоритет)
 
             if (task._priority && !main) {
                 if (this.te > this.t.itemHeight * 0.8) {
@@ -12688,7 +12686,7 @@
                 }
             }
 
-            
+            // выпадающий список
 
             if (task.dropDownWidget) {
                 this.t.taskDescWidget.set(this.tx, this.rel + this.t.itemHeight, task, borderColor);
@@ -12712,7 +12710,7 @@
                 }
             }
 
-            
+            // рисуем даты справа слева
 
             if (!this.t.readMode && showDates && !this.t.pressedButtonRight
                 && kElementCompleted !== task._status &&
@@ -12754,13 +12752,13 @@
                 }
             }
 
-            
+            // бесконечная задача
 
             if (task.endFail) {
                 this.t.ctx.drawImage(this.infinity, this.tx + this.te + 5, this.rel + 2);
             }
 
-            
+            // стрелки на задачах которы выходят одной стороной за границу видимой области
 
             if (this.tx < this.t.visibleLeft + 2 && this.tx + this.te > this.t.visibleLeft + 2) {  // left
                 this.t.ctx.fillStyle = '#FFFFFF';
@@ -12793,7 +12791,7 @@
 
             if (this.t.backLightMilestone.enable || (this.t.backLightMilestone.p == p && this.t.backLightMilestone.m == i)) {
 
-                
+                // Подсветка вехи серым цветом
 
                 if (!this.t.fullscreen) {
                     itemH = floor2(offY - this.scrollY - this.t.itemHeight * 0.5);
@@ -12854,7 +12852,7 @@
             if (mX + mW > this.t.ctxWidth)
                 txtX = this.t.ctxWidth - textW;
 
-            
+            // ключевая веха
 
             if (milestone._isKey) {
                 this.t.painter.drawIcoKey(this.t.ctx, floor2(txtX + textW), floor2(itemH + this.t.itemHeight + 2 * (!this.t.fullscreen)), this.t.zoom);
@@ -12950,7 +12948,7 @@
                                 yFrom = floor2(rel + margin * (cur - linkToCnY) + itemHalfH) + 0.5;
                                 yTo = floor2(rel + margin * (to - linkFromCnY) + itemHalfH) + 0.5;
 
-                                
+                                // рисуем связь в режиме добавления
 
                                 if (this.t.pushLink) {
                                     if (linkType === this.t.pushLink.linkObj['linkType']
@@ -12962,7 +12960,7 @@
                                 }
 
                                 if (tasks[cur].beginTime + tasks[cur].duration > tasks[to].beginTime) {
-                                    
+                                    //                                  NOTE : если нужно подсвечивать выделенную связь нужно разкоментить код
 
                                     //if (linkId === selEnd && task.id() === selBeg) {
                                     if (linkId === hitEnd && task.id() === hitBeg) {
@@ -13009,7 +13007,7 @@
                                 yTo = floor2(rel + margin * (to - linkFromCnY) + itemHalfH) + 0.5;
                             }
 
-                            
+                            // рисуем связь в режиме добавления
 
                             if (this.t.pushLink) {
                                 if (linkType === this.t.pushLink.linkObj['linkType'] && linkId == this.t.pushLink.linkObj['parentTaskId'] && tasks[to]._id == this.t.pushLink.linkObj['dependenceTaskId']) {
@@ -13018,7 +13016,7 @@
                                 }
                             }
 
-                            
+                            // NOTE : если нужно подсвечивать выделенную связь нужно разкоментить код
                             //if (linkId === selEnd && task.id() === selBeg) {
                             if (linkId === hitEnd && task.id() === hitBeg) {
                                 selectedLink = { linkType: linkType, xFrom: xFrom + 0.5, yFrom: yFrom + 0.5, xTo: xTo + 0.5, yTo: yTo + 0.5, linkColor: kLinkNormalColor };
@@ -13051,7 +13049,7 @@
                 this.t.ctx.stroke();
             }
 
-            
+            // NOTE : если нужно подсвечивать выделенную связь нужно разкоментить код
             if (selectedLink) {
                 this.t.ctx.beginPath();
 
@@ -13501,8 +13499,8 @@
 
             this.bound = bound;
 
-            
-            
+            // 0 - горизонтальное расположение
+            // 1 - вертикальное расположение
 
             this.direction = direction;
             this.linkDays = days;
@@ -13563,7 +13561,7 @@
                         this.internalBound.w + kLinksWidgetSettings.h,
                         this.internalBound.h + kLinksWidgetSettings.h, 5);
 
-                
+                // отрисовка виджета (задний серый фон)
 
                 this.t.overlayctx.fillStyle = '#83888D';
                 this.t.overlayctx.lineWidth = 1;
@@ -13579,7 +13577,7 @@
                 this.t.overlayctx.closePath();
                 this.t.overlayctx.fill();
 
-                
+                // белый прямоугольник для иконки
 
                 this.t.overlayctx.fillStyle = '#FFFFFF';
                 this.t.overlayctx.fillRect(floor2(this.bound.x - kLinksWidgetIcoSettings.s * 0.5 + 1.0),
@@ -13587,7 +13585,7 @@
                     kLinksWidgetIcoSettings.s,
                     kLinksWidgetIcoSettings.s);
 
-                
+                // иконка удаления
 
                 this.t.overlayctx.fillStyle = '#83888D';
                 this.t.overlayctx.beginPath();
@@ -13598,7 +13596,7 @@
                 this.t.overlayctx.closePath();
                 this.t.overlayctx.fill();
 
-                
+                // надпись с днями
 
                 if (this.days.length && this.linkDays <= 9999 && this.linkDays >= -9999) {
 
@@ -13622,7 +13620,7 @@
                     this.internalBound.y,
                         this.internalBound.w + kLinksWidgetSettings.h, this.internalBound.h, 5);
 
-                
+                // отрисовка виджета (задний серый фон)
 
                 this.t.overlayctx.fillStyle = '#83888D';
                 this.t.overlayctx.lineWidth = 1;
@@ -13637,7 +13635,7 @@
                 this.t.overlayctx.closePath();
                 this.t.overlayctx.fill();
 
-                
+                // белый прямоугольник для иконки
 
                 this.t.overlayctx.fillStyle = '#FFFFFF';
                 this.t.overlayctx.fillRect(floor2(this.bound.x + kLinksWidgetIcoSettings.xw + this.titleIndent.x),
@@ -13645,7 +13643,7 @@
                     kLinksWidgetIcoSettings.s,
                     kLinksWidgetIcoSettings.s);
 
-                
+                // иконка удаления
 
                 this.t.overlayctx.fillStyle = '#83888D';
                 this.t.overlayctx.beginPath();
@@ -13657,7 +13655,7 @@
                 this.t.overlayctx.closePath();
                 this.t.overlayctx.fill();
 
-                
+                // надпись с днями
 
                 if (this.days.length && this.linkDays <= 9999 && this.linkDays >= -9999) {
 
@@ -13690,11 +13688,11 @@
             this.t.needUpdate = true;
         },
 
-        
+        // проверка на попадание в область баунд меню
 
         checkZone: function (x, y) {
 
-            
+            // вертикально оринтирован
 
             if (this.direction) {
                 if (this.internalBound.x >= x || x >= this.internalBound.x + this.internalBound.w ||
@@ -13705,7 +13703,7 @@
 
             } else {
 
-                
+                // горизонтально ориентирован
 
                 if (this.internalBound.x - 20 > x || x > this.internalBound.x + this.internalBound.w + 7 ||
                     this.internalBound.y - 2 > y || y > this.internalBound.y + this.internalBound.h) {      //  TODO:
@@ -13961,7 +13959,7 @@
                     this.overlayctx = this.overlay.getContext('2d');
                     this.updateDragDrop = false;
 
-                    
+                    // если выходим за границу контрола то скрываем все всплывающие менюшки
 
                     this.overlay.onmouseout = function (e) {
                         t.leftPanelController().updateFocus();
@@ -13992,7 +13990,7 @@
                     this._leftPanelController.init();
                 }
 
-                
+                // данны для связи
                 this._mouseInLinkZone = null;
 
                 this.repaint = true;
@@ -14074,7 +14072,7 @@
                     return true;
                 },
 
-                
+                // проверка на попадание в область баунд меню
 
                 checkZone: function (x, y) {
                     var cw, cx = this.bound.x + this.bound.w * 0.5;
@@ -14265,7 +14263,7 @@
 
                     var posX = t.menuTask.bound.x + t.menuTask.bound.w * 0.5;
 
-                    
+                    // назначения отвественных для задачи
 
                     t.showPopUpResp(t.menuTask.p, t.menuTask.m === -1 ? undefined : t.menuTask.m, t.menuTask.t, posX);
                 }
@@ -14348,7 +14346,7 @@
                     this.bound = { x: x, y: y, w: w, h: h };
                 },
                 //
-                
+                // проверка на попадание в область баунд меню
 
                 checkZone: function (x, y) {
                     if (this.disable) { return false; }
@@ -14538,7 +14536,7 @@
 
                     var posX = t.menuMileStone.bound.x + t.menuMileStone.bound.w * 0.5;
 
-                    
+                    // назначения отвественных для вехи
 
                     t.showPopUpResp(t.menuMileStone.p, t.menuMileStone.m, t.menuMileStone.t, posX);
                 } else {
@@ -14774,7 +14772,7 @@
             this.projectsLines = [];
             this.projectsLinesY = [];
 
-            
+            // в случае когда нужно скролить до первого видимого горизонтального элемента нужно сделать пересчет высоты контента
 
             if (rebuild) {
                 this.contentHeight = this.getContentHeight();
@@ -14858,7 +14856,7 @@
             this.drawScene();
             this.drawEditLayer();
 
-            
+            // TODO: переделать
             if (this.mouse) {
                 if (kEditModeElementDrag === this.editMode) {
                     if (this.mouse.y <= this.visibleUp) {
@@ -14916,7 +14914,7 @@
                 this.menuTask.onmousemove(mouse.x, mouse.y);
                 this.menuMileStone.onmousemove(mouse.x, mouse.y);
 
-                
+                // находимся на шкале дат, сбрасываем фокус с активного элемента
 
                 if (!(this.menuTask.checkZone(mouse.x, mouse.y) || this.linkWidget.checkZone(mouse.x, mouse.y))) {
                     this.overlay.style.cursor = '';
@@ -15045,7 +15043,7 @@
                                     this.overlay.style.cursor = '';
                                 } else {
 
-                                    
+                                    // связь имеет право на добавление
 
                                     if (this.linkLineEdit.parentSide === kTaskSideRight && this.linkLineEdit.side === kTaskSideRight)
                                         typeLink = kLinkEndEnd;
@@ -15144,7 +15142,7 @@
                                     this.overlay.style.cursor = '';
                                 } else {
 
-                                    
+                                    // связь имеет право на добавление
 
                                     this.pushLink = { task: taskTo };
                                     this.pushLink.linkObj = {};
@@ -15232,7 +15230,7 @@
                 }
             }
 
-            
+            // находимся в всплывающем меню задачи
 
             if (this.menuTask.checkZone(mouse.x, mouse.y)) {
 
@@ -15256,7 +15254,7 @@
                 return;
             }
 
-            
+            // находимся в всплывающем меню задачи
 
             if (this.menuMileStone.checkZone(mouse.x, mouse.y)) {
 
@@ -15374,13 +15372,13 @@
 
                 if (-1 !== this.capProject && -1 !== this.capTask && -1 === this.capMilestone && !this.readMode && !lockProject) {
 
-                    
+                    // двигаем задачу у проекта (непривязана к вехе)
 
                     task = this.storage.p[this.capProject].t[this.capTask];
 
                     if (undefined !== task && kElementCompleted != task._status && (!this.editBox.enable || this.editBox.createMode)) {
 
-                        
+                        // вертикальный перенос задачи
 
                         if (this.moveMouse.y - mouse.y !== 0 && !this._modeStrafe && !this.editBox.enable && 0 === this.capSide) {
 
@@ -15437,14 +15435,14 @@
 
                         if (kTaskSideLeft === this.capSide) {
 
-                            
+                            // при ведении влево больше чем сегодняшний день делаем принудительно увеличение на один день
 
                             if (timeNX <= 0) timeX -= 24;
 
                             task.updateBegin(timeX);
                         } else if (kTaskSideRight === this.capSide) {
 
-                            
+                            // при ведении вправо больше чем сегодняшний день делаем принудительно увеличение на один день
 
                             if (timeNX >= 0) timeX += 24;
 
@@ -15510,13 +15508,13 @@
 
                 } else if (-1 != this.capProject && -1 != this.capTask && -1 !== this.capMilestone && !this.readMode && !lockProject) {
 
-                    
+                    //  двигаем задачу у вехи
 
                     task = this.storage.getTask(this.capProject, this.capMilestone, this.capTask);
 
                     if (undefined !== task && kElementCompleted != task._status && (!this.editBox.enable || this.editBox.createMode)) {
 
-                        
+                        // вертикальный перенос задачи
 
                         if (this.moveMouse.y - mouse.y !== 0 && !this._modeStrafe && !this.editBox.enable && 0 === this.capSide) {
 
@@ -15575,14 +15573,14 @@
 
                         if (kTaskSideLeft === this.capSide) {
 
-                            
+                            // при ведении влево больше чем сегодняшний день делаем принудительно увеличение на один день
 
                             if (timeNX <= 0) timeX -= 24;
 
                             task.updateBegin(timeX, milestone.endTime);
                         } else if (kTaskSideRight === this.capSide) {
 
-                            
+                            // при ведении вправо больше чем сегодняшний день делаем принудительно увеличение на один день
 
                             if (timeNX >= 0) timeX += 24;
 
@@ -15639,7 +15637,7 @@
 
                 } else if (-1 != this.capProject && -1 === this.capTask && -1 !== this.capMilestone && !this.readMode && !lockProject) {
 
-                    
+                    //  двигаем веху
 
                     milestone = this.storage.getMilestone(this.capProject, this.capMilestone);
 
@@ -15651,7 +15649,7 @@
 
                 } else {
 
-                    
+                    //  двигаем весь TimeLine
 
                     this.pressedButtonRight = false;
                     if (e.buttons) {
@@ -15891,7 +15889,7 @@
                 this.capLink = this.hitLink;
             }
 
-            
+            // создаем начальную точку-связи
 
             if (this._mouseInLinkZone) {
                 if (this.addEditLink()) {
@@ -15913,7 +15911,7 @@
 
                     } else {
 
-                        
+                        // при клике правой кнопнкой мыши создаем задачу
 
                         if (!this.editBox.enable) {
 
@@ -16050,7 +16048,7 @@
 
             if (-1 !== this.capProject && -1 !== this.capTask && -1 === this.capMilestone && !this.readMode) {
 
-                
+                // задача в свободной зоне
 
                 taskRef = this.storage.p[this.capProject].t[this.capTask];
                 if (kElementCompleted === taskRef._status)
@@ -16061,7 +16059,7 @@
 
                 if (kEnableQueryTaskWithLinksMove) {
 
-                    
+                    // собираем связи для данной задачи
 
                     this.queryMoveLinks = this._modelController.collectBeginEndItems(this.capProject, undefined, taskId);
 
@@ -16093,7 +16091,7 @@
 
             } else if (-1 != this.capProject && -1 != this.capTask && -1 !== this.capMilestone && !this.readMode) {
 
-                
+                // задача принадлежит вехе
 
                 taskRef = this.storage.getTask(this.capProject, this.capMilestone, this.capTask);
                 if (kElementCompleted === taskRef._status)
@@ -16105,7 +16103,7 @@
 
                 if (kEnableQueryTaskWithLinksMove) {
 
-                    
+                    // собираем связи для данной задачи
 
                     this.queryMoveLinks = this._modelController.collectBeginEndItems(this.capProject, this.capMilestone, taskId);
 
@@ -16318,7 +16316,7 @@
 
                     // undo
 
-                    
+                    // проверяем все задачи на изменения времени
 
                     this._undoManager.applyTempOperation();
                     this._undoManager.updateOperation(true, t, this.queryMoveLinks);
@@ -16390,7 +16388,7 @@
 
                     // undo
 
-                    
+                    // проверяем все задачи на изменения времени
 
                     this._undoManager.applyTempOperation();
                     this._undoManager.updateOperation(true, t, this.queryMoveLinks);
@@ -16789,7 +16787,7 @@
 
             if (hidePopUp) {
 
-                
+                // скрываем все всплывающие элементы
 
                 this.offMenus();
                 this.offWidgets();
@@ -16982,11 +16980,11 @@
             for (i = 0; i < count; ++i) {
                 tasksCount = m[i].t.length;
 
-                
+                //  в фильтре поэтому пропускаем
 
                 if (m[i].filter) { continue; }
 
-                
+                // подсчитываем реально видимые задачи с учетом фильтра
 
                 realTasksCount = tasksCount;
 
@@ -16997,7 +16995,7 @@
                 this._renderer.drawBackLightMilestone(p, i, -1, offY - scrollY + 3);
                 this._renderer.drawMilestone(m[i], offY, p, i, realTasksCount);
 
-                
+                // выходим за видимую область по высоте для вех с задачами, поэтому не рисуем свободные задачи
 
                 if (offY - scrollY > this.ctxHeight) {
                     outFactor = true;
@@ -17017,7 +17015,7 @@
 
                 for (j = 0; j < tasksCount; ++j) {
 
-                    
+                    //  в фильтре поэтому пропускаем
 
                     if (m[i].t[j].filter) { continue; }
 
@@ -17054,7 +17052,7 @@
 
                 for (j = 0; j < length; ++j) {
 
-                    
+                    //  в фильтре поэтому пропускаем
 
                     if (project.t[j].filter) { continue; }
 
@@ -17404,7 +17402,7 @@
 
                 if (maxOffY < height) {
 
-                    
+                    // первая строчка более темная
 
                     this.ctx.beginPath();
 
@@ -17462,7 +17460,7 @@
 
                 this.ctx.stroke();
 
-                
+                // первая строчка более темная
 
                 this.ctx.beginPath();
 
@@ -17698,7 +17696,7 @@
 
                 for (var j = 0; j < pl; ++j) {
 
-                    
+                    // весь контент у проекты скрыт
 
                     if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -17710,11 +17708,11 @@
 
                         for (var i = 0; i < length; ++i) {
 
-                            
+                            // применен фильтр
 
                             if (p[j].m[i].filter) { continue; }
 
-                            
+                            // подсчитываем реально видимые задачи с учетом фильтра
 
                             tasksCount = p[j].m[i].t.length;
                             realTasksCount = tasksCount;
@@ -17725,10 +17723,10 @@
 
                             if (j === t.dragTo.p && i === t.dragTo.m) {
 
-                                
+                                // если веха закрытая то ничего не рисуем
                                 if (1 === p[j].m[i]._status) return;
 
-                                
+                                // перенос работает в рамках одного проекта
                                 if (t.dragTo.p !== t.itemToDrop.p) return;
 
                                 var tx = t.offX + p[j].m[i].beginTime * t.worldToScreen;
@@ -17751,7 +17749,7 @@
                                 if (tx < clampX) { te -= clampX - tx; tx = clampX; }
 
                                 if (tx + te > clampX) {
-                                    
+                                    // три линии для отрисовки той вехи в которую мы переносим задачу
 
                                     t.overlayctx.strokeStyle = kMilestoneBeforeDragColor;
                                     t.overlayctx.lineWidth = 1;
@@ -17778,7 +17776,7 @@
                             if (!p[j].m[i].collapse) { offY += margin * realTasksCount; }
                         }
 
-                        
+                        // свободные задачи в проекте скрыты
 
                         if (p[j].collapse) { offY += margin; continue; }
 
@@ -17788,7 +17786,7 @@
 
                             for (i = p[j].t.length - 1; i >= 0; --i) {
 
-                                
+                                // применен фильтр
 
                                 if (p[j].t[i].filter) { continue; }
 
@@ -17796,7 +17794,7 @@
                             }
                         } else {
 
-                            
+                            // линия свободных задач
 
                             offY += margin;
                         }
@@ -17806,7 +17804,7 @@
 
                     } else {
 
-                        
+                        // пустой проект имеет только две линии - сам проект и свободные задачи
 
                         offY += margin * 2;
                     }
@@ -18030,7 +18028,7 @@
             }
         },
 
-        
+        // элементы захвата и пересечений
 
         calculateHit: function (e, cursor, ctr) {
 
@@ -18083,7 +18081,7 @@
 
                 lockProject = p[j]._status;
 
-                
+                // весь контент у проекты скрыт
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -18093,7 +18091,7 @@
 
                     for (mi = 0; mi < p[j].m.length; ++mi) {
 
-                        
+                        // применен фильтр
 
                         if (p[j].m[mi].filter) { continue; }
 
@@ -18102,7 +18100,7 @@
 
                         if (!this.fullscreen && m.collapse) { offY += margin; continue; }
 
-                        
+                        // подсчитываем реально видимые задачи с учетом фильтра
 
                         realTasksCount = mc;
 
@@ -18128,7 +18126,7 @@
                         offY += margin;
                         offY += margin * realTasksCount;
 
-                        
+                        // элементы в вехе
 
                         taskBeginY = mbegin + margin - this.itemHeight;
                         taskEnY = mbegin + margin;
@@ -18137,11 +18135,11 @@
 
                             t = m.t[ti];
 
-                            
+                            // применен фильтр
 
                             if (t.filter) { continue; }
 
-                            
+                            // находимся на 'кнопках-стрелках' для центрирование позиций элементов
 
                             if ((this.downMouse.y >= taskBeginY && this.downMouse.y <= taskEnY)) {
 
@@ -18217,7 +18215,7 @@
                                         this.anchorMouse.x = t.endTime - this.downMouse.x / (this.timeScale.hourInPixels * scaleUnitStep) * scaleUnitStep * this.timeScale.scaleX;
                                     }
 
-                                    
+                                    // зона появления 'квадрата связи'
 
                                     if (this.editMode !== kEditModeAddLink) {
 
@@ -18256,7 +18254,7 @@
                             taskEnY += margin;
                         }
 
-                        
+                        // боковая левая часть (изменяем дедлайн вехи)
 
                         if (Math.abs(this.downMouse.x - m.endTime * worldToScreen) < kHitSidePixels && (this.downMouse.y >= milestoneBeginY && milestoneEndY >= this.downMouse.y)) {
                             if (p[j].m[mi]._status == kElementCompleted - 1) return;
@@ -18287,7 +18285,7 @@
                             return;
                         }
 
-                        
+                        // веха (показываем всплывающюю менюшку или при клике показываем виджет с описанием)
 
                         if (kEditModeNoUse === this.editMode) {
                             if ((mousedx >= m.beginTime && mousedx <= m.endTime) && (this.downMouse.y >= billet && this.downMouse.y <= billet + margin * 0.5)) {
@@ -18307,7 +18305,7 @@
                             }
                         }
 
-                        
+                        // проверка связей идет только после того как мы прочекали все задачи
 
                         if (!lockProject && this.calculateLinksHit(p[j].m[mi].t, offX, linkBeginY, scrollY, 1, mousedx, linkMouseY, 0)) {
                             if (cursor) { this.overlay.style.cursor = 'pointer'; } return;
@@ -18318,11 +18316,11 @@
                         if (0 === mc && this.fullscreen) offY += margin;
                     }
 
-                    
+                    // свободные задачи в проекте скрыты
 
                     if (p[j].collapse) { offY += margin; continue; }
 
-                    
+                    // свободные задачи
 
                     if (p[j].t.length) {
 
@@ -18334,7 +18332,7 @@
                         linkBeginY = offY + scrollY;
                         linkMouseY = this.downMouse.y + scrollY - this.timeScale.height() + margin + offLinkY;
 
-                        
+                        // подсчитываем реально видимые задачив свободной зоне
 
                         mc = p[j].t.length;
                         realTasksCount = mc;
@@ -18343,7 +18341,7 @@
                             if (p[j].t[x].filter) { --realTasksCount; }
                         }
 
-                        
+                        // элементы в вехе
 
                         mbegin = offY + margin * 0.5 - this.itemHeight;
 
@@ -18353,7 +18351,7 @@
                         for (k = 0; k < p[j].t.length; ++k) {
                             t = p[j].t[k];
 
-                            
+                            // применен фильтр
 
                             if (t.filter) { continue; }
 
@@ -18382,7 +18380,7 @@
                                 endTime = this.worldToSceneX(endFailX);
                             }
 
-                            
+                            // находимся на 'кнопках-стрелках' для центрирование позиций элементов
 
                             if ((this.downMouse.y >= taskBeginY && this.downMouse.y <= taskEnY)) {
 
@@ -18468,7 +18466,7 @@
                                         }
                                     }
 
-                                    
+                                    // зона появления 'кружка связи'
 
                                     if (this.editMode !== kEditModeAddLink) {
                                         timeTaskScreen = this.timeToSceneX(t.beginTime);
@@ -18506,7 +18504,7 @@
                             taskEnY += margin;
                         }
 
-                        
+                        // проверка связей идет только после того как мы прочекали все задачи
 
                         if (!lockProject && this.calculateLinksHit(p[j].t, offX, linkBeginY, scrollY, 1, mousedx, linkMouseY, margin)) {
                             if (cursor) { this.overlay.style.cursor = 'pointer'; } return;
@@ -18515,13 +18513,13 @@
                         offY += margin * realTasksCount;
                     } else {
 
-                        
+                        // линия свободных задач
 
                         offY += margin;
                     }
                 } else {
 
-                    
+                    // пустой проект имеет только две линии - сам проект и свободные задачи
 
                     offY += margin * 2;
                 }
@@ -18558,17 +18556,17 @@
 
             for (j = 0; j < pl; ++j) {
 
-                
+                // строка проекта
 
                 if (offY <= mouseY && mouseY <= offY + margin) {
 
-                    
+                    // если проект пуст, то индекс вехи (-1), иначе указываем на первую веху (0)
 
                     this.hitLine = { p: j, m: p[j].m.length ? 0 : -1, t: -1 };
                     return true;
                 }
 
-                
+                // весь контент у проекты скрыт
 
                 if (p[j].fullCollapse) {
 
@@ -18582,7 +18580,7 @@
 
                     for (m = 0; m < p[j].m.length; ++m) {
 
-                        
+                        // применен фильтр
 
                         if (p[j].m[m].filter) { continue; }
 
@@ -18599,7 +18597,7 @@
 
                         for (i = 0; i < p[j].m[m].t.length; ++i) {
 
-                            
+                            // применен фильтр
 
                             if (p[j].m[m].t[i].filter) { continue; }
 
@@ -18612,13 +18610,13 @@
                         }
                     }
 
-                    
+                    // свободные задачи в проекте скрыты
 
                     if (p[j].collapse) {
 
                         if (offY <= mouseY && mouseY <= offY + margin) {
 
-                            
+                            // если проект пуст, то индекс вехи (-1), иначе указываем на первую веху (0)
 
                             this.hitLine = { p: j, m: -1, t: -1 };
                             return true;
@@ -18639,7 +18637,7 @@
 
                         for (i = 0; i < p[j].t.length; ++i) {
 
-                            
+                            // применен фильтр
 
                             if (p[j].t[i].filter) { continue; }
 
@@ -18654,13 +18652,13 @@
 
                         if (offY <= mouseY && mouseY <= offY + margin) {
 
-                            
+                            // если проект пуст, то индекс вехи (-1), иначе указываем на первую веху (0)
 
                             this.hitLine = { p: j, m: -1, t: -1 };
                             return true;
                         }
 
-                        
+                        // линия свободных задач
 
                         offY += this.itemMargin;
                     }
@@ -18668,13 +18666,13 @@
 
                     if (offY <= mouseY && mouseY <= offY + margin * 2) {
 
-                        
+                        // если проект пуст, то индекс вехи (-1), иначе указываем на первую веху (0)
 
                         this.hitLine = { p: j, m: -1, t: -1 };
                         return true;
                     }
 
-                    
+                    // пустой проект имеет только две линии - сам проект и свободные задачи
 
                     offY += this.itemMargin * 2;
                 }
@@ -18708,7 +18706,7 @@
 
             for (j = 0; j < pl; ++j) {
 
-                
+                // весь контент у проекты скрыт
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -18734,7 +18732,7 @@
                         }
                     }
 
-                    
+                    // свободные задачи в проекте скрыты
 
                     if (p[j].collapse) { offY += margin; continue; }
 
@@ -18744,7 +18742,7 @@
 
                         for (i = p[j].t.length - 1; i >= 0; --i) {
 
-                            
+                            // применен фильтр
 
                             if (p[j].t[i].filter) { continue; }
 
@@ -18755,13 +18753,13 @@
                             return { p: j, m: undefined };
                         }
                     } else {
-                        
+                        // линия свободных задач
 
                         offY += margin;
                     }
                 } else {
 
-                    
+                    // пустой проект имеет только две линии - сам проект и свободные задачи
 
                     offY += margin * 2;
                 }
@@ -19196,11 +19194,11 @@
             return this.exist;
         },
 
-        
+        // расчеты
 
         getTheMilestoneTaskToDrag: function (e) {
 
-            
+            // Получаем веху куда над которой находится перемещаемая задача (пересечение двух баунд боксов, задачи и всех вех)
 
             this.dragTo = { t: -1, m: -1, p: -1 };
 
@@ -19234,7 +19232,7 @@
                     return true;
                 }
 
-                
+                // весь контент у проекты скрыт
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -19244,13 +19242,13 @@
 
                     for (i = 0; i < p[j].m.length; ++i) {
 
-                        
+                        // применен фильтр
 
                         if (p[j].m[i].filter) { continue; }
 
                         tasksCount = p[j].m[i].t.length;
 
-                        
+                        // подсчитываем реально видимые задачи с учетом фильтра
 
                         realTasksCount = tasksCount;
 
@@ -19300,7 +19298,7 @@
                         }
                     }
 
-                    
+                    // свободные задачи в проекте скрыты
 
                     if (p[j].collapse) {
 
@@ -19340,7 +19338,7 @@
                             return true;
                         }
 
-                        
+                        // линия свободных задач
 
                         offY += margin;
                     }
@@ -19351,7 +19349,7 @@
                         return true;
                     }
 
-                    
+                    // пустой проект имеет только две линии - сам проект и свободные задачи
 
                     offY += margin * 2;
                 }
@@ -19375,17 +19373,17 @@
 
             for (j = 0; j < pl; ++j) {
 
-                
+                // весь контент у проекты скрыт
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
                 if (!p[j].isEmpty()) {
 
-                    
+                    // линия проектов
 
                     offY += margin;
 
-                    
+                    // линии вех
 
                     for (i = 0; i < p[j].m.length; ++i) {
 
@@ -19402,11 +19400,11 @@
                         }
                     }
 
-                    
+                    // свободные задачи в проекте скрыты
 
                     if (p[j].collapse) { offY += margin; continue; }
 
-                    
+                    // линии свободных задач в проекте
 
                     if (p[j].t.length) {
 
@@ -19418,13 +19416,13 @@
                         }
                     }
 
-                    
+                    // линия свободных задач
 
                     offY += margin;
 
                 } else {
 
-                    
+                    // пустой проект имеет только две линии - сам проект и свободные задачи
 
                     offY += margin * 2;
                 }
@@ -19443,7 +19441,7 @@
 
             for (j = 0; j < pl; ++j) {
 
-                
+                // весь контент у проекты скрыт
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -19453,13 +19451,13 @@
 
                     for (i = 0; i < p[j].m.length; ++i) {
 
-                        
+                        // применен фильтр
 
                         if (p[j].m[i].filter) { continue; }
 
                         tasksCount = p[j].m[i].t.length;
 
-                        
+                        // подсчитываем реально видимые задачи с учетом фильтра
 
                         realTasksCount = tasksCount;
 
@@ -19474,7 +19472,7 @@
 
                         for (s = 0; s < p[j].m[i].t.length; ++s) {
 
-                            
+                            // применен фильтр
 
                             if (p[j].m[i].t[s].filter) { continue; }
 
@@ -19485,7 +19483,7 @@
                         }
                     }
 
-                    
+                    // свободные задачи в проекте скрыты
 
                     if (p[j].collapse) { offY += margin; continue; }
 
@@ -19495,7 +19493,7 @@
 
                         for (i = 0; i < p[j].t.length; ++i) {
 
-                            
+                            // применен фильтр
 
                             if (p[j].t[i].filter) { continue; }
 
@@ -19510,7 +19508,7 @@
 
                         for (i = 0; i < p[j].t.length; ++i) {
 
-                            
+                            // применен фильтр
 
                             if (p[j].t[i].filter) { continue; }
 
@@ -19519,7 +19517,7 @@
                     }
                 } else {
 
-                    
+                    // пустой проект имеет только две линии - сам проект и свободные задачи
 
                     offY += margin * 2;
                 }
@@ -19529,7 +19527,7 @@
         },
         getLeftMostElement: function () {
 
-            
+            // получаем самый крайний левый элемент слева
 
             var i, j, s;
 
@@ -19550,7 +19548,7 @@
 
                     for (i = 0; i < p[j].m.length; ++i) {
 
-                        
+                        // применен фильтр
 
                         if (p[j].m[i].filter) { continue; }
 
@@ -19558,7 +19556,7 @@
 
                         for (s = 0; s < p[j].m[i].t.length; ++s) {
 
-                            
+                            // применен фильтр
 
                             if (p[j].m[i].t[s].filter) { continue; }
 
@@ -19580,7 +19578,7 @@
 
                     for (s = 0; s < p[j].t.length; ++s) {
 
-                        
+                        // применен фильтр
 
                         if (p[j].t[s].filter) { continue; }
 
@@ -19601,7 +19599,7 @@
         },
         getTopElementInVisibleRange: function () {
 
-            
+            // получаем самый первый элемент в области видимости по вертикали
 
             var duration = (this.zoomBar.rightDate.getTime() - this.zoomBar.leftDate.getTime()) / 3600000;      //  hours
             var from = (this.zoomBar.thumb.begin - this.zoomBar.fraction) * duration;
@@ -19615,7 +19613,7 @@
 
             for (j = 0; j < pl; ++j) {
 
-                
+                // весь контент у проекты скрыт
 
                 if (p[j].fullCollapse) { offY += margin; continue; }
 
@@ -19625,7 +19623,7 @@
 
                     for (i = 0; i < p[j].m.length; ++i) {
 
-                        
+                        // применен фильтр
 
                         if (p[j].m[i].filter) { continue; }
 
@@ -19635,7 +19633,7 @@
 
                             task = p[j].m[i].t[s];
 
-                            
+                            // применен фильтр
 
                             if (task.filter) { continue; }
 
@@ -19674,7 +19672,7 @@
 
                         task = p[j].t[s];
 
-                        
+                        // применен фильтр
 
                         if (task.filter) { continue; }
 
@@ -19704,7 +19702,7 @@
                     offY += this.itemHeight;
                 } else {
 
-                    
+                    // пустой проект имеет только две линии - сам проект и свободные задачи
 
                     offY += margin * 2;
                 }
@@ -19732,7 +19730,7 @@
             var taskDrag, milestoneRef, projectRef, indexRemove, changePosition = false, elementLine = -1, elementPlace = -1, elementRemove = -1;
             var links = null;
 
-            
+            // TODO : перенос можем делать в рамках одного проекта
 
             if (this.itemToDrop.p !== this.dragTo.p) {
                 this.dragTo = { t: -1, m: -1, p: -1 };
@@ -19761,11 +19759,11 @@
 
                         if (kElementCompleted - 1 !== milestoneRef.status()) {
 
-                            
+                            // есть связи и перемещение между разными вехами
 
                             if (links.length) {
 
-                                
+                                // задача имеет связи
 
                                 this.modelController().addTaskOperation(kHandlerBeforeMoveTaskWithLinks,
                                     {
@@ -19780,7 +19778,7 @@
 
                             } else {
 
-                                
+                                // если связей нету, то напрямую делаем перенос задачи
 
                                 if (taskDrag.endFail && taskDrag.beginTime >= milestoneRef.endTime) {
                                     taskDrag.updateBegin(milestoneRef.endTime - 24);
@@ -19817,11 +19815,11 @@
                         }
                     }
 
-                    
+                    // перемещаем задачу из вехи в веху
 
                     if (-1 !== this.itemToDrop.m && -1 !== this.dragTo.m) {
 
-                        
+                        // переносим только в открытую веху
 
                         if (kElementCompleted - 1 !== this.storage.getMilestone(this.dragTo.p, this.dragTo.m).status()) {
 
@@ -19829,7 +19827,7 @@
                             elementLine = this.hitLine.t + 1;
                             elementPlace = elementLine;
 
-                            
+                            // была попытка переместить задачу на место самой себя
 
                             if (this.hitLine.t + 1 === indexRemove && this.dragTo.m === this.itemToDrop.m) {
                                 this.dragTo = { t: -1, m: -1, p: -1 };
@@ -19840,7 +19838,7 @@
                                 return;
                             }
 
-                            
+                            // переместили элемент в ту же веху
 
                             if (this.dragTo.m === this.itemToDrop.m) {
                                 changePosition = true;
@@ -19860,13 +19858,13 @@
 
                             links = this.modelController().collectLinks(this.itemToDrop.p, this.itemToDrop.m, ids.t);
 
-                            
+                            // есть связи и перемещение между разными вехами
 
                             if (links.length && !changePosition) {
 
                                 this.offMenus();
 
-                                
+                                // задача имеет связи
 
                                 this.modelController().addTaskOperation(kHandlerBeforeMoveTaskWithLinks,
                                     {
@@ -19881,7 +19879,7 @@
 
                             } else {
 
-                                
+                                // если связей нету, то напрямую делаем перенос задачи
 
                                 milestoneRef.addTaskWithIndex(taskDrag, elementPlace);
                                 this.storage.p[this.itemToDrop.p].m[this.itemToDrop.m].removeTask(indexRemove);
@@ -19927,11 +19925,11 @@
                 elementLine = this.hitLine.t + 1;
                 elementPlace = elementLine;
 
-                
+                // переместили элемент в ту же веху
 
                 if (this.dragTo.m === this.itemToDrop.m) {
 
-                    
+                    // была попытка переместить задачу на место самой себя
 
                     if (this.hitLine.t + 1 === indexRemove && this.dragTo.m === this.itemToDrop.m) {
                         this.dragTo = { t: -1, m: -1, p: -1 };
@@ -19955,13 +19953,13 @@
                     }
                 }
 
-                
+                // есть связи и перемещение между разными вехами
 
                 if (links.length && !changePosition) {
 
                     this.offMenus();
 
-                    
+                    // задача имеет связи
 
                     this.modelController().addTaskOperation(kHandlerBeforeMoveTaskWithLinks,
                         {
@@ -19998,7 +19996,7 @@
 
                     } else {
 
-                        
+                        // если связей нету, то напрямую делаем перенос задачи
 
                         // taskDrag.milestone  =   -1;
                         // var addInd          =   this.storage.p[this.itemToDrop.p].addTask(taskDrag);
@@ -20178,7 +20176,7 @@
 
                 if (viewHeight > t.contentHeight && viewHeight > endH && t.rightScroll.offDown === 0) {
 
-                    
+                    // по вертикали контент оказался меньше чем видимая область, возможно нужно отскролить выпдадашку вправо
 
                     if (t.taskDescWidget.isValid()) {
                         if (t.widgetX + t.taskDescWidget.bound.w > t.ctxWidth)
@@ -20236,7 +20234,7 @@
             }
         },
 
-        
+        // добавление задачи или вехи (+ctr) через клик мышью на диаграмме
 
         createTask: function (p, m, ind, placeholder) {
             if (this.editBox.enable || this.readMode)
@@ -20298,7 +20296,7 @@
                             silentUpdateMode: true
                         });
 
-                    
+                    // в проекте было пусто в списке пустых задач, но добавили одну редактируемую задачку
 
                     scrollY = this.getElementPosVertical(p, -1, (1 === this.storage.getProject(p).t.length) ? ind : ind + 1);
                     if (this.rightScroll.value() + this.rightScroll.viewWidth < scrollY) {
@@ -20314,7 +20312,7 @@
 
                 this.queryMoveLinks = null;
 
-                
+                // в закрытую веху не добавляем элементы
 
                 if (this.storage.p[p].m[m]._status == kElementCompleted - 1) {
                     return;
@@ -20437,7 +20435,7 @@
                             silentUpdateMode: true
                         });
 
-                    
+                    // центрируем элемент по вертикали (веха может быть добавлена вне видимой области)
 
                     var t = this;
                     this.viewController().centeringElement(milestoneRef.id(), true, function () { t.updateContent() }, true);
@@ -20777,16 +20775,16 @@
                 if (this.linkLineEdit) {
                     if (this.linkLineEdit.parent) {
 
-                        
+                        // проверяем по id
                         if (this.linkLineEdit.parent._id !== this.linkLineEdit.task._id) {
 
-                            
+                            // стороны на валидность
                             if (kTaskSideNone !== this.linkLineEdit.side && kTaskSideNone !== this.linkLineEdit.parentSide) {
 
-                                
+                                // добавляем связь между задачами в одном проекте
                                 if (this.linkLineEdit.pp === this.linkLineEdit.p) {
 
-                                    
+                                    // добавляем связь между задачами в одной вехе или в свободной зоне
                                     if (this.linkLineEdit.pm === this.linkLineEdit.m) {
 
                                         if (kElementCompleted !== this.linkLineEdit.parent._status) {
@@ -20840,7 +20838,7 @@
 
                                             if (!dublicate) {
 
-                                                
+                                                // между двуями задачми может быть только одна связь
 
                                                 var haveLink = false;
 
@@ -20969,7 +20967,7 @@
 
             if (!dublicate) {
 
-                
+                // между двуями задачми может быть только одна связь
 
                 var haveLink = false;
 
@@ -21124,7 +21122,7 @@
 
                     lockProject = p[j].isLocked() || p[j].isInReadMode();
 
-                    
+                    // строка проекта
 
                     if (offY >= 0) {
 
@@ -21155,7 +21153,7 @@
                         drawCollapseArrow(p[j].fullCollapse, 230, offY + margin * 0.35 + topAdd);
                     }
 
-                    
+                    // весь контент у проекты скрыт
 
                     if (p[j].fullCollapse) {
                         offY += margin;
@@ -21177,7 +21175,7 @@
 
                         for (m = 0; m < p[j].m.length; ++m) {
 
-                            
+                            // применен фильтр
 
                             if (p[j].m[m].filter) { continue; }
 
@@ -21237,7 +21235,7 @@
 
                             for (i = 0; i < p[j].m[m].t.length; ++i) {
 
-                                
+                                // применен фильтр
 
                                 if (p[j].m[m].t[i].filter) { continue; }
 
@@ -21318,7 +21316,7 @@
                             ctx.fillRect(0, offY + margin + topAdd, rect.width - 15, 1);
                         }
 
-                        
+                        // свободные задачи в проекте скрыты
 
                         if (p[j].collapse) {
                             drawCollapseArrow(p[j].collapse, 230, offY + margin * 0.35 + topAdd);
@@ -21339,7 +21337,7 @@
 
                             for (i = 0; i < p[j].t.length; ++i) {
 
-                                
+                                // применен фильтр
 
                                 if (p[j].t[i].filter) { continue; }
 
@@ -21401,7 +21399,7 @@
                             }
                         } else {
 
-                            
+                            // линия свободных задач
 
                             offY += this.itemMargin;
                         }
@@ -21428,7 +21426,7 @@
                             ctx.fillRect(0, offY + margin + topAdd, rect.width - 15, 1);
                         }
 
-                        
+                        // пустой проект имеет только две линии - сам проект и свободные задачи
 
                         offY += this.itemMargin;
                     }

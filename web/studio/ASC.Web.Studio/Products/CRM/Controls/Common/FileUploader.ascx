@@ -23,7 +23,6 @@
     <div id="pm_upload_pnl" style="padding:15px 0 10px;">
         <div class="clearFix" id="pm_swf_button_container">
             <a id="pm_upload_btn" class="button gray middle pm_upload_btn"><%= CRMCommonResource.UploadFile%></a>
-            <div id="switcher" style="display: none; float:right;"></div>
         </div>
     </div>
 </div>

@@ -1,7 +1,6 @@
 <%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
-<%@ Import Namespace="ASC.Web.Projects.Classes" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TaskAction.ascx.cs"
     Inherits="ASC.Web.Projects.Controls.Tasks.TaskAction" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>

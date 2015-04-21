@@ -50,7 +50,6 @@
     <Reference Include="System.Linq">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Runtime.Serialization.dll</HintPath>
@@ -62,9 +61,6 @@
     <Reference Include="System.Web.Extensions">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Web.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="AWSSDK">
-      <HintPath>..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
-    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -72,7 +68,7 @@
       <HintPath>..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NVelocity">
       <HintPath>..\..\packages\NVelocity.1.0.3\lib\NVelocity.dll</HintPath>
@@ -124,7 +120,6 @@
     <Compile Include="Data\Sql\SqlUpdate.cs" />
     <Compile Include="Geolocation\IPGeolocationInfo.cs" />
     <Compile Include="Geolocation\GeolocationHelper.cs" />
-    <Compile Include="Logging\Log4netTraceListener.cs" />
     <Compile Include="Logging\SpecialFolderPathConverter.cs" />
     <Compile Include="Module\BaseWcfClient.cs" />
     <Compile Include="Module\IServiceController.cs" />
@@ -220,7 +215,7 @@
     <Compile Include="Tests\Data\DataTest.cs" />
     <Compile Include="Tests\Data\ExpTest.cs" />
     <Compile Include="Tests\Geolocation\GeolocationTest.cs" />
-    <Compile Include="Tests\Logging\SpecialFolderPathConverterTest.cs" />
+    <Compile Include="Tests\Logging\ConvertTest.cs" />
     <Compile Include="Tests\Notify\XmlPatternProvider2Test.cs" />
     <Compile Include="Tests\Security\Authorizing\AzManagerTest.cs" />
     <Compile Include="Tests\Security\Authorizing\Class1.cs" />

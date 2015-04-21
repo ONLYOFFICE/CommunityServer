@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 if (typeof ASC === "undefined") {
     ASC = {};
@@ -51,12 +49,11 @@ ASC.CRM.SocialMedia = (function() {
         }
     };
 
-    _GetContactSMImagesResponse = function(response) {
-        var result = jq.parseJSON(response),
-            imageCount = result.length;
+    _GetContactSMImagesResponse = function (response) {
+        var imageCount = response.length;
         if (imageCount > 0) {
             for (var i = 0; i < imageCount; i++) {
-                jq.tmpl("socialMediaAvatarTmpl", result[i]).appendTo("#divImagesHolder");
+                jq.tmpl("socialMediaAvatarTmpl", response[i]).appendTo("#divImagesHolder");
                 jq("#linkSaveAvatar").css("display", "inline");
             }
             _FinishGettingContactImages(true);
@@ -76,9 +73,13 @@ ASC.CRM.SocialMedia = (function() {
             jq("#divLoadPhotoFromSocialMedia").css("height", "100px");
         }
         jq("#divImagesHolder").css("display", "block");
+
+        LoadingBanner.hideLoading();
+        PopupKeyUpActionProvider.EnableEsc = false;
+        StudioBlockUIManager.blockUI("#divLoadPhotoWindow", 520, 550, 0);
     };
 
-    _FindTwitterProfilesResponse = function(target, addTop, addLeft, response) {
+    _FindTwitterProfilesResponse = function (target, addTop, addLeft, response) {
         var tmplID = "TwitterProfileTmpl";
         if (target.parent().is(".emptyScrBttnPnl")) {
             tmplID = "TwitterProfileTabTmpl";
@@ -227,13 +228,15 @@ ASC.CRM.SocialMedia = (function() {
             ASC.CRM.SocialMedia.MouseInProfilesWindow = false;
             ASC.CRM.SocialMedia.selectedPersons = new Array();
             ASC.CRM.SocialMedia.defaultAvatarSrc = defaultAvatarSrc;
+
+            ASC.CRM.SocialMedia.socialNetworks = new Array();
         },
 
         initTab: function (isCompany) {
 
             jq.tmpl("twitterMessageListPanelTmpl").appendTo("#divSocialMediaContent");
 
-            jq.tmpl("emptyScrTmpl",
+            jq.tmpl("template-emptyScreen",
             {
                 ID: "tweetsEmptyScreen",
                 ImgSrc: ASC.CRM.Data.EmptyScrImgs["empty_screen_twitter"],
@@ -262,7 +265,7 @@ ASC.CRM.SocialMedia = (function() {
         },
 
         initFindInCrunchbasePanel: function (blockSelector) {
-            jq.tmpl("blockUIPanelTemplate", {
+            jq.tmpl("template-blockUIPanel", {
                 id: "divSMContactsSearchContainer",
                 headerTest: ASC.CRM.Resources.CRMSocialMediaResource.ProfilesInSocialMedia,
                 questionText: "",
@@ -315,35 +318,44 @@ ASC.CRM.SocialMedia = (function() {
         },
 
         GetContactImageList: function() {
-            var contactID = jq("input[id$='_ctrlContactID']").val();
+            if (ASC.CRM.SocialMedia.socialNetworks != null && ASC.CRM.SocialMedia.socialNetworks.length != 0) {
+                Teamlab.getCrmContactSocialMediaAvatar({}, ASC.CRM.SocialMedia.socialNetworks,
+                        {
+                            max_request_attempts: 1,
+                            success: function (params, response) {
+                                _GetContactSMImagesResponse(response);
+                            },
+                            error: function (params, errors) {
+                                _GetContactSMImagesResponse([]);
+                            }
+                        });
 
-            if (contactID != "") {
-                jq("#divAjaxImageContainerPhotoLoad").append(jq("[id$='_ctrlImgAjaxLoader']").clone().css("display", "block"));
-                jq("#divAjaxImageContainerPhotoLoad").css("display", "block");
-
-                Teamlab.getCrmContactSocialMediaAvatar({}, contactID,
-                    {
-                        max_request_attempts: 1,
-                        success: function (params, response) {
-                            _GetContactSMImagesResponse(response)
-                        },
-                        error: function (params, errors) {
-                            _GetContactSMImagesResponse("[]");
-                        }
-                    });
             } else {
-                _GetContactSMImagesResponse("[]");
+                _GetContactSMImagesResponse([]);
             }
         },
 
         OpenLoadPhotoWindow: function () {
             var $link = jq(".linkChangePhoto");
             if (!$link || ($link && !$link.hasClass("disable"))) {
-                PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#divLoadPhotoWindow", 520, 550, 0);
+
                 jq("[name='chbSocialNetwork']").removeAttr("checked");
+
+                var curAvatarSrc = jq("img.contact_photo").attr("src");
+                if (curAvatarSrc.indexOf(ASC.CRM.SocialMedia.defaultAvatarSrc + '?') == 0) {
+                    jq("#divLoadPhotoDefault").addClass("display-none");
+                    jq("#divLoadPhotoFromSocialMedia").css("margin-top", "10px");
+                } else {
+                    jq("#divLoadPhotoDefault").removeClass("display-none");
+                    jq("#divLoadPhotoFromSocialMedia").css("margin-top", "-16px");
+                }
+
                 if (ASC.CRM.SocialMedia.ContactImageListLoaded == false) {
+                    LoadingBanner.displayLoading();
                     ASC.CRM.SocialMedia.GetContactImageList();
+                } else {
+                    PopupKeyUpActionProvider.EnableEsc = false;
+                    StudioBlockUIManager.blockUI("#divLoadPhotoWindow", 520, 550, 0);
                 }
             }
         },
@@ -474,10 +486,12 @@ ASC.CRM.SocialMedia = (function() {
             jq("#sm_tbl_UserList").html("");
             jq("#divSMProfilesWindow .divSMProfilesWindowBody .errorBox").remove();
 
-            var searchText;
+            var searchText,
+                isUser = true;
 
             //contact type can be "company" or "people"
             if (contactType == "company") {
+                isUser = false;
                 searchText = jq("[name='baseInfo_companyName']").val();
             }
             if (contactType == "people") {
@@ -491,7 +505,7 @@ ASC.CRM.SocialMedia = (function() {
             _CalculateProfilesWindowPosition(jq(target), addTop, addLeft);
             _ShowWaitProfilesWindow(searchText);
 
-            Teamlab.getCrmContactFacebookProfiles({}, searchText, {
+            Teamlab.getCrmContactFacebookProfiles({}, searchText, isUser, {
                 max_request_attempts: 1,
                 success: function (params, response) {
                     _FindFacebookProfilesResponse(target, addTop, addLeft, response);
@@ -639,14 +653,14 @@ ASC.CRM.SocialMedia = (function() {
                 var newValue = jq("#crbsEmail").val(),
                     $newContact = ASC.CRM.ContactActionView.createNewCommunication("emailContainer", newValue, jq("#emailContainer").find(".primary_field").length == 0);
                 $newContact.insertAfter(jq("#emailContainer").children('div:last')).show();
-                jq('#emailContainer').prev('dt').removeClass('crm-withGrayPlus');
+                jq('#emailContainer').prev('dt').removeClass('crm-headerHiddenToggledBlock');
             }
 
             if (jq("#chbPhoneNumber").is(":checked")) {
                 var newValue = jq("#crbsPhoneNumber").val(),
                     $newContact = ASC.CRM.ContactActionView.createNewCommunication("phoneContainer", newValue, jq("#phoneContainer").find(".primary_field").length == 0);
                 $newContact.insertAfter(jq("#phoneContainer").children('div:last')).show();
-                jq('#phoneContainer').prev('dt').removeClass('crm-withGrayPlus');
+                jq('#phoneContainer').prev('dt').removeClass('crm-headerHiddenToggledBlock');
             }
 
             if (jq("#chbTwitter").is(":checked")) {
@@ -692,7 +706,7 @@ ASC.CRM.SocialMedia = (function() {
                 } else {
                     jq("#overviewContainer").children("div:last").find("[name='baseInfo_contactOverview']").val(newValue);
                 }
-                jq('#overviewContainer').prev('dt').removeClass('crm-withGrayPlus');
+                jq('#overviewContainer').prev('dt').removeClass('crm-headerHiddenToggledBlock');
             }
 
 
@@ -705,7 +719,7 @@ ASC.CRM.SocialMedia = (function() {
             jq('#phoneContainer').children('div:last').find("." + add_new_button_class).show();
 
             if (jq('#websiteAndSocialProfilesContainer').children('div').length > 1) {
-                jq('#websiteAndSocialProfilesContainer').prev('dt').removeClass('crm-withGrayPlus');
+                jq('#websiteAndSocialProfilesContainer').prev('dt').removeClass('crm-headerHiddenToggledBlock');
             }
             jq('#websiteAndSocialProfilesContainer').children('div:not(:first)').find("." + add_new_button_class).hide();
             jq('#websiteAndSocialProfilesContainer').children('div:last').find("." + add_new_button_class).show();

@@ -1204,4 +1204,16 @@
   <data name="HistoryLongDataMsg" xml:space="preserve">
     <value>Max. number of characters exceeded: {0}</value>
   </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Empty file</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>The maximum file size is exceeded</value>
+  </data>
+  <data name="Country_BritishVirginIslands" xml:space="preserve">
+    <value>British Virgin Islands</value>
+  </data>
+  <data name="Currency_MoldovanLeu" xml:space="preserve">
+    <value>Moldovan Leu</value>
+  </data>
 </root>

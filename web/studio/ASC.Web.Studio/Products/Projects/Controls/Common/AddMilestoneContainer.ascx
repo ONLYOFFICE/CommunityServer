@@ -3,9 +3,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddMilestoneContainer.ascx.cs" Inherits="ASC.Web.Projects.Controls.Common.AddMilestoneContainer" %>
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
-<%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
     <div class="display-none">
         <p id="milestoneError"><%=ProjectTemplatesResource.MilestoneError %></p>
         <p id="taskError"><%=ProjectTemplatesResource.TaskError %></p>

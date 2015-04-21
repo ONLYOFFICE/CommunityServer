@@ -5,8 +5,6 @@
 
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>
-<%@ Import Namespace="ASC.Web.Studio.Core" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="PeoplePageContent" runat="server">
     <div class="clearFix profile-title header-with-menu">

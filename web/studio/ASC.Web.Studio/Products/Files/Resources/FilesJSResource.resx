@@ -261,6 +261,9 @@
   <data name="InfoFolderCopyError" xml:space="preserve">
     <value>You cannot copy the folder to its subfolder</value>
   </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>You have not access to move some items</value>
+  </data>
   <data name="InfoCopyGroup" xml:space="preserve">
     <value>{0} copied elements</value>
   </data>

@@ -65,7 +65,6 @@ window.TMTalk = (function ($) {
     indicatorTitle = '***',
     postfixTitle = '',
     maxIndicatorLength = 3,
-    uploader = null,
     dialogsQueue = [],
     properties = {
       focused : false
@@ -442,51 +441,69 @@ window.TMTalk = (function ($) {
     }
   };
 
-  var createFileUploader = function () {
-      if (!window.plupload)
-          return false;
+  function createFileuploadInput(browseButtonId) {
+      var buttonObj = jq("#" + browseButtonId);
 
-      var config = {
-          browse_button: "talkFileUploader",
-          drop_element: "talkRoomsContainer",
-          max_file_size: ASC.TMTalk.properties.item("maxUploadSize"),
-          runtimes: ASC.Resources.Master.UploadDefaultRuntimes,
-          multi_selection: false,
-          flash_swf_url: ASC.Resources.Master.UploadFlashUrl,
-          url: "UploadProgress.ashx?submit=ASC.Web.Talk.HttpHandlers.UploadFileHandler,ASC.Web.Talk",
-      };
+      var inputObj = jq("<input/>")
+          .attr("id", "fileupload")
+          .attr("type", "file")
+          .css("display", "none");
 
-      uploader = new window.plupload.Uploader(config);
-      uploader.init();
+      inputObj.appendTo(buttonObj.parent());
 
-      uploader.bind('StateChanged', function (up) {
-          if (up.state == window.plupload.STARTED) {
-              ASC.TMTalk.meseditorContainer.onSendFileStart();
-              TMTalk.disableFileUploader(true);
-          }
+      buttonObj.on("click", function (e) {
+          e.preventDefault();
+          jq("#fileupload").click();
       });
 
-      uploader.bind('Error', function (up, resp) {
-          uploader.files.clear();
-          var message = resp.message;
-          if (resp.code == window.plupload.FILE_SIZE_ERROR) {
-              message = ASC.TMTalk.properties.item("maxUploadSizeError");
-          }
+      return inputObj;
+  }
+
+  function correctFile(file) {
+      if (file.size > ASC.TMTalk.properties.item("maxUploadSize")) {
+          var message = ASC.TMTalk.properties.item("maxUploadSizeError");
           ASC.TMTalk.meseditorContainer.onSendFileError(message);
-          TMTalk.disableFileUploader(false);
-      });
+          return false;
+      }
 
-      uploader.bind('FileUploaded', function (up, file, response) {
-          uploader.files.clear();
-          var data = jq.parseJSON(response.response);
-          ASC.TMTalk.meseditorContainer.onSendFileComplete(data);
-          TMTalk.disableFileUploader(false);
-      });
+      return true;
+  }
 
-      uploader.bind('FilesAdded', function (up) {
-          up.start();
-      });
-  };
+    var createFileUploader = function () {
+        var uploader = createFileuploadInput("talkFileUploader");
+
+        uploader.fileupload({
+            url: "UploadProgress.ashx?submit=ASC.Web.Talk.HttpHandlers.UploadFileHandler,ASC.Web.Talk",
+            autoUpload: false,
+            singleFileUploads: true,
+            sequentialUploads: true,
+            progressInterval: 1000,
+            dropZone: "talkRoomsContainer"
+        });
+
+        uploader
+            .bind("fileuploadadd", function (e, data) {
+                if (correctFile(data.files[0])) {
+                    ASC.TMTalk.meseditorContainer.onSendFileStart();
+                    TMTalk.disableFileUploader(true);
+                    data.submit();
+                }
+            })
+            .bind("fileuploaddone", function (e, data) {
+                var res = jq.parseJSON(data.result);
+                ASC.TMTalk.meseditorContainer.onSendFileComplete(res);
+                TMTalk.disableFileUploader(false);
+            })
+            .bind("fileuploadfail", function (e, data) {
+                var msg = data.errorThrown || data.textStatus;
+                if (data.jqXHR && data.jqXHR.responseText)
+                    msg = jq.parseJSON(data.jqXHR.responseText).Message;
+
+                ASC.TMTalk.meseditorContainer.onSendFileError(msg);
+                TMTalk.disableFileUploader(false);
+            });
+
+    };
 
     var disableFileUploader = function (disable) {
         if (!jq("#talkMeseditorContainer").is(".connected")
@@ -499,7 +516,7 @@ window.TMTalk = (function ($) {
             jq("#talkFileUploaderFake").remove();
             jq("#talkFileUploader").removeClass("display-none");
         }
-        uploader.disableBrowse(disable);
+        jq("#fileupload").prop("disabled", disable);
     };
 
   return {

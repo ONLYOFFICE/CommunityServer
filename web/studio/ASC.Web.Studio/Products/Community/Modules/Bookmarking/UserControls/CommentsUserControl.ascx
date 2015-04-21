@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Bookmarking" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CommentsUserControl.ascx.cs" Inherits="ASC.Web.UserControls.Bookmarking.CommentsUserControl" %>
 
 <%@ Register TagPrefix="scl" Namespace="ASC.Web.Studio.UserControls.Common.Comments" Assembly="ASC.Web.Studio" %>

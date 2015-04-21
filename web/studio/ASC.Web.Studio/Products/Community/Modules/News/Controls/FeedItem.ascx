@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="ASC.Web.Community.News" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FeedItem.ascx.cs" Inherits="ASC.Web.Community.News.Controls.FeedItem" %>
 
 <td class="borderBase gray-text events_date">

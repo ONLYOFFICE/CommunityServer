@@ -66,14 +66,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
   </ItemGroup>
@@ -96,6 +92,8 @@
     <Compile Include="DataStoreCache.cs" />
     <Compile Include="DiscStorage\DiscCrossModuleTransferUtility.cs" />
     <Compile Include="DiscStorage\DiscDataStore.cs" />
+    <Compile Include="DiscStorage\DiscDataHandler.cs" />
+    <Compile Include="DiscStorage\MappedPath.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IDataStore.cs" />
     <Compile Include="ICrossModuleTransferUtility.cs" />
@@ -106,6 +104,7 @@
     <Compile Include="S3\S3CrossModuleTransferUtility.cs" />
     <Compile Include="S3\S3Storage.cs" />
     <Compile Include="S3\S3UploadGuard.cs" />
+    <Compile Include="S3\UnencodedUri.cs" />
     <Compile Include="SecureHelper.cs" />
     <Compile Include="TempStream.cs" />
     <Compile Include="TennantPath.cs" />

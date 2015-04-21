@@ -30,6 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Mail.Server.DnsChecker, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Mail.Server.DnsChecker.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -66,29 +78,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
       <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
       <Name>ASC.Mail.Aggregator.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
-      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
-      <Name>ASC.Mail.Aggregator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Dal\MailServerDal\MailServerDal.csproj">
       <Project>{c436e243-3092-441d-8b25-aeba1cf2cefe}</Project>
       <Name>MailServerDal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DnsChecker\DnsChecker.csproj">
-      <Project>{92F13AA5-840F-4B3E-9B6B-1DFEE916D86D}</Project>
-      <Name>DnsChecker</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\MailServerUtils\MailServerUtils.csproj">
       <Project>{fb62491c-d153-45d0-a4f6-8c7ceadfa035}</Project>

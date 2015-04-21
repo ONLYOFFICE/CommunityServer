@@ -4,9 +4,7 @@
 <script id="dropFeedTmpl" type="text/x-jquery-tmpl">
     <div class="item">
         <div class="avatar">
-            {{if isGuest}}
-            <img src="${author.avatarBig}" title="${author.displayName}"/>
-            {{else}}
+            {{if !isGuest}}
             <a href="${author.profileUrl}" title="${author.displayName}" target="_blank"><img src="${author.avatarBig}"/></a>
             {{/if}}
         </div>

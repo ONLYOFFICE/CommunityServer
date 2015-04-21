@@ -1,37 +1,35 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.IO;
 using ASC.Mail.Aggregator;
+using ASC.Mail.Aggregator.Common;
 
 namespace ASC.Mail.DomainParser
 {
@@ -41,26 +39,26 @@ namespace ASC.Mail.DomainParser
         {
             Console.WriteLine(".Begin");
 
-            var parse_path = @"../../XmlData";
+            var parsePath = @"../../XmlData";
 
             try
             {
-                var manger = new MailBoxManager(25);
+                var manager = new MailBoxManager(25);
 
-                var list_of_config = new List<clientConfig>();
+                var listOfConfig = new List<ClientConfig>();
 
                 if (args != null && args.Any())
                 {
-                    parse_path = args[0];
+                    parsePath = args[0];
                 }
 
-                Console.WriteLine("\r\nParser path: '{0}'", parse_path);
+                Console.WriteLine("\r\nParser path: '{0}'", parsePath);
 
-                if (File.GetAttributes(parse_path) == FileAttributes.Directory)
+                if (File.GetAttributes(parsePath) == FileAttributes.Directory)
                 {
-                    var parse_path_info = new DirectoryInfo(parse_path);
+                    var parsePathInfo = new DirectoryInfo(parsePath);
 
-                    var files = parse_path_info.GetFiles();
+                    var files = parsePathInfo.GetFiles();
 
                     Console.WriteLine("\r\n{0} file(s) found!", files.Count());
                     Console.WriteLine("");
@@ -73,13 +71,13 @@ namespace ASC.Mail.DomainParser
                         .ForEach(f =>
                         {
                             if (f.Attributes == FileAttributes.Directory) return;
-                            clientConfig obj;
+                            ClientConfig obj;
                             if (!ParseXml(f.FullName, out obj)) return;
                             Console.SetCursorPosition(0, Console.CursorTop);
                             Console.Write("                                 ");
                             Console.SetCursorPosition(0, Console.CursorTop);
                             Console.Write("{0} from {1}", ++index, count);
-                            list_of_config.Add(obj);
+                            listOfConfig.Add(obj);
                         });
                     Console.WriteLine("");
                 }
@@ -87,16 +85,16 @@ namespace ASC.Mail.DomainParser
                 {
                     Console.WriteLine("\r\n1 file found!");
 
-                    clientConfig obj;
-                    if (ParseXml(parse_path, out obj))
+                    ClientConfig obj;
+                    if (ParseXml(parsePath, out obj))
                     {
-                        list_of_config.Add(obj);
+                        listOfConfig.Add(obj);
                     }
                 }
 
-                Console.WriteLine("\r\n{0} config(s) parsed!", list_of_config.Count);
+                Console.WriteLine("\r\n{0} config(s) parsed!", listOfConfig.Count);
 
-                if (list_of_config.Count > 0)
+                if (listOfConfig.Count > 0)
                 {
                     do
                     {
@@ -105,15 +103,15 @@ namespace ASC.Mail.DomainParser
                         if (info.Key == ConsoleKey.Y)
                         {
                             var index = 0;
-                            var count = list_of_config.Count;
+                            var count = listOfConfig.Count;
                             
                             Console.WriteLine("\r\n");
 
-                            list_of_config.ForEach(c =>
+                            listOfConfig.ForEach(c =>
                             {
                                 Console.Write("{0} from {1}", ++index, count);
 
-                                if (!manger.SetMailBoxSettings(c)) return;
+                                if (!manager.SetMailBoxSettings(c)) return;
                                 if (index >= count) return;
                                 Console.SetCursorPosition(0, Console.CursorTop);
                                 Console.Write("                                 ");
@@ -121,7 +119,7 @@ namespace ASC.Mail.DomainParser
                             });
 
                             Console.WriteLine("\r\n");
-                            Console.WriteLine("{0} config(s) added to DB!", list_of_config.Count);
+                            Console.WriteLine("{0} config(s) added to DB!", listOfConfig.Count);
                             Console.WriteLine("");
                             break;
                         }
@@ -132,10 +130,6 @@ namespace ASC.Mail.DomainParser
                 }
 
             }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("Such path not exists: '{0}'", parse_path);
-            }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -145,13 +139,13 @@ namespace ASC.Mail.DomainParser
             Console.ReadKey();
         }
 
-        static bool ParseXml(string filepath, out clientConfig obj)
+        static bool ParseXml(string filepath, out ClientConfig obj)
         {
             obj = null;
 
             try
             {
-                obj = clientConfig.LoadFromFile(filepath);
+                obj = ClientConfig.LoadFromFile(filepath);
             }
             catch (Exception)
             {

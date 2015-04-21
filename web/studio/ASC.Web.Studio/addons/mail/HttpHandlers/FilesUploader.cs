@@ -1,34 +1,35 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Web;
 using ASC.Mail.Aggregator.Common;
+using ASC.Web.Core.Files;
+using ASC.Web.Files.Classes;
+using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Controls.FileUploader;
 using ASC.Web.Studio.Controls.FileUploader.HttpModule;
 using ASC.Core;
@@ -41,14 +42,9 @@ namespace ASC.Web.Mail.HttpHandlers
 {
     public class FilesUploader : FileUploadHandler
     {
-        private static readonly MailBoxManager _mailBoxManager = new MailBoxManager(25);
+        private static readonly MailBoxManager MailBoxManager = new MailBoxManager();
 
-        private String ModuleName
-        {
-            get { return "mailaggregator"; }
-        }
-
-        private int TenantId
+        private static int TenantId
         {
             get { return CoreContext.TenantManager.GetCurrentTenant().TenantId; }
         }
@@ -60,43 +56,58 @@ namespace ASC.Web.Mail.HttpHandlers
 
         public override FileUploadResult ProcessUpload(HttpContext context)
         {
-            var file_name = string.Empty;
+            var fileName = string.Empty;
             MailAttachment attachment = null;
             try
             {
-                if (!SecurityContext.AuthenticateMe(CookiesManager.GetCookies(CookiesType.AuthKey)))
-                    throw new UnauthorizedAccessException(MailResource.AttachemntsUnauthorizedError);
+                if (!SecurityContext.AuthenticateMe(CookiesManager.GetCookies(CookiesType.AuthKey))) throw new UnauthorizedAccessException(MailResource.AttachemntsUnauthorizedError);
 
                 if (FileToUpload.HasFilesToUpload(context))
                 {
                     try
                     {
-                        var stream_id = context.Request["stream"];
-                        var mail_id = Convert.ToInt32(context.Request["messageId"]);
+                        var streamId = context.Request["stream"];
+                        var mailId = Convert.ToInt32(context.Request["messageId"]);
+                        var copyToMy = Convert.ToInt32(context.Request["copyToMy"]);
 
-                        if (mail_id < 1)
-                            throw new AttachmentsException(AttachmentsException.Types.MESSAGE_NOT_FOUND,
-                                                           "Message not yet saved!");
+                        if (string.IsNullOrEmpty(streamId)) throw new AttachmentsException(AttachmentsException.Types.BadParams, "Have no stream");
+                        if (mailId < 1) throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not yet saved!");
 
-                        if (String.IsNullOrEmpty(stream_id))
-                            throw new AttachmentsException(AttachmentsException.Types.BAD_PARAMS, "Have no stream");
+                        var postedFile = new FileToUpload(context);
+                        fileName = context.Request["name"];
 
-                        var posted_file = new FileToUpload(context);
-
-                        file_name = context.Request["name"];
+                        if (copyToMy == 1)
+                        {
+                            var uploadedFile = FileUploader.Exec(Global.FolderMy.ToString(), fileName, postedFile.ContentLength, postedFile.InputStream, true);
+                            return new FileUploadResult
+                                {
+                                    Success = true,
+                                    FileName = uploadedFile.Title,
+                                    FileURL = FilesLinkUtility.GetFileWebPreviewUrl(uploadedFile.Title, uploadedFile.ID),
+                                    Data = new MailAttachment
+                                        {
+                                            fileId = Convert.ToInt32(uploadedFile.ID),
+                                            fileName = uploadedFile.Title,
+                                            size = uploadedFile.ContentLength,
+                                            contentType = uploadedFile.ConvertedType,
+                                            attachedAsLink = true,
+                                            tenant = TenantId,
+                                            user = Username
+                                        }
+                                };
+                        }
 
                         attachment = new MailAttachment
                             {
                                 fileId = -1,
-                                size = posted_file.ContentLength,
-                                fileName = file_name,
-                                streamId = stream_id,
+                                size = postedFile.ContentLength,
+                                fileName = fileName,
+                                streamId = streamId,
                                 tenant = TenantId,
                                 user = Username
                             };
 
-                        attachment = _mailBoxManager.AttachFile(TenantId, Username, mail_id,
-                                                                    file_name, posted_file.InputStream, stream_id);
+                        attachment = MailBoxManager.AttachFile(TenantId, Username, mailId, fileName, postedFile.InputStream, streamId);
 
                         return new FileUploadResult
                             {
@@ -106,53 +117,53 @@ namespace ASC.Web.Mail.HttpHandlers
                                 Data = attachment
                             };
                     }
-                    catch (AttachmentsException e)
+                    catch(AttachmentsException e)
                     {
-                        string error_message;
+                        string errorMessage;
 
                         switch (e.ErrorType)
                         {
-                            case AttachmentsException.Types.BAD_PARAMS:
-                                error_message = MailScriptResource.AttachmentsBadInputParamsError;
+                            case AttachmentsException.Types.BadParams:
+                                errorMessage = MailScriptResource.AttachmentsBadInputParamsError;
                                 break;
-                            case AttachmentsException.Types.EMPTY_FILE:
-                                error_message = MailScriptResource.AttachmentsEmptyFileNotSupportedError;
+                            case AttachmentsException.Types.EmptyFile:
+                                errorMessage = MailScriptResource.AttachmentsEmptyFileNotSupportedError;
                                 break;
-                            case AttachmentsException.Types.MESSAGE_NOT_FOUND:
-                                error_message = MailScriptResource.AttachmentsMessageNotFoundError;
+                            case AttachmentsException.Types.MessageNotFound:
+                                errorMessage = MailScriptResource.AttachmentsMessageNotFoundError;
                                 break;
-                            case AttachmentsException.Types.TOTAL_SIZE_EXCEEDED:
-                                error_message = MailScriptResource.AttachmentsTotalLimitError;
+                            case AttachmentsException.Types.TotalSizeExceeded:
+                                errorMessage = MailScriptResource.AttachmentsTotalLimitError;
                                 break;
-                            case AttachmentsException.Types.DOCUMENT_NOT_FOUND:
-                                error_message = MailScriptResource.AttachmentsDocumentNotFoundError;
+                            case AttachmentsException.Types.DocumentNotFound:
+                                errorMessage = MailScriptResource.AttachmentsDocumentNotFoundError;
                                 break;
-                            case AttachmentsException.Types.DOCUMENT_ACCESS_DENIED:
-                                error_message = MailScriptResource.AttachmentsDocumentAccessDeniedError;
+                            case AttachmentsException.Types.DocumentAccessDenied:
+                                errorMessage = MailScriptResource.AttachmentsDocumentAccessDeniedError;
                                 break;
                             default:
-                                error_message = MailScriptResource.AttachmentsUnknownError;
+                                errorMessage = MailScriptResource.AttachmentsUnknownError;
                                 break;
                         }
-                        throw new Exception(error_message);
+                        throw new Exception(errorMessage);
                     }
-                    catch (ASC.Core.Tenants.TenantQuotaException)
+                    catch(ASC.Core.Tenants.TenantQuotaException)
                     {
                         throw;
                     }
-                    catch (Exception)
+                    catch(Exception)
                     {
                         throw new Exception(MailScriptResource.AttachmentsUnknownError);
                     }
                 }
                 throw new Exception(MailScriptResource.AttachmentsBadInputParamsError);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return new FileUploadResult
                     {
                         Success = false,
-                        FileName = file_name,
+                        FileName = fileName,
                         Data = attachment,
                         Message = ex.Message,
                     };

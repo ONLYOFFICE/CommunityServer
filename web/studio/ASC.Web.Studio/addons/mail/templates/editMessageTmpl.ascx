@@ -49,7 +49,8 @@
                         </span>
 
                         <span id="newmessageFromWarning" style="display:none; margin-left: 16px;" class="red-text">
-                            <%: MailResource.MessageFromWarning %>
+                            <%: MailResource.MessageFromWarning %>&nbsp;
+                            <a class="link dotline red-text" onclick="javascript:accountsModal.activateSelectedAccount(true);"><%: MailResource.ActivateAccountLabel %></a>
                         </span>
                     </div>
                 </div>
@@ -126,7 +127,7 @@
             <div id="attachment_upload_pnl" style="margin-left: 2px;margin-bottom: 42px;">
                <div class="containerAction" style="display: block;">
                     <span id="attachments_browse_btn" class="addUserLink">
-                        <a class="link dotline"><%: MailResource.AttachFileLabel %></a>
+                        <a class="link dotline"><%: MailResource.UploadFileLabel %></a>
                     </span>
                     <span id="documents_browse_btn" class="addUserLink" onclick="javascript:DocumentsPopup.showPortalDocUploader();return false;">
                         <a class="link dotline" ><%: MailResource.AttachFilesFromDocsLabel %></a>
@@ -135,12 +136,6 @@
                         <a class="link dotline"><%: MailResource.AttachDeleteAllLabel %></a>
                     </span>
                     <span id="attachments_limit_txt"></span>
-                    <div id="switcher" class="pull-right" style="display: none;">
-                        <%= MailResource.SwitchLabel %>
-                        <a class="link dotline" href="javascript:;" onclick="javascript:AttachmentManager.SwitchMode();return false;">
-                            <%= MailResource.FlashUploaderLabel %>:
-                        </a>
-                    </div>
                 </div>
             </div>
             <div class="attachments">
@@ -157,7 +152,7 @@
 </script>
 
 <script id="attachmentTmpl" type="text/x-jquery-tmpl">
-    <tr class="row" data_id="${orderNumber}">
+    <tr class="row ${operation == 1 || attachedAsLink ? 'inactive' : ''}" data_id="${orderNumber}">
         <td class="file_icon">
             <div class="attachmentImage ${iconCls}"/>
         </td>
@@ -180,9 +175,13 @@
             </a>
             <span class="fullSizeLabel" {{if size == 0}} style="display:none;" {{/if}}>(${$item.fileSizeToStr(size)})</span>
         </td>
+        
         <td class="delete_icon">
+            {{if operation == 0 && !attachedAsLink}}
             <div class="delete_attachment" onclick="AttachmentManager.RemoveAttachment(${orderNumber});" />
+            {{/if}}
         </td>
+
         <td class="load_result">
             {{if error}}
                 {{if error != ''}}
@@ -200,22 +199,36 @@
                         <span class="file-load-result uploaded-text" title="<%: MailAttachmentsResource.UploadedLabel %> (<%: MailAttachmentsResource.WarningLabel %>: ${warn})"><%: MailAttachmentsResource.UploadedLabel %> (<%: MailAttachmentsResource.WarningLabel %>: ${warn})</span>
                     {{/if}}
                 {{else}}
-                    {{if fileId > 0}}
+                    {{if fileId > 0 }}
                         <span class="file-load-result uploaded-text" title="<%: MailAttachmentsResource.UploadedLabel %>"><%: MailAttachmentsResource.UploadedLabel %></span>
                     {{/if}}
                 {{/if}}
+            {{/if}}
+            {{if attachAsLinkOffer}}
+                <span class="attach-filelink-btn red-text" onclick="AttachmentManager.AttachFileLink('${docId}', '${orderNumber}')"><%: MailAttachmentsResource.AttachViaLinkBtn %></span>
             {{/if}}
             <div id="item_progress_${orderNumber}" class="attachment-progress" {{if fileId > 0 || error != ''}} style="display:none;" {{/if}}>
                 <div class="fu-progress-cell">
                     <div class="upload-progress">
                         <span class="progress-slider progress-color" style="width:0;">&nbsp;</span>
-                        <span class="progress-label"><%: MailAttachmentsResource.UploadingLabel %></span>
+                        {{if operation && operation == 1}}
+                        <span class="progress-label">
+                            <%: MailScriptResource.CopyingToMyDocumentsLabel %>
+                        </span>
+                        {{else}}
+                        <span class="progress-label">
+                            <%: MailAttachmentsResource.UploadingLabel %>
+                        </span>
+                        {{/if}}
                     </div>
                 </div>
             </div>
         </td>
+        
         <td class="menu_column">
+            {{if operation == 0 && !attachedAsLink}}
             <div class="menu" data_id="${orderNumber}" name="${fileName}" title="<%: MailScriptResource.Actions %>" />
+            {{/if}}
         </td>
     </tr>
 </script>

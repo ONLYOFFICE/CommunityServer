@@ -472,6 +472,12 @@ will appear in this list.</value>
   <data name="TariffStorageLimitReason" xml:space="preserve">
     <value>Please delete all the outdated content from the portal or change the current pricing plan to one with larger storage space.</value>
   </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>Large file size</value>
+  </data>
+  <data name="TariffFileSizeLimitReason" xml:space="preserve">
+    <value>On your tariff plan strong restrictions on file size.</value>
+  </data>
   <data name="TariffDocsEditionLimitTitle" xml:space="preserve">
     <value>Opening the document</value>
   </data>
@@ -496,11 +502,50 @@ will appear in this list.</value>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Yes, upgrade plan</value>
   </data>
+  <data name="AnnualDiscountDescr" xml:space="preserve">
+    <value>Choosing an annual subscription you get a {0}% discount</value>
+  </data>
+  <data name="AnnualDiscountMonth" xml:space="preserve">
+    <value>12 months {1} for the price of {0}</value>
+  </data>
+  <data name="AnnualDiscountSpring" xml:space="preserve">
+    <value>spring sale</value>
+  </data>
+  <data name="AnnualDiscountSummer" xml:space="preserve">
+    <value>summer sale</value>
+  </data>
+  <data name="AnnualDiscountAutumn" xml:space="preserve">
+    <value>autumn sale</value>
+  </data>
+  <data name="AnnualDiscountWinter" xml:space="preserve">
+    <value>winter sale</value>
+  </data>
+  <data name="AnnualDiscountHeader" xml:space="preserve">
+    <value>Subscription offer</value>
+  </data>
+  <data name="AnnualDiscountNo" xml:space="preserve">
+    <value>No, thanks</value>
+  </data>
+  <data name="AnnualDiscountSubscribe" xml:space="preserve">
+    <value>Subscribe for a year</value>
+  </data>
+  <data name="AnnualDiscount" xml:space="preserve">
+    <value>{2}{0} months for free{3}{4} 12 months for thу price of {1} months choosing an annual subscription</value>
+  </data>
+  <data name="AnnualDiscountValue" xml:space="preserve">
+    <value>Number of active users in your team: {1}{0}Your pricing plan: {2}{0}Annual payment: {3}{0}Your benefit: {4}</value>
+  </data>
+  <data name="PerYear" xml:space="preserve">
+    <value>{0} per year</value>
+  </data>
+  <data name="TariffNameUsers" xml:space="preserve">
+    <value>Active users + Disc Storage</value>
+  </data>
   <data name="TariffNameMonth" xml:space="preserve">
-    <value>Month{0}</value>
+    <value>Monthly subscription</value>
   </data>
   <data name="TariffNameYear" xml:space="preserve">
-    <value>Year</value>
+    <value>Annual subscription</value>
   </data>
   <data name="TariffFree" xml:space="preserve">
     <value>Free</value>
@@ -639,5 +684,53 @@ will appear in this list.</value>
   </data>
   <data name="ReadAboutNonProfitUsage" xml:space="preserve">
     <value>Read about non-profit usage</value>
+  </data>
+  <data name="FeedEmptyListProjHeader" xml:space="preserve">
+    <value>The Projects list is empty</value>
+  </data>
+  <data name="FeedEmptyListProjDescribe" xml:space="preserve">
+    <value>Create the projects and work effectively</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>Create the First Project</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Common Documents</value>
+  </data>
+  <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
+    <value>The 'Common Documents' section shows all the documents shared by portal administrator for common access. Only portal administrator can create folders in this section, but with the access granted the portal users can also upload their files here.</value>
+  </data>
+  <data name="FeedEmptyContactListHeader" xml:space="preserve">
+    <value>The contact list is empty</value>
+  </data>
+  <data name="FeedEmptyContactListDescription" xml:space="preserve">
+    <value>Keep all the contacts your company works with in one place. Add new companies and persons, divide them into types, link with each other, add personal information. Import multiple contacts that you already have from a CSV file at one go.</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>Create the first company</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>Create the first person</value>
+  </data>
+  <data name="FeedEmptyCommunityHeader" xml:space="preserve">
+    <value>No events have been added yet</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>Create your own page to share the interesting information, thoughts and experiences with others, express your opinions, get feedback from the users' comments.</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Add post</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Add event</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Add bookmark</value>
+  </data>
+  <data name="FeedButtonGotoMy" xml:space="preserve">
+    <value>Go to My Documents</value>
+  </data>
+  <data name="BackupSpaceExceed" xml:space="preserve">
+    <value>The Backup function is not available as the storage space exceeds {0}. Go to the {1}Statistics section{2} to check the storage space used.</value>
   </data>
 </root>

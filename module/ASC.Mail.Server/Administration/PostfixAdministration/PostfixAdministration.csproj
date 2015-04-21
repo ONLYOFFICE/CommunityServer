@@ -33,6 +33,10 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Common.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
@@ -60,7 +64,6 @@
     <Compile Include="DbSchema\PostfixAdminDbSchema.cs" />
     <Compile Include="DtoObjects.cs" />
     <Compile Include="Exceptions.cs" />
-    <Compile Include="MD5Crypt.cs" />
     <Compile Include="PostfixAccount.cs" />
     <Compile Include="PostfixAddress.cs" />
     <Compile Include="PostfixCommonQueries.cs" />
@@ -78,20 +81,9 @@
     <Compile Include="ToDtoConverters.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PostfixAdministrationDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
       <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
       <Name>ASC.Mail.Aggregator.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
-      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
-      <Name>ASC.Mail.Aggregator</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Dal\MailServerDal\MailServerDal.csproj">
       <Project>{c436e243-3092-441d-8b25-aeba1cf2cefe}</Project>

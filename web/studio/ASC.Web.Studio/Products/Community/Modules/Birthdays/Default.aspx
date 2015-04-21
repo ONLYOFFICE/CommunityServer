@@ -1,16 +1,14 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Birthdays" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 
-<%@ Page Language="C#" MasterPageFile="~/Products/Community/Community.master" AutoEventWireup="true"
+<%@ Page Language="C#" MasterPageFile="~/Products/Community/Master/Community.master" AutoEventWireup="true"
  CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Community.Birthdays.Default" %>
 
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Community.Birthdays.Resources" %>
-<%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="ASC.Web.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="ASC.Web.Community.Birthdays" %>
 
 <asp:Content ID="SettingsHeaderContent" ContentPlaceHolderID="CommunityPageHeader" runat="server">
 </asp:Content>

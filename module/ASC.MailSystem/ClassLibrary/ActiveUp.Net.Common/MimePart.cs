@@ -15,6 +15,7 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using System.IO;
 using ActiveUp.Net.Mail;
 using System.Collections.Specialized;
 #if !PocketPC
@@ -40,119 +41,34 @@ namespace ActiveUp.Net.Mail
 
         public MimePart()
         {
-
+            ContentDisposition = new ContentDisposition();
+            ContentType = new ContentType();
+            BinaryContent = new byte[0];
+            HeaderFields = new NameValueCollection();
+            HeaderFieldNames = new NameValueCollection();
+            SubParts = new MimePartCollection();
         }
 
-        public MimePart(byte[] attachment, string filename)
+        public MimePart(byte[] content, string fileName, string charset = null)
+            : this()
         {
-            this._binaryContent = attachment;
-            string ext = ".ext";
-            if (!string.IsNullOrEmpty(filename))
+            BinaryContent = content;
+
+            var ext = ".ext";
+            if (!string.IsNullOrEmpty(fileName))
             {
-                var collection = filename.Split('.');
+                var collection = fileName.Split('.');
                 if (collection.Length > 1)
                 {
                     ext = collection[collection.Length - 1];
                 }
             }
-            var encoded_name = Codec.RFC2047Encode(filename);
-            this.ContentType.MimeType = MimeTypesHelper.GetMimeqType(ext);
-            this.ContentDisposition.FileName = encoded_name;
-            this.ContentName = encoded_name;
 
-            if (this.ContentType.MimeType.ToLower().IndexOf("text/") != -1)
-            {
-                this.ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable;
-                this.TextContent = System.Text.Encoding.GetEncoding("utf-8").GetString(this.BinaryContent,0,this.BinaryContent.Length);
-            }
-            else
-            {
-                this.ContentTransferEncoding = ContentTransferEncoding.Base64;
-                this.TextContent = System.Convert.ToBase64String(this.BinaryContent);
-            }
-        }
+            ContentType.MimeType = MimeTypesHelper.GetMimeqType(ext);
+            ContentDisposition.FileName = Codec.RFC2047Encode(fileName);
+            ContentName = fileName;
 
-        /// <summary>
-        /// Creates a MimePart object with the content of the file located at the given path.
-        /// </summary>
-        /// <param name="path">File containing the content of the MimePart.</param>
-        /// <param name="generateContentId">If true, a Content-ID Header field will be added to allow referencing of this part in the message.</param>
-        public MimePart(string path, bool generateContentId)
-        {
-            System.IO.FileStream fs = System.IO.File.OpenRead(path);
-            this._binaryContent = new byte[(int)fs.Length];
-            fs.Read(this.BinaryContent,0,(int)fs.Length);
-            fs.Close();
-            this.ContentType.MimeType = MimeTypesHelper.GetMimeqType(System.IO.Path.GetExtension(path));
-            this.ContentDisposition.FileName = System.IO.Path.GetFileName(path);
-            this.ContentName = System.IO.Path.GetFileName(path);
-            if(generateContentId) this.SetContentId();
-            if(this.ContentType.MimeType.ToLower().IndexOf("text/")!=-1)
-            {
-                this.ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable;
-                this.TextContent = System.Text.Encoding.GetEncoding("utf-8").GetString(this.BinaryContent,0,this.BinaryContent.Length);
-            }
-            else
-            {
-                this.ContentTransferEncoding = ContentTransferEncoding.Base64;
-                this.TextContent = System.Convert.ToBase64String(this.BinaryContent);
-            }
-        }
-
-        /// <summary>
-        /// Creates a MimePart object with the content of the file located at the given path.
-        /// </summary>
-        /// <param name="path">File containing the content of the MimePart.</param>
-        /// <param name="contentId">The Content-ID Header field will be used for the part.</param>
-        public MimePart(string path, string contentId)
-        {
-            System.IO.FileStream fs = System.IO.File.OpenRead(path);
-            this._binaryContent = new byte[(int)fs.Length];
-            fs.Read(this.BinaryContent, 0, (int)fs.Length);
-            fs.Close();
-            this.ContentType.MimeType = MimeTypesHelper.GetMimeqType(System.IO.Path.GetExtension(path));
-            this.ContentDisposition.FileName = System.IO.Path.GetFileName(path);
-            this.ContentName = System.IO.Path.GetFileName(path);
-            this.ContentId = contentId;
-            if (this.ContentType.MimeType.ToLower().IndexOf("text/") != -1)
-            {
-                this.ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable;
-                this.TextContent = System.Text.Encoding.GetEncoding("utf-8").GetString(this.BinaryContent, 0, this.BinaryContent.Length);
-            }
-            else
-            {
-                this.ContentTransferEncoding = ContentTransferEncoding.Base64;
-                this.TextContent = System.Convert.ToBase64String(this.BinaryContent);
-            }
-        }
-
-        /// <summary>
-        /// Creates a MimePart object with the content of the file located at the given path.
-        /// </summary>
-        /// <param name="path">File containing the content of the MimePart.</param>
-        /// <param name="contentId">The Content-ID Header field will be used for the part.</param>
-        /// <param name="charset">If the file contains text, the charset of the text can be provided to ensure better handling.</param>
-        public MimePart(string path, string contentId, string charset)
-        {
-            System.IO.FileStream fs = System.IO.File.OpenRead(path);
-            this._binaryContent = new byte[(int)fs.Length];
-            fs.Read(this.BinaryContent, 0, (int)fs.Length);
-            fs.Close();
-            this.ContentType.MimeType = MimeTypesHelper.GetMimeqType(System.IO.Path.GetExtension(path));
-            this.ContentDisposition.FileName = System.IO.Path.GetFileName(path);
-            this.ContentName = System.IO.Path.GetFileName(path);
-            this.ContentId = contentId;
-            if (this.ContentType.MimeType.ToLower().IndexOf("text/") != -1)
-            {
-                this.Charset = charset;
-                this.ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable;
-                this.TextContent = System.Text.Encoding.GetEncoding(charset).GetString(this.BinaryContent, 0, this.BinaryContent.Length);
-            }
-            else
-            {
-                this.ContentTransferEncoding = ContentTransferEncoding.Base64;
-                this.TextContent = System.Convert.ToBase64String(this.BinaryContent);
-            }
+            BuildTextContent(charset);
         }
 
         /// <summary>
@@ -161,27 +77,23 @@ namespace ActiveUp.Net.Mail
         /// <param name="path">File containing the content of the MimePart.</param>
         /// <param name="generateContentId">If true, a Content-ID Header field will be added to allow referencing of this part in the message.</param>
         /// <param name="charset">If the file contains text, the charset of the text can be provided to ensure better handling.</param>
-        public MimePart(string path, bool generateContentId, string charset)
+        public MimePart(string path, bool generateContentId, string charset = null)
+            : this(File.ReadAllBytes(path), Path.GetFileName(path), charset)
         {
-            System.IO.FileStream fs = System.IO.File.OpenRead(path);
-            this._binaryContent = new byte[(int)fs.Length];
-            fs.Read(this.BinaryContent,0,(int)fs.Length);
-            fs.Close();
-            this.ContentType.MimeType = MimeTypesHelper.GetMimeqType(System.IO.Path.GetExtension(path));
-            this.ContentDisposition.FileName = System.IO.Path.GetFileName(path);
-            this.ContentName = System.IO.Path.GetFileName(path);
-            if(generateContentId) this.SetContentId();
-            if(this.ContentType.MimeType.ToLower().IndexOf("text/")!=-1)
-            {
-                this.Charset = charset;
-                this.ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable;
-                this.TextContent = System.Text.Encoding.GetEncoding(charset).GetString(this.BinaryContent,0,this.BinaryContent.Length);
-            }
-            else
-            {
-                this.ContentTransferEncoding = ContentTransferEncoding.Base64;
-                this.TextContent = System.Convert.ToBase64String(this.BinaryContent);
-            }
+            if (generateContentId)
+                SetContentId();
+        }
+
+        /// <summary>
+        /// Creates a MimePart object with the content of the file located at the given path.
+        /// </summary>
+        /// <param name="path">File containing the content of the MimePart.</param>
+        /// <param name="contentId">The Content-ID Header field will be used for the part.</param>
+        /// <param name="charset">If the file contains text, the charset of the text can be provided to ensure better handling.</param>
+        public MimePart(string path, string contentId, string charset = null)
+            : this(File.ReadAllBytes(path), Path.GetFileName(path), charset)
+        {
+            ContentId = contentId;
         }
 
         #endregion
@@ -198,11 +110,35 @@ namespace ActiveUp.Net.Mail
         MimePartCollection _subEntities = new MimePartCollection();
         MimePart _container;
 
+        private void BuildTextContent(string charset = null)
+        {
+            if (IsText && !string.IsNullOrEmpty(charset))
+            {
+                Charset = charset;
+                ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable;
+                TextContent = System.Text.Encoding.GetEncoding(charset).GetString(BinaryContent, 0, BinaryContent.Length);
+                return;
+            }
+
+            ContentTransferEncoding = ContentTransferEncoding.Base64;
+            TextContent = Convert.ToBase64String(BinaryContent);
+        }
+
         #endregion
 
         #region Methods
 
         #region Public methods
+
+        public string MimeType
+        {
+            get { return ContentType.MimeType.ToLower(); }
+        }
+
+        public bool IsText
+        {
+            get { return MimeType.Contains("text/"); }
+        }
 
         /// <summary>
         /// Generates a new Content-ID for the part.
@@ -217,12 +153,12 @@ namespace ActiveUp.Net.Mail
         /// </summary>
         public void SetContentId(string contentID)
         {
-            this.ContentId = contentID;
+            ContentId = contentID;
         }
 
         public string GetCidReference()
         {
-            return "cid:" + this.ContentId.Trim('<','>');
+            return "cid:" + ContentId.Trim('<','>');
         }
 
         /// <summary>
@@ -232,9 +168,7 @@ namespace ActiveUp.Net.Mail
         /// <returns></returns>
         public string StoreToFile(string destinationPath)
         {
-            System.IO.FileStream fs = new System.IO.FileStream(destinationPath, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write);
-            fs.Write(this.BinaryContent, 0, this.BinaryContent.Length);
-            fs.Close();
+            File.WriteAllBytes(destinationPath, BinaryContent);
             return destinationPath;
         }
 
@@ -300,7 +234,7 @@ namespace ActiveUp.Net.Mail
         {
             if (!cms.Detached) throw new ArgumentException("The CMS object is not a detached signature.");
 
-            MimePart part = new MimePart();
+            var part = new MimePart();
 
             part.ContentType.MimeType = "application/x-pkcs7-signature";
             part.ContentType.Parameters.Add("name", "\"smime.p7s\"");
@@ -480,7 +414,7 @@ namespace ActiveUp.Net.Mail
             }
             set
             {
-                this._textContent = value;
+                _textContent = value;
             }
         }
 
@@ -492,36 +426,27 @@ namespace ActiveUp.Net.Mail
            
             get
             {
-                if (this.ContentTransferEncoding == ActiveUp.Net.Mail.ContentTransferEncoding.SevenBits)
+                switch (ContentTransferEncoding)
                 {
-                    
-                    return this.TextContent;
-                }
-                else if (this.ContentTransferEncoding == ActiveUp.Net.Mail.ContentTransferEncoding.Base64)
-                {
-                    
-                    if (this.BinaryContent.Length > 0)
-                        return Codec.Wrap(System.Convert.ToBase64String(this.BinaryContent), 78);
-                    else
-                        return Codec.Wrap(System.Convert.ToBase64String(System.Text.Encoding.GetEncoding(this.Charset).GetBytes(this.TextContent)), 78);
-                }
-                else
-                {
-                    
-                    if (this.ContentType.MimeType.ToLower().IndexOf("text/") != -1)
-                    {
-                        return Codec.ToQuotedPrintable(this.TextContent, (this.Charset != null) ? this.Charset : "us-ascii");
-                    }
-                    else if (this.ContentType.MimeType.ToLower().IndexOf("message/") != -1 ||
-                        this.ContentType.MimeType.ToLower().IndexOf("image/") != -1 ||
-                        this.ContentType.MimeType.ToLower().IndexOf("application/") != -1)
-                    {
-                        return this.TextContent;
-                    }
-                    else
-                    {
-                        return Codec.Wrap(System.Convert.ToBase64String(this.BinaryContent), 77);
-                    }
+                    case ContentTransferEncoding.SevenBits:
+                        return TextContent;
+                    case ContentTransferEncoding.Base64:
+                        return
+                            Codec.Wrap(
+                                BinaryContent.Length > 0
+                                    ? Convert.ToBase64String(BinaryContent)
+                                    : Convert.ToBase64String(
+                                        System.Text.Encoding.GetEncoding(Charset).GetBytes(TextContent)), 78);
+                    default:
+                        if (IsText)
+                            return Codec.ToQuotedPrintable(TextContent, Charset ?? "us-ascii");
+
+                        if (MimeType.Contains("message/") || 
+                            MimeType.Contains("image/") ||
+                            MimeType.Contains("application/"))
+                            return TextContent;
+
+                        return Codec.Wrap(Convert.ToBase64String(BinaryContent), 77);
                 }
             }
         }
@@ -594,7 +519,7 @@ namespace ActiveUp.Net.Mail
                 this._contentDisposition = value;
             }
         }
-        
+
         /// <summary>
         /// The Content-Transfer-Encoding of the MimePart.
         /// </summary>
@@ -602,34 +527,46 @@ namespace ActiveUp.Net.Mail
         {
             get
             {
-                if(this.HeaderFields["content-transfer-encoding"]!=null) 
+                if(HeaderFields["content-transfer-encoding"] == null)
+                    return ContentTransferEncoding.Unknown;
+
+                var headerValue = HeaderFields["content-transfer-encoding"].ToLower();
+
+                switch (headerValue)
                 {
-                    if (this.HeaderFields.GetValues("content-transfer-encoding")[0].ToLower().IndexOf("quoted-printable") != -1) return ContentTransferEncoding.QuotedPrintable;
-                    else if(this.HeaderFields.GetValues("content-transfer-encoding")[0].ToLower().IndexOf("base64")!=-1) return ContentTransferEncoding.Base64;
-                    else if (this.HeaderFields.GetValues("content-transfer-encoding")[0].ToLower().IndexOf("8bit") != -1) return ContentTransferEncoding.EightBits;
-                    else if (this.HeaderFields.GetValues("content-transfer-encoding")[0].ToLower().IndexOf("7bit") != -1) return ContentTransferEncoding.SevenBits;
-                    else if (this.HeaderFields.GetValues("content-transfer-encoding")[0].ToLower().IndexOf("binary") != -1) return ContentTransferEncoding.Binary;
-                    else return ContentTransferEncoding.Unknown;
+                    case "quoted-printable":
+                        return ContentTransferEncoding.QuotedPrintable;
+                    case "base64":
+                        return ContentTransferEncoding.Base64;
+                    case "8bit":
+                        return ContentTransferEncoding.EightBits;
+                    case "7bit":
+                        return ContentTransferEncoding.SevenBits;
+                    case "binary":
+                        return ContentTransferEncoding.Binary;
+                    default:
+                        return ContentTransferEncoding.Unknown;
                 }
-                else return ContentTransferEncoding.Unknown;
             }
             set
             {
-                if(this.HeaderFields["content-transfer-encoding"]!=null) 
+                switch (value)
                 {
-                    if(value==ContentTransferEncoding.Binary) this.HeaderFields["content-transfer-encoding"] = "binary";
-                    else if(value==ContentTransferEncoding.QuotedPrintable) this.HeaderFields["content-transfer-encoding"] = "quoted-printable";
-                    else if(value==ContentTransferEncoding.SevenBits) this.HeaderFields["content-transfer-encoding"] = "7bit";
-                    else if(value==ContentTransferEncoding.EightBits) this.HeaderFields["content-transfer-encoding"] = "8bit";
-                    else this.HeaderFields["content-transfer-encoding"] = "base64";
-                }
-                else
-                {
-                    if(value==ContentTransferEncoding.Binary) this.HeaderFields.Add("content-transfer-encoding","binary");
-                    else if(value==ContentTransferEncoding.QuotedPrintable) this.HeaderFields.Add("content-transfer-encoding","quoted-printable");
-                    else if(value==ContentTransferEncoding.SevenBits) this.HeaderFields.Add("content-transfer-encoding","7bit");
-                    else if(value==ContentTransferEncoding.EightBits) this.HeaderFields.Add("content-transfer-encoding","8bit");
-                    else this.HeaderFields.Add("content-transfer-encoding","base64");
+                    case ContentTransferEncoding.Binary:
+                        HeaderFields["content-transfer-encoding"] = "binary";
+                        break;
+                    case ContentTransferEncoding.QuotedPrintable:
+                        HeaderFields["content-transfer-encoding"] = "quoted-printable";
+                        break;
+                    case ContentTransferEncoding.SevenBits:
+                        HeaderFields["content-transfer-encoding"] = "7bit";
+                        break;
+                    case ContentTransferEncoding.EightBits:
+                        HeaderFields["content-transfer-encoding"] = "8bit";
+                        break;
+                    default:
+                        HeaderFields["content-transfer-encoding"] = "base64";
+                        break;
                 }
             }
         }

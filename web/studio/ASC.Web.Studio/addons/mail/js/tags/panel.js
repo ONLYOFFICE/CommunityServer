@@ -1,68 +1,64 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
+
 window.tagsPanel = (function($) {
-    var 
-        isInit = false,
-        firstLoad = true,
-        _panel_content,
-        _panel_max_h;
+    var isInit = false,
+        panelContent,
+        panelMaxH;
 
     var init = function() {
         if (isInit === false) {
             isInit = true;
 
-            _panel_content = $('#id_tags_panel_content');
+            panelContent = $('#id_tags_panel_content');
 
-            _panel_max_h = _panel_content.parent().css("max-height").replace(/[^-\d\.]/g, '');
-            $('#tags_panel').hover(_expand_tags_panel, _collapse_tags_panel);
+            panelMaxH = panelContent.parent().css("max-height").replace(/[^-\d\.]/g, '');
+            $('#tags_panel').hover(expandTagsPanel, collapseTagsPanel);
 
-            tagsManager.events.bind('refresh', _onRefreshTags);
-            tagsManager.events.bind('delete', _onDeleteTag);
-            tagsManager.events.bind('update', _onUpdateTag);
-            tagsManager.events.bind('increment', _onIncrement);
-            tagsManager.events.bind('decrement', _onDecrement);
+            tagsManager.events.bind('refresh', onRefreshTags);
+            tagsManager.events.bind('delete', onDeleteTag);
+            tagsManager.events.bind('update', onUpdateTag);
+            tagsManager.events.bind('increment', onIncrement);
+            tagsManager.events.bind('decrement', onDecrement);
         }
     };
 
-    var _expand_tags_panel = function () {
-       _panel_content.parent().stop().animate({ "max-height": _panel_content.height() }, 200, function() {
+    var expandTagsPanel = function() {
+        panelContent.parent().stop().animate({ "max-height": panelContent.height() }, 200, function() {
             $('#tags_panel .more').css({ 'visibility': 'hidden' });
-       });
+        });
     };
 
-    var _collapse_tags_panel = function() {
-        _panel_content.parent().stop().animate({ "max-height": _panel_max_h }, 200, function() {
+    var collapseTagsPanel = function() {
+        panelContent.parent().stop().animate({ "max-height": panelMaxH }, 200, function() {
             $('#tags_panel .more').css({ 'visibility': 'visible' });
         });
     };
 
-    var _getTag$html = function(tag) {
+    var getTag$Html = function(tag) {
 
         tag.used = isTagInFilter(tag);
 
@@ -71,18 +67,20 @@ window.tagsPanel = (function($) {
         var $html = $(html);
 
         $html.click(function(e) {
-            if (e.isPropagationStopped())
+            if (e.isPropagationStopped()) {
                 return;
+            }
 
             // google analytics
             window.ASC.Mail.ga_track(ga_Categories.leftPanel, ga_Actions.filterClick, 'tag');
 
             var tagid = $(this).attr('labelid');
 
-            if (MailFilter.toggleTag(tagid))
+            if (MailFilter.toggleTag(tagid)) {
                 markTag(tagid);
-            else
+            } else {
                 unmarkTag(tagid);
+            }
 
             mailBox.updateAnchor();
         });
@@ -94,96 +92,96 @@ window.tagsPanel = (function($) {
         return $.inArray(tag.id.toString(), MailFilter.getTags()) >= 0;
     }
 
-    var _onRefreshTags = function(e, tags) {
-        _panel_content.find('.tag[labelid]').remove();
+    var onRefreshTags = function(e, tags) {
+        panelContent.find('.tag[labelid]').remove();
         $.each(tags, function(index, tag) {
-            if (0 >= tag.lettersCount)
+            if (0 >= tag.lettersCount) {
                 return;
-            var $html = _getTag$html(tag);
-            _panel_content.append($html);
+            }
+            var $html = getTag$Html(tag);
+            panelContent.append($html);
         });
-        _updatePanel();
+        updatePanel();
     };
 
     var unmarkAllTags = function() {
-        _panel_content.find('.tag').removeClass().addClass('tag inactive');
+        panelContent.find('.tag').removeClass().addClass('tag inactive');
     };
 
-    var unmarkTag = function (tagid) {
+    var unmarkTag = function(tagid) {
         try {
-            _panel_content.find('.tag[labelid="' + tagid + '"]').removeClass().addClass('tag inactive');
+            panelContent.find('.tag[labelid="' + tagid + '"]').removeClass().addClass('tag inactive');
+        } catch(err) {
         }
-        catch (err) { }
     };
 
-    var markTag = function (tagid) {
+    var markTag = function(tagid) {
         try {
             var tag = tagsManager.getTag(tagid);
             var css = 'tagArrow tag' + tag.style;
-            _panel_content.find('.tag[labelid="' + tagid + '"]').removeClass('inactive').addClass(css);
+            panelContent.find('.tag[labelid="' + tagid + '"]').removeClass('inactive').addClass(css);
+        } catch(err) {
         }
-        catch (err) { }
     };
 
-    var _onUpdateTag = function(e, tag) {
-        /*if (0 >= tag.lettersCount) {
-            _deleteTag(tag.id);
-            return;
-        }
-        if (0 == _panel_content.find('.tag[labelid="' + tag.id + '"]').length) {
-            _insertTag(tag);
-            return;
-        }*/
-        var tag_div = _panel_content.find('.tag[labelid="' + tag.id + '"]');
-        tag_div.find('.square').removeClass().addClass('square tag' + tag.style);
-        tag_div.find('.name').html(TMMail.ltgt(tag.name));
-        _updatePanel();
+    var onUpdateTag = function(e, tag) {
+        var tagDiv = panelContent.find('.tag[labelid="' + tag.id + '"]');
+        tagDiv.find('.square').removeClass().addClass('square tag' + tag.style);
+        tagDiv.find('.name').html(TMMail.ltgt(tag.name));
+        updatePanel();
     };
 
-    var _deleteTag = function(id) {
-        _panel_content.find('.tag[labelid="' + id + '"]').remove();
-        _updatePanel();
-    };
-    var _onDeleteTag = function(e, id) {
-        _deleteTag(id);
+    var deleteTag = function(id) {
+        panelContent.find('.tag[labelid="' + id + '"]').remove();
+        updatePanel();
     };
 
-    var _insertTag = function(tag) {
-        var $html = _getTag$html(tag);
-        var tags = _panel_content.find('.tag[labelid]');
-        var insert_flag = false;
+    var onDeleteTag = function(e, id) {
+        deleteTag(id);
+    };
+
+    var insertTag = function(tag) {
+        var $html = getTag$Html(tag);
+        var tags = panelContent.find('.tag[labelid]');
+        var insertFlag = false;
         $.each(tags, function(index, value) {
             var id = parseInt($(value).attr('labelid'));
             if ((tag.id > 0 && (id > tag.id || id < 0)) || (tag.id < 0 && id < tag.id)) {
                 $(value).before($html);
-                insert_flag = true;
+                insertFlag = true;
                 return false;
             }
         });
-        if (!insert_flag)
-            _panel_content.append($html);
-        _updatePanel();
-    };
-    var _onIncrement = function(e, tag) {
-        if (0 == _panel_content.find('.tag[labelid="' + tag.id + '"]').length)
-            _insertTag(tag);
+
+        if (!insertFlag) {
+            panelContent.append($html);
+        }
+        updatePanel();
     };
 
-    var _onDecrement = function(e, tag) {
-        if (0 >= tag.lettersCount)
-            _onDeleteTag(e, tag.id);
+    var onIncrement = function(e, tag) {
+        if (0 == panelContent.find('.tag[labelid="' + tag.id + '"]').length) {
+            insertTag(tag);
+        }
     };
 
-    var _updatePanel = function() {
+    var onDecrement = function(e, tag) {
+        if (0 >= tag.lettersCount) {
+            onDeleteTag(e, tag.id);
+        }
+    };
+
+    var updatePanel = function() {
         if (0 == $('#tags_panel .tag').length) {
             $('#tags_panel').hide();
             return;
         }
         $('#tags_panel').show();
-        if (_panel_max_h < _panel_content.height())
+        if (panelMaxH < panelContent.height()) {
             $('#tags_panel .more').show();
-        else
+        } else {
             $('#tags_panel .more').hide();
+        }
     };
 
     return {

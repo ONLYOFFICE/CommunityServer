@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TransferPortal.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TransferPortal" %>
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
@@ -8,11 +7,8 @@
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <% if (IsVisibleMigration)
-   { 
-       var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-       var enableMigrationFree = SetupInfo.IsSecretEmail(currentUser.Email) || currentUser.IsOwner() && !TenantExtra.GetTenantQuota().Free;
-       %>
-<div id="migrationPortal" class="clearFix <%= EnableMigration && enableMigrationFree ? "" : "disable" %>">
+   { %>
+<div id="migrationPortal" class="clearFix <%= EnableMigration ? "" : "disable" %>">
     <div class="settings-block transfer-portal">
         <div class="header-base">
             <%= Resource.TransferPortalTitle %>
@@ -60,7 +56,7 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <% if (EnableMigration && enableMigrationFree)
+        <% if (EnableMigration)
            { %>
         <p><%= String.Format(Resource.HelpAnswerTransferPortal, "<br />", "<b>", "</b>") %></p>
          <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))

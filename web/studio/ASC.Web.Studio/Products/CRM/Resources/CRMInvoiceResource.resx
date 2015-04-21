@@ -633,4 +633,7 @@
   <data name="ErrorIncorrectRate" xml:space="preserve">
     <value>the rate value is incorect</value>
   </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Открыть в новой вкладке</value>
+  </data>
 </root>

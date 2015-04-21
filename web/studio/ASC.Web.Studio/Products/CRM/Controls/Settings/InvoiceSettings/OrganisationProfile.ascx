@@ -1,7 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OrganisationProfile.ascx.cs" Inherits="ASC.Web.CRM.Controls.Settings.OrganisationProfile" %>
 <%@ Import Namespace="ASC.CRM.Core" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Import Namespace="ASC.Web.CRM.Classes" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>

@@ -1,5 +1,4 @@
-﻿<%@ Assembly Name="ASC.Projects.Core" %>
-<%@ Assembly Name="ASC.Web.Projects" %>
+﻿<%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ReportView.ascx.cs" Inherits="ASC.Web.Projects.Controls.Reports.ReportView" %>
 <%@ Import Namespace="ASC.Web.Projects" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>

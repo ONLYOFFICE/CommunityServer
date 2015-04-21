@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 ASC.Projects.ProjectAction = (function() {
     var projectId;
@@ -34,6 +32,7 @@ ASC.Projects.ProjectAction = (function() {
     var contactId = undefined;
     var projectTeam = new Array();
     var currentUserId;
+    var projectResponsible;
 
     var init = function() {
         currentUserId = Teamlab.profile.id;
@@ -70,7 +69,7 @@ ASC.Projects.ProjectAction = (function() {
             onechosen: true
         }).on("showList", onChooseProjectManager);
 
-        var projectResponsible = jq('#projectResponsible').val();
+        projectResponsible = jq('#projectResponsible').val();
 
         function onChooseProjectManager(e, item) {
             var id = item.id,
@@ -110,7 +109,6 @@ ASC.Projects.ProjectAction = (function() {
             }
         });
 
-        // team selector
         $projectTeamSelector.useradvancedSelector({
             itemsDisabledIds: projectId ? [$projectManagerSelector.attr("data-id")] : [],
             itemsSelectedIds: projectId ? projectTeam : [],
@@ -246,25 +244,40 @@ ASC.Projects.ProjectAction = (function() {
         });
 
         if (projectId) {
-            var teamPrj = ASC.Projects.Master.Team.map(function (el) {
+            var teamPrj = ASC.Projects.Master.Team.map(function(el) {
                 return {
                     id: el.id,
-                    title: el.displayName
-                }
-            })
+                    title: el.displayName,
+                    profileUrl: el.profileUrl
+                };
+            });
+            if ($projectManagerSelector.attr("data-id") == Teamlab.profile.id) {
+                $projectManagerSelector.useradvancedSelector("selectBeforeShow", { id: Teamlab.profile.id, title: ASC.Resources.Master.Resource.MeLabel });
+            }
             displayProjectTeam(teamPrj);
         }
-        if (!projectId) {
+        if (!projectId && ASC.Projects.MilestoneContainer) {
             ASC.Projects.MilestoneContainer.init();
         }
-        jq.confirmBeforeUnload();
+        jq.confirmBeforeUnload(confirmBeforeUnloadCheck);
 
     };
 
+    var confirmBeforeUnloadCheck = function () {
+        var project = getProjectData();
+        return project.title.length ||
+            project.responsibleid ||
+            project.notify ||
+            project.description.length ||
+            project.tags.length ||
+            (project.milestones && project.milestones.length) ||
+            (project.tasks && project.tasks.length) ||
+            (project.participants && project.participants.length);
+    };
+
     var displayProjectTeam = function (team) {
+        projectTeam = team.map(function (item) { return item.id; });
         var projectManagerId = jq("#projectManagerSelector").attr("data-id");
-        projectTeam = [];
-        team.forEach(function (el) { projectTeam.push(el.id) });
         jq('#projectParticipants').attr('value', projectTeam.join());
         if (team.length > 0) {
             jq('#projectParticipant').tmpl(team).appendTo('#projectParticipantsContainer .items-display-list');
@@ -277,7 +290,7 @@ ASC.Projects.ProjectAction = (function() {
 
     var clearFields = function() {
         jq('[id$=projectTitle], [id$=projectDescription], [id$=projectTags]').val("");
-        jq('#notifyManagerCheckbox , #projectPrivacyCkeckbox, #followingProjectCheckbox').prop("checked", false);
+        jq('#notifyManagerCheckbox , #followingProjectCheckbox').prop("checked", false);
     };
 
     var validateProjectData = function () {

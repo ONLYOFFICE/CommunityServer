@@ -269,9 +269,9 @@ TeamLab Support Team
 h2.$activity.Key
 
 #foreach($whatsNewActivity in $activity.Value)
-#foreach($b in $whatsNewActivity.BreadCrumbs) h3.$b
+#foreach($b in $whatsNewActivity.BreadCrumbs) h4.$b
 #end "$whatsNewActivity.Title":"$whatsNewActivity.URL"
-*Author*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", published: $whatsNewActivity.Date.ToShortTimeString()
+*Author*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", $whatsNewActivity.Action: $whatsNewActivity.Date.ToShortTimeString()
  
  
 #end
@@ -1074,5 +1074,90 @@ TeamLab Support Team
   </data>
   <data name="subject_restore_started" xml:space="preserve">
     <value>ONLYOFFICE. Restore completed.</value>
+  </data>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>Создан блог в</value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>Создана закладка в</value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>Создано мероприятие в</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>Добавлен комментарий в</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>Создан контакт в</value>
+  </data>
+  <data name="ActionCreateCrmTask" xml:space="preserve">
+    <value>Создана задача в</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>Создана сделка в</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>Создана дискуссия в</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>Создано событие в</value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>Создан/загружен документ в</value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>Создана папка в</value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>Создан форум в</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>Создана веха в</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>Создан проект в</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>Создана задача в</value>
+  </data>
+  <data name="pattern_after_payment1" xml:space="preserve">
+    <value>Здравствуйте, $UserName,
+
+Вы выбрали помесячную подписку на ONLYOFFICE уже третий раз.
+
+Зачем переплачивать? Как нашему постоянному клиенту, мы хотели бы предложить Вам 10% скидку на годовой тариф.
+
+Для оплаты со скидкой воспользуйтесь скидочным купоном: ==&lt;b&gt;10%yearlysubsc2015 &lt;/b&gt;==
+
+Если у Вас возникнут какие-либо вопросы, обращайтесь к нам на "support@teamlab.com":"mailto:support@teamlab.com". Мы будем рады Вам помочь!
+
+
+С уважением,
+Команда ONLYOFFICE</value>
+  </data>
+  <data name="subject_after_payment1" xml:space="preserve">
+    <value>Your special offer for ONLYOFFICE</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>Создан опрос в</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>Создан пост в</value>
+  </data>
+  <data name="pattern_after_creation5" xml:space="preserve">
+    <value>Hello $UserName, 
+
+My name is Tim and I work for ONLYOFFICE. I started my work here long time ago, at the very beginning of the project. Believe me, I know everything about this application! 
+
+How is it going there? Is everything clear? Please share with me your impression. The feedback is the best contribution!
+
+If you have questions regarding how to use ONLYOFFICE or need help to start using it, just let me know. You can also send me feedback or ideas to help improve ONLYOFFICE.
+
+Be productive and access your office at "${__VirtualRootPath}":"${__VirtualRootPath}" from anywhere!
+
+Mail me at "tim@onlyoffice.com":"mailto:tim@onlyoffice.com" whenever you need help.</value>
+  </data>
+  <data name="subject_after_creation5" xml:space="preserve">
+    <value>Hey, how is it going with ONLYOFFICE?</value>
   </data>
 </root>

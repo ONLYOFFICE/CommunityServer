@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Linq;
@@ -54,9 +52,9 @@ namespace ASC.Mail.Aggregator.Extension
             return ApplyFilter(query, filter, false);
         }
 
-        private static SqlQuery ApplyFilter(this SqlQuery query, MailFilter filter, bool skip_folder)
+        private static SqlQuery ApplyFilter(this SqlQuery query, MailFilter filter, bool skipFolder)
         {
-            var conditions = GetMailFilterConditions(filter, skip_folder, string.Empty);
+            var conditions = GetMailFilterConditions(filter, skipFolder, string.Empty);
 
             if (conditions != null)
                 query.Where(conditions);
@@ -64,9 +62,9 @@ namespace ASC.Mail.Aggregator.Extension
             return query;
         }
 
-        private static SqlUpdate ApplyFilter(this SqlUpdate query, MailFilter filter, bool skip_folder)
+        private static SqlUpdate ApplyFilter(this SqlUpdate query, MailFilter filter, bool skipFolder)
         {
-            var conditions = GetMailFilterConditions(filter, skip_folder, string.Empty);
+            var conditions = GetMailFilterConditions(filter, skipFolder, string.Empty);
 
             if (conditions != null)
                 query.Where(conditions);
@@ -74,9 +72,9 @@ namespace ASC.Mail.Aggregator.Extension
             return query;
         }
 
-        private static SqlDelete ApplyFilter(this SqlDelete query, MailFilter filter, bool skip_folder)
+        private static SqlDelete ApplyFilter(this SqlDelete query, MailFilter filter, bool skipFolder)
         {
-            var conditions = GetMailFilterConditions(filter, skip_folder, string.Empty);
+            var conditions = GetMailFilterConditions(filter, skipFolder, string.Empty);
 
             if (conditions != null)
                 query.Where(conditions);
@@ -84,30 +82,25 @@ namespace ASC.Mail.Aggregator.Extension
             return query;
         }
 
-        public static Exp GetMailFilterConditions(MailFilter filter, bool skip_folder, string alias)
+        public static Exp GetMailFilterConditions(MailFilter filter, bool skipFolder, string alias)
         {
             Exp conditions = null;
 
             if (!string.IsNullOrEmpty(alias))
                 alias += ".";
 
-            if (!skip_folder)
+            if (!skipFolder)
                 conditions = Exp.Eq(alias + MailTable.Columns.folder, filter.PrimaryFolder);
 
             if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
             {
-                var ids_with_any_of_tags = new SqlQuery(MailBoxManager.MAIL_TAG_MAIL)
-                    .Select(MailBoxManager.TagMailFields.id_mail)
-                    .Where(Exp.In(MailBoxManager.TagMailFields.id_tag, filter.CustomLabels));
+                var idsWithAllTagsQuery = new SqlQuery(TagMailTable.name)
+                    .Select(TagMailTable.Columns.id_mail)
+                    .Where(Exp.In(TagMailTable.Columns.id_tag, filter.CustomLabels))
+                    .GroupBy(1)
+                    .Having(Exp.Eq("count(" + TagMailTable.Columns.id_mail + ")", filter.CustomLabels.Count()));
 
-                var ids_with_all_tags = new SqlQuery()
-                    .Select(MailBoxManager.TagMailFields.id_mail)
-                    .From(ids_with_any_of_tags, "a")
-                    .GroupBy(MailBoxManager.TagMailFields.id_mail)
-                    .Having(
-                        Exp.Eq("count(a." + MailBoxManager.TagMailFields.id_mail + ")", filter.CustomLabels.Count()));
-
-                conditions &= Exp.In(alias + MailTable.Columns.id, ids_with_all_tags);
+                conditions &= Exp.In(alias + MailTable.Columns.id, idsWithAllTagsQuery);
             }
 
             if (filter.Unread.HasValue)
@@ -118,10 +111,10 @@ namespace ASC.Mail.Aggregator.Extension
             if (filter.Attachments)
                 conditions &= Exp.Gt(alias + MailTable.Columns.attach_count, 0);
 
-            if (filter.Period_from > 0)
+            if (filter.PeriodFrom > 0)
             {
-                var from = new DateTime(1970, 1, 1) + new TimeSpan(filter.Period_from * 10000);
-                var to = new DateTime(1970, 1, 1) + new TimeSpan(filter.Period_to * 10000) +
+                var from = new DateTime(1970, 1, 1) + new TimeSpan(filter.PeriodFrom * 10000);
+                var to = new DateTime(1970, 1, 1) + new TimeSpan(filter.PeriodTo * 10000) +
                          new TimeSpan(1, 0, 0, 0, 0); // 1 day was added to make the "To" date limit inclusive
                 conditions &= Exp.Between(alias + MailTable.Columns.date_sent, from, to);
             }
@@ -148,12 +141,9 @@ namespace ASC.Mail.Aggregator.Extension
             {
                 if (FullTextSearch.SupportModule(FullTextSearch.MailModule))
                 {
-                    var ids = FullTextSearch.Search(filter.SearchFilter, FullTextSearch.MailModule)
-                                            .GetIdentifiers()
-                                            .Select(id => int.Parse(id));
+                    var ids = FullTextSearch.Search(FullTextSearch.MailModule.Match(filter.SearchFilter));
 
-                    // ToDo: replace magic number with ultra cool setting value
-                    conditions &= Exp.In(alias + MailTable.Columns.id, ids.Take(200).ToList());
+                    conditions &= Exp.In(alias + MailTable.Columns.id, ids.Take(MailBoxManager.FULLTEXTSEARCH_IDS_COUNT).ToList());
                 }
                 else
                 {
@@ -177,21 +167,21 @@ namespace ASC.Mail.Aggregator.Extension
 
         public static SqlQuery ApplySorting(this SqlQuery query, MailFilter filter)
         {
-            var sort_field = MailTable.Columns.date_sent;
+            var sortField = MailTable.Columns.date_sent;
 
             switch (filter.Sort)
             {
                 case "subject":
-                    sort_field = MailTable.Columns.subject;
+                    sortField = MailTable.Columns.subject;
                     break;
                 case "sender":
-                    sort_field = MailTable.Columns.@from;
+                    sortField = MailTable.Columns.@from;
                     break;
             }
 
-            var sort_order = filter.SortOrder == "ascending";
+            var sortOrder = filter.SortOrder == "ascending";
 
-            query.OrderBy(sort_field, sort_order);
+            query.OrderBy(sortField, sortOrder);
 
             return query;
         }

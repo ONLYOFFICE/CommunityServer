@@ -77,6 +77,7 @@
     <div id="dealActionMenu" class="studio-action-panel">
         <ul class="dropdown-content">
             <li><a class="showProfileLink dropdown-item"><%= CRMDealResource.ShowDealProfile %></a></li>
+            <li><a class="showProfileLinkNewTab dropdown-item"><%= CRMDealResource.ShowDealProfileNewTab%></a></li>
             <li><a class="setPermissionsLink dropdown-item"><%= CRMCommonResource.SetPermissions %></a></li>
             {{if CanCreateProjects}}
             <li><a class="createProject dropdown-item" target="_blank"><%= CRMCommonResource.CreateNewProject %></a></li>

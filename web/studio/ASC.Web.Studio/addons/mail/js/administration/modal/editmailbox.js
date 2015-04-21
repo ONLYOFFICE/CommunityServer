@@ -1,47 +1,49 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-window.editMailboxModal = (function ($) {
+
+window.editMailboxModal = (function($) {
     var mailbox,
         domain,
-        need_save_aliases,
-        need_remove_aliases;
+        needSaveAliases,
+        needRemoveAliases;
 
-    function show(id_mailbox) {
-        need_save_aliases = [];
-        need_remove_aliases = [];
-        id_mailbox = parseInt(id_mailbox);
+    function show(idMailbox) {
+        needSaveAliases = [];
+        needRemoveAliases = [];
+        idMailbox = parseInt(idMailbox);
 
-        mailbox = administrationManager.getMailbox(id_mailbox);
-        if (mailbox == undefined) return;
+        mailbox = administrationManager.getMailbox(idMailbox);
+        if (mailbox == undefined) {
+            return;
+        }
 
         domain = administrationManager.getDomain(mailbox.address.domainId);
-        if (domain == undefined) return;
+        if (domain == undefined) {
+            return;
+        }
 
         var html = $.tmpl('editMailboxTmpl', { mailbox: mailbox, domain: domain });
         var $html = $(html);
@@ -52,97 +54,100 @@ window.editMailboxModal = (function ($) {
         $html.find('.save').unbind('click').bind('click', saveAliases);
         $html.find('.cancel').unbind('click').bind('click', window.PopupKeyUpActionProvider.CloseDialog);
 
-        popup.addPopup(window.MailAdministrationResource.EditMailboxAliasesLabel, html, '392px');
+        popup.addPopup(window.MailAdministrationResource.EditMailboxAliasesLabel, html, 392);
 
-        $(document).unbind('keyup').bind('keyup', function (e) {
-            if (e.which == 13) {
-                if ($('#mail_server_edit_mailbox').is(':visible')) {
-                    $('#mail_server_edit_mailbox .addAlias').trigger('click');
-                }
-            }
-        });
+        PopupKeyUpActionProvider.EnterAction = "jq('#mail_server_edit_mailbox:visible .addAlias').trigger('click');";
+
         setFocusToInput();
     }
 
     function saveAliases() {
-        var alias_name = $('#mail_server_edit_mailbox').find('.alias_name').val();
-        if (alias_name.length > 0)
-            addAlias();
+        TMMail.setRequiredHint('mailbox_add_alias', '');
+        TMMail.setRequiredError('mailbox_add_alias', false);
 
-        var i, len = need_save_aliases.length, alias;
+        var aliasName = $('#mail_server_edit_mailbox').find('.alias_name').val();
+        if (aliasName.length > 0) {
+            addAlias();
+        }
+
+        var i, len = needSaveAliases.length, alias;
         for (i = 0; i < len; i++) {
-            alias = need_save_aliases[i];
+            alias = needSaveAliases[i];
             serviceManager.addMailBoxAlias(mailbox.id, alias.name, { mailbox_id: mailbox.id, alias: alias },
                 {
-                    error: function (e, error) {
+                    error: function(e, error) {
                         administrationError.showErrorToastr("addMailboxAlias", error);
                     }
                 });
         }
 
-        len = need_remove_aliases.length;
+        len = needRemoveAliases.length;
         for (i = 0; i < len; i++) {
-            alias = need_remove_aliases[i];
+            alias = needRemoveAliases[i];
             if (alias.id > 0) {
                 serviceManager.removeMailBoxAlias(mailbox.id, alias.id, { mailbox_id: mailbox.id, alias: alias },
                     {
-                        error: function (e, error) {
+                        error: function(e, error) {
                             administrationError.showErrorToastr("removeMailboxAlias", error);
                         }
                     });
             }
         }
 
-        if (need_save_aliases.length > 0 || need_remove_aliases.length > 0)
+        if (needSaveAliases.length > 0 || needRemoveAliases.length > 0) {
             serviceManager.getMailboxes({}, { error: administrationError.getErrorHandler("getMailboxes") }, ASC.Resources.Master.Resource.LoadingProcessing);
-
-        window.PopupKeyUpActionProvider.CloseDialog();
+            window.PopupKeyUpActionProvider.CloseDialog();
+        } else if (!TMMail.isRequiredErrorVisible('mailbox_add_alias')) {
+            TMMail.setRequiredHint('mailbox_add_alias', window.MailScriptResource.ErrorEmptyField);
+            TMMail.setRequiredError('mailbox_add_alias', true);
+        }
     }
 
     function deleteAlias() {
         var row = $(this).closest('.alias_row');
-        var id_alias = row.attr('alias_id');
-        var alias_email = row.find('.alias_address').text().trim();
+        var idAlias = row.attr('alias_id');
+        var aliasEmail = row.find('.alias_address').text().trim();
         var pos;
 
-        if (id_alias == -1) {
-            pos = searchAliasIndex(need_save_aliases, alias_email);
-            if (pos > -1)
-                need_save_aliases.splice(pos, 1);
+        if (idAlias == -1) {
+            pos = searchAliasIndex(needSaveAliases, aliasEmail);
+            if (pos > -1) {
+                needSaveAliases.splice(pos, 1);
+            }
         } else {
-            pos = searchAliasIndex(mailbox.aliases, alias_email);
-            if (pos > -1)
-                need_remove_aliases.push(mailbox.aliases[pos]);
+            pos = searchAliasIndex(mailbox.aliases, aliasEmail);
+            if (pos > -1) {
+                needRemoveAliases.push(mailbox.aliases[pos]);
+            }
         }
 
-        $(this).closest('.mailbox_aliases').toggleClass('empty_list', need_save_aliases.length == 0 && mailbox.aliases.length == need_remove_aliases.length);
+        $(this).closest('.mailbox_aliases').toggleClass('empty_list', needSaveAliases.length == 0 && mailbox.aliases.length == needRemoveAliases.length);
 
         row.remove();
         setFocusToInput();
     }
 
     function addAlias() {
-        var domain_name = domain.name;
-        var alias_name = $('#mail_server_edit_mailbox').find('.alias_name').val();
-        var alias_email = alias_name + '@' + domain_name;
+        var domainName = domain.name;
+        var aliasName = $('#mail_server_edit_mailbox').find('.alias_name').val();
+        var aliasEmail = aliasName + '@' + domainName;
 
-        var error_exists = false;
+        var errorExists = false;
 
-        if (alias_name.length === 0) {
+        if (aliasName.length === 0) {
             TMMail.setRequiredHint('mailbox_add_alias', window.MailScriptResource.ErrorEmptyField);
-            error_exists = true;
-        }
-        else if (!TMMail.reMailServerEmailStrict.test(alias_email)) {
+            errorExists = true;
+        } else if (!TMMail.reMailServerEmailStrict.test(aliasEmail)) {
             TMMail.setRequiredHint("mailbox_add_alias", window.MailScriptResource.ErrorIncorrectEmail);
-            error_exists = true;
+            errorExists = true;
         } else {
-            if (isAlreadyExists(alias_email)) {
+            if (isAlreadyExists(aliasEmail)) {
                 TMMail.setRequiredHint('mailbox_add_alias', window.MailResource.ErrorEmailExist);
-                error_exists = true;
+                errorExists = true;
             }
         }
 
-        if (error_exists) {
+        if (errorExists) {
             TMMail.setRequiredError('mailbox_add_alias', true);
             return;
         }
@@ -151,8 +156,8 @@ window.editMailboxModal = (function ($) {
 
         var alias = {
             domainId: domain.id,
-            email: alias_email,
-            name: alias_name,
+            email: aliasEmail,
+            name: aliasName,
             id: -1
         };
 
@@ -160,23 +165,23 @@ window.editMailboxModal = (function ($) {
         var $html = $(html);
         $html.find('.delete_entity').unbind('click').bind('click', deleteAlias);
         $('#mail_server_edit_mailbox').find('.mailbox_aliases table').append(html);
-        need_save_aliases.push(alias);
+        needSaveAliases.push(alias);
         $('#mail_server_edit_mailbox').find('.alias_name').val('');
         $('#mail_server_edit_mailbox').find('.mailbox_aliases').toggleClass('empty_list', false);
         setFocusToInput();
     }
 
-    function isAlreadyExists(alias_address) {
-        return searchAliasIndex(mailbox.aliases, alias_address) != -1 ||
-            searchAliasIndex(need_save_aliases, alias_address) != -1;
+    function isAlreadyExists(aliasAddress) {
+        return searchAliasIndex(mailbox.aliases, aliasAddress) != -1 ||
+            searchAliasIndex(needSaveAliases, aliasAddress) != -1;
     }
 
-    function searchAliasIndex(collection, alias_address) {
+    function searchAliasIndex(collection, aliasAddress) {
         var pos = -1;
         var i, len = collection.length;
         for (i = 0; i < len; i++) {
             var alias = collection[i];
-            if (alias.email == alias_address) {
+            if (alias.email == aliasAddress) {
                 pos = i;
                 break;
             }

@@ -3,9 +3,7 @@
 <%@ Assembly Name="ASC.Web.Core" %>
 <%@ Control EnableViewState="true" Language="C#" AutoEventWireup="true" CodeBehind="DealActionView.ascx.cs"
     Inherits="ASC.Web.CRM.Controls.Deals.DealActionView" %>
-<%@ Import Namespace="ASC.Core.Tenants" %>
 <%@ Import Namespace="ASC.CRM.Core" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.CRM.Classes" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 

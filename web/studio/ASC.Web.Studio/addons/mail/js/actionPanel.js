@@ -1,84 +1,81 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-(function ($) {
+
+(function($) {
 
     // action panel will be drawn under its parent element and
     // its right corner will be shifted on this value from parent right corner
 
-    var _menu_click = function(e) {
+    var menuClick = function(e) {
         e.stopPropagation();
     };
 
     var methods = {
-
         init: function(options) {
 
             return this.each(function() {
 
                 var $this = $(this),
-                    ap_data = $this.data('actionPanel');
+                    apData = $this.data('actionPanel');
 
                 // If the plugin hasn't been initialized yet
-                if (!ap_data) {
+                if (!apData) {
                     $(this).data('actionPanel', {
                         target: $this,
                         options: options
                     });
 
-                    ap_data = $this.data('actionPanel');
+                    apData = $this.data('actionPanel');
 
-                    ap_data['hide'] = function () {
+                    apData['hide'] = function() {
                         // remove html if exists
-                        ap_data['$html'] && ap_data['$html'].remove();
+                        apData['$html'] && apData['$html'].remove();
                         $this.removeClass('active');
                         $this.off('.actionPanel').on('click.actionPanel', methods._show);
-                        dropdown.unregHide(ap_data['hide']);
-                        dropdown.unregScroll(ap_data['scroll']);
+                        dropdown.unregHide(apData['hide']);
+                        dropdown.unregScroll(apData['scroll']);
                     };
 
                     $this.on('click.actionPanel', methods._show);
                     $this.on('remove', methods._destroy);
-                }
-                else {
-                    ap_data['options'] = options;
+                } else {
+                    apData['options'] = options;
                 }
 
-                if (true === options.show)
+                if (true === options.show) {
                     methods._show.apply(this);
+                }
             });
         },
 
         _destroy: function() {
             var $this = $(this),
-                ap_data = $this.data('actionPanel');
+                apData = $this.data('actionPanel');
 
-            ap_data['hide']();
+            apData['hide']();
             $this.off('.actionPanel');
             $this.removeData('actionPanel');
         },
@@ -87,40 +84,43 @@
             return this.forEach(methods._destroy);
         },
 
-        _show: function (event) {
+        _show: function(event) {
             // handle click event if it exists (method was called as callback on click event)
             event && dropdown.onClick(event);
 
             var $this = $(this);
 
-            if ($this.attr('disabled')) return;
+            if ($this.attr('disabled')) {
+                return;
+            }
 
-            var ap_data = $this.data('actionPanel');
+            var apData = $this.data('actionPanel');
 
-            $this.off('.actionPanel').on('click.actionPanel', function (e) {
+            $this.off('.actionPanel').on('click.actionPanel', function(e) {
                 dropdown.onClick(e);
-                ap_data['hide']();
+                apData['hide']();
             });
-            dropdown.regHide(ap_data['hide']);
+            dropdown.regHide(apData['hide']);
 
             $this.addClass('active');
 
             var html = '<div class="actionPanel';
-            if (ap_data.options.css)
-                html += ' ' + ap_data.options.css;
+            if (apData.options.css) {
+                html += ' ' + apData.options.css;
+            }
             html += '"><div class="actionPanelContent"></div></div>';
             var $html = $(html);
-            $.each(ap_data.options.buttons, function (index, value) {
+            $.each(apData.options.buttons, function(index, value) {
                 var $add = $('<div class="action ' +
-                (value.css_class != undefined ? value.css_class : "") +
-                (value.disabled != undefined && true == value.disabled ? '' : ' active') +
-                '" isActive="' + (value.disabled != undefined ? !value.disabled : "true") +
-                '" title="' + (value.title != undefined ? value.title : value.text) + '">' + value.text +
-                 (value.explanation != undefined ? ' <span class="explanation">' + value.explanation + '</span>' : '') +
-                 '</div>');
+                    (value.css_class != undefined ? value.css_class : "") +
+                    (value.disabled != undefined && true == value.disabled ? '' : ' active') +
+                    '" isActive="' + (value.disabled != undefined ? !value.disabled : "true") +
+                    '" title="' + (value.title != undefined ? value.title : value.text) + '">' + value.text +
+                    (value.explanation != undefined ? ' <span class="explanation">' + value.explanation + '</span>' : '') +
+                    '</div>');
                 if (!value.disabled) {
                     $add.click(function(e) {
-                        ap_data['hide']();
+                        apData['hide']();
                         return value.handler(e, value);
                     });
                 }
@@ -139,30 +139,32 @@
 
             var x = offset.left;
 
-            $html.css({ left: x, top: methods._getY(ap_data.options.horizontal_target ? $this.find(ap_data.options.horizontal_target) : $this, $html) });
-            $html.click(_menu_click);
+            $html.css({ left: x, top: methods._getY(apData.options.horizontal_target ? $this.find(apData.options.horizontal_target) : $this, $html) });
+            $html.click(menuClick);
 
             var arrow = $this.find('.arrow-down');
-            if(0 == arrow.length)
+            if (0 == arrow.length) {
                 arrow = $this.find('.down_arrow');
+            }
 
             if (0 != arrow.length) {
                 var right = $html[0].offsetWidth - arrow.offset().left - Math.ceil(arrow[0].offsetWidth / 2) + x;
                 // right minus magic 1px for some browsers
-                if (!$.browser.mozilla)
+                if (!$.browser.mozilla) {
                     right = right - 1;
+                }
 
             }
 
-            ap_data['$html'] = $html;
+            apData['$html'] = $html;
             $html.css({ opacity: 1 });
 
-            ap_data['scroll'] = function() {
+            apData['scroll'] = function() {
                 $html.css({ top: methods._getY($this, $html) });
             };
-            dropdown.regScroll(ap_data['scroll']);
+            dropdown.regScroll(apData['scroll']);
         },
-        
+
         _getY: function($target, $html) {
             var y = $target.offset().top + $target.height();
             if (y + $html[0].offsetHeight > $(document).height()) {
@@ -173,23 +175,22 @@
         },
 
         hide: function() {
-            return this.each(function () {
+            return this.each(function() {
                 var $this = $(this);
-                if (!$this.is('.active'))
+                if (!$this.is('.active')) {
                     return;
+                }
                 $this.data('actionPanel')['hide']();
             });
         }
     };
 
     $.fn.actionPanel = function(method) {
-
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         }
-
     };
 
 })(jQuery);

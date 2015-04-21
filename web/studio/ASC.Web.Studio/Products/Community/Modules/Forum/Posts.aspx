@@ -2,8 +2,7 @@
     AutoEventWireup="true" CodeBehind="Posts.aspx.cs" Inherits="ASC.Web.Community.Forum.Posts"
     Title="Untitled Page" %>
 
-<%@ Import Namespace="ASC.Web.Community.Forum" %>
-<%@ Import Namespace="ASC.Web.Community.Forum.Resources" %>
+
 <%@ Import Namespace="ASC.Web.Community.Product" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ForumPageContent" runat="server">
     <div class="forumsHeaderBlock header-with-menu" style="margin-bottom: 16px;">

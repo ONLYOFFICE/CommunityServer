@@ -54,21 +54,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.3.9.1, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\HtmlAgilityPack\HtmlAgilityPack.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\TeamLab_mailserver\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\TeamLab_mailserver\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\..\..\..\TeamLab_mailserver\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\..\..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\TeamLab_mailserver\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -88,22 +81,19 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Ude">
-      <HintPath>..\..\..\..\TeamLab_mailserver\packages\UDE.CSharp.1.0.0\lib\Ude.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tests\HtmlSanitizerTests.cs" />
-    <Compile Include="Tests\ImapParseMailboxListTests.cs" />
-    <Compile Include="Tests\LoginFormatingTests.cs" />
-    <Compile Include="Tests\MailboxManagerTests.cs" />
-    <Compile Include="Tests\MessageParserTests\BadContentTests.cs" />
-    <Compile Include="Tests\MessageParserTests\BadEncodingTests.cs" />
-    <Compile Include="Tests\MessageParserTests\MessageDeserializationTest.cs" />
-    <Compile Include="Tests\MessageParserTests\MessageParserTestsBase.cs" />
-    <Compile Include="Tests\MessageParserTests\MessageParseTests.cs" />
+    <Compile Include="Common\HtmlSanitizerTests.cs" />
+    <Compile Include="Common\Imap\ImapParseMailboxListTests.cs" />
+    <Compile Include="Common\LoginFormatingTests.cs" />
+    <Compile Include="Common\MessageParserTests\BadContentTests.cs" />
+    <Compile Include="Common\MessageParserTests\BadEncodingTests.cs" />
+    <Compile Include="Common\MessageParserTests\MessageDeserializationTest.cs" />
+    <Compile Include="Common\MessageParserTests\MessageParserTestsBase.cs" />
+    <Compile Include="Common\MessageParserTests\MessageParseTests.cs" />
+    <Compile Include="Common\Imap\ImapIntervalsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\SanitizeHtmlForEditorTests.cs" />
+    <Compile Include="Common\SanitizeHtmlForEditorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -111,6 +101,7 @@
   <ItemGroup>
     <Folder Include="Right_Parsing\" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

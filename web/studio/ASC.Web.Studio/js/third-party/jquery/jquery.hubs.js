@@ -146,7 +146,23 @@
                 return proxies.c.invoke.apply(proxies.c, $.merge(["dcu"], $.makeArray(arguments)));
              }
         };
-        
+        proxies.ch = this.createHubProxy('ch');
+        proxies.ch.client = {};
+        proxies.ch.server = {
+            gnmc: function () {
+                return proxies.ch.invoke.apply(proxies.ch, $.merge(["gnmc"], $.makeArray(arguments)));
+            },
+            smec: function (count) {
+                return proxies.ch.invoke.apply(proxies.ch, $.merge(["smec"], $.makeArray(arguments)));
+            },
+            sfc: function () {
+                return proxies.ch.invoke.apply(proxies.ch, $.merge(["sfc"], $.makeArray(arguments)));
+            },
+            uf: function () {
+                return proxies.ch.invoke.apply(proxies.ch, $.merge(["uf"], $.makeArray(arguments)));
+            }
+        };
+
         proxies.voip = this.createHubProxy('voip');
         proxies.voip.client = {
             miss: function(call) {
@@ -215,11 +231,49 @@
 
 }(window.jQuery, window));
 
+function countersHub() {
+    var countersHub = jq.connection.ch;
+    if (typeof (countersHub) !== undefined) {
+
+        // sendMessagesCount
+        countersHub.client.smec = function (counts) {
+            ASC.Controls.TalkNavigationItem.updateValue(counts);
+        };
+
+        // sendFeedsCount
+        countersHub.client.sfc = function (counts) {
+            FeedReader.onGetNewFeedsCount(null, counts);
+        };
+
+        // sendMailNotification
+        countersHub.client.smn = function (state) {
+            if (window.messagePage) {
+                window.messagePage.showMessageNotification(state);
+            }
+        };
+
+        // updateFolders
+        countersHub.client.uf = function (counts, shouldUpdateMailBox) {
+            if (window.serviceManager) {
+                window.serviceManager.updateFolders();
+                if (shouldUpdateMailBox) {
+                    window.serviceManager.getAccounts();
+                }
+            } else if (ASC.Controls.MailReader) {
+                ASC.Controls.MailReader.setUnreadMailMessagesCount(counts);
+            }
+        };
+    } else {
+        throw "Error! countersHub proxy is undefined!!!";
+    }
+}
+
+
 jq(document).ready(function () {
     if (!ASC.Resources.Master.Hub.Url) {
         return;
     }
-    var transpots = ["webSockets", "longPolling", "foreverFrame", "serverSentEvents"],
+    var transports = ["webSockets", "longPolling", "foreverFrame", "serverSentEvents"],
         RECONNECT_TIMEOUT = 1500,
         LIMIT_ATTEMPTS = 3,
         attempt = 0;
@@ -237,14 +291,34 @@ jq(document).ready(function () {
     }
     jq.connection.hub.url = ASC.Resources.Master.Hub.Url;
     jq.connection.hub.logging = ASC.Resources.Master.Hub.Logging == "true";
+
+    countersHub();
+
     jq.connection.onStart = jq.connection.hub.start({
-        transport: transpots
+        transport: transports
+    }).done(function () {
+        if (document.URL.toLowerCase().indexOf("/feed.aspx") != -1) {
+            // sendFeedsCount
+            jq.connection.ch.server.sfc();
+        }
+        // getNewMessagesCount
+        jq.connection.ch.server.gnmc().done(function (counts) {
+            if (ASC.Controls.TalkNavigationItem) {
+                ASC.Controls.TalkNavigationItem.updateValue(counts.me);
+            }
+            if (window.FeedReader) {
+                window.FeedReader.onGetNewFeedsCount(null, counts.f);
+            }
+            if (ASC.Controls.MailReader) {
+                ASC.Controls.MailReader.setUnreadMailMessagesCount(counts.ma);
+            }
+        });
     });
     jq.connection.hub.disconnected(function () {
         var timeoutId = setTimeout(function () {
             if (attempt < LIMIT_ATTEMPTS) {
                 jq.connection.hub.start({
-                    transport: transpots
+                    transport: transports
                 }).done(function () {
                     clearTimeout(timeoutId);
                     timeoutId = null;

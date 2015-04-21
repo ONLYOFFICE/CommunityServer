@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -33,6 +31,7 @@ using System.Linq;
 using System.Net;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Administration.ServerModel;
 using ASC.Mail.Server.Administration.ServerModel.Base;
@@ -87,19 +86,18 @@ namespace ASC.Mail.Server.PostfixAdministration
             
             try
             {
-                var domain_description = String.Format("Domain created in UtcTime: {0}, for tenant: {1}",
+                var domainDescription = String.Format("Domain created in UtcTime: {0}, for tenant: {1}",
                                                        domain.DateCreated, Tenant);
-                var insert_domain_query = new SqlInsert(DomainTable.name)
+                var insertDomainQuery = new SqlInsert(DomainTable.name)
                     .InColumnValue(DomainTable.Columns.domain, domain.Name)
-                    .InColumnValue(DomainTable.Columns.description, domain_description)
-                    .InColumnValue(DomainTable.Columns.transport, "virtual")
+                    .InColumnValue(DomainTable.Columns.description, domainDescription)
                     .InColumnValue(DomainTable.Columns.created, domain.DateCreated)
                     .InColumnValue(DomainTable.Columns.modified, domain.DateCreated)
                     .InColumnValue(DomainTable.Columns.active, true);
 
                 using (var db = _dbManager.GetAdminDb())
                 {
-                    db.ExecuteNonQuery(insert_domain_query);
+                    db.ExecuteNonQuery(insertDomainQuery);
                 }
 
                 return domain;
@@ -113,22 +111,22 @@ namespace ASC.Mail.Server.PostfixAdministration
             }
         }
 
-        protected override List<WebDomainBase> _GetWebDomains(ICollection<string> domain_names)
+        protected override List<WebDomainBase> _GetWebDomains(ICollection<string> domainNames)
         {
-            if (null == domain_names)
-                throw new ArgumentNullException("domain_names", "in _GetWebDomains method");
+            if (null == domainNames)
+                throw new ArgumentNullException("domainNames", "in _GetWebDomains method");
 
-            object[] names_arg = domain_names.ToArray();
+            var namesArg = domainNames.Cast<object>().ToArray();
 
-            var postfix_domains_query = new SqlQuery(DomainTable.name)
+            var postfixDomainsQuery = new SqlQuery(DomainTable.name)
                 .Select(DomainTable.Columns.domain, DomainTable.Columns.created)
                 .Where(DomainTable.Columns.active, 1)
-                .Where(Exp.In(DomainTable.Columns.domain, names_arg))
+                .Where(Exp.In(DomainTable.Columns.domain, namesArg))
                 .OrderBy(DomainTable.Columns.created, true);
 
             List<object[]> rows;
             using (var db = _dbManager.GetAdminDb())
-                rows = db.ExecuteList(postfix_domains_query);
+                rows = db.ExecuteList(postfixDomainsQuery);
 
             var domains = rows
                 .Select(d => new WebDomainBase(d[0].ToString())
@@ -140,19 +138,19 @@ namespace ASC.Mail.Server.PostfixAdministration
             return domains;
         }
 
-        protected override WebDomainBase _GetWebDomain(string domain_name)
+        protected override WebDomainBase _GetWebDomain(string domainName)
         {
-            if (string.IsNullOrEmpty(domain_name))
-                throw new ArgumentNullException(domain_name);
+            if (string.IsNullOrEmpty(domainName))
+                throw new ArgumentNullException(domainName);
 
-            var postfix_domains_query = new SqlQuery(DomainTable.name)
+            var postfixDomainsQuery = new SqlQuery(DomainTable.name)
                 .Select(DomainTable.Columns.domain, DomainTable.Columns.created)
                 .Where(DomainTable.Columns.active, 1)
-                .Where(DomainTable.Columns.domain, domain_name);
+                .Where(DomainTable.Columns.domain, domainName);
 
             List<object[]> rows;
             using (var db = _dbManager.GetAdminDb())
-                rows = db.ExecuteList(postfix_domains_query);
+                rows = db.ExecuteList(postfixDomainsQuery);
 
             var domain = rows
                 .Select(d => new WebDomainBase(d[0].ToString())
@@ -165,20 +163,20 @@ namespace ASC.Mail.Server.PostfixAdministration
         }
 
 
-        protected override void _DeleteWebDomain(WebDomainBase web_domain)
+        protected override void _DeleteWebDomain(WebDomainBase webDomain)
         {
-            var delete_mailbox_query = new SqlDelete(MailboxTable.name).Where(MailboxTable.Columns.domain, web_domain.Name);
-            var delete_mailbox_aliases = new SqlDelete(AliasTable.name).Where(AliasTable.Columns.domain, web_domain.Name);
-            var delete_domain_query = new SqlDelete(DomainTable.name).Where(DomainTable.Columns.domain, web_domain.Name);
+            var deleteMailboxQuery = new SqlDelete(MailboxTable.name).Where(MailboxTable.Columns.domain, webDomain.Name);
+            var deleteMailboxAliases = new SqlDelete(AliasTable.name).Where(AliasTable.Columns.domain, webDomain.Name);
+            var deleteDomainQuery = new SqlDelete(DomainTable.name).Where(DomainTable.Columns.domain, webDomain.Name);
             using (var db = _dbManager.GetAdminDb())
             {
                 using (var t = db.BeginTransaction())
                 {
-                    ClearDomainStorageSpace(web_domain.Name);
+                    ClearDomainStorageSpace(webDomain.Name);
 
-                    db.ExecuteNonQuery(delete_mailbox_aliases);
-                    db.ExecuteNonQuery(delete_mailbox_query);
-                    db.ExecuteNonQuery(delete_domain_query);
+                    db.ExecuteNonQuery(deleteMailboxAliases);
+                    db.ExecuteNonQuery(deleteMailboxQuery);
+                    db.ExecuteNonQuery(deleteDomainQuery);
 
                     t.Commit();
                 }
@@ -226,26 +224,26 @@ namespace ASC.Mail.Server.PostfixAdministration
 
         protected override MailboxBase _CreateMailbox(string login, string password, string localpart, string domain)
         {
-            var creation_date = DateTime.UtcNow;
+            var creationDate = DateTime.UtcNow;
 
-            var maildir = GenerateMaildirPath(domain, localpart, creation_date);
+            var maildir = GenerateMaildirPath(domain, localpart, creationDate);
 
-            var insert_mailbox_query = new SqlInsert(MailboxTable.name)
+            var insertMailboxQuery = new SqlInsert(MailboxTable.name)
                                         .InColumnValue(MailboxTable.Columns.username, login)
                                         .InColumnValue(MailboxTable.Columns.name, localpart)
                                         .InColumnValue(MailboxTable.Columns.password, PostfixPasswordEncryptor.EncryptString(HashType.Md5, password))
                                         .InColumnValue(MailboxTable.Columns.maildir, maildir)
                                         .InColumnValue(MailboxTable.Columns.local_part, localpart)
                                         .InColumnValue(MailboxTable.Columns.domain, domain)
-                                        .InColumnValue(MailboxTable.Columns.created, creation_date)
-                                        .InColumnValue(MailboxTable.Columns.modified, creation_date);
+                                        .InColumnValue(MailboxTable.Columns.created, creationDate)
+                                        .InColumnValue(MailboxTable.Columns.modified, creationDate);
 
-            var insert_mailbox_alias = new SqlInsert(AliasTable.name)
+            var insertMailboxAlias = new SqlInsert(AliasTable.name)
                                         .InColumnValue(AliasTable.Columns.address, login)
                                         .InColumnValue(AliasTable.Columns.redirect, login)
                                         .InColumnValue(AliasTable.Columns.domain, domain)
-                                        .InColumnValue(AliasTable.Columns.created, creation_date)
-                                        .InColumnValue(AliasTable.Columns.modified, creation_date)
+                                        .InColumnValue(AliasTable.Columns.created, creationDate)
+                                        .InColumnValue(AliasTable.Columns.modified, creationDate)
                                         .InColumnValue(AliasTable.Columns.active, 1);
             try
             {
@@ -253,8 +251,8 @@ namespace ASC.Mail.Server.PostfixAdministration
                 {
                     using (var t = db.BeginTransaction())
                     {
-                        db.ExecuteNonQuery(insert_mailbox_query);
-                        db.ExecuteNonQuery(insert_mailbox_alias);
+                        db.ExecuteNonQuery(insertMailboxQuery);
+                        db.ExecuteNonQuery(insertMailboxAlias);
                         t.Commit();
                     }
                 }
@@ -274,41 +272,41 @@ namespace ASC.Mail.Server.PostfixAdministration
 
         #endregion
 
-        public override MailGroupBase _GetMailGroup(string mailgroup_address)
+        public override MailGroupBase _GetMailGroup(string mailgroupAddress)
         {
-            return _GetMailGroups(new List<string> { mailgroup_address }).FirstOrDefault();
+            return _GetMailGroups(new List<string> { mailgroupAddress }).FirstOrDefault();
         }
 
-        protected override ICollection<MailGroupBase> _GetMailGroups(ICollection<string> mail_groups_addresses)
+        protected override ICollection<MailGroupBase> _GetMailGroups(ICollection<string> mailgroupsAddresses)
         {
             const string address_alias = "maa";
-            var mail_group_query = PostfixCommonQueries.GetAddressJoinedWithDomainQuery(address_alias, "mda")
+            var mailGroupQuery = PostfixCommonQueries.GetAddressJoinedWithDomainQuery(address_alias, "mda")
                                         .Where(AliasTable.Columns.active.Prefix(address_alias), true)
                                         .Where(AliasTable.Columns.is_group.Prefix(address_alias), true)
 // ReSharper disable CoVariantArrayConversion
-                                        .Where(Exp.In(AliasTable.Columns.address.Prefix(address_alias), mail_groups_addresses.ToArray()));
+                                        .Where(Exp.In(AliasTable.Columns.address.Prefix(address_alias), mailgroupsAddresses.ToArray()));
 // ReSharper restore CoVariantArrayConversion
-            List<PostfixMailgroupDto> mailgroup_dto_list;
+            List<PostfixMailgroupDto> mailgroupDtoList;
             using (var db = _dbManager.GetAdminDb())
             {
-                mailgroup_dto_list = db.ExecuteList(mail_group_query).ConvertAll(r => r.ToMailgroupDto()).ToList();
+                mailgroupDtoList = db.ExecuteList(mailGroupQuery).ConvertAll(r => r.ToMailgroupDto()).ToList();
             }
 
-            return mailgroup_dto_list
-                .Select(mailgroup_dto =>
-                        new MailGroupBase(mailgroup_dto.address.ToPostfixAddress(), new List<MailAddressBase>()))
+            return mailgroupDtoList
+                .Select(mailgroupDto =>
+                        new MailGroupBase(mailgroupDto.address.ToPostfixAddress(), new List<MailAddressBase>()))
                 .ToList();
         }
 
-        protected override List<MailboxBase> _GetMailboxes(ICollection<string> mailbox_names)
+        protected override List<MailboxBase> _GetMailboxes(ICollection<string> mailboxNames)
         {
-            var names_arg = mailbox_names.ToArray();
+            var namesArg = mailboxNames.Cast<object>().ToArray();
 
             const string mailbox_ns = "msm";
             const string domain_ns = "msd";
             const string address_ns = "msa";
 
-            var mailbox_query = new SqlQuery(MailboxTable.name.Alias(mailbox_ns))
+            var mailboxQuery = new SqlQuery(MailboxTable.name.Alias(mailbox_ns))
                 .InnerJoin(AliasTable.name.Alias(address_ns),
                            Exp.EqColumns(MailboxTable.Columns.domain.Prefix(mailbox_ns),
                                          AliasTable.Columns.domain.Prefix(address_ns)))
@@ -345,74 +343,74 @@ namespace ASC.Mail.Server.PostfixAdministration
                 .Where(MailboxTable.Columns.active.Prefix(mailbox_ns), 1)
                 .Where(AliasTable.Columns.active.Prefix(address_ns), true)
                 .Where(AliasTable.Columns.is_group.Prefix(address_ns), false)
-                .Where(Exp.In(MailboxTable.Columns.username.Prefix(mailbox_ns), names_arg))
+                .Where(Exp.In(MailboxTable.Columns.username.Prefix(mailbox_ns), namesArg))
                 .Where(Exp.EqColumns(AliasTable.Columns.redirect.Prefix(address_ns),
                                      MailboxTable.Columns.username.Prefix(mailbox_ns)));
 
-            var mailbox_list = new List<MailboxBase>();
+            var mailboxList = new List<MailboxBase>();
 
-            List<object[]> db_result;
+            List<object[]> dbResult;
 
             using (var db = _dbManager.GetAdminDb())
             {
-                db_result = db.ExecuteList(mailbox_query).ToList();
+                dbResult = db.ExecuteList(mailboxQuery).ToList();
             }
 
-            if (!db_result.Any())
-                return mailbox_list;
+            if (!dbResult.Any())
+                return mailboxList;
 
-            var grouped_result = db_result.GroupBy(r => r[0]).ToDictionary(g => g.Key, g => g.ToList());
+            var groupedResult = dbResult.GroupBy(r => r[0]).ToDictionary(g => g.Key, g => g.ToList());
 
-            const int domain_start_index = ToDtoConverters.mailbox_columns_count + ToDtoConverters.mail_address_columns_count;
+            const int domain_start_index = ToDtoConverters.MAILBOX_COLUMNS_COUNT + ToDtoConverters.MAIL_ADDRESS_COLUMNS_COUNT;
 
-            foreach (var group in grouped_result)
+            foreach (var group in groupedResult)
             {
-                var mailbox_dto = group.Value[0].SubArray(0, ToDtoConverters.mailbox_columns_count).ToMailboxDto();
+                var mailboxDto = group.Value[0].SubArray(0, ToDtoConverters.MAILBOX_COLUMNS_COUNT).ToMailboxDto();
 
-                var alias_list = new List<MailAddressBase>();
+                var aliasList = new List<MailAddressBase>();
 
-                foreach (var group_val in group.Value)
+                foreach (var groupVal in group.Value)
                 {
-                    var address_dto = group_val.SubArray(ToDtoConverters.mailbox_columns_count, ToDtoConverters.mail_address_columns_count).ToAddressDto();
-                    var domain_dto = group_val.SubArray(domain_start_index, group_val.Length - domain_start_index).ToWebDomainDto();
-                    address_dto.Domain = domain_dto;
+                    var addressDto = groupVal.SubArray(ToDtoConverters.MAILBOX_COLUMNS_COUNT, ToDtoConverters.MAIL_ADDRESS_COLUMNS_COUNT).ToAddressDto();
+                    var domainDto = groupVal.SubArray(domain_start_index, groupVal.Length - domain_start_index).ToWebDomainDto();
+                    addressDto.Domain = domainDto;
 
-                    var addr = address_dto.ToPostfixAddress();
+                    var addr = addressDto.ToPostfixAddress();
 
-                    if (addr.ToString() != mailbox_dto.username)
-                        alias_list.Add(addr);
+                    if (addr.ToString() != mailboxDto.username)
+                        aliasList.Add(addr);
                 }
 
                 var mailbox = new MailboxBase(
-                    new MailAccountBase(mailbox_dto.username),
-                    new MailAddressBase(mailbox_dto.local_part,
-                        new WebDomainBase(mailbox_dto.domain)), alias_list);
+                    new MailAccountBase(mailboxDto.username),
+                    new MailAddressBase(mailboxDto.local_part,
+                        new WebDomainBase(mailboxDto.domain)), aliasList);
 
-                mailbox_list.Add(mailbox);
+                mailboxList.Add(mailbox);
             }
 
-            return mailbox_list;
+            return mailboxList;
         }
 
-        public ICollection<PostfixMailAddressDto> GetMailboxAddress(string mailbox_address)
+        public ICollection<PostfixMailAddressDto> GetMailboxAddress(string mailboxAddress)
         {
             const string domain_alias = "msd";
             const string address_alias = "msa";
-            var address_query = PostfixCommonQueries.GetAddressJoinedWithDomainQuery(address_alias, domain_alias)
-                                .Where(AliasTable.Columns.redirect.Prefix(address_alias), mailbox_address)
+            var addressQuery = PostfixCommonQueries.GetAddressJoinedWithDomainQuery(address_alias, domain_alias)
+                                .Where(AliasTable.Columns.redirect.Prefix(address_alias), mailboxAddress)
                                 .Where(AliasTable.Columns.active.Prefix(address_alias), true)
                                 .Where(AliasTable.Columns.is_group.Prefix(address_alias), false);
 
             using (var db = _dbManager.GetAdminDb())
             {
-                var result = db.ExecuteList(address_query);
+                var result = db.ExecuteList(addressQuery);
                 return result.Select(r =>
                 {
-                    const int address_length = ToDtoConverters.mail_address_columns_count;
+                    const int address_length = ToDtoConverters.MAIL_ADDRESS_COLUMNS_COUNT;
 
                     var address = r.SubArray(0, address_length).ToAddressDto();
-                    var domain_info = r.SubArray(address_length, r.Length - address_length).ToWebDomainDto();
-                    address.Domain = domain_info;
+                    var domainInfo = r.SubArray(address_length, r.Length - address_length).ToWebDomainDto();
+                    address.Domain = domainInfo;
 
                     return address;
                 }
@@ -420,28 +418,28 @@ namespace ASC.Mail.Server.PostfixAdministration
             }
         }
 
-        public override MailboxBase _GetMailbox(string mailbox_address)
+        public override MailboxBase _GetMailbox(string mailboxAddress)
         {
-            return _GetMailboxes(new List<string>() {mailbox_address}).FirstOrDefault();
+            return _GetMailboxes(new List<string> {mailboxAddress}).FirstOrDefault();
         }
 
-        protected override MailGroupBase _CreateMailGroup(MailAddressBase address, List<MailAddressBase> in_addresses)
+        protected override MailGroupBase _CreateMailGroup(MailAddressBase address, List<MailAddressBase> mailboxAddressList)
         {
-            var creation_date = DateTime.UtcNow;
+            var creationDate = DateTime.UtcNow;
 
-            var members_string = string.Join(",", in_addresses.Select(addr => addr.ToString()));
+            var membersString = string.Join(",", mailboxAddressList.Select(addr => addr.ToString()));
 
-            var insert_addresses = new SqlInsert(AliasTable.name)
+            var insertAddresses = new SqlInsert(AliasTable.name)
                 .InColumns(AliasTable.Columns.address, AliasTable.Columns.redirect, AliasTable.Columns.domain,
                            AliasTable.Columns.modified,
                            AliasTable.Columns.created, AliasTable.Columns.active, AliasTable.Columns.is_group)
-                .Values(address.ToString(), members_string, address.Domain.Name, creation_date, creation_date, true, true);
+                .Values(address.ToString(), membersString, address.Domain.Name, creationDate, creationDate, true, true);
 
             try
             {
                 using (var db = _dbManager.GetAdminDb())
                 {
-                    db.ExecuteNonQuery(insert_addresses);
+                    db.ExecuteNonQuery(insertAddresses);
                 }
             }
             catch (MySqlException ex)
@@ -452,24 +450,24 @@ namespace ASC.Mail.Server.PostfixAdministration
                 throw;
             }
 
-            return new MailGroupBase(address, in_addresses);
+            return new MailGroupBase(address, mailboxAddressList);
         }
 
-        protected override MailGroupBase _DeleteMailGroup(MailGroupBase mail_group)
+        protected override MailGroupBase _DeleteMailGroup(MailGroupBase mailGroup)
         {
-            var mailgroup_delete_query = new SqlDelete(AliasTable.name)
-                .Where(AliasTable.Columns.address, mail_group.Address.ToString());
-            var rows_deleted = 0;
+            var mailgroupDeleteQuery = new SqlDelete(AliasTable.name)
+                .Where(AliasTable.Columns.address, mailGroup.Address.ToString());
+            int rowsDeleted;
             using (var db = _dbManager.GetAdminDb())
             {
-                rows_deleted = db.ExecuteNonQuery(mailgroup_delete_query);
-                if (rows_deleted > 1)
+                rowsDeleted = db.ExecuteNonQuery(mailgroupDeleteQuery);
+                if (rowsDeleted > 1)
                 {
-                    var m = String.Format("Invalid addresses count was deleted: {0}. Address: {1}", rows_deleted, mail_group.Address);
+                    var m = String.Format("Invalid addresses count was deleted: {0}. Address: {1}", rowsDeleted, mailGroup.Address);
                     throw new InvalidOperationException(m);
                 }
             }
-            return rows_deleted == 0 ? null: mail_group;
+            return rowsDeleted == 0 ? null: mailGroup;
         }
 
         protected override void _UpdateMailbox(MailboxBase mailbox)
@@ -480,30 +478,30 @@ namespace ASC.Mail.Server.PostfixAdministration
         protected override void _DeleteMailbox(MailboxBase mailbox)
         {
             //Todo: think about free space in maildir
-            var delete_mailbox_query = new SqlDelete(MailboxTable.name).Where(MailboxTable.Columns.username, mailbox.Address.ToString());
-            var delete_mailbox_aliases = new SqlDelete(AliasTable.name).Where(AliasTable.Columns.redirect, mailbox.Address.ToString());
+            var deleteMailboxQuery = new SqlDelete(MailboxTable.name).Where(MailboxTable.Columns.username, mailbox.Address.ToString());
+            var deleteMailboxAliases = new SqlDelete(AliasTable.name).Where(AliasTable.Columns.redirect, mailbox.Address.ToString());
             using (var db = _dbManager.GetAdminDb())
             {
                 using (var t = db.BeginTransaction())
                 {
                     ClearMailboxStorageSpace(mailbox.Address.LocalPart, mailbox.Address.Domain.Name);
                     
-                    db.ExecuteNonQuery(delete_mailbox_query);
-                    db.ExecuteNonQuery(delete_mailbox_aliases);
+                    db.ExecuteNonQuery(deleteMailboxQuery);
+                    db.ExecuteNonQuery(deleteMailboxAliases);
 
                     t.Commit();
                 }
             }
         }
 
-        private void ClearMailboxStorageSpace(string mailbox_localpart, string domain_name)
+        private void ClearMailboxStorageSpace(string mailboxLocalpart, string domainName)
         {
             if (_serverApi == null) return; // Skip if api not presented
 
             var client = GetApiClient();
             var request = GetApiRequest("domains/{domain_name}/mailboxes/{mailbox_localpart}", Method.DELETE);
-            request.AddUrlSegment("domain_name", domain_name);
-            request.AddUrlSegment("mailbox_localpart", mailbox_localpart);
+            request.AddUrlSegment("domain_name", domainName);
+            request.AddUrlSegment("mailbox_localpart", mailboxLocalpart);
             // execute the request
             var response = client.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NotFound)
@@ -518,9 +516,9 @@ namespace ASC.Mail.Server.PostfixAdministration
             return _serverApi == null ? null : new RestClient(string.Format("{0}://{1}:{2}/", _serverApi.protocol, _serverApi.server_ip, _serverApi.port));
         }
 
-        private RestRequest GetApiRequest(string api_url, Method method)
+        private RestRequest GetApiRequest(string apiUrl, Method method)
         {
-            return _serverApi == null ? null : new RestRequest(string.Format("/api/{0}/{1}?auth_token={2}", _serverApi.version, api_url, _serverApi.token), method);
+            return _serverApi == null ? null : new RestRequest(string.Format("/api/{0}/{1}?auth_token={2}", _serverApi.version, apiUrl, _serverApi.token), method);
         }
 
         #endregion

@@ -50,15 +50,13 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
@@ -67,9 +65,6 @@
       <HintPath>..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
-    <Reference Include="MySql.Data">
-      <HintPath>..\..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -91,15 +86,20 @@
     <Compile Include="Caching\CachedQuotaService.cs" />
     <Compile Include="Caching\CachedSubscriptionService.cs" />
     <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Caching\ICachedService.cs" />
     <Compile Include="Caching\TrustInterval.cs" />
     <Compile Include="Caching\UserGroupRefStore.cs" />
     <Compile Include="Configuration\AmazonS3Settings.cs" />
     <Compile Include="Configuration\ConnectionStringNameTypeConverter.cs" />
     <Compile Include="Configuration\AmiPublicDnsSyncService.cs" />
-    <Compile Include="Context\ClientImpl\ClientPaymentManager.cs" />
-    <Compile Include="Context\ClientImpl\IPaymentManagerClient.cs" />
-    <Compile Include="Context\ClientImpl\ISubscriptionManagerClient.cs" />
     <Compile Include="Billing\ITariffService.cs" />
+    <Compile Include="Context\Impl\AuthManager.cs" />
+    <Compile Include="Context\Impl\AuthorizationManager.cs" />
+    <Compile Include="Context\Impl\CoreConfiguration.cs" />
+    <Compile Include="Context\Impl\PaymentManager.cs" />
+    <Compile Include="Context\Impl\SubscriptionManager.cs" />
+    <Compile Include="Context\Impl\TenantManager.cs" />
+    <Compile Include="Context\Impl\UserManager.cs" />
     <Compile Include="Contracts\BackupServiceClient.cs" />
     <Compile Include="Contracts\BackupServiceModel.cs" />
     <Compile Include="Contracts\IBackupService.cs" />
@@ -115,19 +115,7 @@
     <Compile Include="Core\SubscriptionRecord.cs" />
     <Compile Include="Core\UserGroupRefDictionary.cs" />
     <Compile Include="Configuration\SmtpSettings.cs" />
-    <Compile Include="Context\ClientImpl\ClientAuthManager.cs" />
-    <Compile Include="Context\ClientImpl\ClientAzManager.cs" />
-    <Compile Include="Context\ClientImpl\ClientConfiguration.cs" />
-    <Compile Include="Context\ClientImpl\ClientSubscriptionManager.cs" />
-    <Compile Include="Context\ClientImpl\ClientTenantManager.cs" />
-    <Compile Include="Context\ClientImpl\IAuthManagerClient.cs" />
-    <Compile Include="Context\ClientImpl\IAzManagerClient.cs" />
-    <Compile Include="Context\ClientImpl\IConfigurationClient.cs" />
-    <Compile Include="Context\ClientImpl\IGroupManagerClient.cs" />
-    <Compile Include="Context\ClientImpl\ITenantManagerClient.cs" />
-    <Compile Include="Context\ClientImpl\IUserManagerClient.cs" />
     <Compile Include="Context\SecurityContext.cs" />
-    <Compile Include="Context\ClientImpl\ClientUserManager.cs" />
     <Compile Include="Caching\CachedTenantService.cs" />
     <Compile Include="Data\DbAzService.cs" />
     <Compile Include="Caching\CachedUserService.cs" />
@@ -149,7 +137,7 @@
     <Compile Include="Context\WorkContext.cs" />
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Notify\DirectSubscriptionProvider.cs" />
-    <Compile Include="Notify\Jabber\IReverseJabberService.cs" />
+    <Compile Include="Notify\Signalr\ISignalrService.cs" />
     <Compile Include="Notify\Jabber\JabberServiceClient.cs" />
     <Compile Include="Notify\Jabber\IJabberService.cs" />
     <Compile Include="Notify\JabberSenderSink.cs" />
@@ -172,6 +160,8 @@
     <Compile Include="Notify\Senders\NoticeSendResult.cs" />
     <Compile Include="Notify\Senders\AWSSender.cs" />
     <Compile Include="Notify\EmailSenderSink.cs" />
+    <Compile Include="Notify\Signalr\SignalrServiceClient.cs" />
+    <Compile Include="Notify\Signalr\SignalrServiceClientWcf.cs" />
     <Compile Include="Security\Crypto.cs" />
     <Compile Include="Security\EmailValidationKeyProvider.cs" />
     <Compile Include="Tenants\TenantDomainValidator.cs" />
@@ -230,5 +220,6 @@
       <Name>ASC.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

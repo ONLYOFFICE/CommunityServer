@@ -3,10 +3,7 @@
 
 <%@ Register Assembly="ASC.Web.Studio" Namespace=" ASC.Web.Studio.Controls.Common" TagPrefix="sc" %>
 
-<%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Data.Storage" %>
-<%@ Import Namespace="ASC.Web.People.Core" %>
-<%@ Import Namespace="ASC.Web.Studio" %>
+
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>

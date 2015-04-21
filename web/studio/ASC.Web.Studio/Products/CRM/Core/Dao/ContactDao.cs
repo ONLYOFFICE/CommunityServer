@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -556,7 +554,9 @@ namespace ASC.CRM.Core.Dao
                 var keywords = searchText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                    .ToArray();
 
-                if (!FullTextSearch.SupportModule(FullTextSearch.CRMContactsModule))
+                var modules = SearchDao.GetFullTextSearchModule(EntityType.Contact, searchText);
+
+                if (!FullTextSearch.SupportModule(modules))
                 {
                     _log.Debug("FullTextSearch.SupportModule('CRM.Contacts') = false");
                     conditions.Add(BuildLike(new[] { "display_name" }, keywords));
@@ -565,10 +565,7 @@ namespace ASC.CRM.Core.Dao
                 {
                     _log.Debug("FullTextSearch.SupportModule('CRM.Contacts') = true");
                     _log.DebugFormat("FullTextSearch.Search: searchText = {0}", searchText);
-                    var full_text_ids = FullTextSearch.Search(searchText, FullTextSearch.CRMContactsModule, CoreContext.TenantManager.GetCurrentTenant().TenantId)
-                                 .GetIdentifiers()
-                                 .Select(item => Convert.ToInt32(item.Split('_')[1])).Distinct()
-                                 .ToList();
+                    var full_text_ids = FullTextSearch.Search(modules);
 
                     if (full_text_ids.Count == 0) return null;
                     if (ids.Count != 0)
@@ -750,26 +747,44 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
-        public List<Contact> GetContactsByName(String title)
+        public List<Contact> GetContactsByName(String title, bool isCompany)
         {
             if (String.IsNullOrEmpty(title)) return new List<Contact>();
 
             title = title.Trim();
 
-            var titleParts = title.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-            using (var db = GetDb())
+            if (isCompany)
             {
-                if (titleParts.Length == 1)
-                    return db.ExecuteList(GetContactSqlQuery(Exp.Eq("display_name", title)))
-                           .ConvertAll(ToContact)
-                           .FindAll(CRMSecurity.CanAccessTo);
-                else if (titleParts.Length == 2)
-                    return db.ExecuteList(GetContactSqlQuery(Exp.Eq("display_name", String.Concat(titleParts[0], _displayNameSeparator, titleParts[1]))))
-                              .ConvertAll(ToContact)
-                              .FindAll(CRMSecurity.CanAccessTo);
+                using (var db = GetDb())
+                {
+                    return db.ExecuteList(
+                        GetContactSqlQuery(Exp.Eq("display_name", title) & Exp.Eq("is_company", true)))
+                            .ConvertAll(ToContact)
+                            .FindAll(CRMSecurity.CanAccessTo);
+                }
             }
-            return GetContacts(title, null, -1, -1, ContactListViewType.All, DateTime.MinValue, DateTime.MinValue, 0, 0, null);
+            else
+            {
+                var titleParts = title.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (titleParts.Length == 1 || titleParts.Length == 2)
+                {
+                    using (var db = GetDb())
+                    {
+                        if (titleParts.Length == 1)
+                            return db.ExecuteList(
+                                GetContactSqlQuery(Exp.Eq("display_name", title) & Exp.Eq("is_company", false)))
+                                   .ConvertAll(ToContact)
+                                   .FindAll(CRMSecurity.CanAccessTo);
+                        else
+                            return db.ExecuteList(
+                                GetContactSqlQuery(Exp.Eq("display_name", String.Concat(titleParts[0], _displayNameSeparator, titleParts[1])) & Exp.Eq("is_company", false)))
+                                      .ConvertAll(ToContact)
+                                      .FindAll(CRMSecurity.CanAccessTo);
+                    }
+                }
+            }
+            return GetContacts(title, null, -1, -1, isCompany ? ContactListViewType.Company : ContactListViewType.Person, DateTime.MinValue, DateTime.MinValue, 0, 0, null);
         }
 
         public void RemoveMember(int[] peopleID)
@@ -1016,7 +1031,7 @@ namespace ASC.CRM.Core.Dao
                     AddMember(people.ID, companyID, db);
                 }
 
-                if (String.IsNullOrEmpty(firstName) || String.IsNullOrEmpty(lastName))
+                if (String.IsNullOrEmpty(firstName))// || String.IsNullOrEmpty(lastName)) lastname is not required field now
                     throw new ArgumentException();
 
             }
@@ -1235,7 +1250,7 @@ namespace ASC.CRM.Core.Dao
                 displayName = String.Concat(firstName, _displayNameSeparator, lastName);
 
 
-                if (String.IsNullOrEmpty(firstName) || String.IsNullOrEmpty(lastName))
+                if (String.IsNullOrEmpty(firstName))// || String.IsNullOrEmpty(lastName)) lastname is not required field now
                     throw new ArgumentException();
 
             }
@@ -1295,6 +1310,36 @@ namespace ASC.CRM.Core.Dao
                 return db.ExecuteScalar<int>("select count(*) from crm_invoice where tenant_id = @tid and (contact_id = @id or consignee_id = @id)",
                     new { tid = TenantID, id = contactID }) == 0;
             }
+        }
+
+        public Dictionary<int, bool> CanDelete(int[] contactID)
+        {
+            var result = new Dictionary<int, bool>();
+            if (contactID.Length == 0) return result;
+
+            var contactIDs = contactID.Distinct().ToList();
+            var contactIDsDBString = "";
+            contactIDs.ForEach(id => contactIDsDBString += String.Format("{0},", id));
+            contactIDsDBString = contactIDsDBString.TrimEnd(',');
+
+            var hasInvoiceIDs = new List<int>();
+
+            using (var db = GetDb())
+            {
+                var query = String.Format(
+                    @"select distinct contact_id from crm_invoice where tenant_id = {0} and contact_id in ({1})
+                    union all
+                    select distinct consignee_id from crm_invoice where tenant_id = {0} and consignee_id in ({1})", TenantID, contactIDsDBString);
+
+                hasInvoiceIDs = db.ExecuteList(query).ConvertAll(row => Convert.ToInt32(row[0]));
+            }
+
+            foreach (var cid in contactIDs)
+            {
+                result.Add(cid, !hasInvoiceIDs.Contains(cid));
+            }
+
+            return result;
         }
 
         public virtual Contact GetByID(int contactID)
@@ -1602,7 +1647,28 @@ namespace ASC.CRM.Core.Dao
                     .Where("entity_type", (int)EntityType.Contact);
                 db.ExecuteNonQuery(q);
 
+
                 // crm_contact_info
+
+                q = Query("crm_contact_info l")
+                   .From("crm_contact_info r")
+                   .Select("l.id")
+                   .Where(Exp.Eq("l.is_primary", true))
+                   .Where(Exp.Eq("r.is_primary", true))
+                   .Where(Exp.EqColumns("l.tenant_id", "r.tenant_id"))
+                   .Where(Exp.EqColumns("l.type", "r.type"))
+                   .Where(Exp.EqColumns("l.category", "r.category"))
+                   .Where(!Exp.EqColumns("l.data", "r.data"))
+                   .Where("l.contact_id", fromContactID)
+                   .Where("r.contact_id", toContactID);
+                var dublicatePrimaryContactInfoID = db.ExecuteList(q).ConvertAll(row => row[0]);
+
+                q = Update("crm_contact_info")
+                    .Set("is_primary", false)
+                    .Where("contact_id", fromContactID)
+                    .Where(Exp.In("id", dublicatePrimaryContactInfoID));
+                db.ExecuteNonQuery(q);
+
                 q = Query("crm_contact_info l")
                     .From("crm_contact_info r")
                     .Select("l.id")
@@ -1619,6 +1685,7 @@ namespace ASC.CRM.Core.Dao
                     .Where("contact_id", fromContactID)
                     .Where(Exp.In("id", dublicateContactInfoID));
                 db.ExecuteNonQuery(q);
+
 
                 q = Update("crm_contact_info")
                     .Set("contact_id", toContactID)

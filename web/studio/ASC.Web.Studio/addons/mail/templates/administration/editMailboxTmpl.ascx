@@ -9,7 +9,7 @@
                 <tr>
                     <td>
                         <div class="block-cnt-splitter header-address">
-                            <div class="bold">Mailbox address:</div>
+                            <div class="bold"><%= MailAdministrationResource.MailboxAddressLabel %>:</div>
                             <div>"${mailbox.user.displayName}" &lt;${mailbox.address.email}&gt;</div>
                         </div>
                     </td>

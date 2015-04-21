@@ -1,11 +1,8 @@
 <%@ Assembly Name="ASC.Web.Projects" %>
-<%@ Assembly Name="ASC.Projects.Core" %>
-<%@ Import Namespace="ASC.Web.Core" %>
-<%@ Import Namespace="ASC.Web.Projects.Classes" %>
+
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
-<%@ Import Namespace="ASC.Projects.Core.Domain" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProjectNavigatePanel.ascx.cs" Inherits="ASC.Web.Projects.Controls.Projects.ProjectNavigatePanel" %>
-<%@ Register TagPrefix="uc" Namespace="ASC.Web.Studio.UserControls.Common.TabsNavigator" Assembly="ASC.Web.Studio" %>
+
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <div class="project-info-container">

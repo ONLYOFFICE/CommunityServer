@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -34,11 +32,12 @@ using System.Net.Mail;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using ASC.Mail.Aggregator.Common.Imap;
 using ActiveUp.Net.Mail;
 
 namespace ASC.Mail.Aggregator.Common
 {
-    using ImapFoldersType = Dictionary<string, int>;
+    using ImapIntervalsType = Dictionary<string, ImapFolderUids>;
 
     [DataContract(Namespace = "")]
     public class MailBox : IEquatable<MailBox>
@@ -157,7 +156,9 @@ namespace ASC.Mail.Aggregator.Common
         public bool Active { get; set; }
 
         public bool QuotaError { get; set; }
-        public AuthProblemType AuthError { get; set; }
+        public bool QuotaErrorChanged { get; set; }
+
+        public DateTime? AuthErrorDate { get; set; }
 
         /// <summary>
         /// This value is the initialized while testing a created mail account. 
@@ -222,30 +223,44 @@ namespace ASC.Mail.Aggregator.Common
 
         public bool BeginDateChanged { get; set; }
 
-        public ImapFoldersType ImapFolders { get; set; }
+        public ImapIntervalsType ImapIntervals { get; set; }
 
         public int SmtpServerId { get; set; }
 
         public int InServerId { get; set; }
 
-        public string ImapFoldersJson
+        public string ImapIntervalsJson
         {
             get
             {
-                var serializer = new DataContractJsonSerializer(typeof(ImapFoldersType));
-                using (var stream = new MemoryStream())
+                try
                 {
-                    serializer.WriteObject(stream, ImapFolders);
-                    return Encoding.UTF8.GetString(stream.GetCorrectBuffer());
+                    var serializer = new DataContractJsonSerializer(typeof (ImapIntervalsType));
+                    using (var stream = new MemoryStream())
+                    {
+                        serializer.WriteObject(stream, ImapIntervals);
+                        return Encoding.UTF8.GetString(stream.GetCorrectBuffer());
+                    }
+                }
+                catch (Exception)
+                {
+                    return "";
                 }
             }
             set
             {
                 if (null == value) return;
-                var serializer = new DataContractJsonSerializer(typeof(ImapFoldersType));
-                using (var imap_folders_stream = new MemoryStream(Encoding.UTF8.GetBytes(value)))
+                try
                 {
-                    ImapFolders = (ImapFoldersType) serializer.ReadObject(imap_folders_stream);
+
+                    var serializer = new DataContractJsonSerializer(typeof (ImapIntervalsType));
+                    using (var imapFoldersStream = new MemoryStream(Encoding.UTF8.GetBytes(value)))
+                    {
+                        ImapIntervals = (ImapIntervalsType) serializer.ReadObject(imapFoldersStream);
+                    }
+                }
+                catch (Exception)
+                {
                 }
             }
         }
@@ -256,52 +271,55 @@ namespace ASC.Mail.Aggregator.Common
         [DataMember(Name = "is_teamlab")]
         public bool IsTeamlab { get; set; }
 
+        public bool IsRemoved { get; set; }
+
         public MailBox()
         {
             ServerLoginDelay = DefaultServerLoginDelay; //This value can be changed in test mailbox connection
-            ImapFolders = new ImapFoldersType();
+            ImapIntervals = new ImapIntervalsType();
         }
 
-        public MailBox(int tenant_id, string username, string name,
+        public MailBox(int tenant, string user, string name,
             MailAddress email, string account, string password, string server, bool imap,
-            string smtp_server, string smtp_password, bool smtpauth, int mailbox_id, DateTime begin_date,
-            EncryptionType incoming_encryption_type, EncryptionType outcoming_encryption_type, byte service,
-            string refresh_token, string email_in_folder)
+            string smtpServer, string smtpPassword, bool smtpauth, int mailboxId, DateTime beginDate,
+            EncryptionType incomingEncryptionType, EncryptionType outcomingEncryptionType, byte service,
+            string refreshToken, string emailInFolder, bool isRemoved)
         {
-            if (string.IsNullOrEmpty(username)) throw new ArgumentNullException("username");
+            if (string.IsNullOrEmpty(user)) throw new ArgumentNullException("user");
             if (email == null) throw new ArgumentNullException("email");
             if (string.IsNullOrEmpty(account)) throw new ArgumentNullException("account");
             if (string.IsNullOrEmpty(server)) throw new ArgumentNullException("server");
             if (!server.Contains(":")) throw new FormatException("Valid server string format is <server:port>");
-            if (!smtp_server.Contains(":")) throw new FormatException("Valid server string format is <server:port>");
+            if (!smtpServer.Contains(":")) throw new FormatException("Valid server string format is <server:port>");
 
             MailLimitedTimeDelta = DefaultMailLimitedTimeDelta;
             MailBeginTimestamp = new DateTime(DefaultMailBeginTimestamp);
 
-            MailBoxId = mailbox_id;
-            TenantId = tenant_id;
-            UserId = username;
+            MailBoxId = mailboxId;
+            TenantId = tenant;
+            UserId = user;
             EMail = email;
             Account = account;
             Name = name;
             Server = server.Split(':')[0];
             Port = int.Parse(server.Split(':')[1]);
-            SmtpServer = smtp_server.Split(':')[0];
-            SmtpPort = int.Parse(smtp_server.Split(':')[1]);
+            SmtpServer = smtpServer.Split(':')[0];
+            SmtpPort = int.Parse(smtpServer.Split(':')[1]);
             SmtpAuth = smtpauth;
             Imap = imap;
 
             Password = password;
-            SmtpPassword = smtp_password;
-            IncomingEncryptionType = incoming_encryption_type;
-            OutcomingEncryptionType = outcoming_encryption_type;
+            SmtpPassword = smtpPassword;
+            IncomingEncryptionType = incomingEncryptionType;
+            OutcomingEncryptionType = outcomingEncryptionType;
             ServerLoginDelay = DefaultServerLoginDelay;
-            BeginDate = begin_date;
+            BeginDate = beginDate;
             Restrict = !(BeginDate.Equals(MailBeginTimestamp));
             ServiceType = service;
-            RefreshToken = refresh_token;
-            ImapFolders = new ImapFoldersType();
-            EMailInFolder = email_in_folder;
+            RefreshToken = refreshToken;
+            ImapIntervals = new ImapIntervalsType();
+            EMailInFolder = emailInFolder;
+            IsRemoved = isRemoved;
         }
 
         public override string ToString()

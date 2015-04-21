@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 if (typeof ASC === "undefined") {
     ASC = {};
@@ -304,7 +302,7 @@ ASC.CRM.SettingsPage = (function() {
     };
 
     var _initEmptyScreen = function () {
-        jq.tmpl("emptyScrTmpl",
+        jq.tmpl("template-emptyScreen",
             {
                 ID: "emptyCustomFieldContent",
                 ImgSrc: ASC.CRM.Data.EmptyScrImgs["empty_screen_userfields"],
@@ -375,7 +373,7 @@ ASC.CRM.SettingsPage = (function() {
 
     var _initManagePanel = function () {
 
-        jq.tmpl("blockUIPanelTemplate", {
+        jq.tmpl("template-blockUIPanel", {
             id: "manageField",
             headerTest: ASC.CRM.Resources.CRMCommonResource.Confirmation,
             questionText: "",
@@ -389,7 +387,7 @@ ASC.CRM.SettingsPage = (function() {
     };
 
     var _iniChangeDefaultCurrencyConfirmationPanel = function () {
-        jq.tmpl("blockUIPanelTemplate", {
+        jq.tmpl("template-blockUIPanel", {
             id: "changeDefaultCurrencyConfirmation",
             headerTest: ASC.CRM.Resources.CRMCommonResource.Confirmation,
             questionText: '',
@@ -438,8 +436,34 @@ ASC.CRM.SettingsPage = (function() {
             });
     };
 
+    var _initSendTestMail = function () {
+        jq.tmpl("template-blockUIPanel", {
+            id: "sendTestMailPanel",
+            headerTest: ASC.CRM.Resources.CRMSettingResource.CreateTestLetter,
+            questionText: "",
+            innerHtmlText: jq("#sendTestMailPanelBody").html(),
+            OKBtn: ASC.CRM.Resources.CRMCommonResource.Send,
+            OKBtnClass: "sendTestMailPanelBtn",
+            CancelBtn: ASC.CRM.Resources.CRMCommonResource.Cancel
+        }).insertAfter("#smtpSettingsContent");
+
+        jq("#sendTestMailPanel .sendTestMailPanelBtn").bind("click", function () {
+            ASC.CRM.SettingsPage.sendTestMailSMTP();
+        });
+
+        jq("#sendTestMailPanel input.testMailToField, #sendTestMailPanel textarea.testMailBodyField ").bind("keyup", function () {
+            var toEmail = jq("#sendTestMailPanel input.testMailToField").val().trim(),
+                mailBody = jq("#sendTestMailPanel textarea.testMailBodyField").val().trim();
+            if (toEmail == "" || mailBody == "") {
+                jq("#sendTestMailPanel .sendTestMailPanelBtn").addClass("disable");
+            } else {
+                jq("#sendTestMailPanel .sendTestMailPanelBtn").removeClass("disable");
+            }
+        });
+    };
+
     var _iniDeleteFieldConfirmationPanel = function () {
-        jq.tmpl("blockUIPanelTemplate", {
+        jq.tmpl("template-blockUIPanel", {
             id: "deleteFieldConfirmation",
             headerTest: ASC.CRM.Resources.CRMCommonResource.Confirmation,
             questionText: '',
@@ -576,13 +600,18 @@ ASC.CRM.SettingsPage = (function() {
             jq("#exportDataContent a.button.blue.middle").hide();
             jq("#exportDataContent p.header-base-small").show();
 
-            AjaxPro.CommonSettingsView.StartExportData(function(res) {
-                if (res.error != null) {
-                    toastr.error(res.error.Message);
-                    return;
-                }
-                ASC.CRM.SettingsPage.checkExportStatus(true);
-            });
+            Teamlab.startCrmExportToCSV({},
+                {
+                    success: function (params, response) {
+                        ASC.CRM.SettingsPage.checkExportStatus(true);
+                    },
+                    error: function (params, errors) {
+                        var err = errors[0];
+                        if (err != null) {
+                            toastr.error(err);
+                        }
+                    }
+                });
         },
 
         changeDefaultCurrency: function() {
@@ -773,19 +802,7 @@ ASC.CRM.SettingsPage = (function() {
                 jq("#showSendTestMailPanelBtn").addClass("disable");
             });
 
-            jq("#sendTestMailPanelBtn").bind("click", function() {
-                ASC.CRM.SettingsPage.sendTestMailSMTP();
-            });
-
-            jq("#sendTestMailPanel input.testMailToField, #sendTestMailPanel textarea.testMailBodyField ").bind("keyup", function() {
-                var toEmail = jq("#sendTestMailPanel input.testMailToField").val().trim(),
-                    mailBody = jq("#sendTestMailPanel textarea.testMailBodyField").val().trim();
-                if (toEmail == "" || mailBody == "") {
-                    jq("#sendTestMailPanelBtn").addClass("disable");
-                } else {
-                    jq("#sendTestMailPanelBtn").removeClass("disable");
-                }
-            });
+            _initSendTestMail();
 
             _iniChangeDefaultCurrencyConfirmationPanel();
         },
@@ -865,9 +882,9 @@ ASC.CRM.SettingsPage = (function() {
             var toEmail = jq("#sendTestMailPanel input.testMailToField").val().trim(),
                 mailBody = jq("#sendTestMailPanel textarea.testMailBodyField").val().trim();
             if (toEmail == "" || mailBody == "") {
-                jq("#sendTestMailPanelBtn").addClass("disable");
+                jq("#sendTestMailPanel .sendTestMailPanelBtn").addClass("disable");
             } else {
-                jq("#sendTestMailPanelBtn").removeClass("disable");
+                jq("#sendTestMailPanel .sendTestMailPanelBtn").removeClass("disable");
             }
             PopupKeyUpActionProvider.EnableEsc = false;
             StudioBlockUIManager.blockUI("#sendTestMailPanel", 600, 320, 0);
@@ -905,52 +922,63 @@ ASC.CRM.SettingsPage = (function() {
         },
 
         checkExportStatus: function(isFirstVisit) {
-            AjaxPro.onLoading = function(b) { };
             if (isFirstVisit) {
                 ASC.CRM.SettingsPage.closeExportProgressPanel();
             }
 
-            AjaxPro.CommonSettingsView.GetStatus(function(res) {
-                if (res.error != null) {
-                    toastr.error(res.error.Message);
-                    return false;
-                }
-                if (res.value == null) {
-                    ASC.CRM.SettingsPage.closeExportProgressPanel();
-                    return false;
-                }
+            Teamlab.getStatusExportToCSV({},
+                {
+                    success: function (params, response) {
+                        if (response == null || response == "" || jQuery.isEmptyObject(response)) {
+                            ASC.CRM.SettingsPage.closeExportProgressPanel();
+                            return false;
+                        }
 
-                var $edt = jq("#exportDataContent");
-                $edt.find("div.progress").css("width", parseInt(res.value.Percentage) + "%");
-                $edt.find("div.percent").text(parseInt(res.value.Percentage) + "%");
-                $edt.find("a.button.blue.middle").hide();
-                $edt.find("div.progress-container,div.middle-button-container,p.header-base-small,#abortButton").show();
-                $edt.find("#okButton").hide();
+                        var $edt = jq("#exportDataContent");
+                        $edt.find("div.progress").css("width", parseInt(response.percentage) + "%");
+                        $edt.find("div.percent").text(parseInt(response.percentage) + "%");
+                        $edt.find("a.button.blue.middle").hide();
+                        $edt.find("div.progress-container,div.middle-button-container,p.header-base-small,#abortButton").show();
+                        $edt.find("#okButton").hide();
 
-                if (res.value.Error != null && res.value.Error != "") {
-                    ASC.CRM.SettingsPage.buildErrorList(res);
-                } else {
-                    if (res.value.IsCompleted) {
-                        $edt.find("#exportLinkBox span").html(
-                            jq("<a></a>").attr("href", res.value.Status).text("exportdata.zip")
-                        );
-                        $edt.find("p.header-base-small").hide();
-                        $edt.find("#exportLinkBox").show();
-                        $edt.find("#abortButton").hide();
-                        $edt.find("#okButton").show();
-                    } else {
-                        setTimeout("ASC.CRM.SettingsPage.checkExportStatus(false)", 3000);
+                        if (response.error != null && response.error != "") {
+                            ASC.CRM.SettingsPage.buildErrorList(response);
+                        } else {
+                            if (response.isCompleted) {
+                                $edt.find("#exportLinkBox span").html(
+                                    jq("<a></a>").attr("href", response.status).text("exportdata.zip")
+                                );
+                                $edt.find("p.header-base-small").hide();
+                                $edt.find("#exportLinkBox").show();
+                                $edt.find("#abortButton").hide();
+                                $edt.find("#okButton").show();
+                            } else {
+                                setTimeout("ASC.CRM.SettingsPage.checkExportStatus(false)", 3000);
+                            }
+                        }
+                    },
+                    error: function (params, errors) {
+                        var err = errors[0];
+                        if (err != null) {
+                            toastr.error(err);
+                        }
                     }
-                }
-            });
+                });
         },
 
-        abortExport: function() {
-            AjaxPro.onLoading = function(b) { };
-            AjaxPro.CommonSettingsView.Cancel(function(res) {
-                if (res.error != null) { toastr.error(res.error.Message); return; }
-                ASC.CRM.SettingsPage.closeExportProgressPanel();
-            });
+        abortExport: function () {
+            Teamlab.cancelExportToCSV({},
+                {
+                    success: function (params, response) {
+                        ASC.CRM.SettingsPage.closeExportProgressPanel();
+                    },
+                    error: function (params, errors) {
+                        var err = errors[0];
+                        if (err != null) {
+                            toastr.error(err);
+                        }
+                    }
+                });
         },
 
         closeExportProgressPanel: function () {
@@ -968,12 +996,12 @@ ASC.CRM.SettingsPage = (function() {
 
         buildErrorList: function(res) {
             var mess = "error";
-            switch (typeof res.value.Error) {
+            switch (typeof res.error) {
                 case "object":
-                    mess = res.value.Error.Message + "<br/>";
+                    mess = res.error.Message + "<br/>";
                     break;
                 case "string":
-                    mess = res.value.Error;
+                    mess = res.error;
                     break;
             }
 
@@ -1185,10 +1213,11 @@ ASC.CRM.ListItemView = (function() {
     };
 
     var _getIconByCssClass = function (cssClass) {
+        if (typeof (cssClass) === "undefined" || cssClass == "") return null;
+
         var $icon = jq('#iconsPanel_' + ASC.CRM.ListItemView.CurrentType + ' label.' + cssClass);
-        if ($icon.length != 1) {
-            return null;
-        }
+        if ($icon.length != 1)  return null;
+
         return $icon;
     };
 
@@ -1199,7 +1228,7 @@ ASC.CRM.ListItemView = (function() {
         item.relativeItemsString = ASC.CRM.Common.getRelativeItemsLinkString(item.relativeItemsCount, jq.getURLParam("type"), null);
         if (ASC.CRM.ListItemView.CurrentType === 2 || ASC.CRM.ListItemView.CurrentType === 3) {
             if (item.hasOwnProperty("imagePath") && item.imagePath != "") {
-                item.cssClass = item.imagePath.split('/')[item.imagePath.split('/').length - 1].split('.')[0];
+                item.cssClass = jq.trim(item.imagePath.split('/')[item.imagePath.split('/').length - 1].split('.')[0]);
                 var $icon = _getIconByCssClass(item.cssClass);
 
                 if ($icon != null) {
@@ -1370,7 +1399,7 @@ ASC.CRM.ListItemView = (function() {
     };
 
     var _initManagePanel = function () {
-        jq.tmpl("blockUIPanelTemplate", {
+        jq.tmpl("template-blockUIPanel", {
             id: "manageItem",
             headerTest: ASC.CRM.ListItemView.AddItemHeaderText,
             questionText: "",
@@ -1911,7 +1940,7 @@ ASC.CRM.DealMilestoneView = (function() {
 
     var _initManagePanel = function () {
 
-        jq.tmpl("blockUIPanelTemplate", {
+        jq.tmpl("template-blockUIPanel", {
             id: "manageDealMilestone",
             headerTest: ASC.CRM.Resources.CRMCommonResource.Confirmation,
             questionText: "",
@@ -2187,7 +2216,7 @@ ASC.CRM.TagSettingsView = (function() {
     };
   
     var _initEmptyScreen = function () {
-        jq.tmpl("emptyScrTmpl",
+        jq.tmpl("template-emptyScreen",
             {
                 ID: "emptyTagContent",
                 ImgSrc: ASC.CRM.Data.EmptyScrImgs["empty_screen_tags"],
@@ -2240,7 +2269,7 @@ ASC.CRM.TagSettingsView = (function() {
 
     var _initManagePanel = function () {
 
-        jq.tmpl("blockUIPanelTemplate", {
+        jq.tmpl("template-blockUIPanel", {
             id: "manageTag",
             headerTest: ASC.CRM.Resources.CRMSettingResource.CreateNewTag,
             questionText: "",

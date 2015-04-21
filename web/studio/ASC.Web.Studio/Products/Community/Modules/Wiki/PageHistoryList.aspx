@@ -1,11 +1,11 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Wiki" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PageHistoryList.aspx.cs"
     Inherits="ASC.Web.Community.Wiki.PageHistoryList" MasterPageFile="~/Products/Community/Modules/Wiki/Wiki.Master" %>
 
 <%@ Import Namespace="ASC.Web.Community.Product" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
-<%@ Import Namespace="ASC.Web.UserControls.Wiki.Data" %>
+
 <asp:Content ContentPlaceHolderID="HeadContent" runat="Server">
 
     <script language="javascript" type="text/javascript">

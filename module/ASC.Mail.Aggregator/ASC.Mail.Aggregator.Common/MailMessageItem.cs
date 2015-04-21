@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -79,8 +77,8 @@ namespace ASC.Mail.Aggregator.Common
             Cc = string.Join(", ", message.Cc.Select(s => s.ToString()));
             Bcc = string.Join(", ", message.Bcc.Select(s => s.ToString()));
             Subject = message.Subject ?? "";
-            bool is_message_has_high_flag = String.Compare(message.Flag, "high", StringComparison.OrdinalIgnoreCase) == 0;
-            Important = is_message_has_high_flag || message.Priority == MessagePriority.High;
+            bool isMessageHasHighFlag = String.Compare(message.Flag, "high", StringComparison.OrdinalIgnoreCase) == 0;
+            Important = isMessageHasHighFlag || message.Priority == MessagePriority.High;
             TextBodyOnly = false;
             SetHtmlBodyAndIntroduction(message);
             Size = HtmlBody.Length;
@@ -94,17 +92,17 @@ namespace ASC.Mail.Aggregator.Common
             HtmlBody = "<br/>";
             Introduction = "";
 
-            var html_body_builder = new StringBuilder().Append(message.BodyHtml.Text);
+            var htmlBodyBuilder = new StringBuilder().Append(message.BodyHtml.Text);
             if (message.ContentType.MimeType.Equals("multipart/mixed", StringComparison.InvariantCultureIgnoreCase)
                 && !string.IsNullOrEmpty(message.BodyHtml.Text)
                 && !string.IsNullOrEmpty(message.BodyText.Text))
             {
-                html_body_builder.AppendFormat("<p>{0}</p>", MakeHtmlFromText(message.BodyText.Text));
+                htmlBodyBuilder.AppendFormat("<p>{0}</p>", MakeHtmlFromText(message.BodyText.Text));
             }
 
-            if (html_body_builder.Length != 0)
+            if (htmlBodyBuilder.Length != 0)
             {
-                HtmlBody = html_body_builder.ToString();
+                HtmlBody = htmlBodyBuilder.ToString();
                 Introduction = GetIntroduction(HtmlBody);
                 return;
             }
@@ -120,36 +118,36 @@ namespace ASC.Mail.Aggregator.Common
 
             if (message.SubMessages.Count > 0)
             {
-                BuildBodyFromSubmessages(message, html_body_builder);
-                HtmlBody = html_body_builder.ToString();
+                BuildBodyFromSubmessages(message, htmlBodyBuilder);
+                HtmlBody = htmlBodyBuilder.ToString();
                 Introduction = GetIntroduction(message.SubMessages[0].BodyHtml.Text);
             }
         }
 
-        private static void BuildBodyFromSubmessages(Message message, StringBuilder html_body_builder)
+        private static void BuildBodyFromSubmessages(Message message, StringBuilder htmlBodyBuilder)
         {
-            foreach (Message sub_message in message.SubMessages)
+            foreach (Message subMessage in message.SubMessages)
             {
-                var to_string = string.Join(", ", sub_message.To.Select(s => s.ToString()));
-                html_body_builder.Append("<hr /><br/>")
+                var toString = string.Join(", ", subMessage.To.Select(s => s.ToString()));
+                htmlBodyBuilder.Append("<hr /><br/>")
                                  .Append("<div style=\"padding-left:15px;\">")
-                                 .AppendFormat("<span><b>Subject:</b> {0}</span><br/>", sub_message.Subject)
-                                 .AppendFormat("<span><b>From:</b> {0}</span><br/>", sub_message.From)
-                                 .AppendFormat("<span><b>Date:</b> {0}</span><br/>", sub_message.ReceivedDate)
-                                 .AppendFormat("<span><b>To:</b> {0}</span><br/></div>", to_string)
-                                 .AppendFormat("<br/>{0}", sub_message.BodyHtml.Text);
+                                 .AppendFormat("<span><b>Subject:</b> {0}</span><br/>", subMessage.Subject)
+                                 .AppendFormat("<span><b>From:</b> {0}</span><br/>", subMessage.From)
+                                 .AppendFormat("<span><b>Date:</b> {0}</span><br/>", subMessage.ReceivedDate)
+                                 .AppendFormat("<span><b>To:</b> {0}</span><br/></div>", toString)
+                                 .AppendFormat("<br/>{0}", subMessage.BodyHtml.Text);
             }
         }
 
-        public static string GetIntroduction(string html_body)
+        public static string GetIntroduction(string htmlBody)
         {
             var introduction = string.Empty;
             
-            if (!string.IsNullOrEmpty(html_body))
+            if (!string.IsNullOrEmpty(htmlBody))
             {
                 try
                 {
-                    introduction = ExtractTextFromHtml(html_body, 200);
+                    introduction = ExtractTextFromHtml(htmlBody, 200);
                 }
                 catch (RecursionDepthException ex)
                 {
@@ -157,7 +155,7 @@ namespace ASC.Mail.Aggregator.Common
                 }
                 catch
                 {
-                    introduction = (html_body.Length > 200 ? html_body.Substring(0, 200) : html_body);
+                    introduction = (htmlBody.Length > 200 ? htmlBody.Substring(0, 200) : htmlBody);
                 }
 
                 introduction = introduction.Replace("\n", " ").Replace("\r", " ");
@@ -167,18 +165,18 @@ namespace ASC.Mail.Aggregator.Common
         }
 
         //if limit_length < 1 then text will be unlimited
-        private static string ExtractTextFromHtml(string html, int limit_length)
+        private static string ExtractTextFromHtml(string html, int limitLength)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
-            var out_text = limit_length < 1 ? new StringBuilder() : new StringBuilder(limit_length);
-            ConvertTo(doc.DocumentNode, out_text, limit_length);
-            return out_text.ToString();
+            var outText = limitLength < 1 ? new StringBuilder() : new StringBuilder(limitLength);
+            ConvertTo(doc.DocumentNode, outText, limitLength);
+            return outText.ToString();
         }
 
-        private static void ConvertTo(HtmlNode node, StringBuilder out_text, int limit_length)
+        private static void ConvertTo(HtmlNode node, StringBuilder outText, int limitLength)
         {
-            if (out_text.Length >= limit_length) return;
+            if (outText.Length >= limitLength) return;
             
             switch (node.NodeType)
             {
@@ -187,13 +185,13 @@ namespace ASC.Mail.Aggregator.Common
                     break;
 
                 case HtmlNodeType.Document:
-                    ConvertContentTo(node, out_text, limit_length);
+                    ConvertContentTo(node, outText, limitLength);
                     break;
 
                 case HtmlNodeType.Text:
                     // Scripts and styles will not ouput.
-                    var parent_name = node.ParentNode.Name;
-                    if ((parent_name == "script") || (parent_name == "style"))
+                    var parentName = node.ParentNode.Name;
+                    if ((parentName == "script") || (parentName == "style"))
                         break;
 
                     var html = ((HtmlTextNode)node).Text;
@@ -207,17 +205,17 @@ namespace ASC.Mail.Aggregator.Common
                     {
                         html = SurrogateCodePointReg.Replace(html, "");
                         var text = HtmlEntity.DeEntitize(html);
-                        var new_length = (out_text + text).Length;
-                        if (limit_length > 0 && new_length >= limit_length)
+                        var newLength = (outText + text).Length;
+                        if (limitLength > 0 && newLength >= limitLength)
                         {
-                            if (new_length > limit_length)
+                            if (newLength > limitLength)
                             {
-                                text = text.Substring(0, limit_length - out_text.Length);
-                                out_text.Append(text);
+                                text = text.Substring(0, limitLength - outText.Length);
+                                outText.Append(text);
                             }
                             return;
                         }
-                        out_text.Append(text);
+                        outText.Append(text);
                     }
                     break;
 
@@ -225,71 +223,71 @@ namespace ASC.Mail.Aggregator.Common
                     switch (node.Name)
                     {
                         case "p":
-                            out_text.Append("\r\n");
+                            outText.Append("\r\n");
                             break;
                     }
 
                     if (node.HasChildNodes)
                     {
-                        ConvertContentTo(node, out_text, limit_length);
+                        ConvertContentTo(node, outText, limitLength);
                     }
                     break;
             }
         }
 
-        private static void ConvertContentTo(HtmlNode node, StringBuilder out_text, int limit_length)
+        private static void ConvertContentTo(HtmlNode node, StringBuilder outText, int limitLength)
         {
             foreach (var subnode in node.ChildNodes)
             {
-                ConvertTo(subnode, out_text, limit_length);
+                ConvertTo(subnode, outText, limitLength);
             }
         }
 
-        private static string MakeHtmlFromText(string text_body)
+        private static string MakeHtmlFromText(string textBody)
         {
-           var list_text = text_body.Split(new[] { "\r\n" }, StringSplitOptions.None).ToList();
+           var listText = textBody.Split(new[] { "\r\n" }, StringSplitOptions.None).ToList();
 
-            var builder = new StringBuilder(text_body.Length);
+            var builder = new StringBuilder(textBody.Length);
 
-            list_text.ForEach(line =>
+            listText.ForEach(line =>
             {
                 if (!string.IsNullOrEmpty(line))
                 {
-                    var modified_line = line;
+                    var modifiedLine = line;
 
-                    var found_urls = new List<string>();
+                    var foundUrls = new List<string>();
 
-                    for (var m = UrlReg.Match(modified_line); m.Success; m = m.NextMatch())
+                    for (var m = UrlReg.Match(modifiedLine); m.Success; m = m.NextMatch())
                     {
-                        var found_url = m.Groups[0].Value;
+                        var foundUrl = m.Groups[0].Value;
 
-                        found_urls.Add(string.Format("<a href=\"{0}\" target=\"_blank\">{0}</a>", found_url));
+                        foundUrls.Add(string.Format("<a href=\"{0}\" target=\"_blank\">{0}</a>", foundUrl));
 
-                        modified_line = modified_line.Replace(found_url, "{" + found_urls.Count.ToString(CultureInfo.InvariantCulture) + "}");
+                        modifiedLine = modifiedLine.Replace(foundUrl, "{" + foundUrls.Count.ToString(CultureInfo.InvariantCulture) + "}");
                     }
 
-                    for (var m = EmailReg.Match(modified_line); m.Success; m = m.NextMatch())
+                    for (var m = EmailReg.Match(modifiedLine); m.Success; m = m.NextMatch())
                     {
-                        var found_mail_address = m.Groups[0].Value;
+                        var foundMailAddress = m.Groups[0].Value;
 
-                        found_urls.Add(string.Format("<a href=\"mailto:{0}\">{1}</a>", 
-                            System.Web.HttpUtility.UrlEncode(found_mail_address),
-                            found_mail_address));
+                        foundUrls.Add(string.Format("<a href=\"mailto:{0}\">{1}</a>", 
+                            System.Web.HttpUtility.UrlEncode(foundMailAddress),
+                            foundMailAddress));
 
-                        modified_line = modified_line.Replace(found_mail_address, "{" + found_urls.Count.ToString(CultureInfo.InvariantCulture) + "}");
+                        modifiedLine = modifiedLine.Replace(foundMailAddress, "{" + foundUrls.Count.ToString(CultureInfo.InvariantCulture) + "}");
                     }
 
-                    modified_line = System.Web.HttpUtility.HtmlEncode(modified_line);
+                    modifiedLine = System.Web.HttpUtility.HtmlEncode(modifiedLine);
 
-                    if (found_urls.Count > 0)
+                    if (foundUrls.Count > 0)
                     {
-                        for (int i = 0; i < found_urls.Count; i++)
+                        for (int i = 0; i < foundUrls.Count; i++)
                         {
-                            modified_line = modified_line.Replace("{" + (i + 1).ToString(CultureInfo.InvariantCulture) + "}", found_urls.ElementAt(i));
+                            modifiedLine = modifiedLine.Replace("{" + (i + 1).ToString(CultureInfo.InvariantCulture) + "}", foundUrls.ElementAt(i));
                         }
                     }
 
-                    builder.Append(modified_line);
+                    builder.Append(modifiedLine);
                 }
                 builder.Append("<br/>");
 
@@ -300,54 +298,54 @@ namespace ASC.Mail.Aggregator.Common
             return builder.ToString();
         }
 
-        public void LoadAttachments(IEnumerable<MimePart> mime_parts, bool skip_text)
+        public void LoadAttachments(IEnumerable<MimePart> mimeParts, bool skipText)
         {
             if (Attachments == null)
             {
                 Attachments = new List<MailAttachment>();
             }
 
-            foreach (var mime_part in mime_parts)
+            foreach (var mimePart in mimeParts)
             {
-                if (skip_text && mime_part.ContentType.Type.Contains("text"))
+                if (skipText && mimePart.ContentType.Type.Contains("text"))
                     continue;
 
-                var ext = Path.GetExtension(mime_part.Filename);
+                var ext = Path.GetExtension(mimePart.Filename);
 
                 if (string.IsNullOrEmpty(ext))
                 {
                     // If the file extension is not specified, there will be issues with saving on s3
-                    var new_ext = ".ext";
+                    var newExt = ".ext";
 
-                    if (mime_part.ContentType.Type.ToLower().IndexOf("image", StringComparison.Ordinal) != -1)
+                    if (mimePart.ContentType.Type.ToLower().IndexOf("image", StringComparison.Ordinal) != -1)
                     {
-                        var sub_type = mime_part.ContentType.SubType;
+                        var subType = mimePart.ContentType.SubType;
 
-                        new_ext = ".png";
+                        newExt = ".png";
 
-                        if (!string.IsNullOrEmpty(sub_type))
+                        if (!string.IsNullOrEmpty(subType))
                         {
                             // List was get from http://en.wikipedia.org/wiki/Internet_media_type
-                            var known_image_types = new List<string> { "gif", "jpeg", "pjpeg", "png", "svg", "tiff", "ico", "bmp" };
+                            var knownImageTypes = new List<string> { "gif", "jpeg", "pjpeg", "png", "svg", "tiff", "ico", "bmp" };
 
-                            var found_ext = known_image_types
-                                .Find(s => sub_type.IndexOf(s, StringComparison.Ordinal) != -1);
+                            var foundExt = knownImageTypes
+                                .Find(s => subType.IndexOf(s, StringComparison.Ordinal) != -1);
 
-                            if (!string.IsNullOrEmpty(found_ext))
-                                new_ext = "." + found_ext;
+                            if (!string.IsNullOrEmpty(foundExt))
+                                newExt = "." + foundExt;
                         }
                     }
-                    mime_part.Filename = Path.ChangeExtension(mime_part.Filename, new_ext);
+                    mimePart.Filename = Path.ChangeExtension(mimePart.Filename, newExt);
                 }
 
                 Attachments.Add(new MailAttachment
                     {
-                        contentId = mime_part.EmbeddedObjectContentId,
-                        size = mime_part.Size,
-                        fileName = mime_part.Filename,
-                        contentType = mime_part.ContentType.Type,
-                        data = mime_part.BinaryContent,
-                        contentLocation = mime_part.ContentLocation
+                        contentId = mimePart.EmbeddedObjectContentId,
+                        size = mimePart.Size,
+                        fileName = mimePart.Filename,
+                        contentType = mimePart.ContentType.Type,
+                        data = mimePart.BinaryContent,
+                        contentLocation = mimePart.ContentLocation
                     });
             }
         }

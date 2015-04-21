@@ -427,7 +427,7 @@
     <value>Please, verify the contacts before importing them</value>
   </data>
   <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
-    <value>Сопоставьте колонки из своего файла с соответствующими полями в TeamLab CRM. Пожалуйста, обратите Ваше внимание на то, что для правильного импорта персон по крайней мере один столбец из вашего файла должен соотноситься с полем 'Имя' и один с полем 'Фамилия' в TeamLab CRM. То же самое для импорта компаний: Вам нужно, чтобы было соответствие полю 'Название компании' для того, чтобы была возможность импортировать компании. Только после этого Вы сможете перейти к следующему шагу. Поля содержащие дату должны быть заданы форматом {0}.</value>
+    <value>Сопоставьте колонки из своего файла с соответствующими полями в TeamLab CRM. Пожалуйста, обратите Ваше внимание на то, что для правильного импорта персон по крайней мере один столбец из вашего файла должен соотноситься с полем 'Имя' в TeamLab CRM. То же самое для импорта компаний: Вам нужно, чтобы было соответствие полю 'Название компании' для того, чтобы была возможность импортировать компании. Только после этого Вы сможете перейти к следующему шагу. Поля содержащие дату должны быть заданы форматом {0}.</value>
   </data>
   <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
     <value>Please, verify the fields</value>
@@ -765,9 +765,6 @@
   <data name="CategoryNotSpecified" xml:space="preserve">
     <value>Category not specified</value>
   </data>
-  <data name="AdditionalContactInformation" xml:space="preserve">
-    <value>Additional contact information</value>
-  </data>
   <data name="AssignProject" xml:space="preserve">
     <value>Link or add project</value>
   </data>
@@ -936,5 +933,8 @@ Do you want to delete this tag also from the company and from all it's persons?<
   </data>
   <data name="HistoryVoipOutcomingNote" xml:space="preserve">
     <value>Outcoming call. Duration: {0}</value>
+  </data>
+  <data name="ShowContactProfileNewTab" xml:space="preserve">
+    <value>Открыть в новой вкладке</value>
   </data>
 </root>

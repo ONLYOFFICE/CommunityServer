@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System.Linq;
 using System.Net;
@@ -42,10 +40,9 @@ namespace ASC.Mail.Server.Administration.TestCases
         protected IMailAddress peter_address;
         protected IMailAccount peter_account;
 
-        const string PeterLogin = "peter";
-        const string PeterPassword = "peter_pass";
+        const string PETER_PASSWORD = "peter_pass";
         readonly string _peterDomainName = Dns.GetHostName() + ".com";
-        private const bool _isVerified = true;
+        private const bool IS_VERIFIED = true;
 
         public abstract TestContextBase TestContext { get; }
 
@@ -53,7 +50,7 @@ namespace ASC.Mail.Server.Administration.TestCases
         public void SetUp()
         {
             server = TestContext.CreateServer();
-            peter_domain = server.CreateWebDomain(_peterDomainName, _isVerified, TestContext.ServerFactory);
+            peter_domain = server.CreateWebDomain(_peterDomainName, IS_VERIFIED, TestContext.ServerFactory);
             peter_address = TestContext.CreateRandomMailAddress(peter_domain);
             peter_account = TestContext.GetMailAccount(peter_address.LocalPart, _peterDomainName);
         }
@@ -77,7 +74,7 @@ namespace ASC.Mail.Server.Administration.TestCases
         [Test]
         public virtual void CreateMailboxOnServer()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PeterPassword, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
 
             Assert.Greater(peter_mailbox.Id, 0, "mailbox.Id must be > 0");
             Assert.GreaterOrEqual(peter_mailbox.Tenant, 0, "mailbox.Tenant must be >= 0");
@@ -101,29 +98,29 @@ namespace ASC.Mail.Server.Administration.TestCases
         [ExpectedException(ExpectedExceptionName = "System.Data.DuplicateNameException", UserMessage = "You want to create account with already existed username")]
         public virtual void DoubleCreateMailbox()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PeterPassword, peter_address.Domain, peter_account, TestContext.ServerFactory);
-            server.CreateMailbox(peter_address.LocalPart, PeterPassword, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
         }
 
         [Test]
         [ExpectedException(ExpectedExceptionName = "System.ArgumentNullException")]
         public virtual void CreateMailboxWithNullAccount()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PeterPassword, peter_address.Domain, null, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, null, TestContext.ServerFactory);
         }
 
         [Test]
         [ExpectedException(ExpectedExceptionName = "System.ArgumentNullException")]
         public virtual void CreateMailboxWithNullAddressName()
         {
-            peter_mailbox = server.CreateMailbox(null, PeterPassword, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(null, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
         }
 
         [Test]
         [ExpectedException(ExpectedExceptionName = "System.ArgumentNullException")]
         public virtual void CreateMailboxWithNullDomain()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PeterPassword, null, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, null, peter_account, TestContext.ServerFactory);
         }
 
         [Test]
@@ -132,39 +129,37 @@ namespace ASC.Mail.Server.Administration.TestCases
             var mailboxes = server.GetMailboxes(TestContext.ServerFactory);
 
             Assert.GreaterOrEqual(mailboxes.Count, 0);
-            if (mailboxes.Count > 0)
-            {
-                var server_info = mailboxes.First().Server;
-                Assert.AreEqual(mailboxes.Count(m => m.Server.ConnectionString == server_info.ConnectionString), mailboxes.Count());
-            }
+            if (mailboxes.Count <= 0) return;
+            var serverInfo = mailboxes.First().Server;
+            Assert.AreEqual(mailboxes.Count(m => m.Server.ConnectionString == serverInfo.ConnectionString), mailboxes.Count());
         }
 
         [Test]
         public virtual void DeleteMailboxFromServer()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PeterPassword, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
 
-            var mailboxes_before_deleting = server.GetMailboxes(TestContext.ServerFactory);
-            Assert.IsTrue(mailboxes_before_deleting.Contains(peter_mailbox), "Mailbox wasn't created.");
+            var mailboxesBeforeDeleting = server.GetMailboxes(TestContext.ServerFactory);
+            Assert.IsTrue(mailboxesBeforeDeleting.Contains(peter_mailbox), "Mailbox wasn't created.");
 
             server.DeleteMailbox(peter_mailbox);
 
-            var mailboxes_after_deleting = server.GetMailboxes(TestContext.ServerFactory);
-            Assert.IsFalse(mailboxes_after_deleting.Contains(peter_mailbox));
+            var mailboxesAfterDeleting = server.GetMailboxes(TestContext.ServerFactory);
+            Assert.IsFalse(mailboxesAfterDeleting.Contains(peter_mailbox));
         }
 
         [Test]
         public virtual void DoubleDeleteMailboxFromServerTest()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PeterPassword, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
 
-            var mailboxes_before_deleting = server.GetMailboxes(TestContext.ServerFactory);
-            Assert.IsTrue(mailboxes_before_deleting.Contains(peter_mailbox), "Mailbox wasn't created.");
+            var mailboxesBeforeDeleting = server.GetMailboxes(TestContext.ServerFactory);
+            Assert.IsTrue(mailboxesBeforeDeleting.Contains(peter_mailbox), "Mailbox wasn't created.");
             
             server.DeleteMailbox(peter_mailbox);
             
-            var mailboxes_after_deleting = server.GetMailboxes(TestContext.ServerFactory);
-            Assert.IsFalse(mailboxes_after_deleting.Contains(peter_mailbox));
+            var mailboxesAfterDeleting = server.GetMailboxes(TestContext.ServerFactory);
+            Assert.IsFalse(mailboxesAfterDeleting.Contains(peter_mailbox));
             
             server.DeleteMailbox(peter_mailbox);
             peter_mailbox = null;
@@ -180,23 +175,23 @@ namespace ASC.Mail.Server.Administration.TestCases
         [Test]
         public virtual void GetMailboxById()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PeterPassword, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
 
-            var mailbox_getted_by_id = server.GetMailbox(peter_mailbox.Id, TestContext.ServerFactory);
-            Assert.IsTrue(peter_mailbox.Equals(mailbox_getted_by_id));
+            var mailboxGettedById = server.GetMailbox(peter_mailbox.Id, TestContext.ServerFactory);
+            Assert.IsTrue(peter_mailbox.Equals(mailboxGettedById));
         }
 
         [Test]
         public virtual void GetMailboxByNonExistentId()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PeterPassword, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
             server.DeleteMailbox(peter_mailbox);
             
-            var mailboxes_after_deleting = server.GetMailboxes(TestContext.ServerFactory);
-            Assert.IsFalse(mailboxes_after_deleting.Contains(peter_mailbox), "Mailbox wasn't deleted.");
+            var mailboxesAfterDeleting = server.GetMailboxes(TestContext.ServerFactory);
+            Assert.IsFalse(mailboxesAfterDeleting.Contains(peter_mailbox), "Mailbox wasn't deleted.");
 
-            var mailbox_getted_by_id = server.GetMailbox(peter_mailbox.Id, TestContext.ServerFactory);
-            Assert.AreEqual(null, mailbox_getted_by_id);
+            var mailboxGettedById = server.GetMailbox(peter_mailbox.Id, TestContext.ServerFactory);
+            Assert.AreEqual(null, mailboxGettedById);
         }
 
         [Test]
@@ -248,9 +243,9 @@ namespace ASC.Mail.Server.Administration.TestCases
         [Test]
         public virtual void ReCreationMailbox()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PeterPassword, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
             server.DeleteMailbox(peter_mailbox);
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PeterPassword, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
 
             Assert.Greater(peter_mailbox.Id, 0, "mailbox.Id must be > 0");
             Assert.GreaterOrEqual(peter_mailbox.Tenant, 0, "mailbox.Tenant must be >= 0");
@@ -276,13 +271,13 @@ namespace ASC.Mail.Server.Administration.TestCases
         [ExpectedException(ExpectedExceptionName = "System.ArgumentOutOfRangeException")]
         public virtual void CheckLimitationOfMailboxException()
         {
-            var my_mailbox_limit = server.SetupInfo.Limits.MailboxMaxCountPerUser;
+            var myMailboxLimit = server.SetupInfo.Limits.MailboxMaxCountPerUser;
 
-            for (var i = 0; i <= my_mailbox_limit; i++)
+            for (var i = 0; i <= myMailboxLimit; i++)
             {
                 var address = TestContext.CreateRandomMailAddress(peter_domain);
                 var account = TestContext.GetMailAccount(address.LocalPart, _peterDomainName);
-                server.CreateMailbox(address.LocalPart, PeterPassword, address.Domain, account, TestContext.ServerFactory);
+                server.CreateMailbox(address.LocalPart, PETER_PASSWORD, address.Domain, account, TestContext.ServerFactory);
             }
         }
     }

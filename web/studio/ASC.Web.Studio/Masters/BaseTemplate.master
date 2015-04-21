@@ -7,8 +7,10 @@
 
 <%@ Register TagPrefix="client" Namespace="ASC.Web.Core.Client.Bundling" Assembly="ASC.Web.Core" %>
 <%@ Register TagPrefix="master" TagName="HeadStyles" Src="HeadStyles.ascx" %>
+<%@ Register TagPrefix="master" TagName="CommonStyles" Src="CommonStyles.ascx" %>
 <%@ Register TagPrefix="master" TagName="ThemeStyles" Src="ThemeStyles.ascx" %>
 <%@ Register TagPrefix="master" TagName="HeadScripts" Src="HeadScripts.ascx" %>
+<%@ Register TagPrefix="master" TagName="CommonBodyScripts" Src="CommonBodyScripts.ascx" %>
 <%@ Register TagPrefix="master" TagName="BodyScripts" Src="BodyScripts.ascx" %>
 <%@ Register TagPrefix="master" TagName="ClientLocalizationScript" Src="ClientLocalizationScript.ascx" %>
 <%@ Register TagPrefix="ucc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
@@ -23,10 +25,13 @@
     <meta name="keywords" id="MetaKeywords" content="" runat="server" />
     <meta name="description" id="MetaDescription" content="" runat="server" />
 
-    <link rel="icon" href="<%=CommonLinkUtility.GetFullAbsolutePath("~/favicon.ico") %>" type="image/x-icon" />
+
+    <%= string.Format("<link href='{0}' rel='icon' type='image/x-icon' />", ASC.Web.Core.CoBranding.TenantLogoManager.GetFavicon(true, true)) %>
+
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:900,800,700,600,500,400,300&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel="stylesheet" type="text/css" />
 
     <master:ThemeStyles ID="ThemeStyles" runat="server" CategoryName="common" />
+    <master:CommonStyles ID="CommonStyles" runat="server" />
     <master:HeadStyles ID="HeadStyles" runat="server" />
 
     <%= RenderCustomScript() %>
@@ -48,6 +53,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-TZ7764');</script>
 <!-- End Google Tag Manager -->
+
+        <% if (ASC.Core.SecurityContext.IsAuthenticated)  %>
+        <% { %>
+                <script type="text/javascript" language="javascript">
+                    ga('create', 'UA-12442749-21', 'auto', { 'name': 'testTracker', 'userId': '<%=ASC.Core.SecurityContext.CurrentAccount.ID %>' });
+                    ga('testTracker.send', 'pageview');                   
+                </script>
+        <% } %>
+
     <%} %>
 
 
@@ -67,6 +81,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                 <td class="borderBase mainPageTableSidePanel">
                                     <div id="studio_sidePanel" class="<%=EnabledWebChat ? "sidepanel-with-chat" : ""  %>">
                                         <asp:ContentPlaceHolder ID="SidePanel" runat="server" />
+                                        <asp:PlaceHolder ID="InvitePanelHolder" runat="server" />
                                     </div>
                                     <asp:PlaceHolder ID="BannerHolder" runat="server" />
                                     <% if (EnabledWebChat && !IsMobile)
@@ -115,6 +130,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <asp:ContentPlaceHolder ID="clientTemplatesResourcesPlaceHolder" runat="server" />
 
     <ucc:InlineScript ID="InlineScriptBefore" runat="server" />
+    <master:CommonBodyScripts ID="CommonBodyScripts" runat="server" />
     <master:BodyScripts ID="BodyScripts" runat="server" />
     <ucc:InlineScript ID="InlineScript" runat="server" />
 

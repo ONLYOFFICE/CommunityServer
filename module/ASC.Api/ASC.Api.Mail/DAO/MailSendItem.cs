@@ -1,49 +1,47 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
 using ASC.Api.Mail.Helpers;
-using ASC.Data.Storage;
+using ASC.Files.Core;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Common.Collection;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.DataStorage;
+using ASC.Web.Files.Services.WCFService;
 using HtmlAgilityPack;
 using ASC.Mail.Aggregator;
 using ActiveUp.Net.Mail;
 using ASC.Api.Mail.Resources;
+using FileShare = ASC.Files.Core.Security.FileShare;
 
 namespace ASC.Api.Mail.DAO
 {
@@ -61,6 +59,8 @@ namespace ASC.Api.Mail.DAO
             Labels = new List<int>();
             _logger = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "ASC.Api");
         }
+
+        public int MailboxId { get; set; }
 
         public List<string> To { get; set; }
 
@@ -92,25 +92,27 @@ namespace ASC.Api.Mail.DAO
 
         public List<int> Labels { get; set; }
 
-        public string  MimeMessageId { get; set; }
+        public string MimeMessageId { get; set; }
 
         public string MimeReplyToId { get; set; }
+
+        public FileShare FileLinksShareMode { get; set; }
 
         private string _displayName = string.Empty;
 
         public MailMessageItem ToMailMessageItem(int tenant, string user)
         {
-            Address from_verified;
+            Address fromVerified;
             if (Validator.ValidateSyntax(From))
-                from_verified = new Address(From, DisplayName);
+                fromVerified = new Address(From, DisplayName);
             else
                 throw new ArgumentException(MailApiResource.ErrorIncorrectEmailAddress
-                                   .Replace("%1", MailApiResource.FieldNameFrom));
+                                                           .Replace("%1", MailApiResource.FieldNameFrom));
 
-            var message_item = new MailMessageItem
+            var messageItem = new MailMessageItem
                 {
-                    From = from_verified.ToString(),
-                    FromEmail = from_verified.Email,
+                    From = fromVerified.ToString(),
+                    FromEmail = fromVerified.Email,
                     To = string.Join(", ", To.ToArray()),
                     Cc = Cc != null ? string.Join(", ", Cc.ToArray()) : "",
                     Bcc = Bcc != null ? string.Join(", ", Bcc.ToArray()) : "",
@@ -120,54 +122,60 @@ namespace ASC.Api.Mail.DAO
                     HtmlBody = HtmlBody,
                     Introduction = MailMessageItem.GetIntroduction(HtmlBody),
                     StreamId = StreamId,
-                    TagIds = Labels != null && Labels.Count != 0 ? new ItemList<int>(Labels) : null,
+                    TagIds = Labels != null && Labels.Count != 0 ? new ASC.Mail.Aggregator.Common.Collection.ItemList<int>(Labels) : null,
                     Size = HtmlBody.Length,
                     MimeReplyToId = MimeReplyToId,
                     MimeMessageId = string.IsNullOrEmpty(MimeMessageId) ? MailBoxManager.CreateMessageId() : MimeMessageId
                 };
 
-            if (message_item.Attachments == null) 
-                message_item.Attachments = new List<MailAttachment>();
+            if (messageItem.Attachments == null)
+            {
+                messageItem.Attachments = new List<MailAttachment>();
+            }
 
-            Attachments.ForEach(attachment => { attachment.tenant = tenant; attachment.user = user; });
+            Attachments.ForEach(attachment =>
+                {
+                    attachment.tenant = tenant;
+                    attachment.user = user;
+                });
 
-            message_item.Attachments.AddRange(Attachments);
-            return message_item;
+            messageItem.Attachments.AddRange(Attachments);
+            return messageItem;
         }
 
-        public Message ToMimeMessage(int tenant, string user, bool load_attachments)
+        public Message ToMimeMessage(int tenant, string user, bool loadAttachments)
         {
-            var mime_message = new Message
+            var mimeMessage = new Message
                 {
                     Date = DateTime.UtcNow,
                     From = new Address(From, string.IsNullOrEmpty(DisplayName) ? "" : Codec.RFC2047Encode(DisplayName))
                 };
 
             if (Important)
-                mime_message.Priority = MessagePriority.High;
+                mimeMessage.Priority = MessagePriority.High;
 
-            mime_message.To.AddRange(To.ConvertAll(address =>
+            mimeMessage.To.AddRange(To.ConvertAll(address =>
                 {
                     var addr = Parser.ParseAddress(address);
                     addr.Name = string.IsNullOrEmpty(addr.Name) ? "" : Codec.RFC2047Encode(addr.Name);
                     return new Address(addr.Email, addr.Name);
                 }));
 
-            mime_message.Cc.AddRange(Cc.ConvertAll(address =>
+            mimeMessage.Cc.AddRange(Cc.ConvertAll(address =>
                 {
                     var addr = Parser.ParseAddress(address);
                     addr.Name = string.IsNullOrEmpty(addr.Name) ? "" : Codec.RFC2047Encode(addr.Name);
                     return new Address(addr.Email, addr.Name);
                 }));
 
-            mime_message.Bcc.AddRange(Bcc.ConvertAll(address =>
+            mimeMessage.Bcc.AddRange(Bcc.ConvertAll(address =>
                 {
                     var addr = Parser.ParseAddress(address);
                     addr.Name = string.IsNullOrEmpty(addr.Name) ? "" : Codec.RFC2047Encode(addr.Name);
                     return new Address(addr.Email, addr.Name);
                 }));
 
-            mime_message.Subject = Codec.RFC2047Encode(Subject);
+            mimeMessage.Subject = Codec.RFC2047Encode(Subject);
 
             // Set correct body
             if (Attachments.Any() || AttachmentsEmbedded.Any())
@@ -176,106 +184,105 @@ namespace ASC.Api.Mail.DAO
                 {
                     attachment.user = user;
                     attachment.tenant = tenant;
-                    var attach = CreateAttachment(attachment, load_attachments);
+                    var attach = CreateAttachment(attachment, loadAttachments);
                     if (attach != null)
-                        mime_message.Attachments.Add(attach);
+                        mimeMessage.Attachments.Add(attach);
                 }
 
-                foreach (var embedded_attachment in AttachmentsEmbedded)
+                foreach (var embeddedAttachment in AttachmentsEmbedded)
                 {
-                    embedded_attachment.user = user;
-                    embedded_attachment.tenant = tenant;
-                    var attach = CreateAttachment(embedded_attachment, true);
+                    embeddedAttachment.user = user;
+                    embeddedAttachment.tenant = tenant;
+                    var attach = CreateAttachment(embeddedAttachment, true);
                     if (attach != null)
-                        mime_message.EmbeddedObjects.Add(attach);
+                        mimeMessage.EmbeddedObjects.Add(attach);
                 }
             }
 
-            mime_message.MessageId = MimeMessageId;
-            mime_message.InReplyTo = MimeReplyToId;
+            mimeMessage.MessageId = MimeMessageId;
+            mimeMessage.InReplyTo = MimeReplyToId;
 
-            mime_message.BodyText.Charset = Encoding.UTF8.HeaderName;
-            mime_message.BodyText.ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable;
-            mime_message.BodyText.Text = "";
+            mimeMessage.BodyText.Charset = Encoding.UTF8.HeaderName;
+            mimeMessage.BodyText.ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable;
+            mimeMessage.BodyText.Text = "";
 
-            mime_message.BodyHtml.Charset = Encoding.UTF8.HeaderName;
-            mime_message.BodyHtml.ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable;
-            mime_message.BodyHtml.Text = HtmlBody;
+            mimeMessage.BodyHtml.Charset = Encoding.UTF8.HeaderName;
+            mimeMessage.BodyHtml.ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable;
+            mimeMessage.BodyHtml.Text = HtmlBody;
 
-            mime_message.OriginalData = Encoding.GetEncoding("iso-8859-1").GetBytes(mime_message.ToMimeString());
+            mimeMessage.OriginalData = Encoding.GetEncoding("iso-8859-1").GetBytes(mimeMessage.ToMimeString());
 
-            return mime_message;
+            return mimeMessage;
         }
 
-        public List<MailAttachment> ChangeEmbededAttachmentLinksForStoring(int tenant, string username, int mail_id, MailBoxManager manager)
+        public List<MailAttachment> ChangeEmbededAttachmentLinksForStoring(int tenant, string user, int mailId, MailBoxManager manager)
         {
             //Todo: This method can be separated in two
-            var fck_storage = StorageManager.GetDataStoreForCkImages(tenant);
-            var attachment_storage = StorageManager.GetDataStoreForAttachments(tenant);
+            var fckStorage = StorageManager.GetDataStoreForCkImages(tenant);
+            var attachmentStorage = StorageManager.GetDataStoreForAttachments(tenant);
 
-            var current_mail_fckeditor_url = fck_storage.GetUri(StorageManager.CkeditorImagesDomain, "").ToString();
-            var current_mail_attachment_folder_url = GetThisMailFolder(username);
-            var current_user_storage_url = GetUserFolder(username);
-            _logger.Info("ChangeEmbededAttachmentLinksForStoring() Fckeditor storage base url: {0}", current_mail_fckeditor_url);
-            _logger.Info("ChangeEmbededAttachmentLinksForStoring() Current mail attachment folder storage base url: {0}", current_mail_attachment_folder_url);
-            _logger.Info("ChangeEmbededAttachmentLinksForStoring() Current user folder storage base url: {0}", current_user_storage_url);
+            var currentMailFckeditorUrl = fckStorage.GetUri(StorageManager.CKEDITOR_IMAGES_DOMAIN, "").ToString();
+            var currentMailAttachmentFolderUrl = MailStoragePathCombiner.GetMessageDirectory(user, StreamId);
+            var currentUserStorageUrl = MailStoragePathCombiner.GetUserMailsDirectory(user);
+            _logger.Info("ChangeEmbededAttachmentLinksForStoring() Fckeditor storage base url: {0}", currentMailFckeditorUrl);
+            _logger.Info("ChangeEmbededAttachmentLinksForStoring() Current mail attachment folder storage base url: {0}", currentMailAttachmentFolderUrl);
+            _logger.Info("ChangeEmbededAttachmentLinksForStoring() Current user folder storage base url: {0}", currentUserStorageUrl);
 
-            var xpath_query = StorageManager.GetXpathQueryForAttachmentsToResaving(current_mail_fckeditor_url, current_mail_attachment_folder_url, current_user_storage_url);
-            _logger.Info("ChangeEmbededAttachmentLinksForStoring() Xpath Query selector for embedded attachment links: {0}", xpath_query);
-            var attachments_for_saving = new List<MailAttachment>();
+            var xpathQuery = StorageManager.GetXpathQueryForAttachmentsToResaving(currentMailFckeditorUrl, currentMailAttachmentFolderUrl, currentUserStorageUrl);
+            _logger.Info("ChangeEmbededAttachmentLinksForStoring() Xpath Query selector for embedded attachment links: {0}", xpathQuery);
+            var attachmentsForSaving = new List<MailAttachment>();
 
             var doc = new HtmlDocument();
             doc.LoadHtml(HtmlBody);
-            
-            var link_nodes = doc.DocumentNode.SelectNodes(xpath_query);
 
-            if (link_nodes != null)
+            var linkNodes = doc.DocumentNode.SelectNodes(xpathQuery);
+
+            if (linkNodes != null)
             {
-                foreach (var link_node in link_nodes)
+                foreach (var linkNode in linkNodes)
                 {
                     try
                     {
-                        var link = link_node.Attributes["src"].Value;
+                        var link = linkNode.Attributes["src"].Value;
 
                         _logger.Info("ChangeEmbededAttachmentLinksForStoring() Original selected file_link: {0}", link);
 
-                        var is_fck_image = link.StartsWith(current_mail_fckeditor_url);
-                        var prefix_length = is_fck_image
-                                                ? current_mail_fckeditor_url.Length
-                                                : link.IndexOf(current_user_storage_url, StringComparison.Ordinal) +
-                                                  current_user_storage_url.Length + 1;
-                        var file_link = HttpUtility.UrlDecode(link.Substring(prefix_length));
+                        var isFckImage = link.StartsWith(currentMailFckeditorUrl);
+                        var prefixLength = isFckImage
+                                                ? currentMailFckeditorUrl.Length
+                                                : link.IndexOf(currentUserStorageUrl, StringComparison.Ordinal) +
+                                                  currentUserStorageUrl.Length + 1;
+                        var fileLink = HttpUtility.UrlDecode(link.Substring(prefixLength));
 
-                        var file_name = Path.GetFileName(file_link);
-                        var attach = CreateEmbbededAttachment(file_name, link, file_link, username, tenant);
+                        var fileName = Path.GetFileName(fileLink);
+                        var attach = CreateEmbbededAttachment(fileName, link, fileLink, user, tenant, MailboxId);
 
-                        var saved_attachment_id = manager.GetAttachmentId(mail_id, attach.contentId);
-                        var attachment_was_saved = saved_attachment_id != 0;
-                        var current_img_storage = is_fck_image ? fck_storage : attachment_storage;
-                        var domain = is_fck_image ? StorageManager.CkeditorImagesDomain : username;
+                        var savedAttachmentId = manager.GetAttachmentId(mailId, attach.contentId);
+                        var attachmentWasSaved = savedAttachmentId != 0;
+                        var currentImgStorage = isFckImage ? fckStorage : attachmentStorage;
+                        var domain = isFckImage ? StorageManager.CKEDITOR_IMAGES_DOMAIN : user;
 
-                        if (mail_id == 0 || !attachment_was_saved)
+                        if (mailId == 0 || !attachmentWasSaved)
                         {
-                            attach.data = StorageManager.LoadDataStoreItemData(domain, file_link, current_img_storage);
-                            //TODO: Add quota if needed
-                            manager.StoreAttachmentWithoutQuota(tenant, username, attach);
-                            attachments_for_saving.Add(attach);
+                            attach.data = StorageManager.LoadDataStoreItemData(domain, fileLink, currentImgStorage);
+                            manager.StoreAttachmentWithoutQuota(tenant, user, attach);
+                            attachmentsForSaving.Add(attach);
                         }
 
-                        if (attachment_was_saved)
+                        if (attachmentWasSaved)
                         {
-                            attach = manager.GetMessageAttachment(saved_attachment_id, tenant, username);
+                            attach = manager.GetMessageAttachment(savedAttachmentId, tenant, user);
                             var path = MailStoragePathCombiner.GerStoredFilePath(attach);
-                            current_img_storage = attachment_storage;
-                            attach.storedFileUrl = current_img_storage.GetUri("", path).ToString();
+                            currentImgStorage = attachmentStorage;
+                            attach.storedFileUrl =
+                                MailStoragePathCombiner.GetStoredUrl(currentImgStorage.GetUri(path));
                         }
 
                         _logger.Info("ChangeEmbededAttachmentLinksForStoring() Restored new file_link: {0}",
                                      attach.storedFileUrl);
-                        link_node.SetAttributeValue("src", attach.storedFileUrl);
-
+                        linkNode.SetAttributeValue("src", attach.storedFileUrl);
                     }
-                    catch (Exception ex)
+                    catch(Exception ex)
                     {
                         _logger.Error("ChangeEmbededAttachmentLinksForStoring() failed with exception: {0}", ex.ToString());
                     }
@@ -284,123 +291,194 @@ namespace ASC.Api.Mail.DAO
                 HtmlBody = doc.DocumentNode.OuterHtml;
             }
 
-            return attachments_for_saving;
+            return attachmentsForSaving;
         }
 
-        
 
-        private MailAttachment CreateEmbbededAttachment(string file_name, string link, string file_link, string username, int tenant)
+        private MailAttachment CreateEmbbededAttachment(string fileName, string link, string fileLink, string user, int tenant, int mailboxId)
         {
             return new MailAttachment
                 {
-                    fileName = file_name,
-                    storedName = file_name,
+                    fileName = fileName,
+                    storedName = fileName,
                     contentId = link.GetMd5(),
-                    storedFileUrl = file_link,
+                    storedFileUrl = fileLink,
                     streamId = StreamId,
-                    user = username,
-                    tenant = tenant
+                    user = user,
+                    tenant = tenant,
+                    mailboxId = mailboxId
                 };
         }
 
-        public void ChangeEmbededAttachmentLinks(int tenant, string id_user)
+        public void ChangeEmbededAttachmentLinks(int tenant, string user)
         {
-            var base_attachment_folder = GetThisMailFolder(id_user);
+            var baseAttachmentFolder = MailStoragePathCombiner.GetMessageDirectory(user, StreamId);
 
             var doc = new HtmlDocument();
             doc.LoadHtml(HtmlBody);
-            var link_nodes = doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'" + base_attachment_folder + "'))]");
-            if (link_nodes != null)
+            var linkNodes = doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'" + baseAttachmentFolder + "'))]");
+            if (linkNodes == null) return;
+
+            foreach (var linkNode in linkNodes)
             {
-                foreach (var link_node in link_nodes)
-                {
-                    var link = link_node.Attributes["src"].Value;
-                    _logger.Info("ChangeEmbededAttachmentLinks() Embeded attachment link for changing to cid: {0}", link);
-                    var file_link = HttpUtility.UrlDecode(link.Substring(base_attachment_folder.Length));
-                    var file_name = Path.GetFileName(file_link);
+                var link = linkNode.Attributes["src"].Value;
+                _logger.Info("ChangeEmbededAttachmentLinks() Embeded attachment link for changing to cid: {0}", link);
+                var fileLink = HttpUtility.UrlDecode(link.Substring(baseAttachmentFolder.Length));
+                var fileName = Path.GetFileName(fileLink);
 
-                    var attach = CreateEmbbededAttachment(file_name, link, file_link, id_user, tenant);
-                    AttachmentsEmbedded.Add(attach);
-                    link_node.SetAttributeValue("src", "cid:" + attach.contentId);
-                    _logger.Info("ChangeEmbededAttachmentLinks() Attachment cid: {0}", attach.contentId);
-                }
-                HtmlBody = doc.DocumentNode.OuterHtml;
+                var attach = CreateEmbbededAttachment(fileName, link, fileLink, user, tenant, MailboxId);
+                AttachmentsEmbedded.Add(attach);
+                linkNode.SetAttributeValue("src", "cid:" + attach.contentId);
+                _logger.Info("ChangeEmbededAttachmentLinks() Attachment cid: {0}", attach.contentId);
             }
-        }
-
-        private string GetThisMailFolder(string id_user)
-        {
-            return String.Format("{0}/{1}", id_user, StreamId);
-        }
-
-        private string GetUserFolder(string id_user)
-        {
-            return id_user;
+            HtmlBody = doc.DocumentNode.OuterHtml;
         }
 
         public void ChangeSmileLinks()
         {
-            var base_smile_url = SmileToAttachmentConvertor.SmileBaseUrl;
+            var baseSmileUrl = SmileToAttachmentConvertor.SmileBaseUrl;
 
             var doc = new HtmlDocument();
             doc.LoadHtml(HtmlBody);
-            var link_nodes = doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'" + base_smile_url + "'))]");
-            if (link_nodes != null)
-            {
-                var smile_convertor = new SmileToAttachmentConvertor();
-                foreach (var link_node in link_nodes)
-                {
-                    var link = link_node.Attributes["src"].Value;
-                    _logger.Info("ChangeSmileLinks() Link to smile: {0}", link);
-                    var attach = smile_convertor.ToMailAttachment(link);
-                    _logger.Info("ChangeSmileLinks() Embedded smile contentId: {0}", attach.contentId);
-                    link_node.SetAttributeValue("src", "cid:" + attach.contentId);
+            var linkNodes = doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'" + baseSmileUrl + "'))]");
+            if (linkNodes == null) return;
 
-                    if (AttachmentsEmbedded.All(x => x.contentId != attach.contentId))
-                    {
-                        AttachmentsEmbedded.Add(attach);
-                    }
+            var smileConvertor = new SmileToAttachmentConvertor();
+            foreach (var linkNode in linkNodes)
+            {
+                var link = linkNode.Attributes["src"].Value;
+                _logger.Info("ChangeSmileLinks() Link to smile: {0}", link);
+                var attach = smileConvertor.ToMailAttachment(link);
+                _logger.Info("ChangeSmileLinks() Embedded smile contentId: {0}", attach.contentId);
+                linkNode.SetAttributeValue("src", "cid:" + attach.contentId);
+
+                if (AttachmentsEmbedded.All(x => x.contentId != attach.contentId))
+                {
+                    AttachmentsEmbedded.Add(attach);
                 }
-                HtmlBody = doc.DocumentNode.OuterHtml;
             }
+            HtmlBody = doc.DocumentNode.OuterHtml;
         }
 
-        private static MimePart CreateAttachment(MailAttachment attachment, bool load_attachments)
+        public void ChangeAttachedFileLinksImages()
         {
-            var ret_val = new MimePart();
+            var baseSmileUrl = FileLinksToAttachmentConvertor.BaseUrl;
 
-            var s3_key = MailStoragePathCombiner.GerStoredFilePath(attachment);
-            var file_name = attachment.fileName ?? Path.GetFileName(s3_key);
+            var doc = new HtmlDocument();
+            doc.LoadHtml(HtmlBody);
+            var linkNodes = doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'" + baseSmileUrl + "'))]");
+            if (linkNodes == null) return;
 
-            if (load_attachments)
+            var fileLinksConvertor = new FileLinksToAttachmentConvertor();
+            foreach (var linkNode in linkNodes)
             {
-                var byte_array = attachment.data;
+                var link = linkNode.Attributes["src"].Value;
+                _logger.Info("ChangeAttachedFileLinksImages() Link to file link: {0}", link);
+                var attach = fileLinksConvertor.ToMailAttachment(link);
+                _logger.Info("ChangeAttachedFileLinksImages() Embedded file link contentId: {0}", attach.contentId);
+                linkNode.SetAttributeValue("src", "cid:" + attach.contentId);
 
-                if (byte_array == null || byte_array.Length == 0)
+                if (AttachmentsEmbedded.All(x => x.contentId != attach.contentId))
                 {
-                    using (var stream = StorageManager.GetDataStoreForAttachments(attachment.tenant).GetReadStream(s3_key))
+                    AttachmentsEmbedded.Add(attach);
+                }
+            }
+            HtmlBody = doc.DocumentNode.OuterHtml;
+        }
+
+        public void ChangeAttachedFileLinksAddresses(int tenantId)
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml(HtmlBody);
+
+            var linkNodes = doc.DocumentNode.SelectNodes("//a[contains(@class,'mailmessage-filelink-link')]");
+            if (linkNodes == null) return;
+
+            var fileStorageService = new FileStorageServiceController();
+
+            var setLinks = new List<Tuple<string, string>>();
+            foreach (var linkNode in linkNodes)
+            {
+                var fileId = linkNode.Attributes["data-fileid"].Value;
+                var objectId = "file_" + fileId;
+
+                linkNode.Attributes["class"].Remove(); // 'mailmessage-filelink-link'
+                linkNode.Attributes["data-fileid"].Remove(); // 'data-fileid'
+
+                var setLink = setLinks.SingleOrDefault(x => x.Item1 == fileId);
+                if (setLink != null)
+                {
+                    linkNode.SetAttributeValue("href", setLink.Item2);
+                    _logger.Info("ChangeAttachedFileLinks() Change file link href: {0}", fileId);
+                    continue;
+                }
+
+                var aceCollection = new AceCollection
                     {
-                        byte_array = stream.GetCorrectBuffer();
+                        Entries = new ItemList<string> { objectId },
+                        Aces = new ItemList<AceWrapper>
+                            {
+                                new AceWrapper
+                                    {
+                                        SubjectId = FileConstant.ShareLinkId,
+                                        SubjectGroup = true,
+                                        Share = FileLinksShareMode
+                                    }
+                            }
+                    };
+
+                fileStorageService.SetAceObject(aceCollection, false);
+                _logger.Info("ChangeAttachedFileLinks() Set public accees to file: {0}", fileId);
+                var sharedInfo = fileStorageService.GetSharedInfo(new ItemList<string> { objectId }).Find(r => r.SubjectId == FileConstant.ShareLinkId);
+                linkNode.SetAttributeValue("href", sharedInfo.SubjectName);
+                _logger.Info("ChangeAttachedFileLinks() Change file link href: {0}", fileId);
+                setLinks.Add(new Tuple<string, string>(fileId, sharedInfo.SubjectName));
+            }
+
+            linkNodes = doc.DocumentNode.SelectNodes("//div[contains(@class,'mailmessage-filelink')]");
+            foreach (var linkNode in linkNodes)
+            {
+                linkNode.Attributes["class"].Remove();
+            }
+
+            HtmlBody = doc.DocumentNode.OuterHtml;
+        }
+
+        private static MimePart CreateAttachment(MailAttachment attachment, bool loadAttachments)
+        {
+            var retVal = new MimePart();
+
+            var s3Key = MailStoragePathCombiner.GerStoredFilePath(attachment);
+            var fileName = attachment.fileName ?? Path.GetFileName(s3Key);
+
+            if (loadAttachments)
+            {
+                var byteArray = attachment.data;
+
+                if (byteArray == null || byteArray.Length == 0)
+                {
+                    using (var stream = StorageManager.GetDataStoreForAttachments(attachment.tenant).GetReadStream(s3Key))
+                    {
+                        byteArray = stream.GetCorrectBuffer();
                     }
                 }
 
-                ret_val = new MimePart(byte_array, file_name);
+                retVal = new MimePart(byteArray, fileName);
 
-                if (attachment.contentId != null) ret_val.ContentId = attachment.contentId;
+                if (attachment.contentId != null) retVal.ContentId = attachment.contentId;
             }
             else
             {
-                var conent_type = Common.Web.MimeMapping.GetMimeMapping(s3_key);
-                ret_val.ContentType = new ContentType {Type = conent_type};
-                ret_val.Filename = file_name;
-                if (attachment.contentId != null) ret_val.ContentId = attachment.contentId;
-                ret_val.TextContent = "";
+                var conentType = Common.Web.MimeMapping.GetMimeMapping(s3Key);
+                retVal.ContentType = new ContentType {Type = conentType};
+                retVal.Filename = fileName;
+                if (attachment.contentId != null) retVal.ContentId = attachment.contentId;
+                retVal.TextContent = "";
             }
 
-            return ret_val;
+            return retVal;
         }
 
-        
 
         public void Validate()
         {
@@ -413,21 +491,19 @@ namespace ASC.Api.Mail.DAO
                 throw new ArgumentException("no streamId");
         }
 
-        private static void ValidateAddresses(string field_name, IEnumerable<string> addresses, bool strong_validation)
+        private static void ValidateAddresses(string fieldName, IEnumerable<string> addresses, bool strongValidation)
         {
-            var invalid_email_found = false;
+            var invalidEmailFound = false;
             if (addresses != null)
             {
                 if (addresses.Any(addr => !Validator.ValidateSyntax(addr)))
-                    invalid_email_found = true;
+                    invalidEmailFound = true;
 
-                if (invalid_email_found)
-                    throw new ArgumentException(MailApiResource.ErrorIncorrectEmailAddress.Replace("%1", field_name));
+                if (invalidEmailFound)
+                    throw new ArgumentException(MailApiResource.ErrorIncorrectEmailAddress.Replace("%1", fieldName));
             }
-            else if (strong_validation)
-                throw new ArgumentException(MailApiResource.ErrorEmptyField.Replace("%1", field_name));
+            else if (strongValidation)
+                throw new ArgumentException(MailApiResource.ErrorEmptyField.Replace("%1", fieldName));
         }
-
-
     }
 }

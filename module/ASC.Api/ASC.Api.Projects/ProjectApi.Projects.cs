@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -112,9 +110,9 @@ namespace ASC.Api.Projects
         ///Project by status
         ///</short>
         /// <category>Projects</category>
-        ///<param name="status">"open" or "closed"</param>
+        ///<param name="status">"open"|"paused"|"closed"</param>
         ///<returns>List of projects</returns>
-        [Read("{status:(open|closed)}")]
+        [Read("{status:(open|paused|closed)}")]
         public IEnumerable<ProjectWrapper> GetProjects(ProjectStatus status)
         {
             return EngineFactory.GetProjectEngine().GetAll(status, 0).Select(x => new ProjectWrapper(x)).ToSmartList();
@@ -215,7 +213,7 @@ namespace ASC.Api.Projects
         [Read(@"@search/{query}")]
         public IEnumerable<SearchWrapper> SearchProjects(string query)
         {
-            return EngineFactory.GetSearchEngine().Search(query, 0).Select(x => new SearchWrapper(x)).ToSmartList();
+            return EngineFactory.GetSearchEngine().Search(query).Select(x => new SearchWrapper(x)).ToSmartList();
         }
 
         #endregion
@@ -296,7 +294,7 @@ namespace ASC.Api.Projects
 
             MessageService.Send(Request, MessageAction.ProjectCreated, project.Title);
 
-            return new ProjectWrapperFull(project) {ParticipantCount = participantsList.Count()};
+            return new ProjectWrapperFull(project, EngineFactory.GetFileEngine().GetRoot(project.ID)) { ParticipantCount = participantsList.Count() + 1};
         }
 
         #endregion
@@ -358,6 +356,8 @@ namespace ASC.Api.Projects
             project = projectEngine.SaveOrUpdate(project, notify);
             EngineFactory.GetTagEngine().SetProjectTags(project.ID, tags);
             projectEngine.UpdateTeam(project, participants, true);
+
+            project.ParticipantCount = participants.Count();
 
             MessageService.Send(Request, MessageAction.ProjectUpdated, project.Title);
 
@@ -796,11 +796,19 @@ namespace ASC.Api.Projects
             var projectEngine = EngineFactory.GetProjectEngine();
 
             var project = projectEngine.GetByID(projectid).NotFoundIfNull();
+
             ProjectSecurity.DemandCreateTask(project);
 
             if (!EngineFactory.GetMilestoneEngine().IsExists(milestoneid) && milestoneid > 0)
             {
                 throw new ItemNotFoundException("Milestone not found");
+            }
+
+            var team = projectEngine.GetTeam(project.ID).Select(r=> r.ID).ToList();
+
+            if (responsibles.Any(responsible => !team.Contains(responsible)))
+            {
+                throw new ArgumentException(@"responsibles", "responsibles");
             }
 
             var task = new Task
@@ -926,25 +934,6 @@ namespace ASC.Api.Projects
             if (!EngineFactory.GetProjectEngine().IsExists(projectid)) throw new ItemNotFoundException();
             return EngineFactory
                 .GetTaskEngine().GetByProject(projectid, status, Guid.Empty)
-                .Select(x => new TaskWrapper(x)).ToSmartList();
-        }
-
-        ///<summary>
-        ///Returns the list of all tasks in the project with the ID specified in the request
-        ///</summary>
-        ///<short>
-        ///All tasks
-        ///</short>
-        /// <category>Tasks</category>
-        ///<param name="projectid">Project ID</param>
-        ///<returns>List of tasks</returns>
-        ///<exception cref="ItemNotFoundException"></exception>
-        [Read(@"{projectid:[0-9]+}/task/@all")]
-        public IEnumerable<TaskWrapper> GetAllProjectTasks(int projectid)
-        {
-            if (!EngineFactory.GetProjectEngine().IsExists(projectid)) throw new ItemNotFoundException();
-            return EngineFactory
-                .GetTaskEngine().GetByProject(projectid, null, Guid.Empty)
                 .Select(x => new TaskWrapper(x)).ToSmartList();
         }
 

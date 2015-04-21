@@ -1,87 +1,109 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
+
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Dal.DbSchema;
-using ASC.Mail.Server.Utils;
 
 namespace ASC.Mail.Server.Dal
 {
     public class ServerDal : DalBase
     {
-        public ServerDal(int tenant_id)
-            : base("mailserver", tenant_id)
+        public ServerDal(int tenant)
+            : base("mailserver", tenant)
         {
         }
 
-        public ServerDal(string db_connection_string_name, int tenant_id) : base(db_connection_string_name, tenant_id)
+        public ServerDal(string dbConnectionStringName, int tenant) : base(dbConnectionStringName, tenant)
         {
         }
 
-        private TenantServerDto GetFreeServer(DbManager db)
+        private static TenantServerDto GetFreeServer(IDbManager db)
         {
             if (db == null)
                 throw new ArgumentNullException("db");
 
-            const string ms_alias = "ms";
-            const string mst_alias = "mst";
-            const string mm_alias = "mm";
+            TenantServerDto serverDto;
 
-            var servers_query = new SqlQuery(ServerTable.name.Alias(ms_alias))
-                .Select(ServerTable.Columns.id.Prefix(ms_alias))
-                .Select(ServerTable.Columns.connection_string.Prefix(ms_alias))
-                .Select(ServerTable.Columns.mx_record.Prefix(ms_alias))
-                .Select(ServerTable.Columns.server_type.Prefix(ms_alias))
-                .Select(ServerTable.Columns.smtp_settings_id.Prefix(ms_alias))
-                .Select(ServerTable.Columns.imap_settings_id.Prefix(ms_alias))
-                .LeftOuterJoin(TenantXServerTable.name.Alias(mst_alias),
-                               Exp.EqColumns(ServerTable.Columns.id.Prefix(ms_alias),
-                                             TenantXServerTable.Columns.id_server.Prefix(mst_alias)))
-                .LeftOuterJoin(MailboxTable.name.Alias(mm_alias),
-                               Exp.EqColumns(TenantXServerTable.Columns.id_tenant.Prefix(mst_alias),
-                                             MailboxTable.Columns.id_tenant.Prefix(mm_alias)))
-                .Where(Exp.Gt(ServerTable.Columns.server_type.Prefix(ms_alias), 0))
-                .Where(Exp.Or(Exp.Eq(MailboxTable.Columns.is_teamlab_mailbox.Prefix(mm_alias), true),
-                              Exp.Eq(MailboxTable.Columns.is_teamlab_mailbox.Prefix(mm_alias), Exp.Empty)))
-                .Where(Exp.Or(Exp.Eq(MailboxTable.Columns.is_removed.Prefix(mm_alias), false),
-                              Exp.Eq(MailboxTable.Columns.is_removed.Prefix(mm_alias), Exp.Empty)))
-                .GroupBy(ServerTable.Columns.id.Prefix(ms_alias))
-                .OrderBy("count(" + ServerTable.Columns.id.Prefix(ms_alias) + ")", true);
+            var serversQuery = new SqlQuery(ServerTable.name)
+                .Select(ServerTable.Columns.id)
+                .Select(ServerTable.Columns.connection_string)
+                .Select(ServerTable.Columns.mx_record)
+                .Select(ServerTable.Columns.server_type)
+                .Select(ServerTable.Columns.smtp_settings_id)
+                .Select(ServerTable.Columns.imap_settings_id)
+                .Where(Exp.Gt(ServerTable.Columns.server_type, 0));
 
-            return db.ExecuteList(servers_query)
-                     .Select(r => r.ToTenantServerDto())
-                     .FirstOrDefault();
+            var servers = db.ExecuteList(serversQuery)
+                            .Select(r => r.ToTenantServerDto())
+                            .ToList();
 
+            if (servers.Count > 1)
+            {
+                const string mst_alias = "mst";
+                const string mb_alias = "mb";
+
+                var serverXmailboxes = new Dictionary<int, int>();
+
+                foreach (var tenantServerDto in servers)
+                {
+                    var serverMailboxesQuery = new SqlQuery(TenantXServerTable.name.Alias(mst_alias))
+                        .InnerJoin(MailboxTable.name.Alias(mb_alias),
+                                   Exp.EqColumns(TenantXServerTable.Columns.id_tenant.Prefix(mst_alias),
+                                                 MailboxTable.Columns.id_tenant.Prefix(mb_alias)))
+                        .SelectCount()
+                        .Where(MailboxTable.Columns.is_teamlab_mailbox.Prefix(mb_alias), true)
+                        .Where(MailboxTable.Columns.is_removed.Prefix(mb_alias), false)
+                        .Where(TenantXServerTable.Columns.id_server.Prefix(mst_alias), tenantServerDto.id)
+                        .GroupBy(TenantXServerTable.Columns.id_server.Prefix(mst_alias));
+
+                    var count = db.ExecuteScalar<int>(serverMailboxesQuery);
+
+                    serverXmailboxes.Add(tenantServerDto.id, count);
+
+                }
+
+                var lightestServerId = serverXmailboxes.Aggregate((l, r) => l.Value < r.Value ? l : r).Key;
+
+                serverDto =
+                    servers.First(s => s.id == lightestServerId);
+
+            }
+            else
+            {
+                serverDto = servers.FirstOrDefault();
+            }
+
+            return serverDto;
         }
 
         private TenantServerDto LinkServerWithTenant(DbManager db)
@@ -94,12 +116,12 @@ namespace ASC.Mail.Server.Dal
             if (server == null)
                 throw new InvalidDataException("No mail servers registered.");
 
-            var link_server_with_tenant_query = new SqlInsert(TenantXServerTable.name)
+            var linkServerWithTenantQuery = new SqlInsert(TenantXServerTable.name)
                 .InColumnValue(TenantXServerTable.Columns.id_server, server.id)
-                .InColumnValue(TenantXServerTable.Columns.id_tenant, tenant_id);
+                .InColumnValue(TenantXServerTable.Columns.id_tenant, tenant);
 
-            var inserted_rows = db.ExecuteNonQuery(link_server_with_tenant_query);
-            if (inserted_rows == 0)
+            var insertedRows = db.ExecuteNonQuery(linkServerWithTenantQuery);
+            if (insertedRows == 0)
                 throw new InvalidOperationException(String.Format("Insert to {0} failed", TenantXServerTable.name));
 
             return server;

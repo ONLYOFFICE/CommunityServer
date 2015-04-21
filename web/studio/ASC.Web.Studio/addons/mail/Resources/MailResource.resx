@@ -366,14 +366,8 @@
   <data name="BlankModalTagsTitle" xml:space="preserve">
     <value>Tags</value>
   </data>
-  <data name="FlashUploaderLabel" xml:space="preserve">
-    <value>Flash Uploader</value>
-  </data>
   <data name="ImportanceLabel" xml:space="preserve">
     <value>Importance</value>
-  </data>
-  <data name="SwitchLabel" xml:space="preserve">
-    <value>Switch to the</value>
   </data>
   <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
     <value>Get default settings</value>
@@ -484,7 +478,7 @@
     <value>Total count of  files exceeds limit!\nPlease remove some files.</value>
   </data>
   <data name="AttachFilesFromDocsLabel" xml:space="preserve">
-    <value>Attach files from Docs</value>
+    <value>Attach from Docs</value>
   </data>
   <data name="AccessRightsSettings" xml:space="preserve">
     <value>Portal. Access Rights.</value>
@@ -496,10 +490,10 @@
     <value>Please, check all the account settings you entered. If you are sure your settings are correct, sign in to the mail service you use and confirm any verification questions, in case there are some. After then try again.</value>
   </data>
   <data name="TagsCommonInformationText" xml:space="preserve">
-    <value>С помощью тегов вы можете помечать письма и контакты. В дальнейшем это упростит поиск с помощью фильтрации по тегам.</value>
+    <value>You can mark messages and contacts using the tags. It will ease the search for the necessary ones using the tag filtering option in future.</value>
   </data>
   <data name="TagsCommonNotificationText" xml:space="preserve">
-    <value>Редактировать и удалять вы можете только теги, созданные в Почтовом клиенте. Теги, которые нельзя редактировать и удалять здесь, импортированы из CRM и доступны для изменений только администартору в модуле CRM.</value>
+    <value>You can edit and delete the tags created in Mail only. The tags imported from the CRM module cannot be either edited or deleted. They can be changed right in the CRM module by an administrator.</value>
   </data>
   <data name="LoadingMail" xml:space="preserve">
     <value>Loading Mail</value>
@@ -580,7 +574,7 @@
     <value>Reply All</value>
   </data>
   <data name="AccountsCommonInformationText" xml:space="preserve">
-    <value>You can manage the accounts and adjust their settings using this list.</value>
+    <value>Create mailbox for the default domain and manage the accounts and adjust their settings using this list.</value>
   </data>
   <data name="AccountsCommonNotificationText" xml:space="preserve">
     <value>The settings for the accounts connected using OAuth cannot be edited. You can only change the account name for them.</value>
@@ -699,5 +693,65 @@ All messages which were received before, will left in the CRM mailing history, b
   </data>
   <data name="GroupNotificationText" xml:space="preserve">
     <value>Mailgroup, edited in administration panel only</value>
+  </data>
+  <data name="BlankModalMailServerTip1" xml:space="preserve">
+    <value>Configure a mail server for your own corporate domain</value>
+  </data>
+  <data name="BlankModalMailServerTip2" xml:space="preserve">
+    <value>Give your employees or users custom mailbox addresses</value>
+  </data>
+  <data name="BlankModalMailServerTip3" xml:space="preserve">
+    <value>Assign aliases to the users and organize them into groups</value>
+  </data>
+  <data name="BlankModalMailServerTitle" xml:space="preserve">
+    <value>Mail Server</value>
+  </data>
+  <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
+    <value>Set up domain</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Body" xml:space="preserve">
+    <value>You have "View Only" access rights for some attached file, thus you will not be able to share them with others. {0}{0} These files can be copied to ''My Documents" folder and attached as links afterwards. {0}{0} Alternatively you can ask document owners to give you "Full Access" permissions to the files you want to attach as links and repeat the operation once again.</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Header" xml:space="preserve">
+    <value>Some files cannot be attached as links.</value>
+  </data>
+  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
+    <value>Attach links to files</value>
+  </data>
+  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Copy to My Documents</value>
+  </data>
+  <data name="FullAccess" xml:space="preserve">
+    <value>Full Access</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Read Only</value>
+  </data>
+  <data name="SaveAndSendMessageBtn" xml:space="preserve">
+    <value>Save &amp; Send Message</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Body" xml:space="preserve">
+    <value>The file(s) you attached as link(s) will be shared for email recipient(s) via link for people outside the portal. You can change access rights to the files in the Documents module later/</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Header" xml:space="preserve">
+    <value>Set up access rights for file(s) attached as links for email recipient(s):</value>
+  </data>
+  <data name="UploadFileLabel" xml:space="preserve">
+    <value>Upload file</value>
+  </data>
+  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
+    <value>Create mailbox</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Create Mailbox</value>
+  </data>
+  <data name="DomainHelperInformationText_1" xml:space="preserve">
+    <value>The ready-made free default domain is provided for you to create your new mailbox right away.</value>
+  </data>
+  <data name="DomainHelperInformationText_2" xml:space="preserve">
+    <value>This domain is common for all portals, so it is recommended that your corporate domain was used for corporate email correspondence</value>
   </data>
 </root>

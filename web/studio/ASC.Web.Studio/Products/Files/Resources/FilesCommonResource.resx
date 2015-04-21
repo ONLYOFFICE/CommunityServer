@@ -306,6 +306,9 @@
   <data name="ErrorMassage_BadRequest" xml:space="preserve">
     <value>Bad request.</value>
   </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Invalid title</value>
+  </data>
   <data name="Access" xml:space="preserve">
     <value>Access</value>
   </data>
@@ -399,9 +402,6 @@
   <data name="ErrorMassage_DocServiceException" xml:space="preserve">
     <value>Error occurred in the Documents Service</value>
   </data>
-  <data name="IsOriginal" xml:space="preserve">
-    <value>original</value>
-  </data>
   <data name="ErrorMassage_UnknownrProvider" xml:space="preserve">
     <value>Unknown provider</value>
   </data>
@@ -437,5 +437,8 @@
   </data>
   <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
     <value>This document is being edited</value>
+  </data>
+  <data name="ErrorMassage_FileChangesNotFound" xml:space="preserve">
+    <value>File changes was not found</value>
   </data>
 </root>

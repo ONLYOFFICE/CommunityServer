@@ -1,11 +1,9 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Forum" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewPostControl.ascx.cs" Inherits="ASC.Web.UserControls.Forum.NewPostControl" %>
 
 <%@ Register Assembly="ASC.Web.Studio" Namespace="ASC.Web.Studio.UserControls.Common.PollForm" TagPrefix="sc" %>
 
-<%@ Import Namespace="ASC.Data.Storage" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.UserControls.Forum" %>
 <%@ Import Namespace="ASC.Web.UserControls.Forum.Common" %>
 <%@ Import Namespace="ASC.Web.UserControls.Forum.Resources" %>
@@ -55,8 +53,6 @@
                 </div>
                 <div id="forum_upload_pnl" class="clearFix">
                 <a class="button gray forum_uploadButton" id="forum_uploadButton"><%=ForumUCResource.FileUploadAddButton%></a>
-                <div id="switcher" style="display: none;">
-                </div>
             </div>
             </div>
 

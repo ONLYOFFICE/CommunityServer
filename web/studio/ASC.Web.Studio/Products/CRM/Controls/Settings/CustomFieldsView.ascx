@@ -2,9 +2,7 @@
 <%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomFieldsView.ascx.cs" Inherits="ASC.Web.CRM.Controls.Settings.CustomFieldsView" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
-<%@ Import Namespace="ASC.Web.CRM.Classes" %>
-<%@ Import Namespace="ASC.Web.CRM.Configuration" %>
+
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
 <div class="settingsHeaderWithViewSwitcher clearFix">

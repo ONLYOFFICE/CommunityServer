@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -181,10 +179,8 @@ namespace ASC.Web.UserControls.Forum
         protected string _text = "";
         private string _subject = "";
         private string _tagString = "";
-        private string _tagValues = "";
         private ForumManager _forumManager;
         private bool _isSelectForum;
-        private List<ThreadCategory> _categories = null;
         private List<Thread> _threads = null;
 
         private List<FileObj> Attachments { get; set; }
@@ -207,13 +203,12 @@ namespace ASC.Web.UserControls.Forum
               "ForumManager.forumEditor.on('change',  function() {if (this.getData() == '') {jq('#btnPreview').addClass('disable');} else {jq('#btnPreview').removeClass('disable');}});" +
                "});");
 
-            var script = @"FileUploadManager.InitFileUploader({
-                        DropPanel: 'forum_uploadDialogContainer',
-                        Container: 'forum_uploadDialogContainer',
+            var script = @"FileUploadManager.Init({
+                        DropZone: 'forum_uploadDialogContainer',
                         TargetContainerID: 'forum_uploadContainer',
                         BrowseButton: 'forum_uploadButton',
                         MaxSize: '" + SetupInfo.MaxUploadSize + @"',
-                        FileUploadHandler: 'ASC.Web.UserControls.Forum.ForumAttachmentUploadHanler,ASC.Web.Community.Forum',
+                        FileUploadHandler: 'ASC.Web.UserControls.Forum.ForumAttachmentUploadHanler,ASC.Web.Community',
                         Data: { 'SettingsID': '" + SettingsID + @"',
                             'ThreadID': '" + _threadForAttachFiles + @"',
                             'UserID': '" + SecurityContext.CurrentAccount.ID + @"'
@@ -227,18 +222,19 @@ namespace ASC.Web.UserControls.Forum
                         DeleteAfterUpload: false,
                         Events:
                             {
-                                OnPreUploadStart: function() { ForumManager.BlockButtons(); },
-                                OnPostUploadComplete: function() { jq('#forum_attachments').val(JSON.stringify(FileUploadManager.UploadedFiles)); ForumManager.UnblockButtons(); }
+                                OnPreUploadStart: function() { 
+                                    FileUploadManager.DisableBrowseBtn(true);
+                                    ForumManager.BlockButtons();
+                                },
+                                OnPostUploadStop: function() { 
+                                    jq('#forum_attachments').val(JSON.stringify(FileUploadManager.uploadedFiles));
+                                    FileUploadManager.DisableBrowseBtn(false);
+                                    ForumManager.UnblockButtons();
+                                }
                             },
-                        Switcher:
-                            {
-                                ToFlash: '" + String.Format(FileUploaderFlashParams.ToFlash, "<a class=\"linkAction\" href=\"#\" onclick=\"javascript:FileUploadManager.SwitchMode();return false;\">", "</a>") + @"',
-                                ToBasic: '" + String.Format(FileUploaderFlashParams.ToHtml, "<a class=\"linkAction\" href=\"#\" onclick=\"javascript:FileUploadManager.SwitchMode();return false;\">", "</a>") + @"'
-                            }
-                    });
-
-                    if ((typeof FileReader == 'undefined' && !jQuery.browser.safari) || FileUploadManager.IsFlash(FileUploadManager._uploader))
-                        jq('#switcher').show();";
+                        EmptyFileErrorMsg: """ + ForumUCResource.EmptyFileErrorMsg + @""",
+                        FileSizeErrorMsg: """ + ForumUCResource.FileSizeErrorMsg + @"""
+                    });";
 
             Page.RegisterInlineScript(script);
         }
@@ -253,9 +249,8 @@ namespace ASC.Web.UserControls.Forum
             Utility.RegisterTypeForAjax(this.GetType());
             Utility.RegisterTypeForAjax(typeof(PostControl));
 
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/plupload.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/pluploadManager.js"));
-
+            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/jquery.fileupload.js"));
+            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/jquery.fileuploadManager.js"));
 
             PostType = NewPostType.Topic;
             PostAction = PostAction.Normal;
@@ -347,7 +342,8 @@ namespace ASC.Web.UserControls.Forum
                 }
                 else
                 {
-                    ForumDataProvider.GetThreadCategories(TenantProvider.CurrentTenantID, out _categories, out _threads);
+                    List<ThreadCategory> categories;
+                    ForumDataProvider.GetThreadCategories(TenantProvider.CurrentTenantID, out categories, out _threads);
 
 
                     foreach (var thread in _threads)
@@ -582,9 +578,6 @@ namespace ASC.Web.UserControls.Forum
                     _tagString = r.Replace(Request["forum_tags"].Trim(), ",");
                 }
 
-                if (!String.IsNullOrEmpty(Request["forum_search_tags"]))
-                    _tagValues = Request["forum_search_tags"].Trim();
-
                 _text = Request["forum_text"].Trim();
                 if (String.IsNullOrEmpty(_text))
                 {
@@ -815,7 +808,6 @@ namespace ASC.Web.UserControls.Forum
 
         private void NotifyAboutNewPost(Post post)
         {
-            string url = VirtualPathUtility.ToAbsolute("~/");
             int numb_page = Convert.ToInt32(Math.Ceiling(Topic.PostCount/(_settings.PostCountOnPage*1.0)));
 
             string hostUrl = CommonLinkUtility.ServerRootPath;
@@ -884,7 +876,8 @@ namespace ASC.Web.UserControls.Forum
 
             if (_threads == null)
             {
-                ForumDataProvider.GetThreadCategories(TenantProvider.CurrentTenantID, out _categories, out _threads);
+                List<ThreadCategory> categories;
+                ForumDataProvider.GetThreadCategories(TenantProvider.CurrentTenantID, out categories, out _threads);
 
                 _threads.RemoveAll(t => !t.Visible);
             }

@@ -1,38 +1,38 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web.Security;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
+using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Server.Utils;
+using ASC.Common.Data.Sql.Expressions;
+using System.Collections.Generic;
 
 namespace ASC.Mail.Server.Dal
 {
@@ -40,55 +40,51 @@ namespace ASC.Mail.Server.Dal
     {
         private readonly int _tenant;
         private readonly string _user;
-        private const int DefaultDomainId = -1;
 
-        public DnsDal(int tenant_id, string user_id)
-            : this("mailserver", tenant_id, user_id)
+        public DnsDal(int tenant, string user)
+            : this("mailserver", tenant, user)
         {
         }
 
-        public DnsDal(string db_connection_string_name, int tenant_id, string user_id)
-            : base(db_connection_string_name, tenant_id)
+        public DnsDal(string dbConnectionStringName, int tenant, string user)
+            : base(dbConnectionStringName, tenant)
         {
-            _user = user_id;
-            _tenant = tenant_id;
+            _user = user;
+            _tenant = tenant;
         }
 
-        public DnsDto CreateFreeDnsRecords(string dkim_selector, string domain_checker_prefix, 
+        public DnsDto CreateFreeDnsRecords(string dkimSelector, string domainCheckerPrefix, 
             string spf, DbManager db = null)
         {
-            if (string.IsNullOrEmpty(dkim_selector))
-                throw new ArgumentNullException("dkim_selector");
+            if (string.IsNullOrEmpty(dkimSelector))
+                throw new ArgumentNullException("dkimSelector");
 
-            if (string.IsNullOrEmpty(domain_checker_prefix))
-                throw new ArgumentNullException("domain_checker_prefix");
+            if (string.IsNullOrEmpty(domainCheckerPrefix))
+                throw new ArgumentNullException("domainCheckerPrefix");
 
             if (string.IsNullOrEmpty(spf))
                 throw new ArgumentNullException("spf");
 
-            string private_key, public_key;
-            DnsChecker.DnsChecker.GenerateKeys(out private_key, out public_key);
+            string privateKey, publicKey;
+            DnsChecker.DnsChecker.GenerateKeys(out privateKey, out publicKey);
 
-            var rand = new Random();
-            var domain_check_value = Membership.GeneratePassword(16, 0);
-            domain_check_value = Regex.Replace(domain_check_value, @"[^a-zA-Z0-9]", m => rand.Next(10).ToString());
-            var domain_check = domain_checker_prefix + ": " + domain_check_value;
+            var domainCheckValue = PasswordGenerator.GenerateNewPassword(16);
+            var domainCheck = domainCheckerPrefix + ": " + domainCheckValue;
 
-
-            var insert_values_query = new SqlInsert(DnsTable.name)
+            var insertValuesQuery = new SqlInsert(DnsTable.name)
                 .InColumnValue(AddressTable.Columns.id, 0)
                 .InColumnValue(DnsTable.Columns.user, _user)
                 .InColumnValue(DnsTable.Columns.tenant, _tenant)
-                .InColumnValue(DnsTable.Columns.dkim_selector, dkim_selector)
-                .InColumnValue(DnsTable.Columns.dkim_private_key, private_key)
-                .InColumnValue(DnsTable.Columns.dkim_public_key, public_key)
-                .InColumnValue(DnsTable.Columns.domain_check, domain_check)
+                .InColumnValue(DnsTable.Columns.dkim_selector, dkimSelector)
+                .InColumnValue(DnsTable.Columns.dkim_private_key, privateKey)
+                .InColumnValue(DnsTable.Columns.dkim_public_key, publicKey)
+                .InColumnValue(DnsTable.Columns.domain_check, domainCheck)
                 .InColumnValue(DnsTable.Columns.spf, spf)
                 .Identity(0, 0, true);
 
-            var dns_record_id = NullSafeExecuteScalar<int>(db, insert_values_query);
-            return new DnsDto(dns_record_id, _tenant, _user, DefaultDomainId, dkim_selector, 
-                private_key, public_key, domain_check, spf);
+            var dnsRecordId = NullSafeExecuteScalar<int>(db, insertValuesQuery);
+            return new DnsDto(dnsRecordId, _tenant, _user, Defines.UNUSED_DNS_SETTING_DOMAIN_ID, dkimSelector, 
+                privateKey, publicKey, domainCheck, spf);
         }
 
         public DnsDto GetFreeDnsRecords(DbManager db = null)
@@ -96,86 +92,86 @@ namespace ASC.Mail.Server.Dal
             return GetDomainDnsRecordsForCurrentUser(db);
         }
 
-        public DnsDto LinkDnsToDomain(int dns_id, int domain_id, DbManager db)
+        public DnsDto LinkDnsToDomain(int dnsId, int domainId, DbManager db)
         {
-            if (dns_id < 0)
-                throw new ArgumentException("Argument dns_id less then zero.", "dns_id");
+            if (dnsId < 0)
+                throw new ArgumentException("Argument dns_id less then zero.", "dnsId");
 
-            if (domain_id < 0)
-                throw new ArgumentException("Argument domain_id less then zero.", "domain_id");
+            if (domainId < 0)
+                throw new ArgumentException("Argument domain_id less then zero.", "domainId");
 
             if (db == null)
                 throw new ArgumentNullException("db");
 
-            var dns_dto = GetDns(dns_id, db);
+            var dnsDto = GetDns(dnsId, db);
 
-            if (dns_dto == null)
-                throw new InvalidOperationException(String.Format("Record with dns id: {0} not found in db.", dns_id));
+            if (dnsDto == null)
+                throw new InvalidOperationException(String.Format("Record with dns id: {0} not found in db.", dnsId));
 
-            if (dns_dto.id_domain != domain_id)
+            if (dnsDto.id_domain != domainId)
             {
-                var update_query = new SqlUpdate(DnsTable.name)
-                    .Set(DnsTable.Columns.id_domain, domain_id)
-                    .Where(DnsTable.Columns.id, dns_id);
+                var updateQuery = new SqlUpdate(DnsTable.name)
+                    .Set(DnsTable.Columns.id_domain, domainId)
+                    .Where(DnsTable.Columns.id, dnsId);
 
-                var rows_affected = db.ExecuteNonQuery(update_query);
-                if (rows_affected == 0)
-                    throw new InvalidOperationException(String.Format("Record with dns id: {0} not found in db.", dns_id));
+                var rowsAffected = db.ExecuteNonQuery(updateQuery);
+                if (rowsAffected == 0)
+                    throw new InvalidOperationException(String.Format("Record with dns id: {0} not found in db.", dnsId));
 
-                dns_dto.id_domain = domain_id;
-                return dns_dto;
+                dnsDto.id_domain = domainId;
+                return dnsDto;
             }
 
-            return dns_dto;
+            return dnsDto;
         }
 
-        public DnsDto GetDomainDnsRecords(int domain_id, DbManager db = null)
+        public DnsDto GetDomainDnsRecords(int domainId, DbManager db = null)
         {
-            if (domain_id < 0)
-                throw new ArgumentException("Argument domain_id less then zero.", "domain_id");
+            if (domainId < 0)
+                throw new ArgumentException("Argument domain_id less then zero.", "domainId");
 
-            var get_dns_query = GetDnsQuery()
-                .Where(DnsTable.Columns.tenant, _tenant)
-                .Where(DnsTable.Columns.id_domain, domain_id);
+            var getDnsQuery = GetDnsQuery()
+                .Where(Exp.In(DnsTable.Columns.tenant, new List<int> { _tenant, Defines.SHARED_TENANT_ID }))
+                .Where(DnsTable.Columns.id_domain, domainId);
 
-            return NullSafeExecuteList(db, get_dns_query).Select(r => r.ToDnsDto(_tenant, _user)).FirstOrDefault();
+            return NullSafeExecuteList(db, getDnsQuery).Select(r => r.ToDnsDto(_tenant, _user)).FirstOrDefault();
         }
 
         public DnsDto GetDomainDnsRecordsForCurrentUser(DbManager db = null)
         {
-            var get_dns_query = GetDnsQuery()
+            var getDnsQuery = GetDnsQuery()
                 .Where(DnsTable.Columns.tenant, _tenant)
                 .Where(DnsTable.Columns.user, _user)
-                .Where(DnsTable.Columns.id_domain, DefaultDomainId);
+                .Where(DnsTable.Columns.id_domain, Defines.UNUSED_DNS_SETTING_DOMAIN_ID);
 
-            return NullSafeExecuteList(db, get_dns_query).Select(r => r.ToDnsDto(_tenant, _user)).FirstOrDefault();
+            return NullSafeExecuteList(db, getDnsQuery).Select(r => r.ToDnsDto(_tenant, _user)).FirstOrDefault();
         }
 
-        public DnsDto GetDns(int dns_id, DbManager db = null)
+        public DnsDto GetDns(int dnsId, DbManager db = null)
         {
-            if (dns_id < 0)
-                throw new ArgumentException("Argument dns_id less then zero.", "dns_id");
+            if (dnsId < 0)
+                throw new ArgumentException("Argument dns_id less then zero.", "dnsId");
 
-            var get_dns_query = GetDnsQuery()
-                .Where(DnsTable.Columns.id, dns_id)
+            var getDnsQuery = GetDnsQuery()
+                .Where(DnsTable.Columns.id, dnsId)
                 .Where(DnsTable.Columns.tenant, _tenant)
                 .Where(DnsTable.Columns.user, _user);
 
-            return NullSafeExecuteList(db, get_dns_query).Select(r => r.ToDnsDto(_tenant, _user)).FirstOrDefault();
+            return NullSafeExecuteList(db, getDnsQuery).Select(r => r.ToDnsDto(_tenant, _user)).FirstOrDefault();
         }
 
-        public void RemoveUsedDns(int domain_id, DbManager db = null)
+        public void RemoveUsedDns(int domainId, DbManager db = null)
         {
-            if (domain_id < 0)
-                throw new ArgumentException("Argument domain_id less then zero.", "domain_id");
+            if (domainId < 0)
+                throw new ArgumentException("Argument domain_id less then zero.", "domainId");
 
-            var remove_dns_query = new SqlDelete(DnsTable.name)
-                .Where(DnsTable.Columns.id_domain, domain_id);
+            var removeDnsQuery = new SqlDelete(DnsTable.name)
+                .Where(DnsTable.Columns.id_domain, domainId);
 
-            NullSafeExecuteNonQuery(db, remove_dns_query);
+            NullSafeExecuteNonQuery(db, removeDnsQuery);
         }
 
-        private SqlQuery GetDnsQuery()
+        private static SqlQuery GetDnsQuery()
         {
             return new SqlQuery(DnsTable.name)
                 .Select(DnsTable.Columns.id)

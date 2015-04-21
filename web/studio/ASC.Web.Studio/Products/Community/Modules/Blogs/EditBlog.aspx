@@ -1,8 +1,7 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Blogs" %>
-<%@ Page Language="C#" MasterPageFile="~/Products/Community/Community.master" AutoEventWireup="true" CodeBehind="EditBlog.aspx.cs" Inherits="ASC.Web.Community.Blogs.EditBlog" Title="Untitled Page" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
+<%@ Page Language="C#" MasterPageFile="~/Products/Community/Master/Community.master" AutoEventWireup="true" CodeBehind="EditBlog.aspx.cs" Inherits="ASC.Web.Community.Blogs.EditBlog" Title="Untitled Page" %>
 
 <%@ Import Namespace="ASC.Blogs.Core.Resources" %>
-<%@ Import Namespace="ASC.Data.Storage" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 

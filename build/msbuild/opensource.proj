@@ -1,0 +1,84 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.XmlFile" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.XmlUpdate" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.Xml.XmlMassUpdate" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.CopyDirectory" />
+
+  <PropertyGroup>
+    <To Condition=" '$(To)' == '' ">..\deploy\opensource\</To>
+    <From>..\..\</From>
+    <IncludeBuild>^\\build\\config\\.+\.config$|^\\build\\config\\.+\.in$|^\\build\\sql\\onlyoffice.+|^\\build\\msbuild\\.+|\\Build\.bat$|\\Build\.sh$|\\BuildAndDeploy\.bat$|\\BuildAndDeploy\.sh$|\\ManageServices\.bat$</IncludeBuild>
+    <Exclude>\\bin\\|\\obj\\|\.csproj\.user$|\.sln$|\.suo$|\.log$|\.pfx$</Exclude>
+    <ExcludeModule>^\\module\\ASC\.Bar\\|^\\module\\ASC\.CRM\\|^\\module\\ASC\.IIS\.RewriteProvider\\|^\\module\\ASC\.MailSender\\|^\\module\\ASC\.Statistics\\|^\\module\\ASC\.TenantCacheService\\|^\\module\\ASC\.Notify\\ASC\.Notify\.Tests\\|^\\module\\ASC\.Recycle\\</ExcludeModule>
+    <ExcludeCommon>^\\common\\ASC\.Billing\.Service\\|^\\common\\ASC\.Data\.Storage\.StaticCopy\\|^\\common\\TMResourceManager\\</ExcludeCommon>
+    <ExcludeWeb>\\Products\\Tools\\|\\logs\\|\\ASC\.Web\.Studio\\Data\\|\\Forum\\Data\\|\\PhotoManager\\Data\\|\\Bookmarking\\Data\\|\\Wiki\\Data\\|\\Data\\Files\\|\\Crm\\Data\\|\\Projects\\Data\\|\\Talk\\Data\\|\\_source\\|\.afp$|\.cfc$|\.cfm$|\.lasso$|\.php$|\.pl$|\.py$</ExcludeWeb>
+    <ExcludeFeatures>^\\common\\ASC\.Data\.Backup|^\\common\\ASC\.ActiveDirectory\\|\\Core\\Import\\ActiveDirectoryUserImporter\.cs$|\\UserControls\\Management\\LdapSettings\\|\\Core\\Import\\SsoImporter\.cs$|\\HttpHandlers\\SamlHandler\.cs$|\\HttpHandlers\\JwtHandler\.cs$|\\UserControls\\Management\\SingleSignOnSettings\\|\\UserControls\\Management\\AuditTrail\\|\\UserControls\\Management\\LoginHistory\\|^\\module\\ASC\.AuditTrail\\|^\\module\\ASC\.Api\\ASC\.Api\.Security\\</ExcludeFeatures>
+  </PropertyGroup>
+
+  <Target Name="Build">
+    <CallTarget Targets="CopyFiles"/>
+    <CallTarget Targets="ModifyFiles"/>
+  </Target>
+
+
+  <Target Name="CopyFiles">
+    <RemoveDir Directories="$(To)" ContinueOnError="false"/>
+
+    <CopyDirectory
+      SourceFolder="$(From)"
+      DestinationFolder="$(To)"
+      IncludeRegex="^\\\.nuget\\|^\\module\\|^\\common\\|^\\web\\core\\ASC\.Web\.Core\\|^\\web\\studio\\ASC\.Web\.Studio\\|^\\web\\controls\\|^\\redistributable\\|^LICENSE\.txt$|^3rd-Party\.txt$|$(IncludeBuild)"
+      ExcludeRegex="$(Exclude)|$(ExcludeFeatures)|$(ExcludeModule)|$(ExcludeCommon)|$(ExcludeWeb)" />
+
+    <CopyDirectory
+      SourceFolder="$(From)common\TMResourceManager\ASC.Resource.Data"
+      DestinationFolder="$(To)common\TMResourceManager\ASC.Resource.Data"
+      ExcludeRegex="$(Exclude)" />
+  </Target>
+
+
+  <Target Name="ModifyFiles">
+    <!-- Modify configuration files -->
+    <CreateItem Include="$(To)web\studio\ASC.Web.Studio\*.config;$(To)build\config\TeamLabSvc.exe.Config">
+      <Output ItemName="ConfigurationFiles" TaskParameter="Include"/>
+    </CreateItem>
+    <CreateItem Include="@(ConfigurationFiles)" Condition="Exists('..\config\private\%(FileName).config.substitutions.xml')">
+      <Output ItemName="ConfigFilesWithSubstitutions" TaskParameter="Include"/>
+    </CreateItem>
+    <XmlMassUpdate
+      ContentFile="%(ConfigFilesWithSubstitutions.FullPath)"
+      SubstitutionsFile="..\config\private\%(ConfigFilesWithSubstitutions.FileName).config.substitutions.xml"
+      ContentRoot="/"
+      SubstitutionsRoot="/configuration/substitutions/SERVER"
+      NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity"/>
+    <XmlMassUpdate
+      ContentFile="$(To)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\App.config"
+      SubstitutionsFile="..\config\private\Mail.Aggregator.Substitutions.xml"
+      ContentRoot="/"
+      SubstitutionsRoot="/configuration/substitutions/SERVER"/>
+    <XmlMassUpdate
+      ContentFile="$(To)module\ASC.Mail.Aggregator\ASC.Mail.Watchdog.Service\App.config"
+      SubstitutionsFile="..\config\private\Mail.Watchdog.Substitutions.xml"
+      ContentRoot="/"
+      SubstitutionsRoot="/configuration/substitutions/SERVER"/>
+
+    <!-- Modify build.proj -->
+    <XmlUpdate XmlFileName="$(To)build\msbuild\deploy.proj" XPath="//n:PropertyGroup/n:DeployTo" Value="SERVER" Namespace="http://schemas.microsoft.com/developer/msbuild/2003" Prefix="n"/>
+    <XmlUpdate XmlFileName="$(To)build\msbuild\deploy.proj" XPath="//n:PropertyGroup/n:CallChangeConfigs" Value="0" Namespace="http://schemas.microsoft.com/developer/msbuild/2003" Prefix="n"/>
+
+    <!-- Modify project files to build without Microsoft Visual Studio -->
+    <CreateItem Include="$(To)web\**\*.csproj">
+      <Output TaskParameter="Include" ItemName="WebProjects"/>
+    </CreateItem>
+    <XmlFile
+      File="$(To)web\%(WebProjects.RecursiveDir)%(WebProjects.Filename)%(WebProjects.Extension)"
+      Namespace="http://schemas.microsoft.com/developer/msbuild/2003"
+      Prefix="n"
+      TaskAction="AddAttribute"
+      Element="/n:Project/n:Import[@Project='%24(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets']"
+      Key="Condition"
+      Value="Exists('%24(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets')"/>
+  </Target>
+
+</Project>

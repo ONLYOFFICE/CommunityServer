@@ -1,8 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.Talk" %>
 <%@ Page Language="C#" MasterPageFile="~/Masters/BaseTemplate.master" AutoEventWireup="true" CodeBehind="JabberClient.aspx.cs" Inherits="ASC.Web.Talk.JabberClient" Title="Untitled Page" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
-<%@ Import Namespace="ASC.Web.Talk.Addon" %>
-<%@ Import Namespace="ASC.Data.Storage" %>
 <%@ Import Namespace="ASC.Web.Talk.Resources" %>
 
 <%@ Register Src="~/addons/talk/UserControls/TabsContainer.ascx" TagName="TabsContainer" TagPrefix="asct" %>

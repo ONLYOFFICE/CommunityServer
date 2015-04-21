@@ -63,7 +63,7 @@
       <HintPath>..\..\..\packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -111,9 +111,9 @@
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\common\TMResourceManager\Data\TMResourceData.csproj">
+    <ProjectReference Include="..\..\..\common\TMResourceManager\ASC.Resource.Data\ASC.Resource.Data.csproj">
       <Project>{826533d1-ae21-4d14-87ba-67eb9d81d03e}</Project>
-      <Name>TMResourceData</Name>
+      <Name>ASC.Resource.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>

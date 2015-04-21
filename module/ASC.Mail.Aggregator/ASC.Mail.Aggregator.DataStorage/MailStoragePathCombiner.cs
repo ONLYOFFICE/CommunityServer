@@ -1,36 +1,35 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using ASC.Core;
 using ASC.Data.Storage;
 using ASC.Data.Storage.S3;
 using ASC.Mail.Aggregator.Common;
@@ -47,51 +46,51 @@ namespace ASC.Mail.Aggregator.DataStorage
                     {'+', "%2b"}, {'#', "%23"}, {'|', "_"}, {'<', "_"}, {'>', "_"}, {'"', "_"}, {':', "_"}, {'~', "_"}, {'?', "_"}
                 };
 
-        private const string BadCharsInPath = "|<>:\"~?";
+        private const string BAD_CHARS_IN_PATH = "|<>:\"~?";
 
         private static string ComplexReplace(string str, string replacement)
         {
-            return replacement.Aggregate(str, (current, bad_char) => current.Replace(bad_char.ToString(CultureInfo.InvariantCulture), Replacements[bad_char]));
+            return replacement.Aggregate(str, (current, badChar) => current.Replace(badChar.ToString(CultureInfo.InvariantCulture), Replacements[badChar]));
         }
 
         public static string PrepareAttachmentName(string name)
         {
-            return ComplexReplace(name, BadCharsInPath);
+            return ComplexReplace(name, BAD_CHARS_IN_PATH);
         }
 
-        public static string GetPreSignedUri(int file_id, int id_tenant, string id_user, string stream, int file_number,
-                                          string file_name, IDataStore data_store)
+        public static string GetPreSignedUri(int fileId, int tenant, string user, string stream, int fileNumber,
+                                          string fileName, IDataStore dataStore)
         {
-            var attachment_path = GetFileKey(id_user, stream, file_number, file_name);
+            var attachmentPath = GetFileKey(user, stream, fileNumber, fileName);
 
-            if (data_store == null)
-                data_store = MailDataStore.GetDataStore(id_tenant);
+            if (dataStore == null)
+                dataStore = MailDataStore.GetDataStore(tenant);
 
             string url;
 
-            if (data_store is S3Storage)
+            if (dataStore is S3Storage)
             {
-                var content_disposition_file_name = ContentDispositionUtil.GetHeaderValue(file_name, withoutBase: true);
-                var headers_for_url = new []{"Content-Disposition:" + content_disposition_file_name};
-                url = data_store.GetPreSignedUri("", attachment_path, TimeSpan.FromMinutes(10), headers_for_url).ToString();
+                var contentDispositionFileName = ContentDispositionUtil.GetHeaderValue(fileName, withoutBase: true);
+                var headersForUrl = new []{"Content-Disposition:" + contentDispositionFileName};
+                url = dataStore.GetPreSignedUri("", attachmentPath, TimeSpan.FromMinutes(10), headersForUrl).ToString();
             }
             else
             {
                 //TODO: Move url to config;
-                attachment_path = "/addons/mail/httphandlers/download.ashx";
+                attachmentPath = "/addons/mail/httphandlers/download.ashx";
 
-                var uri_builder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(attachment_path));
-                if (uri_builder.Uri.IsLoopback)
+                var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(attachmentPath));
+                if (uriBuilder.Uri.IsLoopback)
                 {
-                    uri_builder.Host = Dns.GetHostName();
+                    uriBuilder.Host = Dns.GetHostName();
                 }
-                var query = uri_builder.Query;
+                var query = uriBuilder.Query;
 
-                query += "attachid=" + file_id + "&";
+                query += "attachid=" + fileId + "&";
                 query += "stream=" + stream + "&";
-                query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(file_id + stream);
+                query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(fileId + stream);
 
-                url = uri_builder.Uri + "?" + query;
+                url = uriBuilder.Uri + "?" + query;
             }
 
             return url;
@@ -99,17 +98,22 @@ namespace ASC.Mail.Aggregator.DataStorage
 
         public static string GetStoredUrl(Uri uri)
         {
+            if (WorkContext.IsMono && uri.Scheme == Uri.UriSchemeFile)
+            {
+                return GetStoredUrl(CommonLinkUtility.GetFullAbsolutePath(uri.ToString()));
+            }
+
             return GetStoredUrl(!uri.IsAbsoluteUri ? CommonLinkUtility.GetFullAbsolutePath(uri.ToString()) : uri.ToString());
         }
 
-        private static string GetStoredUrl(string full_url)
+        private static string GetStoredUrl(string fullUrl)
         {
-            return ComplexReplace(full_url, "#");
+            return ComplexReplace(fullUrl, "#");
         }
 
-        public static string GetFileKey(string id_user, string stream, int file_number, string file_name)
+        public static string GetFileKey(string user, string stream, int fileNumber, string fileName)
         {
-            return String.Format("{0}/{1}/attachments/{2}/{3}", id_user, stream, file_number, ComplexReplace(file_name, BadCharsInPath));
+            return String.Format("{0}/{1}/attachments/{2}/{3}", user, stream, fileNumber, ComplexReplace(fileName, BAD_CHARS_IN_PATH));
         }
 
         public static string GetBodyKey(string stream)
@@ -117,14 +121,14 @@ namespace ASC.Mail.Aggregator.DataStorage
             return String.Format("{0}/body.html", stream);
         }
 
-        public static string GetBodyKey(string id_user, string stream)
+        public static string GetBodyKey(string user, string stream)
         {
-            return String.Format("{0}/{1}/body.html", id_user, stream);
+            return String.Format("{0}/{1}/body.html", user, stream);
         }
 
-        public static string GetEmlKey(string id_user, string stream)
+        public static string GetEmlKey(string user, string stream)
         {
-            return String.Format("{0}/{1}/message.eml", id_user, stream);
+            return String.Format("{0}/{1}/message.eml", user, stream);
         }
 
         public static string GerStoredFilePath(MailAttachment attachment)
@@ -132,14 +136,24 @@ namespace ASC.Mail.Aggregator.DataStorage
             return GetFileKey(attachment.user, attachment.streamId, attachment.fileNumber, attachment.storedName);
         }
 
-        public static string GetPreSignedUrl(MailAttachment attachment, IDataStore data_store = null)
+        public static string GetPreSignedUrl(MailAttachment attachment, IDataStore dataStore = null)
         {
-            return GetPreSignedUri(attachment.fileId, attachment.tenant, attachment.user, attachment.streamId, attachment.fileNumber, attachment.storedName, data_store);
+            return GetPreSignedUri(attachment.fileId, attachment.tenant, attachment.user, attachment.streamId, attachment.fileNumber, attachment.storedName, dataStore);
         }
 
-        public static string GerStoredSignatureImagePath(int id_mailbox, string stored_name)
+        public static string GerStoredSignatureImagePath(int mailboxId, string storedName)
         {
-            return String.Format("signatures/{0}/{1}", id_mailbox, ComplexReplace(stored_name, BadCharsInPath));
+            return String.Format("signatures/{0}/{1}", mailboxId, ComplexReplace(storedName, BAD_CHARS_IN_PATH));
+        }
+
+        public static string GetMessageDirectory(string user, string stream)
+        {
+            return String.Format("{0}/{1}", user, stream);
+        }
+
+        public static string GetUserMailsDirectory(string user)
+        {
+            return String.Format("{0}", user);
         }
     }
 }

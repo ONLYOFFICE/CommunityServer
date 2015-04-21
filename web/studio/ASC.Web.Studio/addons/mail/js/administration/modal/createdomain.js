@@ -1,148 +1,134 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-window.createDomainModal = (function ($) {
-    var require_dns_info,
-        first_step = 1,
-        last_step = 5,
-        domain_name = '',
-        domain_ownership_is_proved = false;
 
-    function show(requireDnsInfo) {
-        require_dns_info = requireDnsInfo;
-        showStepPopup(first_step);
-        domain_name = "";
-        domain_ownership_is_proved = false;
+window.createDomainModal = (function($) {
+    var requireDnsInfo;
+    var firstStep = 1;
+    var lastStep = 5;
+    var domainName = '';
+    var domainOwnershipIsProved = false;
+
+    function show(requireDnsInfoParam) {
+        requireDnsInfo = requireDnsInfoParam;
+        showStepPopup(firstStep);
+        domainName = "";
+        domainOwnershipIsProved = false;
     }
 
     function showStepPopup(step) {
-        var html = $.tmpl('createDomainWizardTmpl', { step: step, require_dns_info: require_dns_info, faq_url: TMMail.getFaqLink(), domain_name: domain_name });
+        var html = $.tmpl('createDomainWizardTmpl', { step: step, require_dns_info: requireDnsInfo, faq_url: TMMail.getFaqLink(), domain_name: domainName });
 
-        $(html).find('.next').unbind('click').bind('click', function () {
-            if ($(this).hasClass('disable'))
+        $(html).find('.next').unbind('click').bind('click', function() {
+            if ($(this).hasClass('disable')) {
                 return false;
-
-            if (step == first_step) {
-                checkDomainExistance();
-            } else if (step == first_step + 1) {
-                checkDomainOwnership();
             }
-            else if (step == last_step)
+
+            if (step == firstStep) {
+                checkDomainExistance();
+            } else if (step == firstStep + 1) {
+                checkDomainOwnership();
+            } else if (step == lastStep) {
                 addDomain();
-            else {
-                var new_step = step == last_step ? last_step : step + 1;
-                showStepPopup(new_step);
+            } else {
+                var newStep = step == lastStep ? lastStep : step + 1;
+                showStepPopup(newStep);
             }
             return false;
         });
 
-        if (step != first_step) {
+        if (step != firstStep) {
             $(html).find('.prev').unbind('click').bind('click', function() {
-                if ($(this).hasClass('disable'))
+                if ($(this).hasClass('disable')) {
                     return false;
+                }
 
-                var new_step = step == first_step ? first_step : step - 1;
-                showStepPopup(new_step);
+                var newStep = step == firstStep ? firstStep : step - 1;
+                showStepPopup(newStep);
 
-                if (new_step == first_step && domain_name != '') {
-                    $('#wizard_add_domain').find('.web_domain').val(domain_name);
+                if (newStep == firstStep && domainName != '') {
+                    $('#wizard_add_domain').find('.web_domain').val(domainName);
                 }
 
                 return false;
             });
         }
 
-        $(html).find('.cancel').unbind('click').bind('click', function () {
-            if ($(this).hasClass('disable'))
+        $(html).find('.cancel').unbind('click').bind('click', function() {
+            if ($(this).hasClass('disable')) {
                 return false;
+            }
             popup.hide();
             return false;
         });
 
         popup.hide();
-        popup.addPopup(window.MailAdministrationResource.DomainWizardPopupHeader, html, step == first_step ? '392px' : '470px');
-
-        if (step == first_step) {
-            var domain_input = $('#mail_server_create_domain_wizard .web_domain');
-            domain_input.focus();
-            domain_input.unbind('textchange').bind('textchange', function () {
-                TMMail.setRequiredError('wizard_add_domain', false);
-            });
-        }
-
-        $(document).unbind('keyup').bind('keyup', function (e) {
-            if (e.which == 13) {
-                if ($('#mail_server_create_domain_wizard').is(':visible')) {
-                    $('#mail_server_create_domain_wizard .next').trigger('click');
-                }
-                else if ($('#domain_added_container').is(':visible')) {
-                    $('#domain_added_container .cancel').trigger('click');
-                }
-            }
-            else if (e.which == 39 && step != first_step) {
-                if ($('#mail_server_create_domain_wizard').is(':visible')) {
-                    $('#mail_server_create_domain_wizard .next').trigger('click');
-                }
-            }
-            else if (e.which == 37 && step != first_step) {
-                if ($('#mail_server_create_domain_wizard').is(':visible')) {
-                    $('#mail_server_create_domain_wizard .prev').trigger('click');
+        popup.addPopup(window.MailAdministrationResource.DomainWizardPopupHeader, html, step == firstStep ? 392 : 470, null, null, {
+            onBlock: function () {
+                if (step == firstStep) {
+                    var domainInput = $('#mail_server_create_domain_wizard .web_domain');
+                    domainInput.unbind('textchange').bind('textchange', function () {
+                        TMMail.setRequiredError('wizard_add_domain', false);
+                    });
+                } else {
+                    setTimeout(function () {
+                        $('#mail_server_create_domain_wizard:visible .next').focus();
+                    }, 100);
                 }
             }
         });
+
+        PopupKeyUpActionProvider.EnterAction = "jq('#mail_server_create_domain_wizard:visible .next').trigger('click');";
     }
 
     function checkDomainExistance() {
         window.LoadingBanner.hideLoading();
 
-        var new_domain_name = $('#wizard_add_domain').find('.web_domain').val();
-        if (new_domain_name.length === 0) {
+        var newDomainName = $('#wizard_add_domain').find('.web_domain').val();
+        if (newDomainName.length === 0) {
             TMMail.setRequiredHint('wizard_add_domain', window.MailScriptResource.ErrorEmptyField);
             TMMail.setRequiredError('wizard_add_domain', true);
             return;
         }
 
-        if (!TMMail.reDomainStrict.test(new_domain_name)) {
+        if (!TMMail.reDomainStrict.test(newDomainName)) {
             TMMail.setRequiredHint('wizard_add_domain', window.MailApiErrorsResource.ErrorInvalidDomain);
             TMMail.setRequiredError('wizard_add_domain', true);
             return;
         }
 
-        domain_name = new_domain_name;
-        domain_ownership_is_proved = false;
+        domainName = newDomainName;
+        domainOwnershipIsProved = false;
 
         TMMail.setRequiredError('wizard_add_domain', false);
 
         displayLoading('#mail_server_create_domain_wizard', true);
 
         disableButtons(true);
-        
-        serviceManager.isDomainExists(domain_name, {}, {
+
+        serviceManager.isDomainExists(domainName, {}, {
             success: function(e, isExists) {
                 disableButtons(false);
                 if (!isExists) {
@@ -151,21 +137,21 @@ window.createDomainModal = (function ($) {
                         showStepPopup(2);
                     }
                 } else {
-                    administrationError.showErrorToastr("checkDomainExistance", [MailAdministrationResource.DomainWizardDomainAlreadyExists.format(domain_name)]);
+                    popup.error(MailAdministrationResource.DomainWizardDomainAlreadyExists.format(domainName));
                     displayLoading('#mail_server_create_domain_wizard', false);
-                    domain_ownership_is_proved = false;
+                    domainOwnershipIsProved = false;
                     TMMail.setRequiredHint('wizard_add_domain', '');
                     TMMail.setRequiredError('wizard_add_domain', true);
                 }
             },
-            error: function (e, error) {
+            error: function(e, error) {
                 disableButtons(false);
-                administrationError.showErrorToastr("checkDomainExistance", error);
+                popup.error(administrationError.getErrorText("checkDomainExistance", error));
                 TMMail.setRequiredHint('wizard_add_domain', '');
                 TMMail.setRequiredError('wizard_add_domain', true);
                 displayLoading('#mail_server_create_domain_wizard', false);
             }
-        }, ASC.Resources.Master.Resource.LoadingProcessing);
+        });
     }
 
     function checkDomainOwnership() {
@@ -175,7 +161,7 @@ window.createDomainModal = (function ($) {
 
         disableButtons(true);
 
-        if (domain_ownership_is_proved) {
+        if (domainOwnershipIsProved) {
             if ($('#mail_server_create_domain_wizard').is(':visible')) {
                 $('#mail_server_create_domain_wizard .cancel').trigger('click');
                 showStepPopup(3);
@@ -183,26 +169,26 @@ window.createDomainModal = (function ($) {
             }
         }
 
-        serviceManager.checkDomainOwnership(domain_name, {}, {
-            success: function (e, ownershipIsProved) {
+        serviceManager.checkDomainOwnership(domainName, {}, {
+            success: function(e, ownershipIsProved) {
                 disableButtons(false);
-                domain_ownership_is_proved = ownershipIsProved;
-                if (domain_ownership_is_proved) {
+                domainOwnershipIsProved = ownershipIsProved;
+                if (domainOwnershipIsProved) {
                     if ($('#mail_server_create_domain_wizard').is(':visible')) {
                         $('#mail_server_create_domain_wizard .cancel').trigger('click');
                         showStepPopup(3);
                     }
                 } else {
-                    administrationError.showErrorToastr("checkDomainOwnership", [MailAdministrationResource.DomainWizardDomainNotVerified.format(domain_name)]);
+                    popup.error(MailAdministrationResource.DomainWizardDomainNotVerified.format(domainName));
                     displayLoading('#mail_server_create_domain_wizard', false);
                 }
             },
-            error: function (e, error) {
+            error: function(e, error) {
                 disableButtons(false);
-                administrationError.showErrorToastr("checkDomainOwnership", error);
+                popup.error(administrationError.getErrorText("checkDomainOwnership", error));
                 displayLoading('#mail_server_create_domain_wizard', false);
             }
-        }, ASC.Resources.Master.Resource.LoadingProcessing);
+        });
     }
 
     function addDomain() {
@@ -212,9 +198,10 @@ window.createDomainModal = (function ($) {
 
         disableButtons(true);
 
-        serviceManager.addMailDomain(domain_name, require_dns_info.dns.id, {}, {
-            success: function (e, domain) {
+        serviceManager.addMailDomain(domainName, requireDnsInfo.dns.id, {}, {
+            success: function(e, domain) {
                 disableButtons(false);
+                displayLoading('#mail_server_create_domain_wizard', false);
                 if ($('#mail_server_create_domain_wizard').is(':visible')) {
                     $('#mail_server_create_domain_wizard .cancel').trigger('click');
                 }
@@ -223,18 +210,18 @@ window.createDomainModal = (function ($) {
 
                 TMMail.disableButton($("#mail-server-add-domain"), true);
                 serviceManager.getMailServerFreeDns({}, {
-                    success: function () {
+                    success: function() {
                         TMMail.disableButton($("#mail-server-add-domain"), false);
                     },
-                    error: function (ev, error) {
+                    error: function(ev, error) {
                         TMMail.disableButton($("#mail-server-add-domain"), false);
                         administrationError.showErrorToastr("getMailServerFreeDkim", error);
                     }
-                }, ASC.Resources.Master.Resource.LoadingProcessing);
+                });
             },
-            error: function (e, error) {
+            error: function(e, error) {
                 disableButtons(false);
-                administrationError.showErrorToastr("addMailDomain", error);
+                popup.error(administrationError.getErrorText("addMailDomain", error));
                 displayLoading('#mail_server_create_domain_wizard', false);
             }
         });
@@ -244,11 +231,14 @@ window.createDomainModal = (function ($) {
 
     function displayLoading(selector, isVisible) {
         var loader = $(selector).find('.progressContainer .loader');
+        
         if (loader) {
-            if (isVisible) 
+            if (isVisible) {
+                $(selector).find('.progressContainer .toast-popup-container').remove();
                 loader.show();
-            else
+            } else {
                 loader.hide();
+            }
         }
     }
 
@@ -297,16 +287,18 @@ window.createDomainModal = (function ($) {
     function getDnsSettingsBody(domainId, dnsInfo) {
         var body = $($.tmpl("domainDnsSettingsTmpl", { require_dns_info: dnsInfo }));
 
-        body.find(".buttons .verify").unbind('click').bind('click', function () {
-            if ($(this).hasClass('disable'))
+        body.find(".buttons .verify").unbind('click').bind('click', function() {
+            if ($(this).hasClass('disable')) {
                 return false;
+            }
             verifyDomainDns(domainId);
             return false;
         });
 
-        body.find(".buttons .cancel").unbind('click').bind('click', function () {
-            if ($(this).hasClass('disable'))
+        body.find(".buttons .cancel").unbind('click').bind('click', function() {
+            if ($(this).hasClass('disable')) {
                 return false;
+            }
             popup.hide();
             return false;
         });
@@ -315,30 +307,31 @@ window.createDomainModal = (function ($) {
 
     function verifyDomainDns(domainId) {
         var domain = administrationManager.getDomain(domainId);
-        var domain_el = $('.domain_table_container[domain_id="' + domain.id + '"] .domain');
-        if (domain_el.length == 1) {
+        var domainEl = $('.domain_table_container[domain_id="' + domain.id + '"] .domain');
+        if (domainEl.length == 1) {
 
             displayLoading("#mail_server_domain_dns_settings", true);
             disableButtons(true);
 
             serviceManager.getDomainDnsSettings(domainId, { domainId: domainId }, {
-                success: function (e, dns) {
+                success: function(e, dns) {
                     displayLoading("#mail_server_domain_dns_settings", false);
                     disableButtons(false);
 
-                    var body = getDnsSettingsBody(domainId,{ dns: dns });
+                    var body = getDnsSettingsBody(domainId, { dns: dns });
                     $("#mail_server_domain_dns_settings").replaceWith(body);
 
                     domain.dns = dns;
-                    if (dns.isVerified == true)
-                        domain_el.find('.verify_dns').hide();
+                    if (dns.isVerified == true) {
+                        domainEl.find('.verify_dns').hide();
+                    }
                 },
-                error: function (e, error) {
-                    displayLoading("#mail_server_domain_dns_settings", false);
+                error: function(e, error) {
                     disableButtons(false);
-                    administrationError.showErrorToastr("verifyDomainDns", error);
+                    popup.error(administrationError.getErrorText("verifyDomainDns", error));
+                    displayLoading("#mail_server_domain_dns_settings", false);
                 }
-            }, ASC.Resources.Master.Resource.LoadingProcessing);
+            });
         }
     }
 

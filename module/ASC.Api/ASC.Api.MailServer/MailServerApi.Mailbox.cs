@@ -1,42 +1,44 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web.Security;
 using ASC.Api.Attributes;
+using ASC.Api.Exceptions;
 using ASC.Api.MailServer.DataContracts;
 using ASC.Api.MailServer.Extensions;
 using ASC.Core;
+using ASC.Core.Users;
+using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Server.Utils;
+using System.Security;
+using ASC.Web.Studio.Core;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.MailServer
 {
@@ -54,41 +56,102 @@ namespace ASC.Api.MailServer
         [Create(@"mailboxes/add")]
         public MailboxData CreateMailbox(string name, int domain_id, string user_id)
         {
+            var domain = MailServer.GetWebDomain(domain_id, MailServerFactory);
+            var isSharedDomain = domain.Tenant == Defines.SHARED_TENANT_ID;
+
+            if (!IsAdmin && !isSharedDomain)
+                throw new SecurityException("Need admin privileges.");
+
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentException("Invalid mailbox name.", "name");
+                throw new ArgumentException(@"Invalid mailbox name.", "name");
 
             if (domain_id < 0)
-                throw new ArgumentException("Invalid domain id.", "domain_id");
+                throw new ArgumentException(@"Invalid domain id.", "domain_id");
 
             Guid user;
 
-            if(!Guid.TryParse(user_id, out user))
-                throw new ArgumentException("Invalid user id.", "user_id");
+            if (!Guid.TryParse(user_id, out user))
+                throw new ArgumentException(@"Invalid user id.", "user_id");
 
-            var teamlab_account = CoreContext.Authentication.GetAccountByID(user);
+            if (isSharedDomain && !IsAdmin && user != SecurityContext.CurrentAccount.ID)
+                throw new SecurityException("Creation of a shared mailbox is allowed only for the current account if user is not admin.");
 
-            if (teamlab_account == null)
+            var teamlabAccount = CoreContext.Authentication.GetAccountByID(user);
+
+            if (teamlabAccount == null)
                 throw new InvalidDataException("Unknown user.");
 
+            var userInfo = CoreContext.UserManager.GetUsers(user);
+
+            if(userInfo.IsVisitor())
+                throw new InvalidDataException("User is visitor.");
+
             if (name.Length > 64)
-                throw new ArgumentException("Local part of mailbox localpart exceed limitation of 64 characters.", "name");
+                throw new ArgumentException(@"Local part of mailbox localpart exceed limitation of 64 characters.", "name");
 
             if (!Parser.IsEmailLocalPartValid(name))
                 throw new ArgumentException("Incorrect mailbox name.");
 
-            var mailbox_name = name.ToLowerInvariant();
+            var mailboxName = name.ToLowerInvariant();
 
-            var domain = MailServer.GetWebDomain(domain_id, MailServerFactory);
+            var login = string.Format("{0}@{1}", mailboxName, domain.Name);
 
-            var login = string.Format("{0}@{1}", mailbox_name, domain.Name);
+            var password = PasswordGenerator.GenerateNewPassword(12);
 
-            var rand = new Random();
-            var password = Membership.GeneratePassword(12, 0);
-            password = Regex.Replace(password, @"[^a-zA-Z0-9]", m => rand.Next(10).ToString());
+            var account = MailServerFactory.CreateMailAccount(teamlabAccount, login);
 
-            var account = MailServerFactory.CreateMailAccount(teamlab_account, login);
+            var mailbox = MailServer.CreateMailbox(mailboxName, password, domain, account, MailServerFactory);
 
-            var mailbox = MailServer.CreateMailbox(mailbox_name, password, domain, account, MailServerFactory);
+            return mailbox.ToMailboxData();
+
+        }
+
+        /// <summary>
+        ///    Create my mailbox
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>MailboxData associated with tenant</returns>
+        /// <short>Create mailbox</short> 
+        /// <category>Mailboxes</category>
+        [Create(@"mailboxes/addmy")]
+        public MailboxData CreateMyMailbox(string name)
+        {
+            if (!SetupInfo.IsVisibleSettings("AdministrationPage") || !SetupInfo.IsVisibleSettings("MailCommonDomain") || CoreContext.Configuration.Standalone)
+                throw new Exception("Common domain is not available");
+
+            var domain = MailServer.GetWebDomains(MailServerFactory).FirstOrDefault(x => x.Tenant == Defines.SHARED_TENANT_ID);
+
+            if (domain == null)
+                throw new SecurityException("Domain not found.");
+
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentException(@"Invalid mailbox name.", "name");
+
+            var teamlabAccount = CoreContext.Authentication.GetAccountByID(SecurityContext.CurrentAccount.ID);
+
+            if (teamlabAccount == null)
+                throw new InvalidDataException("Unknown user.");
+
+            var userInfo = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+            if (userInfo.IsVisitor())
+                throw new InvalidDataException("User is visitor.");
+
+            if (name.Length > 64)
+                throw new ArgumentException(@"Local part of mailbox localpart exceed limitation of 64 characters.", "name");
+
+            if (!Parser.IsEmailLocalPartValid(name))
+                throw new ArgumentException("Incorrect mailbox name.");
+
+            var mailboxName = name.ToLowerInvariant();
+
+            var login = string.Format("{0}@{1}", mailboxName, domain.Name);
+
+            var password = PasswordGenerator.GenerateNewPassword(12);
+
+            var account = MailServerFactory.CreateMailAccount(teamlabAccount, login);
+
+            var mailbox = MailServer.CreateMailbox(mailboxName, password, domain, account, MailServerFactory);
 
             return mailbox.ToMailboxData();
 
@@ -103,6 +166,9 @@ namespace ASC.Api.MailServer
         [Read(@"mailboxes/get")]
         public List<MailboxData> GetMailboxes()
         {
+            if (!IsAdmin)
+                throw new SecurityException("Need admin privileges.");
+
             var mailboxes = MailServer.GetMailboxes(MailServerFactory);
             return mailboxes
                 .Select(mailbox => mailbox.ToMailboxData())
@@ -120,24 +186,35 @@ namespace ASC.Api.MailServer
         public int RemoveMailbox(int id)
         {
             if (id < 0)
-                throw new ArgumentException("Invalid domain id.", "id");
+                throw new ArgumentException(@"Invalid domain id.", "id");
 
             var mailbox = MailServer.GetMailbox(id, MailServerFactory);
 
+            if(mailbox == null)
+                throw new ItemNotFoundException("Account not found.");
+
+            var isSharedDomain = mailbox.Address.Domain.Tenant == Defines.SHARED_TENANT_ID;
+
+            if (!IsAdmin && !isSharedDomain)
+                throw new SecurityException("Need admin privileges.");
+
+            if (isSharedDomain && !IsAdmin && mailbox.Account.TeamlabAccount.ID != SecurityContext.CurrentAccount.ID)
+                throw new SecurityException("Removing of a shared mailbox is allowed only for the current account if user is not admin.");
+            
             var groups = MailServer.GetMailGroups(MailServerFactory);
 
-            var groups_contains_mailbox = groups.Where(g => g.InAddresses.Contains(mailbox.Address))
+            var groupsContainsMailbox = groups.Where(g => g.InAddresses.Contains(mailbox.Address))
                   .Select(g => g);
 
-            foreach (var mail_group in groups_contains_mailbox)
+            foreach (var mailGroup in groupsContainsMailbox)
             {
-                if (mail_group.InAddresses.Count == 1)
+                if (mailGroup.InAddresses.Count == 1)
                 {
-                    MailServer.DeleteMailGroup(mail_group.Id, MailServerFactory);
+                    MailServer.DeleteMailGroup(mailGroup.Id, MailServerFactory);
                 }
                 else
                 {
-                    mail_group.RemoveMember(mailbox.Address.Id);
+                    mailGroup.RemoveMember(mailbox.Address.Id);
                 }
             }
 
@@ -157,23 +234,32 @@ namespace ASC.Api.MailServer
         [Update(@"mailboxes/alias/add")]
         public AddressData AddMailboxAlias(int mailbox_id, string alias_name)
         {
+            if (!IsAdmin)
+                throw new SecurityException("Need admin privileges.");
+
             if (string.IsNullOrEmpty(alias_name))
-                throw new ArgumentException("Invalid alias name.", "alias_name");
+                throw new ArgumentException(@"Invalid alias name.", "alias_name");
 
             if (mailbox_id < 0)
-                throw new ArgumentException("Invalid mailbox id.", "mailbox_id");
+                throw new ArgumentException(@"Invalid mailbox id.", "mailbox_id");
 
             if (alias_name.Length > 64)
-                throw new ArgumentException("Local part of mailbox alias exceed limitation of 64 characters.", "alias_name");
+                throw new ArgumentException(@"Local part of mailbox alias exceed limitation of 64 characters.", "alias_name");
 
             if (!Parser.IsEmailLocalPartValid(alias_name))
                 throw new ArgumentException("Incorrect mailbox alias.");
 
             var mailbox = MailServer.GetMailbox(mailbox_id, MailServerFactory);
 
-            var mailbox_alias_name = alias_name.ToLowerInvariant();
+            if (mailbox == null)
+                throw new ArgumentException("Mailbox not exists");
 
-            var alias = mailbox.AddAlias(mailbox_alias_name, mailbox.Address.Domain, MailServerFactory);
+            if (mailbox.Address.Domain.Tenant == Defines.SHARED_TENANT_ID)
+                throw new InvalidOperationException("Adding mailbox alias is not allowed for shared domain.");
+
+            var mailboxAliasName = alias_name.ToLowerInvariant();
+
+            var alias = mailbox.AddAlias(mailboxAliasName, mailbox.Address.Domain, MailServerFactory);
 
             return alias.ToAddressData();
         }
@@ -189,13 +275,19 @@ namespace ASC.Api.MailServer
         [Update(@"mailboxes/alias/remove")]
         public int RemoveMailboxAlias(int mailbox_id, int address_id)
         {
+            if (!IsAdmin)
+                throw new SecurityException("Need admin privileges.");
+
             if (address_id < 0)
-                throw new ArgumentException("Invalid address id.", "address_id");
+                throw new ArgumentException(@"Invalid address id.", "address_id");
 
             if (mailbox_id < 0)
-                throw new ArgumentException("Invalid mailbox id.", "mailbox_id");
+                throw new ArgumentException(@"Invalid mailbox id.", "mailbox_id");
 
             var mailbox = MailServer.GetMailbox(mailbox_id, MailServerFactory);
+
+            if (mailbox == null)
+                throw new ArgumentException("Mailbox not exists");
 
             mailbox.RemoveAlias(address_id);
 

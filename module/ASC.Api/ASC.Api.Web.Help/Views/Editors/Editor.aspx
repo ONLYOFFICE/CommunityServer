@@ -54,14 +54,6 @@
                 <td>"en-US"</td>
             </tr>
             <tr class="tablerow">
-                <td>canBackToFolder</td>
-                <td>
-                    defines the presence or absence of the <b>Go to Documents</b> link which will allow to return to the folder where the list of all the documents to be viewed or edited is present
-				</td>
-                <td>boolean</td>
-                <td>true</td>
-            </tr>
-            <tr class="tablerow">
                 <td>canCreateNew</td>
                 <td>
                     defines the presence or absence of the <b>Create New...</b> menu option which will allow to create new document of the same type.
@@ -171,7 +163,6 @@
        editorConfig: {
           mode: 'edit',
           lang: 'en-US',
-          canBackToFolder: true,
           canCreateNew: true,
           createUrl: 'http://www.examplesite.com/url-to-example-document/',
           user: {

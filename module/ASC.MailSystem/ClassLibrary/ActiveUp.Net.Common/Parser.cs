@@ -548,24 +548,24 @@ namespace ActiveUp.Net.Mail
             try
             {
                 // Separate header and body.
-                var header_end = _regxHeaderEnd.Match(data).Index + 1;
-                var body_start = _regxBodyStart.Match(data).Index; 
+                var headerEnd = _regxHeaderEnd.Match(data).Index + 1;
+                var bodyStart = _regxBodyStart.Match(data).Index; 
 
                 //TODO: remove this workaround
-                if (body_start == 0)
+                if (bodyStart == 0)
                 {
                     //bodyStart = data.IndexOf("\r\n\r\n");
                     // Fix for a bug - the bodyStart was -1 (Invalid), MCALADO: 04/07/2008
-                    var index_body = data.IndexOf("\r\n\r\n", StringComparison.Ordinal);
-                    if (index_body > 0)
+                    var indexBody = data.IndexOf("\r\n\r\n", StringComparison.Ordinal);
+                    if (indexBody > 0)
                     {
-                        body_start = index_body;
+                        bodyStart = indexBody;
                     }
                 }
 
-                if (data.Length >= header_end)
+                if (data.Length >= headerEnd)
                 {
-                    var header = data.Substring(0, header_end);
+                    var header = data.Substring(0, headerEnd);
 
                     header = Unfold(header);
 
@@ -584,26 +584,28 @@ namespace ActiveUp.Net.Mail
                         {
                             part.ContentDisposition = GetContentDisposition(m.Value);
                         }
-                        part.HeaderFields.Add(
-                            FormatFieldName(m.Value.Substring(0, m.Value.IndexOf(':'))),
-                            Codec.RFC2047Decode(m.Value.Substring(m.Value.IndexOf(':') + 1).Trim(' ', '\r', '\n')).Trim('\n'));
-                        part.HeaderFieldNames.Add(
-                            FormatFieldName(m.Value.Substring(0, m.Value.IndexOf(':'))),
-                            Codec.RFC2047Decode(m.Value.Substring(0, m.Value.IndexOf(':')).Trim(' ', '\r', '\n')).Trim('\n'));
+
+                        var commaIndex = m.Value.IndexOf(':');
+                        var name = FormatFieldName(m.Value.Substring(0, commaIndex));
+                        var value = Codec.RFC2047Decode(m.Value.Substring(commaIndex + 1).Trim(' ', '\r', '\n')).Trim('\n');
+
+                        part.HeaderFields.Add(name, value);
+                        part.HeaderFieldNames.Add(name, value);
+
                         m = m.NextMatch();
                     }
 
-                    var is_multipart = part.ContentType.Type.ToLower().Equals("multipart");
+                    var isMultipart = part.ContentType.Type.ToLower().Equals("multipart");
 
                     // Store the (maybe still encoded) body.
-                    part.TextContent = is_multipart ? 
+                    part.TextContent = isMultipart ? 
                         string.Empty :
-                        (body_start < data.Length ? data.Substring(body_start) : string.Empty);
+                        (bodyStart < data.Length ? data.Substring(bodyStart) : string.Empty);
 
                     // Build the part tree.
 
                     // This is a container part.
-                    if (is_multipart)
+                    if (isMultipart)
                     {
                         ParseSubParts(ref part, ref data, message);
                     }
@@ -624,7 +626,7 @@ namespace ActiveUp.Net.Mail
                     //    }
                     //}
 
-                    if (!is_multipart) 
+                    if (!isMultipart) 
                         DecodePartBody(ref part);
 
                     try
@@ -1097,11 +1099,17 @@ namespace ActiveUp.Net.Mail
 
                 if (!string.IsNullOrEmpty(message.BodyHtml.Text))
                 {
-                    if (message.BodyHtml.Text.Length > message_limit || IsHtmlTooComplex(message.BodyHtml.Text))
+                    if (message.BodyHtml.Text.Length > message_limit)
                     {
                         var charset = (!string.IsNullOrEmpty(message.BodyHtml.Charset) ? message.BodyHtml.Charset : "iso-8859-1");
 
-                        message.AddAttachmentFromString("original_message.html", message.BodyHtml.Text, Encoding.GetEncoding(charset));
+                        message.AddAttachmentFromString("original_message.html",
+                                                        string.Format(
+                                                            "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset={0}\"></head><body>{1}</body><html>",
+                                                            charset,
+                                                            message.BodyHtml.Text),
+                                                        Encoding.GetEncoding(charset));
+                    
 
                         // To long message's html body.
                         message.BodyHtml.Text =

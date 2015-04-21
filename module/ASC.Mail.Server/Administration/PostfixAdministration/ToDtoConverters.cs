@@ -1,35 +1,31 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using ASC.Mail.Server.Utils;
-using ASC.Mail.Server.Administration.Interfaces;
-
 
 namespace ASC.Mail.Server.PostfixAdministration
 {
@@ -45,23 +41,23 @@ namespace ASC.Mail.Server.PostfixAdministration
             Actove = 5
         }
 
-        public const int mail_address_columns_count = 6;
+        public const int MAIL_ADDRESS_COLUMNS_COUNT = 6;
 
-        public static PostfixMailAddressDto ToAddressDto(this object[] db_record)
+        public static PostfixMailAddressDto ToAddressDto(this object[] dbRecord)
         {
-            if (db_record.Length != mail_address_columns_count) throw new ArgumentException("Can't convert to PostfixMailAddress invalid column num");
+            if (dbRecord.Length != MAIL_ADDRESS_COLUMNS_COUNT) throw new ArgumentException("Can't convert to PostfixMailAddress invalid column num");
 
-            var new_address = new PostfixMailAddressDto(
-                db_record[(int)AddressTableColumnsOrder.Address].ToString(),
-                db_record[(int)AddressTableColumnsOrder.Redirect].ToString(),
-                db_record[(int)AddressTableColumnsOrder.DomainName].ToString(),
-                Convert.ToBoolean(db_record[(int)AddressTableColumnsOrder.Actove])
+            var newAddress = new PostfixMailAddressDto(
+                dbRecord[(int)AddressTableColumnsOrder.Address].ToString(),
+                dbRecord[(int)AddressTableColumnsOrder.Redirect].ToString(),
+                dbRecord[(int)AddressTableColumnsOrder.DomainName].ToString(),
+                Convert.ToBoolean(dbRecord[(int)AddressTableColumnsOrder.Actove])
            );
 
-            if (new_address.redirect.Contains(","))
-                throw new InvalidCastException(String.Format("This value can't be converted to MailAddress: {0}", new_address.redirect));
+            if (newAddress.redirect.Contains(","))
+                throw new InvalidCastException(String.Format("This value can't be converted to MailAddress: {0}", newAddress.redirect));
 
-            return new_address;
+            return newAddress;
         }
 
 
@@ -80,22 +76,21 @@ namespace ASC.Mail.Server.PostfixAdministration
             Active = 10
         }
 
-        public const int domain_columns_count = 11;
+        public const int DOMAIN_COLUMNS_COUNT = 11;
 
-        public static PostfixWebDomainDto ToWebDomainDto(this object[] db_record)
+        public static PostfixWebDomainDto ToWebDomainDto(this object[] dbRecord)
         {
-            if (db_record.Length != domain_columns_count) throw new ArgumentException("Can't convert to PostfixWebDomain invalid column num");
+            if (dbRecord.Length != DOMAIN_COLUMNS_COUNT) throw new ArgumentException("Can't convert to PostfixWebDomain invalid column num");
 
             return new PostfixWebDomainDto(
-                db_record[(int)WebDomainColumnsOrder.Name].ToString(),
-                db_record[(int)WebDomainColumnsOrder.Description].ToString(),
-                Convert.ToInt32(db_record[(int)WebDomainColumnsOrder.Aliases]),
-                Convert.ToInt32(db_record[(int)WebDomainColumnsOrder.Mailboxes]),
-                Convert.ToInt64(db_record[(int)WebDomainColumnsOrder.Maxquta]),
-                Convert.ToInt64(db_record[(int)WebDomainColumnsOrder.Quta]),
-                db_record[(int)WebDomainColumnsOrder.Transport].ToString(),
-                Convert.ToBoolean(db_record[(int)WebDomainColumnsOrder.Backupmx]),
-                Convert.ToBoolean(db_record[(int)WebDomainColumnsOrder.Active])
+                dbRecord[(int)WebDomainColumnsOrder.Name].ToString(),
+                dbRecord[(int)WebDomainColumnsOrder.Description].ToString(),
+                Convert.ToInt32(dbRecord[(int)WebDomainColumnsOrder.Aliases]),
+                Convert.ToInt32(dbRecord[(int)WebDomainColumnsOrder.Mailboxes]),
+                Convert.ToInt64(dbRecord[(int)WebDomainColumnsOrder.Maxquta]),
+                Convert.ToInt64(dbRecord[(int)WebDomainColumnsOrder.Quta]),
+                Convert.ToBoolean(dbRecord[(int)WebDomainColumnsOrder.Backupmx]),
+                Convert.ToBoolean(dbRecord[(int)WebDomainColumnsOrder.Active])
            );
         }
 
@@ -113,34 +108,33 @@ namespace ASC.Mail.Server.PostfixAdministration
             Active = 9
         }
 
-        public const int mailbox_columns_count = 10;
+        public const int MAILBOX_COLUMNS_COUNT = 10;
 
-        public static PostfixMailboxDto ToMailboxDto(this object[] db_record)
+        public static PostfixMailboxDto ToMailboxDto(this object[] dbRecord)
         {
-            if (db_record.Length != mailbox_columns_count) throw new ArgumentException("Can't convert to PostfixMailbox invalid column num");
+            if (dbRecord.Length != MAILBOX_COLUMNS_COUNT) throw new ArgumentException("Can't convert to PostfixMailbox invalid column num");
 
             return new PostfixMailboxDto(
-                db_record[(int)MailboxColumnsOrder.Username].ToString(),
-                db_record[(int)MailboxColumnsOrder.Name].ToString(),
-                db_record[(int)MailboxColumnsOrder.Maildir].ToString(),
-                Convert.ToInt64(db_record[(int)MailboxColumnsOrder.Quota]),
-                db_record[(int)MailboxColumnsOrder.LocalPart].ToString(),
-                db_record[(int)MailboxColumnsOrder.Domain].ToString(),
-                Convert.ToBoolean(db_record[(int)MailboxColumnsOrder.Active])
+                dbRecord[(int)MailboxColumnsOrder.Username].ToString(),
+                dbRecord[(int)MailboxColumnsOrder.Name].ToString(),
+                dbRecord[(int)MailboxColumnsOrder.Maildir].ToString(),
+                Convert.ToInt64(dbRecord[(int)MailboxColumnsOrder.Quota]),
+                dbRecord[(int)MailboxColumnsOrder.LocalPart].ToString(),
+                dbRecord[(int)MailboxColumnsOrder.Domain].ToString(),
+                Convert.ToBoolean(dbRecord[(int)MailboxColumnsOrder.Active])
             );
         }
 
-        public static PostfixMailgroupDto ToMailgroupDto(this object[] db_record)
+        public static PostfixMailgroupDto ToMailgroupDto(this object[] dbRecord)
         {
-            if (db_record.Length != mail_address_columns_count + domain_columns_count) throw new ArgumentException("Can't convert to PostfixMailbox invalid column num");
+            if (dbRecord.Length != MAIL_ADDRESS_COLUMNS_COUNT + DOMAIN_COLUMNS_COUNT) throw new ArgumentException("Can't convert to PostfixMailbox invalid column num");
 
             var add = new PostfixMailAddressDto(
-                db_record[(int)AddressTableColumnsOrder.Address].ToString(),
-                db_record[(int)AddressTableColumnsOrder.Redirect].ToString(),
-                db_record[(int)AddressTableColumnsOrder.DomainName].ToString(),
-                Convert.ToBoolean(db_record[(int)AddressTableColumnsOrder.Actove])
-            );
-            add.Domain = db_record.SubArray(mail_address_columns_count, domain_columns_count).ToWebDomainDto();
+                dbRecord[(int) AddressTableColumnsOrder.Address].ToString(),
+                dbRecord[(int) AddressTableColumnsOrder.Redirect].ToString(),
+                dbRecord[(int) AddressTableColumnsOrder.DomainName].ToString(),
+                Convert.ToBoolean(dbRecord[(int) AddressTableColumnsOrder.Actove])
+                ) {Domain = dbRecord.SubArray(MAIL_ADDRESS_COLUMNS_COUNT, DOMAIN_COLUMNS_COUNT).ToWebDomainDto()};
 
             return new PostfixMailgroupDto(add);
         }
@@ -154,22 +148,22 @@ namespace ASC.Mail.Server.PostfixAdministration
             PublicKey = 4
         }
 
-        public const int dkim_columns_count = 5;
+        public const int DKIM_COLUMNS_COUNT = 5;
 
-        public static PostfixDkimDto ToDkimDto(this object[] db_record)
+        public static PostfixDkimDto ToDkimDto(this object[] dbRecord)
         {
-            if (db_record.Length != dkim_columns_count) 
+            if (dbRecord.Length != DKIM_COLUMNS_COUNT) 
                 throw new ArgumentException("Can't convert to PostfixMailbox invalid column num");
 
-            var dkim_dto = new PostfixDkimDto(
-                Convert.ToInt32(db_record[(int)DkimTableColumnsOrder.Id]),
-                db_record[(int)DkimTableColumnsOrder.DomainName].ToString(),
-                db_record[(int)DkimTableColumnsOrder.Selector].ToString(),
-                db_record[(int)DkimTableColumnsOrder.PrivateKey].ToString(),
-                db_record[(int)DkimTableColumnsOrder.PublicKey].ToString()
+            var dkimDto = new PostfixDkimDto(
+                Convert.ToInt32(dbRecord[(int)DkimTableColumnsOrder.Id]),
+                dbRecord[(int)DkimTableColumnsOrder.DomainName].ToString(),
+                dbRecord[(int)DkimTableColumnsOrder.Selector].ToString(),
+                dbRecord[(int)DkimTableColumnsOrder.PrivateKey].ToString(),
+                dbRecord[(int)DkimTableColumnsOrder.PublicKey].ToString()
             );
 
-            return dkim_dto;
+            return dkimDto;
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Products/Community/Modules/News/news.Master" AutoEventWireup="true" CodeBehind="editnews.aspx.cs" Inherits="ASC.Web.Community.News.EditNews" %>
 
-<%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
-
-<%@ Import Namespace="ASC.Data.Storage" %>
 <%@ Import Namespace="ASC.Web.Community.News.Resources" %>
 
 <asp:Content ContentPlaceHolderID="HeadContent" runat="Server">

@@ -1,52 +1,49 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-window.accountsPanel = (function ($) {
-    var 
-        is_init = false,
+
+window.accountsPanel = (function($) {
+    var isInit = false,
         $panel,
         $content,
         $more,
-        max_height,
+        maxHeight,
         $list;
 
     // Should be initialized after AccountsManager - to allow it handle accounts changes primarily.
     // Reason: Account list generate with AccountsManager
-    var init = function () {
-        if (is_init === false) {
-            is_init = true;
+    var init = function() {
+        if (isInit === false) {
+            isInit = true;
 
             $panel = $('#accountsPanel');
             $content = $panel.find('> .content');
             $list = $content.find('> ul');
             $more = $panel.find('.more');
 
-            max_height = $content.css("max-height").replace(/[^-\d\.]/g, '');
+            maxHeight = $content.css("max-height").replace(/[^-\d\.]/g, '');
             $panel.hover(expand, collapse);
 
             serviceManager.bind(window.Teamlab.events.getAccounts, update);
@@ -66,9 +63,13 @@ window.accountsPanel = (function ($) {
     };
 
     var collapse = function() {
-        $content.stop().animate({ "max-height": max_height }, 200, function() {
+        $content.stop().animate({ "max-height": maxHeight }, 200, function() {
             $more.css({ 'visibility': 'visible' });
         });
+    };
+
+    var renderAccountsPanelTmpl = function (index, acc) {
+        $list.append($.tmpl("accountsPanelTmpl", acc));
     };
 
     function update() {
@@ -79,106 +80,136 @@ window.accountsPanel = (function ($) {
             return;
         }
 
-        var info = [];
-        var selected = (MailFilter.getTo() || '').toLowerCase();
-        var folder_page = TMMail.pageIs('sysfolders');
+        var active = getActive();
+
+        var defaultAccount = [],
+            commonAccounts = [],
+            serverAccounts = [],
+            aliases = [],
+            groups = [],
+            selected = active ? active.email : '';
 
         $.each(accounts, function (index, acc) {
-            var marked = selected == acc.email.toLowerCase() && folder_page;
-            info.push({
-                email: acc.email,
-                id: TMMail.strHash(acc.email.toLowerCase()),
-                marked: marked
-            });
+            var marked = selected == acc.email.toLowerCase(),
+                obj = {
+                    email: acc.email,
+                    id: TMMail.strHash(acc.email.toLowerCase()),
+                    marked: marked,
+                    enabled: acc.enabled
+                };
+            if (acc.is_default) {
+                defaultAccount.push(obj);
+            } else if (acc.is_group) {
+                groups.push(obj);
+            } else if (acc.is_alias) {
+                aliases.push(obj);
+            } else if (acc.is_teamlab) {
+                serverAccounts.push(obj);
+            } else {
+                commonAccounts.push(obj);
+            }
         });
+        $list.empty();
+        $.each(defaultAccount, renderAccountsPanelTmpl);
+        $.each(commonAccounts, renderAccountsPanelTmpl);
+        $.each(serverAccounts, renderAccountsPanelTmpl);
+        $.each(aliases, renderAccountsPanelTmpl);
+        $.each(groups, renderAccountsPanelTmpl);
 
-        $list.html($.tmpl("accountsPanelTmpl", info));
         updateAnchors();
+        accountsPage.setDefaultAccountIfItDoesNotExist();
 
-        window.setImmediate(function () {
+        window.setImmediate(function() {
             $panel.show();
-            if (max_height < $list.height())
+            if (maxHeight < $list.height()) {
                 $more.show();
-            else
+            } else {
                 $more.hide();
+            }
         });
-    };
+    }
 
     // unselect selected account row
+
     function unmark() {
-        if(!TMMail.pageIs('writemessage'))
+        if (!TMMail.pageIs('writemessage')) {
             $list.find('.tag.tagArrow').removeClass('tag tagArrow');
-    };
+        }
+    }
 
     // select account if any is in filter
-    function mark(from){
-        var filter_to = MailFilter.getTo() || from;
-        if (undefined == filter_to) {
+
+    function mark(from) {
+        var filterTo = from || MailFilter.getTo();
+        if (undefined == filterTo) {
             unmark();
             return;
         }
 
         // skip action if account allready marked
-        var id = TMMail.strHash(filter_to.toLowerCase());
+        var id = TMMail.strHash(filterTo.toLowerCase());
         var current = $list.find('.tag.tagArrow');
-        if(id == current.prop('id'))
+        if (id == current.prop('id')) {
             return;
+        }
 
         current.removeClass('tag tagArrow');
-        $list.find('#'+id).addClass('tag tagArrow');
-    };
+        $list.find('#' + id).addClass('tag tagArrow');
+    }
 
     function getActive() {
         var current = $list.find('.tag.tagArrow');
-        var account_email = current.text();
+        var accountEmail = current.text();
 
-        var id = TMMail.strHash(account_email.toLowerCase());
-        if (id != current.prop('id'))
+        var id = TMMail.strHash(accountEmail.toLowerCase());
+        if (id != current.prop('id')) {
             return undefined;
+        }
 
-        var active_account = accountsManager.getAccountByAddress(account_email);
-        if (!active_account) return undefined;
+        var activeAccount = accountsManager.getAccountByAddress(accountEmail);
+        if (!activeAccount) {
+            return undefined;
+        }
 
-        return active_account;
+        return activeAccount;
     }
 
-    function updateAnchors(){
+    function updateAnchors() {
         var accounts = accountsManager.getAccountList();
-        if (accounts.length < 2)
+        if (accounts.length < 2) {
             return;
+        }
 
-        $('#accountsPanel .accounts a').unbind('click.accountsPanel').bind('click.accountsPanel', function () {
-            var account_email = $(this).text();
-            var account = accountsManager.getAccountByAddress(account_email);
-            if (!account) return;
+        $('#accountsPanel .accounts a').unbind('click.accountsPanel').bind('click.accountsPanel', function() {
+            var accountEmail = $(this).text();
+            var account = accountsManager.getAccountByAddress(accountEmail);
+            if (!account) {
+                return;
+            }
 
             if (TMMail.pageIs('sysfolders')) {
                 var folder = TMMail.GetSysFolderNameById(MailFilter.getFolder());
-                var filter_to = (MailFilter.getTo() || '').toLowerCase();
-                var sysfolder_anchor = '#' + folder + MailFilter.toAnchor(false, { to: filter_to == account.email.toLowerCase() ? '' : account.email }, true);
-                ASC.Controls.AnchorController.move(sysfolder_anchor);
-            }
-            else if (TMMail.pageIs('writemessage')) {
+                var filterTo = (MailFilter.getTo() || '').toLowerCase();
+                var sysfolderAnchor = '#' + folder + MailFilter.toAnchor(false, { to: filterTo == account.email.toLowerCase() ? '' : account.email }, true);
+                ASC.Controls.AnchorController.move(sysfolderAnchor);
+            } else if (TMMail.pageIs('writemessage')) {
                 var title = TMMail.ltgt(account.name + " <" + account.email + ">");
                 messagePage.selectFromAccount({}, {
-                    mailbox_email: account.email,
-                    title: title,
-                    account_enabled: account.enabled,
-                    signature: account.signature
+                    account: account,
+                    title: title
                 });
             } else {
                 ASC.Controls.AnchorController.move('#inbox/to=' + encodeURIComponent(account.email) + '/');
             }
-
         });
-    };
+    }
 
     return {
         init: init,
+        update: update,
         unmark: unmark,
         mark: mark,
         updateAnchors: updateAnchors,
         getActive: getActive
     };
-
 })(jQuery);

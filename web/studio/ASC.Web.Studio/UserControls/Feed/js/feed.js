@@ -1,32 +1,30 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-var Feed = (function(productsAccessRightsParam) {
+
+window.Feed = (function(productsAccessRightsParam) {
     var $ = jq;
 
     var userId = Teamlab.profile.id;
@@ -41,12 +39,25 @@ var Feed = (function(productsAccessRightsParam) {
 
     var guestId = '712d9ec3-5d2b-4b13-824f-71f00191dcca';
 
-    var isFirstLoad = true;
+    var firstLoad = true;
 
     var productsAccessRights = productsAccessRightsParam.split(',');
     for (var i = 0; i < productsAccessRights.length; i++) {
         productsAccessRights[i] = productsAccessRights[i].toLowerCase() == 'true';
     }
+
+    var $view = $('#feed-view');
+
+    var $emptyScreen = $view.find('#emptyFeedScr');
+    var $emptyFilterScreen = $view.find('#emptyFeedFilterScr');
+    var $managerEmptyScreen = $view.find('#manager-empty-screen');
+
+    var $communityEmptyScreen = $view.find('#emptyListCommunity');
+    var $crmEmptyScreen = $view.find('#emptyListCrm');
+    var $projectsEmptyScreen = $view.find('#emptyListProjects');
+    var $documentsEmptyScreen = $view.find('#emptyListDocuments');
+
+    var $firstLoader = $view.find('.loader-page');
 
     var $pageMenu = $('#feed-page-menu');
 
@@ -55,11 +66,7 @@ var Feed = (function(productsAccessRightsParam) {
     var $showNextBtn = $('#show-next-feeds-btn');
     var $showNextLoader = $('#show-next-feeds-loader');
 
-    var $emptyListCtrl = $('#empty-feed-list-ctrl');
-    var $emptyFilterCtrl = $('#empty-feed-filter-ctrl');
-
-
-    var filter = new FeedFilter(basePath);
+    var filter = new FeedFilter();
     filter.onSetFilter = onSetFilter;
     filter.onResetFilter = onResetFilter;
 
@@ -68,7 +75,6 @@ var Feed = (function(productsAccessRightsParam) {
 
     function init() {
         initFilter();
-        showFirstLoader();
         bindEvents();
     }
 
@@ -254,19 +260,19 @@ var Feed = (function(productsAccessRightsParam) {
         }
 
         filter.syncHashWithFilter($fltr);
-        getFeeds({}, filter.get($fltr));
+        getNews({}, filter.get($fltr));
     }
 
     function onResetFilter(evt, $fltr) {
         filter.syncHashWithFilter($fltr);
-        getFeeds({}, filter.get($fltr));
+        getNews({}, filter.get($fltr));
     }
 
     var currentFilter = {};
 
-    function getFeeds(params, filterObj) {
+    function getNews(options, filterObj) {
         currentFilter = filterObj;
-        if (!params.showNext) {
+        if (!options.showNext) {
             currentFeedsCount = 0;
             currentGroupFeedsCount = 0;
         }
@@ -277,21 +283,29 @@ var Feed = (function(productsAccessRightsParam) {
             filterObj.timeReaded = readedDate;
         }
 
-        if (!isFirstLoad) {
-            showPreloader();
-            jq('#feed-filter, #feed-list').show();
-            jq('#feed-filter').advansedFilter('resize');
-        }
-        Teamlab.getFeeds(params, { filter: filterObj, success: onGetFeeds });
+        showLoader();
+        Teamlab.getFeeds(options, {
+            filter: filterObj,
+            success: function(params, data) {
+                hideLoader();
+                firstLoad = false;
+                onGetNews(params, data);
+            },
+            error: function() {
+                hideLoader();
+                showErrorMessage();
+            }
+        });
     }
 
-    function onGetFeeds(params, response) {
+    function onGetNews(params, response) {
         var feeds = response.feeds;
+        //feeds = [];
 
+        hideEmptyScreens();
         if (feeds.length) {
             readedDate = response.readedDate;
-
-            showAdvansedFilter();
+            showFilter();
 
             if (!params.showNext) {
                 $list.empty();
@@ -316,7 +330,6 @@ var Feed = (function(productsAccessRightsParam) {
             currentGroupFeedsCount += feedsCount;
 
             $list.show();
-            $('.noContent').hide();
 
             $showNextLoader.hide();
             if (feedsCount == feedChunk) {
@@ -324,26 +337,55 @@ var Feed = (function(productsAccessRightsParam) {
             } else {
                 $showNextBtn.hide();
             }
-
         } else {
             $showNextBtn.hide();
             if (currentFeedsCount == 0) {
+                hideFilter();
                 $list.empty();
-                if (ASC.Controls.AnchorController.getAnchor() == basePath) {
-                    $emptyFilterCtrl.hide();
-                    $emptyListCtrl.show();
-                    hideAdvansedFilter();
-                } else {
-                    $emptyListCtrl.hide();
-                    showAdvansedFilter();
-                    $emptyFilterCtrl.show();
-                }
+                showEmptyScreen();
             }
         }
+
         $showNextLoader.hide();
-        isFirstLoad ? hideFirstLoader() : hidePreloader();
+        jq('#feed-filter').advansedFilter('resize');
     }
 
+    function showEmptyScreen() {
+        var hash = window.location.hash;
+        if (hash == basePath) {
+            if (true) {
+                $managerEmptyScreen.show();
+            } else {
+                $emptyScreen.show();
+            }
+        } else {
+            if (~hash.indexOf('&')) {
+                showFilter();
+                $emptyFilterScreen.show();
+            } else if (~hash.indexOf('community')) {
+                $communityEmptyScreen.show();
+            } else if (~hash.indexOf('crm')) {
+                $crmEmptyScreen.show();
+            } else if (~hash.indexOf('projects')) {
+                $projectsEmptyScreen.show();
+            } else if (~hash.indexOf('documents')) {
+                $documentsEmptyScreen.show();
+            } else {
+                showFilter();
+                $emptyFilterScreen.show();
+            }
+        }
+    }
+
+    function hideEmptyScreens() {
+        $emptyScreen.hide();
+        $emptyFilterScreen.hide();
+        $managerEmptyScreen.hide();
+        $communityEmptyScreen.hide();
+        $crmEmptyScreen.hide();
+        $projectsEmptyScreen.hide();
+        $documentsEmptyScreen.hide();
+    }
 
     function getFeedTemplate(feed) {
         if (!feed.item) {
@@ -354,7 +396,7 @@ var Feed = (function(productsAccessRightsParam) {
 
         template.author = getUser(template.authorId);
 
-        template.isGuest = template.authorId == guestId;
+        template.isGuest = template.author == null || template.authorId == guestId;
         template.isNew = checkNew(template);
 
         template.productText = getFeedProductText(template);
@@ -534,14 +576,6 @@ var Feed = (function(productsAccessRightsParam) {
         }
     }
 
-    function showPreloader() {
-        LoadingBanner.displayLoading();
-    }
-
-    function hidePreloader() {
-        LoadingBanner.hideLoading();
-    }
-
     function getUsers(ids) {
         if (!ids || !ids.length) {
             return null;
@@ -581,21 +615,11 @@ var Feed = (function(productsAccessRightsParam) {
         return null;
     }
 
-
-    function showFirstLoader() {
-        jq('.mainPageContent').children('.loader-page').css({
-            top: jq(window).height() / 2 + 'px'
-        });
-    }
-
-    function hideFirstLoader() {
-        isFirstLoad = false;
-        jq('.mainPageContent').children('.loader-page').remove();
-        jq('#feed-filter').show();
-        jq('#feed-filter').advansedFilter('resize');
-    }
-
     function bindEvents() {
+        $emptyFilterScreen.on('click', '.clearFilterButton', function() {
+            $('.advansed-filter .btn-reset-filter').click();
+        });
+
         // #region page menu
 
         $pageMenu.on('click', '.filter', function() {
@@ -652,7 +676,7 @@ var Feed = (function(productsAccessRightsParam) {
         $showNextBtn.on('click', function() {
             $showNextBtn.hide();
             $showNextLoader.show();
-            getFeeds({ showNext: true }, currentFilter, true);
+            getNews({ showNext: true }, currentFilter, true);
             return false;
         });
 
@@ -1014,28 +1038,38 @@ var Feed = (function(productsAccessRightsParam) {
         // #endregion
     }
 
-    var listEscs = $('.noContentBlock');
-    $(listEscs[0]).appendTo($emptyFilterCtrl);
-    $(listEscs[1]).appendTo($emptyListCtrl);
-    $(listEscs).show();
-
-    $emptyFilterCtrl.on('click', '.emptyScrBttnPnl .baseLinkAction', function() {
-        filter.changeHash('product', '');
-        $('#feed-filter .advansed-filter-input').removeClass('has-value');
-        return false;
-    });
-
-
     var hintPanel;
     var overHintPanel = false;
 
-    var showAdvansedFilter = function() {
-        $('#feed-filter').css('visibility', 'visible');
-    };
+    function showLoader() {
+        if (firstLoad) {
+            $firstLoader.css({
+                top: $(window).height() / 2 + 'px'
+            });
+        } else {
+            LoadingBanner.displayLoading();
+        }
+    }
 
-    var hideAdvansedFilter = function() {
-        $('#feed-filter').css('visibility', 'hidden');
-    };
+    function hideLoader() {
+        if (firstLoad) {
+            $firstLoader.remove();
+        } else {
+            LoadingBanner.hideLoading();
+        }
+    }
+
+    function showFilter() {
+        $('#feed-filter').show(); //.css('visibility', 'visible');
+    }
+
+    function hideFilter() {
+        $('#feed-filter').hide(); //('visibility', 'hidden');
+    }
+
+    function showErrorMessage() {
+        toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
+    }
 
     return {
         init: init

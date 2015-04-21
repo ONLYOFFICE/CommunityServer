@@ -1,12 +1,10 @@
-<%@ Assembly Name="ASC.Web.Community.Wiki" %>
+<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 
-<%@ Master Language="C#" MasterPageFile="~/Products/Community/Community.master" AutoEventWireup="true"
+<%@ Master Language="C#" MasterPageFile="~/Products/Community/Master/Community.master" AutoEventWireup="true"
     CodeBehind="Wiki.Master.cs" Inherits="ASC.Web.Community.Wiki.WikiMaster" %>
 
-<%@ Assembly Name="ASC.Web.Community.Wiki" %>
-<%@ Import Namespace="ASC.Web.Community.Wiki" %>
-<%@ Import Namespace="ASC.Web.Studio.Controls.Common" %>
+<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <asp:Content ID="ContentHeader" ContentPlaceHolderID="CommunityPageHeader" runat="server">    

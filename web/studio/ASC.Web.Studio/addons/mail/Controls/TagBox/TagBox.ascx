@@ -44,7 +44,7 @@
                 </table>
             </div>
             <div class="linked_addresses save">
-                <div id="mail_CreateTag_Email" class="requiredField">
+                <div id="mail_CreateTag_Email" class="requiredField clearFix">
                    <span class="requiredErrorText required-hint"><%= MailScriptResource.ErrorEmptyField %></span>
                     <div class="headerPanelSmall" ><%: MailResource.MarkFrom %></div>
                    <input id="mail_tag_email" type="email" value="" class="textEdit addemail" placeholder="<%=MailResource.AddEmailPlaceholder%>"/>

@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 #region Import
 
@@ -34,7 +32,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.ServiceModel.Syndication;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web.Configuration;
@@ -43,6 +40,7 @@ using ASC.CRM.Core;
 using ASC.Web.CRM.Resources;
 using log4net;
 using System.Security.Principal;
+using System.Xml.Linq;
 
 #endregion
 
@@ -59,6 +57,7 @@ namespace ASC.Web.CRM.Classes
         private static readonly Dictionary<String, CurrencyInfo> _currencies;
         private static Dictionary<String, Decimal> _exchangeRates;
         private static DateTime _publisherDate;
+        private const String _formatDate = "yyyy-MM-ddTHH:mm:ss.fffffffK";
 
         #endregion
 
@@ -85,7 +84,9 @@ namespace ASC.Web.CRM.Classes
 
         public static DateTime GetPublisherDate
         {
-            get { return _publisherDate; }
+            get {
+                TryToReadPublisherDate(GetExchangesTempPath());
+                return _publisherDate; }
         }
 
         #endregion
@@ -180,6 +181,10 @@ namespace ASC.Web.CRM.Classes
             return _exchangeRates == null || (DateTime.UtcNow.Date.Subtract(_publisherDate.Date).Days > 0);
         }
 
+        private static string GetExchangesTempPath() {
+            return Path.Combine(Path.GetTempPath(), Path.Combine("onlyoffice", "exchanges"));
+        }
+
         private static Dictionary<String, Decimal> GetExchangeRates()
         {
             if (ObsoleteData())
@@ -192,28 +197,9 @@ namespace ASC.Web.CRM.Classes
                         {
                             _exchangeRates = new Dictionary<string, decimal>();
 
-                            var tmppath = Environment.GetEnvironmentVariable("TEMP");
-                            if (string.IsNullOrEmpty(tmppath))
-                            {
-                                tmppath = Path.GetTempPath();
-                            }
-                            tmppath = Path.Combine(tmppath, WindowsIdentity.GetCurrent().Name + "\\Teamlab\\crm\\Exchange_Rates\\");
+                            var tmppath = GetExchangesTempPath();
 
-                            if (_publisherDate == default(DateTime))
-                            {
-                                try
-                                {
-                                    var timefile = Path.Combine(tmppath, "last.time");
-                                    if (File.Exists(timefile))
-                                    {
-                                        _publisherDate = DateTime.ParseExact(File.ReadAllText(timefile), "o", null);
-                                    }
-                                }
-                                catch (Exception err)
-                                {
-                                    LogManager.GetLogger("ASC.CRM").Error(err);
-                                }
-                            }
+                            TryToReadPublisherDate(tmppath);
 
                             var regex = new Regex("= (?<Currency>([\\s\\.\\d]*))");
                             var updateEnable = WebConfigurationManager.AppSettings["crm.update.currency.info.enable"] != "false";
@@ -231,31 +217,23 @@ namespace ASC.Web.CRM.Classes
                                     continue;
                                 }
 
-                                using (var reader = XmlReader.Create(filepath))
-                                {
-                                    var feed = SyndicationFeed.Load(reader);
-                                    if (feed != null)
-                                    {
-                                        foreach (var item in feed.Items)
-                                        {
-                                            var currency = regex.Match(item.Summary.Text).Groups["Currency"].Value.Trim();
-                                            _exchangeRates.Add(item.Title.Text, Convert.ToDecimal(currency, CultureInfo.InvariantCulture.NumberFormat));
-                                        }
-                                    }
+                                var currencyXml = XDocument.Load(filepath);
 
-                                    _publisherDate = feed.LastUpdatedTime.DateTime;
+                                var channel = currencyXml.Root.Element("channel");
+                                if (channel == null) continue;
+
+                                var lastBuildDate = channel.Element("lastBuildDate").Value.Trim();
+                                var items = channel.Elements("item").ToList();
+
+                                _publisherDate = new RSSDateTimeParser().Parse(lastBuildDate);
+                                foreach (var item in items) {
+                                    var currency = regex.Match(item.Element("description").Value.Trim()).Groups["Currency"].Value.Trim();
+                                    _exchangeRates.Add(item.Element("title").Value.Trim(), Convert.ToDecimal(currency, CultureInfo.InvariantCulture.NumberFormat));
                                 }
                             }
 
-                            try
-                            {
-                                var timefile = Path.Combine(tmppath, "last.time");
-                                File.WriteAllText(timefile, _publisherDate.ToString("o"));
-                            }
-                            catch (Exception err)
-                            {
-                                LogManager.GetLogger("ASC.CRM").Error(err);
-                            }
+                            WritePublisherDate(tmppath);
+
                         }
                         catch (Exception error)
                         {
@@ -267,6 +245,40 @@ namespace ASC.Web.CRM.Classes
             }
 
             return _exchangeRates;
+        }
+
+
+        private static void TryToReadPublisherDate(string tmppath)
+        {
+            if (_publisherDate == default(DateTime))
+            {
+                try
+                {
+                    var timefile = Path.Combine(tmppath, "last.time");
+                    if (File.Exists(timefile))
+                    {
+                        var dateFromFile = File.ReadAllText(timefile);
+                        _publisherDate = DateTime.ParseExact(dateFromFile, _formatDate, null);
+                    }
+                }
+                catch (Exception err)
+                {
+                    LogManager.GetLogger("ASC.CRM").Error(err);
+                }
+            }
+        }
+
+        private static void WritePublisherDate(string tmppath)
+        {
+            try
+            {
+                var timefile = Path.Combine(tmppath, "last.time");
+                File.WriteAllText(timefile, _publisherDate.ToString(_formatDate));
+            }
+            catch (Exception err)
+            {
+                LogManager.GetLogger("ASC.CRM").Error(err);
+            }
         }
 
         private static void DownloadRSS(string currency, string filepath)
@@ -305,5 +317,37 @@ namespace ASC.Web.CRM.Classes
         }
 
         #endregion
+
+        internal class RSSDateTimeParser
+        {
+            private static string[] _dateFormats = new[] {
+                    @"ddd, dd MMM yyyy hh':'mm':'ss tt 'GMT'",
+                    @"ddd, dd MMM yyyy HH':'mm':'ss 'GMT'",
+                };
+
+            private static DateTimeStyles _styles = DateTimeStyles.AllowLeadingWhite
+                | DateTimeStyles.AllowInnerWhite
+                | DateTimeStyles.AllowTrailingWhite
+                | DateTimeStyles.AllowWhiteSpaces;
+
+            public DateTime Parse(string dateTime)
+            {
+                // Attempt default DateTime parse
+                DateTime dt;
+                if (!DateTime.TryParse(dateTime, out dt))
+                {
+                    // Parse using custom formats
+                    if (!DateTime.TryParseExact(dateTime, _dateFormats,
+                        CultureInfo.InvariantCulture, _styles, out dt))
+                    {
+                        // Throw exception if custom formats can't parse the string.
+                        throw new FormatException(CRMErrorsResource.DateTimeFormatInvalid);
+                    }
+                }
+
+                return dt.ToUniversalTime();
+            }
+        }
+
     }
 }

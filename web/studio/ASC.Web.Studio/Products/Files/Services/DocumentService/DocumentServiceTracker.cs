@@ -1,33 +1,32 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -41,6 +40,7 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
+using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -69,8 +69,11 @@ namespace ASC.Web.Files.Services.DocumentService
             Closed = 4,
         }
 
+        [DebuggerDisplay("{Status}")]
         public class TrackerData
         {
+            public string ChangesUrl;
+            public string ChangesHistory;
             public string Key;
             public TrackerStatus Status;
             public string Url;
@@ -102,19 +105,17 @@ namespace ASC.Web.Files.Services.DocumentService
         {
             if (string.IsNullOrEmpty(trackDataString))
             {
-                Global.Logger.Error("DocService return null");
-                throw new ArgumentException("DocService return null", "trackDataString");
+                throw new ArgumentException("DocService return null");
             }
 
             var data = JObject.Parse(trackDataString);
             if (data == null)
             {
-                Global.Logger.Error("DocService response is incorrect");
-                throw new ArgumentException("DocService response is incorrect", "trackDataString");
+                throw new ArgumentException("DocService response is incorrect");
             }
 
             var fileData = data.ToObject<TrackerData>();
-            var userId = Guid.Empty;
+            Guid userId;
             switch (fileData.Status)
             {
                 case TrackerStatus.NotFound:
@@ -123,7 +124,13 @@ namespace ASC.Web.Files.Services.DocumentService
                     break;
 
                 case TrackerStatus.Editing:
+                    if (ThirdPartySelector.GetAppByFileId(fileId) != null)
+                    {
+                        break;
+                    }
+
                     var users = FileTracker.GetEditingBy(fileId);
+                    var usersDrop = new List<string>();
 
                     foreach (var user in fileData.Users)
                     {
@@ -141,11 +148,17 @@ namespace ASC.Web.Files.Services.DocumentService
                         }
                         catch (Exception e)
                         {
-                            Global.Logger.DebugFormat("DocService drop fileId '{0}' docKey '{1}' for user {2} : {3}", fileId, fileData.Key, user, e.Message);
-                            if (!Drop(fileData.Key, user, fileId))
-                            {
-                                Global.Logger.Error("DocService drop failed for user " + user);
-                            }
+                            Global.Logger.DebugFormat("Drop command: fileId '{0}' docKey '{1}' for user {2} : {3}", fileId, fileData.Key, user, e.Message);
+                            usersDrop.Add(user);
+                        }
+                    }
+
+                    if (usersDrop.Any())
+                    {
+                        var dropString = "[\"" + string.Join("\",\"", usersDrop) + "\"]";
+                        if (!Drop(fileData.Key, dropString, fileId))
+                        {
+                            Global.Logger.Error("DocService drop failed for users " + dropString);
                         }
                     }
 
@@ -172,17 +185,23 @@ namespace ASC.Web.Files.Services.DocumentService
                     }
                     catch (Exception ex)
                     {
-                        Global.Logger.Warn("DocService save error: anonymous author", ex);
-                        comments.Add(FilesCommonResource.ErrorMassage_SaveAnonymous);
+                        Global.Logger.Warn("DocService save error: anonymous author - " + userId, ex);
+                        if (!userId.Equals(ASC.Core.Configuration.Constants.Guest.ID))
+                        {
+                            comments.Add(FilesCommonResource.ErrorMassage_SaveAnonymous);
+                        }
                     }
 
                     File file = null;
+                    var saved = false;
 
                     if (string.IsNullOrEmpty(fileData.Url))
                     {
                         try
                         {
                             comments.Add(FilesCommonResource.ErrorMassage_SaveUrlLost);
+
+                            FileTracker.Remove(fileId);
 
                             file = EntryManager.CompleteVersionFile(fileId, 0, false, false);
 
@@ -201,6 +220,7 @@ namespace ASC.Web.Files.Services.DocumentService
                         try
                         {
                             file = EntryManager.SaveEditing(fileId, -1, userId, fileData.Url, isNew, string.Empty, string.Join("; ", comments), false);
+                            saved = fileData.Status == TrackerStatus.MustSave;
                         }
                         catch (Exception ex)
                         {
@@ -215,31 +235,33 @@ namespace ASC.Web.Files.Services.DocumentService
                         var user = CoreContext.UserManager.GetUsers(userId);
                         if (user != null)
                             FilesMessageService.Send(file, MessageInitiator.DocsService, MessageAction.UserFileUpdated, user.DisplayUserName(false), file.Title);
+
+                        SaveHistory(file, fileData.ChangesHistory, fileData.ChangesUrl);
                     }
 
                     FileTracker.Remove(fileId);
 
-                    Command(TrackMethod.Saved, fileData.Key, fileId, null, userId.ToString(), file == null ? "0" : "1");
+                    Command(TrackMethod.Saved, fileData.Key, fileId, null, userId.ToString(), saved ? "1" : "0");
                     break;
             }
         }
 
-        public static bool Drop(string docKeyForTrack, string userId, string fileId = null)
+        public static bool Drop(string docKeyForTrack, string users, string fileId = null)
         {
-            return Command(TrackMethod.Drop, docKeyForTrack, fileId, null, userId);
+            return Command(TrackMethod.Drop, docKeyForTrack, fileId, null, users);
         }
 
-        private static bool Command(TrackMethod method, string docKeyForTrack, string fileId = null, string callbackUrl = null, string userId = null, string status = null)
+        private static bool Command(TrackMethod method, string docKeyForTrack, string fileId = null, string callbackUrl = null, string users = null, string status = null)
         {
-            Global.Logger.DebugFormat("DocService command {0} fileId '{1}' docKey '{2}' callbackUrl '{3}' userId '{4}' status '{5}'", method, fileId, docKeyForTrack, callbackUrl, userId, status);
+            Global.Logger.DebugFormat("DocService command {0} fileId '{1}' docKey '{2}' callbackUrl '{3}' users '{4}' status '{5}'", method, fileId, docKeyForTrack, callbackUrl, users, status);
             try
             {
-                var response = DocumentServiceConnector.CommandRequest(method.ToString().ToLower(CultureInfo.InvariantCulture), docKeyForTrack, callbackUrl, userId, status);
+                var response = DocumentServiceConnector.CommandRequest(method.ToString().ToLower(CultureInfo.InvariantCulture), docKeyForTrack, callbackUrl, users, status);
                 Global.Logger.DebugFormat("DocService command response: '{0}'", response);
 
                 var jResponse = JObject.Parse(response);
 
-                var result = (CommandResultTypes)jResponse.Value<int>("error");
+                var result = (CommandResultTypes) jResponse.Value<int>("error");
                 return result == CommandResultTypes.NoError;
             }
             catch (Exception e)
@@ -253,14 +275,21 @@ namespace ASC.Web.Files.Services.DocumentService
         {
             try
             {
-                var fileName = fileId + FileUtility.GetFileExtension(downloadUri);
+                var fileName = Global.ReplaceInvalidCharsAndTruncate(fileId + FileUtility.GetFileExtension(downloadUri));
                 var path = string.Format(@"save_crash\{0}\{1}_{2}",
-                    DateTime.UtcNow.ToString("yyyy_MM_dd"),
-                    userId,
-                    fileName);
+                                         DateTime.UtcNow.ToString("yyyy_MM_dd"),
+                                         userId,
+                                         fileName);
 
                 var store = Global.GetStore();
-                var req = (HttpWebRequest)WebRequest.Create(downloadUri);
+                var req = (HttpWebRequest) WebRequest.Create(downloadUri);
+
+                // hack. http://ubuntuforums.org/showthread.php?t=1841740
+                if (WorkContext.IsMono)
+                {
+                    ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
+                }
+
                 using (var fileStream = new ResponseStream(req.GetResponse()))
                 {
                     store.Save(FileConstant.StorageDomainTmp, path, fileStream);
@@ -270,6 +299,36 @@ namespace ASC.Web.Files.Services.DocumentService
             catch (Exception ex)
             {
                 Global.Logger.Error("DocService Error on save file to temp store", ex);
+            }
+        }
+
+        private static void SaveHistory(File file, string changes, string differenceUrl)
+        {
+            if (file == null) return;
+            if (file.ProviderEntry) return;
+            if (string.IsNullOrEmpty(changes) || string.IsNullOrEmpty(differenceUrl)) return;
+
+            try
+            {
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                {
+                    var req = (HttpWebRequest) WebRequest.Create(differenceUrl);
+
+                    // hack. http://ubuntuforums.org/showthread.php?t=1841740
+                    if (WorkContext.IsMono)
+                    {
+                        ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
+                    }
+
+                    using (var differenceStream = new ResponseStream(req.GetResponse()))
+                    {
+                        fileDao.SaveEditHistory(file, changes, differenceStream);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Global.Logger.Error("DocService save history error", ex);
             }
         }
     }

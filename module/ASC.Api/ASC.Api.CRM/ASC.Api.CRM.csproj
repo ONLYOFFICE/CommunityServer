@@ -55,23 +55,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.Entity">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
@@ -80,18 +69,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Twilio.Api">
-      <HintPath>..\..\..\packages\Twilio.3.6.11\lib\3.5\Twilio.Api.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -178,25 +155,13 @@
       <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
       <Name>ASC.Web.Files</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Feed\ASC.Feed.csproj">
-      <Project>{b0431ec9-21d8-4d96-b333-6dd430031c82}</Project>
-      <Name>ASC.Feed</Name>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj">
+      <Project>{11acb4ca-a305-4caa-8546-392c6dafc7c4}</Project>
+      <Name>ASC.Web.Projects</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.MessagingSystem\ASC.MessagingSystem.csproj">
       <Project>{bd8a18a5-60c5-4411-9719-0aa11b4be0e9}</Project>
       <Name>ASC.MessagingSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Projects\ASC.Projects.Core\ASC.Projects.Core.csproj">
-      <Project>{98330417-cf62-4624-94dc-271433945e27}</Project>
-      <Name>ASC.Projects.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Projects\ASC.Projects.Data\ASC.Projects.Data.csproj">
-      <Project>{10a65f6e-7c34-4eb7-bb9c-c3cc27d979e8}</Project>
-      <Name>ASC.Projects.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Projects\ASC.Projects.Engine\ASC.Projects.Engine.csproj">
-      <Project>{64c8b39d-5dcd-4eeb-a5dd-bfe7ca24fa6a}</Project>
-      <Name>ASC.Projects.Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.VoipService\ASC.VoipService.csproj">
       <Project>{988536c1-4b89-4649-8f77-5c16f55d95d1}</Project>

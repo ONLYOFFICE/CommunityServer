@@ -1,175 +1,170 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
+
 window.TMMail = (function($) {
-    var 
-    isInit = false,
-    lastItems = 29,
-    plusItems = 29,
-    required_field_error_css = "requiredFieldError",
-    options = {
-        MessagesPageSize: 25,
-        ContactsPageSize: 25,
-        ConversationSortAsc: "true"
-    },
-    availability = {
-        CRM: true,
-        People: true
-    },
-    saveMessageInterval = 5000, // 5 seconds for autosave
-    constants = {
-        pageTitle: '',
-        pageHeader: ''
-    },
-    reEmail = /(([\w-\s]+)|([\w-]+(?:\.[\w-]+)*)|([\w-\s]+)([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-zA-Z]{2,7}(?:\.[a-zA-Z]{2})?))|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?)/,
-    reEmailStrict = /^([\w-\.\+]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,7}|[0-9]{1,3})(\]?)$/,
-    reMailServerEmailStrict = /^([a-zA-Z0-9]+)([-\.\_][a-zA-Z0-9]+)*@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,7}|[0-9]{1,3})(\]?)$/,
-    reDomainStrict = /(?=^.{5,254}$)(^(?:(?!\d+\.)[a-zA-Z0-9_\-]{1,63}\.?)+\.(?:[a-zA-Z]{2,})$)/,
-    optionCookieName = 'tmmail',
-    headerSeparator = ' - ',
-    optionSeparator = '&',
-    last_time_modified_all = 0, // Means the date and time the message list on server modified. This value comes from server and independent on folder.
+    var isInit = false,
+        lastItems = 29,
+        plusItems = 29,
+        requiredFieldErrorCss = "requiredFieldError",
+        options = {
+            MessagesPageSize: 25,
+            ContactsPageSize: 25,
+            ConversationSortAsc: "true"
+        },
+        availability = {
+            CRM: true,
+            People: true
+        },
+        saveMessageInterval = 5000, // 5 seconds for autosave
+        showNextAlertTimeout = 60000,
+        serviceCheckInterval = 30000,
+        constants = {
+            pageTitle: '',
+            pageHeader: ''
+        },
+        reEmail = /(([\w-\s]+)|([\w-]+(?:\.[\w-]+)*)|([\w-\s]+)([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-zA-Z]{2,7}(?:\.[a-zA-Z]{2})?))|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?)/,
+        reEmailStrict = /^([\w-\.\+]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,7}|[0-9]{1,3})(\]?)$/,
+        reMailServerEmailStrict = /^([a-zA-Z0-9]+)([-\.\_][a-zA-Z0-9]+)*@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,7}|[0-9]{1,3})(\]?)$/,
+        reDomainStrict = /(?=^.{5,254}$)(^(?:(?!\d+\.)[a-zA-Z0-9_\-]{1,63}\.?)+\.(?:[a-zA-Z]{2,})$)/,
+        optionCookieName = 'tmmail',
+        headerSeparator = ' - ',
+        optionSeparator = '&',
+        lastTimeModifiedAll = 0, // Means the date and time the message list on server modified. This value comes from server and independent on folder.
 
-    max_word_length = 10, //like google
+        maxWordLength = 10, //like google
 
-    messages_modify_date = new Date(0),
+        messagesModifyDate = new Date(0),
+        systemFolders = {
+            inbox: { id: 1, name: 'inbox', displayName: ASC.Mail.Resources.MailResource.FolderNameInbox, last_time_modified: 0 },
+            sent: { id: 2, name: 'sent', displayName: ASC.Mail.Resources.MailResource.FolderNameSent, last_time_modified: 0 },
+            drafts: { id: 3, name: 'drafts', displayName: ASC.Mail.Resources.MailResource.FolderNameDrafts, last_time_modified: 0 },
+            trash: { id: 4, name: 'trash', displayName: ASC.Mail.Resources.MailResource.FolderNameTrash, last_time_modified: 0 },
+            spam: { id: 5, name: 'spam', displayName: ASC.Mail.Resources.MailResource.FolderNameSpam, last_time_modified: 0 }
+        },
+        actionTypes = {
+            'move': 1,
+            'restore': 2,
+            'delete_messages': 3,
+            'clear_folder': 4,
+            'move_filtered': 5,
+            'restore_filtered': 6,
+            'delete_filtered': 7
+        },
+        anchorRegExp = {
+            sysfolders: /^$|^(inbox|sent|drafts|trash|spam)\/?(.+)*/,
 
-    systemFolders = {
-        inbox: { id: 1, name: 'inbox', displayName: ASC.Mail.Resources.MailResource.FolderNameInbox, last_time_modified: 0 },
-        sent: { id: 2, name: 'sent', displayName: ASC.Mail.Resources.MailResource.FolderNameSent, last_time_modified: 0 },
-        drafts: { id: 3, name: 'drafts', displayName: ASC.Mail.Resources.MailResource.FolderNameDrafts, last_time_modified: 0 },
-        trash: { id: 4, name: 'trash', displayName: ASC.Mail.Resources.MailResource.FolderNameTrash, last_time_modified: 0 },
-        spam: { id: 5, name: 'spam', displayName: ASC.Mail.Resources.MailResource.FolderNameSpam, last_time_modified: 0 }
-    },
-    action_types = {
-        'move': 1,
-        'restore': 2,
-        'delete_messages': 3,
-        'clear_folder': 4,
-        'move_filtered': 5,
-        'restore_filtered': 6,
-        'delete_filtered': 7
-    },
-    anchorRegExp = {
-        sysfolders: /^$|^(inbox|sent|drafts|trash|spam)\/?(.+)*/,
+            inbox: /^$|^inbox\/?(.+)*/,
+            sent: /^sent\/?(.+)*/,
+            drafts: /^drafts\/?(.+)*/,
+            trash: /^trash\/?(.+)*/,
+            spam: /^spam\/?(.+)*/,
 
-        inbox: /^$|^inbox\/?(.+)*/,
-        sent: /^sent\/?(.+)*/,
-        drafts: /^drafts\/?(.+)*/,
-        trash: /^trash\/?(.+)*/,
-        spam: /^spam\/?(.+)*/,
+            reply: /^reply\/(\d+)\/?$/,
+            forward: /^forward\/(\d+)\/?$/,
+            compose: /^compose\/?$/,
+            composeto: /^composeto\/?(.+)*/,
+            replyAll: /^replyAll\/(\d+)$/,
+            writemessage: /^(compose|composeto|draftitem|forward|reply|replyAll)\/?(.+)*/,
 
-        reply: /^reply\/(\d+)\/?$/,
-        forward: /^forward\/(\d+)\/?$/,
-        compose: /^compose\/?$/,
-        composeto: /^composeto\/?(.+)*/,
-        replyAll: /^replyAll\/(\d+)$/,
-        writemessage: /^(compose|composeto|draftitem|forward|reply|replyAll)\/?(.+)*/,
+            message: /^message\/(\d+)\/?$/,
+            next_message: /^message\/(\d+)\/next\/?$/,
+            prev_message: /^message\/(\d+)\/prev\/?$/,
 
-        message: /^message\/(\d+)\/?$/,
-        next_message: /^message\/(\d+)\/next\/?$/,
-        prev_message: /^message\/(\d+)\/prev\/?$/,
+            conversation: /^conversation\/(\d+)\/?$/,
+            next_conversation: /^conversation\/(\d+)\/next\/?$/,
+            prev_conversation: /^conversation\/(\d+)\/prev\/?$/,
 
-        conversation: /^conversation\/(\d+)\/?$/,
-        next_conversation: /^conversation\/(\d+)\/next\/?$/,
-        prev_conversation: /^conversation\/(\d+)\/prev\/?$/,
+            draftitem: /^draftitem\/(\d+)\/?$/,
 
-        draftitem: /^draftitem\/(\d+)\/?$/,
+            accounts: /^accounts\/?$/,
+            tags: /^tags\/?$/,
+            administration: /^administration\/?$/,
 
-        accounts: /^accounts\/?$/,
-        tags: /^tags\/?$/,
-        administration: /^administration\/?$/,
+            teamlab: /^tlcontact\/?(.+)*/,
+            crm: /^crmcontact\/?(.+)*/,
+            helpcenter: /^help(?:=(\d+))?/,
 
-        teamlab: /^tlcontact\/?(.+)*/,
-        crm: /^crmcontact\/?(.+)*/,
-        helpcenter: /^help(?:=(\d+))?/,
+            common: /(.+)*/,
 
-        common: /(.+)*/
-    };
+            messagePrint: /^message\/print\/(\d+)\/?(.+)*/,
+            conversationPrint: /^conversation\/print\/(\d+)\/?(.+)*/
+        };
 
-    var init = function(serviceCheckTimeout, crm_available, tl_available) {
-        if (isInit === true) return;
+    var init = function(crmAvailable, tlAvailable) {
+        if (isInit === true) {
+            return;
+        }
 
         isInit = true;
         loadOptions();
 
-        var timeout_ms = (+serviceCheckTimeout || 30)*1000;
-        watchdog.init(timeout_ms);
-        serviceManager.init(timeout_ms);
+        serviceManager.init(serviceCheckInterval);
 
         constants.pageTitle = document.title;
         constants.pageHeader = ASC.Mail.Resources.MailResource.MailTitle || 'Mail';
 
-        availability.CRM = crm_available;
-        availability.People = tl_available;
+        availability.CRM = crmAvailable;
+        availability.People = tlAvailable;
 
         serviceManager.bind(window.Teamlab.events.getMailFolderModifyDate, onGetMailFolderModifyDate);
         ASC.Controls.AnchorController.bind(TMMail.anchors.common, checkAnchor);
     };
 
-    function isLocalStorageAvailable() {
-        try {
-            return 'localStorage' in window && window['localStorage'] !== null;
-        } catch (e) {
-            return false;
-        }
-    }
-
-    function onGetMailFolderModifyDate(params, date, errors) {
-        var folder = GetSysFolderById(params.folder_id);
+    function onGetMailFolderModifyDate(params, date) {
+        var folder = getSysFolderById(params.folder_id);
         folder.modified_date = date;
     }
 
     // Get current page last time items list modified on the server (the value that was last get from the server for this folder)
-    function GetFolderModifyDate(folder_id) {
-        var folder = GetSysFolderById(folder_id);
+
+    function getFolderModifyDate(folderId) {
+        var folder = getSysFolderById(folderId);
         return folder.modified_date;
     }
 
 
-    var setPageHeaderFolderName = function(folder_id) {
+    var setPageHeaderFolderName = function(folderId) {
         // ToDo: fix this workaround for 'undefined' in title
         // case: open conversation by direct link, and 'undefined' word will appear in page title
-        if (0 == folder_id)
+        if (0 == folderId) {
             return;
+        }
 
-        var unread = $('#foldersContainer').children('[folderid=' + folder_id + ']').attr('unread');
+        var unread = $('#foldersContainer').children('[folderid=' + folderId + ']').attr('unread');
 
-        var title = (unread == 0 || unread == undefined ? "" : ('(' + unread + ') ')) + GetSysFolderDisplayNameById(folder_id);
+        var title = (unread == 0 || unread == undefined ? "" : ('(' + unread + ') ')) + getSysFolderDisplayNameById(folderId);
 
         setPageHeaderTitle(title);
     };
 
     var setPageHeaderTitle = function(title) {
-         title = translateSymbols(title) + headerSeparator + constants.pageTitle;
+        title = translateSymbols(title) + headerSeparator + constants.pageTitle;
 
         if ($.browser.msie) {
-            setImmediate(function () {
+            setImmediate(function() {
                 document.title = title;
             });
         } else {
@@ -181,26 +176,24 @@ window.TMMail = (function($) {
         return constants[name];
     };
 
-    var option = function(name, value, needExecEvent) {
+    var option = function(name, value) {
         if (typeof name !== 'string') {
             return undefined;
         }
         if (typeof value === 'undefined') {
             return options[name];
         }
-        var oldValue = options[name];
         options[name] = value;
         saveOptions();
         return value;
     };
 
     var loadOptions = function() {
-        var 
-      fieldSeparator = ':',
-      pos = -1,
-      name = '',
-      value = '',
-      collect = ASC.Mail.cookies.get(optionCookieName).split(optionSeparator);
+        var fieldSeparator = ':',
+            pos,
+            name,
+            value,
+            collect = ASC.Mail.cookies.get(optionCookieName).split(optionSeparator);
 
         for (var i = 0, n = collect.length; i < n; i++) {
             if ((pos = collect[i].indexOf(fieldSeparator)) === -1) {
@@ -216,9 +209,8 @@ window.TMMail = (function($) {
     };
 
     var saveOptions = function() {
-        var 
-      fieldSeparator = ':',
-      collect = [];
+        var fieldSeparator = ':',
+            collect = [];
         for (var name in options) {
             if (options.hasOwnProperty(name)) {
                 collect.push(name + fieldSeparator + options[name]);
@@ -227,36 +219,16 @@ window.TMMail = (function($) {
         ASC.Mail.cookies.set(optionCookieName, collect.join(optionSeparator));
     };
 
-    function trimString(str) {
-        return str.replace(/^\s+|\s+$/g, '');
-    }
-
-    function trimArray(arr) {
-        var 
-      newArray = [];
-        for (i = 0, n = arr.length; i < n; i++) {
-            if (arr[i]) {
-                newArray.push(arr[i]);
-            }
-        }
-        return newArray;
-    }
-
-    function trim(o) {
-        if (o instanceof Array) {
-            return trimArray(o);
-        } else {
-            return trimString(o.toString());
-        }
-    }
-
     function ltgt(str) {
-        if (str.indexOf('<') !== false || str.indexOf('>') !== false) str = str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        if (str.indexOf('<') !== false || str.indexOf('>') !== false) {
+            str = str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
         return str;
     }
 
-    function in_array(needle, haystack, strict) {
-        var found = false, key, strict = !!strict;
+    function inArray(needle, haystack, strict) {
+        strict = !!strict;
+        var found = false, key;
         for (key in haystack) {
             if ((strict && haystack[key] === needle) || (!strict && haystack[key] == needle)) {
                 found = true;
@@ -268,23 +240,22 @@ window.TMMail = (function($) {
 
 
     function translateSymbols(str, toText) {
-        var 
-      symbols = [
-        ['&lt;', '<'],
-        ['&gt;', '>']
-      ];
+        var symbols = [
+            ['&lt;', '<'],
+            ['&gt;', '>']
+        ];
 
         if (typeof str !== 'string') {
             return '';
         }
-
+        var symInd;
         if (typeof toText === 'undefined' || toText) {
-            var symInd = symbols.length;
+            symInd = symbols.length;
             while (symInd--) {
                 str = str.replace(new RegExp(symbols[symInd][0], 'g'), symbols[symInd][1]);
             }
         } else {
-            var symInd = symbols.length;
+            symInd = symbols.length;
             while (symInd--) {
                 str = str.replace(new RegExp(symbols[symInd][1], 'g'), symbols[symInd][0]);
             }
@@ -308,55 +279,67 @@ window.TMMail = (function($) {
             anchorRegExp.crm.test(anchor) || anchorRegExp.sysfolders.test(anchor) || anchorRegExp.writemessage.test(anchor) ||
             anchorRegExp.tags.test(anchor) || anchorRegExp.conversation.test(anchor) || anchorRegExp.helpcenter.test(anchor) ||
             anchorRegExp.next_message.test(anchor) || anchorRegExp.prev_message.test(anchor) || anchorRegExp.next_conversation.test(anchor) ||
-            anchorRegExp.prev_conversation.test(anchor) || anchorRegExp.administration.test(anchor));
+            anchorRegExp.prev_conversation.test(anchor) || anchorRegExp.administration.test(anchor) ||
+            anchorRegExp.messagePrint.test(anchor) || anchorRegExp.conversationPrint.test(anchor));
     };
 
     var pageIs = function(pageType) {
         var anchor = ASC.Controls.AnchorController.getAnchor();
         switch (pageType) {
             case 'message':
-                if (anchorRegExp.message.test(anchor))
+                if (anchorRegExp.message.test(anchor)) {
                     return true;
+                }
                 break;
             case 'inbox':
-                if (anchorRegExp.inbox.test(anchor) || anchor == '')
+                if (anchorRegExp.inbox.test(anchor) || anchor == '') {
                     return true;
+                }
                 break;
             case 'sent':
-                if (anchorRegExp.sent.test(anchor))
+                if (anchorRegExp.sent.test(anchor)) {
                     return true;
+                }
                 break;
             case 'drafts':
-                if (anchorRegExp.drafts.test(anchor))
+                if (anchorRegExp.drafts.test(anchor)) {
                     return true;
+                }
                 break;
             case 'trash':
-                if (anchorRegExp.trash.test(anchor))
+                if (anchorRegExp.trash.test(anchor)) {
                     return true;
+                }
                 break;
             case 'spam':
-                if (anchorRegExp.spam.test(anchor))
+                if (anchorRegExp.spam.test(anchor)) {
                     return true;
+                }
                 break;
             case 'compose':
-                if (anchorRegExp.compose.test(anchor))
+                if (anchorRegExp.compose.test(anchor)) {
                     return true;
+                }
                 break;
             case 'composeto':
-                if (anchorRegExp.composeto.test(anchor))
+                if (anchorRegExp.composeto.test(anchor)) {
                     return true;
+                }
                 break;
             case 'draftitem':
-                if (anchorRegExp.draftitem.test(anchor))
+                if (anchorRegExp.draftitem.test(anchor)) {
                     return true;
+                }
                 break;
             case 'reply':
-                if (anchorRegExp.reply.test(anchor))
+                if (anchorRegExp.reply.test(anchor)) {
                     return true;
+                }
                 break;
             case 'forward':
-                if (anchorRegExp.forward.test(anchor))
+                if (anchorRegExp.forward.test(anchor)) {
                     return true;
+                }
                 break;
             case 'accounts':
                 if (anchorRegExp.accounts.test(anchor)) {
@@ -394,11 +377,20 @@ window.TMMail = (function($) {
                 }
                 break;
             case 'conversation':
-                if (anchorRegExp.conversation.test(anchor))
+                if (anchorRegExp.conversation.test(anchor)) {
                     return true;
+                }
                 break;
             case 'helpcenter':
                 if (anchorRegExp.helpcenter.test(anchor)) {
+                    return true;
+                }
+            case 'messagePrint':
+                if (anchorRegExp.messagePrint.test(anchor)) {
+                    return true;
+                }
+            case 'conversationPrint':
+                if (anchorRegExp.conversationPrint.test(anchor)) {
                     return true;
                 }
                 break;
@@ -406,31 +398,31 @@ window.TMMail = (function($) {
         return false;
     };
 
-    var GetSysFolderNameById = function(sysfolder_id, default_value) {
-        var sysfolder = GetSysFolderById(sysfolder_id);
-        return typeof sysfolder != 'undefined' ? sysfolder.name : default_value;
+    var getSysFolderNameById = function(sysfolderId, defaultValue) {
+        var sysfolder = getSysFolderById(sysfolderId);
+        return typeof sysfolder != 'undefined' && sysfolder ? sysfolder.name : defaultValue;
     };
 
-    var GetSysFolderDisplayNameById = function(sysfolder_id, default_value) {
-        var sysfolder = GetSysFolderById(sysfolder_id);
-        return typeof sysfolder != 'undefined' ? sysfolder.displayName : default_value;
+    var getSysFolderDisplayNameById = function(sysfolderId, defaultValue) {
+        var sysfolder = getSysFolderById(sysfolderId);
+        return typeof sysfolder != 'undefined' && sysfolder ? sysfolder.displayName : defaultValue;
     };
 
-    var GetSysFolderIdByName = function(sysfolder_name, default_value) {
-        for (var sysfolder_name_in in systemFolders) {
-            var sysfolder = systemFolders[sysfolder_name_in];
-            if (sysfolder.name == sysfolder_name) {
+    var getSysFolderIdByName = function(sysfolderName, defaultValue) {
+        for (var sysfolderNameIn in systemFolders) {
+            var sysfolder = systemFolders[sysfolderNameIn];
+            if (sysfolder.name == sysfolderName) {
                 return sysfolder.id;
             }
         }
-        return default_value;
+        return defaultValue;
     };
 
     // private
-    var GetSysFolderById = function(sysfolder_id) {
-        for (var sysfolder_name in systemFolders) {
-            var sysfolder = systemFolders[sysfolder_name];
-            if (sysfolder.id == +sysfolder_id) {
+    var getSysFolderById = function(sysfolderId) {
+        for (var sysfolderName in systemFolders) {
+            var sysfolder = systemFolders[sysfolderName];
+            if (sysfolder.id == +sysfolderId) {
                 return sysfolder;
             }
         }
@@ -438,41 +430,42 @@ window.TMMail = (function($) {
     };
 
     // Get current page last time items list modified on the server (the value that was last get from the server for this folder)
-    var GetLastTimeServerListModifiedForFolder = function(folder_id) {
-        var sysfolder = GetSysFolderById(folder_id);
-        if (typeof sysfolder != 'undefined') {
+    var getLastTimeServerListModifiedForFolder = function(folderId) {
+        var sysfolder = getSysFolderById(folderId);
+        if (typeof sysfolder != 'undefined' && sysfolder) {
             return sysfolder.last_time_modified;
         }
         return null;
     };
 
     // Set current page last time items list modified on the server (the value that was last get from the server for this folder)
-    var SetLastTimeServerListModifiedForFolder = function(time_value, folder_id) {
-        var sysfolder = GetSysFolderById(folder_id);
-        if (typeof sysfolder != 'undefined') {
-            sysfolder.last_time_modified = time_value;
+    var setLastTimeServerListModifiedForFolder = function(timeValue, folderId) {
+        var sysfolder = getSysFolderById(folderId);
+        if (typeof sysfolder != 'undefined' && sysfolder) {
+            sysfolder.last_time_modified = timeValue;
         }
     };
 
-    var ExtractFolderIdFromAnchor = function() {
+    var extractFolderIdFromAnchor = function() {
         var anchor = ASC.Controls.AnchorController.getAnchor();
         if (anchor === "") {
             return systemFolders.inbox.id;
         }
-        var sysfolder_res = anchorRegExp.sysfolders.exec(anchor);
-        if (sysfolder_res != null) {
-            return GetSysFolderIdByName(sysfolder_res[1]);
+        var sysfolderRes = anchorRegExp.sysfolders.exec(anchor);
+        if (sysfolderRes != null) {
+            return getSysFolderIdByName(sysfolderRes[1]);
         }
         return 0;
     };
 
-    var ExtractConversationIdFromAnchor = function() {
+    var extractConversationIdFromAnchor = function() {
         var anchor = ASC.Controls.AnchorController.getAnchor();
 
         if (anchor !== "") {
             var conversationId = anchorRegExp.conversation.exec(anchor);
-            if (conversationId != null)
+            if (conversationId != null) {
                 return conversationId[1];
+            }
         }
 
         return 0;
@@ -485,14 +478,17 @@ window.TMMail = (function($) {
     var getFaqLink = function(address) {
         address = address || "";
         var anchor = "";
-        if (/@gmail\./.test(address.toLowerCase()) || /@googlemail\./.test(address.toLowerCase()))
+        if (/@gmail\./.test(address.toLowerCase()) || /@googlemail\./.test(address.toLowerCase())) {
             anchor = "#IssueswithGmailcomService_block";
+        }
         if (/@hotmail\./.test(address.toLowerCase()) || /@live\./.test(address.toLowerCase())
-         || /@msn\./.test(address.toLowerCase()) || /@outlook\./.test(address.toLowerCase())
-         || /@yahoo\./.test(address.toLowerCase()))
+            || /@msn\./.test(address.toLowerCase()) || /@outlook\./.test(address.toLowerCase())
+            || /@yahoo\./.test(address.toLowerCase())) {
             anchor = "#IssueswithHotmailcomandYahoocomServices_block";
-        if (/@mail\.ru/.test(address.toLowerCase()))
+        }
+        if (/@mail\.ru/.test(address.toLowerCase())) {
             anchor = "#IssueswithMailruService_block";
+        }
         return window.MailFaqUri + anchor;
     };
 
@@ -508,45 +504,68 @@ window.TMMail = (function($) {
         ASC.Controls.AnchorController.move('#forward/' + msgid);
     };
 
+    var moveToMessagePrint = function(messageId, showImages) {
+        if (showImages) {
+            window.open(window.location.href.split('#')[0] + '?blankpage=true#message/print/' + messageId + '?sim=' + messageId);
+        }
+        else {
+            window.open(window.location.href.split('#')[0] + '?blankpage=true#message/print/' + messageId);
+        }
+    };
+
+    var moveToConversationPrint = function (conversationId, simIds) {
+        var href = window.location.href.split('#')[0] + '?blankpage=true#conversation/print/' + conversationId;
+        if (simIds && simIds.length)
+            href += '?sim=' + simIds.join(",");
+        window.open(href);
+    };
+
     var moveToInbox = function() {
         ASC.Controls.AnchorController.move(systemFolders.inbox.name);
     };
 
-    var openMessage = function (id) {
+    var openMessage = function(id) {
         window.open('#message/' + id, '_blank');
     };
-    
-    var openConversation = function (id) {
+
+    var openConversation = function(id) {
         window.open('#conversation/' + id, '_blank');
     };
-    
+
     function openDraftItem(id) {
         window.open('#draftitem/' + id, '_blank');
     }
 
-    function moveToConversation (id, safe) {
+    function moveToConversation(id, safe) {
         var anchor = '#conversation/' + id;
-        if (safe)
+        if (safe) {
             ASC.Controls.AnchorController.safemove(anchor);
-        else
+        } else {
             ASC.Controls.AnchorController.move(anchor);
+        }
     };
 
-    function moveToMessage (id, safe) {
+    function moveToMessage(id, safe) {
         var anchor = '#message/' + id;
-        if (safe)
+        if (safe) {
             ASC.Controls.AnchorController.safemove(anchor);
-        else
+        } else {
             ASC.Controls.AnchorController.move(anchor);
-    };
-    
+        }
+    }
+
+    ;
+
     function moveToDraftItem(id, safe) {
         var anchor = '#draftitem/' + id;
-        if (safe)
+        if (safe) {
             ASC.Controls.AnchorController.safemove(anchor);
-        else
+        } else {
             ASC.Controls.AnchorController.move(anchor);
-    };
+        }
+    }
+
+    ;
 
     var parseEmailFromFullAddress = function(from) {
         var res = (/^.*<([^<^>]+)>$/).exec(from);
@@ -561,15 +580,15 @@ window.TMMail = (function($) {
     function wordWrap(string) {
         var words = string.split(' ');
         for (var i = 0; i < words.length; i++) {
-            var new_word = '';
-            var last_index = 0;
-            for (var j = max_word_length; j < words[i].length; j += max_word_length) {
-                new_word += htmlEncode(words[i].slice(j - max_word_length, j)) + '<wbr/>';
-                last_index = j;
+            var newWord = '';
+            var lastIndex = 0;
+            for (var j = maxWordLength; j < words[i].length; j += maxWordLength) {
+                newWord += htmlEncode(words[i].slice(j - maxWordLength, j)) + '<wbr/>';
+                lastIndex = j;
             }
-            if (last_index > 0) {
-                new_word += htmlEncode(words[i].slice(last_index));
-                words[i] = new_word;
+            if (lastIndex > 0) {
+                newWord += htmlEncode(words[i].slice(lastIndex));
+                words[i] = newWord;
             } else {
                 words[i] = htmlEncode(words[i]);
             }
@@ -586,80 +605,82 @@ window.TMMail = (function($) {
         return myArray[1];
     };
 
-    function showCompleteActionHint(action_type, is_conversation, count, dst_folder_id) {
-        var hint_text = '';
-        var folder_name = TMMail.GetSysFolderDisplayNameById(dst_folder_id, '');
-        switch (action_type) {
-        case TMMail.action_types.move:
-            hint_text =
-                count == 1 ?
-                    (is_conversation ?
-                        window.MailActionCompleteResource.moveOneConversationTo :
-                        window.MailActionCompleteResource.moveOneMessageTo)
-                        .replace('%folder%', folder_name) :
-                    (is_conversation ?
-                        window.MailActionCompleteResource.moveManyConversationsTo :
-                        window.MailActionCompleteResource.moveManyMessagesTo)
-                        .replace('%folder%', folder_name)
-                        .replace('%count%', count);
-            break;
-        case TMMail.action_types.restore:
-            hint_text =
-                count == 1 ?
-                    (is_conversation ?
-                        window.MailActionCompleteResource.restoreOneConversationTo :
-                        window.MailActionCompleteResource.restoreOneMessageTo)
-                        .replace('%folder%', folder_name) :
-                    (is_conversation ?
-                        window.MailActionCompleteResource.restoreManyConversations :
-                        window.MailActionCompleteResource.restoreManyMessages)
-                        .replace('%count%', count);
-            break;
-        case TMMail.action_types.delete_messages:
-            hint_text =
-                count == 1 ?
-                    (is_conversation ?
-                        window.MailActionCompleteResource.deleteOneConversation :
-                        window.MailActionCompleteResource.deleteOneMessage)
-                    :
-                    (is_conversation ?
-                        window.MailActionCompleteResource.deleteManyConversations :
-                        window.MailActionCompleteResource.deleteManyMessages)
-                        .replace('%count%', count);
-            break;
-        case TMMail.action_types.clear_folder:
-            hint_text = window.MailActionCompleteResource.clearFolder.replace('%folder%', folder_name);
-            break;
-        case TMMail.action_types.move_filtered:
-            hint_text = is_conversation ?
-                window.MailActionCompleteResource.moveFilteredConversationsTo.replace('%folder%', folder_name) :
-                window.MailActionCompleteResource.moveFilteredMessagesTo.replace('%folder%', folder_name);
-            break;
-        case TMMail.action_types.restore_filtered:
-            hint_text = is_conversation ?
-                window.MailActionCompleteResource.restoreFilteredConversations :
-                window.MailActionCompleteResource.restoreFilteredMessages;
-            break;
-        case TMMail.action_types.delete_filtered:
-            hint_text = is_conversation ?
-                window.MailActionCompleteResource.deleteFilteredConversations :
-                window.MailActionCompleteResource.deleteFilteredMessages;
-            break;
-        default:
-            return;
+    function showCompleteActionHint(actionType, isConversation, count, dstFolderId) {
+        var hintText;
+        var folderName = TMMail.GetSysFolderDisplayNameById(dstFolderId, '');
+        switch (actionType) {
+            case TMMail.action_types.move:
+                hintText =
+                    count == 1 ?
+                        (isConversation ?
+                            window.MailActionCompleteResource.moveOneConversationTo :
+                            window.MailActionCompleteResource.moveOneMessageTo)
+                            .replace('%folder%', folderName) :
+                        (isConversation ?
+                            window.MailActionCompleteResource.moveManyConversationsTo :
+                            window.MailActionCompleteResource.moveManyMessagesTo)
+                            .replace('%folder%', folderName)
+                            .replace('%count%', count);
+                break;
+            case TMMail.action_types.restore:
+                hintText =
+                    count == 1 ?
+                        (isConversation ?
+                            window.MailActionCompleteResource.restoreOneConversationTo :
+                            window.MailActionCompleteResource.restoreOneMessageTo)
+                            .replace('%folder%', folderName) :
+                        (isConversation ?
+                            window.MailActionCompleteResource.restoreManyConversations :
+                            window.MailActionCompleteResource.restoreManyMessages)
+                            .replace('%count%', count);
+                break;
+            case TMMail.action_types.delete_messages:
+                hintText =
+                    count == 1 ?
+                        (isConversation ?
+                            window.MailActionCompleteResource.deleteOneConversation :
+                            window.MailActionCompleteResource.deleteOneMessage)
+                        :
+                        (isConversation ?
+                            window.MailActionCompleteResource.deleteManyConversations :
+                            window.MailActionCompleteResource.deleteManyMessages)
+                            .replace('%count%', count);
+                break;
+            case TMMail.action_types.clear_folder:
+                hintText = window.MailActionCompleteResource.clearFolder.replace('%folder%', folderName);
+                break;
+            case TMMail.action_types.move_filtered:
+                hintText = isConversation ?
+                    window.MailActionCompleteResource.moveFilteredConversationsTo.replace('%folder%', folderName) :
+                    window.MailActionCompleteResource.moveFilteredMessagesTo.replace('%folder%', folderName);
+                break;
+            case TMMail.action_types.restore_filtered:
+                hintText = isConversation ?
+                    window.MailActionCompleteResource.restoreFilteredConversations :
+                    window.MailActionCompleteResource.restoreFilteredMessages;
+                break;
+            case TMMail.action_types.delete_filtered:
+                hintText = isConversation ?
+                    window.MailActionCompleteResource.deleteFilteredConversations :
+                    window.MailActionCompleteResource.deleteFilteredMessages;
+                break;
+            default:
+                return;
         }
 
         setTimeout(function() {
             window.LoadingBanner.hideLoading();
-            window.toastr.success(hint_text);
+            window.toastr.success(hintText);
         }, 1000);
     }
-    
-    var str_hash = function(str) {
+
+    var strHash = function(str) {
         var hash = 0, i, l;
-        if (str.length == 0) return hash;
+        if (str.length == 0) {
+            return hash;
+        }
         for (i = 0, l = str.length; i < l; i++) {
-            hash  = ((hash<<5)-hash)+str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + str.charCodeAt(i);
             hash |= 0; // Convert to 32bit integer
         }
         return hash;
@@ -678,7 +699,7 @@ window.TMMail = (function($) {
     }
 
     function fixMailtoLinks(element) {
-        element.find("a[href*='mailto:']").click(function () {
+        element.find("a[href*='mailto:']").click(function() {
             messagePage.setToEmailAddresses([$(this).attr('href').substr(7, $(this).attr('href').length - 1)]);
             window.location.href = "#composeto";
             return false;
@@ -690,20 +711,20 @@ window.TMMail = (function($) {
         return ua.match(/Trident\/7\./) || ua.match(/MSIE *\d+\.\w+/i);
     }
 
-    function getAttachmentDownloadUrl(attachment_id) {
-      return window.MailDownloadHandlerUri.format(attachment_id);
+    function getAttachmentDownloadUrl(attachmentId) {
+        return window.MailDownloadHandlerUri.format(attachmentId);
     }
-    
-    function getAttachmentsDownloadAllUrl(message_id) {
-        return window.MailDownloadAllHandlerUri.format(message_id);
+
+    function getAttachmentsDownloadAllUrl(messageId) {
+        return window.MailDownloadAllHandlerUri.format(messageId);
     }
-    
-    function getViewDocumentUrl(attachment_id) {
-        return window.MailViewDocumentHandlerUri.format(attachment_id);
+
+    function getViewDocumentUrl(attachmentId) {
+        return window.MailViewDocumentHandlerUri.format(attachmentId);
     }
-    
-    function getEditDocumentUrl(attachment_id) {
-        return window.MailEditDocumentHandlerUri.format(attachment_id);
+
+    function getEditDocumentUrl(attachmentId) {
+        return window.MailEditDocumentHandlerUri.format(attachmentId);
     }
 
     function htmlEncode(value) {
@@ -721,7 +742,7 @@ window.TMMail = (function($) {
 
         regex = new RegExp('(' + keys.join('|') + ')', 'g');
 
-        var result = (!value) ? value : String(value).replace(regex, function (match, capture) {
+        var result = (!value) ? value : String(value).replace(regex, function(match, capture) {
             return entities[capture];
         }).replace(/^\s+|\s+$/g, '');
 
@@ -734,6 +755,7 @@ window.TMMail = (function($) {
     }
 
     // checks current page anchor and change it to inbox folder if required
+
     function checkAnchor() {
         if (isInvalidPage()) {
             moveToInbox();
@@ -742,27 +764,37 @@ window.TMMail = (function($) {
 
     function disableButton(button, disable) {
         button.toggleClass("disable", disable);
-        if (disable)
+        if (disable) {
             button.attr("disabled", "disabled");
-        else
+        } else {
             button.removeAttr("disabled");
+        }
     }
 
     function disableInput(input, disable) {
-        if (disable)
+        if (disable) {
             input.attr('disabled', 'true');
-        else
+        } else {
             input.removeAttr('disabled');
+        }
     }
 
-    function setRequiredHint(container_id, text) {
-        var hint = $("#" + container_id + ".requiredField span.requiredErrorText");
+    function setRequiredHint(containerId, text) {
+        var hint = $("#" + containerId + ".requiredField span.requiredErrorText");
         hint.text(text);
         hint.attr('title', text);
     }
 
-    function setRequiredError(container_id, need_show) {
-        $("#" + container_id + ".requiredField").toggleClass(required_field_error_css, need_show);
+    function setRequiredError(containerId, needShow) {
+        $("#" + containerId + ".requiredField").toggleClass(requiredFieldErrorCss, needShow);
+    }
+
+    function isRequiredErrorVisible(containerId) {
+        return $("#" + containerId + ".requiredField").hasClass(requiredFieldErrorCss);
+    }
+
+    function isPopupVisible() {
+        return $('#manageWindow').is(':visible') || $('#commonPopup').is(':visible') || $("#popupDocumentUploader").is(':visible') || $('#tagWnd').is(':visible');
     }
 
     return {
@@ -771,7 +803,7 @@ window.TMMail = (function($) {
         reMailServerEmailStrict: reMailServerEmailStrict,
         reDomainStrict: reDomainStrict,
         sysfolders: systemFolders,
-        action_types: action_types,
+        action_types: actionTypes,
         anchors: anchorRegExp,
 
         init: init,
@@ -781,27 +813,29 @@ window.TMMail = (function($) {
         plusItems: plusItems,
         constant: constant,
         saveMessageInterval: saveMessageInterval,
+        showNextAlertTimeout: showNextAlertTimeout,
+        serviceCheckInterval: serviceCheckInterval,
 
-        last_time_modified_all: last_time_modified_all,
-        GetLastTimeServerListModifiedForFolder: GetLastTimeServerListModifiedForFolder,
-        SetLastTimeServerListModifiedForFolder: SetLastTimeServerListModifiedForFolder,
+        last_time_modified_all: lastTimeModifiedAll,
+        GetLastTimeServerListModifiedForFolder: getLastTimeServerListModifiedForFolder,
+        SetLastTimeServerListModifiedForFolder: setLastTimeServerListModifiedForFolder,
 
         ltgt: ltgt,
-        in_array: in_array,
+        in_array: inArray,
         translateSymbols: translateSymbols,
         setPageHeaderFolderName: setPageHeaderFolderName,
         setPageHeaderTitle: setPageHeaderTitle,
         getErrorMessage: getErrorMessage,
         pageIs: pageIs,
         isInvalidPage: isInvalidPage,
-        GetSysFolderNameById: GetSysFolderNameById,
-        GetSysFolderIdByName: GetSysFolderIdByName,
-        GetSysFolderDisplayNameById: GetSysFolderDisplayNameById,
-        ExtractFolderIdFromAnchor: ExtractFolderIdFromAnchor,
-        ExtractConversationIdFromAnchor: ExtractConversationIdFromAnchor,
+        GetSysFolderNameById: getSysFolderNameById,
+        GetSysFolderIdByName: getSysFolderIdByName,
+        GetSysFolderDisplayNameById: getSysFolderDisplayNameById,
+        ExtractFolderIdFromAnchor: extractFolderIdFromAnchor,
+        ExtractConversationIdFromAnchor: extractConversationIdFromAnchor,
 
-        GetFolderModifyDate: GetFolderModifyDate,
-        messages_modify_date: messages_modify_date,
+        GetFolderModifyDate: getFolderModifyDate,
+        messages_modify_date: messagesModifyDate,
 
         getFaqLink: getFaqLink,
         getSupportLink: getSupportLink,
@@ -809,6 +843,8 @@ window.TMMail = (function($) {
         moveToReply: moveToReply,
         moveToReplyAll: moveToReplyAll,
         moveToForward: moveToForward,
+        moveToMessagePrint: moveToMessagePrint,
+        moveToConversationPrint: moveToConversationPrint,
         openMessage: openMessage,
         openConversation: openConversation,
         openDraftItem: openDraftItem,
@@ -822,13 +858,12 @@ window.TMMail = (function($) {
         getParamsValue: getParamsValue,
         showCompleteActionHint: showCompleteActionHint,
 
-        strHash: str_hash,
+        strHash: strHash,
         prepareUrlToDocument: prepareUrlToDocument,
         canViewInDocuments: canViewInDocuments,
         canEditInDocuments: canEditInDocuments,
         fixMailtoLinks: fixMailtoLinks,
         isIe: isIe,
-        isLocalStorageAvailable: isLocalStorageAvailable,
         getAttachmentDownloadUrl: getAttachmentDownloadUrl,
         getAttachmentsDownloadAllUrl: getAttachmentsDownloadAllUrl,
         getViewDocumentUrl: getViewDocumentUrl,
@@ -842,6 +877,8 @@ window.TMMail = (function($) {
         disableButton: disableButton,
         disableInput: disableInput,
         setRequiredHint: setRequiredHint,
-        setRequiredError: setRequiredError
+        setRequiredError: setRequiredError,
+        isRequiredErrorVisible: isRequiredErrorVisible,
+        isPopupVisible: isPopupVisible
     };
 })(jQuery);

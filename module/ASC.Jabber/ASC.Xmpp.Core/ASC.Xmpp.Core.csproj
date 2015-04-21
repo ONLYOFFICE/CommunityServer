@@ -14,7 +14,6 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TrunkDir>..\..\..\</TrunkDir>
-    <AssemblyOriginatorKeyFile>$(TrunkDir)ASC.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>false</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <FileUpgradeFlags>
@@ -583,7 +582,6 @@
     <Compile Include="authorization\SaslEventArgs.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="authorization\Anonymous\AnonymousMechanism.cs" />
     <Compile Include="authorization\DigestMD5\Step1.cs">
       <SubType>Code</SubType>
     </Compile>

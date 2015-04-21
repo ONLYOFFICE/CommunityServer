@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -76,97 +74,97 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
         #region .Domains
 
-        public override IWebDomain CreateWebDomain(string name, bool is_verified, IMailServerFactory factory)
+        public override IWebDomain CreateWebDomain(string name, bool isVerified, IMailServerFactory factory)
         {
             if (factory == null)
                 throw new ArgumentNullException("factory");
 
-            WebDomainDto domain_dto;
+            WebDomainDto domainDto;
 
-            using (var db_context_with_tran = TeamlabDomainDal.CreateMailDbContext(true))
+            using (var dbContextWithTran = TeamlabDomainDal.CreateMailDbContext(true))
             {
-                domain_dto = TeamlabDomainDal.AddWebDomain(name, is_verified, db_context_with_tran.DbManager);
+                domainDto = TeamlabDomainDal.AddWebDomain(name, isVerified, dbContextWithTran.DbManager);
                 _CreateWebDomain(name);
-                db_context_with_tran.CommitTransaction();
+                dbContextWithTran.CommitTransaction();
             }
 
-            var webdomain = factory.CreateWebDomain(domain_dto.id, domain_dto.tenant, domain_dto.name, domain_dto.is_virified, this);
+            var webdomain = factory.CreateWebDomain(domainDto.id, domainDto.tenant, domainDto.name, domainDto.is_virified, this);
 
             return webdomain;
         }
 
         protected abstract WebDomainBase _CreateWebDomain(string name);
 
-        public override IWebDomain GetWebDomain(int domain_id, IMailServerFactory factory)
+        public override IWebDomain GetWebDomain(int domainId, IMailServerFactory factory)
         {
-            if(domain_id < 0)
-                throw new ArgumentException("domain_id has negative value", "domain_id");
+            if(domainId < 0)
+                throw new ArgumentException("domain_id has negative value", "domainId");
 
             if (factory == null)
                 throw new ArgumentNullException("factory");
 
-            var domain_dto = TeamlabDomainDal.GetDomain(domain_id);
+            var domainDto = TeamlabDomainDal.GetDomain(domainId);
 
-            if (domain_dto == null)
+            if (domainDto == null)
                 return null;
 
-            var domain_base = _GetWebDomain(domain_dto.name);
+            var domainBase = _GetWebDomain(domainDto.name);
 
-            if(domain_base == null)
+            if(domainBase == null)
                 throw new Exception("Server domain is missing");
 
-            var webdomain = factory.CreateWebDomain(domain_dto.id, domain_dto.tenant, domain_dto.name, domain_dto.is_virified, this);
+            var webdomain = factory.CreateWebDomain(domainDto.id, domainDto.tenant, domainDto.name, domainDto.is_virified, this);
 
             return webdomain;
         }
 
-        protected abstract WebDomainBase _GetWebDomain(string domain_name);
+        protected abstract WebDomainBase _GetWebDomain(string domainName);
 
         public override ICollection<IWebDomain> GetWebDomains(IMailServerFactory factory)
         {
             if(factory == null)
                 throw new ArgumentNullException("factory");
 
-            var domains_dto_list = TeamlabDomainDal.GetTenantDomains();
+            var domainsDtoList = TeamlabDomainDal.GetTenantDomains();
 
-            if(!domains_dto_list.Any())
+            if(!domainsDtoList.Any())
                 return new Collection<IWebDomain>();
 
-            var domains_base_list = _GetWebDomains(domains_dto_list.ConvertAll(d => d.name));
+            var domainsBaseList = _GetWebDomains(domainsDtoList.ConvertAll(d => d.name));
 
-            var web_domains = domains_base_list.Select(domain_base =>
+            var webDomains = domainsBaseList.Select(domainBase =>
                 {
-                    var domain_dto = domains_dto_list.Find(dal_domain => dal_domain.name == domain_base.Name);
+                    var domainDto = domainsDtoList.Find(dalDomain => dalDomain.name == domainBase.Name);
 
-                    var webdomain = factory.CreateWebDomain(domain_dto.id, domain_dto.tenant, domain_dto.name, domain_dto.is_virified, this);
+                    var webdomain = factory.CreateWebDomain(domainDto.id, domainDto.tenant, domainDto.name, domainDto.is_virified, this);
 
                     return webdomain;
 
-                }).ToList();
+                }).OrderBy(obj=>obj.Tenant).ToList();
 
-            return web_domains;
+            return webDomains;
         }
 
-        protected abstract List<WebDomainBase> _GetWebDomains(ICollection<string> domain_names);
+        protected abstract List<WebDomainBase> _GetWebDomains(ICollection<string> domainNames);
 
-        public override void DeleteWebDomain(IWebDomain web_domain, IMailServerFactory factory)
+        public override void DeleteWebDomain(IWebDomain webDomain, IMailServerFactory factory)
         {
-            if (web_domain == null)
-                throw new ArgumentNullException("web_domain", "ServerModel::DeleteWebDomain");
+            if (webDomain == null)
+                throw new ArgumentNullException("webDomain", "ServerModel::DeleteWebDomain");
 
             if (factory == null)
                 throw new ArgumentNullException("factory", "ServerModel::DeleteWebDomain");
 
-            using (var db_context_with_tran = TeamlabDomainDal.CreateMailDbContext(true))
+            using (var dbContextWithTran = TeamlabDomainDal.CreateMailDbContext(true))
             {
-                TeamlabDomainDal.DeleteDomain(web_domain.Id, db_context_with_tran.DbManager);
-                _DeleteWebDomain(new WebDomainBase(web_domain));
-                TeamlabDnsDal.RemoveUsedDns(web_domain.Id, db_context_with_tran.DbManager);
-                db_context_with_tran.CommitTransaction();
+                TeamlabDomainDal.DeleteDomain(webDomain.Id, dbContextWithTran.DbManager);
+                _DeleteWebDomain(new WebDomainBase(webDomain));
+                TeamlabDnsDal.RemoveUsedDns(webDomain.Id, dbContextWithTran.DbManager);
+                dbContextWithTran.CommitTransaction();
             }
         }
 
-        protected abstract void _DeleteWebDomain(WebDomainBase web_domain);
+        protected abstract void _DeleteWebDomain(WebDomainBase webDomain);
 
         public override bool IsDomainExists(string name)
         {
@@ -192,31 +190,31 @@ namespace ASC.Mail.Server.Administration.ServerModel
             if (localpart.Length + domain.Name.Length > 318) // 318 because of @ sign
                 throw new ArgumentException("Address of mailbox exceed limitation of 319 characters.", "localpart");
 
-            var mailbox_base = new MailboxBase(new MailAccountBase(account.Login),
+            var mailboxBase = new MailboxBase(new MailAccountBase(account.Login),
                                    new MailAddressBase(localpart, new WebDomainBase(domain)),
                                    new List<MailAddressBase>())
                 {
                     DateCreated = DateTime.UtcNow
                 };
 
-            MailboxWithAddressDto mailbox_with_address_dto;
+            MailboxWithAddressDto mailboxWithAddressDto;
 
-            using (var db_context_with_tran = TeamlabMailboxDal.CreateMailDbContext(true))
+            using (var dbContextWithTran = TeamlabMailboxDal.CreateMailDbContext(true))
             {
-                mailbox_with_address_dto = TeamlabMailboxDal.CreateMailbox(account.TeamlabAccount,
-                                                                           mailbox_base.Address.ToString(), password,
-                                                                           mailbox_base.Address.LocalPart,
-                                                                           mailbox_base.Address.DateCreated,
-                                                                           domain.Id, domain.Name, domain.IsVerified, db_context_with_tran.DbManager);
+                mailboxWithAddressDto = TeamlabMailboxDal.CreateMailbox(account.TeamlabAccount,
+                                                                           mailboxBase.Address.ToString(), password,
+                                                                           mailboxBase.Address.LocalPart,
+                                                                           mailboxBase.Address.DateCreated,
+                                                                           domain.Id, domain.Name, domain.IsVerified, dbContextWithTran.DbManager);
                 _CreateMailbox(account.Login, password, localpart, domain.Name);
 
-                db_context_with_tran.CommitTransaction();
+                dbContextWithTran.CommitTransaction();
             }
 
-            var mailbox_address = factory.CreateMailAddress(mailbox_with_address_dto.mailbox_address.id, mailbox_with_address_dto.mailbox_address.tenant, mailbox_with_address_dto.mailbox_address.name, domain) ;
+            var mailboxAddress = factory.CreateMailAddress(mailboxWithAddressDto.mailbox_address.id, mailboxWithAddressDto.mailbox_address.tenant, mailboxWithAddressDto.mailbox_address.name, domain) ;
 
-            var mailbox = factory.CreateMailbox(mailbox_with_address_dto.mailbox.id, mailbox_with_address_dto.mailbox.tenant_id,
-                mailbox_address, account, new List<IMailAddress>(), this);
+            var mailbox = factory.CreateMailbox(mailboxWithAddressDto.mailbox.id, mailboxWithAddressDto.mailbox.tenant,
+                mailboxAddress, account, new List<IMailAddress>(), this);
 
             return mailbox;
 
@@ -229,77 +227,77 @@ namespace ASC.Mail.Server.Administration.ServerModel
             if (factory == null)
                 throw new ArgumentNullException("factory");
 
-            var mailbox_list = new List<IMailbox>();
+            var mailboxList = new List<IMailbox>();
 
-            using (var db_context = TeamlabMailboxDal.CreateMailDbContext())
+            using (var dbContext = TeamlabMailboxDal.CreateMailDbContext())
             {
-                var mailbox_dto_list = TeamlabMailboxDal.GetMailboxes(db_context.DbManager);
+                var mailboxDtoList = TeamlabMailboxDal.GetMailboxes(dbContext.DbManager);
 
-                var mailbox_base_list = _GetMailboxes(mailbox_dto_list.ConvertAll(d => d.mailbox.address));
+                var mailboxBaseList = _GetMailboxes(mailboxDtoList.ConvertAll(d => d.mailbox.address));
 
-                mailbox_list.AddRange(from server_mailbox in mailbox_base_list
-                                      let mailbox_dto = mailbox_dto_list.Find(d => d.mailbox.address == server_mailbox.Address.ToString())
-                                      let domain = factory.CreateWebDomain(mailbox_dto.mailbox_address.domain.id, mailbox_dto.mailbox_address.domain.tenant, mailbox_dto.mailbox_address.domain.name, mailbox_dto.mailbox_address.domain.is_virified, this)
-                                      let mailbox_address = factory.CreateMailAddress(mailbox_dto.mailbox_address.id, mailbox_dto.mailbox_address.tenant, mailbox_dto.mailbox_address.name, domain)
-                                      let aliases_dto_list = TeamlabMailAddressDal.GetMailboxAliases(mailbox_dto.mailbox.id, db_context.DbManager)
-                                      let aliases = aliases_dto_list.Select(a => factory.CreateMailAddress(a.id, a.tenant, a.name, domain)).ToList()
-                                      let teamlab_account = CoreContext.Authentication.GetAccountByID(new Guid(mailbox_dto.mailbox.user_id))
-                                      let account = factory.CreateMailAccount(teamlab_account, server_mailbox.Account.Login)
-                                      select factory.CreateMailbox(mailbox_dto.mailbox.id, mailbox_dto.mailbox.tenant_id, mailbox_address, account, aliases.ToList(), this));
+                mailboxList.AddRange(from serverMailbox in mailboxBaseList
+                                      let mailboxDto = mailboxDtoList.Find(d => d.mailbox.address == serverMailbox.Address.ToString())
+                                      let domain = factory.CreateWebDomain(mailboxDto.mailbox_address.domain.id, mailboxDto.mailbox_address.domain.tenant, mailboxDto.mailbox_address.domain.name, mailboxDto.mailbox_address.domain.is_virified, this)
+                                      let mailboxAddress = factory.CreateMailAddress(mailboxDto.mailbox_address.id, mailboxDto.mailbox_address.tenant, mailboxDto.mailbox_address.name, domain)
+                                      let aliasesDtoList = TeamlabMailAddressDal.GetMailboxAliases(mailboxDto.mailbox.id, dbContext.DbManager)
+                                      let aliases = aliasesDtoList.Select(a => factory.CreateMailAddress(a.id, a.tenant, a.name, domain)).ToList()
+                                      let teamlabAccount = CoreContext.Authentication.GetAccountByID(new Guid(mailboxDto.mailbox.user))
+                                      let account = factory.CreateMailAccount(teamlabAccount, serverMailbox.Account.Login)
+                                      select factory.CreateMailbox(mailboxDto.mailbox.id, mailboxDto.mailbox.tenant, mailboxAddress, account, aliases.ToList(), this));
             }
 
-            return mailbox_list;
+            return mailboxList;
         }
 
-        protected abstract List<MailboxBase> _GetMailboxes(ICollection<string> mailbox_names);
+        protected abstract List<MailboxBase> _GetMailboxes(ICollection<string> mailboxNames);
 
-        public override IMailbox GetMailbox(int mailbox_id, IMailServerFactory factory)
+        public override IMailbox GetMailbox(int mailboxId, IMailServerFactory factory)
         {
-            if (mailbox_id < 0)
+            if (mailboxId < 0)
                 throw new ArgumentException("mailbox_id has negative value");
 
             if(factory == null)
                 throw new ArgumentNullException("factory");
 
-            MailboxWithAddressDto mailbox_dto;
-            List<MailAddressDto> aliases_dto_list;
+            MailboxWithAddressDto mailboxDto;
+            List<MailAddressDto> aliasesDtoList;
 
-            using (var db_context = TeamlabMailboxDal.CreateMailDbContext())
+            using (var dbContext = TeamlabMailboxDal.CreateMailDbContext())
             {
-                mailbox_dto = TeamlabMailboxDal.GetMailbox(mailbox_id, db_context.DbManager);
-                aliases_dto_list = TeamlabMailAddressDal.GetMailboxAliases(mailbox_id, db_context.DbManager);
+                mailboxDto = TeamlabMailboxDal.GetMailbox(mailboxId, dbContext.DbManager);
+                aliasesDtoList = TeamlabMailAddressDal.GetMailboxAliases(mailboxId, dbContext.DbManager);
             }
 
-            if (mailbox_dto == null)
+            if (mailboxDto == null)
                 return null;
 
-            var mailbox_base = _GetMailbox(mailbox_dto.mailbox_address.ToString());
+            var mailboxBase = _GetMailbox(mailboxDto.mailbox_address.ToString());
 
-            if (mailbox_base == null)
+            if (mailboxBase == null)
                 throw new Exception("Mailbox is missing on server");
 
-            var mailbox_domain = factory.CreateWebDomain(mailbox_dto.mailbox_address.domain.id, mailbox_dto.mailbox_address.domain.tenant, mailbox_dto.mailbox_address.domain.name, mailbox_dto.mailbox_address.domain.is_virified, this);
+            var mailboxDomain = factory.CreateWebDomain(mailboxDto.mailbox_address.domain.id, mailboxDto.mailbox_address.domain.tenant, mailboxDto.mailbox_address.domain.name, mailboxDto.mailbox_address.domain.is_virified, this);
 
-            var mailbox_address = factory.CreateMailAddress(mailbox_dto.mailbox_address.id, mailbox_dto.mailbox_address.tenant, mailbox_dto.mailbox_address.name, mailbox_domain);
+            var mailboxAddress = factory.CreateMailAddress(mailboxDto.mailbox_address.id, mailboxDto.mailbox_address.tenant, mailboxDto.mailbox_address.name, mailboxDomain);
 
-            var account = CoreContext.Authentication.GetAccountByID(new Guid(mailbox_dto.mailbox.user_id));
+            var account = CoreContext.Authentication.GetAccountByID(new Guid(mailboxDto.mailbox.user));
 
-            var mailbox_account = factory.CreateMailAccount(account, mailbox_base.Account.Login);
+            var mailboxAccount = factory.CreateMailAccount(account, mailboxBase.Account.Login);
 
-            var mailbox_aliases =
-                aliases_dto_list
+            var mailboxAliases =
+                aliasesDtoList
                     .Select(alias =>
-                            factory.CreateMailAddress(alias.id, alias.tenant, alias.name, mailbox_domain))
+                            factory.CreateMailAddress(alias.id, alias.tenant, alias.name, mailboxDomain))
                     .ToList();
 
-            var mailbox = factory.CreateMailbox(mailbox_dto.mailbox.id, mailbox_dto.mailbox.tenant_id, 
-                mailbox_address, mailbox_account, mailbox_aliases.ToList(), this);
+            var mailbox = factory.CreateMailbox(mailboxDto.mailbox.id, mailboxDto.mailbox.tenant, 
+                mailboxAddress, mailboxAccount, mailboxAliases.ToList(), this);
 
             return mailbox;
 
         }
 
-        public abstract MailboxBase _GetMailbox(string mailbox_address);
+        public abstract MailboxBase _GetMailbox(string mailboxAddress);
 
         public override void UpdateMailbox(IMailbox mailbox)
         {
@@ -313,11 +311,11 @@ namespace ASC.Mail.Server.Administration.ServerModel
             if (mailbox == null)
                 throw new ArgumentNullException("mailbox", "ServerModel::DeleteMailbox");
 
-            using (var db_context_with_tran = TeamlabMailboxDal.CreateMailDbContext(true))
+            using (var dbContextWithTran = TeamlabMailboxDal.CreateMailDbContext(true))
             {
-                TeamlabMailboxDal.DeleteMailbox(mailbox.Id, db_context_with_tran.DbManager);
+                TeamlabMailboxDal.DeleteMailbox(mailbox.Id, dbContextWithTran.DbManager);
                 _DeleteMailbox(new MailboxBase(mailbox));
-                db_context_with_tran.CommitTransaction();
+                dbContextWithTran.CommitTransaction();
             }
 
         }
@@ -328,160 +326,168 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
         #region .Groups
 
-        public override IMailGroup CreateMailGroup(string group_name, IWebDomain domain, List<int> address_ids, IMailServerFactory factory)
+        public override IMailGroup CreateMailGroup(string groupName, IWebDomain domain, List<int> addressIds, IMailServerFactory factory)
         {
-            if (string.IsNullOrEmpty(group_name))
-                throw new ArgumentNullException("group_name", "ServerModel::CreateMailGroup");
+            if (string.IsNullOrEmpty(groupName))
+                throw new ArgumentNullException("groupName", "ServerModel::CreateMailGroup");
 
             if (domain == null)
                 throw new ArgumentNullException("domain");
 
-            if (address_ids == null)
-                throw new ArgumentNullException("address_ids");
+            if (addressIds == null)
+                throw new ArgumentNullException("addressIds");
 
-            if(!address_ids.Any())
+            if(!addressIds.Any())
                 throw new ArgumentException("Empty address_ids list");
 
             if (factory == null)
                 throw new ArgumentNullException("factory");
 
-            MailGroupDto mailgroup_dto;
+            MailGroupDto mailgroupDto;
 
-            using (var db_context_with_tran = TeamlabMailGroupDal.CreateMailDbContext(true))
+            using (var dbContextWithTran = TeamlabMailGroupDal.CreateMailDbContext(true))
             {
-                var address_dto_list = TeamlabMailAddressDal.GetMailAddresses(address_ids, db_context_with_tran.DbManager);
+                var addressDtoList = TeamlabMailAddressDal.GetMailAddresses(addressIds, dbContextWithTran.DbManager);
 
-                var address_base_list =
-                    address_dto_list
+                var addressBaseList =
+                    addressDtoList
                         .Select(dto =>
                                 new MailAddressBase(dto.name,
                                                     new WebDomainBase(dto.domain.name)))
                         .ToList();
 
-                var mailgroup_base = new MailGroupBase(new MailAddressBase(group_name, new WebDomainBase(domain)),
-                                                       address_base_list);
-                mailgroup_dto = TeamlabMailGroupDal.SaveMailGroup(mailgroup_base.Address.LocalPart,
-                                                                  mailgroup_base.Address.DateCreated,
+                var mailgroupBase = new MailGroupBase(new MailAddressBase(groupName, new WebDomainBase(domain)),
+                                                       addressBaseList);
+                mailgroupDto = TeamlabMailGroupDal.SaveMailGroup(mailgroupBase.Address.LocalPart,
+                                                                  mailgroupBase.Address.DateCreated,
                                                                   domain.Id,
                                                                   domain.Name,
                                                                   domain.IsVerified,
-                                                                  address_dto_list, db_context_with_tran.DbManager);
-                _CreateMailGroup(mailgroup_base.Address, address_base_list);
+                                                                  addressDtoList, dbContextWithTran.DbManager);
+                _CreateMailGroup(mailgroupBase.Address, addressBaseList);
 
-                db_context_with_tran.CommitTransaction();
+                dbContextWithTran.CommitTransaction();
             }
 
-            var mailgroup_address = factory.CreateMailAddress(mailgroup_dto.address.id, mailgroup_dto.address.tenant, mailgroup_dto.address.name, domain);
+            var mailgroupAddress = factory.CreateMailAddress(mailgroupDto.address.id, mailgroupDto.address.tenant, mailgroupDto.address.name, domain);
 
-            var in_addresses =
-                mailgroup_dto.addresses.Select(
-                    address_dto => factory.CreateMailAddress(address_dto.id, address_dto.tenant, address_dto.name, domain))
+            var inAddresses =
+                mailgroupDto.addresses.Select(
+                    addressDto => factory.CreateMailAddress(addressDto.id, addressDto.tenant, addressDto.name, domain))
                                .ToList();
 
-            var mailgroup = factory.CreateMailGroup(mailgroup_dto.id, mailgroup_dto.id_tenant, 
-                mailgroup_address, in_addresses.ToList(), this);
+            var mailgroup = factory.CreateMailGroup(mailgroupDto.id, mailgroupDto.id_tenant, 
+                mailgroupAddress, inAddresses.ToList(), this);
 
             return mailgroup;
         }
 
-        protected abstract MailGroupBase _CreateMailGroup(MailAddressBase address, List<MailAddressBase> mailbox_address_list);
+        protected abstract MailGroupBase _CreateMailGroup(MailAddressBase address, List<MailAddressBase> mailboxAddressList);
 
         public override ICollection<IMailGroup> GetMailGroups(IMailServerFactory factory)
         {
             if (factory == null)
                 throw new ArgumentNullException("factory");
 
-            var tl_groups = TeamlabMailGroupDal.GetMailGroups();
+            var tlGroups = TeamlabMailGroupDal.GetMailGroups();
 
-            var server_groups = _GetMailGroups(tl_groups.Select(g => g.address.ToString()).ToList());
+            var serverGroups = _GetMailGroups(tlGroups.Select(g => g.address.ToString()).ToList());
 
-            var list_mail_groups = new List<IMailGroup>();
-
-            foreach (var server_group in server_groups)
-            {
-                var tl_group = tl_groups.First(g => g.address.ToString() == server_group.Address.ToString());
-
-                var domain =
-                    factory.CreateWebDomain(tl_group.address.domain.id, tl_group.address.domain.tenant, tl_group.address.domain.name, tl_group.address.domain.is_virified, this);
-
-                var address =
-                    factory.CreateMailAddress(tl_group.address.id, tl_group.address.tenant, tl_group.address.name, domain);
-
-                var group_in_addresses =
-                    tl_group.addresses
-                            .Select(a => factory.CreateMailAddress(a.id, a.tenant, a.name, domain))
-                            .ToList();
-
-                var mailgroup = factory.CreateMailGroup(tl_group.id, tl_group.id_tenant, 
-                    address, group_in_addresses.ToList(), this);
-
-                list_mail_groups.Add(mailgroup);
-
-            }
-
-            return list_mail_groups;
+            return (serverGroups.Select(
+                serverGroup => tlGroups.First(g => g.address.ToString() == serverGroup.Address.ToString()))
+                                .Select(tlGroup => new
+                                    {
+                                        tlGroup,
+                                        domain =
+                                                       factory.CreateWebDomain(tlGroup.address.domain.id,
+                                                                               tlGroup.address.domain.tenant,
+                                                                               tlGroup.address.domain.name,
+                                                                               tlGroup.address.domain.is_virified, this)
+                                    }).Select(@t => new
+                                        {
+                                            @t,
+                                            address =
+                                                        factory.CreateMailAddress(@t.tlGroup.address.id,
+                                                                                  @t.tlGroup.address.tenant,
+                                                                                  @t.tlGroup.address.name,
+                                                                                  @t.domain)
+                                        }).Select(@t => new
+                                            {
+                                                @t,
+                                                groupInAddresses =
+                                                            @t.@t.tlGroup.addresses.Select(
+                                                                a =>
+                                                                factory.CreateMailAddress(a.id, a.tenant, a.name,
+                                                                                          @t.@t.domain))
+                                                              .ToList()
+                                            })
+                                .Select(
+                                    @t =>
+                                    factory.CreateMailGroup(@t.@t.@t.tlGroup.id, @t.@t.@t.tlGroup.id_tenant,
+                                                            @t.@t.address, @t.groupInAddresses.ToList(), this)))
+                .ToList();
         }
 
-        protected abstract ICollection<MailGroupBase> _GetMailGroups(ICollection<string> mailgroups_addresses);
+        protected abstract ICollection<MailGroupBase> _GetMailGroups(ICollection<string> mailgroupsAddresses);
 
-        public override IMailGroup GetMailGroup(int mailgroup_id, IMailServerFactory factory)
+        public override IMailGroup GetMailGroup(int mailgroupId, IMailServerFactory factory)
         {
-            if (mailgroup_id < 0)
+            if (mailgroupId < 0)
                 throw new ArgumentException("mailgroup_id has negative value");
 
             if (factory == null)
                 throw new ArgumentNullException("factory");
 
-            var mailgroup_dto = TeamlabMailGroupDal.GetMailGroup(mailgroup_id);
+            var mailgroupDto = TeamlabMailGroupDal.GetMailGroup(mailgroupId);
 
-            if (mailgroup_dto == null)
+            if (mailgroupDto == null)
                 return null;
 
-            var mailgroup_base = _GetMailGroup(mailgroup_dto.address.ToString());
+            var mailgroupBase = _GetMailGroup(mailgroupDto.address.ToString());
 
-            if (mailgroup_base == null)
+            if (mailgroupBase == null)
                 throw new Exception("Mailgroup is missing on server");
 
-            var mailgroup_domain = factory.CreateWebDomain(mailgroup_dto.address.domain.id, mailgroup_dto.address.domain.tenant, mailgroup_dto.address.domain.name, mailgroup_dto.address.domain.is_virified, this);
+            var mailgroupDomain = factory.CreateWebDomain(mailgroupDto.address.domain.id, mailgroupDto.address.domain.tenant, mailgroupDto.address.domain.name, mailgroupDto.address.domain.is_virified, this);
 
-            var mailgroup_address = factory.CreateMailAddress(mailgroup_dto.address.id, mailgroup_dto.address.tenant, mailgroup_dto.address.name, mailgroup_domain);
+            var mailgroupAddress = factory.CreateMailAddress(mailgroupDto.address.id, mailgroupDto.address.tenant, mailgroupDto.address.name, mailgroupDomain);
 
-            var mailgroup_addresses =
-                mailgroup_dto.addresses
+            var mailgroupAddresses =
+                mailgroupDto.addresses
                              .Select(alias =>
-                                     factory.CreateMailAddress(alias.id, alias.tenant, alias.name, mailgroup_domain))
+                                     factory.CreateMailAddress(alias.id, alias.tenant, alias.name, mailgroupDomain))
                              .ToList();
 
-            var mailgroup = factory.CreateMailGroup(mailgroup_dto.id, mailgroup_dto.id_tenant, 
-                mailgroup_address, mailgroup_addresses.ToList(), this);
+            var mailgroup = factory.CreateMailGroup(mailgroupDto.id, mailgroupDto.id_tenant, 
+                mailgroupAddress, mailgroupAddresses.ToList(), this);
 
             return mailgroup;
         }
 
-        public abstract MailGroupBase _GetMailGroup(string mailgroup_address);
+        public abstract MailGroupBase _GetMailGroup(string mailgroupAddress);
 
-        public override void DeleteMailGroup(int mailgroup_id, IMailServerFactory factory)
+        public override void DeleteMailGroup(int mailgroupId, IMailServerFactory factory)
         {
-            if (mailgroup_id < 0)
+            if (mailgroupId < 0)
                 throw new ArgumentException("mailgroup_id has negative value");
 
             if (factory == null)
                 throw new ArgumentNullException("factory");
 
-            var mailgroup = GetMailGroup(mailgroup_id, factory);
+            var mailgroup = GetMailGroup(mailgroupId, factory);
 
             if (mailgroup == null)
                 throw new ArgumentException("Mailgroup is missing");
 
-            using (var db_context_with_tran = TeamlabMailGroupDal.CreateMailDbContext(true))
+            using (var dbContextWithTran = TeamlabMailGroupDal.CreateMailDbContext(true))
             {
-                TeamlabMailGroupDal.DeleteMailGroup(mailgroup.Id, db_context_with_tran.DbManager);
+                TeamlabMailGroupDal.DeleteMailGroup(mailgroup.Id, dbContextWithTran.DbManager);
                 _DeleteMailGroup(new MailGroupBase(mailgroup));
-                db_context_with_tran.CommitTransaction();
+                dbContextWithTran.CommitTransaction();
             }
         }
 
-        protected abstract MailGroupBase _DeleteMailGroup(MailGroupBase mail_group);
+        protected abstract MailGroupBase _DeleteMailGroup(MailGroupBase mailGroup);
 
         #endregion
 
@@ -489,13 +495,13 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
         public override IDnsSettings GetFreeDnsRecords(IMailServerFactory factory)
         {
-            var dns_dto = TeamlabDnsDal.GetFreeDnsRecords() ??
+            var dnsDto = TeamlabDnsDal.GetFreeDnsRecords() ??
                 TeamlabDnsDal.CreateFreeDnsRecords(SetupInfo.DnsPresets.DkimSelector, SetupInfo.DnsPresets.DomainCheckPrefix, SetupInfo.DnsPresets.SpfValue);
 
-            var txt_name = SetupInfo.DnsPresets.CurrentOrigin;
-            var dns = factory.CreateDnsSettings(dns_dto.id, dns_dto.tenant, dns_dto.user, "", dns_dto.dkim_selector,
-                                                dns_dto.dkim_private_key, dns_dto.dkim_public_key, txt_name,
-                                                dns_dto.domain_chek, txt_name, dns_dto.spf, 
+            var txtName = SetupInfo.DnsPresets.CurrentOrigin;
+            var dns = factory.CreateDnsSettings(dnsDto.id, dnsDto.tenant, dnsDto.user, "", dnsDto.dkim_selector,
+                                                dnsDto.dkim_private_key, dnsDto.dkim_public_key, txtName,
+                                                dnsDto.domain_chek, txtName, dnsDto.spf, 
                                                 SetupInfo.DnsPresets.MxHost, SetupInfo.DnsPresets.MxPriority);
 
            return dns;

@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -33,6 +31,7 @@ using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Administration.ServerModel;
 using ASC.Mail.Server.Administration.ServerModel.Base;
@@ -43,8 +42,8 @@ namespace ASC.Mail.Server.PostfixAdministration
 {
     class PostfixMailGroup : MailGroupModel
     {
-        public PostfixMailGroup(int id, int tenant, IMailAddress address, List<IMailAddress> in_addresses, MailServerBase server) 
-            : base(id, tenant, address, in_addresses, server)
+        public PostfixMailGroup(int id, int tenant, IMailAddress address, List<IMailAddress> inAddresses, MailServerBase server) 
+            : base(id, tenant, address, inAddresses, server)
         {
         }
 
@@ -57,10 +56,10 @@ namespace ASC.Mail.Server.PostfixAdministration
                 if (members.Any(a => a.name == address.ToString()))
                     throw new DuplicateNameException("You want to add already existed address");
 
-                var members_addresses = members.Select(m => m.name).ToList();
-                members_addresses.Add(address.ToString());
+                var membersAddresses = members.Select(m => m.name).ToList();
+                membersAddresses.Add(address.ToString());
 
-                UpdateGroupMembers(db, members_addresses);
+                UpdateGroupMembers(db, membersAddresses);
             }
         }
 
@@ -81,8 +80,8 @@ namespace ASC.Mail.Server.PostfixAdministration
         {
             using (var db = GetDb())
             {
-                var dto_members = _GetMembers(db);
-                return dto_members.Select(member => member.ToPostfixAddress()).Cast<MailAddressBase>().ToList();
+                var dtoMembers = _GetMembers(db);
+                return dtoMembers.Select(member => member.ToPostfixAddress()).ToList();
             }
         }
 
@@ -91,26 +90,26 @@ namespace ASC.Mail.Server.PostfixAdministration
             var members = new List<PostfixMailAddressDto>();
 
             //Todo: Think about join this two queries
-            var query_for_joined_group_address_selection = new SqlQuery(AliasTable.name)
+            var queryForJoinedGroupAddressSelection = new SqlQuery(AliasTable.name)
                         .Select(AliasTable.Columns.redirect)
                         .Where(AliasTable.Columns.address, Address.ToString());
 
-            var mail_group_addresses = db.ExecuteScalar<string>(query_for_joined_group_address_selection);
-            if (null == mail_group_addresses)
+            var mailGroupAddresses = db.ExecuteScalar<string>(queryForJoinedGroupAddressSelection);
+            if (null == mailGroupAddresses)
                 return members;
 
-            var needed_group_addresses = mail_group_addresses.Split(',');
+            var neededGroupAddresses = mailGroupAddresses.Split(',');
             const string address_alias = "msa";
-            var group_addresses_query = PostfixCommonQueries.GetAddressJoinedWithDomainQuery(address_alias, "msd")
+            var groupAddressesQuery = PostfixCommonQueries.GetAddressJoinedWithDomainQuery(address_alias, "msd")
 // ReSharper disable CoVariantArrayConversion
-                    .Where(Exp.In(AliasTable.Columns.address, needed_group_addresses));
+                    .Where(Exp.In(AliasTable.Columns.address, neededGroupAddresses));
 // ReSharper restore CoVariantArrayConversion
 
-            var adress_records = db.ExecuteList(group_addresses_query);
-            foreach (var adress_record in adress_records)
+            var adressRecords = db.ExecuteList(groupAddressesQuery);
+            foreach (var adressRecord in adressRecords)
             {
-                var address = adress_record.SubArray(0, ToDtoConverters.mail_address_columns_count).ToAddressDto();
-                var domain = adress_record.SubArray(ToDtoConverters.mail_address_columns_count, ToDtoConverters.domain_columns_count).ToWebDomainDto();
+                var address = adressRecord.SubArray(0, ToDtoConverters.MAIL_ADDRESS_COLUMNS_COUNT).ToAddressDto();
+                var domain = adressRecord.SubArray(ToDtoConverters.MAIL_ADDRESS_COLUMNS_COUNT, ToDtoConverters.DOMAIN_COLUMNS_COUNT).ToWebDomainDto();
                 address.Domain = domain;
                 members.Add(address);
             }
@@ -120,21 +119,21 @@ namespace ASC.Mail.Server.PostfixAdministration
 
         private IDbManager GetDb()
         {
-            var db_provider = new PostfixAdminDbManager(Server.Id, Server.ConnectionString);
-            return db_provider.GetAdminDb();
+            var dbProvider = new PostfixAdminDbManager(Server.Id, Server.ConnectionString);
+            return dbProvider.GetAdminDb();
         }
 
-        private void UpdateGroupMembers(IDbManager db, IEnumerable<string> members_addresses)
+        private void UpdateGroupMembers(IDbManager db, IEnumerable<string> membersAddresses)
         {
-            var members_string = members_addresses.Aggregate<string, string>("",
+            var membersString = membersAddresses.Aggregate("",
                     (current, member) => current + (member + ","));
 
-            var update_group_members = new SqlUpdate(AliasTable.name)
-                .Set(AliasTable.Columns.redirect, members_string)
+            var updateGroupMembers = new SqlUpdate(AliasTable.name)
+                .Set(AliasTable.Columns.redirect, membersString)
                 .Set(AliasTable.Columns.modified, DateTime.UtcNow.ToDbStyle())
                 .Where(AliasTable.Columns.address, Address.ToString());
 
-            db.ExecuteNonQuery(update_group_members);
+            db.ExecuteNonQuery(updateGroupMembers);
         }
     }
 }

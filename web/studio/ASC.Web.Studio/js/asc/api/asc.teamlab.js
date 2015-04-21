@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 ;
 window.Teamlab = (function() {
@@ -81,6 +79,13 @@ window.Teamlab = (function() {
         updateWebToLeadFormKey: 'onupdatewebtoleadformkey',
         updateCRMSMTPSettings: 'onupdatesmtpsettings',
         sendSMTPTestMail: 'onsendsmtptestmail',
+        sendSMTPMailToContacts: 'onsendsmtpmailtocontacts',
+        getPreviewSMTPMailToContacts: 'ongetpreviewsmtpmailtocontacts',
+        getStatusSMTPMailToContacts: 'ongetstatussmtpmailtocontacts',
+        cancelSMTPMailToContacts: 'oncancelsmtpmailtocontacts',
+        getStatusExportToCSV: 'ongetstatusexporttocsv',
+        cancelExportToCSV: 'oncancelexporttocsv',
+        startCrmExportToCSV: 'onstartcrmexporttocsv',
         getCrmContactInCruchBase: 'ongetcrmcontactincruchbase',
         startCrmImportFromCSV: 'onstartcrmimportfromcsv',
         getStatusCrmImportFromCSV: 'ongetstatuscrmimportfromcsv',
@@ -117,6 +122,7 @@ window.Teamlab = (function() {
         removeMailMailbox: 'onremovemailmailbox',
         getMailDefaultMailboxSettings: 'ongetmaildefaultmailboxsettings',
         getMailMailbox: 'ongetmailmailbox',
+        setDefaultAccount: 'onsetdefaultaccount',
         createMailMailboxSimple: 'oncreatemailmailboxsimple',
         createMailMailboxOAuth: 'oncreateMailMailboxOAuth',
         createMailMailbox: 'oncreatemailmailbox',
@@ -167,9 +173,7 @@ window.Teamlab = (function() {
         checkDomainOwnership: 'checkdomainownership',
         getDomainDnsSettings: 'getdomaindnssettings',
 
-
         getFolderPath: 'ongetfolderpath',
-        setNewEditors: 'setneweditors',
 
         getTalkUnreadMessages: "gettalkunreadmessages",
         registerUserOnPersonal: "registeruseronpersonal",
@@ -890,8 +894,24 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.getFolderPath(customEvents.getFolderPath, folderId, options));
     };
 
-    var setNewEditors = function (set, options) {
-        return returnValue(ServiceManager.setNewEditors(customEvents.setNewEditors, set, options));
+    var getFileSecurityInfo = function(fileId, options) {
+        return returnValue(ServiceManager.getFileSecurityInfo(customEvents.getFileSecurityInfo, fileId, options));
+    };
+
+    var generateSharedLink = function(fileId, data, options) {
+        return returnValue(ServiceManager.generateSharedLink(customEvents.generateSharedLink, fileId, data, options));
+    };
+
+    var copyBatchItems = function(data, options) {
+        return returnValue(ServiceManager.copyBatchItems(customEvents.copyBatchItems, data, options));
+    };
+
+    var getOperationStatuses = function(options) {
+        return returnValue(ServiceManager.getOperationStatuses(customEvents.getOperationStatuses, options));
+    };
+
+    var getPresignedUri = function (fileId, options) {
+        return returnValue(ServiceManager.getPresignedUri(customEvents.getPresignedUri, fileId, options));
     };
 
     /* </documents> */
@@ -1250,10 +1270,6 @@ window.Teamlab = (function() {
         return false;
     };
 
-    var getCrmContactTasks = function(params, data, options) {
-        return returnValue(ServiceManager.getCrmContactTasks(customEvents.getCrmContactTasks, params, data, options));
-    };
-
     var getCrmTasks = function(params, options) {
         return returnValue(ServiceManager.getCrmTasks(customEvents.getCrmTasks, params, options));
     };
@@ -1422,8 +1438,8 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.getCrmContactTwitterProfiles(customEvents.getCrmContactTwitterProfiles, params, searchText, options));
     };
 
-    var getCrmContactFacebookProfiles = function (params, searchText, options) {
-        return returnValue(ServiceManager.getCrmContactFacebookProfiles(customEvents.getCrmContactFacebookProfiles, params, searchText, options));
+    var getCrmContactFacebookProfiles = function (params, searchText, isUser, options) {
+        return returnValue(ServiceManager.getCrmContactFacebookProfiles(customEvents.getCrmContactFacebookProfiles, params, searchText, isUser, options));
     };
 
     var getCrmContactLinkedinProfiles = function (params, firstName, lastName, options) {
@@ -1438,8 +1454,8 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.updateCrmContactAvatar(customEvents.updateCrmContactAvatar, params, id, data, options));
     };
 
-    var getCrmContactSocialMediaAvatar = function (params, id, options) {
-        return returnValue(ServiceManager.getCrmContactSocialMediaAvatar(customEvents.getCrmContactSocialMediaAvatar, params, id, options));
+    var getCrmContactSocialMediaAvatar = function (params, data, options) {
+        return returnValue(ServiceManager.getCrmContactSocialMediaAvatar(customEvents.getCrmContactSocialMediaAvatar, params, data, options));
     };
 
     var getCrmContactInCruchBase = function (params, data, options) {
@@ -1460,6 +1476,18 @@ window.Teamlab = (function() {
 
     var uploadFakeCrmImportFromCSV = function (params, data, options) {
         return returnValue(ServiceManager.uploadFakeCrmImportFromCSV(customEvents.uploadFakeCrmImportFromCSV, params, data, options));
+    };
+
+    var getStatusExportToCSV = function(params, options) {
+        return returnValue(ServiceManager.getStatusExportToCSV(customEvents.getStatusExportToCSV, params, options));
+    };
+
+    var cancelExportToCSV = function(params, options) {
+        return returnValue(ServiceManager.cancelExportToCSV(customEvents.cancelExportToCSV, params, options));
+    };
+
+    var startCrmExportToCSV = function(params, options) {
+        return returnValue(ServiceManager.startCrmExportToCSV(customEvents.startCrmExportToCSV, params, options));
     };
 
     var getCrmOpportunitiesByPrefix = function(params, options) {
@@ -1528,6 +1556,22 @@ window.Teamlab = (function() {
 
     var sendSMTPTestMail = function(params, data, options) {
         return returnValue(ServiceManager.sendSMTPTestMail(customEvents.sendSMTPTestMail, params, data, options));
+    };
+
+    var sendSMTPMailToContacts = function(params, data, options) {
+        return returnValue(ServiceManager.sendSMTPMailToContacts(customEvents.sendSMTPMailToContacts, params, data, options));
+    };
+
+    var getPreviewSMTPMailToContacts = function(params, data, options) {
+        return returnValue(ServiceManager.getPreviewSMTPMailToContacts(customEvents.getPreviewSMTPMailToContacts, params, data, options));
+    };
+
+    var getStatusSMTPMailToContacts = function(params, options) {
+        return returnValue(ServiceManager.getStatusSMTPMailToContacts(customEvents.getStatusSMTPMailToContacts, params, options));
+    };
+
+    var cancelSMTPMailToContacts = function(params, options) {
+        return returnValue(ServiceManager.cancelSMTPMailToContacts(customEvents.cancelSMTPMailToContacts, params, options));
     };
 
     var addCrmHistoryEvent = function(params, data, options) {
@@ -1775,8 +1819,8 @@ window.Teamlab = (function() {
         return _single_sm_request('getPrevMailMessageId', params, id, filter_data, options);
     };
 
-    var getMailConversation = function(params, id, load_all_content, options) {
-        return _single_sm_request('getMailConversation', params, id, load_all_content, options);
+    var getMailConversation = function(params, id, data, options) {
+        return _single_sm_request('getMailConversation', params, id, data, options);
     };
 
     var getNextMailConversationId = function(params, id, filter_data, options) {
@@ -1799,8 +1843,8 @@ window.Teamlab = (function() {
         return _single_sm_request('removeMailFolderMessages', params, folder_id, options);
     };
 
-    var restoreMailMessages = function(params, ids, options) {
-        return _single_sm_request('restoreMailMessages', params, ids, options);
+    var restoreMailMessages = function (params, data, options) {
+        return _single_sm_request('restoreMailMessages', params, data, options);
     };
 
     var moveMailMessages = function(params, ids, folder, options) {
@@ -1813,10 +1857,6 @@ window.Teamlab = (function() {
 
     var markMailMessages = function(params, ids, status, options) {
         return _single_sm_request('markMailMessages', params, ids, status, options);
-    };
-
-    var updateCrmMessages = function(params, emails, userIds, options) {
-        return _single_sm_request('updateCrmMessages', params, emails, userIds, options);
     };
 
     var createMailTag = function(params, name, style, addresses, options) {
@@ -1863,6 +1903,10 @@ window.Teamlab = (function() {
         return _single_sm_request('getMailMailbox', params, email, options);
     };
 
+    var setDefaultAccount = function (params, setDefault, email) {
+        return _single_sm_request('setDefaultAccount', params, setDefault, email);
+    };
+
     var createMailMailboxSimple = function(params, email, password, options) {
         return _single_sm_request('createMailMailboxSimple', params, email, password, options);
     };
@@ -1891,8 +1935,8 @@ window.Teamlab = (function() {
         return _single_sm_request('removeMailMessageAttachment', params, message_id, attachment_id, options);
     };
 
-    var sendMailMessage = function (params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options) {
-        return _single_sm_request('sendMailMessage', params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options);
+    var sendMailMessage = function (params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, fileLinksShareMode, options) {
+        return _single_sm_request('sendMailMessage', params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, fileLinksShareMode, options);
     };
 
     var saveMailMessage = function(params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options) {
@@ -1920,8 +1964,8 @@ window.Teamlab = (function() {
         return _single_sm_request('moveMailConversations', params, ids, folder, options);
     };
 
-    var restoreMailConversations = function(params, ids, options) {
-        return _single_sm_request('restoreMailConversations', params, ids, options);
+    var restoreMailConversations = function(params, data, options) {
+        return _single_sm_request('restoreMailConversations', params, data, options);
     };
 
     var removeMailConversations = function(params, ids, options) {
@@ -1979,7 +2023,6 @@ window.Teamlab = (function() {
     var setEMailInFolder = function (params, id_account, email_in_folder, options) {
         return _single_sm_request('setEMailInFolder', params, id_account, email_in_folder, options);
     };
-
     var getMailServer = function(params, options) {
         return _single_sm_request('getMailServer', params, options);
     };
@@ -1996,6 +2039,10 @@ window.Teamlab = (function() {
         return _single_sm_request('getMailDomains', params, options);
     };
     
+    var getCommonMailDomain = function (params, options) {
+        return _single_sm_request('getCommonMailDomain', params, options);
+    };
+
     var addMailDomain = function (params, domain_name, dns_id, options) {
         return _single_sm_request('addMailDomain', params, domain_name, dns_id, options);
     };
@@ -2006,6 +2053,10 @@ window.Teamlab = (function() {
 
     var addMailbox = function (params, mailbox_name, domain_id, user_id, options) {
         return _single_sm_request('addMailbox', params, mailbox_name, domain_id, user_id, options);
+    };
+
+    var addMyMailbox = function (params, mailbox_name, options) {
+        return _single_sm_request('addMyMailbox', params, mailbox_name, options);
     };
 
     var getMailboxes = function (params, options) {
@@ -2089,10 +2140,6 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.getPortalLogo(customEvents.getPortalLogo, params, options));
     };
 
-    var isMobileAppUser = function(params, data, options) {
-        return returnValue(ServiceManager.isMobileAppUser(customEvents.isMobileAppUser, params, data, options));
-    };
-
     /* </settings> */
 
     //#region security
@@ -2127,6 +2174,10 @@ window.Teamlab = (function() {
 
     var updateTipsSettings = function(data, options) {
         return returnValue(ServiceManager.updateTipsSettings(data, options));
+    };
+
+    var smsValidationSettings = function (enable, options) {
+        return returnValue(ServiceManager.smsValidationSettings(enable, options));
     };
 
     //#endregion
@@ -2323,7 +2374,11 @@ window.Teamlab = (function() {
         getDocFolder: getDocFolder,
         createDocUploadSession: createDocUploadSession,
         getFolderPath: getFolderPath,
-        setNewEditors: setNewEditors,
+        getFileSecurityInfo: getFileSecurityInfo,
+        generateSharedLink: generateSharedLink,
+        copyBatchItems: copyBatchItems,
+        getOperationStatuses: getOperationStatuses,
+        getPresignedUri: getPresignedUri,
 
         createCrmUploadFile: createCrmUploadFile,
 
@@ -2403,7 +2458,6 @@ window.Teamlab = (function() {
         getCrmTags: getCrmTags,
         getCrmEntityTags: getCrmEntityTags,
         getCrmEntityMembers: getCrmEntityMembers,
-        getCrmContactTasks: getCrmContactTasks,
         getCrmTasks: getCrmTasks,
         getCrmOpportunity: getCrmOpportunity,
         getCrmOpportunities: getCrmOpportunities,
@@ -2424,6 +2478,10 @@ window.Teamlab = (function() {
         updateWebToLeadFormKey: updateWebToLeadFormKey,
         updateCRMSMTPSettings: updateCRMSMTPSettings,
         sendSMTPTestMail: sendSMTPTestMail,
+        sendSMTPMailToContacts: sendSMTPMailToContacts,
+        getPreviewSMTPMailToContacts: getPreviewSMTPMailToContacts,
+        getStatusSMTPMailToContacts: getStatusSMTPMailToContacts,
+        cancelSMTPMailToContacts: cancelSMTPMailToContacts,
         addCrmHistoryEvent: addCrmHistoryEvent,
         removeCrmHistoryEvent: removeCrmHistoryEvent,
         getCrmHistoryEvents: getCrmHistoryEvents,
@@ -2490,6 +2548,9 @@ window.Teamlab = (function() {
         getStatusCrmImportFromCSV: getStatusCrmImportFromCSV,
         getCrmImportFromCSVSampleRow: getCrmImportFromCSVSampleRow,
         uploadFakeCrmImportFromCSV: uploadFakeCrmImportFromCSV,
+        getStatusExportToCSV: getStatusExportToCSV,
+        cancelExportToCSV: cancelExportToCSV,
+        startCrmExportToCSV: startCrmExportToCSV,
 
         addCrmEntityTaskTemplateContainer: addCrmEntityTaskTemplateContainer,
         updateCrmEntityTaskTemplateContainer: updateCrmEntityTaskTemplateContainer,
@@ -2546,7 +2607,6 @@ window.Teamlab = (function() {
         moveMailMessages: moveMailMessages,
         removeMailMessages: removeMailMessages,
         markMailMessages: markMailMessages,
-        updateCrmMessages: updateCrmMessages,
         createMailTag: createMailTag,
         updateMailTag: updateMailTag,
         removeMailTag: removeMailTag,
@@ -2558,6 +2618,7 @@ window.Teamlab = (function() {
         removeMailMailbox: removeMailMailbox,
         getMailDefaultMailboxSettings: getMailDefaultMailboxSettings,
         getMailMailbox: getMailMailbox,
+        setDefaultAccount: setDefaultAccount,
         createMailMailboxSimple: createMailMailboxSimple,
         createMailMailboxOAuth: createMailMailboxOAuth,
         createMailMailbox: createMailMailbox,
@@ -2593,9 +2654,11 @@ window.Teamlab = (function() {
         getMailServerFullInfo: getMailServerFullInfo,
         getMailServerFreeDns: getMailServerFreeDns,
         getMailDomains: getMailDomains,
+        getCommonMailDomain: getCommonMailDomain,
         addMailDomain: addMailDomain,
         removeMailDomain: removeMailDomain,
         addMailbox: addMailbox,
+        addMyMailbox: addMyMailbox,
         getMailboxes: getMailboxes,
         removeMailbox: removeMailbox,
         addMailBoxAlias: addMailBoxAlias,
@@ -2617,8 +2680,6 @@ window.Teamlab = (function() {
         getPortalSettings: getPortalSettings,
         getPortalLogo: getPortalLogo,
 
-        isMobileAppUser: isMobileAppUser,
-
         getAuditEvents: getAuditEvents,
         getLoginEvents: getLoginEvents,
         createLoginHistoryReport: createLoginHistoryReport,
@@ -2627,6 +2688,7 @@ window.Teamlab = (function() {
         saveIpRestrictions: saveIpRestrictions,
         updateIpRestrictionsSettings: updateIpRestrictionsSettings,
         updateTipsSettings: updateTipsSettings,
+        smsValidationSettings: smsValidationSettings,
 
         getTalkUnreadMessages: getTalkUnreadMessages,
 

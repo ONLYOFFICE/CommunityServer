@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -101,6 +99,7 @@ namespace ASC.Api.CRM
         /// <param name="customFieldList" optional="true">User field list</param>
         /// <param name="isPrivate" optional="true">Case privacy: private or not</param>
         /// <param name="accessList" optional="true">List of users with access to the case</param>
+        /// <param name="isNotify" optional="true">Notify users in accessList about the case</param>
         /// <returns>Case</returns>
         /// <category>Cases</category>
         /// <exception cref="ArgumentException"></exception>
@@ -123,7 +122,8 @@ namespace ASC.Api.CRM
             IEnumerable<int> members,
             IEnumerable<ItemKeyValuePair<int, string>> customFieldList,
             bool isPrivate,
-            IEnumerable<Guid> accessList)
+            IEnumerable<Guid> accessList,
+            bool isNotify)
         {
             if (string.IsNullOrEmpty(title)) throw new ArgumentException();
 
@@ -137,15 +137,7 @@ namespace ASC.Api.CRM
                     CreateOn = DateTime.UtcNow
                 };
 
-            var accessListLocal = accessList != null ? accessList.ToList() : new List<Guid>();
-            if (isPrivate && accessListLocal.Any())
-            {
-                CRMSecurity.SetAccessTo(cases, accessListLocal);
-            }
-            else
-            {
-                CRMSecurity.MakePublic(cases);
-            }
+            SetAccessToCases(cases, isPrivate, accessList, isNotify, false);
 
             var membersList = members != null ? members.ToList() : new List<int>();
             if (membersList.Any())
@@ -178,6 +170,7 @@ namespace ASC.Api.CRM
         /// <param name="customFieldList" optional="true">User field list</param>
         /// <param name="isPrivate" optional="true">Case privacy: private or not</param>
         /// <param name="accessList" optional="true">List of users with access to the case</param>
+        /// <param name="isNotify" optional="true">Notify users in accessList about the case</param>
         /// <category>Cases</category>
         /// <returns>Case</returns>
         /// <exception cref="ArgumentException"></exception>
@@ -203,7 +196,8 @@ namespace ASC.Api.CRM
             IEnumerable<int> members,
             IEnumerable<ItemKeyValuePair<int, string>> customFieldList,
             bool isPrivate,
-            IEnumerable<Guid> accessList)
+            IEnumerable<Guid> accessList,
+            bool isNotify)
         {
             if ((caseid <= 0) || (string.IsNullOrEmpty(title))) throw new ArgumentException();
 
@@ -216,15 +210,7 @@ namespace ASC.Api.CRM
 
             if (CRMSecurity.IsAdmin || cases.CreateBy == Core.SecurityContext.CurrentAccount.ID)
             {
-                var accessListLocal = accessList != null ? accessList.ToList() : new List<Guid>();
-                if (isPrivate && accessListLocal.Any())
-                {
-                    CRMSecurity.SetAccessTo(cases, accessListLocal);
-                }
-                else
-                {
-                    CRMSecurity.MakePublic(cases);
-                }
+                SetAccessToCases(cases, isPrivate, accessList, isNotify, false);
             }
 
             var membersList = members != null ? members.ToList() : new List<int>();
@@ -271,22 +257,39 @@ namespace ASC.Api.CRM
 
             if (!(CRMSecurity.IsAdmin || cases.CreateBy == Core.SecurityContext.CurrentAccount.ID)) throw CRMSecurity.CreateSecurityException();
 
-            return SetAccessToCases(cases, isPrivate, accessList);
+            return SetAccessToCases(cases, isPrivate, accessList, false, true);
         }
 
-        private CasesWrapper SetAccessToCases(Cases cases, bool isPrivate, IEnumerable<Guid> accessList)
+        private CasesWrapper SetAccessToCases(Cases cases, bool isPrivate, IEnumerable<Guid> accessList, bool isNotify, bool isMessageServicSende)
         {
-            var accessListLocal = accessList != null ? accessList.ToList() : new List<Guid>();
+            var accessListLocal = accessList != null ? accessList.Distinct().ToList() : new List<Guid>();
             if (isPrivate && accessListLocal.Any())
             {
+                if (isNotify)
+                {
+                    accessListLocal = accessListLocal.Where(u => u != SecurityContext.CurrentAccount.ID).ToList();
+                    ASC.Web.CRM.Services.NotifyService.NotifyClient.Instance.SendAboutSetAccess(EntityType.Case, cases.ID, accessListLocal.ToArray());
+                }
+
+                if (!accessListLocal.Contains(SecurityContext.CurrentAccount.ID))
+                {
+                    accessListLocal.Add(SecurityContext.CurrentAccount.ID);
+                }
+
                 CRMSecurity.SetAccessTo(cases, accessListLocal);
-                var users = GetUsersByIdList(accessListLocal).Select(x => x.DisplayUserName(false));
-                MessageService.Send(Request, MessageAction.CaseRestrictedAccess, cases.Title, users);
+                if (isMessageServicSende)
+                {
+                    var users = GetUsersByIdList(accessListLocal).Select(x => x.DisplayUserName(false));
+                    MessageService.Send(Request, MessageAction.CaseRestrictedAccess, cases.Title, users);
+                }
             }
             else
             {
                 CRMSecurity.MakePublic(cases);
-                MessageService.Send(Request, MessageAction.CaseOpenedAccess, cases.Title);
+                if (isMessageServicSende)
+                {
+                    MessageService.Send(Request, MessageAction.CaseOpenedAccess, cases.Title);
+                }
             }
 
             return ToCasesWrapper(cases);
@@ -320,7 +323,7 @@ namespace ASC.Api.CRM
 
                 if (!(CRMSecurity.IsAdmin || c.CreateBy == Core.SecurityContext.CurrentAccount.ID)) continue;
 
-                SetAccessToCases(c, isPrivate, accessList);
+                SetAccessToCases(c, isPrivate, accessList, false, true);
                 result.Add(c);
             }
 
@@ -363,7 +366,7 @@ namespace ASC.Api.CRM
 
                 if (!(CRMSecurity.IsAdmin || casese.CreateBy == Core.SecurityContext.CurrentAccount.ID)) continue;
 
-                SetAccessToCases(casese, isPrivate, accessList);
+                SetAccessToCases(casese, isPrivate, accessList, false, true);
                 result.Add(casese);
             }
 

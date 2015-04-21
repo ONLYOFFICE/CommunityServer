@@ -1,10 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Assembly Name="ASC.Web.Files" %>
-<%@ Assembly Name="ASC.Projects.Core" %>
-<%@ Assembly Name="ASC.Projects.Engine" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NavigationSidePanel.ascx.cs" Inherits="ASC.Web.Projects.Controls.Common.NavigationSidePanel" %>
-<%@ Import Namespace="ASC.Projects.Core.Domain" %>
-<%@ Import Namespace="ASC.Projects.Engine" %>
+
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Projects" %>
 <%@ Import Namespace="ASC.Web.Projects.Classes" %>
@@ -82,7 +79,7 @@
                 <ul class="menu-sub-list">
                     <% if (!IsOutsider) { %>
                     <% if (MyProjects.Count != 0) { %>
-                       <li id="myProjectsConteiner" class="menu-sub-item">
+                       <li id="myProjectsConteiner" class="menu-sub-item myProjectsConteiner">
                             <div class="menu-item sub-list">
                                 <span id="myProjectsExpander" class="expander"></span>
                                 <a id="menuMyProjects" class="menu-item-label outer-text text-overflow" href=""><%= ProjectsCommonResource.LeftMenuMyProjects%></a>
@@ -97,7 +94,7 @@
                             </ul>
                         </li>
                     <% } else { %>
-                       <li class="menu-sub-item filter">
+                       <li class="menu-sub-item filter myProjectsConteiner">
                             <a id="menuMyProjects" class="menu-item-label outer-text text-overflow" href=""><%= ProjectsCommonResource.LeftMenuMyProjects%></a>
                        </li>
                     <% } %>
@@ -221,6 +218,7 @@
                     </a>     
                 </li>
                 
+                <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
                 <% if (IsFullAdmin || IsProjectAdmin)
                    { %>
                     <li id="menuSettings" class="menu-item sub-list add-block">
@@ -260,8 +258,8 @@
         </ul>
 </div>
 
-<% if (!IsStandalone && DisplayAppsBanner) {%>
-<div class="mobileApp-banner display-none">
+<% if (DisplayAppsBanner) {%>
+<div class="mobileApp-banner">
     <div class="mobileApp-banner_text">
         <div class="mobileApp-banner_text_i"><%=ProjectsCommonResource.BannerMobileText %></div>
         <div class="mobileApp-banner_text_i"><%=ProjectsCommonResource.BannerMobileProjects %></div>

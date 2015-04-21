@@ -308,6 +308,10 @@ $activity.Key
     <subject resource="|subject_after_creation4|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation4|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
+  <pattern id="after_creation5">
+    <subject resource="|subject_after_creation5|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation5|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
 
   <!-- after registaration personal -->
   <pattern id="after_registration_personal1">
@@ -344,4 +348,11 @@ $activity.Key
     <subject resource="|subject_change_email_personal|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_email_personal|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
+
+  <!-- 2 weeks after 3 times month payment -->
+  <pattern id="after_payment1">
+    <subject resource="|subject_after_payment1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_payment1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
 </patterns>

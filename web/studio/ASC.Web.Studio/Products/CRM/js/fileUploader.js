@@ -1,53 +1,51 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 ASC.CRM.FileUploader = (function () {
     var onPreUploadStart = function () {
-        FileUploadManager._uploader.disableBrowse(true);
+        FileUploadManager.DisableBrowseBtn(true);
         jq("#pm_upload_btn").hide();
 
         ASC.CRM.FileUploader.OnBeginCallback_function();
     };
 
-    var onFileUploaded = function (up, file, resp) {
-        var data = jq.parseJSON(resp.response);
-        ASC.CRM.FileUploader.fileIDs.push(data.Data);
-        FileUploadManager.FileUploaded(up, file, resp);
+    var onUploadDone = function (e, data) {
+        var res = jq.parseJSON(data.result);
+        ASC.CRM.FileUploader.fileIDs.push(res.Data);
+        FileUploadManager._uploadDone(e, data);
     };
 
-    var onUploadComplete = function (up, files) {
-        FileUploadManager._uploader.files.clear();
+    var onUploadStop = function (e, data) {
+        FileUploadManager.ClearFiles();
         ASC.CRM.FileUploader.OnAllUploadCompleteCallback_function();
-        FileUploadManager.UploadComplete(up, files);
+        FileUploadManager._uploadStop(e, data);
     };
 
     var onRenderItemInUploadingProcess = function (data) {
-        $progressObj = jq('#fu_item_{0} div.studioFileUploaderProgressBar'.format(data.id));
+        var $progressObj = jq('#fu_item_{0} div.studioFileUploaderProgressBar'.format(data.id));
         if ($progressObj.length === 0) {
             jq('#fu_item_' + data.id).replaceWith(jq.tmpl(FileUploadManager.renderedItemTemplate, data));
         } else {
@@ -57,7 +55,7 @@ ASC.CRM.FileUploader = (function () {
 
     return {
         fileNames: function () {
-            return jq(FileUploadManager._uploader.files).map(function (i, file) {
+            return jq(FileUploadManager.GetFiles()).map(function (i, file) {
                 return file.name;
             });
         },
@@ -66,13 +64,12 @@ ASC.CRM.FileUploader = (function () {
 
         activateUploader: function () {
 
-            FileUploadManager.InitFileUploader({
-                DropPanel: 'pm_DragDropHolder',
-                Container: 'pm_DragDropHolder',
+            FileUploadManager.Init({
+                DropZone: 'pm_DragDropHolder',
                 TargetContainerID: 'history_uploadContainer',
                 BrowseButton: 'pm_upload_btn',
                 UploadButton: "fakeUploadButton",
-                MaxSize: uploadFileSizeLimit,
+                MaxSize: window.uploadFileSizeLimit,
                 FileUploadHandler: 'ASC.Web.CRM.Classes.FileUploaderHandler, ASC.Web.CRM',
                 Data: { 'UserID': Teamlab.profile.id },
                 DeleteLinkCSSClass: 'pm_deleteLinkCSSClass',
@@ -82,19 +79,13 @@ ASC.CRM.FileUploader = (function () {
                 Events:
                     {
                         OnPreUploadStart: onPreUploadStart,
-                        OnFileUploaded: onFileUploaded,
-                        OnUploadComplete: onUploadComplete,
+                        OnUploadDone: onUploadDone,
+                        OnUploadStop: onUploadStop,
                         OnRenderItemInUploadingProcess: onRenderItemInUploadingProcess
                     },
-                Switcher:
-                    {
-                        ToFlash: uploadToFlashButton,
-                        ToBasic: uploadToBasicButton
-                    }
+                EmptyFileErrorMsg: ASC.CRM.Resources.CRMCommonResource.EmptyFileErrorMsg,
+                FileSizeErrorMsg: ASC.CRM.Resources.CRMCommonResource.FileSizeErrorMsg
             });
-
-            if ((typeof FileReader == 'undefined' && !jQuery.browser.safari) || FileUploadManager.IsFlash(FileUploadManager._uploader))
-                jq('#switcher').show();
         },
 
         OnAllUploadCompleteCallback_function: function () {
@@ -104,11 +95,11 @@ ASC.CRM.FileUploader = (function () {
         },
 
         start: function () {
-            FileUploadManager._uploader.start();
+            FileUploadManager.StartUpload();
         },
 
         getUploadFileCount: function () {
-            return FileUploadManager._uploader.files.length;
+            return FileUploadManager.GetFiles().length;
         },
 
         showFileUploaderDialog: function () {
@@ -149,7 +140,7 @@ ASC.CRM.FileUploader = (function () {
         reinit: function () {
             jq("#history_uploadContainer").empty();
 
-            FileUploadManager._uploader.disableBrowse(false);
+            FileUploadManager.DisableBrowseBtn(false);
             jq("#pm_upload_btn").show();
 
             ASC.CRM.FileUploader.fileIDs.clear();

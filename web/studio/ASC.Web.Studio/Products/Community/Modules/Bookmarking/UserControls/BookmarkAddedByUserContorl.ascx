@@ -1,7 +1,7 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Bookmarking" %>
+﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BookmarkAddedByUserContorl.ascx.cs"
 	Inherits="ASC.Web.UserControls.Bookmarking.BookmarkAddedByUserContorl" %>
-<%@ Import Namespace="ASC.Web.UserControls.Bookmarking.Resources" %>
+
 <div id="<%=DivID%>" class='borderBase bookmarks-row'>
 	<table style="width: 100%;" cellpadding="8" cellspacing="0">
 		<tr>

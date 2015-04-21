@@ -8,10 +8,7 @@
     <ConfigurationSites  Condition=" '$(ConfigurationSites)' == '' ">Debug</ConfigurationSites>
     <BuildTargets   Condition=" '$(BuildTargets)' == ''  ">Build</BuildTargets>
 
-    <CRMdbSync Condition="'$(CRMdbSync)' == ''">0</CRMdbSync>
-    <Thumb Condition="'$(Thumb)' == ''">0</Thumb>
-    <Stats Condition="'$(Stats)' == ''">0</Stats>
-    <Registration Condition="'$(Registration)' == ''">0</Registration>
+    <DeploySites Condition="'$(DeploySites)' == ''">0</DeploySites>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -28,6 +25,7 @@
     <ProjectToBuild Include="$(ASCDir)common\ASC.Core.Common\ASC.Core.Common.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.IPSecurity\ASC.IPSecurity.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Storage\ASC.Data.Storage.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Storage.StaticCopy\ASC.Data.Storage.StaticCopy.csproj" Condition=" Exists( '$(ASCDir)common\ASC.Data.Storage.StaticCopy\ASC.Data.Storage.StaticCopy.csproj' )"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.Notify.Textile\ASC.Notify.Textile.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.TeamLabSvc\ASC.TeamLabSvc\ASC.TeamLabSvc.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Feed\ASC.Feed.csproj"/>
@@ -41,14 +39,15 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.Jabber\ASC.Xmpp.Host\ASC.Xmpp.Host.csproj"/>
 
     <!-- Full Text Index -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.FullTextIndex\ASC.FullTextIndex\ASC.FullTextIndex.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.FullTextIndex\ASC.FullTextIndex.csproj"/>
 
     <!-- Web -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Thrdparty\DotNetOpenAuth.ApplicationBlock\DotNetOpenAuth.ApplicationBlock.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Thrdparty\ASC.Thrdparty\ASC.Thrdparty.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api\ASC.Api.Core.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)common\TMResourceManager\Data\TMResourceData.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)common\TMResourceManager\ASC.Resource.Data\ASC.Resource.Data.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)common\TMResourceManager\ASC.Resource.Upload\ASC.Resource.Upload.csproj" Condition=" Exists( '$(ASCDir)common\TMResourceManager\ASC.Resource.Upload\ASC.Resource.Upload.csproj' ) "/>
     <ProjectToBuild Include="$(ASCDir)web\core\ASC.Web.Core\ASC.Web.Core.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.VoipService\ASC.VoipService.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.VoipService.Application\ASC.VoipService.Application.csproj"/>
@@ -69,12 +68,6 @@
 
     <!-- Community -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Community\ASC.Web.Community.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Community\Modules\Blogs\ASC.Web.Community.Blogs.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Community\Modules\Forum\ASC.Web.Community.Forum.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Community\Modules\Bookmarking\ASC.Web.Community.Bookmarking.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Community\Modules\News\ASC.Web.Community.News.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Community\Modules\Wiki\ASC.Web.Community.Wiki.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Community\Modules\Birthdays\ASC.Web.Community.Birthdays.csproj"/>
 
     <!-- Files -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj"/>
@@ -82,7 +75,9 @@
 
     <!-- Backup -->
     <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Backup\ASC.Data.Backup.csproj" Condition=" Exists( '$(ASCDir)common\ASC.Data.Backup\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Backup.Restore\ASC.Data.Backup.Restore.csproj" Condition=" Exists( '$(ASCDir)common\ASC.Data.Backup.Restore\' ) "/>
+
+    <!-- Recycle -->
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Recycle\ASC.Recycle.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Recycle\' ) "/>
 
     <!-- SocialMedia -->
     <ProjectToBuild Include="$(ASCDir)web\controls\ASC.Web.UserControls.SocialMedia\ASC.Web.UserControls.SocialMedia.csproj"/>
@@ -91,9 +86,6 @@
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj"/>
 
     <!-- PM -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Projects\ASC.Projects.Core\ASC.Projects.Core.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Projects\ASC.Projects.Data\ASC.Projects.Data.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Projects\ASC.Projects.Engine\ASC.Projects.Engine.csproj"/>
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Projects\ASC.Web.Projects.csproj"/>
 
     <!-- People-->
@@ -121,8 +113,6 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj" />
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.DataStorage\ASC.Mail.Aggregator.DataStorage.csproj" />
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Contacts\ASC.Mail.Aggregator.Contacts.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.EmailIn\ASC.Mail.Aggregator.EmailIn.csproj"/>
 
     <!-- Mail Services -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\ASC.Mail.Aggregator.CollectionService.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Aggregator\' ) "/>
@@ -133,18 +123,13 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\Interfaces\Interfaces.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\MailServerUtils\MailServerUtils.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Dal\MailServerDal\MailServerDal.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-	
-	<ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\AdministrationModel\AdministrationModel.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
+
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\AdministrationModel\AdministrationModel.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\MockAdministration\MockAdministration.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\PostfixAdministration\PostfixAdministration.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\DnsChecker\DnsChecker.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\DnsCheckerService\ASC.MailServer.DnsCheckerService.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
 
-	<ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\CommonTestCases\CommonTestCases.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\MockTests\MockTests.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\Administration\PostfixTests\PostfixTests.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\HelpUtilsTests\HelpUtilsTests.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Server\DnsCheckerTests\DnsCheckerTests.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Server\' ) "/>
-	
     <!-- Mail Site -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\addons\mail\ASC.Web.Mail.csproj" Condition=" Exists( '$(ASCDir)web\studio\ASC.Web.Studio\addons\mail\ASC.Web.Mail.csproj' ) "/>
 
@@ -173,23 +158,22 @@
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\addons\calendar\ASC.Web.Calendar.csproj"/>
 
     <!-- Uploader -->
-    <ProjectToBuild Include="$(ASCDir)web\services\ASC.Web.Upload\ASC.Web.Upload.csproj" Condition=" Exists( '$(ASCDir)web\services\ASC.Web.Upload\ASC.Web.Upload.csproj' ) "/>
+    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Upload\ASC.Web.Upload.csproj" Condition=" Exists( '$(ASCDir)web\studio\ASC.Web.Upload\ASC.Web.Upload.csproj' ) "/>
 
     <!-- SignalR service -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.SignalR.Base\ASC.SignalR.Base.csproj" Condition=" Exists( '$(ASCDir)module\ASC.SignalR.Base\ASC.SignalR.Base.csproj' ) "/>
 
-    <!-- HealthCheck -->
-    <ProjectToBuild Include="$(ASCDir)web\HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj" Condition=" Exists( '$(ASCDir)web\HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj' ) "/>
-
-    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.CRM\ASC.CRM.DatabaseSync\ASC.CRM.DatabaseSync.csproj" Condition="$(CRMdbSync)==1" />
-    <ProjectSitesToBuild Include="$(ASCDir)web\Thumb\Thumb.csproj" Condition="$(Thumb)==1" />
-    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.Statistics\ASC.Statistics.sln" Condition="$(Stats)==1" />
-    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.TenantRegistrationService\ASC.TenantRegistrationService\ASC.TenantRegistrationService.csproj" Condition="$(Registration)==1" />
+    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.CRM\ASC.CRM.DatabaseSync\ASC.CRM.DatabaseSync.csproj" Condition="$(DeploySites)==1" />
+    <ProjectSitesToBuild Include="$(ASCDir)web\Thumb\Thumb.csproj" Condition="$(DeploySites)==1" />
+    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.Statistics\ASC.Statistics.sln" Condition="$(DeploySites)==1" />
+    <ProjectSitesToBuild Include="$(ASCDir)web\services\ASC.ApiSystem\ASC.ApiSystem.csproj" Condition="$(DeploySites)==1" />
+    <ProjectSitesToBuild Include="$(ASCDir)web\services\ASC.Bar\ASC.Bar.csproj" Condition="$(DeploySites)==1" />
   </ItemGroup>
 
   <Target Name="Build">
     <Message Text="$(BuildTargets) projects ($(Configuration)):"/>
     <Message Text="-  %(ProjectToBuild.Filename)%(ProjectToBuild.Extension)"/>
+    <Message Text="-  %(ProjectSitesToBuild.Filename)%(ProjectSitesToBuild.Extension)"/>
     <Message Text="  "/>
 
     <CreateItem Include="$(ASCDir)\build\msbuild\">
@@ -221,7 +205,7 @@
                   AssemblyProduct="ONLYOFFICE"
                   AssemblyTitle="%(ProjectToBuild.Filename)"
                   AssemblyCompany="Ascensio System SIA"
-                  AssemblyCopyright="Ascensio System SIA 2014"
+                  AssemblyCopyright="Ascensio System SIA 2015"
                   AssemblyTrademark="ONLYOFFICE™"
                   AssemblyVersion="8.0.0.0"
                   AssemblyFileVersion="8.0.0.0"/>

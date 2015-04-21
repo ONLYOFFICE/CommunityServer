@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 if (typeof ASC === "undefined") {
     ASC = {};
@@ -53,23 +51,28 @@ ASC.CRM.SmtpSender = (function () {
 
             var subj = jq("#sendEmailPanel #tbxEmailSubject").val().trim();
             if (subj == "") {
-                 subj = ASC.CRM.Resources.CRMJSResource.NoSubject;
+                subj = ASC.CRM.Resources.CRMJSResource.NoSubject;
             }
 
-            var storeInHistory = jq("#storeInHistory").is(":checked");
+            var data = {
+                contactIds: contacts,
+                subject: subj,
+                body: ASC.CRM.SmtpSender.editor.getData() + watermark,
+                fileIDs: ASC.CRM.FileUploader.fileIDs,
+                storeInHistory: jq("#storeInHistory").is(":checked")
+            };
 
-            AjaxPro.SmtpSender.SendEmail(ASC.CRM.FileUploader.fileIDs,
-                    contacts,
-                    subj,
-                    ASC.CRM.SmtpSender.editor.getData() + watermark,
-                    storeInHistory,
-                    function (res) {
-                        if (res.error != null) {
-                            toastr.error(res.error.Message);
-                            return;
-                        }
-                        ASC.CRM.SmtpSender.checkSendStatus(true);
-                    });
+            Teamlab.sendSMTPMailToContacts({}, data, {
+                success: function (params, response) {
+                    ASC.CRM.SmtpSender.checkSendStatus(true);
+                },
+                error: function (params, errors) {
+                    var err = errors[0];
+                    if (err != null) {
+                        toastr.error(err);
+                    }
+                }
+            });
         };
     };
     
@@ -95,7 +98,7 @@ ASC.CRM.SmtpSender = (function () {
         }
 
         if (!ASC.CRM.ListContactView.checkSMTPSettings()) {
-            console.log("Eempty field in smtp settings.");
+            console.log("Empty field in smtp settings.");
             return false;
         }
 
@@ -125,48 +128,53 @@ ASC.CRM.SmtpSender = (function () {
         },
 
         showSendEmailPanel: function () {
-            AjaxPro.SmtpSender.GetStatus(function (res) {
-                if (res.error != null) {
-                    toastr.error(res.error.Message);
-                    return;
-                }
-                if (res.value == null || res.value.IsCompleted) {
-                    jq("#sendEmailPanel #emailFromLabel").text(jq.format("{0} ({1})", ASC.CRM.Data.smtpSettings.SenderDisplayName, ASC.CRM.Data.smtpSettings.SenderEmailAddress));
-                    jq("#sendEmailPanel #previewEmailFromLabel").text(jq.format("{0} ({1})", ASC.CRM.Data.smtpSettings.SenderDisplayName, ASC.CRM.Data.smtpSettings.SenderEmailAddress));
-                    jq("#tbxEmailSubject").val("");
 
-                    if (!jq.browser.mobile) {
-                        ASC.CRM.SmtpSender.editor.setData("");
+            Teamlab.getStatusSMTPMailToContacts({}, {
+                success: function (params, response) {
+                    if (response == null || jQuery.isEmptyObject(response) || response.isCompleted) {
+                        jq("#sendEmailPanel #emailFromLabel").text(jq.format("{0} ({1})", ASC.CRM.Data.smtpSettings.SenderDisplayName, ASC.CRM.Data.smtpSettings.SenderEmailAddress));
+                        jq("#sendEmailPanel #previewEmailFromLabel").text(jq.format("{0} ({1})", ASC.CRM.Data.smtpSettings.SenderDisplayName, ASC.CRM.Data.smtpSettings.SenderEmailAddress));
+                        jq("#tbxEmailSubject").val("");
+
+                        if (!jq.browser.mobile) {
+                            ASC.CRM.SmtpSender.editor.setData("");
+                        } else {
+                            jq("#ckEditor").val("");
+                        }
+
+                        jq("#storeInHistory").prop("checked", false);
+
+                        jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.NextPreview).unbind("click").bind("click", function () {
+                            ASC.CRM.SmtpSender.showSendEmailPanelPreview();
+                        });
+
+                        jq("#backButton a.button.blue.middle").unbind("click").bind("click", function () {
+                            ASC.CRM.SmtpSender.showSendEmailPanelCreate();
+                        });
+
+                        var count = ASC.CRM.SmtpSender.selectedItems.length,
+                            countString =
+                                    count == 1 ?
+                                    ASC.CRM.Resources.CRMJSResource.AddressGenitiveSingular :
+                                    ASC.CRM.Resources.CRMJSResource.AddressGenitivePlural;
+
+                        jq("#emailAddresses").html([count, countString].join(" "));
+                        jq("#previewEmailAddresses").html([count, countString].join(" "));
+
+                        jq("#sendEmailPanel").show();
+                        jq("#sendEmailPanel #createContent").show();
+                        jq("#sendEmailPanel #previewContent").hide();
+
+                        jq("#sendProcessPanel").hide();
                     } else {
-                        jq("#ckEditor").val("");
+                        ASC.CRM.SmtpSender.checkSendStatus(true);
                     }
-
-                    jq("#storeInHistory").prop("checked", false);
-
-                    jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.NextPreview).unbind("click").bind("click", function () {
-                        ASC.CRM.SmtpSender.showSendEmailPanelPreview();
-                    });
-
-                    jq("#backButton a.button.blue.middle").unbind("click").bind("click", function () {
-                        ASC.CRM.SmtpSender.showSendEmailPanelCreate();
-                    });
-
-                    var count = ASC.CRM.SmtpSender.selectedItems.length,
-                        countString =
-                                count == 1 ?
-                                ASC.CRM.Resources.CRMJSResource.AddressGenitiveSingular :
-                                ASC.CRM.Resources.CRMJSResource.AddressGenitivePlural;
-
-                    jq("#emailAddresses").html([count, countString].join(" "));
-                    jq("#previewEmailAddresses").html([count, countString].join(" "));
-
-                    jq("#sendEmailPanel").show();
-                    jq("#sendEmailPanel #createContent").show();
-                    jq("#sendEmailPanel #previewContent").hide();
-                    
-                    jq("#sendProcessPanel").hide();
-                } else {
-                    ASC.CRM.SmtpSender.checkSendStatus(true);
+                },
+                error: function (params, errors) {
+                    var err = errors[0];
+                    if (err != null) {
+                        toastr.error(err);
+                    }
                 }
             });
         },
@@ -182,14 +190,6 @@ ASC.CRM.SmtpSender = (function () {
         },
 
         showSendEmailPanelPreview: function () {
-            AjaxPro.onLoading = function (b) {
-                if (b) {
-                    LoadingBanner.showLoaderBtn("#sendEmailPanel");
-                } else {
-                    LoadingBanner.hideLoaderBtn("#sendEmailPanel");
-                }
-            };
-
             var mess = "";
 
             if (!jq.browser.mobile) {
@@ -215,46 +215,57 @@ ASC.CRM.SmtpSender = (function () {
                 subj = ASC.CRM.Resources.CRMJSResource.NoSubject;
             }
 
-            AjaxPro.SmtpSender.GetMessagePreview(mess, ASC.CRM.SmtpSender.selectedItems[0].id, function (res) {
-                if (res.error != null) {
-                    toastr.error(res.error.Message);
-                    LoadingBanner.hideLoaderBtn("#sendEmailPanel");
-                    return false;
-                }
+            Teamlab.getPreviewSMTPMailToContacts({},
+                { template: mess, contactId: ASC.CRM.SmtpSender.selectedItems[0].id },
+                {
+                    before: function(params){ LoadingBanner.showLoaderBtn("#sendEmailPanel"); },
+                    after: function(params){ LoadingBanner.hideLoaderBtn("#sendEmailPanel"); },
+                    success: function(params, response) {
+                        jq("#previewSubject").text(subj);
 
-                jq("#previewSubject").text(subj);
+                        var watermark = jq.format("<div style='color:#787878;font-size:12px;margin-top:10px'>{0}</div>",
+                                                    jq.format(ASC.CRM.Resources.CRMJSResource.TeamlabWatermark,
+                                                    jq.format("<a style='color:#787878;font-size:12px;' href='http://www.onlyoffice.com'>{0}</a>", "ONLYOFFICE.com"))
+                        );
 
-                var watermark = jq.format("<div style='color:#787878;font-size:12px;margin-top:10px'>{0}</div>",
-                                            jq.format(ASC.CRM.Resources.CRMJSResource.TeamlabWatermark,
-                                            jq.format("<a style='color:#787878;font-size:12px;' href='http://www.onlyoffice.com'>{0}</a>", "ONLYOFFICE.com"))
-                );
+                        jq("#previewMessage").html(response + watermark);
 
-                jq("#previewMessage").html(res.value + watermark);
+                        if (!jq.browser.mobile) {
+                            var attachments = ASC.CRM.FileUploader.fileNames();
+                            jq("#previewAttachments span").html("");
+                            if (attachments.length > 0) {
+                                attachments.each(function (index) {
+                                    jq("#previewAttachments span").append(this);
+                                    if (index != attachments.length - 1)
+                                        jq("#previewAttachments span").append(", ");
+                                });
+                                jq("#previewAttachments").show();
+                            } else {
+                                jq("#previewAttachments").hide();
+                            }
+                        }
 
-                if (!jq.browser.mobile) {
-                    var attachments = ASC.CRM.FileUploader.fileNames();
-                    jq("#previewAttachments span").html("");
-                    if (attachments.length > 0) {
-                        attachments.each(function (index) {
-                            jq("#previewAttachments span").append(this);
-                            if (index != attachments.length - 1)
-                                jq("#previewAttachments span").append(", ");
+                        jq("#sendProcessPanel").hide();
+                        jq("#createContent").hide();
+                        jq("#previewContent").show();
+                        jq("#backButton").show();
+                        jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.Send).unbind("click").bind("click", function () {
+                            ASC.CRM.SmtpSender.sendEmail();
                         });
-                        jq("#previewAttachments").show();
-                    } else {
-                        jq("#previewAttachments").hide();
-                    }
-                }
+                        jq("#sendButton").trackEvent(ga_Categories.contacts, ga_Actions.actionClick, 'mass_email');
 
-                jq("#sendProcessPanel").hide();
-                jq("#createContent").hide();
-                jq("#previewContent").show();
-                jq("#backButton").show();
-                jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.Send).unbind("click").bind("click", function () {
-                    ASC.CRM.SmtpSender.sendEmail();
+
+
+                    },
+                    error: function(params, errors) {
+                        var err = errors[0];
+                        if (err != null) {
+                            toastr.error(err);
+                            LoadingBanner.hideLoaderBtn("#sendEmailPanel");
+                        }
+                    }
                 });
-                jq("#sendButton").trackEvent(ga_Categories.contacts, ga_Actions.actionClick, 'mass_email');
-            });
+
         },
 
         sendEmail: function () {
@@ -274,7 +285,6 @@ ASC.CRM.SmtpSender = (function () {
                     subj = ASC.CRM.Resources.CRMJSResource.NoSubject;
                 }
 
-                var storeInHistory = jq("#storeInHistory").is(":checked");
                 var letterBody = "";
 
                 if (!jq.browser.mobile) {
@@ -283,18 +293,25 @@ ASC.CRM.SmtpSender = (function () {
                     letterBody = jq("#ckEditor").val().trim();
                 }
 
-                AjaxPro.SmtpSender.SendEmail(new Array(),
-                        contacts,
-                        subj,
-                        letterBody + watermark,
-                        storeInHistory,
-                        function (res) {
-                            if (res.error != null) {
-                                toastr.error(res.error.Message);
-                                return;
-                            }
-                            ASC.CRM.SmtpSender.checkSendStatus(true);
-                        });
+                var data = {
+                    contactIds: contacts,
+                    subject: subj,
+                    body: letterBody + watermark,
+                    fileIDs: [],
+                    storeInHistory: jq("#storeInHistory").is(":checked")
+                };
+
+                Teamlab.sendSMTPMailToContacts({}, data, {
+                    success: function (params, response) {
+                        ASC.CRM.SmtpSender.checkSendStatus(true);
+                    },
+                    error: function (params, errors) {
+                        var err = errors[0];
+                        if (err != null) {
+                            toastr.error(err);
+                        }
+                    }
+                });
             }
         },
 
@@ -313,45 +330,48 @@ ASC.CRM.SmtpSender = (function () {
                 jq("#emailsErrorsCount").html("");
             }
 
-            AjaxPro.SmtpSender.GetStatus(function (res) {
-                if (res.error != null) {
-                    toastr.error(res.error.Message);
-                    return;
-                }
+            Teamlab.getStatusSMTPMailToContacts({}, {
+                success: function (params, response) {
+                    if (response == null || jQuery.isEmptyObject(response)) {
+                        jq("#sendProcessProgress .progress").css("width", "100%");
+                        jq("#sendProcessProgress .percent").text("100%");
+                        jq("#sendProcessPanel #abortButton").hide();
+                        jq("#sendProcessPanel #okButton").show();
+                        return;
+                    }
 
-                if (res.value == null) {
-                    jq("#sendProcessProgress .progress").css("width", "100%");
-                    jq("#sendProcessProgress .percent").text("100%");
-                    jq("#sendProcessPanel #abortButton").hide();
-                    jq("#sendProcessPanel #okButton").show();
-                    return;
-                } else {
-                    ASC.CRM.SmtpSender.displayProgress(res.value);
-                }
+                    ASC.CRM.SmtpSender.displayProgress(response);
 
-                if (res.value.Error != null && res.value.Error != "") {
-                    ASC.CRM.SmtpSender.buildErrorList(res);
-                    jq("#sendProcessPanel #abortButton").hide();
-                    jq("#sendProcessPanel #okButton").show();
-                } else {
-                    if (res.value.IsCompleted) {
+                    if (response.error != null && response.error != "") {
+                        ASC.CRM.SmtpSender.buildErrorList(response);
                         jq("#sendProcessPanel #abortButton").hide();
                         jq("#sendProcessPanel #okButton").show();
                     } else {
-                        setTimeout("ASC.CRM.SmtpSender.checkSendStatus(false)", 3000);
+                        if (response.isCompleted) {
+                            jq("#sendProcessPanel #abortButton").hide();
+                            jq("#sendProcessPanel #okButton").show();
+                        } else {
+                            setTimeout("ASC.CRM.SmtpSender.checkSendStatus(false)", 3000);
+                        }
+                    }
+                },
+                error: function (params, errors) {
+                    var err = errors[0];
+                    if (err != null) {
+                        toastr.error(err);
                     }
                 }
-            });
+            })
         },
 
         buildErrorList: function (res) {
             var mess = "error";
-            switch (typeof res.value.Error) {
+            switch (typeof res.error) {
                 case "object":
-                    mess = res.value.Error.Message + "<br/>";
+                    mess = res.error.Message + "<br/>";
                     break;
                 case "string":
-                    mess = res.value.Error;
+                    mess = res.error;
                     break;
             }
 
@@ -361,25 +381,28 @@ ASC.CRM.SmtpSender = (function () {
         },
 
         abortMassSend: function () {
-            AjaxPro.onLoading = function (b) { };
-            AjaxPro.SmtpSender.Cancel(function (res) {
-                if (res.error != null) {
-                    toastr.error(res.error.Message);
-                    return;
+            Teamlab.cancelSMTPMailToContacts({}, {
+                success: function (params, response) {
+                    if (response != null && !jQuery.isEmptyObject(response)) {
+                        ASC.CRM.SmtpSender.displayProgress(response);
+                    }
+                    jq("#sendProcessPanel #abortButton").hide();
+                },
+                error: function (params, errors) {
+                    var err = errors[0];
+                    if (err != null) {
+                        toastr.error(err);
+                    }
                 }
-                if (res.value != null) {
-                    ASC.CRM.SmtpSender.displayProgress(res.value);
-                }
-                jq("#sendProcessPanel #abortButton").hide();
-            });
+            })
         },
 
         displayProgress: function (progressItem) {
-            jq("#sendProcessProgress .progress").css("width", progressItem.Percentage + "%");
-            jq("#sendProcessProgress .percent").text(progressItem.Percentage + "%");
-            jq("#emailsAlreadySentCount").html(progressItem.Status.DeliveryCount);
-            jq("#emailsEstimatedTime").html(progressItem.Status.EstimatedTime);
-            jq("#emailsTotalCount").html(progressItem.Status.RecipientCount);
+            jq("#sendProcessProgress .progress").css("width", progressItem.percentage + "%");
+            jq("#sendProcessProgress .percent").text(progressItem.percentage + "%");
+            jq("#emailsAlreadySentCount").html(progressItem.status.deliveryCount);
+            jq("#emailsEstimatedTime").html(progressItem.status.estimatedTime);
+            jq("#emailsTotalCount").html(progressItem.status.recipientCount);
             jq("#emailsErrorsCount").html("0");
         },
 
@@ -409,21 +432,13 @@ ASC.CRM.SmtpSender = (function () {
         },
 
         setItems: function (targets) {
-            var s = JSON.stringify(targets);
-            if (!localStorage.hasOwnProperty("senderTargets")) {
-                localStorage.setItem("senderTargets", s);
-            } else {
-                localStorage.senderTargets = s;
-            }
+            localStorageManager.setItem("senderTargets", targets);
         },
         
         getItems: function () {
-            var s = "[]";
-            if (localStorage.hasOwnProperty("senderTargets")) {
-                s = localStorage.senderTargets;
-                localStorage.removeItem("senderTargets");
-            }
-            return JSON.parse(s);
+            var s = localStorageManager.getItem("senderTargets") || "[]";
+            localStorageManager.removeItem("senderTargets");
+            return s;
         },
     };
 })();

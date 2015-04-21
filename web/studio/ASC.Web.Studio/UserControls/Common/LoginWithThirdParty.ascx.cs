@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Linq;
@@ -63,95 +61,37 @@ namespace ASC.Web.Studio.UserControls.Common
             accountLink.SettingsView = false;
             ThirdPartyList.Controls.Add(accountLink);
 
-            var thirdPartyProfile = Request.Url.GetProfile();
+            var loginProfile = Request.Url.GetProfile();
 
-            if (thirdPartyProfile == null && !IsPostBack || SecurityContext.IsAuthenticated) return;
+            if (loginProfile == null && !IsPostBack || SecurityContext.IsAuthenticated) return;
 
             try
             {
-                if (thirdPartyProfile == null)
+                if (loginProfile == null)
                 {
                     if (string.IsNullOrEmpty(Request["__EVENTARGUMENT"]) || Request["__EVENTTARGET"] != "thirdPartyLogin")
                     {
                         return;
                     }
 
-                    thirdPartyProfile = new LoginProfile(Request["__EVENTARGUMENT"]);
+                    loginProfile = new LoginProfile(Request["__EVENTARGUMENT"]);
                 }
 
-                if (!string.IsNullOrEmpty(thirdPartyProfile.AuthorizationError))
-                {
-                    // ignore cancellation
-                    if (thirdPartyProfile.AuthorizationError != "Canceled at provider")
-                    {
-                        LoginMessage = thirdPartyProfile.AuthorizationError;
-                    }
-                    return;
-                }
+                var userInfo = GetUserByThirdParty(loginProfile);
+                if (!CoreContext.UserManager.UserExists(userInfo.ID)) return;
 
-                if (string.IsNullOrEmpty(thirdPartyProfile.EMail))
-                {
-                    LoginMessage = Resource.ErrorNotCorrectEmail;
-                    return;
-                }
-
-                var userId = Guid.Empty;
-                var linkedProfiles = accountLink.GetLinker().GetLinkedObjectsByHashId(thirdPartyProfile.HashId);
-                linkedProfiles.Any(profileId => Guid.TryParse(profileId, out userId) && CoreContext.UserManager.UserExists(userId));
-
-                var acc = CoreContext.UserManager.GetUsers(userId);
-
-                if (!CoreContext.UserManager.UserExists(acc.ID))
-                {
-                    acc = CoreContext.UserManager.GetUserByEmail(thirdPartyProfile.EMail);
-                }
-
-                var isNew = false;
-                if (CoreContext.Configuration.Personal)
-                {
-                    if (CoreContext.UserManager.UserExists(acc.ID) && SetupInfo.IsSecretEmail(acc.Email))
-                    {
-                        try
-                        {
-                            SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                            CoreContext.UserManager.DeleteUser(acc.ID);
-                            acc = ASC.Core.Users.Constants.LostUser;
-                        }
-                        finally
-                        {
-                            SecurityContext.Logout();
-                        }
-                    }
-
-                    if (!CoreContext.UserManager.UserExists(acc.ID))
-                    {
-                        acc = JoinByThirdPartyAccount(thirdPartyProfile);
-
-                        isNew = true;
-                    }
-                }
-
-                var cookiesKey = SecurityContext.AuthenticateMe(acc.ID);
+                var cookiesKey = SecurityContext.AuthenticateMe(userInfo.ID);
                 CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey);
                 MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSocialAccount);
-
-                if (isNew)
-                {
-                    StudioNotifyService.Instance.UserHasJoin();
-                    UserHelpTourHelper.IsNewUser = true;
-                    PersonalSettings.IsNewUser = true;
-                }
             }
             catch (System.Security.SecurityException)
             {
-                Auth.ProcessLogout();
                 LoginMessage = Resource.InvalidUsernameOrPassword;
-                MessageService.Send(HttpContext.Current.Request, thirdPartyProfile != null ? thirdPartyProfile.HashId : AuditResource.EmailNotSpecified, MessageAction.LoginFailDisabledProfile);
+                MessageService.Send(HttpContext.Current.Request, loginProfile != null ? loginProfile.EMail : AuditResource.EmailNotSpecified, MessageAction.LoginFailDisabledProfile);
                 return;
             }
             catch (Exception exception)
             {
-                Auth.ProcessLogout();
                 LoginMessage = exception.Message;
                 MessageService.Send(HttpContext.Current.Request, AuditResource.EmailNotSpecified, MessageAction.LoginFail);
                 return;
@@ -168,18 +108,102 @@ namespace ASC.Web.Studio.UserControls.Common
             }
         }
 
-        private static UserInfo JoinByThirdPartyAccount(LoginProfile thirdPartyProfile)
+        public static UserInfo GetUserByThirdParty(LoginProfile loginProfile)
         {
-            if (string.IsNullOrEmpty(thirdPartyProfile.EMail)) throw new Exception(Resource.ErrorNotCorrectEmail);
+            try
+            {
+                if (!string.IsNullOrEmpty(loginProfile.AuthorizationError))
+                {
+                    // ignore cancellation
+                    if (loginProfile.AuthorizationError != "Canceled at provider")
+                    {
+                        throw new Exception(loginProfile.AuthorizationError);
+                    }
+                    return ASC.Core.Users.Constants.LostUser;
+                }
 
-            var firstName = thirdPartyProfile.FirstName;
-            if (string.IsNullOrEmpty(firstName)) firstName = thirdPartyProfile.DisplayName;
+                if (string.IsNullOrEmpty(loginProfile.EMail))
+                {
+                    throw new Exception(Resource.ErrorNotCorrectEmail);
+                }
+
+                var userInfo = new UserInfo();
+
+                Guid userId;
+                if (TryGetUserByHash(loginProfile.HashId, out userId))
+                {
+                    userInfo = CoreContext.UserManager.GetUsers(userId);
+                }
+                if (!CoreContext.UserManager.UserExists(userInfo.ID))
+                {
+                    userInfo = CoreContext.UserManager.GetUserByEmail(loginProfile.EMail);
+                }
+
+                var isNew = false;
+                if (CoreContext.Configuration.Personal)
+                {
+                    if (CoreContext.UserManager.UserExists(userInfo.ID) && SetupInfo.IsSecretEmail(userInfo.Email))
+                    {
+                        try
+                        {
+                            SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+                            CoreContext.UserManager.DeleteUser(userInfo.ID);
+                            userInfo = ASC.Core.Users.Constants.LostUser;
+                        }
+                        finally
+                        {
+                            SecurityContext.Logout();
+                        }
+                    }
+
+                    if (!CoreContext.UserManager.UserExists(userInfo.ID))
+                    {
+                        userInfo = JoinByThirdPartyAccount(loginProfile);
+
+                        isNew = true;
+                    }
+                }
+
+                if (isNew)
+                {
+                    StudioNotifyService.Instance.UserHasJoin();
+                    UserHelpTourHelper.IsNewUser = true;
+                    PersonalSettings.IsNewUser = true;
+                }
+
+                return userInfo;
+            }
+            catch (Exception)
+            {
+                Auth.ProcessLogout();
+                throw;
+            }
+        }
+
+        public static bool TryGetUserByHash(string hashId, out Guid userId)
+        {
+            userId = Guid.Empty;
+            if (string.IsNullOrEmpty(hashId)) return false;
+
+            var linkedProfiles = new AccountLinker("webstudio").GetLinkedObjectsByHashId(hashId);
+            var tmp = Guid.Empty;
+            if (linkedProfiles.Any(profileId => Guid.TryParse(profileId, out tmp) && CoreContext.UserManager.UserExists(tmp)))
+                userId = tmp;
+            return true;
+        }
+
+        private static UserInfo JoinByThirdPartyAccount(LoginProfile loginProfile)
+        {
+            if (string.IsNullOrEmpty(loginProfile.EMail)) throw new Exception(Resource.ErrorNotCorrectEmail);
+
+            var firstName = loginProfile.FirstName;
+            if (string.IsNullOrEmpty(firstName)) firstName = loginProfile.DisplayName;
 
             var userInfo = new UserInfo
                 {
                     FirstName = string.IsNullOrEmpty(firstName) ? UserControlsCommonResource.UnknownFirstName : firstName,
-                    LastName = string.IsNullOrEmpty(thirdPartyProfile.LastName) ? UserControlsCommonResource.UnknownLastName : thirdPartyProfile.LastName,
-                    Email = thirdPartyProfile.EMail,
+                    LastName = string.IsNullOrEmpty(loginProfile.LastName) ? UserControlsCommonResource.UnknownLastName : loginProfile.LastName,
+                    Email = loginProfile.EMail,
                     Title = string.Empty,
                     Location = string.Empty,
                     CultureName = Thread.CurrentThread.CurrentUICulture.Name,
@@ -200,7 +224,7 @@ namespace ASC.Web.Studio.UserControls.Common
             }
 
             var linker = new AccountLinker("webstudio");
-            linker.AddLink(newUserInfo.ID.ToString(), thirdPartyProfile);
+            linker.AddLink(newUserInfo.ID.ToString(), loginProfile);
 
             return newUserInfo;
         }

@@ -1,235 +1,185 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.Core;
-using System.Web.Configuration;
-using System.Net;
-using System.IO;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Core.Tenants;
 using ASC.Mail.Aggregator.Dal.DbSchema;
-using Newtonsoft.Json.Linq;
 
 
 namespace ASC.Mail.Aggregator
 {
     public partial class MailBoxManager
     {
-        public enum TariffType
-        {
-            Active = 0,
-            Overdue,
-            LongDead
-        };
 
         #region public methods
 
-        public bool LockMailbox(int mailbox_id, Int64 utc_ticks_time)
+        public bool LockMailbox(int mailboxId, bool isAdditionalProccessedCheckNeeded = false)
         {
-            return LockMailbox(mailbox_id, utc_ticks_time, false, null);
+            return LockMailbox(mailboxId, isAdditionalProccessedCheckNeeded, null);
         }
 
-        public bool LockMailbox(int mailbox_id, Int64 utc_ticks_time, bool is_additional_proccessed_check_needed, DbManager external_db)
+        public bool LockMailbox(int mailboxId, bool isAdditionalProccessedCheckNeeded, DbManager dbManager)
         {
-            var update_query = new SqlUpdate(MailboxTable.name)
-                .Set(MailboxTable.Columns.time_checked, utc_ticks_time)
-                .Set(MailboxTable.Columns.is_processed, true)
-                .Where(MailboxTable.Columns.id, mailbox_id);
+            _log.Debug("LockMailbox(MailboxId = {0}, checkAnotherProcess = {1})", mailboxId, isAdditionalProccessedCheckNeeded);
+            
+            var utcNow = DateTime.UtcNow;
 
-            if (is_additional_proccessed_check_needed)
+            bool success;
+
+            var updateQuery = new SqlUpdate(MailboxTable.name)
+                .Set(MailboxTable.Columns.date_checked, utcNow)
+                .Set(MailboxTable.Columns.is_processed, true)
+                .Where(MailboxTable.Columns.id, mailboxId);
+
+            if (isAdditionalProccessedCheckNeeded)
             {
-                update_query = update_query
+                updateQuery = updateQuery
                                .Where(MailboxTable.Columns.is_processed, false)
                                .Where(MailboxTable.Columns.is_removed, false);
             }
 
-            if (external_db == null)
+            if (dbManager == null)
             {
                 using (var db = GetDb())
                 {
-                    return db.ExecuteNonQuery(update_query) > 0;
+                    success = db.ExecuteNonQuery(updateQuery) > 0;
                 }
             }
-
-            return external_db.ExecuteNonQuery(update_query) > 0;
-        }
-
-        public List<int> KillOldTasks(int old_tasks_timeout_in_minutes)
-        {
-            // Reset is_processed field for potentially crushed aggregators
-            List<int> old_tasks_list;
-            var aggregator_timeout = TimeSpan.FromMinutes(old_tasks_timeout_in_minutes).Ticks;
-
-            using (var db = GetDb())
-            {
-                var utc_ticks = DateTime.UtcNow.Ticks;
-
-                old_tasks_list =
-                    db.ExecuteList(
-                        new SqlQuery(MailboxTable.name)
-                            .Select(MailboxTable.Columns.id)
-                            .Where(MailboxTable.Columns.is_processed, true)
-                            .Where(Exp.Gt(utc_ticks.ToString(CultureInfo.InvariantCulture), MailboxTable.Columns.time_checked))
-                            .Where(Exp.Gt(string.Format("{0} - {1}", utc_ticks, MailboxTable.Columns.time_checked),
-                                          aggregator_timeout)))
-                      .ConvertAll(r => Convert.ToInt32(r[0]));
-
-                if (old_tasks_list.Any())
-                {
-                    var mail_boxes = "";
-
-                    old_tasks_list.ForEach(i => mail_boxes += i.ToString(CultureInfo.InvariantCulture) + "|");
-
-                    db.ExecuteNonQuery(
-                        new SqlUpdate(MailboxTable.name)
-                            .Set(MailboxTable.Columns.is_processed, false)
-                            .Where(Exp.In(MailboxTable.Columns.id, old_tasks_list.ToArray())));
-                }
-            }
-            return old_tasks_list;
-        }
-
-        public TariffType GetTariffType(int tenant_id)
-        {
-            TariffType result;
-            CoreContext.TenantManager.SetCurrentTenant(tenant_id);
-            var tenant_info = CoreContext.TenantManager.GetCurrentTenant();
-
-            if (tenant_info.Status != TenantStatus.Active)
-                return TariffType.LongDead;
-
-            var response_api = GetApiResponse("portal/tariff.json", tenant_info);
-            var date_string = JObject.Parse(response_api)["response"];
-            var state = int.Parse(date_string["state"].ToString());
-            if (state == 0 || state == 1) result = TariffType.Active;
             else
             {
-                var due_date = DateTime.Parse(date_string["dueDate"].ToString());
-                _log.Debug("GetTariffType response: {0}", response_api);
-                _log.Debug("state={0}, dueDate={1}", state, due_date);
-                result = due_date.AddDays(TenantOverdueDays) <= DateTime.UtcNow ? TariffType.LongDead : TariffType.Overdue;
+                success = dbManager.ExecuteNonQuery(updateQuery) > 0;    
             }
-            return result;
+
+            _log.Debug("LockMailbox(MailboxId = {0}) {1}", mailboxId, success ? "SUCCEEDED" : "FAILED");
+
+            return success;
         }
 
-        public MailBox GetMailboxForProcessing(TasksConfig tasks_config)
+        public List<int> ReleaseLockedMailboxes(int timeoutInMinutes)
         {
-            bool inactive_flag;
+            // Reset is_processed field for potentially crushed aggregators
+            var query = new SqlQuery(MailboxTable.name)
+                .Select(MailboxTable.Columns.id)
+                .Where(MailboxTable.Columns.is_processed, true)
+                .Where(string.Format("{0} is not null AND TIMESTAMPDIFF(MINUTE, {0}, UTC_TIMESTAMP()) > {1}",
+                                     MailboxTable.Columns.date_checked, timeoutInMinutes));
 
-            lock (ticks)
+            using (var db = GetDb())
             {
-                inactive_flag = ticks.Tick();
-            }
+               var oldTasksList =
+                    db.ExecuteList(query)
+                      .ConvertAll(r => Convert.ToInt32(r[0]));
 
-            MailBox mail;
-
-            if (inactive_flag || null == (mail = GetActiveMailboxForProcessing(tasks_config)))
-            {
-                mail = GetInactiveMailboxForProcessing(tasks_config);
-                if (mail != null)
+                if (oldTasksList.Any())
                 {
-                    mail.Active = false;
-                }
-            }
-            else mail.Active = true;
+                    var updateQuery = new SqlUpdate(MailboxTable.name)
+                        .Set(MailboxTable.Columns.is_processed, false)
+                        .Where(Exp.In(MailboxTable.Columns.id, oldTasksList.ToArray()));
 
-            return mail;
+                    var rowAffected = db.ExecuteNonQuery(updateQuery);
+
+                    if (rowAffected == 0)
+                        _log.Debug("ResetLockedMailboxes() No one locked mailboxes couldn't be released.");
+                    else if (rowAffected != oldTasksList.Count)
+                        _log.Debug("ResetLockedMailboxes() Some locked mailboxes couldn't be released.");
+
+                }
+
+                return oldTasksList;
+            }
         }
 
-        public void SetNextLoginDelayedForTenant(int id_tenant, TimeSpan delay)
+        public List<MailBox> GetMailboxesForProcessing(TasksConfig tasksConfig, int needTasks)
+        {
+            var inactiveCount = (int) Math.Floor(needTasks*tasksConfig.InactiveMailboxesRatio/100);
+
+            var activeCount = needTasks - inactiveCount;
+
+            var mailboxes = GetActiveMailboxesForProcessing(tasksConfig, activeCount);
+
+            var difference = inactiveCount + activeCount - mailboxes.Count;
+
+            if (difference != 0)
+                mailboxes.AddRange(GetInactiveMailboxesForProcessing(tasksConfig, difference));
+
+            return mailboxes;
+        }
+
+        public void SetNextLoginDelayedForTenant(int tenant, TimeSpan delay)
         {
             using (var db = GetDb())
             {
-                var update_account_query = new SqlUpdate(MailboxTable.name)
-                    .Where(MailboxTable.Columns.id_tenant, id_tenant)
+                var updateAccountQuery = new SqlUpdate(MailboxTable.name)
+                    .Where(MailboxTable.Columns.id_tenant, tenant)
                     .Where(MailboxTable.Columns.is_removed, false)
                     .Set(MailboxTable.Columns.is_processed, false)
-                    .Set(MailboxTable.Columns.login_delay_expires, DateTime.UtcNow.Add(delay).Ticks);
+                    .Set(MailboxTable.Columns.date_login_delay_expires, DateTime.UtcNow.Add(delay));
 
-                db.ExecuteNonQuery(update_account_query);
+                db.ExecuteNonQuery(updateAccountQuery);
             }
         }
 
+        public void DisableMailboxesForUser(int tenant, string user)
+        {
+            DisableMailboxes(tenant, user);
+            CreateDisableAllMailboxesAlert(tenant, new List<string> {user});
+        }
 
-        public void SetNextLoginDelayedFor(MailBox account, TimeSpan delay)
+        public void DisableMailboxesForTenant(int tenant)
+        {
+            var userIds = GetUsersFromNotPaidTenant(tenant);
+            DisableMailboxes(tenant);
+            CreateDisableAllMailboxesAlert(tenant, userIds);
+        }
+
+        public void DisableMailboxes(int tenant, string user = "")
         {
             using (var db = GetDb())
             {
-                var update_account_query = new SqlUpdate(MailboxTable.name)
-                    .Where(MailboxTable.Columns.id, account.MailBoxId)
-                    .Where(MailboxTable.Columns.id_tenant, account.TenantId)
-                    .Set(MailboxTable.Columns.is_processed, false)
-                    .Set(MailboxTable.Columns.login_delay_expires, DateTime.UtcNow.Add(delay).Ticks);
-
-                db.ExecuteNonQuery(update_account_query);
-            }
-        }
-
-        public void DisableMailboxesForUser(int id_tenant, string id_user)
-        {
-            DisableMailboxes(id_tenant, id_user);
-            CreateDisableAllMailboxesAlert(id_tenant, new[] { id_user });
-        }
-
-        public void DisableMailboxesForTenant(int id_tenant)
-        {
-            var user_ids = GetUsersFromNotPaidTenant(id_tenant);
-            DisableMailboxes(id_tenant);
-            CreateDisableAllMailboxesAlert(id_tenant, user_ids);
-        }
-
-        public void DisableMailboxes(int id_tenant, string id_user = "")
-        {
-            using (var db = GetDb())
-            {
-                var update_account_query = new SqlUpdate(MailboxTable.name)
-                    .Where(MailboxTable.Columns.id_tenant, id_tenant)
+                var updateAccountQuery = new SqlUpdate(MailboxTable.name)
+                    .Where(MailboxTable.Columns.id_tenant, tenant)
                     .Where(MailboxTable.Columns.is_removed, false)
                     .Where(MailboxTable.Columns.enabled, true)
                     .Set(MailboxTable.Columns.is_processed, false)
                     .Set(MailboxTable.Columns.enabled, false);
 
-                if (!string.IsNullOrEmpty(id_user))
-                    update_account_query.Where(MailboxTable.Columns.id_user, id_user);
+                if (!string.IsNullOrEmpty(user))
+                    updateAccountQuery.Where(MailboxTable.Columns.id_user, user);
 
-                db.ExecuteNonQuery(update_account_query);
+                db.ExecuteNonQuery(updateAccountQuery);
             }
         }
 
-        public List<string> GetUsersFromNotPaidTenant(int id_tenant)
+        public List<string> GetUsersFromNotPaidTenant(int tenant)
         {
             using (var db = GetDb())
             {
@@ -237,62 +187,103 @@ namespace ASC.Mail.Aggregator
                     db.ExecuteList(
                         new SqlQuery(MailboxTable.name)
                             .Select(MailboxTable.Columns.id_user)
-                            .Where(MailboxTable.Columns.id_tenant, id_tenant)
+                            .Where(MailboxTable.Columns.id_tenant, tenant)
                             .Where(MailboxTable.Columns.is_removed, false)
                             .Where(MailboxTable.Columns.enabled, true)
                             .Distinct()).ConvertAll(r => Convert.ToString(r[0]));
             }
         }
 
-
-        private static SqlUpdate GetBaseUpdateAccountQueryOnMailboxProccessingComplete(MailBox account)
+        public void SetMailboxProcessed(MailBox account, bool withError = false)
         {
-            var utc_ticks_now = DateTime.UtcNow.Ticks;
+            using (var db = GetDb())
+            {
+                var utcTicksNow = DateTime.UtcNow;
 
-            return new SqlUpdate(MailboxTable.name)
+                Func<SqlUpdate> getBaseUpdate = () => new SqlUpdate(MailboxTable.name)
+                    .Where(MailboxTable.Columns.id_tenant, account.TenantId)
                     .Where(MailboxTable.Columns.id, account.MailBoxId)
-                    .Set(MailboxTable.Columns.is_processed, false)
-                    .Set(MailboxTable.Columns.msg_count_last, account.MessagesCount)
-                    .Set(MailboxTable.Columns.size_last, account.Size)
-                    .Set(MailboxTable.Columns.time_checked, utc_ticks_now); //Its needed for more uniform distribution in GetMailBoxForProccessing().
-        }
+                    .Set(MailboxTable.Columns.is_processed, false);
 
-        public void MailboxProcessingCompleted(MailBox account)
-        {
-            using (var db = GetDb())
-            {
-                var update_account_query = GetBaseUpdateAccountQueryOnMailboxProccessingComplete(account);
-                if (account.ImapFolderChanged)
+                var updateAccountQuery = getBaseUpdate();
+
+                if (account.QuotaErrorChanged)
                 {
-                    update_account_query
-                        .Where(MailboxTable.Columns.begin_date, account.BeginDate)
-                        .Set(MailboxTable.Columns.imap_folders, account.ImapFoldersJson);
+                    if (account.QuotaError)
+                    {
+                        CreateQuotaErrorWarningAlert(db, account.TenantId, account.UserId);
+                    }
+                    else
+                    {
+                        var quotaAlerts = FindAlerts(db, account.TenantId, account.UserId, -1, AlertTypes.QuotaError);
+
+                        if (quotaAlerts.Any())
+                        {
+                            DeleteAlerts(db, account.TenantId, account.UserId, quotaAlerts.Select(al => al.id).ToList());
+                        }
+                    }
+
+                    updateAccountQuery
+                        .Set(MailboxTable.Columns.quota_error, account.QuotaError);
                 }
 
-                var result = db.ExecuteNonQuery(update_account_query);
-
-                if (result == 0) // BeginDate has been changed
+                if (account.AuthErrorDate.HasValue)
                 {
-                    db.ExecuteNonQuery(GetBaseUpdateAccountQueryOnMailboxProccessingComplete(account)
-                                        .Set(MailboxTable.Columns.imap_folders, "[]"));
+                    updateAccountQuery
+                        .Set(MailboxTable.Columns.date_login_delay_expires,
+                             DateTime.UtcNow.Add(TimeSpan.FromSeconds(account.ServerLoginDelay)));
+
+                    var difference = DateTime.UtcNow - account.AuthErrorDate.Value;
+
+                    if (difference > AuthErrorDisableTimeout)
+                    {
+                        updateAccountQuery
+                            .Set(MailboxTable.Columns.enabled, false);
+
+                        CreateAuthErrorDisableAlert(db, account.TenantId, account.UserId, account.MailBoxId);
+                    }
+                    else if (difference > AuthErrorWarningTimeout)
+                    {
+                        CreateAuthErrorWarningAlert(db, account.TenantId, account.UserId, account.MailBoxId);
+                    }
                 }
-            }
-        }
+                else
+                {
+                    updateAccountQuery
+                        .Set(MailboxTable.Columns.msg_count_last, account.MessagesCount)
+                        .Set(MailboxTable.Columns.size_last, account.Size);
 
-        public void MailboxProcessingError(MailBox account, Exception exception)
-        {
-            SetNextLoginDelayedFor(account, TimeSpan.FromSeconds(account.ServerLoginDelay));
-        }
+                    if (account.Imap && account.ImapFolderChanged)
+                    {
+                        updateAccountQuery
+                            .Where(MailboxTable.Columns.begin_date, account.BeginDate)
+                            .Set(MailboxTable.Columns.imap_intervals, account.ImapIntervalsJson)
+                            .Set(MailboxTable.Columns.date_checked, utcTicksNow);
 
-        public void SetMailboxQuotaError(MailBox account, bool state)
-        {
-            using (var db = GetDb())
-            {
-                db.ExecuteNonQuery(
-                        new SqlUpdate(MailboxTable.name)
-                            .Where(MailboxTable.Columns.id, account.MailBoxId)
-                            .Where(MailboxTable.Columns.id_tenant, account.TenantId)
-                            .Set(MailboxTable.Columns.quota_error, state));
+                        var result = db.ExecuteNonQuery(updateAccountQuery);
+
+                        if (result == 0) // BeginDate has been changed
+                        {
+                            updateAccountQuery = getBaseUpdate();
+
+                            if (account.QuotaErrorChanged)
+                            {
+                                updateAccountQuery
+                                    .Set(MailboxTable.Columns.quota_error, account.QuotaError);
+                            }
+
+                            updateAccountQuery
+                                .Set(MailboxTable.Columns.imap_intervals, "[]")
+                                .Set(MailboxTable.Columns.date_checked, utcTicksNow);
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                db.ExecuteNonQuery(updateAccountQuery);
             }
         }
 
@@ -304,53 +295,46 @@ namespace ASC.Mail.Aggregator
                     new SqlUpdate(MailboxTable.name)
                         .Where(MailboxTable.Columns.address, email)
                         .Where(MailboxTable.Columns.is_removed, false)
-                        .Set(MailboxTable.Columns.login_delay_expires, expires.Ticks));
+                        .Set(MailboxTable.Columns.date_login_delay_expires, expires));
             }
         }
 
-        public void UpdateUserActivity(int id_tenant, string id_user)
+        public void UpdateUserActivity(int tenant, string user, bool userOnline = true)
         {
             using (var db = GetDb())
             {
                 db.ExecuteNonQuery(
                    new SqlUpdate(MailboxTable.name)
-                       .Where(MailboxTable.Columns.id_tenant, id_tenant)
-                       .Where(MailboxTable.Columns.id_user, id_user)
-                       .Set(MailboxTable.Columns.user_time_checked, DateTime.UtcNow.Ticks));
+                       .Where(MailboxTable.Columns.id_tenant, tenant)
+                       .Where(MailboxTable.Columns.id_user, user)
+                       .Where(MailboxTable.Columns.is_removed, false)
+                       .Set(MailboxTable.Columns.date_user_checked, DateTime.UtcNow)
+                       .Set(MailboxTable.Columns.user_online, userOnline));
             }
         }
 
-        public void SetAuthError(MailBox mailbox, bool error)
+        public void SetMailboxAuthError(MailBox mailbox, bool isError)
         {
             using (var db = GetDb())
             {
-                var instr = new SqlUpdate(MailboxTable.name)
+                var updateQuery = new SqlUpdate(MailboxTable.name)
                     .Where(MailboxTable.Columns.id, mailbox.MailBoxId)
                     .Where(MailboxTable.Columns.id_user, mailbox.UserId)
                     .Where(MailboxTable.Columns.id_tenant, mailbox.TenantId);
 
-                db.ExecuteNonQuery(error
-                                       ? instr.Where(MailboxTable.Columns.auth_error, null)
-                                              .Set(MailboxTable.Columns.auth_error, DateTime.UtcNow.Ticks)
-                                       : instr.Set(MailboxTable.Columns.auth_error, null));
-
-                if (mailbox.AuthError == MailBox.AuthProblemType.NoProblems)
-                    return;
-
-                switch (mailbox.AuthError)
+                if (isError)
                 {
-                    case MailBox.AuthProblemType.ConnectError:
-                        CreateAuthErrorWarningAlert(mailbox.TenantId, mailbox.UserId, mailbox.MailBoxId);
-                        break;
-                    case MailBox.AuthProblemType.TooManyErrors:
-                        CreateAuthErrorDisableAlert(mailbox.TenantId, mailbox.UserId, mailbox.MailBoxId);
-                        EnableMaibox(mailbox, false);
-                        break;
-                    default:
-                        return;
+                    mailbox.AuthErrorDate = DateTime.UtcNow;
+                    updateQuery.Where(MailboxTable.Columns.date_auth_error, null)
+                               .Set(MailboxTable.Columns.date_auth_error, mailbox.AuthErrorDate.Value);
+                }
+                else
+                {
+                    updateQuery.Set(MailboxTable.Columns.date_auth_error, null);
+                    mailbox.AuthErrorDate = null;
                 }
 
-
+                db.ExecuteNonQuery(updateQuery);
             }
         }
 
@@ -358,109 +342,76 @@ namespace ASC.Mail.Aggregator
 
         #region private methods
 
-        public string GetAuthCookie(Tenant tenant_info)
+        private List<MailBox> GetActiveMailboxesForProcessing(TasksConfig tasksConfig, int tasksLimit)
         {
-            return SecurityContext.AuthenticateMe(tenant_info.OwnerId);
+            _log.Debug("GetActiveMailboxForProcessing()");
+
+            var mailboxes = GetMailboxesForProcessing(tasksConfig, tasksLimit, true);
+
+            _log.Debug("Found {0} active tasks", mailboxes.Count);
+
+            return mailboxes;
         }
 
-        private string GetApiResponse(string api_url, Tenant tenant_info)
+        private List<MailBox> GetInactiveMailboxesForProcessing(TasksConfig tasksConfig, int tasksLimit)
         {
-            var request_uri_builder = new UriBuilder(Uri.UriSchemeHttp, CoreContext.TenantManager.GetCurrentTenant().TenantAlias);
+            _log.Debug("GetInactiveMailboxForProcessing()");
 
-            api_url = string.Format("{0}/{1}", WebConfigurationManager.AppSettings["api.url"].Trim('~', '/'), api_url.TrimStart('/'));
+            var mailboxes = GetMailboxesForProcessing(tasksConfig, tasksLimit, false);
 
-            if (CoreContext.TenantManager.GetCurrentTenant().TenantAlias == "localhost")
-            {
-                var virtual_dir = WebConfigurationManager.AppSettings["core.virtual-dir"];
-                api_url = virtual_dir.Trim('/') + "/" + api_url;
+            _log.Debug("Found {0} inactive tasks", mailboxes.Count);
 
-                var host = WebConfigurationManager.AppSettings["core.host"];
-                if (!string.IsNullOrEmpty(host)) request_uri_builder.Host = host;
-
-                var port = WebConfigurationManager.AppSettings["core.port"];
-                if (!string.IsNullOrEmpty(port)) request_uri_builder.Port = int.Parse(port);
-            }
-            else
-                request_uri_builder.Host += "." + WebConfigurationManager.AppSettings["core.base-domain"];
-
-            request_uri_builder.Path = api_url;
-
-            var api_request = (HttpWebRequest)WebRequest.Create(request_uri_builder.Uri);
-            api_request.Headers.Add("Payment-Info", "false");
-            api_request.AllowAutoRedirect = true;
-            api_request.CookieContainer = new CookieContainer();
-            api_request.CookieContainer.Add(new Cookie("asc_auth_key", GetAuthCookie(tenant_info), "/", request_uri_builder.Host));
-
-            using (var api_response = (HttpWebResponse)api_request.GetResponse())
-            using (var resp_stream = api_response.GetResponseStream())
-            {
-                return resp_stream != null ? new StreamReader(resp_stream).ReadToEnd() : null;
-            }
+            return mailboxes;
         }
 
-        private MailBox GetActiveMailboxForProcessing(TasksConfig tasks_config)
-        {
-            var mail = GetMailboxForProcessing(tasks_config, "(cast({0} as decimal) - " + MailboxTable.Columns.user_time_checked.Prefix(mail_mailbox_alias) + " ) < {1}");
-            return mail;
-        }
-
-        private MailBox GetInactiveMailboxForProcessing(TasksConfig tasks_config)
-        {
-            var mail = GetMailboxForProcessing(tasks_config, "(cast({0} as decimal) - " + MailboxTable.Columns.user_time_checked.Prefix(mail_mailbox_alias) + " ) > {1}");
-            return mail;
-        }
-
-        private MailBox GetMailboxForProcessing(TasksConfig tasks_config, string where_usertime_sql_format)
+        private List<MailBox> GetMailboxesForProcessing(TasksConfig tasksConfig, int tasksLimit, bool active)
         {
             using (var db = GetDb())
             {
-                int? locker = 0;
-                try
+                var whereLoginDelayExpiredString = string.Format("{0} < UTC_TIMESTAMP()",
+                                                                 MailboxTable.Columns.date_login_delay_expires
+                                                                             .Prefix(MAILBOX_ALIAS));
+
+                var query = GetSelectMailBoxFieldsQuery()
+                    .Where(MailboxTable.Columns.is_processed.Prefix(MAILBOX_ALIAS), false)
+                    .Where(whereLoginDelayExpiredString)
+                    .Where(MailboxTable.Columns.is_removed.Prefix(MAILBOX_ALIAS), false)
+                    .Where(MailboxTable.Columns.enabled.Prefix(MAILBOX_ALIAS), true)
+                    .OrderBy(MailboxTable.Columns.date_checked.Prefix(MAILBOX_ALIAS), true)
+                    .SetMaxResults(tasksLimit);
+
+                if (tasksConfig.OnlyTeamlabTasks)
                 {
-                    locker = db.ExecuteScalar<int?>("SELECT GET_LOCK('lock_id', 5)");
-
-                    if (locker == 1)
-                    {
-                        var utc_ticks = DateTime.UtcNow.Ticks;
-
-                        var query = GetSelectMailBoxFieldsQuery()
-                            .Where(MailboxTable.Columns.is_processed.Prefix(mail_mailbox_alias), false)
-                            .Where(string.Format(where_usertime_sql_format, utc_ticks, tasks_config.ActiveInterval.Ticks))
-                            .Where(Exp.Le(MailboxTable.Columns.login_delay_expires.Prefix(mail_mailbox_alias), utc_ticks))
-                            .Where(Exp.And(Exp.Eq(MailboxTable.Columns.is_removed.Prefix(mail_mailbox_alias), false), Exp.Eq(MailboxTable.Columns.enabled.Prefix(mail_mailbox_alias), true)))
-                            .Where(MailboxTable.Columns.is_teamlab_mailbox, tasks_config.OnlyTeamlabTasks)
-                            .OrderBy(MailboxTable.Columns.time_checked.Prefix(mail_mailbox_alias), true)
-                            .SetMaxResults(1);
-
-                        if (tasks_config.WorkOnUsersOnly != null && tasks_config.WorkOnUsersOnly.Any())
-                            query.Where(Exp.In(MailboxTable.Columns.id_user, tasks_config.WorkOnUsersOnly));
-
-                        var list_results = db.ExecuteList(query);
-
-                        var selected_box = list_results.ConvertAll(ToMailBox).FirstOrDefault();
-
-                        if (selected_box != null)
-                        {
-                            var is_successed = LockMailbox(selected_box.MailBoxId, utc_ticks, true, db);
-                            if (!is_successed)
-                            {
-                                selected_box = null;
-                            }
-                        }
-
-                        return selected_box;
-                    }
+                    query
+                        .Where(MailboxTable.Columns.is_teamlab_mailbox, true);
                 }
-                finally
+
+                if (tasksConfig.EnableSignalr)
                 {
-                    if (locker == 1)
-                    {
-                        db.ExecuteScalar<int>("SELECT RELEASE_LOCK('lock_id')");
-                    }
+                    query.Where(MailboxTable.Columns.user_online.Prefix(MAILBOX_ALIAS), active);
                 }
+                else
+                {
+                    var whereUserCheckedString =
+                        string.Format("({0} IS NULL OR TIMESTAMPDIFF(SECOND, {0}, UTC_TIMESTAMP()) {1} {2})",
+                                      MailboxTable.Columns.date_user_checked.Prefix(MAILBOX_ALIAS),
+                                      active ? "<" : ">",
+                                      tasksConfig.ActiveInterval.Seconds);
+
+                    query.Where(whereUserCheckedString);
+                }
+
+                if (tasksConfig.WorkOnUsersOnly.Any())
+                    query.Where(Exp.In(MailboxTable.Columns.id_user, tasksConfig.WorkOnUsersOnly));
+
+                var listResults = db.ExecuteList(query);
+
+                var seletedTasks = listResults.ConvertAll(ToMailBox).ToList();
+
+                seletedTasks.ForEach(m => m.Active = active);
+
+                return seletedTasks;
             }
-
-            return null;
         }
 
         #endregion

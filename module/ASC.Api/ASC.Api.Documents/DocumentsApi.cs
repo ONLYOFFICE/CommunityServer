@@ -1,31 +1,47 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
+
+using ASC.Api.Attributes;
+using ASC.Api.Collections;
+using ASC.Api.Exceptions;
+using ASC.Api.Impl;
+using ASC.Api.Utils;
+using ASC.Common.Web;
+using ASC.Core;
+using ASC.CRM.Core;
+using ASC.Files.Core;
+using ASC.Web.Core.Files;
+using ASC.Web.Files.Api;
+using ASC.Web.Files.Classes;
+using ASC.Web.Files.HttpHandlers;
+using ASC.Web.Files.Services.WCFService;
+using ASC.Web.Files.Services.WCFService.FileOperations;
+using ASC.Web.Files.Utils;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -35,25 +51,8 @@ using System.Net;
 using System.Net.Mime;
 using System.Text;
 using System.Text.RegularExpressions;
-using ASC.Api.Attributes;
-using ASC.Api.Collections;
-using ASC.Api.Exceptions;
-using ASC.Api.Impl;
-using ASC.Api.Utils;
-using ASC.Common.Web;
-using ASC.CRM.Core;
-using ASC.Files.Core;
-using ASC.Web.Core.Files;
-using ASC.Web.Files.Api;
-using ASC.Web.Files.Classes;
-using ASC.Web.Files.Services.WCFService;
-using ASC.Web.Files.Services.WCFService.FileOperations;
-using ASC.Web.Files.Utils;
-using ASC.Web.Studio.Core;
-using Newtonsoft.Json.Linq;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using SortedByType = ASC.Files.Core.SortedByType;
-using ASC.Core;
 
 namespace ASC.Api.Documents
 {
@@ -359,6 +358,7 @@ namespace ASC.Api.Documents
         /// <param name="folderId">Id of the folder in which file will be uploaded</param>
         /// <param name="fileName">Name of file which has to be uploaded</param>
         /// <param name="fileSize">Length in bytes of file which has to be uploaded</param>
+        /// <param name="relativePath">Relative folder from folderId</param>
         /// <remarks>
         /// <![CDATA[
         /// Each chunk can have different length but its important what length is multiple of <b>512</b> and greater or equal than <b>5 mb</b>. Last chunk can have any size.
@@ -382,17 +382,37 @@ namespace ASC.Api.Documents
         /// ]]>
         /// </returns>
         [Create("{folderid}/upload/create_session")]
-        public string CreateUploadSession(string folderId, string fileName, long fileSize)
+        public string CreateUploadSession(string folderId, string fileName, long fileSize, string relativePath)
         {
-            var file = FileUploader.VerifyChunkedUpload(folderId, fileName, fileSize, FilesSettings.UpdateIfExist);
+            var file = FileUploader.VerifyChunkedUpload(folderId, fileName, fileSize, FilesSettings.UpdateIfExist, relativePath);
+
+            //if "files.uploader.url" value="products/files/"
+            if (CoreContext.Configuration.Standalone)
+            {
+                var session = FileUploader.InitiateUpload(file.FolderID.ToString(), (file.ID ?? "").ToString(), file.Title, file.ContentLength);
+
+                var response = ChunkedUploaderHandler.ToResponseObject(session, true);
+                return JsonConvert.SerializeObject(new
+                    {
+                        success = true,
+                        data = JsonConvert.SerializeObject(response)
+                    });
+            }
 
             var createSessionUrl = FilesLinkUtility.GetInitiateUploadSessionUrl(file.FolderID, file.ID, file.Title, file.ContentLength);
             var request = (HttpWebRequest)WebRequest.Create(createSessionUrl);
             request.Method = "POST";
             request.ContentLength = 0;
 
+            // hack for uploader.onlyoffice.com in api requests
+            var rewriterHeader = _context.RequestContext.HttpContext.Request.Headers[System.Web.HttpRequestExtensions.UrlRewriterHeader];
+            if (!string.IsNullOrEmpty(rewriterHeader))
+            {
+                request.Headers[System.Web.HttpRequestExtensions.UrlRewriterHeader] = rewriterHeader;
+            }
+
             // hack. http://ubuntuforums.org/showthread.php?t=1841740
-            if (Core.WorkContext.IsMono)
+            if (WorkContext.IsMono)
             {
                 ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
             }
@@ -446,25 +466,22 @@ namespace ASC.Api.Documents
         {
             if (title == null) throw new ArgumentNullException("title");
             //Try detect content
-            var contentType = "text/plain";
             var extension = ".txt";
             if (!string.IsNullOrEmpty(content))
             {
                 if (Regex.IsMatch(content, @"<([^\s>]*)(\s[^<]*)>"))
                 {
-                    contentType = "text/html";
                     extension = ".html";
                 }
             }
-            CreateFile(folderid, title, content, contentType, extension);
+            CreateFile(folderid, title, content, extension);
             return ToFolderContentWrapper(folderid);
         }
 
-        private static void CreateFile(string folderid, string title, string content, string contentType, string extension)
+        private static void CreateFile(string folderid, string title, string content, string extension)
         {
             using (var memStream = new MemoryStream(Encoding.UTF8.GetBytes(content)))
             {
-
                 FileUploader.Exec(folderid,
                                   title.EndsWith(extension, StringComparison.OrdinalIgnoreCase) ? title : (title + extension),
                                   memStream.Length, memStream);
@@ -484,7 +501,7 @@ namespace ASC.Api.Documents
         public FolderContentWrapper CreateHtmlFile(string folderid, string title, string content)
         {
             if (title == null) throw new ArgumentNullException("title");
-            CreateFile(folderid, title, content, "text/html", ".html");
+            CreateFile(folderid, title, content, ".html");
             return ToFolderContentWrapper(folderid);
         }
 
@@ -654,16 +671,16 @@ namespace ASC.Api.Documents
         public IEnumerable<FileOperationResult> StartConversion(String fileid, bool start = true)
         {
             var conversion = _fileStorageService.CheckConversion(new Web.Files.Services.WCFService.ItemList<Web.Files.Services.WCFService.ItemList<string>>
-            {
-                new Web.Files.Services.WCFService.ItemList<string> { fileid, "0", start.ToString() }
-            });
+                {
+                    new Web.Files.Services.WCFService.ItemList<string> {fileid, "0", start.ToString()}
+                });
             conversion.ForEach(item =>
-                               {
-                                   if (string.IsNullOrEmpty(item.Result.ToString())) return;
-                                   var result = JObject.Parse(item.Result.ToString());
-                                   var file = result.Value<JObject>("file");
-                                   item.Result = GetFileInfo(file.Value<string>("id"), file.Value<int>("version"));
-                               });
+                {
+                    if (string.IsNullOrEmpty(item.Result.ToString())) return;
+                    var result = JObject.Parse(item.Result.ToString());
+                    var file = result.Value<JObject>("file");
+                    item.Result = GetFileInfo(file.Value<string>("id"), file.Value<int>("version"));
+                });
             return conversion.ToSmartList();
         }
 
@@ -724,7 +741,7 @@ namespace ASC.Api.Documents
             var ids = _fileStorageService.MoveOrCopyFilesCheck(itemList, destFolderId).Keys.Select(id => "file_" + id);
 
             var entries = _fileStorageService.GetItems(new Web.Files.Services.WCFService.ItemList<string>(ids), FilterType.FilesOnly, "", "");
-            return entries.Select(x => new FileWrapper((Files.Core.File) x)).ToSmartList();
+            return entries.Select(x => new FileWrapper((Files.Core.File)x)).ToSmartList();
         }
 
         /// <summary>
@@ -808,7 +825,7 @@ namespace ASC.Api.Documents
         [Read("fileops")]
         public IEnumerable<FileOperationWraper> GetOperationStatuses()
         {
-            return _fileStorageService.GetTasksStatuses().Select(o=> new FileOperationWraper(o));
+            return _fileStorageService.GetTasksStatuses().Select(o => new FileOperationWraper(o));
         }
 
         /// <summary>
@@ -964,11 +981,11 @@ namespace ASC.Api.Documents
             {
                 var list = new Web.Files.Services.WCFService.ItemList<AceWrapper>(share.Select(x => x.ToAceObject()));
                 var aceCollection = new AceCollection
-                {
-                    Entries = new Web.Files.Services.WCFService.ItemList<string> { "folder_" + folderid },
-                    Aces = list,
-                    Message = sharingMessage
-                };
+                    {
+                        Entries = new Web.Files.Services.WCFService.ItemList<string> { "folder_" + folderid },
+                        Aces = list,
+                        Message = sharingMessage
+                    };
                 _fileStorageService.SetAceObject(aceCollection, notify);
             }
 
@@ -1045,14 +1062,12 @@ namespace ASC.Api.Documents
         /// <param name="token">Authentication token</param>
         /// <param name="isCorporate"></param>
         /// <param name="customerTitle">Title</param>
+        /// <param name="providerKey">Provider Key</param>
         /// <param name="providerid">Provider ID</param>
         /// <category>Third-Party Integration</category>
         /// <returns>Folder contents</returns>
-        /// <remarks>
-        /// 
-        /// 
-        /// </remarks>
-        ///<exception cref="ArgumentException"></exception>
+        /// <remarks> List of provider key: DropBox, BoxNet, WebDav, Google, Yandex, SkyDrive, SharePoint, GoogleDrive</remarks>
+        /// <exception cref="ArgumentException"></exception>
         [Create("thirdparty")]
         public FolderContentWrapper SaveThirdParty(
             String url,
@@ -1061,6 +1076,7 @@ namespace ASC.Api.Documents
             String token,
             bool isCorporate,
             String customerTitle,
+            String providerKey,
             String providerid)
         {
             var thirdPartyParams = new ThirdPartyParams
@@ -1068,7 +1084,8 @@ namespace ASC.Api.Documents
                     AuthData = new AuthData(url, login, password, token),
                     Corporate = isCorporate,
                     CustomerTitle = customerTitle,
-                    ProviderId = providerid
+                    ProviderId = providerid,
+                    ProviderKey = providerKey,
                 };
 
             var folder = _fileStorageService.SaveThirdParty(thirdPartyParams);
@@ -1141,22 +1158,6 @@ namespace ASC.Api.Documents
         public bool UpdateIfExist(bool set)
         {
             return _fileStorageService.StoreOriginal(set);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="set"></param>
-        /// <returns></returns>
-        [Update(@"neweditors")]
-        public bool NewOnlineEditors(bool set)
-        {
-            if (!(SetupInfo.IsVisibleSettings<OnlineEditorsSettings>() && (CoreContext.Configuration.Personal || CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID))))
-                throw new MethodAccessException("Setting is not available");
-
-
-            OnlineEditorsSettings.NewScheme = set;
-            return OnlineEditorsSettings.NewScheme;
         }
 
 

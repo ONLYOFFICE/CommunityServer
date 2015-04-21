@@ -1,36 +1,30 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Web.Caching;
+
+using AppLimit.CloudComputing.SharpBox;
 using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -44,17 +38,18 @@ using ASC.Files.Thirdparty.GoogleDrive;
 using ASC.Files.Thirdparty.SharePoint;
 using ASC.Files.Thirdparty.Sharpbox;
 using ASC.Security.Cryptography;
-using ASC.Web.Files.Import;
+using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
-using AppLimit.CloudComputing.SharpBox;
-using AppLimit.CloudComputing.SharpBox.StorageProvider.GoogleDocs;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace ASC.Files.Thirdparty
 {
     internal class CachedProviderAccountDao : ProviderAccountDao
     {
-        private static readonly CachedDictionary<IProviderInfo> ProviderCache =
-            new CachedDictionary<IProviderInfo>("thirdparty-providers", Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(20), (x) => true);
+        private static readonly CachedDictionary<IProviderInfo> ProviderCache = new CachedDictionary<IProviderInfo>("thirdparty-providers", x => true);
 
         private readonly string _rootKey = string.Empty;
 
@@ -76,8 +71,8 @@ namespace ASC.Files.Thirdparty
 
         public override void RemoveProviderInfo(int linkId)
         {
-            ProviderCache.Reset(_rootKey, linkId.ToString(CultureInfo.InvariantCulture));
             base.RemoveProviderInfo(linkId);
+            ProviderCache.Reset(_rootKey, linkId.ToString(CultureInfo.InvariantCulture));
         }
 
         public override int UpdateProviderInfo(int linkId, string customerTitle, FolderType folderType)
@@ -92,12 +87,8 @@ namespace ASC.Files.Thirdparty
         private enum ProviderTypes
         {
             DropBox,
-            StoreGate,
             BoxNet,
-            SmartDrive,
             WebDav,
-            CloudMe,
-            HiDrive,
             Google,
             Yandex,
             SkyDrive,
@@ -120,20 +111,7 @@ namespace ASC.Files.Thirdparty
 
         public virtual IProviderInfo GetProviderInfo(int linkId)
         {
-            return GetProviderInfoInernal(linkId);
-        }
-
-        private IProviderInfo GetProviderInfoInernal(int linkId)
-        {
-            var querySelect = new SqlQuery(TableTitle)
-                .Select("id", "provider", "customer_title", "user_name", "password", "token", "user_id", "folder_type",
-                        "create_on", "url")
-                .Where("id", linkId)
-                .Where("tenant_id", TenantID);
-
-            //     .Where(Exp.Eq("user_id", SecurityContext.CurrentAccount.ID.ToString()) | Exp.Eq("folder_type", (int) FolderType.COMMON));
-
-            return DbManager.ExecuteList(querySelect).ConvertAll(ToProviderInfo).Single();
+            return GetProvidersInfoInternal(linkId).Single();
         }
 
         public virtual List<IProviderInfo> GetProvidersInfo()
@@ -141,37 +119,49 @@ namespace ASC.Files.Thirdparty
             return GetProvidersInfoInternal();
         }
 
-        private List<IProviderInfo> GetProvidersInfoInternal()
-        {
-            var querySelect = new SqlQuery(TableTitle)
-                .Select("id", "provider", "customer_title", "user_name", "password", "token", "user_id", "folder_type", "create_on", "url")
-                .Where("tenant_id", TenantID)
-                .Where(Exp.Eq("user_id", SecurityContext.CurrentAccount.ID.ToString()));
-
-            return DbManager.ExecuteList(querySelect).ConvertAll(ToProviderInfo);
-        }
-
         public virtual List<IProviderInfo> GetProvidersInfo(FolderType folderType)
         {
-            return GetProvidersInfoInternal(folderType);
+            return GetProvidersInfoInternal(folderType: folderType);
         }
 
-        private List<IProviderInfo> GetProvidersInfoInternal(FolderType folderType)
+        private List<IProviderInfo> GetProvidersInfoInternal(int linkId = -1, FolderType folderType = FolderType.DEFAULT)
         {
             var querySelect = new SqlQuery(TableTitle)
                 .Select("id", "provider", "customer_title", "user_name", "password", "token", "user_id", "folder_type", "create_on", "url")
-                .Where("tenant_id", TenantID)
-                .Where("folder_type", (int)folderType);
+                .Where("tenant_id", TenantID);
 
-            if (folderType == FolderType.USER)
-                querySelect = querySelect.Where(Exp.Eq("user_id", SecurityContext.CurrentAccount.ID.ToString()));
+            if (folderType == FolderType.USER || folderType == FolderType.DEFAULT && linkId == -1)
+                querySelect.Where(Exp.Eq("user_id", SecurityContext.CurrentAccount.ID.ToString()));
 
-            return DbManager.ExecuteList(querySelect).ConvertAll(ToProviderInfo);
+            if (linkId != -1)
+                querySelect.Where("id", linkId);
+
+            if (folderType != FolderType.DEFAULT)
+                querySelect.Where("folder_type", (int) folderType);
+
+            try
+            {
+                return DbManager.ExecuteList(querySelect).ConvertAll(ToProviderInfo);
+            }
+            catch (Exception e)
+            {
+                Global.Logger
+                      .Error("GetProvidersInfoInternal: linkId = " + linkId + " , folderType = " + folderType + " , user = " + SecurityContext.CurrentAccount.ID, e);
+                return new List<IProviderInfo>();
+            }
         }
 
         public virtual int SaveProviderInfo(string providerKey, string customerTitle, AuthData authData, FolderType folderType)
         {
-            var prKey = (ProviderTypes)Enum.Parse(typeof(ProviderTypes), providerKey, true);
+            ProviderTypes prKey;
+            try
+            {
+                prKey = (ProviderTypes) Enum.Parse(typeof (ProviderTypes), providerKey, true);
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("Unrecognize ProviderType");
+            }
 
             authData = GetEncodedAccesToken(authData, prKey);
 
@@ -182,10 +172,10 @@ namespace ASC.Files.Thirdparty
                 .InColumnValue("id", 0)
                 .InColumnValue("tenant_id", TenantID)
                 .InColumnValue("provider", prKey.ToString())
-                .InColumnValue("customer_title", customerTitle)
+                .InColumnValue("customer_title", Global.ReplaceInvalidCharsAndTruncate(customerTitle))
                 .InColumnValue("user_name", authData.Login)
                 .InColumnValue("password", EncryptPassword(authData.Password))
-                .InColumnValue("folder_type", (int)folderType)
+                .InColumnValue("folder_type", (int) folderType)
                 .InColumnValue("create_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
                 .InColumnValue("user_id", SecurityContext.CurrentAccount.ID.ToString())
                 .InColumnValue("token", authData.Token)
@@ -197,14 +187,14 @@ namespace ASC.Files.Thirdparty
 
         public bool CheckProviderInfo(IProviderInfo providerInfo)
         {
-            return providerInfo.CheckAccess();
+            return providerInfo != null && providerInfo.CheckAccess();
         }
 
         public virtual int UpdateProviderInfo(int linkId, string customerTitle, FolderType folderType)
         {
             var queryUpdate = new SqlUpdate(TableTitle)
                 .Set("customer_title", customerTitle)
-                .Set("folder_type", (int)folderType)
+                .Set("folder_type", (int) folderType)
                 .Where("id", linkId)
                 .Where("tenant_id", TenantID);
 
@@ -215,7 +205,7 @@ namespace ASC.Files.Thirdparty
         {
             using (var tx = DbManager.BeginTransaction())
             {
-                var folderId = GetProviderInfoInernal(linkId).RootFolderId.ToString();
+                var folderId = GetProviderInfo(linkId).RootFolderId.ToString();
 
                 var entryIDs = DbManager.ExecuteList(new SqlQuery("files_thirdparty_id_mapping")
                                                          .Select("hash_id")
@@ -247,12 +237,18 @@ namespace ASC.Files.Thirdparty
 
         private static IProviderInfo ToProviderInfo(int id, string providerKey, string customerTitle, AuthData authData, string owner, FolderType type, DateTime createOn)
         {
-            return ToProviderInfo(new object[] { id, providerKey, customerTitle, authData.Login, EncryptPassword(authData.Password), authData.Token, owner, (int)type, createOn, authData.Url });
+            return ToProviderInfo(new object[] {id, providerKey, customerTitle, authData.Login, EncryptPassword(authData.Password), authData.Token, owner, (int) type, createOn, authData.Url});
         }
 
         private static IProviderInfo ToProviderInfo(object[] input)
         {
-            var key = (ProviderTypes)Enum.Parse(typeof(ProviderTypes), (string)input[1], true);
+            var key = (ProviderTypes) Enum.Parse(typeof (ProviderTypes), (string) input[1], true);
+
+            if (string.IsNullOrEmpty((string) input[2]))
+            {
+                throw new ArgumentException("Unrecognize customerTitle");
+            }
+
             if (key == ProviderTypes.SharePoint)
             {
                 return new SharePointProviderInfo(
@@ -260,8 +256,8 @@ namespace ASC.Files.Thirdparty
                     input[1] as string,
                     input[2] as string,
                     new AuthData(input[9] as string, input[3] as string, DecryptPassword(input[4] as string), input[5] as string),
-                    input[6] == null ? Guid.Empty : new Guid(input[6] as string),
-                    (FolderType)Convert.ToInt32(input[7]),
+                    input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? ""),
+                    (FolderType) Convert.ToInt32(input[7]),
                     TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8])));
             }
 
@@ -272,8 +268,8 @@ namespace ASC.Files.Thirdparty
                     input[1] as string,
                     input[2] as string,
                     DecryptPassword(input[5] as string),
-                    input[6] == null ? Guid.Empty : new Guid(input[6] as string),
-                    (FolderType)Convert.ToInt32(input[7]),
+                    input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? ""),
+                    (FolderType) Convert.ToInt32(input[7]),
                     TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8])));
             }
 
@@ -282,8 +278,8 @@ namespace ASC.Files.Thirdparty
                 input[1] as string,
                 input[2] as string,
                 new AuthData(input[9] as string, input[3] as string, DecryptPassword(input[4] as string), input[5] as string),
-                input[6] == null ? Guid.Empty : new Guid(input[6] as string),
-                (FolderType)Convert.ToInt32(input[7]),
+                input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? ""),
+                (FolderType) Convert.ToInt32(input[7]),
                 TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8])));
         }
 
@@ -331,6 +327,12 @@ namespace ASC.Files.Thirdparty
 
                     authData.Token = base64AccessToken;
 
+                    break;
+                case ProviderTypes.SharePoint:
+                case ProviderTypes.WebDav:
+                    break;
+                default:
+                    authData.Url = null;
                     break;
             }
 

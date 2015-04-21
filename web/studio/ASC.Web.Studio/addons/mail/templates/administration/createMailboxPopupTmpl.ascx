@@ -47,3 +47,39 @@
         </div>
     </div>
 </script>
+
+
+<script id="createMyMailboxPopupTmpl" type="text/x-jquery-tmpl">
+    <div id="mail_server_create_my_mailbox_popup">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="block-cnt-splitter">
+                            <span><%= MailScriptResource.CreateMyMailboxPopupBody_1 %></span>
+                            <br/>
+                            <span><%= MailScriptResource.CreateMyMailboxPopupBody_2 %></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="mail_server_add_my_mailbox" class="block-cnt-splitter requiredField" style="margin-bottom: 0;">
+                            <span class="requiredErrorText"><%= MailScriptResource.ErrorEmptyField %></span>
+                            <div class="headerPanelSmall bold"><%= MailAdministrationResource.MailboxAddressLabel %></div>
+                            <input type="text" class="mailbox_name textEdit" maxlength="64" style="width: 180px;"/>
+                            <span>@${domain.name}</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="progressContainer">
+            <div class="loader" style="display: none;"><%= MailResource.LoadingLabel %></div>
+        </div>
+        <div class="buttons" style="margin-top: 0;">
+            <button class="button middle blue save" type="button"><%= MailScriptResource.CreateMailboxBtn %></button>
+            <button class="button middle gray cancel" type="button"><%= MailScriptResource.CancelBtnLabel %></button>
+        </div>
+    </div>
+</script>

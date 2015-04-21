@@ -4,7 +4,6 @@
 <%@ Assembly Name="ASC.Common" %>
 <%@ Assembly Name="ASC.Core.Common" %>
 <%@ Import Namespace="ASC.CRM.Core" %>
-<%@ Import Namespace="ASC.Web.CRM.Classes" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
 <div id="caseProfile" class="clearFix">
@@ -47,7 +46,7 @@
             <col/>
         </colgroup>
         <tbody>
-            <tr class="headerToggleBlock open">
+            <tr class="headerToggleBlock" data-toggleId="-2">
                 <td colspan="3" style="white-space:nowrap;">
                     <span class="headerToggle header-base"><%= CRMCommonResource.History %></span>
                     <span class="openBlockLink"><%= CRMCommonResource.Show %></span>

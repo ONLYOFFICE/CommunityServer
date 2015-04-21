@@ -108,6 +108,10 @@
                 <% } %>
                 <% if (ImportConfiguration.SupportWebDavInclusion) %>
                 <% { %>
+                <span class="add-account-big add-account-button OwnCloud" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyOwnCloud %>"></span>
+                <% } %>
+                <% if (ImportConfiguration.SupportWebDavInclusion) %>
+                <% { %>
                 <span class="add-account-big add-account-button WebDav" data-provider="WebDav" title="<%= FilesUCResource.ThirdPartyWebDav %>"><%= FilesUCResource.ButtonAddWebDav %></span>
                 <% } %>
             </div>

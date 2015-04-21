@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="<%= PathProvider.GetFileStaticRelativePath("common.css") %>" />
 <link rel="stylesheet" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/maincontent/maincontent.css" %>" />
 <link rel="stylesheet" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/contentlist/contentlist.css" %>" />
-<link rel="stylesheet" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/emptyfolder/emptyfolder.css" %>" />
 <link rel="stylesheet" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/accessrights/accessrights.css" %>" />
 <link rel="stylesheet" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/fileviewer/fileviewer.css" %>" />
 <link rel="stylesheet" href="<%= FilesLinkUtility.FilesBaseAbsolutePath + "controls/thirdparty/thirdparty.css" %>" />

@@ -7,8 +7,8 @@
     <ProjectGuid>{92F13AA5-840F-4B3E-9B6B-1DFEE916D86D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DnsChecker</RootNamespace>
-    <AssemblyName>DnsChecker</AssemblyName>
+    <RootNamespace>ASC.Mail.Server.DnsChecker</RootNamespace>
+    <AssemblyName>ASC.Mail.Server.DnsChecker</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TrunkDir>..\..\..\</TrunkDir>
@@ -30,13 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ARSoft.Tools.Net, Version=1.8.1.0, Culture=neutral, PublicKeyToken=1940454cd762ec57, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\ARSoft.Tools.Net.1.8.1\lib\ARSoft.Tools.Net.dll</HintPath>
+    </Reference>
     <Reference Include="ASC.Mail.Aggregator.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Mail.Aggregator.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="JHSoftware.DnsClient">
-      <HintPath>..\..\..\redistributable\third-party\JHSoftware.DnsClient\JHSoftware.DnsClient.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

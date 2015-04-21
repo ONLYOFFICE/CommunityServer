@@ -48,7 +48,6 @@
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -59,17 +58,6 @@
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocumentsApi.cs" />
@@ -95,10 +83,6 @@
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
-      <Project>{E7BE6CE8-F6B0-4B9B-831B-BA0C85C8D130}</Project>
-      <Name>ASC.Web.Studio</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj">
       <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
       <Name>ASC.Web.CRM</Name>
@@ -106,10 +90,6 @@
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
       <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
       <Name>ASC.Web.Files</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Feed\ASC.Feed.csproj">
-      <Project>{b0431ec9-21d8-4d96-b333-6dd430031c82}</Project>
-      <Name>ASC.Feed</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>

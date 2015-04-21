@@ -110,7 +110,6 @@
                 <td class="userdata-title describe-text requiredTitle"><%= Resource.FirstName %>:</td>
                 <td class="userdata-value requiredField">
                     <input type="text" id="profileFirstName" class="textEdit" value="<%= GetFirstName() %>" autocomplete="off" />
-                    <span class="requiredErrorText"><%= Resource.ErrorEmptyUserFirstName %></span>
                 </td>
             </tr>
             <%--LastName--%>
@@ -118,7 +117,6 @@
                 <td class="userdata-title describe-text requiredTitle"><%= Resource.LastName %>:</td>
                 <td class="userdata-value requiredField">
                     <input type="text" id="profileSecondName" class="textEdit" value="<%= GetLastName() %>" autocomplete="off" />
-                    <span class="requiredErrorText"><%= Resource.ErrorEmptyUserLastName %></span>
                 </td>
             </tr>
             <%--Email--%>
@@ -126,7 +124,6 @@
                 <td class="userdata-title describe-text requiredTitle"><%= Resource.Email %>:</td>
                 <td class="userdata-value requiredField">
                     <input type="email" id="profileEmail" value="<%= GetEmail() %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag && !(CoreContext.Configuration.Personal && CoreContext.Configuration.Standalone) ? "disabled" : "" %> />
-                    <span class="requiredErrorText"><%= Resource.ErrorNotCorrectEmail %></span>
                 </td>
             </tr>
             <%--Department--%>

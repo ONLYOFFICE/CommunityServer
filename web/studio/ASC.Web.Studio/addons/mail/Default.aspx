@@ -1,5 +1,6 @@
 <%@ Assembly Name="ASC.Web.Studio" %>
 <%@ Assembly Name="ASC.Web.Mail" %>
+<%@ Assembly Name="ASC.Api.Mail" %>
 
 <%@ Page Language="C#" EnableViewState="false" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Mail.MailPage" MasterPageFile="~/Masters/BaseTemplate.master" %>
 
@@ -10,23 +11,35 @@
 
 <asp:Content ID="HeaderContent" ContentPlaceHolderID="HeaderContent" runat="server">
     <script>
-        var service_ckeck_time = "<%=GetServiceCheckTimeout()%>";
+        var service_ckeck_time = "<%= GetServiceCheckTimeout() %>";
         var FilterByGroupLocalize = "<asp:Localize runat=server ID="PeopleGroupLocalize"></asp:Localize>";
-        var MailFaqUri = "<%=GetMailFaqUri()%>";
-        var MailSupportUrl = "<%=GetMailSupportUri()%>";
-        var crm_available = "<%=IsCrmAvailable()%>" === "True" ? true : false;
-        var tl_available = "<%=IsPeopleAvailable()%>" === "True" ? true : false;
-        var MailDownloadHandlerUri = "<%=GetMailDownloadHandlerUri()%>";
-        var MailDownloadAllHandlerUri = "<%=GetMailDownloadAllHandlerUri()%>";
-        var MailViewDocumentHandlerUri = "<%=GetMailViewDocumentHandlerUri()%>";
-        var MailEditDocumentHandlerUri = "<%=GetMailEditDocumentHandlerUri()%>";
+        var MailFaqUri = "<%= GetMailFaqUri() %>";
+        var MailSupportUrl = "<%= GetMailSupportUri() %>";
+        var crm_available = "<%= IsCrmAvailable() %>" === "True" ? true : false;
+        var tl_available = "<%= IsPeopleAvailable() %>" === "True" ? true : false;
+        var mailCommonDomainAvailable = "<%= IsMailCommonDomainAvailable() %>" === "True" ? true : false;
+        var mailPrintAvailable = "<%= IsMailPrintAvailable() %>" === "True" ? true : false;
+        var MailDownloadHandlerUri = "<%= GetMailDownloadHandlerUri() %>";
+        var MailDownloadAllHandlerUri = "<%= GetMailDownloadAllHandlerUri() %>";
+        var MailViewDocumentHandlerUri = "<%= GetMailViewDocumentHandlerUri() %>";
+        var MailEditDocumentHandlerUri = "<%= GetMailEditDocumentHandlerUri() %>";
+        var MailAccounts = <%= Serialize(Accounts) %>;
     </script>
-
+    
+    <% if (IsBlank)
+       { %>
+        <style type="text/css">
+            #studioPageContent .studio-top-panel.mainPageLayout,
+            #studioPageContent .mainPageLayout {
+                display: none;
+            }
+        </style>
+    <% } %>
+    
+    <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
 </asp:Content>
 
 <asp:Content ID="MailSideContent" ContentPlaceHolderID="SidePanel" runat="server">
-    <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
-
     <div id="manageWindow" style="display: none">
         <sc:Container ID="_manageFieldPopup" runat="server">
             <header>
@@ -35,6 +48,7 @@
             </body>
         </sc:Container>
     </div>
+
     <div class="hidden" id="commonPopup">
         <sc:Container ID="_commonPopup" runat="server">
             <header>
@@ -43,6 +57,7 @@
             </body>
         </sc:Container>
     </div>
+    
     <div class="page-menu">
         <ul class="menu-actions">
             <li class="menu-main-button middle create-new" id="createNewMailBtn">
@@ -75,18 +90,40 @@
         </ul>
         <asp:PlaceHolder ID="MailSidePanelContainer" runat="server" />
         
-        <% var accounts = GetMailboxes(); %>
-
-        <div id="accountsPanel" class="expandable top-margin-menu hidden" <% if (accounts.Count > 1)
+        <div id="accountsPanel" class="expandable top-margin-menu hidden" <% if (Accounts.Count > 1)
                                                                              { %> style="display: block;" <% } %>>
             <div class="content" style="max-height: 250px;">
                 <ul class="menu-list accounts">
-                    <% foreach (var mailbox in accounts)
+                    <% if (DefaultAccount != null) 
                        { %>
-                           <li class="menu-item none-sub-list">
-                             <a id="<%= mailbox.MailBoxId %>"><span class="link dotted"><%= mailbox.EMail.ToString() %></span></a>
-                           </li>
-                       <% } %>
+                        <li class="menu-item none-sub-list">
+                            <a><span class="link dotted"><%= DefaultAccount.Email %></span></a>
+                        </li>
+                    <% } %>
+                    <% foreach (var account in CommonAccounts)
+                       { %>
+                        <li class="menu-item none-sub-list">
+                            <a><span class="link dotted"><%= account.Email %></span></a>
+                        </li>
+                    <% } %>
+                    <% foreach (var account in ServerAccounts)
+                       { %>
+                        <li class="menu-item none-sub-list">
+                            <a><span class="link dotted"><%= account.Email %></span></a>
+                        </li>
+                    <% } %>
+                    <% foreach (var account in Aliases)
+                       { %>
+                        <li class="menu-item none-sub-list">
+                            <a><span class="link dotted"><%= account.Email %></span></a>
+                        </li>
+                    <% } %>
+                    <% foreach (var account in Groups)
+                       { %>
+                        <li class="menu-item none-sub-list">
+                            <a><span class="link dotted"><%= account.Email %></span></a>
+                        </li>
+                    <% } %>
                 </ul>
             </div>
             <div class="more hidden left-margin">
@@ -110,8 +147,11 @@
                 </a>
             </li>
         </ul>
+
+        
         <ul class="menu-list with-expander">
-            <li class="menu-item sub-list add-block">
+            <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
+            <li class="menu-item sub-list add-block open-by-default">
                 <div class="category-wrapper">
                     <span class="expander"></span>
                     <a class="menu-item-label outer-text text-overflow" id="settingsLabel" href="javascript:void(0);">
@@ -120,6 +160,14 @@
                     </a>
                 </div>
                 <ul class="menu-sub-list" id="settingsContainer">
+                    <% if (IsAdministrator && !IsPersonal && IsTurnOnServer())
+                       { %>
+                        <li class="menu-sub-item">
+                            <a class="menu-item-label outer-text text-overflow" id="adminSettings" href="#administration">
+                                <span class="menu-item-label inner-text"><%= MailScriptResource.AdministrationLabel %></span>
+                            </a>
+                        </li>
+                    <% } %>
                     <li class="menu-sub-item">
                         <a class="menu-item-label outer-text text-overflow" id="accountsSettings" href="#accounts">
                             <span class="menu-item-label inner-text"><%= MailResource.AccountsSettingsLabel %></span>
@@ -131,29 +179,22 @@
                         </a>
                     </li>
                     <% if (IsAdministrator && !IsPersonal)
-                       {%>
-                        <% if (IsTurnOnServer()) {%> 
-                            <li class="menu-sub-item">
-                              <a class="menu-item-label outer-text text-overflow" id="adminSettings" href="#administration">
-                                <span class="menu-item-label inner-text beta"><%= MailScriptResource.AdministrationLabel %></span>
-                              </a>
-                            </li>
-                        <%} %>
+                       { %>
                         <li class="menu-sub-item">
                             <a class="menu-item-label outer-text text-overflow" href="<%= VirtualPathUtility.ToAbsolute("~/management.aspx") + "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights + "#mail" %>">
                                 <span class="menu-item-label inner-text"><%= MailResource.AccessRightsSettings %></span>
                             </a>
                         </li>
-                    <% }%>
+                    <% } %>
                 </ul>
             </li>
             <% if (!IsPersonal)
-               {%>
+               { %>
                 <asp:PlaceHolder runat="server" ID="sideHelpCenter"></asp:PlaceHolder>
                 <asp:PlaceHolder ID="SupportHolder" runat="server"></asp:PlaceHolder>
                 <asp:PlaceHolder ID="UserForumHolder" runat="server"></asp:PlaceHolder>
                 <asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>
-             <% }%>
+            <% } %>
         </ul>
     </div>
 </asp:Content>
@@ -188,4 +229,3 @@
 
 <asp:Content ID="clientTemplatesResourcesPlaceHolder" ContentPlaceHolderID="clientTemplatesResourcesPlaceHolder" runat="server">
 </asp:Content>
-

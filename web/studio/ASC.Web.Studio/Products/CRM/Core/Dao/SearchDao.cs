@@ -1,49 +1,45 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-#region Import
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Utils;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
 using ASC.FullTextIndex;
+using ASC.FullTextIndex.Service;
 using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Configuration;
-
-#endregion
 
 namespace ASC.CRM.Core.Dao
 {
@@ -51,7 +47,7 @@ namespace ASC.CRM.Core.Dao
     {
         #region Members
 
-        private Dictionary<EntityType, IEnumerable<String>> _findedIDs;
+        private Dictionary<EntityType, IEnumerable<int>> _findedIDs;
         private bool _fullTextSearchEnable;
 
         #endregion
@@ -77,35 +73,33 @@ namespace ASC.CRM.Core.Dao
 
             if (keywords.Length == 0) return new List<SearchResultItem>().ToArray();
 
-            _fullTextSearchEnable = FullTextSearch.SupportModule(FullTextSearch.CRMCasesModule)
-                                    && FullTextSearch.SupportModule(FullTextSearch.CRMContactsModule)
-                                    && FullTextSearch.SupportModule(FullTextSearch.CRMDealsModule)
-                                    && FullTextSearch.SupportModule(FullTextSearch.CRMTasksModule);
+            var caseModules = GetFullTextSearchModule(EntityType.Case, searchText);
+            var contactModules = GetFullTextSearchModule(EntityType.Contact, searchText);
+            var opportunityModules = GetFullTextSearchModule(EntityType.Opportunity, searchText);
+            var taskModules = GetFullTextSearchModule(EntityType.Task, searchText);
+
+            _fullTextSearchEnable = FullTextSearch.SupportModule(caseModules)
+                                    && FullTextSearch.SupportModule(contactModules)
+                                    && FullTextSearch.SupportModule(opportunityModules)
+                                    && FullTextSearch.SupportModule(taskModules);
                             
             if (_fullTextSearchEnable)
             {
-                _findedIDs = new Dictionary<EntityType, IEnumerable<string>>();
-
-                _findedIDs.Add(EntityType.Case, FullTextSearch.Search(searchText, FullTextSearch.CRMCasesModule)
-                                               .GetIdentifiers()
-                                               .Select(item => item.Split('_')[1]).Distinct()
-                              );
-
-                _findedIDs.Add(EntityType.Contact, FullTextSearch.Search(searchText, FullTextSearch.CRMContactsModule)
-                                                  .GetIdentifiers()
-                                                  .Select(item => item.Split('_')[1]).Distinct()
-                               );
-
-                _findedIDs.Add(EntityType.Opportunity, FullTextSearch.Search(searchText, FullTextSearch.CRMDealsModule)
-                                                      .GetIdentifiers()
-                                                      .Select(item => item.Split('_')[1]).Distinct()
-                               );
-
-                _findedIDs.Add(EntityType.Task, FullTextSearch.Search(searchText, FullTextSearch.CRMTasksModule)
-                                                .GetIdentifiers()
-                              );
-
-
+                _findedIDs = new Dictionary<EntityType, IEnumerable<int>>
+                    {
+                        {
+                            EntityType.Case, FullTextSearch.Search(caseModules)
+                        },
+                        {
+                            EntityType.Contact, FullTextSearch.Search(contactModules)
+                        },
+                        {
+                            EntityType.Opportunity, FullTextSearch.Search(opportunityModules)
+                        },
+                        {
+                            EntityType.Task, FullTextSearch.Search(taskModules)
+                        }
+                    };
             }
             else
                 _findedIDs = SearchByCustomFields(keywords)
@@ -130,7 +124,7 @@ namespace ASC.CRM.Core.Dao
 
         #region Private
 
-        private Dictionary<EntityType, IEnumerable<String>> SearchByRelationshipEvent(String[] keywords)
+        private Dictionary<EntityType, IEnumerable<int>> SearchByRelationshipEvent(String[] keywords)
         {
             var historyQuery = Query("crm_relationship_event")
                         .Select(
@@ -152,11 +146,11 @@ namespace ASC.CRM.Core.Dao
                         return new[] { row[0], (int)EntityType.Contact };
 
                     }).GroupBy(row => row[1])
-                       .ToDictionary(x => (EntityType)x.Key, x => x.Select(item => item.ToString()));
+                       .ToDictionary(x => (EntityType)x.Key, x => x.SelectMany(item => item).Select(Convert.ToInt32));
             }
         }
 
-        private Dictionary<EntityType, IEnumerable<String>> SearchByCustomFields(String[] keywords)
+        private Dictionary<EntityType, IEnumerable<int>> SearchByCustomFields(String[] keywords)
         {
 
             var customFieldQuery = Query("crm_field_value")
@@ -169,35 +163,54 @@ namespace ASC.CRM.Core.Dao
             {
                 return db.ExecuteList(customFieldQuery)
                       .GroupBy(row => row[1])
-                      .ToDictionary(x => (EntityType)x.Key, x => x.Select(item => item.ToString()));
+                      .ToDictionary(x => (EntityType)x.Key, x => x.SelectMany(item => item).Select(Convert.ToInt32));
             }
         }
 
-        private Dictionary<EntityType, IEnumerable<String>> SearchByContactInfos(String[] keywords)
+        private Dictionary<EntityType, IEnumerable<int>> SearchByContactInfos(String[] keywords)
         {
             using (var db = GetDb())
             {
                 var sqlResult = db.ExecuteList(Query("crm_contact_info").Distinct()
                                                 .Select("contact_id")
-                                                .Where(BuildLike(new[] { "data" }, keywords))).Select(item => Convert.ToString(item[0]));
+                                                .Where(BuildLike(new[] { "data" }, keywords))).Select(item => Convert.ToInt32(item[0]));
 
 
-                return new Dictionary<EntityType, IEnumerable<String>> { { EntityType.Contact, sqlResult } };
+                return new Dictionary<EntityType, IEnumerable<int>> { { EntityType.Contact, sqlResult } };
             }
         }
 
-        private String GetFullTextSearchModule(EntityType entityType)
+        public static ModuleInfo[] GetFullTextSearchModule(EntityType entityType, string text, params string[] columns)
         {
             switch (entityType)
             {
-                 case EntityType.Case: return FullTextSearch.CRMCasesModule;
-                 case EntityType.Company: return FullTextSearch.CRMContactsModule;
-                 case EntityType.Contact: return FullTextSearch.CRMContactsModule;
-                 case EntityType.Person: return FullTextSearch.CRMContactsModule;
-                 case EntityType.Opportunity: return FullTextSearch.CRMDealsModule;
-                 case EntityType.Invoice: return FullTextSearch.CRMInvoicesModule;
-                 case EntityType.RelationshipEvent: return FullTextSearch.CRMEventsModule;
-                 case EntityType.Task: return FullTextSearch.CRMTasksModule;
+                case EntityType.Case:
+                    return new[]
+                        {
+                            FullTextSearch.CRMCasesModule.Match(text, columns: columns),
+                            FullTextSearch.CRMCustomModule.Where("entity_type=" + 7).Select("field_id").Match(text, columns: columns),
+                            FullTextSearch.CRMEventsModule.Where("entity_type=" + 7).Where("entity_id!=" + 0).Select("entity_id").Match(text,  columns: columns)
+                        };
+                 case EntityType.Company:
+                 case EntityType.Contact:
+                 case EntityType.Person:
+                    return new[]
+                        {
+                            FullTextSearch.CRMContactsModule.Match(text,  columns: columns), 
+                            FullTextSearch.CRMContactsInfoModule.Select("contact_id").Match(text,  columns: columns),
+                            FullTextSearch.CRMCustomModule.Where("entity_type in (0,4,5)").Select("entity_id").Match(text,  columns: columns), 
+                            FullTextSearch.CRMEventsModule.Where("contact_id>" + 0).Select("contact_id").Match(text,  columns: columns)
+                        };
+                 case EntityType.Opportunity:
+                    return new[]
+                        {
+                            FullTextSearch.CRMDealsModule.Match(text,  columns: columns),
+                            FullTextSearch.CRMCustomModule.Where("entity_type=" + 1).Select("entity_id").Match(text,  columns: columns),
+                            FullTextSearch.CRMEventsModule.Where("entity_type=" + 1).Where("entity_id!=" + 0).Select("entity_id").Match(text,  columns: columns)
+                        };
+                 case EntityType.Invoice: return new[] { FullTextSearch.CRMInvoicesModule.Match(text, columns: columns) };
+                 case EntityType.RelationshipEvent: return new[] { FullTextSearch.CRMEventsModule.Match(text, columns: columns) };
+                 case EntityType.Task: return new[] { FullTextSearch.CRMTasksModule.Match(text, columns: columns) };
             }
 
             throw new NotSupportedException();
@@ -217,7 +230,7 @@ namespace ASC.CRM.Core.Dao
             if (_findedIDs.ContainsKey(entityType))
                 where = Exp.In("id", _findedIDs[entityType].ToArray());
 
-            if (FullTextSearch.SupportModule(GetFullTextSearchModule(entityType))) return where;
+            if (FullTextSearch.SupportModule(GetFullTextSearchModule(entityType, ""))) return where;
 
             Exp byField;
 
@@ -275,7 +288,7 @@ namespace ASC.CRM.Core.Dao
 
         private bool IncludeToSearch(EntityType entityType)
         {
-            return !FullTextSearch.SupportModule(GetFullTextSearchModule(entityType)) || _findedIDs.ContainsKey(entityType);
+            return !FullTextSearch.SupportModule(GetFullTextSearchModule(entityType, "")) || _findedIDs.ContainsKey(entityType);
         }
 
         private SqlQuery GetSearchQuery(String[] keywords)
@@ -341,7 +354,7 @@ namespace ASC.CRM.Core.Dao
 
                             var contact = Global.DaoFactory.GetContactDao().GetByID(Convert.ToInt32(id));
 
-                            if (!CRMSecurity.CanAccessTo(contact)) continue;
+                            if (contact == null || !CRMSecurity.CanAccessTo(contact)) continue;
 
                             url = String.Format("default.aspx?id={0}", id);
 
@@ -359,7 +372,7 @@ namespace ASC.CRM.Core.Dao
 
                             var deal = Global.DaoFactory.GetDealDao().GetByID(Convert.ToInt32(id));
 
-                            if (!CRMSecurity.CanAccessTo(deal)) continue;
+                            if (deal == null || !CRMSecurity.CanAccessTo(deal)) continue;
 
                             url = String.Format("deals.aspx?id={0}", id);
 
@@ -371,7 +384,7 @@ namespace ASC.CRM.Core.Dao
                         {
                             var cases = Global.DaoFactory.GetCasesDao().GetByID(Convert.ToInt32(id));
 
-                            if (!CRMSecurity.CanAccessTo(cases)) continue;
+                            if (cases == null || !CRMSecurity.CanAccessTo(cases)) continue;
 
                             url = String.Format("cases.aspx?id={0}", id);
 
@@ -384,7 +397,7 @@ namespace ASC.CRM.Core.Dao
                         {
                             var task = Global.DaoFactory.GetTaskDao().GetByID(Convert.ToInt32(id));
 
-                            if (!CRMSecurity.CanAccessTo(task)) continue;
+                            if (task == null || !CRMSecurity.CanAccessTo(task)) continue;
 
                             url = String.Format("tasks.aspx?id={0}", id);
 
@@ -396,7 +409,7 @@ namespace ASC.CRM.Core.Dao
                         {
                             var invoice = Global.DaoFactory.GetInvoiceDao().GetByID(Convert.ToInt32(id));
 
-                            if (!CRMSecurity.CanAccessTo(invoice)) continue;
+                            if (invoice == null || !CRMSecurity.CanAccessTo(invoice)) continue;
 
                             url = String.Format("invoices.aspx?id={0}", id);
 
@@ -443,11 +456,14 @@ namespace ASC.CRM.Core.Dao
                 case EntityType.Company:
                 case EntityType.Person:
                 case EntityType.Contact:
-                    return Global.DaoFactory.GetContactDao().GetByID(contactID).GetTitle();
+                    var contact = Global.DaoFactory.GetContactDao().GetByID(contactID);
+                    return contact == null ? string.Empty : contact.GetTitle();
                 case EntityType.Opportunity:
-                    return Global.DaoFactory.GetDealDao().GetByID(entityID).Title;
+                    var opportunity = Global.DaoFactory.GetDealDao().GetByID(entityID);
+                    return opportunity == null ? string.Empty : opportunity.Title;
                 case EntityType.Case:
-                    return Global.DaoFactory.GetCasesDao().GetByID(entityID).Title;
+                    var @case = Global.DaoFactory.GetCasesDao().GetByID(entityID);
+                    return @case == null ? string.Empty : @case.Title;
                 default:
                     throw new ArgumentException();
             }

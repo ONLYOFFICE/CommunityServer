@@ -1,103 +1,103 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
+
 window.mailAlerts = (function($) {
-    var _lock = false;
-    var _repeat = true;
-    var _alerts = [];
-    var cancel_btn = {};
-    var close_btn = {};
-    var ok_btn = {};
+    var lock = false,
+        storedAlerts = [],
+        timer = null;
 
-    var init = function() {
-        _check();
-
-        cancel_btn = { text: MailScriptResource.CancelBtnLabel, css_class: "gray cancel" };
-        close_btn = { text: MailScriptResource.CloseBtnLabel, css_class: "gray cancel" };
-        ok_btn = { text: MailScriptResource.OkBtnLabel, css_class: "blue cancel" };
-    };
-
-    var _unlock = function() {
-        _lock = false;
-        if (_repeat)
-            setTimeout(function() {
-                _repeat = true;
-                _check();
-            }, 180000);
-    };
-
-    var check = function() {
-        _repeat = false;
-        _check();
-    };
-
-    var _check = function() {
-        if (true === _lock)
-            return;
-        _lock = true;
-        serviceManager.getAlerts({}, { success: _onGetAlerts });
-    };
-
-    var _onGetAlerts = function(options, alerts) {
-        $.each(alerts, function(index, value) {
-            _storeAlert(value);
-        });
-        if (0 == _alerts.length) {
-            _unlock();
+    function check() {
+        if (true === lock) {
             return;
         }
-        $.each(_alerts, function(index, value) {
-            if (_alerts.length - 1 != index) {
-                popup.addBig(value.header, value.body, function() {
-                    _deleteAlert(value.id);
-                });
-            } else {
-                popup.addBig(value.header, value.body, function() {
-                    _deleteAlert(value.id);
-                    _unlock();
-                });
-            }
-        });
-        _alerts = [];
-    };
+        lock = true;
+        serviceManager.getAlerts({}, { success: onGetAlerts });
+    }
 
-    var _storeAlert = function(alert) {
-        var header;
-        var body;
-        var data = $.parseJSON(alert.data);
-        var content;
-        var buttons;
+    function onGetAlerts(options, alerts) {
+        lock = false;
+        storeAlerts(alerts);
+        showTopAlert();
+    }
+
+    function storeAlerts(alerts) {
+        if (!alerts || 0 == alerts.length) {
+            return;
+        }
+        storedAlerts = [];
+        $.each(alerts, function(index, value) {
+            storeAlert(value);
+        });
+    }
+
+    function showTopAlert() {
+        if (!storedAlerts || 0 == storedAlerts.length) {
+            return;
+        }
+
+        if (TMMail.isPopupVisible()) {
+            clearTimeout(timer);
+            timer = setTimeout(showTopAlert, TMMail.showNextAlertTimeout);
+            return;
+        }
+
+        popup.addBig(storedAlerts[0].header, storedAlerts[0].body, function() {
+            var alert = storedAlerts[0].alert;
+            deleteAlert(alert.id);
+            storedAlerts.splice(0, 1);
+            clearTimeout(timer);
+            timer = setTimeout(showTopAlert, TMMail.showNextAlertTimeout);
+        });
+    }
+
+    function storeAlert(alert) {
+        var alertPopup = getAlertPopup(alert);
+        if (alertPopup) {
+            storedAlerts.push(alertPopup);
+        }
+    }
+
+    function getAlertPopup(alert) {
+        var header,
+            body,
+            data = $.parseJSON(alert.data),
+            content,
+            buttons,
+            account,
+            accountEmail,
+            cancelBtn = { text: MailScriptResource.CancelBtnLabel, css_class: "gray cancel" },
+            closeBtn = { text: MailScriptResource.CloseBtnLabel, css_class: "gray cancel" },
+            okBtn = { text: MailScriptResource.OkBtnLabel, css_class: "blue cancel" };
+
         switch (alert.type) {
-            case 1:
+            case ASC.Mail.AlertTypes.DeliveryFailure:
                 header = MailScriptResource.DeliveryFailurePopupHeader;
-                buttons = [{ href: "#draftitem/" + data.message_id, text: MailScriptResource.TryAgainButton, css_class: "blue tryagain" }, cancel_btn];
+                buttons = [{ href: "#draftitem/" + data.message_id, text: MailScriptResource.TryAgainButton, css_class: "blue tryagain" }, cancelBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
-                    errorBodyHeader: MailScriptResource.DeliveryFailurePopupBodyHeader.replace(/{subject}/g, data.subject),
+                    errorBodyHeader: data.subject.Length > 0 ? MailScriptResource.DeliveryFailurePopupBodyHeader.replace(/{subject}/g, data.subject) : MailScriptResource.DeliveryFailurePopupBodyHeader.replace(/ "{subject}"/g, ''),
                     errorBody: MailScriptResource.DeliveryFailurePopupBody
                         .replace(/{account_name}/g, '<b>' + data.from + '</b>'),
                     errorBodyFooter: MailScriptResource.DeliveryFailurePopupBodyFooter
@@ -105,11 +105,11 @@ window.mailAlerts = (function($) {
                         .replace(/{faq_link_close_tag}/g, "</a>"),
                     buttons: buttons
                 }));
-                body.find('.tryagain').click(function() { popup.hide(); });
+                body.find('.tryagain').click(function () { popup.hide(); });
                 break;
-            case 2:
+            case ASC.Mail.AlertTypes.LinkFailure:
                 header = MailScriptResource.LinkFailurePopupHeader;
-                buttons = [ok_btn];
+                buttons = [okBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: MailScriptResource.LinkFailurePopupName,
                     errorBody: MailScriptResource.LinkFailurePopupText,
@@ -117,9 +117,9 @@ window.mailAlerts = (function($) {
                     buttons: buttons
                 }));
                 break;
-            case 3:
+            case ASC.Mail.AlertTypes.ExportFailure:
                 header = MailScriptResource.ExportFailurePopupHeader;
-                buttons = [ok_btn];
+                buttons = [okBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: MailScriptResource.ExportFailurePopupName,
                     errorBody: MailScriptResource.ExportFailurePopupText,
@@ -127,22 +127,24 @@ window.mailAlerts = (function($) {
                     buttons: buttons
                 }));
                 break;
-            case 4:
+            case ASC.Mail.AlertTypes.UploadFailure:
                 header = MailScriptResource.EmailInFailurePopupHeader;
-                var account = accountsManager.getAccountById(alert.id_mailbox);
-                var account_email = account ? account.email : "";
-                switch(data.error_type) {
-                    case 1: // folder not found
+                account = accountsManager.getAccountById(alert.id_mailbox);
+                accountEmail = account ? account.email : "";
+                switch (data.error_type) {
+                    case 1:
+                        // folder not found
                         content = MailScriptResource.EmailInFolderNotFoundFailurePopupText;
                         break;
-                    case 2: // no access rights
+                    case 2:
+                        // no access rights
                         content = MailScriptResource.EmailInFolderAccessRightsFailurePopupText;
                         break;
                     default:
-                        return;
+                        return null;
                 }
-                content = content.replace(/{account}/g, '<b>' + account_email + '</b>');
-                buttons = [ok_btn];
+                content = content.replace(/{account}/g, '<b>' + accountEmail + '</b>');
+                buttons = [okBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: MailScriptResource.EmailInFailurePopupBodyHeader,
                     errorBody: content,
@@ -150,9 +152,9 @@ window.mailAlerts = (function($) {
                     buttons: buttons
                 }));
                 break;
-            case 5:
+            case ASC.Mail.AlertTypes.DisableAllMailboxes:
                 header = MailScriptResource.DisableAllMailboxesPopupHeader;
-                buttons = [{ href: "#accounts", text: MailScriptResource.ManageAccountsLabel, css_class: "blue manage_accounts" }, close_btn];
+                buttons = [{ href: "#accounts", text: MailScriptResource.ManageAccountsLabel, css_class: "blue manage_accounts" }, closeBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: MailScriptResource.DisableAllMailboxesPopupBodyHeader,
                     errorBody: MailScriptResource.DisableAllMailboxesPopupText,
@@ -161,51 +163,76 @@ window.mailAlerts = (function($) {
                 }));
                 body.find('.manage_accounts').click(function () { popup.hide(); });
                 break;
-            case 6:
+            case ASC.Mail.AlertTypes.AuthConnectFailure:
                 header = window.MailScriptResource.AccountCreationErrorHeader;
-                var account = accountsManager.getAccountById(alert.id_mailbox);
-                var account_email = account ? account.email : "";
-                buttons = [{ href: "#accounts", text: MailScriptResource.ChangeAccountSettingsBtn, css_class: "blue manage_account_settings" }, close_btn];
+                account = accountsManager.getAccountById(alert.id_mailbox);
+                accountEmail = account ? account.email : "";
+                buttons = [{ href: "#accounts", text: MailScriptResource.ChangeAccountSettingsBtn, css_class: "blue manage_account_settings" }, closeBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: window.MailScriptResource.AuthErrorPopupBodyHeader,
                     errorBody: window.MailScriptResource.AuthErrorPopupBody
-                        .replace('{0}', '<b>' + account_email + '</b>')
+                        .replace('{0}', '<b>' + accountEmail + '</b>')
                         .replace('{1}', '<br><br>'),
                     errorBodyFooter: window.MailScriptResource.AuthErrorPopupBodyFooter
-                        .replace('{2}', '<a class=\"linkDescribe\" target=\"blank\" href="' + TMMail.getFaqLink(account_email) + '">')
+                        .replace('{2}', '<a class=\"linkDescribe\" target=\"blank\" href="' + TMMail.getFaqLink(accountEmail) + '">')
                         .replace('{3}', '</a>'),
                     buttons: buttons
                 }));
-                body.find('.manage_account_settings').click(function () { popup.hide(); accountsModal.editBox(account.email); });
+
+                if (!alert.redirectToAccounts)
+                    body.find('.manage_account_settings').removeAttr('href');
+
+                body.find('.manage_account_settings').click(function () {
+                    popup.hide();
+                    accountsModal.editBox(account.email, alert.activateOnSuccess);
+                });
                 break;
-            case 7:
+            case ASC.Mail.AlertTypes.TooManyAuthError:
                 header = window.MailScriptResource.AuthErrorDisablePopupHeader;
-                var account = accountsManager.getAccountById(alert.id_mailbox);
-                var account_email = account ? account.email : "";
+                account = accountsManager.getAccountById(alert.id_mailbox);
+                accountEmail = account ? account.email : "";
                 window.accountsManager.enableMailbox(account.email, false);
-                buttons = [{ href: "#accounts", text: MailScriptResource.ManageAccountsLabel, css_class: "blue manage_accounts" }, close_btn];
+                buttons = [{ href: "#accounts", text: MailScriptResource.ManageAccountsLabel, css_class: "blue manage_accounts" }, closeBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: window.MailScriptResource.AuthErrorDisablePopupBodyHeader,
                     errorBody: window.MailScriptResource.AuthErrorDisablePopupBody
-                        .replace('{0}', '<b>' + account_email + '</b>')
+                        .replace('{0}', '<b>' + accountEmail + '</b>')
                         .replace('{1}', '<br><br>'),
                     errorBodyFooter: undefined,
                     buttons: buttons
                 }));
                 body.find('.manage_accounts').click(function () { popup.hide(); });
                 break;
-        };
-        if (header && body) {
-            _alerts.push({ header: header, body: body, id: alert.id });
+            case ASC.Mail.AlertTypes.QuotaError:
+                header = window.MailScriptResource.QuotaPopupHeader;
+                buttons = [closeBtn];
+                body = $($.tmpl("alertPopupBodyTmpl", {
+                    errorBodyHeader: window.MailScriptResource.QuotaPopupHeader,
+                    errorBody: window.MailScriptResource.QuotaPopupBody,
+                    errorBodyFooter: undefined,
+                    buttons: buttons
+                }));
+                break;
         }
-    };
+        
+        if (header && body) {
+            return { header: header, body: body, alert: alert };
+        }
 
-    var _deleteAlert = function(id) {
+        return null;
+    }
+
+    function showAlert(alert) {
+        var alertPopup = getAlertPopup(alert);
+        popup.addBig(alertPopup.header, alertPopup.body);
+    }
+
+    function deleteAlert(id) {
         serviceManager.deleteAlert(id);
-    };
+    }
 
     return {
-        init: init,
-        check: check
+        check: check,
+        showAlert: showAlert
     };
 })(jQuery);

@@ -1,10 +1,6 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Blogs" %>
-<%@ Page Language="C#" MasterPageFile="~/Products/Community/Community.master" AutoEventWireup="true" CodeBehind="AddBlog.aspx.cs" Inherits="ASC.Web.Community.Blogs.AddBlog" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Products/Community/Master/Community.master" AutoEventWireup="true" CodeBehind="AddBlog.aspx.cs" Inherits="ASC.Web.Community.Blogs.AddBlog" Title="Untitled Page" %>
 
 <%@ Import Namespace="ASC.Blogs.Core.Resources" %>
-<%@ Import Namespace="ASC.Data.Storage" %>
-
-<%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="CommunityPageHeader" runat="server">

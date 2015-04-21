@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Reflection;
@@ -36,64 +34,64 @@ namespace ASC.Mail.Aggregator.Common
 {
     public static class MailServerHelper
     {
-        public static bool TryTestSmtp(MailServerSettings settings, out string last_error)
+        public static bool TryTestSmtp(MailServerSettings settings, out string lastError)
         {
             try
             {
-                last_error = String.Empty;
+                lastError = String.Empty;
                 return Test(MailClientBuilder.Smtp(), settings);
             }
             catch (Exception ex)
             {
-                last_error = ex.Message;
+                lastError = ex.Message;
                 return false;
             }
         }
 
-        public static bool Test(BaseProtocolClient ingoing_mail_client, MailServerSettings settings)
+        public static bool Test(BaseProtocolClient ingoingMailClient, MailServerSettings settings)
         {
             try
             {
-                var s_result = ingoing_mail_client.Authorize(settings, settings.MailServerOperationTimeoutInMilliseconds);
-                if (s_result.ToLower().IndexOf("success", StringComparison.Ordinal) == -1 &&
-                    s_result.ToLower().IndexOf("+", StringComparison.Ordinal) == -1 &&
-                    s_result.ToLower().IndexOf("ok", StringComparison.Ordinal) == -1)
+                var sResult = ingoingMailClient.Authorize(settings, settings.MailServerOperationTimeoutInMilliseconds);
+                if (sResult.ToLower().IndexOf("success", StringComparison.Ordinal) == -1 &&
+                    sResult.ToLower().IndexOf("+", StringComparison.Ordinal) == -1 &&
+                    sResult.ToLower().IndexOf("ok", StringComparison.Ordinal) == -1)
                 {
-                    if (ingoing_mail_client is Imap4Client)
-                        throw new ImapConnectionException(s_result);
-                    if(ingoing_mail_client is Pop3Client)
-                        throw new Pop3ConnectionException(s_result);
+                    if (ingoingMailClient is Imap4Client)
+                        throw new ImapConnectionException(sResult);
+                    if(ingoingMailClient is Pop3Client)
+                        throw new Pop3ConnectionException(sResult);
                     else
-                        throw new SmtpConnectionException(s_result);
+                        throw new SmtpConnectionException(sResult);
                 }
 
                 return true;
             }
-            catch (TargetInvocationException ex_target)
+            catch (TargetInvocationException exTarget)
             {
-                if (ingoing_mail_client is Imap4Client)
-                        throw new ImapConnectionException(ex_target.InnerException.Message);
-                    if(ingoing_mail_client is Pop3Client)
-                        throw new Pop3ConnectionException(ex_target.InnerException.Message);
+                if (ingoingMailClient is Imap4Client)
+                        throw new ImapConnectionException(exTarget.InnerException.Message);
+                    if(ingoingMailClient is Pop3Client)
+                        throw new Pop3ConnectionException(exTarget.InnerException.Message);
                     else
-                        throw new SmtpConnectionException(ex_target.InnerException.Message);
+                        throw new SmtpConnectionException(exTarget.InnerException.Message);
             }
             catch (TimeoutException)
             {
-                if (ingoing_mail_client is Imap4Client)
+                if (ingoingMailClient is Imap4Client)
                     throw new ImapConnectionTimeoutException();
-                if (ingoing_mail_client is Pop3Client)
+                if (ingoingMailClient is Pop3Client)
                     throw new Pop3ConnectionTimeoutException();
                 else
                     throw new SmtpConnectionTimeoutException();
             }
             finally
             {
-                if (ingoing_mail_client.IsConnected)
+                if (ingoingMailClient.IsConnected)
                 {
                     try
                     {
-                        ingoing_mail_client.Disconnect();
+                        ingoingMailClient.Disconnect();
                     }
                     catch {}
                     
@@ -101,39 +99,39 @@ namespace ASC.Mail.Aggregator.Common
             }
         }
 
-        public static bool TryTestImap(MailServerSettings settings, out string last_error)
+        public static bool TryTestImap(MailServerSettings settings, out string lastError)
         {
             try
             {
-                last_error = String.Empty;
+                lastError = String.Empty;
                 return Test(MailClientBuilder.Imap(), settings);
             }
             catch (Exception ex)
             {
-                last_error = ex.Message;
+                lastError = ex.Message;
                 return false;
             }
         }
 
-        public static bool TryTestPop(MailServerSettings settings, out string last_error)
+        public static bool TryTestPop(MailServerSettings settings, out string lastError)
         {
             try
             {
-                last_error = String.Empty;
+                lastError = String.Empty;
                 return Test(MailClientBuilder.Pop(), settings);
             }
             catch (Exception ex)
             {
-                last_error = ex.Message;
+                lastError = ex.Message;
                 return false;
             }
         }
 
         public static bool Test(MailBox account)
         {
-            var ingoing_client = account.Imap ? (BaseProtocolClient) MailClientBuilder.Imap() : MailClientBuilder.Pop();
+            var ingoingClient = account.Imap ? (BaseProtocolClient) MailClientBuilder.Imap() : MailClientBuilder.Pop();
 
-            Test(ingoing_client, new MailServerSettings
+            Test(ingoingClient, new MailServerSettings
             {
                 Url = account.Server,
                 Port = account.Port,
@@ -144,9 +142,9 @@ namespace ASC.Mail.Aggregator.Common
                 MailServerOperationTimeoutInMilliseconds = 10000
             });
 
-            var outgoing_client = MailClientBuilder.Smtp();
+            var outgoingClient = MailClientBuilder.Smtp();
 
-            Test(outgoing_client, new MailServerSettings
+            Test(outgoingClient, new MailServerSettings
             {
                 Url = account.SmtpServer,
                 Port = account.SmtpPort,

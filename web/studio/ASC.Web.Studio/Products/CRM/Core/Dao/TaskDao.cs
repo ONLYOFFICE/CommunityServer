@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -71,7 +69,7 @@ namespace ASC.CRM.Core.Dao
             base.DeleteTask(taskID);
         }
 
-        public override int SaveOrUpdateTask(Task task)
+        public override Task SaveOrUpdateTask(Task task)
         {
 
             if (task != null && task.ID > 0)
@@ -318,19 +316,21 @@ namespace ASC.CRM.Core.Dao
                    .ToArray();
 
                 if (keywords.Length > 0)
-                    if (FullTextSearch.SupportModule(FullTextSearch.CRMTasksModule))
+                {
+                    var modules = SearchDao.GetFullTextSearchModule(EntityType.Task, searchText);
+                    if (FullTextSearch.SupportModule(modules))
                     {
-                        var taskIDs = FullTextSearch.Search(searchText, FullTextSearch.CRMTasksModule)
-                            .GetIdentifiers()
-                            .Select(item => Convert.ToInt32(item)).ToArray();
+                        var taskIDs = FullTextSearch.Search(modules);
 
-                        if (taskIDs.Length != 0)
+                        if (taskIDs.Any())
                             sqlQuery.Where(Exp.In(taskTableAlias + ".id", taskIDs));
                         else
                             return new List<Task>();
                     }
                     else
-                        sqlQuery.Where(BuildLike(new[] { taskTableAlias + ".title", taskTableAlias + ".description" }, keywords));
+                        sqlQuery.Where(BuildLike(new[] {taskTableAlias + ".title", taskTableAlias + ".description"},
+                                                 keywords));
+                }
             }
 
             using (var db = GetDb())
@@ -611,7 +611,7 @@ namespace ASC.CRM.Core.Dao
             return result[contactID];
         }
 
-        public virtual int SaveOrUpdateTask(Task newTask)
+        public virtual Task SaveOrUpdateTask(Task newTask)
         {
             _cache.Remove(_taskCacheKey);
             _cache.Insert(_taskCacheKey, String.Empty);
@@ -622,11 +622,11 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
-        public virtual int[] SaveOrUpdateTaskList(List<Task> newTasks)
+        public virtual Task[] SaveOrUpdateTaskList(List<Task> newTasks)
         {
             _cache.Remove(_taskCacheKey);
             _cache.Insert(_taskCacheKey, String.Empty);
-            var result = new List<int>();
+            var result = new List<Task>();
             using (var db = GetDb())
             {
                 foreach (var newTask in newTasks)
@@ -637,14 +637,20 @@ namespace ASC.CRM.Core.Dao
             return result.ToArray();
         }
 
-        private int SaveOrUpdateTask(Task newTask, DbManager db)
+        private Task SaveOrUpdateTask(Task newTask, DbManager db)
         {
             if (String.IsNullOrEmpty(newTask.Title) || newTask.DeadLine == DateTime.MinValue ||
                 newTask.CategoryID <= 0)
                 throw new ArgumentException();
 
-            if (db.ExecuteScalar<int>(Query("crm_task").SelectCount().Where(Exp.Eq("id", newTask.ID))) == 0)
+            if (newTask.ID == 0 || db.ExecuteScalar<int>(Query("crm_task").SelectCount().Where(Exp.Eq("id", newTask.ID))) == 0)
             {
+                newTask.CreateOn = DateTime.UtcNow;
+                newTask.CreateBy = ASC.Core.SecurityContext.CurrentAccount.ID;
+
+                newTask.LastModifedOn = DateTime.UtcNow;
+                newTask.LastModifedBy = ASC.Core.SecurityContext.CurrentAccount.ID;
+
                 newTask.ID = db.ExecuteScalar<int>(
                                Insert("crm_task")
                               .InColumnValue("id", 0)
@@ -657,41 +663,45 @@ namespace ASC.CRM.Core.Dao
                               .InColumnValue("entity_id", newTask.EntityID)
                               .InColumnValue("is_closed", newTask.IsClosed)
                               .InColumnValue("category_id", newTask.CategoryID)
-                              .InColumnValue("create_on", DateTime.UtcNow)
-                              .InColumnValue("create_by", ASC.Core.SecurityContext.CurrentAccount.ID)
-                              .InColumnValue("last_modifed_on", DateTime.UtcNow)
-                              .InColumnValue("last_modifed_by", ASC.Core.SecurityContext.CurrentAccount.ID)
+                              .InColumnValue("create_on", newTask.CreateOn)
+                              .InColumnValue("create_by", newTask.CreateBy)
+                              .InColumnValue("last_modifed_on", newTask.LastModifedOn)
+                              .InColumnValue("last_modifed_by", newTask.LastModifedBy)
                               .InColumnValue("alert_value", newTask.AlertValue)
                               .Identity(1, 0, true));
             }
             else
             {
-
                 var oldTask = db.ExecuteList(GetTaskQuery(Exp.Eq("id", newTask.ID)))
                     .ConvertAll(row => ToTask(row))
                     .FirstOrDefault();
 
-
                 CRMSecurity.DemandEdit(oldTask);
 
+                newTask.CreateOn = oldTask.CreateOn;
+                newTask.CreateBy = oldTask.CreateBy;
+
+                newTask.LastModifedOn = DateTime.UtcNow;
+                newTask.LastModifedBy = ASC.Core.SecurityContext.CurrentAccount.ID;
+
                 db.ExecuteNonQuery(
-                     Update("crm_task")
-                     .Set("title", newTask.Title)
-                     .Set("description", newTask.Description)
-                     .Set("deadline", TenantUtil.DateTimeToUtc(newTask.DeadLine))
-                     .Set("responsible_id", newTask.ResponsibleID)
-                     .Set("contact_id", newTask.ContactID)
-                     .Set("entity_type", (int)newTask.EntityType)
-                     .Set("entity_id", newTask.EntityID)
-                     .Set("category_id", newTask.CategoryID)
-                     .Set("last_modifed_on", DateTime.UtcNow)
-                     .Set("last_modifed_by", ASC.Core.SecurityContext.CurrentAccount.ID)
-                     .Set("alert_value", (int)newTask.AlertValue)
-                     .Set("exec_alert", 0)
-                     .Where(Exp.Eq("id", newTask.ID)));
+                                Update("crm_task")
+                                .Set("title", newTask.Title)
+                                .Set("description", newTask.Description)
+                                .Set("deadline", TenantUtil.DateTimeToUtc(newTask.DeadLine))
+                                .Set("responsible_id", newTask.ResponsibleID)
+                                .Set("contact_id", newTask.ContactID)
+                                .Set("entity_type", (int)newTask.EntityType)
+                                .Set("entity_id", newTask.EntityID)
+                                .Set("category_id", newTask.CategoryID)
+                                .Set("last_modifed_on", newTask.LastModifedOn)
+                                .Set("last_modifed_by", newTask.LastModifedBy)
+                                .Set("alert_value", (int)newTask.AlertValue)
+                                .Set("exec_alert", 0)
+                                .Where(Exp.Eq("id", newTask.ID)));
             }
 
-            return newTask.ID;
+            return newTask;
         }
 
         public virtual int SaveTask(Task newTask)
@@ -809,7 +819,7 @@ namespace ASC.CRM.Core.Dao
                             throw new NotImplementedException();
                     }
 
-                    task.ID = SaveOrUpdateTask(task, db);
+                    task = SaveOrUpdateTask(task, db);
 
                     result.Add(task);
 

@@ -55,6 +55,38 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.FullTextIndex, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.FullTextIndex.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Specific, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Specific.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.CRM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.CRM.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.Web.Files, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Files.dll</HintPath>
+    </Reference>
     <Reference Include="AWSSDK">
       <HintPath>..\..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
@@ -70,7 +102,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+      <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
@@ -80,16 +112,13 @@
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\..\..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -115,70 +144,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collector.cs" />
-    <Compile Include="CollectorService.cs">
+    <Compile Include="AggregatorService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CollectorServiceInstaller.cs">
+    <Compile Include="AggregatorServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Configuration\MailQueueConfigurationElement.cs" />
     <Compile Include="Configuration\CollectionServiceConfigurationSection.cs" />
-    <Compile Include="Configuration\MessageHandlerElement.cs" />
-    <Compile Include="Configuration\MessageHandlersCollection.cs" />
     <Compile Include="Configuration\Schema.cs" />
-    <Compile Include="MailItemManager.cs" />
-    <Compile Include="MailItemQueueFactory.cs" />
-    <Compile Include="MailQueueItem.cs" />
-    <Compile Include="MailQueueItem.Imap.cs" />
-    <Compile Include="MailQueueSettings.cs" />
-    <Compile Include="MailWorkerQueue.cs" />
-    <Compile Include="MessageHandlersSettings.cs" />
+    <Compile Include="Tasks\LimitedConcurrencyLevelTaskScheduler.cs" />
+    <Compile Include="Configuration\MailQueueSettings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program.Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queue\QueueManager.cs" />
+    <Compile Include="Workers\BaseWorker.cs" />
+    <Compile Include="Workers\Imap4Worker.cs" />
+    <Compile Include="Workers\Pop3Worker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="download_message.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
-      <Name>ASC.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
-      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
-      <Name>ASC.Core.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
-      <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
-      <Name>ASC.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\CRM\ASC.Web.CRM.csproj">
-      <Project>{48efb880-3d76-4b21-b31e-1007c0062b5c}</Project>
-      <Name>ASC.Web.CRM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
-      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
-      <Name>ASC.Web.Files</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Api\ASC.Specific\ASC.Specific.csproj">
-      <Project>{42d9ee99-8fcc-4bdc-b1e2-692fec48ad20}</Project>
-      <Name>ASC.Specific</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.FullTextIndex\ASC.FullTextIndex\ASC.FullTextIndex.csproj">
-      <Project>{aa3b6b75-0eaa-499b-be85-304df28e6d31}</Project>
-      <Name>ASC.FullTextIndex</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Common\ActiveUp.Net.Common.csproj">
       <Project>{c8d2498b-ce0e-4e0a-ab1c-29599deb1c38}</Project>
       <Name>ActiveUp.Net.Common</Name>
@@ -207,17 +197,9 @@
       <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
       <Name>ASC.Mail.Aggregator.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ASC.Mail.Aggregator.Contacts\ASC.Mail.Aggregator.Contacts.csproj">
-      <Project>{b3dba238-42a2-476f-afed-34c510ac6d9d}</Project>
-      <Name>ASC.Mail.Aggregator.Contacts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ASC.Mail.Aggregator.Dal\ASC.Mail.Aggregator.Dal.csproj">
       <Project>{d2f288a0-3622-406e-8d65-a308d1dbc2eb}</Project>
       <Name>ASC.Mail.Aggregator.Dal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ASC.Mail.Aggregator.EmailIn\ASC.Mail.Aggregator.EmailIn.csproj">
-      <Project>{939d787a-0d3a-4fd5-8b10-ccce047516c4}</Project>
-      <Name>ASC.Mail.Aggregator.EmailIn</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
       <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>

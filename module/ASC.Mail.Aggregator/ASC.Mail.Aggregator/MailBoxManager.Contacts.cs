@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -36,7 +34,11 @@ using ASC.Common.Data;
 using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
+using ASC.FullTextIndex.Service;
+using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Dal.DbSchema;
+using ActiveUp.Net.Mail;
+using ASC.Web.CRM.Core.Enums;
 
 namespace ASC.Mail.Aggregator
 {
@@ -52,35 +54,86 @@ namespace ASC.Mail.Aggregator
 
         #region public methods
 
-        public List<string> SearchMailContacts(int tenant_id, string user_id, string search_text)
+        public void SaveMailContacts(int tenant, string user, Message message)
+        {
+            try
+            {
+                var contacts = new AddressCollection();
+                contacts.AddRange(message.To);
+                contacts.AddRange(message.Cc);
+                contacts.AddRange(message.Bcc);
+
+                foreach (var contact in contacts)
+                {
+                    contact.Name = !String.IsNullOrEmpty(contact.Name) ? Codec.RFC2047Decode(contact.Name) : String.Empty;
+                }
+
+                var contactsList = contacts.Distinct().ToList();
+
+                using (var db = GetDb())
+                {
+                    var validContacts = (from contact in contactsList
+                                         where MailContactExists(db, tenant, user, contact.Name, contact.Email) < 1
+                                         select contact).ToList();
+
+                    if (!validContacts.Any()) return;
+
+                    var lastModified = DateTime.UtcNow;
+
+                    var insertQuery = new SqlInsert(ContactsTable.name)
+                        .InColumns(ContactsTable.Columns.id_user,
+                                   ContactsTable.Columns.id_tenant,
+                                   ContactsTable.Columns.name,
+                                   ContactsTable.Columns.address,
+                                   ContactsTable.Columns.last_modified);
+
+                    validContacts
+                        .ForEach(contact =>
+                                 insertQuery
+                                     .Values(user, tenant, contact.Name, contact.Email, lastModified));
+
+                    db.ExecuteNonQuery(insertQuery);
+                }
+            }
+            catch (Exception e)
+            {
+                _log.Error("SaveMailContacts(tenant={0}, userId='{1}', mail_id={2}) Exception:\r\n{3}\r\n",
+                          tenant, user, message.Id, e.ToString());
+            }
+        }
+
+        public List<string> SearchMailContacts(int tenant, string user, string searchText)
         {
             var contacts = new List<string>();
 
-            if (!string.IsNullOrEmpty(search_text))
+            if (!string.IsNullOrEmpty(searchText))
             {
-                SqlQuery q;
-                if (FullTextSearch.SupportModule(FullTextSearch.UserEmailsModule))
+                var query =  new SqlQuery(ContactsTable.name)
+                            .Select(ContactsTable.Columns.name, ContactsTable.Columns.address);
+                if (FullTextSearch.SupportModule(FullTextSearch.MailContactsModule))
                 {
-                    var ids = FullTextSearch.Search(search_text + "*", FullTextSearch.MailContactsModule)
-                                                      .GetIdentifiers();
+                    var ids = FullTextSearch.Search(FullTextSearch.MailContactsModule.Match(searchText.TrimEnd('*') + "*"));
 
-                    q = new SqlQuery(ContactsTable.name)
-                            .Select(ContactsTable.Columns.name, ContactsTable.Columns.address)
-                            .Where(Exp.In(ContactsTable.Columns.id, ids.Take(FULLTEXTSEARCH_IDS_COUNT).ToList()))
-                            .Where(ContactsTable.Columns.id_user, user_id);
+                    if (!ids.Any())
+                        return contacts;
+
+                    query.Where(Exp.In(ContactsTable.Columns.id, ids.Take(FULLTEXTSEARCH_IDS_COUNT).ToList()))
+                         .Where(ContactsTable.Columns.id_user, user);
                 }
                 else
                 {
-                    search_text = search_text.Replace("\"", "\\\"");
-                    q = new SqlQuery(ContactsTable.name)
-                                .Select(ContactsTable.Columns.name, ContactsTable.Columns.address)
-                                .Where(ContactsTable.Columns.id_user, user_id)
-                                .Where(Exp.Like("concat(" + ContactsTable.Columns.name + ", ' ', " + ContactsTable.Columns.address + ")", search_text));
+                    searchText = searchText.Replace("\"", "\\\"");
+                    query
+                        .Where(ContactsTable.Columns.id_user, user)
+                        .Where(
+                            Exp.Like(
+                                "concat(" + ContactsTable.Columns.name + ", ' ', " + ContactsTable.Columns.address + ")",
+                                searchText));
                 }
 
                 using (var db = GetDb())
                 {
-                    var result = db.ExecuteList(q)
+                    var result = db.ExecuteList(query)
                         .ConvertAll(r => new
                         {
                             Name = Convert.ToString(r[0]),
@@ -89,7 +142,7 @@ namespace ASC.Mail.Aggregator
 
                     foreach (var r in result)
                     {
-                        string contact = "";
+                        var contact = "";
                         if (!string.IsNullOrEmpty(r.Name)) contact += "\"" + r.Name + "\" ";
                         contact += "<" + r.Email + ">";
                         contacts.Add(contact);
@@ -100,17 +153,17 @@ namespace ASC.Mail.Aggregator
             return contacts;
         }
 
-        public List<string> SearchCRMContacts(int tenant_id, string user_id, string search_text)
+        public List<string> SearchCrmContacts(int tenant, string user, string searchText)
         {
             var contacts = new List<string>();
 
-            if (!string.IsNullOrEmpty(search_text))
+            if (!string.IsNullOrEmpty(searchText))
             {
                 #region Set up connection to CRM sequrity
                 try
                 {
-                    CoreContext.TenantManager.SetCurrentTenant(tenant_id);
-                    SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(new Guid(user_id)));
+                    CoreContext.TenantManager.SetCurrentTenant(tenant);
+                    SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(new Guid(user)));
                 }
                 catch (Exception e)
                 {
@@ -119,46 +172,74 @@ namespace ASC.Mail.Aggregator
                 }
                 #endregion
 
+                //TODO: move to crm api
+
+                const string cc_alias = "cc";
+                const string cci_alias = "cci";
+
                 using (var db = new DbManager("crm"))
                 {
-                    SqlQuery q;
+                    var query = new SqlQuery(CrmContactTable.name.Alias(cc_alias))
+                        .Select(CrmContactTable.Columns.id.Prefix(cc_alias),
+                                CrmContactTable.Columns.is_company.Prefix(cc_alias),
+                                string.Format("trim(concat({0}, ' ', {1}, ' ', {2}))",
+                                              CrmContactTable.Columns.first_name.Prefix(cc_alias),
+                                              CrmContactTable.Columns.last_name.Prefix(cc_alias),
+                                              CrmContactTable.Columns.company_name.Prefix(cc_alias)),
+                                CrmContactTable.Columns.is_shared.Prefix(cc_alias),
+                                CrmContactInfoTable.Columns.data.Prefix(cci_alias))
+                        .InnerJoin(CrmContactInfoTable.name.Alias(cci_alias),
+                                   Exp.EqColumns(CrmContactTable.Columns.tenant_id.Prefix(cc_alias),
+                                                 CrmContactInfoTable.Columns.tenant_id.Prefix(cci_alias)) &
+                                   Exp.EqColumns(CrmContactTable.Columns.id.Prefix(cc_alias),
+                                                 CrmContactInfoTable.Columns.contact_id.Prefix(cci_alias)))
+                        .Where(CrmContactInfoTable.Columns.type.Prefix(cci_alias), (int) ContactInfoType.Email);
+
                     if (FullTextSearch.SupportModule(FullTextSearch.CRMEmailsModule))
                     {
-                        var ids = FullTextSearch.Search(search_text + "*", FullTextSearch.CRMEmailsModule)
-                                                          .GetIdentifiers()
-                                                          .Select(id => int.Parse(id));
+                        var ids = FullTextSearch.Search(FullTextSearch.CRMEmailsModule.Match(searchText.TrimEnd('*') + "*"));
 
-                        q = new SqlQuery("crm_contact c")
-                             .Select("c.id", "c.is_company", "trim(concat(c.first_name, ' ', c.last_name, ' ', c.company_name))", "i.data")
-                             .InnerJoin("crm_contact_info i", Exp.EqColumns("c.tenant_id", "i.tenant_id") & Exp.EqColumns("c.id", "i.contact_id"))
-                             .Where(Exp.In("i.id", ids.Take(FULLTEXTSEARCH_IDS_COUNT).ToList()))
-                             .Where("i.type", (int)ContactInfoType.Email);
+                        if (!ids.Any())
+                            return contacts;
+
+                        query.Where(Exp.In(CrmContactInfoTable.Columns.id.Prefix(cci_alias),
+                                           ids.Take(FULLTEXTSEARCH_IDS_COUNT).ToList()));
 
                     }
                     else
                     {
-                        search_text = search_text.Replace("\"", "\\\"");
-                        q = new SqlQuery("crm_contact c")
-                            .Select("c.id", "c.is_company", "trim(concat(c.first_name, ' ', c.last_name, ' ', c.company_name))", "i.data")
-                            .InnerJoin("crm_contact_info i", Exp.EqColumns("c.tenant_id", "i.tenant_id") & Exp.EqColumns("c.id", "i.contact_id"))
-                            .Where("c.tenant_id", tenant_id)
-                            .Where("i.type", (int)ContactInfoType.Email)
-                            .Where("(concat(c.display_name, ' ', i.data) like '%" + search_text + "%')");
+                        searchText = searchText.Replace("\"", "\\\"");
+                        query
+                            .Where(CrmContactTable.Columns.tenant_id.Prefix(cc_alias), tenant)
+                            .Where(string.Format("(concat({0}, ' ', {1}) like '%{2}%')",
+                                                 CrmContactTable.Columns.display_name.Prefix(cc_alias),
+                                                 CrmContactInfoTable.Columns.data.Prefix(cci_alias),
+                                                 searchText));
                     }
 
-                    var result = db.ExecuteList(q)
+                    var result = db.ExecuteList(query)
                                     .ConvertAll(r => new
                                     {
                                         Id = Convert.ToInt32(r[0]),
                                         Company = Convert.ToBoolean(r[1]),
                                         DisplayName = Convert.ToString(r[2]),
-                                        Email = Convert.ToString(r[3])
+                                        IsShared = r[3],
+                                        Email = Convert.ToString(r[4])
                                     });
 
                     foreach (var r in result)
                     {
-                        var contact = r.Company ? (Contact)new Company() : new Person();
+                        Contact contact;
+                        if(r.Company)
+                        {
+                            contact = new Company();
+                        }
+                        else
+                        {
+                            contact = new Person();
+                        }
                         contact.ID = r.Id;
+                        contact.ShareType = GetContactShareType(contact, r.IsShared);
                         if (CRMSecurity.CanAccessTo(contact))
                         {
                             contacts.Add("\"" + r.DisplayName + "\" <" + r.Email + ">");
@@ -169,98 +250,124 @@ namespace ASC.Mail.Aggregator
             return contacts;
         }
 
-        public List<string> SearchTeamLabContacts(int tenant_id, string search_text)
+        public List<string> SearchTeamLabContacts(int tenant, string searchText)
         {
             var contacts = new List<string>();
 
-            if (!string.IsNullOrEmpty(search_text))
+            if (!string.IsNullOrEmpty(searchText))
             {
+                const string cu_alias = "cu";
+
+                var query = new SqlQuery(CoreUserTable.name.Alias(cu_alias))
+                    .Select(string.Format("concat('\\\"', {0}, ' ', {1}, '\\\" <', {2}, '>')",
+                                          CoreUserTable.Columns.firstname.Prefix(cu_alias),
+                                          CoreUserTable.Columns.lastname.Prefix(cu_alias),
+                                          CoreUserTable.Columns.email.Prefix(cu_alias)))
+                    .Where(CoreUserTable.Columns.removed, false);
+
                 if (FullTextSearch.SupportModule(FullTextSearch.UserEmailsModule))
                 {
-                    var ids = FullTextSearch.Search(search_text + "*", FullTextSearch.UserEmailsModule)
-                                                      .GetIdentifiers();
+                    var ids =
+                        FullTextSearch.Search(FullTextSearch.UserEmailsModule.Match(searchText.TrimEnd('*') + "*"));
 
-                    using (var db = new DbManager("core"))
-                    {
-                        var q = new SqlQuery("core_user c")
-                            .Select("concat('\\\"', c.firstname, ' ', c.lastname, '\\\" <', c.email, '>')")
-                            .Where(Exp.In("id", ids.Take(FULLTEXTSEARCH_IDS_COUNT).ToList()));
+                    if (!ids.Any())
+                        return contacts;
 
-                        var result = db.ExecuteList(q)
-                            .ConvertAll(r => r[0].ToString());
-
-                        contacts = result;
-                    }
+                    query.Where(Exp.In(CoreUserTable.Columns.id.Prefix(cu_alias), ids.Take(FULLTEXTSEARCH_IDS_COUNT).ToList()));
                 }
                 else
                 {
-                    using (var db = new DbManager("core"))
-                    {
-                        search_text = search_text.Replace("\"", "\\\"");
+                    searchText = searchText.Replace("\"", "\\\"");
 
-                        var q = new SqlQuery("core_user c")
-                            .Select("concat('\\\"', c.firstname, ' ', c.lastname, '\\\" <', c.email, '>')")
-                            .Where("c.tenant", tenant_id)
-                            .Where(Exp.Like("concat(c.firstname, ' ', c.lastname, ' ', c.email)", search_text));
+                    query
+                        .Where(CoreUserTable.Columns.tenant.Prefix(cu_alias), tenant)
+                        .Where(
+                            Exp.Like(
+                                string.Format("concat({0}, ' ', {1}, ' ', {2})",
+                                              CoreUserTable.Columns.firstname.Prefix(cu_alias),
+                                              CoreUserTable.Columns.lastname.Prefix(cu_alias),
+                                              CoreUserTable.Columns.email.Prefix(cu_alias)), searchText));
 
-                        var result = db.ExecuteList(q)
-                            .ConvertAll(r => r[0].ToString());
+                }
 
-                        contacts = result;
-                    }
+                using (var db = new DbManager("core"))
+                {
+                    contacts = db.ExecuteList(query)
+                                 .ConvertAll(r => r[0].ToString());
                 }
             }
 
             return contacts;
         }
 
-
-        public List<CrmContactEntity> GetLinkedCrmEntitiesId(int id_message, int id_tenant, string id_user)
+        public List<CrmContactEntity> GetLinkedCrmEntitiesId(int messageId, int tenant, string user)
         {
             using (var db = GetDb())
             {
-                var chain_info = GetMessageChainInfo(db, id_tenant, id_user, id_message);
-                return GetLinkedCrmEntitiesId(db, chain_info.id, chain_info.mailbox, id_tenant);
+                var chainInfo = GetMessageChainInfo(db, tenant, user, messageId);
+                return GetLinkedCrmEntitiesId(db, chainInfo.id, chainInfo.mailbox, tenant);
             }
         }
 
-
-        public List<CrmContactEntity> GetLinkedCrmEntitiesId(string id_chain, int id_mailbox, int id_tenant)
+        public List<CrmContactEntity> GetLinkedCrmEntitiesId(string chainId, int mailboxId, int tenant)
         {
             using (var db = GetDb())
             {
-                return GetLinkedCrmEntitiesId(db, id_chain, id_mailbox, id_tenant);
+                return GetLinkedCrmEntitiesId(db, chainId, mailboxId, tenant);
             }
         }
 
-        private static List<CrmContactEntity> GetLinkedCrmEntitiesId(DbManager db, string id_chain, int id_mailbox, int id_tenant)
+        private static List<CrmContactEntity> GetLinkedCrmEntitiesId(DbManager db, string chainId, int mailboxId, int tenant)
         {
-            return db.ExecuteList(GetLinkedContactsQuery(id_chain, id_mailbox, id_tenant))
+            return db.ExecuteList(GetLinkedContactsQuery(chainId, mailboxId, tenant))
                      .ConvertAll(b => new CrmContactEntity
                          {
                              Id = Convert.ToInt32(b[0]),
-                             Type = (ChainXCrmContactEntity.EntityTypes) b[1]
+                             Type = (ChainXCrmContactEntity.EntityTypes)b[1]
                          });
         }
 
-        private static SqlQuery GetLinkedContactsQuery(string id_chain, int id_mailbox, int id_tenant)
+        private static SqlQuery GetLinkedContactsQuery(string chainId, int mailboxId, int tenant)
         {
             return new SqlQuery(ChainXCrmContactEntity.name)
                                 .Select(ChainXCrmContactEntity.Columns.entity_id)
                                 .Select(ChainXCrmContactEntity.Columns.entity_type)
-                                .Where(ChainXCrmContactEntity.Columns.id_mailbox, id_mailbox)
-                                .Where(ChainXCrmContactEntity.Columns.id_tenant, id_tenant)
-                                .Where(ChainXCrmContactEntity.Columns.id_chain, id_chain);
+                                .Where(ChainXCrmContactEntity.Columns.id_mailbox, mailboxId)
+                                .Where(ChainXCrmContactEntity.Columns.id_tenant, tenant)
+                                .Where(ChainXCrmContactEntity.Columns.id_chain, chainId);
         }
 
 
-        public List<int> GetCrmContactsId(int tenant_id, string user_id, string email)
+        private int MailContactExists(IDbManager db, int tenant, string user, string name, string address)
+        {
+            return db.ExecuteScalar<int>(
+                new SqlQuery(ContactsTable.name)
+                    .Select(ContactsTable.Columns.id)
+                    .Where(ContactsTable.Columns.id_user, user)
+                    .Where(ContactsTable.Columns.name, name)
+                    .Where(ContactsTable.Columns.address, address));
+        }
+
+        private ShareType GetContactShareType(Contact contact, object IsShared)
+        {
+            if (IsShared == null)
+            {
+                var accessSubjectToContact = CRMSecurity.GetAccessSubjectTo(contact);
+                return !accessSubjectToContact.Any() ? ShareType.ReadWrite : ShareType.None;
+            }
+            else
+            {
+                return (ShareType)(Convert.ToInt32(IsShared));
+            }
+        }
+
+        public List<int> GetCrmContactsId(int tenant, string user, string email)
         {
             var ids = new List<int>();
-            return string.IsNullOrEmpty(email) ? ids : GetCrmContactsId(tenant_id, user_id, new [] {email});
+            return string.IsNullOrEmpty(email) ? ids : GetCrmContactsId(tenant, user, new List<string> { email });
         }
 
-        public List<int> GetCrmContactsId(int tenant_id, string user_id, string[] emails)
+        public List<int> GetCrmContactsId(int tenant, string user, List<string> emails)
         {
             var ids = new List<int>();
 
@@ -270,19 +377,28 @@ namespace ASC.Mail.Aggregator
             try
             {
                 #region Set up connection to CRM sequrity
-                CoreContext.TenantManager.SetCurrentTenant(tenant_id);
-                SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(new Guid(user_id)));
+                CoreContext.TenantManager.SetCurrentTenant(tenant);
+                SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(new Guid(user)));
                 #endregion
 
                 using (var db = new DbManager("crm"))
                 {
                     #region If CRM contact
-                    var q = new SqlQuery("crm_contact c")
-                        .Select("c.id", "c.is_company")
-                        .InnerJoin("crm_contact_info i", Exp.EqColumns("c.tenant_id", "i.tenant_id") & Exp.EqColumns("c.id", "i.contact_id"))
-                        .Where("c.tenant_id", tenant_id)
-                        .Where("i.type", (int)ContactInfoType.Email)
-                        .Where(Exp.In("i.data", emails));
+
+                    const string cc_alias = "cc";
+                    const string cci_alias = "cci";
+
+                    var q = new SqlQuery(CrmContactTable.name.Alias(cc_alias))
+                        .Select(CrmContactTable.Columns.id.Prefix(cc_alias),
+                                CrmContactTable.Columns.is_company.Prefix(cc_alias))
+                        .InnerJoin(CrmContactInfoTable.name.Alias(cci_alias),
+                                   Exp.EqColumns(CrmContactTable.Columns.tenant_id.Prefix(cc_alias),
+                                                 CrmContactInfoTable.Columns.tenant_id.Prefix(cci_alias)) &
+                                   Exp.EqColumns(CrmContactTable.Columns.id.Prefix(cc_alias),
+                                                 CrmContactInfoTable.Columns.contact_id.Prefix(cci_alias)))
+                        .Where(CrmContactTable.Columns.tenant_id.Prefix(cc_alias), tenant)
+                        .Where(CrmContactInfoTable.Columns.type.Prefix(cci_alias), (int) ContactInfoType.Email)
+                        .Where(Exp.In(CrmContactInfoTable.Columns.data.Prefix(cci_alias), emails));
 
                     var result = db.ExecuteList(q)
                         .ConvertAll(r => new { Id = Convert.ToInt32(r[0]), Company = Convert.ToBoolean(r[1]) });
@@ -302,7 +418,7 @@ namespace ASC.Mail.Aggregator
             catch (Exception e)
             {
                 _log.Warn("GetCrmContactsId(tenandId='{0}', userId='{1}', emails='{2}') Exception:\r\n{3}\r\n",
-                   tenant_id, user_id, string.Join(",", emails), e.ToString());
+                   tenant, user, string.Join(",", emails), e.ToString());
             }
             return ids;
         }

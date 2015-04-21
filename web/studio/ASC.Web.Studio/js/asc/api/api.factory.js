@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 ;
 window.ServiceFactory = (function() {
@@ -193,7 +191,7 @@ window.ServiceFactory = (function() {
             { handler: 'prj-task', re: /project\/task\/[\w\d-]+\/status\.json/ },
             { handler: 'prj-task', re: /project\/task\/[\w\d-]+\/[\w\d-]+\/status\.json/ },
             { handler: 'prj-tasks', re: /project\/[\w\d-]+\/task\.json/, method: 'get' },
-            { handler: 'prj-tasks', re: /project\/[\w\d-]+\/task\/[@all|@self]+\.json/ },
+            { handler: 'prj-tasks', re: /project\/[\w\d-]+\/task\/@self\.json/ },
             { handler: 'prj-tasks', re: /project\/[\w\d-]+\/task\/filter\.json/ },
             { handler: 'prj-tasks', re: /project\/task\/filter\.json/ },
             { handler: 'prj-tasks', re: /project\/task\.json\?taskid/ },
@@ -227,6 +225,7 @@ window.ServiceFactory = (function() {
             { handler: 'prj-timespends', re: /project\/time\/filter\.json/, method: 'get' },
             { handler: 'prj-timespends', re: /project\/task\/[\w\d-]+\/time\.json/, method: 'get' },
             { handler: 'prj-activities', re: /project\/activities\/filter\.json/ },
+            { handler: 'doc-miss', re: /files\/fileops.json/ },
             { handler: 'doc-folder', re: /files\/[@\w\d-]+\.json/ },
             { handler: 'doc-folder', re: /files\/[\w\d-]+\/[text|html|file]+\.json/ },
             { handler: 'doc-folder', re: /project\/[\w\d-]+\/files\.json/ },
@@ -236,12 +235,12 @@ window.ServiceFactory = (function() {
             { handler: 'doc-file', re: /files\/file\/[\w\d-]+\.json/ },
             { handler: 'doc-file', re: /files\/[\w\d-]+\/upload\.xml/ },
             { handler: 'doc-file', re: /files\/[\w\d-]+\/upload\.json/ },
-            { handler: 'doc-settings', re: /files\/neweditors\.json/, method: 'put' },
             { handler: 'doc-session', re: /files\/[\w\d-]+\/upload\/create_session\.json/ },
             { handler: 'doc-file', re: /crm\/files\/[\w\d-]+\.json/ },
             { handler: 'doc-file', re: /crm\/[case|contact|opportunity]+\/[\w\d-]+\/files\/upload\.xml/ },
             { handler: 'doc-file', re: /crm\/[case|contact|opportunity]+\/[\w\d-]+\/files\/upload\.json/ },
             { handler: 'doc-file', re: /crm\/[case|contact|opportunity]+\/[\w\d-]+\/files\/text\.json/ },
+            { handler: 'doc-miss', re: /files\/fileops.json/ },
             { handler: 'crm-addresses', re: /crm\/contact\/[\w\d-]+\/data\.json/, method: 'get' },
             { handler: 'crm-address', re: /crm\/contact\/[\w\d-]+\/data\/[\w\d-]+\.json/ },
             { handler: 'crm-address', re: /crm\/contact\/[\w\d-]+\/data\.json/, method: 'post' },
@@ -255,10 +254,19 @@ window.ServiceFactory = (function() {
             { handler: 'crm-contact', re: /crm\/[case|opportunity]+\/[\w\d-]+\/contact\/[\w\d-]+\.json/ },
             { handler: 'crm-contacts', re: /crm\/contact\/bycontactinfo\.json/, method: 'get' },
             { handler: 'crm-contact', re: /crm\/contact\/merge\.json/ },
+            { handler: 'crm-socialmediaavatars', re: /crm\/contact\/socialmediaavatar\.json/ },
             { handler: 'crm-tweets', re: /crm\/contact\/[\w\d-]+\/tweets\.json/ },
             { handler: 'crm-twitterprofiles', re: /crm\/contact\/twitterprofile\.json/ },
             { handler: 'crm-facebookprofiles', re: /crm\/contact\/facebookprofile\.json/ },
             { handler: 'crm-linkedinprofiles', re: /crm\/contact\/linkedinprofile\.json/ },
+            { handler: 'crm-progressitem', re: /crm\/contact\/mailsmtp\/send\.json/ },
+            { handler: 'crm-progressitem', re: /crm\/contact\/mailsmtp\/status\.json/ },
+            { handler: 'crm-progressitem', re: /crm\/contact\/mailsmtp\/cancel\.json/ },
+            { handler: 'crm-progressitem', re: /crm\/[contact|person|company|opportunity|case]+\/import\/status\.json/ },
+            { handler: 'crm-progressitem', re: /crm\/contact\/export\/status\.json/ },
+            { handler: 'crm-progressitem', re: /crm\/contact\/export\/cancel\.json/ },
+            { handler: 'crm-progressitem', re: /crm\/contact\/export\/start\.json/ },
+            { handler: 'crm-fileuploadresult', re: /crm\/import\/uploadfake\.json/ },
             { handler: 'crm-task', re: /crm\/task\.json/ },
             { handler: 'crm-task', re: /crm\/task\/[\w\d-]+\.json/ },
             { handler: 'crm-task', re: /crm\/task\/[\w\d-]+\/close\.json/ },
@@ -314,7 +322,6 @@ window.ServiceFactory = (function() {
             { handler: 'crm-opportunities', re: /crm\/opportunity\/filter\.json/ },
             { handler: 'crm-opportunities', re: /crm\/opportunity\/bycontact\/[\w\d-]+\.json/ },
             { handler: 'crm-opportunities', re: /crm\/opportunity\/byprefix\.json/ },
-            { handler: 'crm-contacttasks', re: /crm\/contact\/task\/near\.json/ },
             { handler: 'crm-taskcategory', re: /crm\/task\/category\/[\w\d-]+\.json/ },
             { handler: 'crm-taskcategory', re: /crm\/task\/category\/[\w\d-]+\/icon\.json/ },
             { handler: 'crm-taskcategory', re: /crm\/task\/category\.json/, method: 'post' },
@@ -1780,7 +1787,8 @@ window.ServiceFactory = (function() {
     /* feed */
     factories.feed = {
         item: function(response) {
-            var date = serializeDate(response.CreateOn);
+            var createdDate = serializeDate(response.CreatedDate);
+            var modifiedDate = serializeDate(response.ModifiedDate);
             var aggregatedDate = serializeDate(response.AggregatedDate);
 
             var feed = {
@@ -1789,10 +1797,14 @@ window.ServiceFactory = (function() {
                 itemUrl: response.ItemUrl,
                 id: response.Id,
                 authorId: response.AuthorId,
-                date: date,
-                displayCreatedDatetime: getDisplayDatetime(date),
-                displayCreatedDate: getDisplayDate(date),
-                displayCreatedTime: getDisplayTime(date),
+                createdDate: createdDate,
+                displayCreatedDatetime: getDisplayDatetime(createdDate),
+                displayCreatedDate: getDisplayDate(createdDate),
+                displayCreatedTime: getDisplayTime(createdDate),
+                modifiedDate: modifiedDate,
+                displayModifiedDatetime: getDisplayDatetime(modifiedDate),
+                displayModifiedDate: getDisplayDate(modifiedDate),
+                displayModifiedTime: getDisplayTime(modifiedDate),
                 aggregatedDate: aggregatedDate,
                 product: response.Product,
                 module: response.Module,
@@ -1871,7 +1883,8 @@ window.ServiceFactory = (function() {
                 item.IsToday = responseItem.isToday;
                 item.IsYesterday = responseItem.isYesterday;
                 item.LastModifiedBy = responseItem.lastModifiedBy;
-                item.CreateOn = responseItem.createOn;
+                item.CreatedDate = responseItem.createdDate;
+                item.ModifiedDate = responseItem.modifiedDate;
                 item.AggregatedDate = responseItem.aggregatedDate;
 
                 return item;
@@ -1881,6 +1894,10 @@ window.ServiceFactory = (function() {
 
     /* documents */
     factories.doc = {
+        miss: function(response) {
+            return response;
+        },
+
         item: function(response) {
             var crtdate = serializeDate(response.created),
                 uptdate = serializeDate(response.updated);
@@ -1965,7 +1982,7 @@ window.ServiceFactory = (function() {
                 fileStatus: response.fileStatus,
                 contentLength: response.contentLength,
                 pureContentLength: response.pureContentLength,
-                viewUrl: response.viewUrl,
+                webUrl: fixUrl(response.webUrl || ''),
                 viewUrl: fixUrl(response.viewUri || response.viewUrl || ''),
                 fileUrl: fixUrl(response.fileUri || response.fileUrl || ''),
                 isSupported: isSupportedFileType(extension),
@@ -2123,7 +2140,7 @@ window.ServiceFactory = (function() {
         contact: function(response) {
             return extend(this.item(response), {
                 type: 'contact',
-                contactclass: response.lastName ? 'person' : 'company',
+                contactclass: response.firstName ? 'person' : 'company',
                 displayName: response.displayName,
                 firstName: response.firstName,
                 lastName: response.lastName,
@@ -2154,7 +2171,7 @@ window.ServiceFactory = (function() {
         simplecontact: function(response) {
             return extend(this.item(response), {
                 type: 'contact',
-                contactclass: response.lastName ? 'person' : 'company',
+                contactclass: response.firstName ? 'person' : 'company',
                 displayName: response.displayName,
                 firstName: response.firstName,
                 lastName: response.lastName,
@@ -2203,6 +2220,21 @@ window.ServiceFactory = (function() {
             });
         },
 
+        socialmediaavatar: function(response) {
+            return {
+                type: "socialmediaavatar",
+                socialNetwork: response.socialNetwork,
+                imageUrl: response.imageUrl,
+                identity: response.identity
+            };
+        },
+
+        socialmediaavatars: function(response) {
+            return collection(response, null, function(response) {
+                return factories.crm.socialmediaavatar(response);
+            });
+        },
+
         tweet: function(response) {
             var postedOn = serializeDate(response.postedOn);
             return {
@@ -2211,7 +2243,7 @@ window.ServiceFactory = (function() {
                 userName: response.userName,
                 text: response.text,
                 postedOn: postedOn,
-                postedOnDisplay: getDisplayDatetime(postedOn),				
+                postedOnDisplay: getDisplayDatetime(postedOn),
                 source: response.source
             };
         },
@@ -2275,6 +2307,14 @@ window.ServiceFactory = (function() {
             return collection(response, null, function(response) {
                 return factories.crm.linkedinprofile(response);
             });
+        },
+
+        progressitem: function(response) {
+            return response;
+        },
+
+        fileuploadresult:  function(response) {
+            return response;
         },
 
         file: function(response) {
@@ -2456,16 +2496,6 @@ window.ServiceFactory = (function() {
             return collection(response, this.item, function(response) {
                 return factories.crm.opportunity(response);
             });
-        },
-
-        contacttasks: function(response) {
-            var contacts = [];
-            for (var fldInd in response) {
-                if (response.hasOwnProperty(fldInd)) {
-                    contacts.push(factories.crm.task(response[fldInd]));
-                }
-            }
-            return contacts;
         },
 
         taskcategories: function(response) {

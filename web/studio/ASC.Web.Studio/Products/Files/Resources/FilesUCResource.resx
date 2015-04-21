@@ -441,9 +441,6 @@
   <data name="EmbedSizeHeight" xml:space="preserve">
     <value>Height</value>
   </data>
-  <data name="ShareLink" xml:space="preserve">
-    <value>Share link</value>
-  </data>
   <data name="ShareLinkDeny" xml:space="preserve">
     <value>Access the link to the file is denied</value>
   </data>
@@ -525,14 +522,14 @@
   <data name="ButtonAddSkyDrive" xml:space="preserve">
     <value>Add SkyDrive account</value>
   </data>
-  <data name="ButtonAddSharePoint" xml:space="preserve">
-    <value>Add SharePoint account</value>
-  </data>
   <data name="ThirdPartySkyDrive" xml:space="preserve">
     <value>SkyDrive</value>
   </data>
   <data name="ThirdPartyYandex" xml:space="preserve">
     <value>Yandex</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>OwnCloud</value>
   </data>
   <data name="ThirdPartyWebDav" xml:space="preserve">
     <value>WebDAV</value>
@@ -634,7 +631,7 @@
     <value>Get free account</value>
   </data>
   <data name="MoreFeatures" xml:space="preserve">
-    <value>More Features</value>
+    <value>Have a team {0}to collaborate with? {0}{1}Learn more{2}</value>
   </data>
   <data name="MoreFeaturesItem1" xml:space="preserve">
     <value>Document management</value>
@@ -660,7 +657,7 @@
   <data name="ButtonAddWebDav" xml:space="preserve">
     <value>Other account</value>
   </data>
-  <data name="ButtonAddYandex" xml:space="preserve">
-    <value>Add Yandex account</value>
+  <data name="ButtonAddOwnCloud" xml:space="preserve">
+    <value>Add OwnCloud account</value>
   </data>
 </root>

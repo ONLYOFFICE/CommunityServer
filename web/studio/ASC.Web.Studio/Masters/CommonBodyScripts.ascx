@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Core.Client.Bundling.ResourceBundleControl" %>
 <script type="text/javascript" src="<%=ResolveUrl("~/js/asc/core/asc.customevents.js") %>"></script>
 
 <script type="text/javascript" src="<%=ResolveUrl("~/js/asc/api/api.factory.js") %>"></script>
@@ -24,3 +24,7 @@
 <script type="text/javascript" src="<%=ResolveUrl("~/usercontrols/common/helpcenter/js/help-center.js")%>"></script>
 <script type="text/javascript" src="<%=ResolveUrl("~/js/asc/core/groupselector.js")%>"></script>
 <script type="text/javascript" src="<%=ResolveUrl("~/js/asc/core/asc.mail.utility.js") %>"></script>
+
+<script type="text/javascript" src="<%=ResolveUrl("~/js/third-party/async.js") %>"></script>
+<script type="text/javascript" src="<%=ResolveUrl("~/js/third-party/modernizr.js") %>"></script>
+<script type="text/javascript" src="<%= ResolveUrl("~/js/third-party/zeroclipboard.js") %>"></script>

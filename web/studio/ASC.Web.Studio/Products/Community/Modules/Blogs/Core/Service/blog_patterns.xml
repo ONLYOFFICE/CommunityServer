@@ -2,11 +2,11 @@
   <formatter type="ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common" />
 
   <pattern id="new post" sender="email.sender">
-    <subject resource="|subject_new_post|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community.Blogs" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_new_post|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community.Blogs" />
+    <subject resource="|subject_new_post|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_new_post|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community" />
   </pattern>
   <pattern id="new post" sender="messanger.sender">
-    <subject resource="|subject_new_post|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community.Blogs" />
+    <subject resource="|subject_new_post|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
 
 $PostPreview
@@ -19,11 +19,11 @@ $URL
   <pattern id="new personal post" sender="messanger.sender" reference="new post"/>
 
   <pattern id="new comment" sender="email.sender">
-    <subject resource="|subject_new_comment|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community.Blogs" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_new_comment|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community.Blogs" />
+    <subject resource="|subject_new_comment|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_new_comment|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community" />
   </pattern>
   <pattern id="new comment" sender="messanger.sender">
-    <subject resource="|subject_new_comment|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community.Blogs" />
+    <subject resource="|subject_new_comment|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$UserName
 
 $CommentBody

@@ -1,9 +1,8 @@
-﻿<%@ Assembly Name="ASC.Web.Community.Forum"%>
+﻿<%@ Assembly Name="ASC.Web.Community"%>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TopicEditorControl.ascx.cs" Inherits="ASC.Web.UserControls.Forum.TopicEditorControl" %>
 
 <%@ Register Assembly="ASC.Web.Studio" Namespace="ASC.Web.Studio.UserControls.Common.PollForm" TagPrefix="sc" %>
 
-<%@ Import Namespace="ASC.Web.UserControls.Forum" %>
 <%@ Import Namespace="ASC.Web.UserControls.Forum.Resources" %>
 <%@ Import Namespace="ASC.Forum" %>
 

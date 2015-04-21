@@ -10,15 +10,7 @@
 <div id="authForm" class="auth-form">
     <%--login by email email--%>
     <div id="_AuthByEmail" class="login" runat="server">
-        <input maxlength="255" class="pwdLoginTextbox" 
-            <% if (EnableLdap)
-               { %>
-                  type="text"
-            <% }
-               else
-               { %>
-                  type="email"
-            <% } %>
+        <input maxlength="255" class="pwdLoginTextbox" type="<%= (EnableLdap ? "text" : "email") %>"
             placeholder="<%= Resource.RegistrationEmailWatermark %>" id="login" name="login"
             <%= String.IsNullOrEmpty(Login)
                 ? ""

@@ -1,0 +1,30 @@
+﻿<%@ Assembly Name="ASC.Web.Community" %>
+
+<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Masters/BaseTemplate.master" CodeBehind="Community.Master.cs" Inherits="ASC.Web.Community.CommunityMasterPage" %>
+
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
+<%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
+<%@ Register TagPrefix="ucc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
+
+<asp:Content ContentPlaceHolderID="HeaderContent" runat="server">
+    <asp:ContentPlaceHolder ID="CommunityPageHeader" runat="server" />
+    <ucc:feedcontrol runat="server" title="Teamlab Community" AutoFill="true" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="TopContent" runat="server">
+    <asp:ScriptManager runat="server" EnableScriptGlobalization="True" EnableScriptLocalization="True" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="PageContent" runat="server">
+    <asp:ContentPlaceHolder ID="CommunityPageContent" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="SidePanel" runat="server">
+    <asp:PlaceHolder ID="_sideNavigation" runat="server" />
+    <asp:ContentPlaceHolder ID="CommunitySidePanel" runat="server" />
+
+    <% if (!string.IsNullOrEmpty(SetupInfo.UserVoiceURL))
+       { %>
+        <script type="text/javascript" src="<%= SetupInfo.UserVoiceURL %>"> </script>
+    <% } %>
+</asp:Content>

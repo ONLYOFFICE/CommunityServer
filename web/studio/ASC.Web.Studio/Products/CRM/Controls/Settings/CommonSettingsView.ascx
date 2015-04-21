@@ -5,11 +5,8 @@
     Inherits="ASC.Web.CRM.Controls.Settings.CommonSettingsView" %>
 <%@ Import Namespace="ASC.Web.CRM.Configuration" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
-<%@ Import Namespace="ASC.Web.CRM.Classes" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-
-<%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <div class="header-base settingsHeader" style="margin-top:5px;"><%= CRMSettingResource.SMTPSettings%></div>
 <div id="smtpSettingsContent">
@@ -120,60 +117,42 @@
 <% } %>
 
 
-<div id="sendTestMailPanel" style="display: none;">
-    <sc:container id="_sendTestMailContainer" runat="server">
-        <header>
-        <%= CRMSettingResource.CreateTestLetter %>
-        </header>
-        <body>
-            <table class="testMailFieldsTable" cellpadding="0" cellspacing="0">
-                <colgroup>
-                    <col style="width: 1%;"/>
-                    <col style="width: 20px;"/>
-                    <col/>
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td><span class="bold"><%= CRMCommonResource.MailFrom%>:</span></td>
-                        <td></td>
-                        <td><span class="testMailFromLabel"></span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="requiredField">
-                            <div class="headerPanelSmall bold">
-                                <%= CRMCommonResource.MailTo%>:
-                            </div>
-                         </div>
-                        </td>
-                        <td></td>
-                        <td><input type="text" class="textEdit testMailToField" /></td>
-                    </tr>
-                    <tr>
-                        <td><span class="bold"><%= CRMCommonResource.MailSubject%>:</span></td>
-                        <td></td>
-                        <td><input type="text" class="textEdit testMailSubjectField" /></td>
-                    </tr>
-                </tbody>
-            </table>
+<div id="sendTestMailPanelBody" style="display: none;">
+    <table class="testMailFieldsTable" cellpadding="0" cellspacing="0">
+        <colgroup>
+            <col style="width: 1%;"/>
+            <col style="width: 20px;"/>
+            <col/>
+        </colgroup>
+        <tbody>
+            <tr>
+                <td><span class="bold"><%= CRMCommonResource.MailFrom%>:</span></td>
+                <td></td>
+                <td><span class="testMailFromLabel"></span></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="requiredField">
+                    <div class="headerPanelSmall bold">
+                        <%= CRMCommonResource.MailTo%>:
+                    </div>
+                    </div>
+                </td>
+                <td></td>
+                <td><input type="text" class="textEdit testMailToField" /></td>
+            </tr>
+            <tr>
+                <td><span class="bold"><%= CRMCommonResource.MailSubject%>:</span></td>
+                <td></td>
+                <td><input type="text" class="textEdit testMailSubjectField" /></td>
+            </tr>
+        </tbody>
+    </table>
 
-            <div class="headerPanelSmall-splitter requiredField">
-                <div class="headerPanelSmall headerPanelSmall-splitter bold">
-                    <%= CRMCommonResource.MailBody%>:
-                </div>
-                <textarea cols="10" rows="6" class="testMailBodyField"></textarea>
-            </div>
-
-            <div class="middle-button-container">
-                <a id="sendTestMailPanelBtn" class="button blue middle">
-                    <%= CRMCommonResource.Send %>
-                </a>
-                <span class="splitter-buttons"></span>
-                <a class="button gray middle" onclick="PopupKeyUpActionProvider.EnableEsc = true; jq.unblockUI();">
-                    <%= CRMCommonResource.Cancel %>
-                </a>
-            </div>
-
-        </body>
-    </sc:container>
+    <div class="headerPanelSmall-splitter requiredField">
+        <div class="headerPanelSmall headerPanelSmall-splitter bold">
+            <%= CRMCommonResource.MailBody%>:
+        </div>
+        <textarea cols="10" rows="6" class="testMailBodyField"></textarea>
+    </div>
 </div>

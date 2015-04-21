@@ -47,28 +47,24 @@
   <ItemGroup>
     <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Common.dll</HintPath>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Common.dll</HintPath>
     </Reference>
     <Reference Include="ASC.FederatedLogin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.FederatedLogin.dll</HintPath>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.FederatedLogin.dll</HintPath>
     </Reference>
     <Reference Include="ASC.Thrdparty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\ASC.Thrdparty.dll</HintPath>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Thrdparty.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="DotNetOpenAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\DotNetOpenAuth\4\DotNetOpenAuth.dll</HintPath>
+      <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.ApplicationBlock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\asc\DotNetOpenAuth.ApplicationBlock.dll</HintPath>
-    </Reference>
-    <Reference Include="Facebook, Version=5.0.26.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\third-party\FacebookSDK\Facebook.dll</HintPath>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\DotNetOpenAuth.ApplicationBlock.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

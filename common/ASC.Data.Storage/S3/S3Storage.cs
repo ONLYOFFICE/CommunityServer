@@ -1,43 +1,29 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web;
-using ASC.Core.Tenants;
-using ASC.Security.Cryptography;
+
 using Amazon;
 using Amazon.CloudFront;
 using Amazon.CloudFront.Model;
@@ -45,44 +31,21 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Amazon.Util;
+using ASC.Core.Tenants;
 using ASC.Data.Storage.Configuration;
+using ASC.Security.Cryptography;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web;
 using MimeMapping = ASC.Common.Web.MimeMapping;
 
 namespace ASC.Data.Storage.S3
 {
-    public class UnencodedUri : Uri
-    {
-        public UnencodedUri(string uriString)
-            : base(uriString)
-        {
-        }
-
-        public UnencodedUri(string uriString, UriKind uriKind)
-            : base(uriString, uriKind)
-        {
-        }
-
-        public UnencodedUri(Uri baseUri, string relativeUri)
-            : base(baseUri, relativeUri)
-        {
-        }
-
-        public UnencodedUri(Uri baseUri, Uri relativeUri)
-            : base(baseUri, relativeUri)
-        {
-        }
-
-        protected UnencodedUri(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
-        {
-        }
-
-        public override string ToString()
-        {
-            return OriginalString;
-        }
-    }
-
     public class S3Storage : BaseStorage
     {
         private readonly DataList _dataList;
@@ -94,6 +57,7 @@ namespace ASC.Data.Storage.S3
         private readonly S3CannedACL _moduleAcl;
         private string _accessKeyId = "";
         private string _bucket = "";
+        private string _recycleDir = "";
         private Uri _bucketRoot;
         private Uri _bucketSSlRoot;
         private string _region;
@@ -103,7 +67,7 @@ namespace ASC.Data.Storage.S3
         private string _distributionId = string.Empty;
         private String _subDir = String.Empty;
 
-        public S3Storage(string tenant, ModuleConfigurationElement moduleConfig, HttpContext context)
+        public S3Storage(string tenant, HandlerConfigurationElement handlerConfig, ModuleConfigurationElement moduleConfig)
         {
             _tenant = tenant;
             _modulename = moduleConfig.Name;
@@ -225,10 +189,8 @@ namespace ASC.Data.Storage.S3
 
         public override string[] ListFilesRelative(string domain, string path, string pattern, bool recursive)
         {
-            var s3Obj = GetS3Objects(domain, path);
-            return
-                s3Obj.Where(x => Wildcard.IsMatch(pattern, Path.GetFileName(x.Key))).Select(
-                    x => x.Key.Substring(MakePath(domain, path + "/").Length).TrimStart('/')).ToArray();
+            return GetS3Objects(domain, path, true).Where(x => Wildcard.IsMatch(pattern, Path.GetFileName(x.Key)))
+                .Select(x => x.Key.Substring(MakePath(domain, path + "/").Length).TrimStart('/')).ToArray();
         }
 
         protected override Uri SaveWithAutoAttachment(string domain, string path, Stream stream, string attachmentFileName)
@@ -536,6 +498,8 @@ namespace ASC.Data.Storage.S3
                     QuotaDelete(domain, client, key);
                 }
 
+                Recycle(client, domain, key);
+
                 var request = new DeleteObjectRequest
                 {
                     BucketName = _bucket,
@@ -577,9 +541,10 @@ namespace ASC.Data.Storage.S3
                 {
                     if (QuotaController != null)
                     {
-                        QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain),
-                                                        Convert.ToInt64(s3Object.Size));
+                        QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), Convert.ToInt64(s3Object.Size));
                     }
+
+                    Recycle(client, domain, s3Object.Key);
 
                     var deleteRequest = new DeleteObjectRequest
                     {
@@ -898,7 +863,7 @@ namespace ASC.Data.Storage.S3
 
         public override Uri[] ListFiles(string domain, string path, string pattern, bool recursive)
         {
-            return GetS3Objects(domain, path)
+            return GetS3Objects(domain, path, true)
                 .Where(x => Wildcard.IsMatch(pattern, Path.GetFileName(x.Key)))
                 .Select(x => GetUriInternal(x.Key))
                 .ToArray();
@@ -1020,19 +985,14 @@ namespace ASC.Data.Storage.S3
             }
         }
 
-        private IEnumerable<S3Object> GetS3Objects(string domain)
-        {
-            return GetS3Objects(domain, string.Empty);
-        }
-
-        private IEnumerable<S3Object> GetS3Objects(string domain, string path)
+        private IEnumerable<S3Object> GetS3ObjectsByPath(string domain, string path)
         {
             using (var client = GetClient())
             {
                 var request = new ListObjectsRequest
                 {
                     BucketName = _bucket,
-                    Prefix = (MakePath(domain, path.TrimEnd('/') + '/')),
+                    Prefix = path,
                     MaxKeys = (1000)
                 };
 
@@ -1047,6 +1007,13 @@ namespace ASC.Data.Storage.S3
                 return objects;
             }
         }
+        private IEnumerable<S3Object> GetS3Objects(string domain, string path = "", bool recycle = false)
+        {
+            var obj = GetS3ObjectsByPath(domain, MakePath(domain, path.TrimEnd('/') + '/')).ToList();
+            if (string.IsNullOrEmpty(_recycleDir) || !recycle) return obj;
+            obj.AddRange(GetS3ObjectsByPath(domain, GetRecyclePath(MakePath(domain, path.TrimEnd('/') + '/'))));
+            return obj;
+        }
 
 
         public override IDataStore Configure(IDictionary<string, string> props)
@@ -1054,7 +1021,12 @@ namespace ASC.Data.Storage.S3
             _accessKeyId = props["acesskey"];
             _secretAccessKeyId = props["secretaccesskey"];
             _bucket = props["bucket"];
-            _bucket = props["bucket"];
+
+            if (props.ContainsKey("recycleDir"))
+            {
+                _recycleDir = props["recycleDir"];
+            }
+
             _bucketRoot = props.ContainsKey("cname") && Uri.IsWellFormedUriString(props["cname"], UriKind.Absolute)
                               ? new Uri(props["cname"], UriKind.Absolute)
                               : new Uri(string.Format("http://{0}.s3.amazonaws.com", _bucket), UriKind.Absolute);
@@ -1113,6 +1085,29 @@ namespace ASC.Data.Storage.S3
             }
 
             return result;
+        }
+
+        private string GetRecyclePath(string path)
+        {
+            return string.IsNullOrEmpty(_recycleDir) ? "" : string.Format("{0}/{1}", _recycleDir, path.TrimStart('/'));
+        }
+
+        private void Recycle(IAmazonS3 client, string domain, string key)
+        {
+            if (string.IsNullOrEmpty(_recycleDir)) return;
+
+            var copyObjectRequest = new CopyObjectRequest
+            {
+                SourceBucket = _bucket,
+                SourceKey = key,
+                DestinationBucket = _bucket,
+                DestinationKey = GetRecyclePath(key),
+                CannedACL = GetDomainACL(domain),
+                MetadataDirective = S3MetadataDirective.REPLACE,
+                ServerSideEncryptionMethod = ServerSideEncryptionMethod.AES256
+            };
+
+            client.CopyObject(copyObjectRequest);
         }
 
         public override Uri GetUriInternal(string path)

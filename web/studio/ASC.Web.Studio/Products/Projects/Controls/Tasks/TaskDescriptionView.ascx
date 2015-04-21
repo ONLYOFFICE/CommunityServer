@@ -1,5 +1,3 @@
-<%@ Assembly Name="ASC.Projects.Core" %>
-<%@ Assembly Name="ASC.Projects.Engine" %>
 <%@ Assembly Name="ASC.Web.Projects" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TaskDescriptionView.ascx.cs"
     Inherits="ASC.Web.Projects.Controls.Tasks.TaskDescriptionView" %>

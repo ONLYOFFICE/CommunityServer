@@ -1,41 +1,33 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-using System;
-using System.Web;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Threading;
-using System.Web.Configuration;
-using System.Web.UI;
+
+using AjaxPro;
 using ASC.Core;
+using ASC.Core.Billing;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.Utility.Skins;
@@ -43,47 +35,23 @@ using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.Voip;
 using ASC.Web.Studio.UserControls.Statistics;
-using ASC.Core.Billing;
-using ASC.Core.Tenants;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
-using Resources;
 using log4net;
+using Resources;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Web;
+using System.Web.Configuration;
+using System.Web.UI;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
     [AjaxNamespace("TariffUsageController")]
     public partial class TariffUsage : UserControl
     {
-        [Serializable]
-        [DataContract]
-        internal class TariffSettings : ISettings
-        {
-            [DataMember(Name = "HideRecommendation")]
-            public bool HideBuyRecommendation { get; set; }
-
-            public ISettings GetDefault()
-            {
-                return new TariffSettings {HideBuyRecommendation = false};
-            }
-
-            public Guid ID
-            {
-                get { return new Guid("{07956D46-86F7-433b-A657-226768EF9B0D}"); }
-            }
-
-            public static bool GetTariffSettings()
-            {
-                return SettingsManager.Instance.LoadSettingsFor<TariffSettings>(SecurityContext.CurrentAccount.ID).HideBuyRecommendation;
-            }
-
-            public static void SaveHideBuyRecommendation(bool hide)
-            {
-                var tariffSettings = new TariffSettings {HideBuyRecommendation = hide};
-                SettingsManager.Instance.SaveSettingsFor(tariffSettings, SecurityContext.CurrentAccount.ID);
-            }
-        }
-
         public static string Location
         {
             get { return "~/UserControls/Management/TariffSettings/TariffUsage.ascx"; }
@@ -92,20 +60,25 @@ namespace ASC.Web.Studio.UserControls.Management
         protected Partner Partner;
 
         protected bool HideBuyRecommendation;
+        protected bool HideAnnualRecomendation;
+        protected TenantQuota AnnualQuotaForDisplay;
         protected Dictionary<string, bool> ListStarRemark = new Dictionary<string, bool>();
 
         protected int UsersCount;
         protected long UsedSize;
         protected bool SmsEnable;
         protected bool VoipEnable;
+        protected bool AnnualDiscount;
 
         protected Tariff CurrentTariff;
         protected TenantQuota CurrentQuota;
-        protected RegionInfo Region = new RegionInfo("US");
 
-        protected string CurrencySymbol
+        private RegionInfo _region = new RegionInfo("US");
+        protected decimal RateRuble;
+
+        private string CurrencySymbol
         {
-            get { return Region.CurrencySymbol; }
+            get { return _region.CurrencySymbol; }
         }
 
         private IEnumerable<TenantQuota> _quotaList;
@@ -121,9 +94,11 @@ namespace ASC.Web.Studio.UserControls.Management
                 TenantQuota quota = null;
                 if (CurrentQuota.Trial
                     || CurrentQuota.Free
+                    || !CurrentQuota.Visible
                     || CoreContext.Configuration.Standalone && CurrentTariff.QuotaId.Equals(Tenant.DEFAULT_TENANT))
                 {
-                    quota = _quotaList.FirstOrDefault(q => q.Id == TenantExtra.GetRightQuotaId());
+                    var rightQuotaId = TenantExtra.GetRightQuotaId();
+                    quota = _quotaList.FirstOrDefault(q => q.Id == rightQuotaId);
                 }
                 _quotaForDisplay = quota ?? CurrentQuota;
                 return _quotaForDisplay;
@@ -132,6 +107,9 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/tariffsettings/js/tariffusage.js"));
+            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/tariffsettings/css/tariffusage.less"));
+
             UsersCount = TenantStatisticsProvider.GetUsersCount();
             UsedSize = TenantStatisticsProvider.GetUsedSize();
             CurrentTariff = TenantExtra.GetCurrentTariff();
@@ -146,7 +124,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 if (!string.IsNullOrEmpty(Partner.Currency))
                 {
-                    Region = new RegionInfo(Partner.Currency);
+                    _region = new RegionInfo(Partner.Currency);
                 }
 
                 var control = (TariffPartner)LoadControl(TariffPartner.Location);
@@ -167,10 +145,38 @@ namespace ASC.Web.Studio.UserControls.Management
             _quotaList = _quotaList.OrderBy(r => r.ActiveUsers).ToList().Where(r => !r.Trial);
             QuotasYear = _quotaList.Where(r => r.Year).ToList();
 
-            HideBuyRecommendation = CurrentTariff.Autorenewal || TariffSettings.GetTariffSettings() || Partner != null;
+            HideBuyRecommendation = CurrentTariff.Autorenewal || TariffSettings.HideRecommendation || Partner != null;
+
+            AnnualDiscount = QuotasYear.All(q => q.Price2 != decimal.Zero);
+            HideAnnualRecomendation = !AnnualDiscount
+                                      || (CurrentQuota.Year && !CurrentQuota.Free && !CurrentQuota.Trial)
+                                      || TariffSettings.HideAnnualRecomendation
+                                      || CurrentQuota.NonProfit;
+            if (!HideAnnualRecomendation)
+            {
+                AnnualQuotaForDisplay = QuotaForDisplay;
+                if (AnnualQuotaForDisplay == null
+                    || AnnualQuotaForDisplay.Free
+                    || AnnualQuotaForDisplay.Trial
+                    || !AnnualQuotaForDisplay.Visible)
+                {
+                    HideAnnualRecomendation = true;
+                }
+                else if (!AnnualQuotaForDisplay.Year)
+                {
+                    AnnualQuotaForDisplay = _quotaList.FirstOrDefault(r =>
+                                                                      r.ActiveUsers == AnnualQuotaForDisplay.ActiveUsers
+                                                                      && r.Year);
+                    if (AnnualQuotaForDisplay == null)
+                    {
+                        HideAnnualRecomendation = true;
+                    }
+                }
+            }
 
             downgradeInfoContainer.Options.IsPopup = true;
             buyRecommendationContainer.Options.IsPopup = true;
+            annualRecomendationContainer.Options.IsPopup = true;
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
             if (StudioSmsNotificationSettings.IsVisibleSettings
@@ -198,10 +204,12 @@ namespace ASC.Web.Studio.UserControls.Management
                 RegisterScript();
             }
 
-            if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+            if (Partner == null && Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
             {
-                var cur = SetupInfo.ExchangeRateRuble;
-                SetStar(string.Format(Resource.TariffsCurrencyRu, cur));
+                _region = new RegionInfo("RU");
+                RateRuble = SetupInfo.ExchangeRateRuble;
+
+                SetStar(string.Format(Resource.TariffsCurrencyRu, RateRuble));
             }
         }
 
@@ -229,7 +237,7 @@ namespace ASC.Web.Studio.UserControls.Management
                            + "<br />" + Resource.TariffChooseLabel;
                 }
                 return String.Format(Resource.TariffTrialOverdue,
-                                     "<span>",
+                                     "<span class='tarifff-marked'>",
                                      "</span>",
                                      "<br />", string.Empty, string.Empty);
             }
@@ -248,7 +256,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 var str = "<b>"
                           + String.Format(UserControlsCommonResource.TariffPaid,
-                                          (int)CurrentQuota.Price + CurrencySymbol,
+                                          GetPriceString(CurrentQuota.Price),
                                           CurrentQuota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth,
                                           SetStar(CurrentQuota.Visible ? Resource.TariffRemarkPrice : Resource.TariffPeriodExpired))
                           + "</b> ";
@@ -261,10 +269,10 @@ namespace ASC.Web.Studio.UserControls.Management
             }
 
             return String.Format(UserControlsCommonResource.TariffOverdue,
-                                 (int)CurrentQuota.Price + CurrencySymbol,
+                                 GetPriceString(CurrentQuota.Price),
                                  CurrentQuota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth,
                                  SetStar(CurrentQuota.Visible ? Resource.TariffRemarkPrice : Resource.TariffPeriodExpired),
-                                 "<span>",
+                                 "<span class='tariff-marked'>",
                                  "</span>",
                                  "<br />");
         }
@@ -319,7 +327,7 @@ namespace ASC.Web.Studio.UserControls.Management
                         .Replace("{partnerid}", Partner.Id)
                         .Replace("{tariffid}", quota.ActiveUsers + (quota.Year ? "year" : "month"))
                         .Replace("{portal}", CoreContext.TenantManager.GetCurrentTenant().TenantAlias)
-                        .Replace("{currency}", Region.ISOCurrencySymbol)
+                        .Replace("{currency}", _region.ISOCurrencySymbol)
                         .Replace("{price}", ((int)quota.Price).ToString());
                 }
             }
@@ -335,12 +343,7 @@ namespace ASC.Web.Studio.UserControls.Management
             return "";
         }
 
-        protected string SetStar(string starType)
-        {
-            return SetStar(starType, false);
-        }
-
-        protected string SetStar(string starType, bool withHighlight)
+        protected string SetStar(string starType, bool withHighlight = false)
         {
             if (Partner != null) return string.Empty;
             if (!ListStarRemark.Keys.Contains(starType))
@@ -406,20 +409,70 @@ namespace ASC.Web.Studio.UserControls.Management
             return WebImageSupplier.GetAbsoluteWebPath(imgName);
         }
 
-        protected DateTime GetSaleDate()
+        protected string GetAnnualSaleDate()
         {
+            var date = DateTime.UtcNow;
+            string saleDate;
+
+            DateTime endSale;
+            if (date.Month > 2 && date.Month < 6)
+            {
+                saleDate = UserControlsCommonResource.AnnualDiscountSpring;
+                endSale = new DateTime(date.Year, 6, 1);
+            }
+            else if (date.Month < 9)
+            {
+                saleDate = UserControlsCommonResource.AnnualDiscountSummer;
+                endSale = new DateTime(date.Year, 9, 1);
+            }
+            else if (date.Month < 12)
+            {
+                saleDate = UserControlsCommonResource.AnnualDiscountAutumn;
+                endSale = new DateTime(date.Year, 12, 1);
+            }
+            else
+            {
+                saleDate = UserControlsCommonResource.AnnualDiscountWinter;
+                endSale = new DateTime(date.Year + (date.Month < 3 ? 0 : 1), 3, 1);
+            }
+
+            var star = SetStar(string.Format(Resource.TariffRemarkSale, endSale.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.MonthDayPattern)), true);
+
+            return saleDate + star;
+        }
+
+        protected string GetSaleDateStar()
+        {
+            if (AnnualDiscount) return string.Empty;
+
             DateTime date;
             if (!DateTime.TryParse(WebConfigurationManager.AppSettings["web.payment-sale"], out date))
             {
                 date = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1).AddMonths(1);
             }
-            return date;
+
+            return SetStar(string.Format(Resource.TariffRemarkSale, date.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.MonthDayPattern)), true);
+        }
+
+        protected string GetPriceString(decimal price)
+        {
+            if ((int) RateRuble != 0)
+            {
+                price = price*RateRuble;
+            }
+            return (int)price + "<span class='tariff-price-cur'>" + CurrencySymbol + "</span>";
         }
 
         [AjaxMethod]
         public void SaveHideRecommendation(bool hide)
         {
-            TariffSettings.SaveHideBuyRecommendation(hide);
+            TariffSettings.HideRecommendation = hide;
+        }
+
+        [AjaxMethod]
+        public void SaveAnnualRecomendation(bool hide)
+        {
+            TariffSettings.HideAnnualRecomendation = hide;
         }
 
         [AjaxMethod]
@@ -434,12 +487,12 @@ namespace ASC.Web.Studio.UserControls.Management
                 TenantExtra.FreeRequest();
         }
 
-        //[AjaxMethod]
-        //public void GetTrial()
-        //{
-        //    if (CoreContext.Configuration.Standalone && string.IsNullOrEmpty(StudioKeySettings.GetSKey()))
-        //        TenantExtra.TrialRequest();
-        //}
+        [AjaxMethod]
+        public void GetTrial()
+        {
+            if (CoreContext.Configuration.Standalone && string.IsNullOrEmpty(StudioKeySettings.GetSKey()))
+                TenantExtra.TrialRequest();
+        }
 
         private void RegisterScript()
         {

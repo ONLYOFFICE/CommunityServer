@@ -23,6 +23,8 @@ using Microsoft.Win32;
 #endif
 using System.Text;
 using System.IO;
+using log4net;
+using log4net.Core;
 
 namespace ActiveUp.Net.Mail
 {
@@ -130,6 +132,11 @@ namespace ActiveUp.Net.Mail
         }
 
         /// <summary>
+        /// Gets or sets the full path to the text file to append when logging.
+        /// </summary>
+        public static ILog Log4NetLogger { get; set; }
+
+        /// <summary>
         /// Add a log entry using the logging level.
         /// </summary>
         /// <param name="line">The entry to add.</param>
@@ -149,10 +156,16 @@ namespace ActiveUp.Net.Mail
         /// <param name="line">The entry to add.</param>
         public static void AddEntry(string line)
         {
-            if (!_disabled)
+            if (_disabled) return;
+
+            if (Log4NetLogger != null)
             {
-                DateTime now = DateTime.Now;
-                StringBuilder logString = new StringBuilder();
+                AddEntryToLogger(line);
+            }
+            else
+            {
+                var now = DateTime.UtcNow;
+                var logString = new StringBuilder();
                 logString.Append(now.Year.ToString());
                 logString.Append(".");
                 logString.Append(now.Month.ToString().PadLeft(2, '0'));
@@ -167,7 +180,7 @@ namespace ActiveUp.Net.Mail
                 logString.Append(" ");
                 logString.Append(line);
 
-                if (_logFile != null && _logFile.Length > 0)
+                if (!string.IsNullOrEmpty(_logFile))
                     AddEntryToFile(logString.ToString());
 
 #if !PocketPC
@@ -178,7 +191,20 @@ namespace ActiveUp.Net.Mail
                 if (_useTraceConsole)
                     AddEntryToConsole(logString.ToString());
 
-                OnEntryAdded(EventArgs.Empty);
+            }
+
+            OnEntryAdded(EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Append the logging text file.
+        /// </summary>
+        /// <param name="line">The entry to add.</param>
+        protected static void AddEntryToLogger(string line)
+        {
+            if (!_disabled)
+            {
+                Log4NetLogger.Debug(line);
             }
         }
 
@@ -190,9 +216,11 @@ namespace ActiveUp.Net.Mail
         {
             if (!_disabled)
             {
-                System.IO.StreamWriter _fileWriter = new System.IO.StreamWriter(_logFile, true, System.Text.UTF8Encoding.Default);
-                _fileWriter.WriteLine(line);
-                _fileWriter.Close();
+                using (var fileWriter = new StreamWriter(_logFile, true, Encoding.Default))
+                {
+                    fileWriter.WriteLine(line);
+                    fileWriter.Close();
+                }
             }
         }
 

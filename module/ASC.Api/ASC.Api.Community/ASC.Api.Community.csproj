@@ -57,11 +57,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
@@ -71,11 +67,6 @@
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommunityApi.cs" />
@@ -131,10 +122,6 @@
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
-      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
-      <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
@@ -142,30 +129,6 @@
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Community\ASC.Web.Community.csproj">
       <Project>{11ba9805-752f-4f6f-a876-6ba56f0eb9de}</Project>
       <Name>ASC.Web.Community</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Community\Modules\Blogs\ASC.Web.Community.Blogs.csproj">
-      <Project>{76e19a86-2240-4dd9-ab5a-37f5d617ef28}</Project>
-      <Name>ASC.Web.Community.Blogs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Community\Modules\Bookmarking\ASC.Web.Community.Bookmarking.csproj">
-      <Project>{97473091-fe47-4293-921a-3d4cc596d2f5}</Project>
-      <Name>ASC.Web.Community.Bookmarking</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Community\Modules\Forum\ASC.Web.Community.Forum.csproj">
-      <Project>{ac68a6f4-6153-42d0-b51c-1ed14698c3a6}</Project>
-      <Name>ASC.Web.Community.Forum</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Community\Modules\News\ASC.Web.Community.News.csproj">
-      <Project>{fb0eda9c-5535-46a6-bd69-ffcdddc2534d}</Project>
-      <Name>ASC.Web.Community.News</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Community\Modules\Wiki\ASC.Web.Community.Wiki.csproj">
-      <Project>{ee61703b-2bf8-4553-8cb6-8741e8e94dc8}</Project>
-      <Name>ASC.Web.Community.Wiki</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Feed\ASC.Feed.csproj">
-      <Project>{b0431ec9-21d8-4d96-b333-6dd430031c82}</Project>
-      <Name>ASC.Feed</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>

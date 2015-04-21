@@ -1,41 +1,44 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-using System;
-using System.IO;
-using System.Security;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
+using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security;
+using System.Web;
 using File = ASC.Files.Core.File;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -68,12 +71,14 @@ namespace ASC.Web.Files.Utils
             return file;
         }
 
-        public static File VerifyFileUpload(string folderId, string fileName, bool updateIfExists)
+        public static File VerifyFileUpload(string folderId, string fileName, bool updateIfExists, string relativePath = null)
         {
             fileName = Global.ReplaceInvalidCharsAndTruncate(fileName);
 
             if (Global.EnableUploadFilter && !FileUtility.ExtsUploadable.Contains(FileUtility.GetFileExtension(fileName)))
                 throw new NotSupportedException(FilesCommonResource.ErrorMassage_NotSupportedFormat);
+
+            folderId = GetFolderId(folderId, string.IsNullOrEmpty(relativePath) ? null : relativePath.Split('/').ToList());
 
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
@@ -87,20 +92,9 @@ namespace ASC.Web.Files.Utils
 
                     return file;
                 }
-
-                using (var folderDao = Global.DaoFactory.GetFolderDao())
-                {
-                    var folder = folderDao.GetFolder(folderId);
-
-                    if (folder == null)
-                        throw new DirectoryNotFoundException(FilesCommonResource.ErrorMassage_FolderNotFound);
-
-                    if (!Global.GetFilesSecurity().CanCreate(folder))
-                        throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_Create);
-                }
-
-                return new File { FolderID = folderId, Title = fileName };
             }
+
+            return new File {FolderID = folderId, Title = fileName};
         }
 
         public static File VerifyFileUpload(string folderId, string fileName, long fileSize, bool updateIfExists)
@@ -108,11 +102,7 @@ namespace ASC.Web.Files.Utils
             if (fileSize <= 0)
                 throw new Exception(FilesCommonResource.ErrorMassage_EmptyFile);
 
-            long maxUploadSize;
-            using (var folderDao = Global.DaoFactory.GetFolderDao())
-            {
-                maxUploadSize = folderDao.GetMaxUploadSize(folderId);
-            }
+            var maxUploadSize = GetMaxFileSize(folderId);
 
             if (fileSize > maxUploadSize)
                 throw FileSizeComment.GetFileSizeException(maxUploadSize);
@@ -121,11 +111,6 @@ namespace ASC.Web.Files.Utils
             file.ContentLength = fileSize;
             file.Comment = string.Empty;
             return file;
-        }
-
-        private static long GetMaxFileSize(bool chunkedUpload)
-        {
-            return chunkedUpload ? SetupInfo.MaxChunkedUploadSize : SetupInfo.MaxUploadSize;
         }
 
         private static bool CanEdit(File file)
@@ -138,20 +123,55 @@ namespace ASC.Web.Files.Utils
                    && file.RootFolderType != FolderType.TRASH;
         }
 
-        #region chunked upload
-
-        public static File VerifyChunkedUpload(string folderId, string fileName, long fileSize, bool updateIfExists)
+        private static string GetFolderId(object folderId, IList<string> relativePath)
         {
-            long maxUploadSize;
             using (var folderDao = Global.DaoFactory.GetFolderDao())
             {
-               maxUploadSize = folderDao.GetMaxUploadSize(folderId, true);
+                var folder = folderDao.GetFolder(folderId);
+
+                if (folder == null)
+                    throw new DirectoryNotFoundException(FilesCommonResource.ErrorMassage_FolderNotFound);
+
+                if (!Global.GetFilesSecurity().CanCreate(folder))
+                    throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_Create);
+
+                if (relativePath != null && relativePath.Any())
+                {
+                    var subFolderTitle = Global.ReplaceInvalidCharsAndTruncate(relativePath.FirstOrDefault());
+
+                    if (!string.IsNullOrEmpty(subFolderTitle))
+                    {
+                        folder = folderDao.GetFolder(subFolderTitle, folder.ID);
+
+                        if (folder == null)
+                        {
+                            folderId = folderDao.SaveFolder(new Folder {Title = subFolderTitle, ParentFolderID = folderId});
+
+                            folder = folderDao.GetFolder(folderId);
+                            FilesMessageService.Send(folder, HttpContext.Current.Request, MessageAction.FolderCreated, folder.Title);
+                        }
+
+                        folderId = folder.ID;
+
+                        relativePath.RemoveAt(0);
+                        folderId = GetFolderId(folderId, relativePath);
+                    }
+                }
             }
+
+            return folderId.ToString();
+        }
+
+        #region chunked upload
+
+        public static File VerifyChunkedUpload(string folderId, string fileName, long fileSize, bool updateIfExists, string relativePath = null)
+        {
+            var maxUploadSize = GetMaxFileSize(folderId, true);
 
             if (fileSize > maxUploadSize)
                 throw FileSizeComment.GetFileSizeException(maxUploadSize);
 
-            File file = VerifyFileUpload(folderId, fileName, updateIfExists);
+            var file = VerifyFileUpload(folderId, fileName, updateIfExists, relativePath);
             file.ContentLength = fileSize;
 
             return file;
@@ -170,11 +190,12 @@ namespace ASC.Web.Files.Utils
             using (var dao = Global.DaoFactory.GetFileDao())
             {
                 var uploadSession = dao.CreateUploadSession(file, contentLength);
-                
+
                 uploadSession.Expired = uploadSession.Created + ChunkedUploadSessionHolder.SlidingExpiration;
                 uploadSession.Location = FilesLinkUtility.GetUploadChunkLocationUrl(uploadSession.Id, contentLength > 0);
                 uploadSession.TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
                 uploadSession.UserId = SecurityContext.CurrentAccount.ID;
+                uploadSession.FolderId = folderId;
 
                 ChunkedUploadSessionHolder.StoreSession(uploadSession);
 
@@ -197,12 +218,14 @@ namespace ASC.Web.Files.Utils
                 throw FileSizeComment.GetFileSizeException(SetupInfo.MaxUploadSize);
             }
 
-            if (uploadSession.BytesUploaded + chunkLength > GetMaxFileSize(uploadSession))
+            var maxUploadSize = GetMaxFileSize(uploadSession.FolderId, uploadSession.BytesTotal > 0);
+
+            if (uploadSession.BytesUploaded + chunkLength > maxUploadSize)
             {
                 AbortUpload(uploadSession);
-                throw FileSizeComment.GetFileSizeException(GetMaxFileSize(uploadSession));
+                throw FileSizeComment.GetFileSizeException(maxUploadSize);
             }
-            
+
             using (var dao = Global.DaoFactory.GetFileDao())
             {
                 dao.UploadChunk(uploadSession, stream, chunkLength);
@@ -232,9 +255,12 @@ namespace ASC.Web.Files.Utils
             ChunkedUploadSessionHolder.RemoveSession(uploadSession);
         }
 
-        private static long GetMaxFileSize(ChunkedUploadSession uploadSession)
+        private static long GetMaxFileSize(object folderId, bool chunkedUpload = false)
         {
-            return GetMaxFileSize(uploadSession.BytesTotal > 0);
+            using (var folderDao = Global.DaoFactory.GetFolderDao())
+            {
+                return folderDao.GetMaxUploadSize(folderId, chunkedUpload);
+            }
         }
 
         #endregion

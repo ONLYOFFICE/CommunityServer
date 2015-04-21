@@ -4,7 +4,6 @@
 <%@ Assembly Name="ASC.Web.Files" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InvoiceDetailsView.ascx.cs"
     Inherits="ASC.Web.CRM.Controls.Invoices.InvoiceDetailsView" %>
-<%@ Import Namespace="ASC.CRM.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Classes" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 

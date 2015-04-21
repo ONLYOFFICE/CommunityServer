@@ -1,30 +1,28 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
+
 
 using System;
 using System.Collections.Generic;
@@ -42,17 +40,17 @@ namespace ASC.Mail.Server.Dal
         public readonly bool is_alias;
         public readonly WebDomainDto domain;
 
-        internal MailAddressDto(int id, int tenant, string name, int domain_id,
-            int mailbox_id, bool is_mail_group, bool is_alias, WebDomainDto domain_dto)
+        internal MailAddressDto(int id, int tenant, string name, int domainId,
+            int mailboxId, bool isMailGroup, bool isAlias, WebDomainDto domainDto)
         {
             this.id = id;
             this.name = name;
-            this.domain_id = domain_id;
-            this.mailbox_id = mailbox_id;
+            domain_id = domainId;
+            mailbox_id = mailboxId;
             this.tenant = tenant;
-            this.is_mail_group = is_mail_group;
-            this.is_alias = is_alias;
-            domain = domain_dto;
+            is_mail_group = isMailGroup;
+            is_alias = isAlias;
+            domain = domainDto;
         }
 
         public override string ToString()
@@ -68,27 +66,27 @@ namespace ASC.Mail.Server.Dal
         public readonly string name;
         public readonly bool is_virified;
 
-        internal WebDomainDto(int id, string name, int tenant, bool is_virified)
+        internal WebDomainDto(int id, string name, int tenant, bool isVirified)
         {
             this.id = id;
             this.name = name;
             this.tenant = tenant;
-            this.is_virified = is_virified;
+            is_virified = isVirified;
         }
     }
 
     public class MailboxDto
     {
         public readonly int id;
-        public readonly string user_id;
-        public readonly int tenant_id;
+        public readonly string user;
+        public readonly int tenant;
         public readonly string address;
 
-        internal MailboxDto(int id, string user_id, int tenant_id, string address)
+        internal MailboxDto(int id, string user, int tenant, string address)
         {
             this.id = id;
-            this.user_id = user_id;
-            this.tenant_id = tenant_id;
+            this.user = user;
+            this.tenant = tenant;
             this.address = address;
         }
     }
@@ -102,15 +100,15 @@ namespace ASC.Mail.Server.Dal
         public readonly int smtp_settings_id;
         public readonly int imap_settings_id;
 
-        internal TenantServerDto(int id, string connection_string,  string mx_record,
-            int type, int smtp_settings_id, int imap_settings_id)
+        internal TenantServerDto(int id, string connectionString,  string mxRecord,
+            int type, int smtpSettingsId, int imapSettingsId)
         {
             this.id = id;
-            this.connection_string = connection_string;
-            this.mx_record = mx_record;
+            connection_string = connectionString;
+            mx_record = mxRecord;
             this.type = type;
-            this.smtp_settings_id = smtp_settings_id;
-            this.imap_settings_id = imap_settings_id;
+            smtp_settings_id = smtpSettingsId;
+            imap_settings_id = imapSettingsId;
         }
     }
 
@@ -123,11 +121,11 @@ namespace ASC.Mail.Server.Dal
         public readonly MailAddressDto address;
         public readonly List<MailAddressDto> addresses;
 
-        internal MailGroupDto(int id, int id_tenant, int id_address, MailAddressDto address, List<MailAddressDto> addresses)
+        internal MailGroupDto(int id, int tenant, int addressId, MailAddressDto address, List<MailAddressDto> addresses)
         {
             this.id = id;
-            this.id_tenant = id_tenant;
-            this.id_address = id_address;
+            id_tenant = tenant;
+            id_address = addressId;
             this.address = address;
             this.addresses = addresses;
         }
@@ -145,10 +143,10 @@ namespace ASC.Mail.Server.Dal
         public readonly MailboxDto mailbox;
         public readonly MailAddressDto mailbox_address;
 
-        internal MailboxWithAddressDto(MailboxDto mailbox, MailAddressDto mailbox_address)
+        internal MailboxWithAddressDto(MailboxDto mailbox, MailAddressDto mailboxAddress)
         {
             this.mailbox = mailbox;
-            this.mailbox_address = mailbox_address;
+            mailbox_address = mailboxAddress;
         }
     }
 
@@ -159,12 +157,12 @@ namespace ASC.Mail.Server.Dal
         public readonly bool verified;
         public readonly string reference_url;
 
-        internal CNameXDomainDto(int id_domain, string cname, string reference_url, bool verified)
+        internal CNameXDomainDto(int domainId, string cname, string referenceUrl, bool verified)
         {
-            this.id_domain = id_domain;
+            id_domain = domainId;
             this.cname = cname;
             this.verified = verified;
-            this.reference_url = reference_url;
+            reference_url = referenceUrl;
         }
     }
 
@@ -180,17 +178,17 @@ namespace ASC.Mail.Server.Dal
         public readonly string domain_chek;
         public readonly string spf;
 
-        internal DnsDto(int id, int tenant, string user, int id_domain, string dkim_selector, 
-            string dkim_private_key, string dkim_public_key, string domain_chek, string spf)
+        internal DnsDto(int id, int tenant, string user, int domainId, string dkimSelector, 
+            string dkimPrivateKey, string dkimPublicKey, string domainChek, string spf)
         {
             this.id = id;
-            this.id_domain = id_domain;
+            id_domain = domainId;
             this.tenant = tenant;
             this.user = user;
-            this.dkim_selector = dkim_selector;
-            this.dkim_private_key = dkim_private_key;
-            this.dkim_public_key = dkim_public_key;
-            this.domain_chek = domain_chek;
+            dkim_selector = dkimSelector;
+            dkim_private_key = dkimPrivateKey;
+            dkim_public_key = dkimPublicKey;
+            domain_chek = domainChek;
             this.spf = spf;
         }
     }
@@ -212,26 +210,26 @@ namespace ASC.Mail.Server.Dal
         public readonly string spf;
         public readonly string mx_record;
 
-        internal DnsCheckTaskDto(int domain_id, string domain_name, bool domain_is_verified, 
-            DateTime domain_date_added, DateTime domain_date_checked,
+        internal DnsCheckTaskDto(int domainId, string domainName, bool domainIsVerified, 
+            DateTime domainDateAdded, DateTime domainDateChecked,
             int tenant, string user, 
-            string dkim_selector, string dkim_public_key, 
-            string spf, string mx_record)
+            string dkimSelector, string dkimPublicKey, 
+            string spf, string mxRecord)
         {
-            this.domain_id = domain_id;
-            this.domain_name = domain_name;
-            this.domain_is_verified = domain_is_verified;
-            this.domain_date_added = domain_date_added;
-            this.domain_date_checked = domain_date_checked;
+            domain_id = domainId;
+            domain_name = domainName;
+            domain_is_verified = domainIsVerified;
+            domain_date_added = domainDateAdded;
+            domain_date_checked = domainDateChecked;
 
             this.tenant = tenant;
             this.user = user;
 
-            this.dkim_selector = dkim_selector;
-            this.dkim_public_key = dkim_public_key;
+            dkim_selector = dkimSelector;
+            dkim_public_key = dkimPublicKey;
 
             this.spf = spf;
-            this.mx_record = mx_record;
+            mx_record = mxRecord;
         }
     }
 

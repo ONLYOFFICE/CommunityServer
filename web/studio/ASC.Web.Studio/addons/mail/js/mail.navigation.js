@@ -1,48 +1,45 @@
 /*
- * 
- * (c) Copyright Ascensio System SIA 2010-2014
- * 
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms of the GNU Affero General Public License
- * (AGPL) version 3 as published by the Free Software Foundation. 
- * In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended to the effect 
- * that Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
- * 
- * This program is distributed WITHOUT ANY WARRANTY; 
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
- * For details, see the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
- * 
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
- * 
- * The interactive user interfaces in modified source and object code versions of the Program 
- * must display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
- * 
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when distributing the program. 
- * Pursuant to Section 7(e) we decline to grant you any rights under trademark law for use of our trademarks.
- * 
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical 
- * writing content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 International. 
- * See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
- * 
+ *
+ * (c) Copyright Ascensio System Limited 2010-2015
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
 */
 
-window.PagesNavigation = (function($) {
-    var 
-    VisiblePageCount = 3;
 
-    var _changeSysfolderPageCallback = function(number) {
+window.PagesNavigation = (function($) {
+    var visiblePageCount = 3;
+
+    var changeSysfolderPageCallback = function(number) {
         var anchor = "#" + TMMail.GetSysFolderNameById(MailFilter.getFolder());
-        var prev_flag, el;
-        var messages_rows = $('.messages:visible .row[data_id]');
+        var prevFlag, el;
+        var messagesRows = $('.messages:visible .row[data_id]');
 
         if (1 !== number) {
             // next button was pressed
-            el = messages_rows.last();
-            prev_flag = false;
+            el = messagesRows.last();
+            prevFlag = false;
         } else {
             //previous btn was pressed
-            el = messages_rows.first();
-            prev_flag = true;
+            el = messagesRows.first();
+            prevFlag = true;
         }
 
         var date = el.attr('chain_date');
@@ -50,151 +47,151 @@ window.PagesNavigation = (function($) {
 
         anchor += MailFilter.toAnchor(
             true,
-            { from_date: new Date(date),
+            {
+                from_date: new Date(date),
                 from_message: +message,
-                prev_flag: prev_flag
+                prev_flag: prevFlag
             });
 
         mailBox.keepSelection(true);
         ASC.Controls.AnchorController.move(anchor);
     };
 
-    var RedrawFolderNavigationBar = function(pager_navigator, page_size, change_page_size_callback, has_next, has_prev) {
+    var redrawFolderNavigationBar = function(pagerNavigator, pageSize, changePageSizeCallback, hasNext, hasPrev) {
         var page = 1;
-        var page_count = 1;
+        var pageCount = 1;
         // fake second page for previos button if has prev
-        if (true === has_prev) {
-            page_count++;
+        if (true === hasPrev) {
+            pageCount++;
             page = 2;
         }
-        if (true === has_next)
-            page_count++;
+        if (true === hasNext) {
+            pageCount++;
+        }
 
-        var total = page_count * page_size;
+        var total = pageCount * pageSize;
 
-        return RedrawNavigationBar(pager_navigator,
+        return redrawNavigationBar(pagerNavigator,
             page,
-            page_size,
+            pageSize,
             total,
-            _changeSysfolderPageCallback,
-            change_page_size_callback,
+            changeSysfolderPageCallback,
+            changePageSizeCallback,
             "",
             true);
     };
 
 
-    var RedrawNavigationBar = function(pager_navigator, page, page_size, total_items_count,
-                    change_page_callback, change_page_size_callback, total_items_text, sysfolder_flag) {
+    var redrawNavigationBar = function(pagerNavigator, page, pageSize, totalItemsCount,
+                                       changePageCallback, changePageSizeCallback, totalItemsText, sysfolderFlag) {
 
-        var $navigation_bar_div = $('#bottomNavigationBar');
+        var $navigationBarDiv = $('#bottomNavigationBar');
 
-        if (true === sysfolder_flag)
-            !$navigation_bar_div.is('.sysfolder') && $navigation_bar_div.addClass('sysfolder');
-        else
-            $navigation_bar_div.removeClass('sysfolder');
-
-        pager_navigator.changePageCallback = change_page_callback;
-        pager_navigator.NavigatorParent = $navigation_bar_div.find('#divForMessagesPager');
-        pager_navigator.VisiblePageCount = +VisiblePageCount;
-        pager_navigator.EntryCountOnPage = +page_size;
-
-        pager_navigator.drawPageNavigator(+page, +total_items_count);
-
-        if (!sysfolder_flag) {
-            $navigation_bar_div.find('#TotalItems').show();
-            $navigation_bar_div.find('#totalItemsOnAllPages').show();
-            $navigation_bar_div.find('#TotalItems').text(total_items_text);
-            $navigation_bar_div.find('#totalItemsOnAllPages').text(total_items_count);
+        if (true === sysfolderFlag) {
+            !$navigationBarDiv.is('.sysfolder') && $navigationBarDiv.addClass('sysfolder');
+        } else {
+            $navigationBarDiv.removeClass('sysfolder');
         }
-        else {
+
+        pagerNavigator.changePageCallback = changePageCallback;
+        pagerNavigator.NavigatorParent = $navigationBarDiv.find('#divForMessagesPager');
+        pagerNavigator.VisiblePageCount = +visiblePageCount;
+        pagerNavigator.EntryCountOnPage = +pageSize;
+
+        pagerNavigator.drawPageNavigator(+page, +totalItemsCount);
+
+        if (!sysfolderFlag) {
+            $navigationBarDiv.find('#TotalItems').show();
+            $navigationBarDiv.find('#totalItemsOnAllPages').show();
+            $navigationBarDiv.find('#TotalItems').text(totalItemsText);
+            $navigationBarDiv.find('#totalItemsOnAllPages').text(totalItemsCount);
+        } else {
             // dirty hack
             var regex = /;[^\.]+.drawPageNavigator\([^\)]+\);/i;
-            var prev = $navigation_bar_div.find('.pagerPrevButtonCSSClass').attr('onclick');
-            prev && $navigation_bar_div.find('.pagerPrevButtonCSSClass').attr('onclick', prev.replace(regex, ';'));
-            var next = $navigation_bar_div.find('.pagerNextButtonCSSClass').attr('onclick');
-            next && $navigation_bar_div.find('.pagerNextButtonCSSClass').attr('onclick', next.replace(regex, ';'));
-            $navigation_bar_div.find('#TotalItems').hide();
-            $navigation_bar_div.find('#totalItemsOnAllPages').hide();
+            var prev = $navigationBarDiv.find('.pagerPrevButtonCSSClass').attr('onclick');
+            prev && $navigationBarDiv.find('.pagerPrevButtonCSSClass').attr('onclick', prev.replace(regex, ';'));
+            var next = $navigationBarDiv.find('.pagerNextButtonCSSClass').attr('onclick');
+            next && $navigationBarDiv.find('.pagerNextButtonCSSClass').attr('onclick', next.replace(regex, ';'));
+            $navigationBarDiv.find('#TotalItems').hide();
+            $navigationBarDiv.find('#totalItemsOnAllPages').hide();
         }
 
-        var $select = $navigation_bar_div.find('select');
-        $select.val(page_size).tlCombobox();
+        var $select = $navigationBarDiv.find('select');
+        $select.val(pageSize).tlCombobox();
 
         $select.unbind('change');
-        $select.change(function(evt) { change_page_size_callback(this.value); });
+        $select.change(function() { changePageSizeCallback(this.value); });
 
-        $navigation_bar_div.show();
-        _DecideComboUpOrDown($navigation_bar_div);
+        $navigationBarDiv.show();
+        decideComboUpOrDown($navigationBarDiv);
 
     };
 
-    var RedrawPrevNextControl = function($prev_next_div) {
-        var $prev_next_div = $('.menu-action-simple-pagenav');
+    var redrawPrevNextControl = function() {
+        var $prevNextDiv = $('.menu-action-simple-pagenav');
 
-        var $navigation_bar_source_div = $('#bottomNavigationBar');
-        $prev_next_div.html("");
+        var $navigationBarSourceDiv = $('#bottomNavigationBar');
+        $prevNextDiv.html("");
 
-        var $simplePN = jq("<div></div>");
-        var $prev_source = $navigation_bar_source_div.find(".pagerPrevButtonCSSClass");
-        var $next_source = $navigation_bar_source_div.find(".pagerNextButtonCSSClass");
+        var $simplePn = jq("<div></div>");
+        var $prevSource = $navigationBarSourceDiv.find(".pagerPrevButtonCSSClass");
+        var $nextSource = $navigationBarSourceDiv.find(".pagerNextButtonCSSClass");
 
-        if ($prev_source.length != 0) {
-            $prev_source.clone().appendTo($simplePN);
+        if ($prevSource.length != 0) {
+            $prevSource.clone().appendTo($simplePn);
         }
-        if ($next_source.length != 0) {
-            if ($prev_source.length != 0) {
-                $("<span style='padding: 0 8px;'>&nbsp;</span>").clone().appendTo($simplePN);
+        if ($nextSource.length != 0) {
+            if ($prevSource.length != 0) {
+                $("<span style='padding: 0 8px;'>&nbsp;</span>").clone().appendTo($simplePn);
             }
-            $next_source.clone().appendTo($simplePN);
+            $nextSource.clone().appendTo($simplePn);
         }
-        if ($simplePN.children().length != 0) {
-            $simplePN.appendTo($prev_next_div);
-            $prev_next_div.show();
+        if ($simplePn.children().length != 0) {
+            $simplePn.appendTo($prevNextDiv);
+            $prevNextDiv.show();
+        } else {
+            $prevNextDiv.hide();
         }
-        else
-            $prev_next_div.hide();
 
-        if ($next_source.length != 0)
-            $next_source.css('margin-left', $prev_source.length == 0 ? '0' : '');
+        if ($nextSource.length != 0) {
+            $nextSource.css('margin-left', $prevSource.length == 0 ? '0' : '');
+        }
 
     };
 
-    var _DecideComboUpOrDown = function($navigation_bar_div) {
-        var $combo = $navigation_bar_div.find('.tl-combobox');
-        var $combo_drop_list = $combo.find('.combobox-container');
-        var direction_is_up = $('.page-menu').height() < $('.mainContainerClass').height() + $combo_drop_list.height();
-        $combo.attr('direction_is_up', direction_is_up);
+    var decideComboUpOrDown = function($navigationBarDiv) {
+        var $combo = $navigationBarDiv.find('.tl-combobox');
+        var $comboDropList = $combo.find('.combobox-container');
+        var directionIsUp = $('.page-menu').height() < $('.mainContainerClass').height() + $comboDropList.height();
+        $combo.attr('direction_is_up', directionIsUp);
     };
 
-
-    var FixAnchorPageNumberIfNecessary = function(page) {
+    var fixAnchorPageNumberIfNecessary = function(page) {
         var anchor = ASC.Controls.AnchorController.getAnchor();
 
-        var new_anchor = anchor.replace(/\/page=(\d+)/, "\/page=" + page);
-        if (new_anchor != anchor) {
-            ASC.Controls.AnchorController.safemove(new_anchor);
+        var newAnchor = anchor.replace(/\/page=(\d+)/, "\/page=" + page);
+        if (newAnchor != anchor) {
+            ASC.Controls.AnchorController.safemove(newAnchor);
         }
     };
 
-    var FixAnchorPageSizeIfNecessary = function(page_size) {
-        if (25 == page_size || 50 == page_size || 75 == page_size || 100 == page_size)
+    var fixAnchorPageSizeIfNecessary = function(pageSize) {
+        if (25 == pageSize || 50 == pageSize || 75 == pageSize || 100 == pageSize) {
             return false;
+        }
 
         var anchor = ASC.Controls.AnchorController.getAnchor();
-        var new_anchor = anchor.replace(/\/page_size=(\d+)/, "\/page_size=" + 25);
-        ASC.Controls.AnchorController.move(new_anchor);
+        var newAnchor = anchor.replace(/\/page_size=(\d+)/, "\/page_size=" + 25);
+        ASC.Controls.AnchorController.move(newAnchor);
 
         return true;
     };
 
-
     return {
-        RedrawNavigationBar: RedrawNavigationBar,
-        FixAnchorPageNumberIfNecessary: FixAnchorPageNumberIfNecessary,
-        FixAnchorPageSizeIfNecessary: FixAnchorPageSizeIfNecessary,
-        RedrawPrevNextControl: RedrawPrevNextControl,
-        RedrawFolderNavigationBar: RedrawFolderNavigationBar
+        RedrawNavigationBar: redrawNavigationBar,
+        FixAnchorPageNumberIfNecessary: fixAnchorPageNumberIfNecessary,
+        FixAnchorPageSizeIfNecessary: fixAnchorPageSizeIfNecessary,
+        RedrawPrevNextControl: redrawPrevNextControl,
+        RedrawFolderNavigationBar: redrawFolderNavigationBar
     };
-
 })(jQuery);
-
