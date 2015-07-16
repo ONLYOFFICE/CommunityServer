@@ -928,7 +928,7 @@ window.AttachmentManager = (function($) {
     }
 
     function generateSubmitUrl(data) {
-        var submitUrl = window.location.protocol + '//' + window.location.hostname + '/UploadProgress.ashx?submit=ASC.Web.Mail.HttpHandlers.FilesUploader,ASC.Web.Mail';
+        var submitUrl = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/UploadProgress.ashx?submit=ASC.Web.Mail.HttpHandlers.FilesUploader,ASC.Web.Mail';
         for (var prop in data) {
             submitUrl += '&{0}={1}'.format(prop, data[prop]);
         }
